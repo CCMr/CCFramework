@@ -33,6 +33,8 @@
 
 @property (nonatomic, strong) UIButton *clickBtn;
 
+@property (nonatomic, strong) UIImageView *backgroundImageView;
+
 @end
 
 @implementation BaseTableViewHeaderFooterView
@@ -91,7 +93,10 @@
         [_clickBtn addTarget:self action:@selector(didLongPressClick:) forControlEvents:UIControlEventTouchDown];
         [self addSubview:_clickBtn];
 
-
+        _backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _backgroundImageView.backgroundColor = [UIColor whiteColor];
+        [self addSubview:_backgroundImageView];
+        [self sendSubviewToBack:_backgroundImageView];
     }
 }
 
@@ -152,9 +157,9 @@
  *
  *  @since 1.0
  */
--(void)setLineBgImageView:(UIImageView *)lineBgImageView
+- (void)setBackgroundImage:(UIImage *)backgroundImage
 {
-    [self addSubview:_lineBgImageView];
+    _backgroundImageView.image = backgroundImage;
 }
 
 /**
@@ -189,6 +194,7 @@ didSelectedBlock: (didSelectedHeaderFooterView)seletedBlock{
 -(void)layoutSubviews
 {
     _clickBtn.frame = self.bounds;
+    _backgroundImageView.frame = self.bounds;
 }
 
 @end

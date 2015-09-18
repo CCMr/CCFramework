@@ -24,7 +24,7 @@
 
 #import "SignalRManager.h"
 
-@interface SignalRManager()
+@interface SignalRManager()<SRConnectionDelegate>
 
 /**
  *  @author CC, 2015-08-15
@@ -71,11 +71,11 @@ static SignalRManager *_sharedlnstance = nil;
 - (instancetype)init
 {
     self = [super init];
-    
+
     if (self) {
         [self initObject];
     }
-    
+
     return self;
 }
 
@@ -130,7 +130,7 @@ static SignalRManager *_sharedlnstance = nil;
 {
     //建立服务长连接
     _hubConnection = [SRHubConnection connectionWithURLString:[self SignalRServiceAddress]];
-
+    _hubConnection.delegate = self;
     //设置聊天代理
     _chatProxy = [_hubConnection createHubProxy:[self SignalRProxyPort]];
 
@@ -151,7 +151,7 @@ static SignalRManager *_sharedlnstance = nil;
               Selector: (id)selectorSelf
          ResponseEvent: (SEL)eventCallback
 {
-    
+
 }
 
 /**
@@ -165,5 +165,175 @@ static SignalRManager *_sharedlnstance = nil;
 {
     [_hubConnection start];
 }
+
+#pragma mark - 回调函数
+/**
+ *  @author CC, 15-09-18
+ *
+ *  @brief  注册设备
+ *
+ *  @since 1.0
+ */
+- (void)registerDevice
+{
+
+}
+
+/**
+ *  @author CC, 15-09-18
+ *
+ *  @brief  重新链接服务
+ *
+ *  @since 1.0
+ */
+-(void)connectionWillReconnect
+{
+
+}
+
+/**
+ *  @author CC, 15-09-18
+ *
+ *  @brief  链接关闭
+ *
+ *  @since 1.0
+ */
+- (void)connectionDidClose
+{
+
+}
+
+/**
+ *  @author CC, 15-09-18
+ *
+ *  @brief  链接错误
+ *
+ *  @param error 错误实体
+ *
+ *  @since 1.0
+ */
+-(void)connectionReceiveError:(NSError *)error
+{
+
+}
+
+#pragma mark - SignalRDeletgate
+/**
+ *  @author CC, 15-09-18
+ *
+ *  @brief  链接完成回调
+ *
+ *  @param connection <#connection description#>
+ *
+ *  @since 1.0
+ */
+- (void)SRConnectionDidOpen:(id<SRConnectionInterface>)connection
+{
+    [self registerDevice];
+}
+
+/**
+ *  @author CC, 15-09-18
+ *
+ *  @brief  连接将重新连接
+ *
+ *  @param connection 链接
+ *
+ *  @since 1.0
+ */
+- (void)SRConnectionWillReconnect:(id <SRConnectionInterface>)connection
+{
+    [self connectionWillReconnect];
+}
+
+/**
+ *  @author CC, 15-09-18
+ *
+ *  @brief  是否重新链接
+ *
+ *  @param connection 链接
+ *
+ *  @since 1.0
+ */
+- (void)SRConnectionDidReconnect:(id <SRConnectionInterface>)connection
+{
+
+}
+
+/**
+ *  @author CC, 15-09-18
+ *
+ *  @brief  链接成功收到服务器回调数据
+ *
+ *  @param connection 链接
+ *  @param data       接收数据
+ *
+ *  @since 1.0
+ */
+- (void)SRConnection:(id <SRConnectionInterface>)connection didReceiveData:(id)data
+{
+    [self connectionDidClose];
+}
+
+/**
+ *  @author CC, 15-09-18
+ *
+ *  @brief  链接关闭
+ *
+ *  @param connection 链接
+ *
+ *  @since 1.0
+ */
+- (void)SRConnectionDidClose:(id <SRConnectionInterface>)connection
+{
+
+}
+
+/**
+ *  @author CC, 15-09-18
+ *
+ *  @brief  链接错误
+ *
+ *  @param connection 链接
+ *  @param error      错误消息
+ *
+ *  @since 1.0
+ */
+- (void)SRConnection:(id <SRConnectionInterface>)connection didReceiveError:(NSError *)error
+{
+    [self connectionReceiveError:error];
+}
+
+/**
+ *  @author CC, 15-09-18
+ *
+ *  @brief  链接地址
+ *
+ *  @param connection 链接
+ *  @param oldState   更改状态
+ *  @param newState   新状态
+ *
+ *  @since 1.0
+ */
+- (void)SRConnection:(id <SRConnectionInterface>)connection didChangeState:(connectionState)oldState newState:(connectionState)newState
+{
+
+}
+
+/**
+ *  @author CC, 15-09-18
+ *
+ *  @brief  链接通道缓慢
+ *
+ *  @param connection 链接
+ *
+ *  @since 1.0
+ */
+- (void)SRConnectionDidSlow:(id <SRConnectionInterface>)connection
+{
+
+}
+
+
 
 @end

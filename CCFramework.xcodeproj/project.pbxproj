@@ -1503,6 +1503,7 @@
 			children = (
 				429C9D901B9EF8BE0013A44A /* Hubs */,
 				429C9DA01B9EF8BE0013A44A /* Infrastructure */,
+				429C9DB81B9EF8BE0013A44A /* Transports */,
 				429C9DA91B9EF8BE0013A44A /* SignalR.h */,
 				429C9DAA1B9EF8BE0013A44A /* SRConnection.h */,
 				429C9DAB1B9EF8BE0013A44A /* SRConnection.m */,
@@ -1518,7 +1519,6 @@
 				429C9DB51B9EF8BE0013A44A /* SRLog.h */,
 				429C9DB61B9EF8BE0013A44A /* SRNegotiationResponse.h */,
 				429C9DB71B9EF8BE0013A44A /* SRNegotiationResponse.m */,
-				429C9DB81B9EF8BE0013A44A /* Transports */,
 			);
 			path = SignalR;
 			sourceTree = "<group>";

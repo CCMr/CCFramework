@@ -124,7 +124,7 @@ typedef void (^didSelectedHeaderFooterView)(NSObject *requestData,BOOL IsError);
  *
  *  @since 1.0
  */
-@property (nonatomic, strong) UIImageView *lineBgImageView;
+@property (nonatomic, strong) UIImage *backgroundImage;
 
 /**
  *  @author CC, 15-09-16

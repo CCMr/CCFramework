@@ -30,8 +30,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-////飘窗
-//@property (strong,nonatomic) CCDropzone *dropZone;
+@property (nonatomic, copy) UIColor *BarTintColor;
 
 /**
  *  @author CC, 2015-07-30

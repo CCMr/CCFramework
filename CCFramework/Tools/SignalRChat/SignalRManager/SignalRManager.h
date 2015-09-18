@@ -79,15 +79,6 @@
 - (void)addNotification;
 
 /**
- *  @author CC, 15-09-14
- *
- *  @brief  启动连接服务
- *
- *  @since 1.0
- */
-- (void)startLink;
-
-/**
  *  @author CC, 15-09-17
  *
  *  @brief  注册响应事件回调
@@ -100,5 +91,53 @@
 - (void)registerNotice: (NSString *)responseEventName
               Selector: (id)selectorSelf
          ResponseEvent: (SEL)eventCallback;
+
+/**
+ *  @author CC, 15-09-14
+ *
+ *  @brief  启动连接服务
+ *
+ *  @since 1.0
+ */
+- (void)startLink;
+
+#pragma mark - 回调函数
+/**
+ *  @author CC, 15-09-18
+ *
+ *  @brief  注册设备
+ *
+ *  @since 1.0
+ */
+- (void)registerDevice;
+
+/**
+ *  @author CC, 15-09-18
+ *
+ *  @brief  重新链接服务
+ *
+ *  @since 1.0
+ */
+-(void)connectionWillReconnect;
+
+/**
+ *  @author CC, 15-09-18
+ *
+ *  @brief  链接关闭
+ *
+ *  @since 1.0
+ */
+- (void)connectionDidClose;
+
+/**
+ *  @author CC, 15-09-18
+ *
+ *  @brief  链接错误
+ *
+ *  @param error 错误实体
+ *
+ *  @since 1.0
+ */
+-(void)connectionReceiveError:(NSError *)error;
 
 @end

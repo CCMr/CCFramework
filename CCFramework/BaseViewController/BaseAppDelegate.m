@@ -28,6 +28,7 @@
 #import "CCSecurityStrategy.h"
 #import "SmoothViewController.h"
 #import "CCUserDefaultsCrash.h"
+#import "UIColor+BUIColor.h"
 
 @implementation BaseAppDelegate
 
@@ -49,6 +50,7 @@
 
     [self uploadCrashLog];
 
+    _BarTintColor = [UIColor colorFromHexCode:@"3b3f4d"];
     [self NavigationBarColor];
 
     return YES;
@@ -136,10 +138,10 @@
 - (void)NavigationBarColor
 {
     if (CURRENT_SYS_VERSION >= 7.0) {
-        [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.071 green:0.060 blue:0.086 alpha:1.000]];
+        [[UINavigationBar appearance] setBarTintColor:_BarTintColor];
         [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     } else {
-        [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.071 green:0.060 blue:0.086 alpha:1.000]];
+        [[UINavigationBar appearance] setTintColor:_BarTintColor];
     }
 
 
