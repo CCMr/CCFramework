@@ -179,7 +179,13 @@
 
 
 -(id)ObjectInternal:(id)obj{
-    if([obj isKindOfClass:[NSString class]] || [obj isKindOfClass:[NSNumber class]] || [obj isKindOfClass:[NSNull class]] || [obj isKindOfClass:[NSManagedObjectID class]] || [obj isKindOfClass:[UIImage class]] )
+    if([obj isKindOfClass:[NSString class]] ||
+       [obj isKindOfClass:[NSNumber class]] ||
+       [obj isKindOfClass:[NSNull class]] ||
+       [obj isKindOfClass:[NSManagedObjectID class]] ||
+       [obj isKindOfClass:[UIImage class]] ||
+       [obj isKindOfClass:[NSData class]] ||
+       [obj isKindOfClass:[NSDate class]])
         return obj;
     
     if([obj isKindOfClass:[NSArray class]]){

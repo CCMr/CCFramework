@@ -1888,15 +1888,15 @@
 		429C9E4C1B9EF8BF0013A44A /* CCPhotosView */ = {
 			isa = PBXGroup;
 			children = (
+				429C9E531B9EF8BF0013A44A /* Models */,
+				429C9E581B9EF8BF0013A44A /* PhotosViewImage */,
+				429C9E5C1B9EF8BF0013A44A /* VIews */,
 				429C9E4D1B9EF8BF0013A44A /* CCPickerAssetsViewController.h */,
 				429C9E4E1B9EF8BF0013A44A /* CCPickerAssetsViewController.m */,
 				429C9E4F1B9EF8BF0013A44A /* CCPickerGroupViewController.h */,
 				429C9E501B9EF8BF0013A44A /* CCPickerGroupViewController.m */,
 				429C9E511B9EF8BF0013A44A /* CCPickerViewController.h */,
 				429C9E521B9EF8BF0013A44A /* CCPickerViewController.m */,
-				429C9E531B9EF8BF0013A44A /* Models */,
-				429C9E581B9EF8BF0013A44A /* PhotosViewImage */,
-				429C9E5C1B9EF8BF0013A44A /* VIews */,
 			);
 			path = CCPhotosView;
 			sourceTree = "<group>";
