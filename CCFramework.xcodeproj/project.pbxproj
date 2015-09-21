@@ -2351,12 +2351,12 @@
 		429C9F241B9EF8BF0013A44A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				429C9F291B9EF8BF0013A44A /* MessageContentViews */,
+				429C9F2E1B9EF8BF0013A44A /* MessageMenuViews */,
 				429C9F251B9EF8BF0013A44A /* CCBubblePhotoImageView.h */,
 				429C9F261B9EF8BF0013A44A /* CCBubblePhotoImageView.m */,
 				429C9F271B9EF8BF0013A44A /* CCMessageBubbleView.h */,
 				429C9F281B9EF8BF0013A44A /* CCMessageBubbleView.m */,
-				429C9F291B9EF8BF0013A44A /* MessageContentViews */,
-				429C9F2E1B9EF8BF0013A44A /* MessageMenuViews */,
 			);
 			path = Views;
 			sourceTree = "<group>";

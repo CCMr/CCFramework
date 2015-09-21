@@ -119,6 +119,15 @@
  */
 - (NSData *)convertingData;
 
+/**
+ *  @author CC, 15-09-21
+ *
+ *  @brief  序列化Json
+ *
+ *  @return 返回对象键值
+ */
+- (NSDictionary *)serialization;
+
 #pragma mark - 取值
 /**
  *  @author CC, 15-08-14

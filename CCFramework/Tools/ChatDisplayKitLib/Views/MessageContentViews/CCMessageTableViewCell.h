@@ -76,7 +76,7 @@
  *
  *  @since 1.0
  */
-- (void)didSelectedSendNotSuccessfulCallback;
+- (void)didSelectedSendNotSuccessfulCallback:(id <CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

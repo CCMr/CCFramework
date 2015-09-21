@@ -473,8 +473,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
  */
 - (void)didSendNotSuccessfulCallback
 {
-    if ([self.delegate respondsToSelector:@selector(didSelectedSendNotSuccessfulCallback)])
-        [self.delegate didSelectedSendNotSuccessfulCallback];
+    if ([self.delegate respondsToSelector:@selector(didSelectedSendNotSuccessfulCallback:atIndexPath:)])
+        [self.delegate didSelectedSendNotSuccessfulCallback:self.messageBubbleView.message atIndexPath:self.indexPath];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {

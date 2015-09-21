@@ -294,6 +294,18 @@
     return [self dataUsingEncoding:NSUTF8StringEncoding];
 }
 
+/**
+ *  @author CC, 15-09-21
+ *
+ *  @brief  序列化Json
+ *
+ *  @return 返回对象键值
+ */
+- (NSDictionary *)serialization
+{
+    return [NSJSONSerialization JSONObjectWithData:[self convertingData] options:NSJSONReadingAllowFragments error:nil];
+}
+
 #pragma mark - 取值
 /**
  *  @author CC, 15-08-14
