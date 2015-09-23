@@ -88,9 +88,22 @@
     _managedObjectContext.persistentStoreCoordinator = coordinator;
 }
 
+/**
+ *  @author CC, 15-09-22
+ *
+ *  @brief  数据库名称
+ 继承子类必须实现
+ *
+ *  @return 返回数据库名称
+ */
+- (NSString *)coredataName
+{
+    return @"";
+}
+
 - (NSManagedObjectModel *)managedObjectModel
 {
-    return [[NSManagedObjectModel alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"Model" withExtension:@"momd"]];
+    return [[NSManagedObjectModel alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:[self coredataName] withExtension:@"momd"]];
 }
 
 - (NSURL *)applicationDocumentsDirectory
@@ -221,8 +234,10 @@
     //    NSInteger count = [[self selectCoreData:[[relationship destinationEntity] name]] count]; //自定义增长ID
     for (NSDictionary *dic in dataArray) {
         NSManagedObject *entitySon = [NSEntityDescription insertNewObjectForEntityForName:[[relationship destinationEntity] name] inManagedObjectContext:_managedObjectContext];
-        
-        [entitySon setValue:foreignKeyValue forKey:relationship.name];//设置当前主键
+
+        //有自定义关联外键
+        if (foreignKeyValue)
+            [entitySon setValue:foreignKeyValue forKey:relationship.name];//设置当前主键
         [entitySon setValue:entity forKey:relationship.inverseRelationship.name];
         
         for (NSString *key in dic.allKeys) {
@@ -546,27 +561,31 @@
         if ([[dic objectForKey:key] isKindOfClass:[NSArray class]]) {
             NSMutableArray *array = [[dic objectForKey:key] mutableCopy];
             NSRelationshipDescription *relationship = [[entity.entity relationshipsByName] objectForKey:key];
-            NSArray *dataArray = [self selectCoreData:relationship.destinationEntity.name Condition:[NSString stringWithFormat:@"%@ = '%@'",relationship.name,[dic objectForKey:relationship.inverseRelationship.name]]];
-            
-            //清理关联查询出来的数据
-            if (dataArray.count > 0)
-                [array removeAllObjects];
-            
-            [dataArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                NSDictionary *childrenDic = obj;
-                if ([childrenDic isKindOfClass:[NSManagedObject class]])
-                    childrenDic = [self RecursiveChildren:obj];
-                [array addObject:childrenDic];
-            }];
-             array = [[[NSSet setWithArray:array] allObjects] mutableCopy];
-            [array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-                if ([obj1 objectForKey:@"objectID"] > [obj2 objectForKey:@"objectID"])
-                    return NSOrderedAscending;
-                if ([obj1 objectForKey:@"objectID"] < [obj2 objectForKey:@"objectID"])
-                    return NSOrderedDescending;
-                return NSOrderedSame;
-            }];
-           
+            id values = [dic objectForKey:relationship.inverseRelationship.name];
+            //自定义关联外键使用
+            if (values) {
+                NSArray *dataArray = [self selectCoreData:relationship.destinationEntity.name Condition:[NSString stringWithFormat:@"%@ = '%@'",relationship.name,[dic objectForKey:relationship.inverseRelationship.name]]];
+
+                //清理关联查询出来的数据
+                if (dataArray.count > 0)
+                    [array removeAllObjects];
+
+                [dataArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    NSDictionary *childrenDic = obj;
+                    if ([childrenDic isKindOfClass:[NSManagedObject class]])
+                        childrenDic = [self RecursiveChildren:obj];
+                    [array addObject:childrenDic];
+                }];
+                array = [[[NSSet setWithArray:array] allObjects] mutableCopy];
+                [array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                    if ([obj1 objectForKey:@"objectID"] > [obj2 objectForKey:@"objectID"])
+                        return NSOrderedAscending;
+                    if ([obj1 objectForKey:@"objectID"] < [obj2 objectForKey:@"objectID"])
+                        return NSOrderedDescending;
+                    return NSOrderedSame;
+                }];
+            }
+
             [dic setObject:array forKey:key];
         }
     }

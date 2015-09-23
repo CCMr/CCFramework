@@ -60,7 +60,7 @@
     id view = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil].lastObject;
     if (view)
         [view Initialization];
-    
+
     return view;
 }
 
@@ -90,8 +90,11 @@
     if (!_clickBtn) {
         _clickBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_clickBtn addTarget:self action:@selector(didSelectedClick:) forControlEvents:UIControlEventTouchUpInside];
-        [_clickBtn addTarget:self action:@selector(didLongPressClick:) forControlEvents:UIControlEventTouchDown];
         [self addSubview:_clickBtn];
+
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongPressClick:)];
+        longPress.minimumPressDuration = 0.8; //定义按的时间
+        [_clickBtn addGestureRecognizer:longPress];
 
         _backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _backgroundImageView.backgroundColor = [UIColor whiteColor];
@@ -142,10 +145,12 @@
  *
  *  @since 1.0
  */
--(void)didLongPressClick: (UIButton *)sender
+-(void)didLongPressClick: (UILongPressGestureRecognizer *)gestureRecognizer
 {
-    if ([self.delegate respondsToSelector:@selector(didLongPress:Index:)])
-        [self.delegate didLongPress:self Index:(int)self.tag];
+    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
+        if ([self.delegate respondsToSelector:@selector(didLongPress:Index:)])
+            [self.delegate didLongPress:self Index:(int)self.tag];
+    }
 }
 
 /**

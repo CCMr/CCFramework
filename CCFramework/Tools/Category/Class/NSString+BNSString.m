@@ -84,12 +84,12 @@
      * 号码：七位或八位
      */
     // NSString * PHS = @"^0(10|2[0-5789]|\\d{3})\\d{7,8}$";
-    
+
     NSPredicate *regextestmobile = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", MOBILE];
     NSPredicate *regextestcm = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CM];
     NSPredicate *regextestcu = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CU];
     NSPredicate *regextestct = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CT];
-    
+
     if (([regextestmobile evaluateWithObject:self] == YES) || ([regextestcm evaluateWithObject:self] == YES) || ([regextestct evaluateWithObject:self] == YES) || ([regextestcu evaluateWithObject:self] == YES)){
         if([regextestcm evaluateWithObject:self] == YES)
             NSLog(@"China Mobile");
@@ -119,7 +119,7 @@
     NSPredicate *emailMatch = [NSPredicate predicateWithFormat:@"SELF MATCHES%@",emailCheck];
     if (![emailMatch evaluateWithObject:self])
         return NO;
-    
+
     return YES;
 }
 
@@ -155,21 +155,21 @@
  */
 - (BOOL)validateIDCardNumber{
     NSString *value = self;
-    
+
     value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
+
     int length = 0;
     if (!value) {
         return NO;
     }else {
         length = (int)value.length;
-        
+
         if (length !=15 && length !=18)
             return NO;
     }
     // 省份代码
     NSArray *areasArray =@[@"11",@"12", @"13",@"14", @"15",@"21", @"22",@"23", @"31",@"32", @"33",@"34", @"35",@"36", @"37",@"41", @"42",@"43", @"44",@"45", @"46",@"50", @"51",@"52", @"53",@"54", @"61",@"62", @"63",@"64", @"65",@"71", @"81",@"82", @"91"];
-    
+
     NSString *valueStart2 = [value substringToIndex:2];
     BOOL areaFlag = NO;
     for (NSString *areaCode in areasArray) {
@@ -178,26 +178,26 @@
             break;
         }
     }
-    
+
     if (!areaFlag)
         return NO;
-    
-    
+
+
     NSRegularExpression *regularExpression;
     NSUInteger numberofMatch;
-    
+
     int year =0;
     switch (length) {
         case 15:
             year = [value substringWithRange:NSMakeRange(6,2)].intValue +1900;
-            
+
             if (year %4 ==0 || (year %100 ==0 && year %4 ==0))
                 regularExpression = [[NSRegularExpression alloc]initWithPattern:@"^[1-9][0-9]{5}[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))[0-9]{3}$" options:NSRegularExpressionCaseInsensitive error:nil];//测试出生日期的合法性
             else
                 regularExpression = [[NSRegularExpression alloc]initWithPattern:@"^[1-9][0-9]{5}[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|1[0-9]|2[0-8]))[0-9]{3}$" options:NSRegularExpressionCaseInsensitive error:nil];//测试出生日期的合法性
-            
+
             numberofMatch = [regularExpression numberOfMatchesInString:value options:NSMatchingReportProgress range:NSMakeRange(0, value.length)];
-            
+
             if(numberofMatch > 0)
                 return YES;
             else
@@ -208,16 +208,16 @@
                 regularExpression = [[NSRegularExpression alloc]initWithPattern:@"^[1-9][0-9]{5}19[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))[0-9]{3}[0-9Xx]$" options:NSRegularExpressionCaseInsensitive error:nil];//测试出生日期的合法性
             else
                 regularExpression = [[NSRegularExpression alloc]initWithPattern:@"^[1-9][0-9]{5}19[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|1[0-9]|2[0-8]))[0-9]{3}[0-9Xx]$" options:NSRegularExpressionCaseInsensitive error:nil];//测试出生日期的合法性
-            
+
             numberofMatch = [regularExpression numberOfMatchesInString:value options:NSMatchingReportProgress range:NSMakeRange(0, value.length)];
-            
+
             if(numberofMatch >0) {
                 int S = ([value substringWithRange:NSMakeRange(0,1)].intValue + [value substringWithRange:NSMakeRange(10,1)].intValue) *7 + ([value substringWithRange:NSMakeRange(1,1)].intValue + [value substringWithRange:NSMakeRange(11,1)].intValue) *9 + ([value substringWithRange:NSMakeRange(2,1)].intValue + [value substringWithRange:NSMakeRange(12,1)].intValue) *10 + ([value substringWithRange:NSMakeRange(3,1)].intValue + [value substringWithRange:NSMakeRange(13,1)].intValue) *5 + ([value substringWithRange:NSMakeRange(4,1)].intValue + [value substringWithRange:NSMakeRange(14,1)].intValue) *8 + ([value substringWithRange:NSMakeRange(5,1)].intValue + [value substringWithRange:NSMakeRange(15,1)].intValue) *4 + ([value substringWithRange:NSMakeRange(6,1)].intValue + [value substringWithRange:NSMakeRange(16,1)].intValue) *2 + [value substringWithRange:NSMakeRange(7,1)].intValue *1 + [value substringWithRange:NSMakeRange(8,1)].intValue *6 + [value substringWithRange:NSMakeRange(9,1)].intValue *3;
-                
+
                 int Y = S % 11;
                 NSString *M =@"F";
                 NSString *JYM =@"10X98765432";
-                
+
                 M = [JYM substringWithRange:NSMakeRange(Y,1)];// 判断校验位
                 if ([M isEqualToString:[value substringWithRange:NSMakeRange(17,1)]])
                     return YES;// 检测ID的校验位
@@ -292,6 +292,78 @@
 - (NSData *)convertingData
 {
     return [self dataUsingEncoding:NSUTF8StringEncoding];
+}
+
+static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+/**
+ *  @author CC, 15-09-22
+ *
+ *  @brief  转换64位字符串
+ *
+ *  @return 返回转换data
+ */
+- (NSData *)convertingBase64Encoded
+{
+    if (!self)
+        [NSException raise:NSInvalidArgumentException format:@""];
+
+    if ([self length] == 0)
+        return [NSData data];
+
+    static char *decodingTable = NULL;
+
+    if (decodingTable == NULL) {
+        decodingTable = malloc(256);
+        if (decodingTable == NULL)
+            return nil;
+        memset(decodingTable, CHAR_MAX, 256);
+        NSUInteger i;
+        for (i = 0; i < 64; i++)
+            decodingTable[(short)encodingTable[i]] = i;
+    }
+
+    const char *characters = [self cStringUsingEncoding:NSASCIIStringEncoding];
+    if (characters == NULL)
+        return nil;
+    char *bytes = malloc((([self length] + 3) / 4) * 3);
+    if (bytes == NULL)
+        return nil;
+
+    NSUInteger length = 0;
+    NSUInteger i = 0;
+
+    while (YES) {
+        char buffer[4];
+        short bufferLength;
+        for (bufferLength = 0; bufferLength < 4; i++) {
+            if (characters[i] == '\0')
+                break;
+            if (isspace(characters[i]) || characters[i] == '=')
+                continue;
+            buffer[bufferLength] = decodingTable[(short)characters[i]];
+            if (buffer[bufferLength++] == CHAR_MAX) {
+                free(bytes);
+                return nil;
+            }
+        }
+
+        if (bufferLength == 0)
+            break;
+        if (bufferLength == 1) {
+            free(bytes);
+            return nil;
+        }
+
+        bytes[length++] = (buffer[0] << 2) | (buffer[1] >> 4);
+        if (bufferLength > 2)
+            bytes[length++] = (buffer[1] << 4) | (buffer[2] >> 2);
+        if (bufferLength > 3)
+            bytes[length++] = (buffer[2] << 6) | buffer[3];
+    }
+
+    realloc(bytes, length);
+    return [NSData dataWithBytesNoCopy:bytes length:length];
 }
 
 /**

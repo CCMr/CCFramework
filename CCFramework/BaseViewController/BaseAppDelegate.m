@@ -29,6 +29,9 @@
 #import "SmoothViewController.h"
 #import "CCUserDefaultsCrash.h"
 #import "UIColor+BUIColor.h"
+#import <objc/runtime.h>
+
+static char OperationKey;
 
 @implementation BaseAppDelegate
 
@@ -214,6 +217,32 @@
 }
 
 /**
+ *  @author CC, 15-09-22
+ *
+ *  @brief  重复执行函数
+ *
+ *  @param delay    相隔多少秒
+ *  @param function 执行函数
+ */
+- (void)repeatExecutionWithafterDelay: (NSTimeInterval)delay ExecutionFunction: (void (^)())function
+{
+    NSMutableDictionary *opreations = (NSMutableDictionary *)objc_getAssociatedObject(self, &OperationKey);
+    if(!opreations){
+        opreations = [NSMutableDictionary dictionary];
+        objc_setAssociatedObject(self, &OperationKey, opreations, OBJC_ASSOCIATION_RETAIN);
+        [opreations setObject:function forKey:@"RepeatExecutionWithafterDelay"];
+        [opreations setObject:@(delay) forKey:@"delay"];
+    }
+    
+    void(^block)() = [opreations objectForKey:@"RepeatExecutionWithafterDelay"];
+    int delays = [[opreations objectForKey:@"delay"] intValue];
+
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(repeatExecutionWithafterDelay:ExecutionFunction:) object:nil];
+    block();
+    [self performSelector:@selector(repeatExecutionWithafterDelay:ExecutionFunction:) withObject:[NSArray arrayWithObjects:@(delays),function, nil] afterDelay:delays];
+}
+
+/**
  *  @author C C, 2015-07-30
  *
  *  @brief  初始化极光推送
@@ -227,8 +256,8 @@
     //极光通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTagsAlias:) name:@"setTagsAlias" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTags) name:@"resetTags" object:nil];
-//    [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil];
-//    [APService setupWithOption:launchOptions];
+    //    [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil];
+    //    [APService setupWithOption:launchOptions];
 }
 
 /**
@@ -257,7 +286,7 @@
 #pragma mark - 推送
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     //注册deviceToken
-//    [APService registerDeviceToken:deviceToken];
+    //    [APService registerDeviceToken:deviceToken];
 
 }
 
@@ -297,18 +326,18 @@
 #endif
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-//    [APService handleRemoteNotification:userInfo];
+    //    [APService handleRemoteNotification:userInfo];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PushNotifications" object:userInfo];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-//    [APService handleRemoteNotification:userInfo];
+    //    [APService handleRemoteNotification:userInfo];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PushNotifications" object:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-//    [APService showLocalNotificationAtFront:notification identifierKey:nil];
+    //    [APService showLocalNotificationAtFront:notification identifierKey:nil];
 }
 
 /**
@@ -342,8 +371,8 @@
  *  @since 1.0
  */
 -(void)resetTags{
-//    [APService setTags:[NSSet set] callbackSelector:nil object:nil];
-//    [APService setAlias:@"" callbackSelector:nil object:nil];
+    //    [APService setTags:[NSSet set] callbackSelector:nil object:nil];
+    //    [APService setAlias:@"" callbackSelector:nil object:nil];
 }
 
 - (void)analyseInput:(NSString **)alias tags:(NSSet **)tags {

@@ -38,4 +38,13 @@
  */
 -(NSString *)ChangedString;
 
+/**
+ *  @author CC, 15-09-22
+ *
+ *  @brief  data编码64位字符串
+ *
+ *  @return 返回编码后的字符串
+ */
+-(NSString *)base64Encoding;
+
 @end

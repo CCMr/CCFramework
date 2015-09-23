@@ -35,6 +35,16 @@ typedef void (^CoreDataManagerBlock)(NSObject *requestData,BOOL IsError);
 
 -(void)saveContext;
 
+/**
+ *  @author CC, 15-09-22
+ *
+ *  @brief  数据库名称
+            继承子类必须实现
+ *
+ *  @return 返回数据库名称
+ */
+- (NSString *)coredataName;
+
 #pragma mark - 增加
 /**
  *  @author CC, 2015-07-24

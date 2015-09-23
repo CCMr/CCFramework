@@ -120,6 +120,15 @@
 - (NSData *)convertingData;
 
 /**
+ *  @author CC, 15-09-22
+ *
+ *  @brief  转换64位字符串
+ *
+ *  @return 返回转换data
+ */
+- (NSData *)convertingBase64Encoded;
+
+/**
  *  @author CC, 15-09-21
  *
  *  @brief  序列化Json

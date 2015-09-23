@@ -70,4 +70,15 @@
  */
 - (void)uploadCrashLog;
 
+/**
+ *  @author CC, 15-09-22
+ *
+ *  @brief  重复执行函数
+ *
+ *  @param delay    相隔多少秒
+ *  @param function 执行函数
+ */
+- (void)repeatExecutionWithafterDelay: (NSTimeInterval)delay
+                    ExecutionFunction: (void(^)())function;
+
 @end

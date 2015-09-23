@@ -77,7 +77,7 @@ static char OperationKey;
  *  @param key   函数KEY名
  *  @param block 回调函数
  */
-- (void)callBackFunction: (NSString *)key withBlock: (void(^)(id sender))block
+- (void)callBackFunction: (NSString *)key withBlock: (id)block
 {
     NSMutableDictionary *opreations = (NSMutableDictionary*)objc_getAssociatedObject(self, &OperationKey);
 
@@ -101,8 +101,7 @@ static char OperationKey;
 -(id)callActionBlockFunction:(NSString *)event
 {
     NSMutableDictionary *opreations = (NSMutableDictionary*)objc_getAssociatedObject(self, &OperationKey);
-    NSString *key = [NSString stringWithFormat:@"%@returnBlock",NSStringFromClass(self.class)];
-    void(^block)(id sender) = [opreations objectForKey:key];
+    void(^block)(id sender) = [opreations objectForKey:event];
     return block;
 }
 
@@ -140,8 +139,8 @@ static char OperationKey;
           WithFailureBlock: (FailureBlock)failureBlock
 {
     self.returnBlock = returnBlock;
-    //    self.errorBlock = errorBlock;
-    //    self.failureBlock = failureBlock;
+    self.errorBlock = errorBlock;
+    self.failureBlock = failureBlock;
 }
 
 /**
@@ -153,7 +152,7 @@ static char OperationKey;
  */
 - (void) fetchDataSource
 {
-    
+
 }
 
 @end
