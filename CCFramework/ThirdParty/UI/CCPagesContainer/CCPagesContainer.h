@@ -46,6 +46,13 @@
  */
 @property (assign, nonatomic) NSUInteger topBarHeight;
 
+/**
+ *  @author C C, 2015-09-23
+ *
+ *  @brief  菜单是否显示顶部
+ */
+@property (assign, nonatomic) BOOL isBarTop;
+
 @property (assign, nonatomic) CGFloat topBarItemsOffset;
 
 @property (assign, nonatomic) CCPageContaiinerTopBarType topBarType;
@@ -53,6 +60,14 @@
 @property (strong, nonatomic) NSArray *topBarImageAry;
 
 @property (assign, nonatomic) CCPageIndicatorViewType indicatorType;
+
+/**
+ *  @author C C, 2015-09-23
+ *
+ *  @brief  是否可以反弹
+ *
+ */
+@property (assign, nonatomic) BOOL bounces;
 
 /**
  An optional image page for the page indicator view

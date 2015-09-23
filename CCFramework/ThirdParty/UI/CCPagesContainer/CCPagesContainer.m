@@ -75,6 +75,7 @@
 
 - (void)setUp
 {
+    _isBarTop = YES;
     _topBarType = CCPageContaiinerTopBarTypeText;
     _indicatorType = CCPageIndicatorViewTypeInvertedTriangle;
     _topBarImageAry = [NSArray array];
@@ -97,18 +98,20 @@
     self.shouldObserveContentOffset = YES;
 
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.,
-                                                                     self.topBarHeight,
+                                                                     _isBarTop ? self.topBarHeight : 0,
                                                                      CGRectGetWidth(self.view.frame),
                                                                      CGRectGetHeight(self.view.frame) - self.topBarHeight)];
     self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.scrollView.delegate = self;
     self.scrollView.pagingEnabled = YES;
     self.scrollView.showsHorizontalScrollIndicator = NO;
+    self.scrollView.showsVerticalScrollIndicator = NO;
+    self.scrollView.bounces = YES;
     [self.view addSubview:self.scrollView];
     [self startObservingContentOffsetForScrollView:self.scrollView];
 
     self.topBar = [[CCPagesContainerTopBar alloc] initWithFrame:CGRectMake(0.,
-                                                                           0.,
+                                                                           _isBarTop ? 0 : CGRectGetHeight(self.view.frame) - self.topBarHeight,
                                                                            CGRectGetWidth(self.view.frame),
                                                                            self.topBarHeight)];
     self.topBar.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
@@ -355,12 +358,23 @@
     [self layoutSubviews];
 }
 
+-(void)setIsBarTop:(BOOL)isBarTop
+{
+    _isBarTop = isBarTop;
+    [self layoutSubviews];
+}
+
+-(void)setBounces:(BOOL)bounces
+{
+    self.scrollView.bounces = bounces;
+}
+
 #pragma mark - Private
 
 - (void)layoutSubviews
 {
-    self.scrollView.frame = CGRectMake(0, self.topBarHeight, self.scrollWidth, self.scrollHeight);
-    self.topBar.frame = CGRectMake(0., 0., CGRectGetWidth(self.view.bounds), self.topBarHeight);
+    self.scrollView.frame = CGRectMake(0, _isBarTop ? self.topBarHeight : 0, self.scrollWidth, self.scrollHeight);
+    self.topBar.frame = CGRectMake(0., _isBarTop ? 0 : CGRectGetHeight(self.view.frame) - self.topBarHeight, CGRectGetWidth(self.view.frame), self.topBarHeight);
     CGFloat x = 0.;
     for (UIViewController *viewController in self.viewControllers) {
         viewController.view.frame = CGRectMake(x, 0, CGRectGetWidth(self.scrollView.frame), self.scrollHeight);
@@ -373,15 +387,15 @@
 
     self.topBar.scrollView.contentOffset = [self.topBar contentOffsetForSelectedItemAtIndex:self.selectedIndex];
     self.scrollView.userInteractionEnabled = YES;
-
+    
 
     CGRect frame;
     switch (_indicatorType) {
         case CCPageIndicatorViewTypeInvertedTriangle:
-            frame = CGRectMake(0,44,self.pageIndicatorViewSize.width,self.pageIndicatorViewSize.height);
+            frame = CGRectMake(0,_isBarTop ? 44 : CGRectGetHeight(self.view.frame) - self.topBarHeight - self.pageIndicatorViewSize.height,self.pageIndicatorViewSize.width,self.pageIndicatorViewSize.height);
             break;
         case CCPageIndicatorViewTypeHorizontalLine:
-            frame = CGRectMake(0, self.topBarHeight - .5, CGRectGetWidth([UIScreen mainScreen].bounds)/(_viewControllers.count * 1.0), .5);
+            frame = CGRectMake(0, _isBarTop ? self.topBarHeight - .5 : CGRectGetHeight(self.view.frame) - self.topBarHeight, CGRectGetWidth([UIScreen mainScreen].bounds)/(_viewControllers.count * 1.0), .5);
             break;
         default:
             break;
@@ -412,7 +426,7 @@
 
 - (CGFloat)scrollHeight
 {
-    return CGRectGetHeight(self.view.frame) - self.topBarHeight;
+    return CGRectGetHeight(self.view.bounds) - self.topBarHeight;
 }
 
 - (CGFloat)scrollWidth
