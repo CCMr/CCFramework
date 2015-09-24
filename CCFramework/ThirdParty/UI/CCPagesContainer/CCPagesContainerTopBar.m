@@ -143,7 +143,12 @@ CGFloat const CCPagesContainerTopBarItemViewWidth = 70;
             [itemView setTitle:title forState:UIControlStateNormal];
             break;
         case CCPageContaiinerTopBarTypeUPMapNextText:
+        {
             itemView = [UIButton buttonWithUpImageNextTilte:[_topBarImageAry objectAtIndex:index] Title:title Frame:frame];
+
+            UILabel *titleLabel = (UILabel *)[itemView viewWithTag:9999];
+            [titleLabel setTextColor:self.itemTitleColor];
+        }
             break;
         case CCPageContaiinerTopBarTypeLeftMapRightText:
             itemView = [UIButton buttonWithImageTitle:[_topBarImageAry objectAtIndex:index] Title:title Frame:frame];

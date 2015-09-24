@@ -39,6 +39,8 @@
 @property (readonly, assign, nonatomic) CGFloat scrollWidth;
 @property (readonly, assign, nonatomic) CGFloat scrollHeight;
 
+@property (readonly, assign, nonatomic) int currentIndex;
+
 - (void)layoutSubviews;
 - (void)startObservingContentOffsetForScrollView:(UIScrollView *)scrollView;
 - (void)stopObservingContentOffset;
@@ -79,6 +81,7 @@
     _topBarType = CCPageContaiinerTopBarTypeText;
     _indicatorType = CCPageIndicatorViewTypeInvertedTriangle;
     _topBarImageAry = [NSArray array];
+    _topBarSelectedImageAry = [NSArray array];
     _topBarItemsOffset = 30;
     _topBarHeight = 44;
     _selectedIndex = 0;
@@ -162,6 +165,16 @@
                      UILabel *titleLabel = (UILabel *)[previosSelectdItem viewWithTag:9999];
                      titleLabel.textColor = self.pageItemsTitleColor;
 
+                     //图片替换
+                     if (_topBarSelectedImageAry.count) {
+                         UIImageView *imageView = (UIImageView *)[previosSelectdItem viewWithTag:8888];
+                         imageView.image = [UIImage imageNamed:_topBarImageAry[_selectedIndex]];
+
+
+                         imageView = (UIImageView *)[nextSelectdItem viewWithTag:8888];
+                         imageView.image = [UIImage imageNamed:_topBarSelectedImageAry[selectedIndex]];
+                     }
+
                      titleLabel = (UILabel *)[nextSelectdItem viewWithTag:9999];
                      titleLabel.textColor = self.selectedPageItemTitleColor;
                  }
@@ -205,6 +218,16 @@
                 {
                     UILabel *titleLabel = (UILabel *)[previosSelectdItem viewWithTag:9999];
                     titleLabel.textColor = self.pageItemsTitleColor;
+
+                    //图片替换
+                    if (_topBarSelectedImageAry.count) {
+                        UIImageView *imageView = (UIImageView *)[previosSelectdItem viewWithTag:8888];
+                        imageView.image = [UIImage imageNamed:_topBarImageAry[_selectedIndex]];
+
+
+                        imageView = (UIImageView *)[nextSelectdItem viewWithTag:8888];
+                        imageView.image = [UIImage imageNamed:_topBarSelectedImageAry[selectedIndex]];
+                    }
 
                     titleLabel = (UILabel *)[nextSelectdItem viewWithTag:9999];
                     titleLabel.textColor = self.selectedPageItemTitleColor;
@@ -380,6 +403,7 @@
         viewController.view.frame = CGRectMake(x, 0, CGRectGetWidth(self.scrollView.frame), self.scrollHeight);
         x += CGRectGetWidth(self.scrollView.frame);
     }
+
     self.scrollView.contentSize = CGSizeMake(x, self.scrollHeight);
     [self.scrollView setContentOffset:CGPointMake(self.selectedIndex * self.scrollWidth, 0) animated:YES];
     self.pageIndicatorView.center = CGPointMake([self.topBar centerForSelectedItemAtIndex:self.selectedIndex].x,

@@ -25,8 +25,8 @@
 
 #import "CCLocationManager.h"
 #import <CoreLocation/CoreLocation.h>
-#import <CoreLocation/CLLocationManagerDelegate.h>
 #import "Config.h"
+#import <UIKit/UIKit.h>
 
 @interface CCLocationManager ()<CLLocationManagerDelegate>
 
@@ -74,15 +74,27 @@
         NSLog(@"定位服务当前可能尚未打开，请设置打开！");
         return;
     }
-    
-    _locationManager.delegate = self;
-    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    
+
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+
     if (__IPHONE_8_0)
     {
-        _locationManager.distanceFilter = kCLDistanceFilterNone;
-        [_locationManager setDistanceFilter:kCLLocationAccuracyNearestTenMeters];
+        self.locationManager.distanceFilter = kCLDistanceFilterNone;
+        [self.locationManager setDistanceFilter:kCLLocationAccuracyNearestTenMeters];
     }
+}
+
+-(CLLocationManager *)locationManager
+{
+    if (!_locationManager) {
+        _locationManager = [[CLLocationManager alloc] init];
+        _locationManager.delegate = self;
+    }
+    return _locationManager;
 }
 
 /**
@@ -95,7 +107,7 @@
 - (void)startUpdatingLocation:(Completion)completion
 {
     _completion = completion;
-    [_locationManager startUpdatingLocation];
+    [self.locationManager startUpdatingLocation];
 }
 
 /**
@@ -113,10 +125,10 @@
     switch (status){
         case kCLAuthorizationStatusNotDetermined:
             //如果没有授权则请求用户授权
-            if ([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
+            if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
             {
-                [_locationManager requestAlwaysAuthorization]; // 永久授权
-                [_locationManager requestWhenInUseAuthorization]; //使用中授权
+                [self.locationManager requestAlwaysAuthorization]; // 永久授权
+                [self.locationManager requestWhenInUseAuthorization]; //使用中授权
             }
             break;
         default:
@@ -136,7 +148,7 @@
  */
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    [_locationManager stopUpdatingLocation];
+    [self.locationManager stopUpdatingLocation];
     CLLocation *currentLocation = [locations firstObject];
     //    NSLog(@"%@",[NSString stringWithFormat:@"经度:%3.5f\n纬度:%3.5f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude]);
     CLGeocoder * geoCoder = [[CLGeocoder alloc] init];

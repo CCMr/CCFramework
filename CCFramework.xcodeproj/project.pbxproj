@@ -63,6 +63,9 @@
 		4269794A1BA695BA00C3E93C /* UIWebView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 426979261BA695BA00C3E93C /* UIWebView+AFNetworking.h */; };
 		4269794B1BA695BA00C3E93C /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 426979271BA695BA00C3E93C /* UIWebView+AFNetworking.m */; };
 		428B0C3F1BA7C2DF00F89879 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 428B0C3E1BA7C2DF00F89879 /* AFHTTPRequestOperation.m */; };
+		42986D1F1BB280400013D6F7 /* AssetsNO@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42986D1C1BB280400013D6F7 /* AssetsNO@2x.png */; };
+		42986D201BB280400013D6F7 /* AssetsYES@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42986D1D1BB280400013D6F7 /* AssetsYES@2x.png */; };
+		42986D211BB280400013D6F7 /* returns@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42986D1E1BB280400013D6F7 /* returns@2x.png */; };
 		429C9C9D1B9EF66A0013A44A /* CCFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9C9C1B9EF66A0013A44A /* CCFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429C9F4A1B9EF8BF0013A44A /* BaseAppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9CF71B9EF8BE0013A44A /* BaseAppDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429C9F4B1B9EF8BF0013A44A /* BaseAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9CF81B9EF8BE0013A44A /* BaseAppDelegate.m */; };
@@ -314,9 +317,6 @@
 		429CA0671B9EF8BF0013A44A /* CCPickerDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E551B9EF8BF0013A44A /* CCPickerDatas.m */; };
 		429CA0681B9EF8BF0013A44A /* CCPickerGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E561B9EF8BF0013A44A /* CCPickerGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA0691B9EF8BF0013A44A /* CCPickerGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E571B9EF8BF0013A44A /* CCPickerGroup.m */; };
-		429CA06A1B9EF8BF0013A44A /* AssetsNO@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 429C9E591B9EF8BF0013A44A /* AssetsNO@2x.png */; };
-		429CA06B1B9EF8BF0013A44A /* AssetsYES@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 429C9E5A1B9EF8BF0013A44A /* AssetsYES@2x.png */; };
-		429CA06C1B9EF8BF0013A44A /* returns@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 429C9E5B1B9EF8BF0013A44A /* returns@2x.png */; };
 		429CA06D1B9EF8BF0013A44A /* CCPickerCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E5D1B9EF8BF0013A44A /* CCPickerCollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA06E1B9EF8BF0013A44A /* CCPickerCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E5E1B9EF8BF0013A44A /* CCPickerCollectionView.m */; };
 		429CA06F1B9EF8BF0013A44A /* CCPickerCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E5F1B9EF8BF0013A44A /* CCPickerCollectionViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -561,6 +561,9 @@
 		426979261BA695BA00C3E93C /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		426979271BA695BA00C3E93C /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		428B0C3E1BA7C2DF00F89879 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
+		42986D1C1BB280400013D6F7 /* AssetsNO@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AssetsNO@2x.png"; sourceTree = "<group>"; };
+		42986D1D1BB280400013D6F7 /* AssetsYES@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AssetsYES@2x.png"; sourceTree = "<group>"; };
+		42986D1E1BB280400013D6F7 /* returns@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "returns@2x.png"; sourceTree = "<group>"; };
 		429C9C971B9EF66A0013A44A /* CCFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CCFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		429C9C9B1B9EF66A0013A44A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		429C9C9C1B9EF66A0013A44A /* CCFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCFramework.h; sourceTree = "<group>"; };
@@ -814,9 +817,6 @@
 		429C9E551B9EF8BF0013A44A /* CCPickerDatas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPickerDatas.m; sourceTree = "<group>"; };
 		429C9E561B9EF8BF0013A44A /* CCPickerGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPickerGroup.h; sourceTree = "<group>"; };
 		429C9E571B9EF8BF0013A44A /* CCPickerGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPickerGroup.m; sourceTree = "<group>"; };
-		429C9E591B9EF8BF0013A44A /* AssetsNO@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AssetsNO@2x.png"; sourceTree = "<group>"; };
-		429C9E5A1B9EF8BF0013A44A /* AssetsYES@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AssetsYES@2x.png"; sourceTree = "<group>"; };
-		429C9E5B1B9EF8BF0013A44A /* returns@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "returns@2x.png"; sourceTree = "<group>"; };
 		429C9E5D1B9EF8BF0013A44A /* CCPickerCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPickerCollectionView.h; sourceTree = "<group>"; };
 		429C9E5E1B9EF8BF0013A44A /* CCPickerCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPickerCollectionView.m; sourceTree = "<group>"; };
 		429C9E5F1B9EF8BF0013A44A /* CCPickerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPickerCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1915,9 +1915,9 @@
 		429C9E581B9EF8BF0013A44A /* PhotosViewImage */ = {
 			isa = PBXGroup;
 			children = (
-				429C9E591B9EF8BF0013A44A /* AssetsNO@2x.png */,
-				429C9E5A1B9EF8BF0013A44A /* AssetsYES@2x.png */,
-				429C9E5B1B9EF8BF0013A44A /* returns@2x.png */,
+				42986D1C1BB280400013D6F7 /* AssetsNO@2x.png */,
+				42986D1D1BB280400013D6F7 /* AssetsYES@2x.png */,
+				42986D1E1BB280400013D6F7 /* returns@2x.png */,
 			);
 			path = PhotosViewImage;
 			sourceTree = "<group>";
@@ -2767,13 +2767,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				429CA0311B9EF8BF0013A44A /* CCPhotoBrowser.bundle in Resources */,
-				429CA06C1B9EF8BF0013A44A /* returns@2x.png in Resources */,
-				429CA06A1B9EF8BF0013A44A /* AssetsNO@2x.png in Resources */,
 				429CA03E1B9EF8BF0013A44A /* MBProgressHUD.bundle in Resources */,
+				42986D1F1BB280400013D6F7 /* AssetsNO@2x.png in Resources */,
+				42986D201BB280400013D6F7 /* AssetsYES@2x.png in Resources */,
 				429CA02B1B9EF8BF0013A44A /* logo@2x.png in Resources */,
 				429CA0791B9EF8BF0013A44A /* CCRefresh.bundle in Resources */,
+				42986D211BB280400013D6F7 /* returns@2x.png in Resources */,
 				429CA02C1B9EF8BF0013A44A /* WithFinishedUnselecte@2x.png in Resources */,
-				429CA06B1B9EF8BF0013A44A /* AssetsYES@2x.png in Resources */,
 				429CA0281B9EF8BF0013A44A /* KeyboardNumericBg@2x.png in Resources */,
 				429CA0271B9EF8BF0013A44A /* Back@2x.png in Resources */,
 				429CA02A1B9EF8BF0013A44A /* KeyboardNumericEntryKeyBackspaceGlyphTextured@2x.png in Resources */,

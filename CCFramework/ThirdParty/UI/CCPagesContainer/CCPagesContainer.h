@@ -58,6 +58,7 @@
 @property (assign, nonatomic) CCPageContaiinerTopBarType topBarType;
 
 @property (strong, nonatomic) NSArray *topBarImageAry;
+@property (strong, nonatomic) NSArray *topBarSelectedImageAry;
 
 @property (assign, nonatomic) CCPageIndicatorViewType indicatorType;
 

@@ -315,6 +315,7 @@ static char BUTTONCARRYOBJECTS;
         }
 
         imageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, w, h)];
+        imageView.tag = 8888;
         [button addSubview:imageView];
     }
     imageView.image = Image;
