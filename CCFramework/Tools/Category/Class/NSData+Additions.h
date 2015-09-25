@@ -39,12 +39,21 @@
 -(NSString *)ChangedString;
 
 /**
- *  @author CC, 15-09-22
+ *  @author CC, 15-09-25
  *
- *  @brief  data编码64位字符串
+ *  @brief  base64编码
  *
- *  @return 返回编码后的字符串
+ *  @return 返回编码之后的字符串
  */
--(NSString *)base64Encoding;
+- (NSString *)encodeBase64Data;
+
+/**
+ *  @author CC, 15-09-25
+ *
+ *  @brief  base64解码
+ *
+ *  @return 返回加密字符串
+ */
+- (NSString *)decodeBase64Data;
 
 @end

@@ -73,6 +73,25 @@
 - (BOOL)validateHttpURL;
 
 #pragma mark - 转换
+
+/**
+ *  @author CC, 15-09-25
+ *
+ *  @brief  base64编码
+ *
+ *  @return 返回编码后的字符串
+ */
+- (NSString *)encodeBase64String;
+
+/**
+ *  @author CC, 15-09-25
+ *
+ *  @brief  base64解码
+ *
+ *  @return 返回编码后的字符串
+ */
+- (NSString*)decodeBase64String;
+
 /**
  *  @author C C, 2015-07-21
  *

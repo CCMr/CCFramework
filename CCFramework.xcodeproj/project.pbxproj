@@ -514,6 +514,11 @@
 		429CA12F1B9EF8BF0013A44A /* CCTimePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F461B9EF8BF0013A44A /* CCTimePicker.m */; };
 		42B9D0E61B9FE3650086CA81 /* NSData+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 42B9D0E41B9FE3650086CA81 /* NSData+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42B9D0E71B9FE3650086CA81 /* NSData+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B9D0E51B9FE3650086CA81 /* NSData+Additions.m */; };
+		42DBA84F1BB4D5CB00AD47C6 /* UILabel+Addition.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA84D1BB4D5CB00AD47C6 /* UILabel+Addition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42DBA8501BB4D5CB00AD47C6 /* UILabel+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBA84E1BB4D5CB00AD47C6 /* UILabel+Addition.m */; };
+		42DBA8561BB5305700AD47C6 /* CCBase64.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA8541BB5305700AD47C6 /* CCBase64.h */; };
+		42DBA8571BB5305700AD47C6 /* CCBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBA8551BB5305700AD47C6 /* CCBase64.m */; };
+		42DBA8591BB5309300AD47C6 /* CCDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA8581BB5309300AD47C6 /* CCDefines.h */; };
 		42E2E8201B9FB97700B2CE90 /* UITableView+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 42E2E81E1B9FB97700B2CE90 /* UITableView+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42E2E8211B9FB97700B2CE90 /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E2E81F1B9FB97700B2CE90 /* UITableView+Additions.m */; };
 /* End PBXBuildFile section */
@@ -1014,6 +1019,11 @@
 		429C9F461B9EF8BF0013A44A /* CCTimePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTimePicker.m; sourceTree = "<group>"; };
 		42B9D0E41B9FE3650086CA81 /* NSData+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Additions.h"; sourceTree = "<group>"; };
 		42B9D0E51B9FE3650086CA81 /* NSData+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Additions.m"; sourceTree = "<group>"; };
+		42DBA84D1BB4D5CB00AD47C6 /* UILabel+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UILabel+Addition.h"; path = "UILabel/UILabel+Addition.h"; sourceTree = "<group>"; };
+		42DBA84E1BB4D5CB00AD47C6 /* UILabel+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+Addition.m"; path = "UILabel/UILabel+Addition.m"; sourceTree = "<group>"; };
+		42DBA8541BB5305700AD47C6 /* CCBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCBase64.h; path = Base64/CCBase64.h; sourceTree = "<group>"; };
+		42DBA8551BB5305700AD47C6 /* CCBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCBase64.m; path = Base64/CCBase64.m; sourceTree = "<group>"; };
+		42DBA8581BB5309300AD47C6 /* CCDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDefines.h; path = Base64/CCDefines.h; sourceTree = "<group>"; };
 		42E2E81E1B9FB97700B2CE90 /* UITableView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableView+Additions.h"; path = "UITableView/UITableView+Additions.h"; sourceTree = "<group>"; };
 		42E2E81F1B9FB97700B2CE90 /* UITableView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableView+Additions.m"; path = "UITableView/UITableView+Additions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1327,6 +1337,7 @@
 		429C9D2F1B9EF8BE0013A44A /* Ability */ = {
 			isa = PBXGroup;
 			children = (
+				42DBA8531BB5301C00AD47C6 /* Base64 */,
 				429C9D301B9EF8BE0013A44A /* AFNetworking */,
 				429C9D5B1B9EF8BE0013A44A /* CCExceptionCatching */,
 				429C9D5E1B9EF8BE0013A44A /* CCLanguage */,
@@ -2158,6 +2169,7 @@
 		429C9EC51B9EF8BF0013A44A /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				42DBA84C1BB4D5A700AD47C6 /* UILabel */,
 				42E2E81D1B9FB96100B2CE90 /* UITableView */,
 				429C9EC61B9EF8BF0013A44A /* UIActionSheet */,
 				429C9EC91B9EF8BF0013A44A /* UIButton */,
@@ -2435,6 +2447,25 @@
 			path = Vender;
 			sourceTree = "<group>";
 		};
+		42DBA84C1BB4D5A700AD47C6 /* UILabel */ = {
+			isa = PBXGroup;
+			children = (
+				42DBA84D1BB4D5CB00AD47C6 /* UILabel+Addition.h */,
+				42DBA84E1BB4D5CB00AD47C6 /* UILabel+Addition.m */,
+			);
+			name = UILabel;
+			sourceTree = "<group>";
+		};
+		42DBA8531BB5301C00AD47C6 /* Base64 */ = {
+			isa = PBXGroup;
+			children = (
+				42DBA8581BB5309300AD47C6 /* CCDefines.h */,
+				42DBA8541BB5305700AD47C6 /* CCBase64.h */,
+				42DBA8551BB5305700AD47C6 /* CCBase64.m */,
+			);
+			name = Base64;
+			sourceTree = "<group>";
+		};
 		42E2E81D1B9FB96100B2CE90 /* UITableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2567,6 +2598,7 @@
 				429C9FAE1B9EF8BF0013A44A /* AccelerationAnimation.h in Headers */,
 				429CA0C11B9EF8BF0013A44A /* UIColor+BUIColor.h in Headers */,
 				4269792F1BA695BA00C3E93C /* AFHTTPRequestOperationManager.h in Headers */,
+				42DBA8561BB5305700AD47C6 /* CCBase64.h in Headers */,
 				429CA0411B9EF8BF0013A44A /* NSData+GIF.h in Headers */,
 				426979461BA695BA00C3E93C /* UIProgressView+AFNetworking.h in Headers */,
 				429CA0F71B9EF8BF0013A44A /* CCVoiceCommonHelper.h in Headers */,
@@ -2584,6 +2616,7 @@
 				429CA0F11B9EF8BF0013A44A /* CCLocationHelper.h in Headers */,
 				429CA1091B9EF8BF0013A44A /* CCVideoOutputSampleBufferFactory.h in Headers */,
 				429C9F5C1B9EF8BF0013A44A /* CCDropzone.h in Headers */,
+				42DBA84F1BB4D5CB00AD47C6 /* UILabel+Addition.h in Headers */,
 				429CA03C1B9EF8BF0013A44A /* MBProgressHUD+Add.h in Headers */,
 				429C9F581B9EF8BF0013A44A /* BaseViewController.h in Headers */,
 				429CA00B1B9EF8BF0013A44A /* CalendarCollectionViewCell.h in Headers */,
@@ -2688,6 +2721,7 @@
 				429CA03F1B9EF8BF0013A44A /* MKAnnotationView+WebCache.h in Headers */,
 				429CA09B1B9EF8BF0013A44A /* SELineLayout.h in Headers */,
 				429CA09F1B9EF8BF0013A44A /* SESelectionGrabber.h in Headers */,
+				42DBA8591BB5309300AD47C6 /* CCDefines.h in Headers */,
 				429CA0A51B9EF8BF0013A44A /* SETextGeometry.h in Headers */,
 				429CA0991B9EF8BF0013A44A /* SEConstants.h in Headers */,
 				429CA0A91B9EF8BF0013A44A /* SETextLayout.h in Headers */,
@@ -2922,6 +2956,7 @@
 				429C9F651B9EF8BF0013A44A /* CCNSManagedObject.m in Sources */,
 				429CA04E1B9EF8BF0013A44A /* SDWebImageManager+MJ.m in Sources */,
 				429C9FEB1B9EF8BF0013A44A /* SRAutoTransport.m in Sources */,
+				42DBA8501BB4D5CB00AD47C6 /* UILabel+Addition.m in Sources */,
 				429CA0D61B9EF8BF0013A44A /* UIImage+Operations.m in Sources */,
 				429C9FF21B9EF8BF0013A44A /* SRServerSentEventsTransport.m in Sources */,
 				429CA02E1B9EF8BF0013A44A /* CCNumericKeypadView.m in Sources */,
@@ -2975,6 +3010,7 @@
 				429CA0631B9EF8BF0013A44A /* CCPickerGroupViewController.m in Sources */,
 				429C9FCE1B9EF8BF0013A44A /* NSObject+SRJSON.m in Sources */,
 				429C9F9F1B9EF8BF0013A44A /* CCScanningView.m in Sources */,
+				42DBA8571BB5305700AD47C6 /* CCBase64.m in Sources */,
 				429CA00C1B9EF8BF0013A44A /* CalendarCollectionViewCell.m in Sources */,
 				429CA0D01B9EF8BF0013A44A /* UIImage+BUIImage.m in Sources */,
 				429C9F6D1B9EF8BF0013A44A /* CCUserDefaultsCrash.m in Sources */,

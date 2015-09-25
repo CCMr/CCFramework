@@ -108,6 +108,17 @@ typedef void (^CoreDataManagerBlock)(NSObject *requestData,BOOL IsError);
 
 #pragma mark - 修改
 /**
+ *  @author CC, 15-09-25
+ *
+ *  @brief  批量修改属性值
+ *
+ *  @param tableName 表名
+ *  @param key       字段名
+ *  @param value     字段值
+ */
+-(void)batchUpdataCoredData: (NSString *)tableName
+             ColumnKeyValue: (NSDictionary *)columnDic;
+/**
  *  @author CC, 2015-07-24
  *
  *  @brief  根据条件修改对象及其子项

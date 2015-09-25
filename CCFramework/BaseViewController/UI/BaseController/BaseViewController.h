@@ -111,6 +111,15 @@
 - (void)pushNewViewController:(UIViewController *)newViewController;
 
 /**
+ *  @author CC, 15-09-25
+ *
+ *  @brief  返回到指定页面
+ *
+ *  @param viewControllerClass 指定页面
+ */
+- (void)popToViewController :(Class)viewControllerClass;
+
+/**
  *  @author C C, 2015-07-23
  *
  *  @brief  弹出消息

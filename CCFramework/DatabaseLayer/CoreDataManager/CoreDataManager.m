@@ -200,6 +200,12 @@
         NSLog(@"%@ insertNewObject Error:%@",tableName,[error localizedDescription]);
 }
 
+-(void)insertCoreDatas:(NSString *)tableName DataArray:(NSArray *)dataArray
+{
+    NSPersistentStoreRequest *request = [[NSPersistentStoreRequest alloc] init];
+    request.affectedStores = dataArray;
+}
+
 /**
  *  @author CC, 2015-07-24
  *
@@ -333,6 +339,49 @@
 }
 
 #pragma mark - 修改
+/**
+ *  @author CC, 15-09-25
+ *
+ *  @brief  批量修改属性值
+ *
+ *  @param tableName 表名
+ *  @param key       字段名
+ *  @param value     字段值
+ */
+-(void)batchUpdataCoredData: (NSString *)tableName
+                  ColumnKeyValue: (NSDictionary *)columnDic
+{
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:tableName inManagedObjectContext:self.managedObjectContext];
+
+    // Initialize Batch Update Request
+    NSBatchUpdateRequest *batchUpdateRequest = [[NSBatchUpdateRequest alloc] initWithEntity:entityDescription];
+
+    // Configure Batch Update Request
+    [batchUpdateRequest setResultType:NSUpdatedObjectIDsResultType];
+    [batchUpdateRequest setPropertiesToUpdate:columnDic];
+
+    // Execute Batch Request
+    NSError *batchUpdateRequestError = nil;
+    NSBatchUpdateResult *batchUpdateResult = (NSBatchUpdateResult *)[self.managedObjectContext executeRequest:batchUpdateRequest error:&batchUpdateRequestError];
+
+    if (batchUpdateRequestError) {
+        NSLog(@"%@, %@", batchUpdateRequestError, batchUpdateRequestError.localizedDescription);
+    } else {
+        // Extract Object IDs
+        NSArray *objectIDs = batchUpdateResult.result;
+
+        for (NSManagedObjectID *objectID in objectIDs) {
+            // Turn Managed Objects into Faults
+            NSManagedObject *managedObject = [self.managedObjectContext objectWithID:objectID];
+
+            if (managedObject) {
+                [self.managedObjectContext refreshObject:managedObject mergeChanges:NO];
+            }
+        }
+    }
+}
+
+
 /**
  *  @author CC, 2015-07-24
  *

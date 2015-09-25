@@ -6,6 +6,7 @@
 
 #import "MBProgressHUD.h"
 #import "CCLoadLogoView.h"
+#import "UIImage+GIF.h"
 #import <tgmath.h>
 
 
@@ -169,7 +170,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 		// Set default values for properties
 		self.animationType = MBProgressHUDAnimationFade;
 //		self.mode = MBProgressHUDModeIndeterminate;
-        self.mode = MBProgressHUDModeIndeterminateLogo;
+        self.mode = MBProgressHUDModeGIF;
 		self.labelText = nil;
 		self.detailsLabelText = nil;
 		self.opacity = 0.4f;
@@ -525,7 +526,14 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	} else if (mode == MBProgressHUDModeText) {
 		[indicator removeFromSuperview];
 		self.indicator = nil;
-	}
+	} else if (mode == MBProgressHUDModeGIF){
+        [indicator removeFromSuperview];
+        NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"load_probar_icon_bg" ofType:@"gif"]];
+        UIImageView *imageViewGIF = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+        imageViewGIF.image = [UIImage sd_animatedGIFWithData:data];
+        self.indicator = MB_AUTORELEASE(imageViewGIF);
+        [self addSubview:indicator];
+    }
 }
 
 #pragma mark - Layout

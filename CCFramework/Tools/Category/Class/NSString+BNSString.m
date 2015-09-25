@@ -25,6 +25,7 @@
 
 #import "NSString+BNSString.h"
 #import <CommonCrypto/CommonCrypto.h>
+#import "CCBase64.h"
 
 @implementation NSString (BNSString)
 
@@ -231,6 +232,37 @@
 }
 
 #pragma mark - 转换
+
+/**
+ *  @author CC, 15-09-25
+ *
+ *  @brief  base64编码
+ *
+ *  @return 返回编码后的字符串
+ */
+- (NSString *)encodeBase64String
+{
+    NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    data = [CCBase64 encodeData:data];
+    NSString *base64String = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return base64String;
+}
+
+/**
+ *  @author CC, 15-09-25
+ *
+ *  @brief  base64解码
+ *
+ *  @return 返回编码后的字符串
+ */
+- (NSString*)decodeBase64String
+{
+    NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    data = [CCBase64 decodeData:data];
+    NSString *base64String = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return base64String;
+}
+
 /**
  *  @author CC, 2015-07-21
  *
@@ -294,8 +326,6 @@
     return [self dataUsingEncoding:NSUTF8StringEncoding];
 }
 
-static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-
 /**
  *  @author CC, 15-09-22
  *
@@ -305,65 +335,7 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
  */
 - (NSData *)convertingBase64Encoded
 {
-    if (!self)
-        [NSException raise:NSInvalidArgumentException format:@""];
-
-    if ([self length] == 0)
-        return [NSData data];
-
-    static char *decodingTable = NULL;
-
-    if (decodingTable == NULL) {
-        decodingTable = malloc(256);
-        if (decodingTable == NULL)
-            return nil;
-        memset(decodingTable, CHAR_MAX, 256);
-        NSUInteger i;
-        for (i = 0; i < 64; i++)
-            decodingTable[(short)encodingTable[i]] = i;
-    }
-
-    const char *characters = [self cStringUsingEncoding:NSASCIIStringEncoding];
-    if (characters == NULL)
-        return nil;
-    char *bytes = malloc((([self length] + 3) / 4) * 3);
-    if (bytes == NULL)
-        return nil;
-
-    NSUInteger length = 0;
-    NSUInteger i = 0;
-
-    while (YES) {
-        char buffer[4];
-        short bufferLength;
-        for (bufferLength = 0; bufferLength < 4; i++) {
-            if (characters[i] == '\0')
-                break;
-            if (isspace(characters[i]) || characters[i] == '=')
-                continue;
-            buffer[bufferLength] = decodingTable[(short)characters[i]];
-            if (buffer[bufferLength++] == CHAR_MAX) {
-                free(bytes);
-                return nil;
-            }
-        }
-
-        if (bufferLength == 0)
-            break;
-        if (bufferLength == 1) {
-            free(bytes);
-            return nil;
-        }
-
-        bytes[length++] = (buffer[0] << 2) | (buffer[1] >> 4);
-        if (bufferLength > 2)
-            bytes[length++] = (buffer[1] << 4) | (buffer[2] >> 2);
-        if (bufferLength > 3)
-            bytes[length++] = (buffer[2] << 6) | buffer[3];
-    }
-
-    realloc(bytes, length);
-    return [NSData dataWithBytesNoCopy:bytes length:length];
+    return [[NSData alloc] initWithBase64Encoding:self];
 }
 
 /**

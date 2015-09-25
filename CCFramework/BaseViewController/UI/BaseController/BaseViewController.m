@@ -284,6 +284,7 @@
 
 }
 
+#pragma mark - 基础功能
 /**
  *  @author CC, 15-08-18
  *
@@ -295,6 +296,21 @@
  */
 - (void)pushNewViewController:(UIViewController *)newViewController {
     [self.navigationController pushViewController:newViewController animated:YES];
+}
+
+/**
+ *  @author CC, 15-09-25
+ *
+ *  @brief  返回到指定页面
+ *
+ *  @param viewControllerClass 指定页面
+ */
+- (void)popToViewController :(Class)viewControllerClass
+{
+    [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:viewControllerClass])
+            [self.navigationController popToViewController:obj animated:YES];
+    }];
 }
 
 /**

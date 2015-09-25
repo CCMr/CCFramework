@@ -139,6 +139,11 @@ typedef void (^ProgressBlock)(NSUInteger bytesRead, long long totalBytesRead, lo
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Redefine
+//子线程
+#define ChildThread(block) dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);
+//主线程
+#define MainThread(block) dispatch_async(dispatch_get_main_queue(),block)
+
 #define Bundle                              [NSBundle mainBundle]
 #define VersonNumber                        [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey] //版本号
 
@@ -175,6 +180,7 @@ typedef void (^ProgressBlock)(NSUInteger bytesRead, long long totalBytesRead, lo
 #define UIColorFromRGB(rgbValue)            [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0] //rgb颜色转换（16进制->10进制）
 
 #define CCSafeString(str)                   (str == nil ? @"" : str) //判断字符串
+#define CCServiceString(str)                ([str isKindOfClass:[NSNull class]] ? @"" :str)
 
 #define CC_STRETCH_IMAGE(image, edgeInsets) (CURRENT_SYS_VERSION < 6.0 ? [image stretchableImageWithLeftCapWidth:edgeInsets.left topCapHeight:edgeInsets.top] : [image resizableImageWithCapInsets:edgeInsets resizingMode:UIImageResizingModeStretch])
 

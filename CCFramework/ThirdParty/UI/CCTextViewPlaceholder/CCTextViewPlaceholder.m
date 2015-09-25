@@ -67,11 +67,26 @@
     float left = 5,top = 2,hegiht = 30;
     
     _placeholderColor = [UIColor lightGrayColor];
-    _placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(left, top, CGRectGetWidth(self.frame)-2 * left, hegiht)];
+    _placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(left, top, CGRectGetWidth(self.frame) - 2 * left, hegiht)];
     _placeholderLabel.font = _placeholderFont ? _placeholderFont : self.font;
     _placeholderLabel.textColor = self.placeholderColor;
     [self addSubview:_placeholderLabel];
     _placeholderLabel.text = _placeholder;
+}
+
+-(void)setPlaceholder:(NSString *)placeholder
+{
+    _placeholderLabel.text = placeholder;
+}
+
+-(void)setPlaceholderColor:(UIColor *)placeholderColor
+{
+    _placeholderLabel.textColor = placeholderColor;
+}
+
+-(void)setPlaceholderFont:(UIFont *)placeholderFont
+{
+    _placeholderLabel.font = placeholderFont ? placeholderFont : self.font;
 }
 
 - (void)didTextViewChange:(NSNotification *)notification
