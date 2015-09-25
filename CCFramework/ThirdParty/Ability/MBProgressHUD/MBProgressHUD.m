@@ -529,8 +529,11 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	} else if (mode == MBProgressHUDModeGIF){
         [indicator removeFromSuperview];
         NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"load_probar_icon_bg" ofType:@"gif"]];
-        UIImageView *imageViewGIF = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-        imageViewGIF.image = [UIImage sd_animatedGIFWithData:data];
+
+        UIImage *image = [UIImage sd_animatedGIFWithData:data];
+
+        UIImageView *imageViewGIF = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0,image.size.width, image.size.height)];
+        imageViewGIF.image = image;
         self.indicator = MB_AUTORELEASE(imageViewGIF);
         [self addSubview:indicator];
     }

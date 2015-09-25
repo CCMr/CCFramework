@@ -182,7 +182,6 @@ static CCHTTPManager *_sharedlnstance = nil;
                      WithFailureBlock: (FailureBlock) failureBlock
 {
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
-
     AFHTTPRequestOperation *requestOperation = [manager POST:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
 
