@@ -394,6 +394,19 @@
 
 #pragma mark - Private
 
+/**
+ *  @author CC, 15-09-28
+ *
+ *  @brief  滑动回调函数
+ */
+-(void)slidingCallback
+{
+    SEL setupDefaultSEL = NSSelectorFromString(@"viewWillRefresh");
+    UIViewController *viewController = self.viewControllers[self.selectedIndex];
+    if ([viewController respondsToSelector:setupDefaultSEL])
+        [viewController performSelector:setupDefaultSEL withObject:nil afterDelay:.1];
+}
+
 - (void)layoutSubviews
 {
     self.scrollView.frame = CGRectMake(0, _isBarTop ? self.topBarHeight : 0, self.scrollWidth, self.scrollHeight);
@@ -411,7 +424,7 @@
 
     self.topBar.scrollView.contentOffset = [self.topBar contentOffsetForSelectedItemAtIndex:self.selectedIndex];
     self.scrollView.userInteractionEnabled = YES;
-    
+
 
     CGRect frame;
     switch (_indicatorType) {
@@ -472,7 +485,7 @@
     }
 }
 
-#pragma mark - DAPagesContainerTopBar delegate
+#pragma mark - CCPagesContainerTopBar delegate
 
 - (void)itemAtIndex:(NSUInteger)index didSelectInPagesContainerTopBar:(CCPagesContainerTopBar *)bar
 {
@@ -485,6 +498,7 @@
 {
     self.selectedIndex = scrollView.contentOffset.x / CGRectGetWidth(self.scrollView.frame);
     self.scrollView.userInteractionEnabled = YES;
+    [self slidingCallback];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate

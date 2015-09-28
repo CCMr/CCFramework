@@ -171,6 +171,7 @@
 #import <CCFramework/UIActionSheet+BUIActionSheet.h>
 #import <CCFramework/UIButton+BUIButton.h>
 #import <CCFramework/UIButton+CCButtonTitlePosition.h>
+#import <CCFramework/UIBarButtonItem+Addition.h>
 #import <CCFramework/UIButton+WebCache.h>
 #import <CCFramework/UIColor+BUIColor.h>
 #import <CCFramework/UIControl+BUIControl.h>

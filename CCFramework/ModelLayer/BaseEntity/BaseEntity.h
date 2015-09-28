@@ -109,16 +109,3 @@
 - (NSString *)ChangedJson;
 
 @end
-
-
-@interface BaseEntityList : NSObject
-
-//must override
-+ (id)dataWithJavaJsonDictonary:(NSDictionary *)jsonDic error:(NSError **)error;
-
-@property (nonatomic,assign) NSUInteger pageIndex;
-@property (nonatomic,assign) NSUInteger pageCount;
-@property (nonatomic,strong) NSMutableArray *dataList;
-
-
-@end

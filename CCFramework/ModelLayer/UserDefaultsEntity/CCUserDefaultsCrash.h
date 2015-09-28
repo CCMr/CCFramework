@@ -27,6 +27,6 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, weak) NSMutableDictionary *crashDic;
+@property (nonatomic, copy) NSMutableDictionary *crashDic;
 
 @end

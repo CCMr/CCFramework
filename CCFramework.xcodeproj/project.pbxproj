@@ -512,6 +512,8 @@
 		429CA12D1B9EF8BF0013A44A /* SignalRManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F431B9EF8BF0013A44A /* SignalRManager.m */; };
 		429CA12E1B9EF8BF0013A44A /* CCTimePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F451B9EF8BF0013A44A /* CCTimePicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA12F1B9EF8BF0013A44A /* CCTimePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F461B9EF8BF0013A44A /* CCTimePicker.m */; };
+		42AC36451BB92014007B61D6 /* UIBarButtonItem+Addition.h in Headers */ = {isa = PBXBuildFile; fileRef = 42AC36431BB92014007B61D6 /* UIBarButtonItem+Addition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42AC36461BB92014007B61D6 /* UIBarButtonItem+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AC36441BB92014007B61D6 /* UIBarButtonItem+Addition.m */; };
 		42B9D0E61B9FE3650086CA81 /* NSData+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 42B9D0E41B9FE3650086CA81 /* NSData+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42B9D0E71B9FE3650086CA81 /* NSData+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B9D0E51B9FE3650086CA81 /* NSData+Additions.m */; };
 		42DBA84F1BB4D5CB00AD47C6 /* UILabel+Addition.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA84D1BB4D5CB00AD47C6 /* UILabel+Addition.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1017,6 +1019,8 @@
 		429C9F431B9EF8BF0013A44A /* SignalRManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignalRManager.m; sourceTree = "<group>"; };
 		429C9F451B9EF8BF0013A44A /* CCTimePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTimePicker.h; sourceTree = "<group>"; };
 		429C9F461B9EF8BF0013A44A /* CCTimePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTimePicker.m; sourceTree = "<group>"; };
+		42AC36431BB92014007B61D6 /* UIBarButtonItem+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBarButtonItem+Addition.h"; path = "UIBarButtonItem/UIBarButtonItem+Addition.h"; sourceTree = "<group>"; };
+		42AC36441BB92014007B61D6 /* UIBarButtonItem+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIBarButtonItem+Addition.m"; path = "UIBarButtonItem/UIBarButtonItem+Addition.m"; sourceTree = "<group>"; };
 		42B9D0E41B9FE3650086CA81 /* NSData+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Additions.h"; sourceTree = "<group>"; };
 		42B9D0E51B9FE3650086CA81 /* NSData+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Additions.m"; sourceTree = "<group>"; };
 		42DBA84D1BB4D5CB00AD47C6 /* UILabel+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UILabel+Addition.h"; path = "UILabel/UILabel+Addition.h"; sourceTree = "<group>"; };
@@ -2169,6 +2173,7 @@
 		429C9EC51B9EF8BF0013A44A /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				429E33E91BB8FD06006C4DFF /* UIBarButtonItem */,
 				42DBA84C1BB4D5A700AD47C6 /* UILabel */,
 				42E2E81D1B9FB96100B2CE90 /* UITableView */,
 				429C9EC61B9EF8BF0013A44A /* UIActionSheet */,
@@ -2447,6 +2452,15 @@
 			path = Vender;
 			sourceTree = "<group>";
 		};
+		429E33E91BB8FD06006C4DFF /* UIBarButtonItem */ = {
+			isa = PBXGroup;
+			children = (
+				42AC36431BB92014007B61D6 /* UIBarButtonItem+Addition.h */,
+				42AC36441BB92014007B61D6 /* UIBarButtonItem+Addition.m */,
+			);
+			name = UIBarButtonItem;
+			sourceTree = "<group>";
+		};
 		42DBA84C1BB4D5A700AD47C6 /* UILabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -2605,6 +2619,7 @@
 				429C9F641B9EF8BF0013A44A /* CCNSManagedObject.h in Headers */,
 				429CA0ED1B9EF8BF0013A44A /* CCConfigurationHelper.h in Headers */,
 				429CA0CF1B9EF8BF0013A44A /* UIImage+BUIImage.h in Headers */,
+				42AC36451BB92014007B61D6 /* UIBarButtonItem+Addition.h in Headers */,
 				429CA0251B9EF8BF0013A44A /* CCVoiceRecordHUD.h in Headers */,
 				429CA1281B9EF8BF0013A44A /* CCDisplayLocationViewController.h in Headers */,
 				429CA0191B9EF8BF0013A44A /* CCPieChart.h in Headers */,
@@ -2841,6 +2856,7 @@
 				429CA08C1B9EF8BF0013A44A /* CCWaterfallsFlow.m in Sources */,
 				429CA0AE1B9EF8BF0013A44A /* SETextMagnifierRanged.m in Sources */,
 				429CA0A81B9EF8BF0013A44A /* SETextInput.m in Sources */,
+				42AC36461BB92014007B61D6 /* UIBarButtonItem+Addition.m in Sources */,
 				429CA0A61B9EF8BF0013A44A /* SETextGeometry.m in Sources */,
 				429CA0AA1B9EF8BF0013A44A /* SETextLayout.m in Sources */,
 				429CA0B21B9EF8BF0013A44A /* SETextSelectionView.m in Sources */,

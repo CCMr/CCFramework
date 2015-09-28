@@ -122,6 +122,7 @@ static void objectSetter(CCUserDefaults *self, SEL _cmd, id object) {
     } else {
         [self.userDefault removeObjectForKey:key];
     }
+    [self.userDefault synchronize];
 }
 
 #pragma mark - Begin
@@ -160,6 +161,7 @@ static void objectSetter(CCUserDefaults *self, SEL _cmd, id object) {
                 [mutableDefaults setObject:value forKey:transformedKey];
             }
             [self.userDefault registerDefaults:mutableDefaults];
+            [self.userDefault synchronize];
         }
 
         [self generateAccessorMethods];

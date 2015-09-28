@@ -390,26 +390,3 @@ static const char *getPropertyType(objc_property_t property) {
 }
 
 @end
-
-
-@implementation BaseEntityList
-
-- (id)init
-{
-    if (self = [super init]) {
-        self.dataList = [NSMutableArray new];
-    }
-
-    return self;
-}
-
-//must override
-+ (id)dataWithJavaJsonDictonary:(NSDictionary *)jsonDic error:(NSError **)error
-{
-    if ([NSStringFromClass(self.class) isEqualToString:@"BaseEntityList"]) {
-        assert(0);
-    }
-    return [self.class new];
-}
-
-@end
