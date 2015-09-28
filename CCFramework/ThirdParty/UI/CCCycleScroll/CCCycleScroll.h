@@ -35,13 +35,35 @@
 
 @property (nonatomic, assign) id<CCCycleScrollDelegate> delegate;
 
+/**
+ *  @author C C, 2015-09-28
+ *
+ *  @brief  请求图片地址
+ */
 @property (nonatomic, assign) NSArray *urlImages;
 
+/**
+ *  @author C C, 2015-09-28
+ *
+ *  @brief  是否自动轮询
+ */
 @property (nonatomic, assign) BOOL IsAutoPlay;
 
+/**
+ *  @author C C, 2015-09-28
+ *
+ *  @brief  默认图片
+ */
 @property (nonatomic, assign) UIImage *placeholder;
 
--(id)initWithFrame:(CGRect)frame ImageItems:(NSArray *)items IsAutoPlay:(BOOL)isAuto;
+/**
+ *  @author C C, 2015-09-28
+ *
+ *  @brief  是否本地图片
+ */
+@property (nonatomic, assign) BOOL IsLocalImage;
+
+-(id)initWithFrame:(CGRect)frame ImageItems:(NSArray *)items IsAutoPlay:(BOOL)isAuto IsLocalImage:(BOOL)isLocalImage;
 
 - (void)scrollToIndex:(int)aIndex;
 

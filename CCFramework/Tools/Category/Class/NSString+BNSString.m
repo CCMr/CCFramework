@@ -365,6 +365,18 @@
     return [[self componentsSeparatedByString:@"\n"] count] + 1;
 }
 
+/**
+ *  @author C C, 2015-09-28
+ *
+ *  @brief  计算文字长宽
+ *
+ *  @return 返回长宽
+ */
+- (CGSize)calculateTextWidthHeight
+{
+  return  [self sizeWithFont:[UIFont systemFontOfSize:[UIFont systemFontSize]] constrainedToSize:CGSizeMake(MAXFLOAT, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+}
+
 #pragma mark - 加密
 /**
  *  @author CC, 15-08-17

@@ -53,7 +53,7 @@ static char OperationKey;
 
     [self uploadCrashLog];
 
-    _BarTintColor = [UIColor colorFromHexCode:@"3b3f4d"];
+    _BarTintColor = [UIColor colorFromHexCode:@"ff9900"];
     [self NavigationBarColor];
 
     return YES;

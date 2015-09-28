@@ -168,6 +168,15 @@
  */
 - (NSInteger)numberOfLines;
 
+/**
+ *  @author C C, 2015-09-28
+ *
+ *  @brief  计算文字长宽
+ *
+ *  @return 返回长宽
+ */
+- (CGSize)calculateTextWidthHeight;
+
 #pragma mark - 加密
 /**
  *  @author C C, 15-08-17

@@ -269,6 +269,7 @@ static char BUTTONCARRYOBJECTS;
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button setTitle:title forState:UIControlStateNormal];
     button.titleLabel.numberOfLines = 0;
+    button.titleLabel.font = [UIFont systemFontOfSize:[UIFont systemFontSize] - 1];
     
     UIImage *LeftIcon = [UIImage imageNamed:LeftImage];
     [button setImage:LeftIcon forState:UIControlStateNormal];

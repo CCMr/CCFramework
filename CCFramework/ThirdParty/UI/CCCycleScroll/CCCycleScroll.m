@@ -43,10 +43,11 @@ static CGFloat SWITCH_FOCUS_PICTURE_INTERVAL = 5.0; //switch interval time
     return self;
 }
 
--(id)initWithFrame:(CGRect)frame ImageItems:(NSArray *)items IsAutoPlay:(BOOL)isAuto{
+-(id)initWithFrame:(CGRect)frame ImageItems:(NSArray *)items IsAutoPlay:(BOOL)isAuto IsLocalImage:(BOOL)isLocalImage{
     if (self = [super initWithFrame:frame]) {
         _IsAutoPlay = isAuto;
         containerArray = items;
+        _IsLocalImage = isLocalImage;
         [self setupViews];
     }
     return self;
@@ -85,10 +86,14 @@ static CGFloat SWITCH_FOCUS_PICTURE_INTERVAL = 5.0; //switch interval time
     
     for (int i = 0; i < containerArray.count; i++) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i * _SrcollView.frame.size.width+space, space, _SrcollView.frame.size.width-space*2, _SrcollView.frame.size.height-2*space-size.height)];
-        if (_placeholder)
-            [imageView setImageURLStr:containerArray[i] placeholder:_placeholder];
-        else
-            [imageView setImageWithURL:[NSURL URLWithString:containerArray[i]]];
+        if (_IsLocalImage) {
+            
+        }else{
+            if (_placeholder)
+                [imageView setImageURLStr:containerArray[i] placeholder:_placeholder];
+            else
+                [imageView setImageWithURL:[NSURL URLWithString:containerArray[i]]];
+        }
         imageView.tag =  1000 + i;
         [_SrcollView addSubview:imageView];
         if (bol)
