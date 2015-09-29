@@ -89,10 +89,6 @@
     return UIStatusBarStyleLightContent;
 }
 
--(NSUInteger)supportedInterfaceOrientations{
-    return UIInterfaceOrientationMaskPortrait;
-}
-
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     return UIInterfaceOrientationPortrait;
 }

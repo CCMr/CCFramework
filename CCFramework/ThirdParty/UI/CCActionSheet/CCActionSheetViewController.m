@@ -66,11 +66,6 @@
     return !self.viewAlreadyAppear;
 }
 
-- (NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskAll;
-}
-
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     UIWindow *window = self.actionSheet.previousKeyWindow;

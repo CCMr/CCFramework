@@ -29,6 +29,7 @@
 #import "UIControl+BUIControl.h"
 #import "Config.h"
 #import "UIButton+BUIButton.h"
+#import "ResourcesPhotos.h"
 
 @interface CCPhotoToolbar()
 {
@@ -80,8 +81,8 @@
     _saveImageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _saveImageBtn.frame = CGRectMake(20, 0, btnWidth, btnWidth);
     _saveImageBtn.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    [_saveImageBtn setImage:[UIImage imageNamed:@"CCPhotoBrowser.bundle/save_icon.png"] forState:UIControlStateNormal];
-    [_saveImageBtn setImage:[UIImage imageNamed:@"CCPhotoBrowser.bundle/save_icon_highlighted.png"] forState:UIControlStateHighlighted];
+    [_saveImageBtn setImage:[ResourcesPhotos save_icon] forState:UIControlStateNormal];
+    [_saveImageBtn setImage:[ResourcesPhotos save_icon_highlighted] forState:UIControlStateHighlighted];
     [_saveImageBtn addTarget:self action:@selector(saveImage) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_saveImageBtn];
     

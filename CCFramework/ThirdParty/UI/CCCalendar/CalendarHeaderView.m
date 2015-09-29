@@ -44,8 +44,8 @@
     return self;
 }
 
--(id)initWithCoder:(NSCoder *)aDecoder{
-    if (self = [super init]) {
+-(instancetype)initWithCoder:(NSCoder *)aDecoder{
+    if (self = [super initWithCoder:aDecoder]) {
         [self InitControl];
     }
     return self;

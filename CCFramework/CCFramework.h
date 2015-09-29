@@ -167,6 +167,7 @@
 #import <CCFramework/NSString+BNSString.h>
 #import <CCFramework/SignalRManager.h>
 #import <CCFramework/SmoothViewController.h>
+#import <CCFramework/ResourcesPhotos.h>
 #import <CCFramework/UILabel+Addition.h>
 #import <CCFramework/UIActionSheet+BUIActionSheet.h>
 #import <CCFramework/UIButton+BUIButton.h>

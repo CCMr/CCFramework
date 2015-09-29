@@ -1,6 +1,0 @@
-framework module CCFramework {
-  umbrella header "CCFramework.h"
-
-  export *
-  module * { export * }
-}

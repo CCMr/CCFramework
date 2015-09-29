@@ -28,6 +28,7 @@
 #import "CCPickerCollectionView.h"
 #import "CCPickerCollectionViewCell.h"
 #import "CCPhoto.h"
+#import "ResourcesPhotos.h"
 
 static NSString *const _cellIdentifier = @"CCPickerCollectionViewCell";
 
@@ -96,7 +97,7 @@ static NSString *const _cellIdentifier = @"CCPickerCollectionViewCell";
             [self.selectsIndexPath addObject:@(indexPath.row)];
             [self.selectAsstes addObject:photo];
         }
-        ((UIImageView *)obj).image  = [UIImage imageNamed:([self.selectsIndexPath containsObject:@(indexPath.row)]) ? @"AssetsYES" : @"AssetsNO"];
+        ((UIImageView *)obj).image  = [self.selectsIndexPath containsObject:@(indexPath.row)] ? [ResourcesPhotos assetsYES] : [ResourcesPhotos assetsNO];
         
         
         if ([self.collectionViewDelegate respondsToSelector:@selector(pickerCollectionViewDidSelected:)])

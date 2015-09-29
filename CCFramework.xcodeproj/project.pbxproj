@@ -516,6 +516,8 @@
 		42AC36461BB92014007B61D6 /* UIBarButtonItem+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AC36441BB92014007B61D6 /* UIBarButtonItem+Addition.m */; };
 		42B9D0E61B9FE3650086CA81 /* NSData+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 42B9D0E41B9FE3650086CA81 /* NSData+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42B9D0E71B9FE3650086CA81 /* NSData+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B9D0E51B9FE3650086CA81 /* NSData+Additions.m */; };
+		42D0EDF61BBA68E10032A489 /* ResourcesPhotos.h in Headers */ = {isa = PBXBuildFile; fileRef = 42D0EDF41BBA68E10032A489 /* ResourcesPhotos.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42D0EDF71BBA68E10032A489 /* ResourcesPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D0EDF51BBA68E10032A489 /* ResourcesPhotos.m */; settings = {ASSET_TAGS = (); }; };
 		42DBA84F1BB4D5CB00AD47C6 /* UILabel+Addition.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA84D1BB4D5CB00AD47C6 /* UILabel+Addition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42DBA8501BB4D5CB00AD47C6 /* UILabel+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBA84E1BB4D5CB00AD47C6 /* UILabel+Addition.m */; };
 		42DBA8561BB5305700AD47C6 /* CCBase64.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA8541BB5305700AD47C6 /* CCBase64.h */; };
@@ -1023,6 +1025,8 @@
 		42AC36441BB92014007B61D6 /* UIBarButtonItem+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIBarButtonItem+Addition.m"; path = "UIBarButtonItem/UIBarButtonItem+Addition.m"; sourceTree = "<group>"; };
 		42B9D0E41B9FE3650086CA81 /* NSData+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Additions.h"; sourceTree = "<group>"; };
 		42B9D0E51B9FE3650086CA81 /* NSData+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Additions.m"; sourceTree = "<group>"; };
+		42D0EDF41BBA68E10032A489 /* ResourcesPhotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourcesPhotos.h; sourceTree = "<group>"; };
+		42D0EDF51BBA68E10032A489 /* ResourcesPhotos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourcesPhotos.m; sourceTree = "<group>"; };
 		42DBA84D1BB4D5CB00AD47C6 /* UILabel+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UILabel+Addition.h"; path = "UILabel/UILabel+Addition.h"; sourceTree = "<group>"; };
 		42DBA84E1BB4D5CB00AD47C6 /* UILabel+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+Addition.m"; path = "UILabel/UILabel+Addition.m"; sourceTree = "<group>"; };
 		42DBA8541BB5305700AD47C6 /* CCBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCBase64.h; path = Base64/CCBase64.h; sourceTree = "<group>"; };
@@ -1249,6 +1253,8 @@
 			children = (
 				429C9D141B9EF8BE0013A44A /* Config.h */,
 				429C9D151B9EF8BE0013A44A /* EnumConfig.h */,
+				42D0EDF41BBA68E10032A489 /* ResourcesPhotos.h */,
+				42D0EDF51BBA68E10032A489 /* ResourcesPhotos.m */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -2719,6 +2725,7 @@
 				429C9FEF1B9EF8BF0013A44A /* SRLongPollingTransport.h in Headers */,
 				429C9FE11B9EF8BF0013A44A /* SRLog.h in Headers */,
 				429C9FDF1B9EF8BF0013A44A /* SRKeepAliveData.h in Headers */,
+				42D0EDF61BBA68E10032A489 /* ResourcesPhotos.h in Headers */,
 				429C9FED1B9EF8BF0013A44A /* SRHttpBasedTransport.h in Headers */,
 				429C9FDD1B9EF8BF0013A44A /* SRHeartbeatMonitor.h in Headers */,
 				429C9FD01B9EF8BF0013A44A /* SRExceptionHelper.h in Headers */,
@@ -2781,7 +2788,7 @@
 		429C9C8E1B9EF66A0013A44A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = CC;
 				TargetAttributes = {
 					429C9C961B9EF66A0013A44A = {
@@ -3017,6 +3024,7 @@
 				429CA0331B9EF8BF0013A44A /* CCPhotoBrowser.m in Sources */,
 				429C9F671B9EF8BF0013A44A /* CoreDataManager.m in Sources */,
 				429CA0651B9EF8BF0013A44A /* CCPickerViewController.m in Sources */,
+				42D0EDF71BBA68E10032A489 /* ResourcesPhotos.m in Sources */,
 				429CA0EC1B9EF8BF0013A44A /* CCCaptureHelper.m in Sources */,
 				42E2E8211B9FB97700B2CE90 /* UITableView+Additions.m in Sources */,
 				429C9FAB1B9EF8BF0013A44A /* CCThemeManager.m in Sources */,
@@ -3116,6 +3124,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -3200,6 +3209,7 @@
 				);
 				MACH_O_TYPE = staticlib;
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Byron.RemitChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -3223,6 +3233,7 @@
 				);
 				MACH_O_TYPE = staticlib;
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Byron.RemitChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
