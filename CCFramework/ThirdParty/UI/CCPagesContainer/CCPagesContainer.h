@@ -59,6 +59,20 @@
  */
 @property (assign, nonatomic) BOOL IsCoverd;
 
+/**
+ *  @author C C, 2015-09-29
+ *
+ *  @brief  隐藏菜单栏
+ */
+@property (assign, nonatomic) BOOL HidetabBar;
+
+/**
+ *  @author C C, 2015-09-29
+ *
+ *  @brief  是否可以滑动
+ */
+@property (assign, nonatomic) BOOL scrollEnabled;
+
 @property (assign, nonatomic) CGFloat topBarItemsOffset;
 
 @property (assign, nonatomic) CCPageContaiinerTopBarType topBarType;

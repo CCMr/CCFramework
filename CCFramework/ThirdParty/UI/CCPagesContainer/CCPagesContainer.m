@@ -78,6 +78,7 @@
 - (void)setUp
 {
     _isBarTop = YES;
+    _HidetabBar = NO;
     _topBarType = CCPageContaiinerTopBarTypeText;
     _indicatorType = CCPageIndicatorViewTypeInvertedTriangle;
     _topBarImageAry = [NSArray array];
@@ -398,6 +399,17 @@
     self.topBar.IsCovered = IsCoverd;
 }
 
+-(void)setHidetabBar:(BOOL)HidetabBar
+{
+    _HidetabBar = HidetabBar;
+    [self layoutSubviews];
+}
+
+- (void)setScrollEnabled:(BOOL)scrollEnabled
+{
+    self.scrollView.scrollEnabled = scrollEnabled;
+}
+
 #pragma mark - Private
 
 /**
@@ -417,6 +429,14 @@
 {
     self.scrollView.frame = CGRectMake(0, _isBarTop ? self.topBarHeight : 0, self.scrollWidth, self.scrollHeight);
     self.topBar.frame = CGRectMake(0., _isBarTop ? 0 : CGRectGetHeight(self.view.frame) - self.topBarHeight, CGRectGetWidth(self.view.frame), self.topBarHeight);
+    
+    self.pageIndicatorView.hidden = NO;
+    if (self.HidetabBar){
+        self.pageIndicatorView.hidden = YES;
+        self.scrollView.frame = CGRectMake(0, 0, self.scrollWidth, self.scrollHeight);
+        self.topBar.frame = CGRectMake(0, _isBarTop ? -self.topBarHeight : CGRectGetHeight(self.view.frame) + self.topBarHeight, CGRectGetWidth(self.view.frame), self.topBarHeight);
+    }
+    
     CGFloat x = 0.;
     for (UIViewController *viewController in self.viewControllers) {
         viewController.view.frame = CGRectMake(x, 0, CGRectGetWidth(self.scrollView.frame), self.scrollHeight);
@@ -469,7 +489,7 @@
 
 - (CGFloat)scrollHeight
 {
-    return CGRectGetHeight(self.view.bounds) - self.topBarHeight;
+    return CGRectGetHeight(self.view.bounds) - (self.HidetabBar ? 0 : self.topBarHeight);
 }
 
 - (CGFloat)scrollWidth
