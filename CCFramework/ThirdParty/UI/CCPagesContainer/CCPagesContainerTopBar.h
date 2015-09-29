@@ -42,6 +42,7 @@
 @property (strong, nonatomic) NSArray *itemTitles;
 @property (strong, nonatomic) UIFont *font;
 @property (assign, nonatomic) CGFloat topBarItemsOffset;
+@property (nonatomic, assign) BOOL IsCovered;
 @property (nonatomic, assign) CCPageContaiinerTopBarType topBarType;
 @property (nonatomic, strong) NSArray *topBarImageAry;
 @property (readonly, strong, nonatomic) NSArray *itemViews;

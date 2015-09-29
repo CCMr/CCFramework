@@ -53,6 +53,7 @@
 @property (nonatomic, weak, readwrite) CCEmotionManagerView *emotionManagerView;
 @property (nonatomic, strong, readwrite) CCVoiceRecordHUD *voiceRecordHUD;
 
+@property (nonatomic, strong, readonly) CCCameraViewController *camerViewController;
 
 @property (nonatomic, strong) UIView *headerContainerView;
 @property (nonatomic, strong) UIActivityIndicatorView *loadMoreActivityIndicatorView;
@@ -1170,7 +1171,8 @@ static CGPoint  delayOffset = {0.0};
     switch (shareMenuItem.itemType) {
         case CCShareMenuItemTypePhoto:
         {
-            [[CCCameraViewController alloc] startPhotoFileWithViewController:weakSelf complate:^(id request) {
+            _camerViewController = [[CCCameraViewController alloc] init];
+            [_camerViewController startPhotoFileWithViewController:weakSelf complate:^(id request) {
                 NSArray *photoAry = request;
                 [photoAry enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                     [weakSelf didSendMessageWithPhoto:obj];

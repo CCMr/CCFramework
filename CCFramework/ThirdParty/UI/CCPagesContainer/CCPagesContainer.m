@@ -392,6 +392,12 @@
     self.scrollView.bounces = bounces;
 }
 
+- (void)setIsCoverd:(BOOL)IsCoverd
+{
+    [self layoutSubviews];
+    self.topBar.IsCovered = IsCoverd;
+}
+
 #pragma mark - Private
 
 /**

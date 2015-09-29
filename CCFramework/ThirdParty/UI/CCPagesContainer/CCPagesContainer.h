@@ -52,6 +52,12 @@
  *  @brief  菜单是否显示顶部
  */
 @property (assign, nonatomic) BOOL isBarTop;
+/**
+ *  @author CC, 15-09-29
+ *
+ *  @brief  是否铺满
+ */
+@property (assign, nonatomic) BOOL IsCoverd;
 
 @property (assign, nonatomic) CGFloat topBarItemsOffset;
 
