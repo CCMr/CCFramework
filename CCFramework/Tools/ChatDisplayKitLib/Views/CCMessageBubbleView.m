@@ -40,7 +40,7 @@
 
 #define kCCUnReadDotSize 10.0f // 语音未读的红点大小
 
-#define kCCSendNotSuccessfulSize 30.0f //发送未成功消息按钮大小
+#define kCCSendNotSuccessfulSize 25.0f //发送未成功消息按钮大小
 
 #define kCCNoneBubblePhotoMargin (kCCHaveBubbleMargin - kCCBubblePhotoMargin) // 在没有气泡的时候，也就是在图片、视频、地理位置的时候，图片内部做了Margin，所以需要减去内部的Margin
 
@@ -482,10 +482,9 @@
 
         // 7. 初始化消息未发送成功时显示重新发送按钮
         if (!_sendNotSuccessfulButton) {
-            UIButton *sendNotSuccessfulButton = [UIButton buttonWithBackgroundImage:@""];
+            UIButton *sendNotSuccessfulButton = [UIButton buttonWithBackgroundImage:@"caveat"];
             sendNotSuccessfulButton.frame = CGRectMake(0, 0, kCCSendNotSuccessfulSize, kCCSendNotSuccessfulSize);
             sendNotSuccessfulButton.hidden = YES;
-            sendNotSuccessfulButton.backgroundColor = [UIColor redColor];
             [sendNotSuccessfulButton addTarget:self action:@selector(sendNotSuccessful:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:sendNotSuccessfulButton];
             _sendNotSuccessfulButton = sendNotSuccessfulButton;
