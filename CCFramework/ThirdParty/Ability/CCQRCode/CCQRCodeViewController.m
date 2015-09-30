@@ -47,6 +47,8 @@
 
 @property (nonatomic, strong) CCCaptureHelper *captureHelper;
 
+@property (nonatomic, strong) CCCameraViewController *cameraViewController;
+
 @end
 
 @implementation CCQRCodeViewController
@@ -159,7 +161,9 @@
         _captureHelper = [[CCCaptureHelper alloc] init];
         [_captureHelper setDidOutputSampleBufferHandle:^(CMSampleBufferRef sampleBuffer) {
             // 这里可以做子线程的QRCode识别
-            NSLog(@"image : %@", [CCVideoOutputSampleBufferFactory imageFromSampleBuffer:sampleBuffer]);
+            UIImage *images =  [CCVideoOutputSampleBufferFactory imageFromSampleBuffer:sampleBuffer];
+            NSLog(@"123");
+
         }];
     }
     return _captureHelper;
@@ -188,7 +192,10 @@
 }
 
 - (void)showPhotoLibray {
-    [[CCCameraViewController alloc] startPhotoFileWithViewController:self complate:^(id request) {
+    if(!_cameraViewController)
+        _cameraViewController = [[CCCameraViewController alloc] init];
+
+    [_cameraViewController startPhotoFileWithViewController:self complate:^(id request) {
 
     }];
 }

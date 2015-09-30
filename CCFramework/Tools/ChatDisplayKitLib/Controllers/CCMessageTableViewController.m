@@ -1101,7 +1101,6 @@ static CGPoint  delayOffset = {0.0};
 }
 
 - (void)didSelectedMultipleMediaAction {
-    NSLog(@"didSelectedMultipleMediaAction");
     self.textViewInputViewType = CCInputViewTypeShareMenu;
     [self layoutOtherMenuViewHiden:NO];
 }
@@ -1116,22 +1115,18 @@ static CGPoint  delayOffset = {0.0};
 }
 
 - (void)prepareRecordingVoiceActionWithCompletion:(BOOL (^)(void))completion {
-    NSLog(@"prepareRecordingWithCompletion");
     [self prepareRecordWithCompletion:completion];
 }
 
 - (void)didStartRecordingVoiceAction {
-    NSLog(@"didStartRecordingVoice");
     [self startRecord];
 }
 
 - (void)didCancelRecordingVoiceAction {
-    NSLog(@"didCancelRecordingVoice");
     [self cancelRecord];
 }
 
 - (void)didFinishRecoingVoiceAction {
-    NSLog(@"didFinishRecoingVoice");
     if (self.isMaxTimeStop == NO) {
         [self finishRecorded];
     } else {
@@ -1140,12 +1135,10 @@ static CGPoint  delayOffset = {0.0};
 }
 
 - (void)didDragOutsideAction {
-    NSLog(@"didDragOutsideAction");
     [self resumeRecord];
 }
 
 - (void)didDragInsideAction {
-    NSLog(@"didDragInsideAction");
     [self pauseRecord];
 }
 
