@@ -46,7 +46,7 @@
  *
  *  @since <#version number#>
  */
-@property (nonatomic, assign) Completion completion;
+@property (nonatomic, strong) Completion completion;
 
 @end
 
@@ -173,7 +173,7 @@
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     if (error.code == kCLErrorDenied)
-        NSLog(@"Loaction %ld",(long)error.code);
+        _completion([NSString stringWithFormat:@"请在系统设置中，打开\"隐私 - 定位服务\", 并允许%@使用定位服务",AppName]);
 }
 
 

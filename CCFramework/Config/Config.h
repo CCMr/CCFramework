@@ -146,6 +146,7 @@ typedef void (^ProgressBlock)(NSUInteger bytesRead, long long totalBytesRead, lo
 
 #define Bundle                              [NSBundle mainBundle]
 #define VersonNumber                        [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey] //版本号
+#define AppName                             [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleNameKey] //应用名称
 
 #define deviceUID                           [[[UIDevice currentDevice] identifierForVendor] UUIDString] //设备编号
 #define deviceType                          [[UIDevice currentDevice] model]; //设备类型
