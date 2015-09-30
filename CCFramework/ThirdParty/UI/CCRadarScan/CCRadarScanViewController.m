@@ -1,0 +1,119 @@
+//
+//  CCRadarScanViewController.m
+//  CCFramework
+//
+// Copyright (c) 2015 CC ( http://www.ccskill.com )
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+//
+
+#import "CCRadarScanViewController.h"
+#import "CCRadarPointView.h"
+
+@interface CCRadarScanViewController ()
+
+@property (nonatomic, strong) CCRadarView *radarView;
+
+@end
+
+@implementation CCRadarScanViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    [self InitControl];
+    [self InitLoadData];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [_radarView startScanning];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+}
+
+- (void)InitControl
+{
+    _radarView = [[CCRadarView alloc] initWithFrame:self.view.bounds];
+    _radarView.dataSource = self;
+    _radarView.delegate = self;
+    _radarView.radius = 180;
+    _radarView.imageRadius = 38;
+    _radarView.labelText = @"正在搜索附近的目标";
+    [self.view addSubview:_radarView];
+}
+
+-(void)setBackgroundImage:(NSString *)backgroundImage
+{
+    _radarView.backgroundImage = [UIImage imageNamed:backgroundImage];
+}
+
+-(void)setPersonImage:(NSString *)personImage
+{
+    _radarView.PersonImage = [UIImage imageNamed:personImage];
+}
+
+/**
+ *  @author CC, 15-09-30
+ *
+ *  @brief  加载数据
+ */
+- (void)InitLoadData
+{
+
+}
+
+/**
+ *  @author CC, 15-09-30
+ *
+ *  @brief  刷新数据
+ */
+-(void)reloadData
+{
+    [_radarView reloadData];
+}
+
+#pragma mark - CCRaderViewDataSource
+- (NSInteger)numberOfSectionsInRadarView:(CCRadarView *)radarView
+{
+    return 4;
+}
+
+
+- (NSInteger)numberOfPointsInRadarView:(CCRadarView *)radarView
+{
+    return self.userDataArray.count;
+}
+
+-(void)didDropOut
+{
+    [self dismissViewControllerAnimated:NO completion:nil];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+@end

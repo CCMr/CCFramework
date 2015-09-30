@@ -21,6 +21,14 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		4230E1851BBB83000001E68F /* CCRadarIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4230E1831BBB83000001E68F /* CCRadarIndicatorView.h */; settings = {ASSET_TAGS = (); }; };
+		4230E1861BBB83000001E68F /* CCRadarIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E1841BBB83000001E68F /* CCRadarIndicatorView.m */; settings = {ASSET_TAGS = (); }; };
+		4230E18D1BBB83CE0001E68F /* CCRadarPointView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4230E18B1BBB83CE0001E68F /* CCRadarPointView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4230E18E1BBB83CE0001E68F /* CCRadarPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E18C1BBB83CE0001E68F /* CCRadarPointView.m */; settings = {ASSET_TAGS = (); }; };
+		4230E1911BBB83E40001E68F /* CCRadarView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4230E18F1BBB83E40001E68F /* CCRadarView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4230E1921BBB83E40001E68F /* CCRadarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E1901BBB83E40001E68F /* CCRadarView.m */; settings = {ASSET_TAGS = (); }; };
+		4230E1961BBB8F7C0001E68F /* CCRadarScanViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4230E1941BBB8F7C0001E68F /* CCRadarScanViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4230E1971BBB8F7C0001E68F /* CCRadarScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E1951BBB8F7C0001E68F /* CCRadarScanViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4264D73E1BA2C19100E83159 /* CCPageIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4264D7381BA2C19100E83159 /* CCPageIndicatorView.h */; };
 		4264D73F1BA2C19100E83159 /* CCPageIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4264D7391BA2C19100E83159 /* CCPageIndicatorView.m */; };
 		4264D7401BA2C19100E83159 /* CCPagesContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4264D73A1BA2C19100E83159 /* CCPagesContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -528,6 +536,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4230E1831BBB83000001E68F /* CCRadarIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRadarIndicatorView.h; path = Radar/Scanning/CCRadarIndicatorView.h; sourceTree = "<group>"; };
+		4230E1841BBB83000001E68F /* CCRadarIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRadarIndicatorView.m; path = Radar/Scanning/CCRadarIndicatorView.m; sourceTree = "<group>"; };
+		4230E18B1BBB83CE0001E68F /* CCRadarPointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRadarPointView.h; path = Radar/Scanning/CCRadarPointView.h; sourceTree = "<group>"; };
+		4230E18C1BBB83CE0001E68F /* CCRadarPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRadarPointView.m; path = Radar/Scanning/CCRadarPointView.m; sourceTree = "<group>"; };
+		4230E18F1BBB83E40001E68F /* CCRadarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRadarView.h; path = Radar/Scanning/CCRadarView.h; sourceTree = "<group>"; };
+		4230E1901BBB83E40001E68F /* CCRadarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRadarView.m; path = Radar/Scanning/CCRadarView.m; sourceTree = "<group>"; };
+		4230E1941BBB8F7C0001E68F /* CCRadarScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRadarScanViewController.h; path = CCRadarScan/CCRadarScanViewController.h; sourceTree = "<group>"; };
+		4230E1951BBB8F7C0001E68F /* CCRadarScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRadarScanViewController.m; path = CCRadarScan/CCRadarScanViewController.m; sourceTree = "<group>"; };
 		4264D7381BA2C19100E83159 /* CCPageIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPageIndicatorView.h; path = CCPagesContainer/CCPageIndicatorView.h; sourceTree = "<group>"; };
 		4264D7391BA2C19100E83159 /* CCPageIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCPageIndicatorView.m; path = CCPagesContainer/CCPageIndicatorView.m; sourceTree = "<group>"; };
 		4264D73A1BA2C19100E83159 /* CCPagesContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPagesContainer.h; path = CCPagesContainer/CCPagesContainer.h; sourceTree = "<group>"; };
@@ -1047,6 +1063,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4230E1811BBB7F730001E68F /* Radar */ = {
+			isa = PBXGroup;
+			children = (
+				4230E1821BBB7F930001E68F /* Scanning */,
+			);
+			name = Radar;
+			sourceTree = "<group>";
+		};
+		4230E1821BBB7F930001E68F /* Scanning */ = {
+			isa = PBXGroup;
+			children = (
+				4230E1831BBB83000001E68F /* CCRadarIndicatorView.h */,
+				4230E1841BBB83000001E68F /* CCRadarIndicatorView.m */,
+				4230E18B1BBB83CE0001E68F /* CCRadarPointView.h */,
+				4230E18C1BBB83CE0001E68F /* CCRadarPointView.m */,
+				4230E18F1BBB83E40001E68F /* CCRadarView.h */,
+				4230E1901BBB83E40001E68F /* CCRadarView.m */,
+			);
+			name = Scanning;
+			sourceTree = "<group>";
+		};
+		4230E1931BBB8F4D0001E68F /* CCRadarScan */ = {
+			isa = PBXGroup;
+			children = (
+				4230E1941BBB8F7C0001E68F /* CCRadarScanViewController.h */,
+				4230E1951BBB8F7C0001E68F /* CCRadarScanViewController.m */,
+			);
+			name = CCRadarScan;
+			sourceTree = "<group>";
+		};
 		425A76B41BA17FE8006D18FE /* CCPagesContainer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1639,6 +1685,7 @@
 		429C9DD51B9EF8BE0013A44A /* Animation */ = {
 			isa = PBXGroup;
 			children = (
+				4230E1811BBB7F730001E68F /* Radar */,
 				429C9DD61B9EF8BE0013A44A /* CCSlideShadowAnimation */,
 				429C9DD91B9EF8BE0013A44A /* Rotation */,
 			);
@@ -1666,6 +1713,7 @@
 		429C9DDC1B9EF8BF0013A44A /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				4230E1931BBB8F4D0001E68F /* CCRadarScan */,
 				425A76B41BA17FE8006D18FE /* CCPagesContainer */,
 				429C9DDD1B9EF8BF0013A44A /* CCActionSheet */,
 				429C9DE21B9EF8BF0013A44A /* CCAnimatedImageView */,
@@ -2631,6 +2679,7 @@
 				429CA0191B9EF8BF0013A44A /* CCPieChart.h in Headers */,
 				4269792B1BA695BA00C3E93C /* AFURLSessionManager.h in Headers */,
 				429CA0951B9EF8BF0013A44A /* CustomIOS7AlertView.h in Headers */,
+				4230E1851BBB83000001E68F /* CCRadarIndicatorView.h in Headers */,
 				429CA01F1B9EF8BF0013A44A /* CCLoadLogoView.h in Headers */,
 				429CA0DD1B9EF8BF0013A44A /* UIScrollView+CCkeyboardControl.h in Headers */,
 				429CA0831B9EF8BF0013A44A /* CCTextViewPlaceholder.h in Headers */,
@@ -2642,6 +2691,7 @@
 				429C9F581B9EF8BF0013A44A /* BaseViewController.h in Headers */,
 				429CA00B1B9EF8BF0013A44A /* CalendarCollectionViewCell.h in Headers */,
 				429CA0871B9EF8BF0013A44A /* CCLabel.h in Headers */,
+				4230E1961BBB8F7C0001E68F /* CCRadarScanViewController.h in Headers */,
 				429CA0071B9EF8BF0013A44A /* CCAnimatedImageView.h in Headers */,
 				429CA0E91B9EF8BF0013A44A /* CCAudioPlayerHelper.h in Headers */,
 				429CA12A1B9EF8BF0013A44A /* CCLocationManager.h in Headers */,
@@ -2684,6 +2734,7 @@
 				429CA0601B9EF8BF0013A44A /* CCPickerAssetsViewController.h in Headers */,
 				429CA0D91B9EF8BF0013A44A /* UIImage+RoundedCorner.h in Headers */,
 				429CA0891B9EF8BF0013A44A /* CCAutoTextView.h in Headers */,
+				4230E18D1BBB83CE0001E68F /* CCRadarPointView.h in Headers */,
 				429CA08B1B9EF8BF0013A44A /* CCWaterfallsFlow.h in Headers */,
 				429CA05A1B9EF8BF0013A44A /* UIImage+WebP.h in Headers */,
 				426979311BA695BA00C3E93C /* AFURLConnectionOperation.h in Headers */,
@@ -2718,6 +2769,7 @@
 				429C9FF51B9EF8BF0013A44A /* SRWebSocketConnectionInfo.h in Headers */,
 				429C9FFB1B9EF8BF0013A44A /* SRWebSocket.h in Headers */,
 				429C9FD31B9EF8BF0013A44A /* SRVersion.h in Headers */,
+				4230E1911BBB83E40001E68F /* CCRadarView.h in Headers */,
 				429C9FF11B9EF8BF0013A44A /* SRServerSentEventsTransport.h in Headers */,
 				429C9FE81B9EF8BF0013A44A /* SRServerSentEvent.h in Headers */,
 				429C9FE21B9EF8BF0013A44A /* SRNegotiationResponse.h in Headers */,
@@ -2951,6 +3003,7 @@
 				426979421BA695BA00C3E93C /* UIButton+AFNetworking.m in Sources */,
 				429C9FC41B9EF8BF0013A44A /* SRHubProxy.m in Sources */,
 				429CA0081B9EF8BF0013A44A /* CCAnimatedImageView.m in Sources */,
+				4230E1861BBB83000001E68F /* CCRadarIndicatorView.m in Sources */,
 				429C9FA71B9EF8BF0013A44A /* SmoothScrollView.m in Sources */,
 				429CA0781B9EF8BF0013A44A /* CCPopMenuView.m in Sources */,
 				429CA0121B9EF8BF0013A44A /* CalendarHeaderView.m in Sources */,
@@ -2991,6 +3044,7 @@
 				429CA12B1B9EF8BF0013A44A /* CCLocationManager.m in Sources */,
 				429CA0E41B9EF8BF0013A44A /* UIView+CCRemoteImage.m in Sources */,
 				429CA0EE1B9EF8BF0013A44A /* CCConfigurationHelper.m in Sources */,
+				4230E1921BBB83E40001E68F /* CCRadarView.m in Sources */,
 				429CA0DA1B9EF8BF0013A44A /* UIImage+RoundedCorner.m in Sources */,
 				429CA0F41B9EF8BF0013A44A /* CCMessageBubbleHelper.m in Sources */,
 				429C9FC71B9EF8BF0013A44A /* SRHubRegistrationData.m in Sources */,
@@ -3044,6 +3098,7 @@
 				429CA0441B9EF8BF0013A44A /* SDImageCache.m in Sources */,
 				429CA0301B9EF8BF0013A44A /* CCPhoto.m in Sources */,
 				429C9F5B1B9EF8BF0013A44A /* BaseTableViewHeaderFooterView.m in Sources */,
+				4230E1971BBB8F7C0001E68F /* CCRadarScanViewController.m in Sources */,
 				429CA11F1B9EF8BF0013A44A /* CCEmotionCollectionViewFlowLayout.m in Sources */,
 				429CA0A01B9EF8BF0013A44A /* SESelectionGrabber.m in Sources */,
 				429CA0821B9EF8BF0013A44A /* CCTableViewCell.m in Sources */,
@@ -3093,6 +3148,7 @@
 				429CA0DC1B9EF8BF0013A44A /* UIImage+Utility.m in Sources */,
 				429CA0B61B9EF8BF0013A44A /* CCCameraViewController.m in Sources */,
 				4269794B1BA695BA00C3E93C /* UIWebView+AFNetworking.m in Sources */,
+				4230E18E1BBB83CE0001E68F /* CCRadarPointView.m in Sources */,
 				4269793A1BA695BA00C3E93C /* AFURLResponseSerialization.m in Sources */,
 				429CA1081B9EF8BF0013A44A /* CCMessageVoiceFactory.m in Sources */,
 				4269793C1BA695BA00C3E93C /* AFNetworkActivityIndicatorManager.m in Sources */,

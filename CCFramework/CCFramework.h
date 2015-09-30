@@ -147,6 +147,9 @@
 #import <CCFramework/CCWebViewController.h>
 #import <CCFramework/CCWebViewProgress.h>
 #import <CCFramework/CCWebViewProgressView.h>
+#import <CCFramework/CCRadarScanViewController.h>
+#import <CCFramework/CCRadarView.h>
+#import <CCFramework/CCRadarPointView.h>
 #import <CCFramework/ColumnarChart.h>
 #import <CCFramework/Config.h>
 #import <CCFramework/CoreDataManager.h>
