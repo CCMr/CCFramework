@@ -105,11 +105,6 @@
 @property (nonatomic, weak, readonly) CCBadgeView *timestampLabel;
 
 /**
- *  Cell所在的位置，用于Cell delegate回调
- */
-@property (nonatomic, strong) NSIndexPath *indexPath;
-
-/**
  *  获取消息类型
  *
  *  @return 返回消息类型，比如是发送消息，又或者是接收消息

@@ -28,6 +28,24 @@
 @interface UIButton (BUIButton)
 
 /**
+ *  @author C C, 2015-10-01
+ *
+ *  @brief  设置标题普通与高亮
+ *
+ *  @param title 标题
+ */
+- (void)setTitle:(NSString *)title;
+
+/**
+ *  @author C C, 2015-10-01
+ *
+ *  @brief  设置标题文字颜色普通与高亮
+ *
+ *  @param color 标题颜色
+ */
+- (void)setTitleColor:(UIColor *)color;
+
+/**
  *  @author CC, 2015-07-16
  *
  *  @brief  扩展属性

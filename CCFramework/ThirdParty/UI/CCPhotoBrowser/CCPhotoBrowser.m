@@ -26,13 +26,13 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CCPhotoBrowser.h"
 #import "CCPhoto.h"
-#import "SDWebImageManager+MJ.h"
 #import "CCPhotoView.h"
 #import "CCPhotoToolbar.h"
 #import "Config.h"
 #import "UIControl+BUIControl.h"
 #import "UIButton+BUIButton.h"
 #import "ResourcesPhotos.h"
+#import "SDWebImageDownloader.h"
 
 #define kPadding 10
 #define kPhotoViewTagOffset 1000
@@ -308,12 +308,12 @@
 - (void)loadImageNearIndex:(NSUInteger)index{
     if (index > 0) {
         CCPhoto *photo = _photos[index - 1];
-        [SDWebImageManager downloadWithURL:photo.url];
+        [SDWebImageDownloader.sharedDownloader downloadImageWithURL:photo.url options:0 progress:nil completed:nil];
     }
     
     if (index < _photos.count - 1) {
         CCPhoto *photo = _photos[index + 1];
-        [SDWebImageManager downloadWithURL:photo.url];
+        [SDWebImageDownloader.sharedDownloader downloadImageWithURL:photo.url options:0 progress:nil completed:nil];
     }
 }
 

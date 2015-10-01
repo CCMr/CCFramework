@@ -527,7 +527,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     _avatarButton = nil;
     _timestampLabel = nil;
     _messageBubbleView = nil;
-    _indexPath = nil;
+    self.indexPath = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

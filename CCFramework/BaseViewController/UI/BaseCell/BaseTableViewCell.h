@@ -38,6 +38,13 @@
 @property (nonatomic, strong) Completion completion;
 
 /**
+ *  @author C C, 2015-10-01
+ *
+ *  @brief  Cell 获取下标
+ */
+@property (nonatomic, strong) NSIndexPath *indexPath;
+
+/**
  *  @author CC, 2015-07-29
  *
  *  @brief  使用XIB初始化

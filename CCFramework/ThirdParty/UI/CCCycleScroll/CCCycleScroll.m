@@ -25,8 +25,8 @@
 
 #import "CCCycleScroll.h"
 #import "Config.h"
-#import "UIImageView+MJWebCache.h"
 #import "UIView+BUIView.h"
+#import "UIImageView+WebCache.h"
 
 @implementation CCCycleScroll{
     NSArray *containerArray;
@@ -90,9 +90,9 @@ static CGFloat SWITCH_FOCUS_PICTURE_INTERVAL = 5.0; //switch interval time
             
         }else{
             if (_placeholder)
-                [imageView setImageURLStr:containerArray[i] placeholder:_placeholder];
+            [imageView sd_setImageWithURLStr:containerArray[i] placeholderImage:_placeholder];
             else
-                [imageView setImageWithURL:[NSURL URLWithString:containerArray[i]]];
+                [imageView sd_setImageWithURLStr:containerArray[i]];
         }
         imageView.tag =  1000 + i;
         [_SrcollView addSubview:imageView];
