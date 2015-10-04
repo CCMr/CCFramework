@@ -32,6 +32,7 @@
 #import "UIControl+BUIControl.h"
 #import "NSDate+BNSDate.h"
 #import "Config.h"
+#import "ResourcesPhotos.h"
 
 static NSString *CellIdentifier = @"CalendarCell";
 static NSString *CellHeaderIdentifier = @"CalendarHeader";
@@ -44,7 +45,6 @@ static NSString *CellHeaderIdentifier = @"CalendarHeader";
 @property (nonatomic, strong) CalendarLogic *calendarLogic;
 
 @property (nonatomic, assign) int dayNumber;
-@property (nonatomic, assign) int optionDayNumbers;
 @property (nonatomic, assign) int selectdDayNumber;
 
 @end
@@ -53,7 +53,7 @@ static NSString *CellHeaderIdentifier = @"CalendarHeader";
 
 -(id)initWithToDay:(int)day TitleName:(NSString *)titleName{
     if (self = [super init]) {
-        _optionDayNumbers = 1;
+        _optionDayNumber = 1;
         _dayNumber = day;
         self.title = titleName;
         
@@ -82,14 +82,13 @@ static NSString *CellHeaderIdentifier = @"CalendarHeader";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    
 }
 
-
--(void)InitNavigation{
+-(void)InitNavigation
+{
     UIButton *NavLeftBtn = [UIButton buttonWith];
-    [NavLeftBtn setImage:[UIImage imageNamed:@"public_back_btu_normal"] forState:UIControlStateNormal];
+    [NavLeftBtn setImage:[ResourcesPhotos retuens] forState:UIControlStateNormal];
+    NavLeftBtn.frame = CGRectMake(0, 0, 15, 20);
     __weak typeof (self)weakSelf = self;
     [NavLeftBtn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
         [weakSelf.navigationController popViewControllerAnimated:YES];

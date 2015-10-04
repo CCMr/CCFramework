@@ -161,7 +161,6 @@
 #import <CCFramework/MBProgressHUD+Add.h>
 #import <CCFramework/NavMainViewController.h>
 #import <CCFramework/NSArray+BNSArray.h>
-#import <CCFramework/NSData+GIF.h>
 #import <CCFramework/NSData+SRB64Additions.h>
 #import <CCFramework/NSDate+BNSDate.h>
 #import <CCFramework/NSData+Additions.h>
@@ -191,7 +190,6 @@
 #import <CCFramework/UIImage+RoundedCorner.h>
 #import <CCFramework/UIImage+Utility.h>
 #import <CCFramework/UIImage+WebP.h>
-#import <CCFramework/UIImageView+MJWebCache.h>
 #import <CCFramework/UIImageView+WebCache.h>
 #import <CCFramework/UIScrollView+CCkeyboardControl.h>
 #import <CCFramework/UITableView+Additions.h>

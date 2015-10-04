@@ -46,13 +46,32 @@
 - (void)setTitleColor:(UIColor *)color;
 
 /**
+ *  @author C C, 2015-10-02
+ *
+ *  @brief  设置文本字体
+ *
+ *  @param font 字体
+ */
+- (void)setFont:(UIFont *)font;
+
+/**
+ *  @author C C, 2015-10-03
+ *
+ *  @brief  设置上图下文的图片与颜色
+ *
+ *  @param image 图片
+ *  @param color 文字颜色
+ */
+- (void)setButtonUpImageNextTilte:(NSString *)image TitleColor:(UIColor *)color;
+
+/**
  *  @author CC, 2015-07-16
  *
  *  @brief  扩展属性
  *
  *  @since 1.0
  */
-@property (nonatomic, retain) NSObject *carryObjects;
+@property (nonatomic, retain) id carryObjects;
 
 /**
  *  @author CC, 2015-07-16

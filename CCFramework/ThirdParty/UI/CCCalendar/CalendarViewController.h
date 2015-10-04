@@ -33,13 +33,13 @@ typedef void (^CalendarBlock)(NSDictionary *calendarDay);
 }
 
 @property (nonatomic, assign) int optionDayNumber; //多选日期； 默认选择一个日期。
-@property (nonatomic, assign) NSDate *beginDate; //开始时间
-@property (nonatomic, assign) NSDate *endDate; //结束日期
-@property (nonatomic, assign) NSString *beginAnnotation; //开始时间注释
-@property (nonatomic, assign) NSString *endAnnotation; //结束时间注释
+@property (nonatomic, strong) NSDate *beginDate; //开始时间
+@property (nonatomic, strong) NSDate *endDate; //结束日期
+@property (nonatomic, copy) NSString *beginAnnotation; //开始时间注释
+@property (nonatomic, copy) NSString *endAnnotation; //结束时间注释
 @property (nonatomic, assign) BOOL IsTips; //是否启用提示语
-@property (nonatomic, assign) NSString *beinTips; //开始提示语
-@property (nonatomic, assign) NSString *endTips;  //结束提示语
+@property (nonatomic, copy) NSString *beinTips; //开始提示语
+@property (nonatomic, copy) NSString *endTips;  //结束提示语
 
 
 -(id)initWithToDay:(int)day TitleName:(NSString *)titleName;

@@ -30,11 +30,11 @@ static char BUTTONCARRYOBJECTS;
 
 @implementation UIButton (BUIButton)
 
--(void)setCarryObjects:(NSObject *)carryObjects{
+-(void)setCarryObjects:(id)carryObjects{
     objc_setAssociatedObject(self, &BUTTONCARRYOBJECTS, carryObjects, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
--(NSObject *)carryObjects{
+-(id)carryObjects{
     return objc_getAssociatedObject(self, &BUTTONCARRYOBJECTS);
 }
 
@@ -62,6 +62,50 @@ static char BUTTONCARRYOBJECTS;
 {
     [self setTitleColor:color forState:UIControlStateNormal];
     [self setTitleColor:color forState:UIControlStateHighlighted];
+}
+
+/**
+ *  @author C C, 2015-10-02
+ *
+ *  @brief  设置文本字体
+ *
+ *  @param font 字体
+ */
+- (void)setFont:(UIFont *)font
+{
+    [self.titleLabel setFont:font];
+}
+
+/**
+ *  @author C C, 2015-10-03
+ *
+ *  @brief  设置按钮不可用
+ *
+ *  @param enabled <#enabled description#>
+ */
+-(void)setEnabled:(BOOL)enabled
+{
+    [super setEnabled:enabled];
+    UIImageView *imageView = (UIImageView *)[self viewWithTag:8888];
+    imageView.alpha = enabled ? 1 : 0.5;
+    UILabel *titleLabel = (UILabel *)[self viewWithTag:9999];
+    titleLabel.alpha = enabled ? 1 : 0.5;
+}
+
+/**
+ *  @author C C, 2015-10-03
+ *
+ *  @brief  设置上图下文的图片与颜色
+ *
+ *  @param image 图片
+ *  @param color 文字颜色
+ */
+- (void)setButtonUpImageNextTilte:(NSString *)image TitleColor:(UIColor *)color
+{
+    UIImageView *imageView = (UIImageView *)[self viewWithTag:8888];
+    imageView.image = [UIImage imageNamed:image];
+    UILabel *titleLabel = (UILabel *)[self viewWithTag:9999];
+    titleLabel.textColor = color;
 }
 
 /**
@@ -327,22 +371,22 @@ static char BUTTONCARRYOBJECTS;
     UIImageView *imageView = (UIImageView *)[button viewWithTag:8888];
     if (!imageView) {
         CGFloat x = (frame.size.width - Image.size.width) / 2;
-        CGFloat y = 5;
+        CGFloat y = (frame.size.height - Image.size.height - 20) / 2;
         CGFloat w = Image.size.width;
         CGFloat h = Image.size.height;
-
+        
         if (Image.size.width > frame.size.width) {
             x = 0;
             w = frame.size.width;
         }
-
+        
         if (Image.size.height > frame.size.height) {
             y = 0;
             h = frame.size.height - 20;
         }
-
+        
         imageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, w, h)];
-
+        
         imageView.tag = 8888;
         [button addSubview:imageView];
     }
