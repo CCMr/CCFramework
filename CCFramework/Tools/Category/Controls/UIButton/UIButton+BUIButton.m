@@ -62,6 +62,10 @@ static char BUTTONCARRYOBJECTS;
 {
     [self setTitleColor:color forState:UIControlStateNormal];
     [self setTitleColor:color forState:UIControlStateHighlighted];
+    
+    UILabel *title = (UILabel *)[self viewWithTag:9999];
+    if ([title isKindOfClass:[UILabel class]])
+        title.textColor = color;
 }
 
 /**
