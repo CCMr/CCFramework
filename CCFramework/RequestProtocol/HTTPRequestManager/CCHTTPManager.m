@@ -125,6 +125,7 @@ static CCHTTPManager *_sharedlnstance = nil;
     return netState;
 }
 
+#pragma mark - 请求方式
 /**
  *  @author CC, 2015-07-23
  *
@@ -184,16 +185,8 @@ static CCHTTPManager *_sharedlnstance = nil;
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
     AFHTTPRequestOperation *requestOperation = [manager POST:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-
         NSLog(@"%@", dic);
-
         block(dic);
-        /***************************************
-         在这做判断如果有dic里有errorCode
-         调用errorBlock(dic)
-         没有errorCode则调用block(dic
-         ******************************/
-
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failureBlock(error);
     }];
@@ -202,6 +195,127 @@ static CCHTTPManager *_sharedlnstance = nil;
 
     [requestOperation start];
 
+}
+
+/**
+ *  @author CC, 2015-10-08
+ *
+ *  @brief  DELETE请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param block            完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ */
+- (void) NetRequestDELETEWithRequestURL: (NSString *) requestURLString
+                          WithParameter: (NSDictionary *) parameter
+                   WithReturnValeuBlock: (RequestComplete) block
+                     WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
+                       WithFailureBlock: (FailureBlock) failureBlock
+{
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
+    AFHTTPRequestOperation *requestOperation = [manager DELETE:requestURLString parameters:parameter success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        NSLog(@"%@", dic);
+        block(dic);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        failureBlock(error);
+    }];
+
+    requestOperation.responseSerializer = [AFHTTPResponseSerializer serializer];
+
+    [requestOperation start];
+}
+
+/**
+ *  @author CC, 2015-10-08
+ *
+ *  @brief  HEAD请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param block            完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ */
+- (void) NetRequestHEADWithRequestURL: (NSString *) requestURLString
+                        WithParameter: (NSDictionary *) parameter
+                 WithReturnValeuBlock: (RequestComplete) block
+                   WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
+                     WithFailureBlock: (FailureBlock) failureBlock
+{
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
+    AFHTTPRequestOperation *requestOperation = [manager HEAD:requestURLString parameters:parameter success:^(AFHTTPRequestOperation * _Nonnull operation) {
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        failureBlock(error);
+    }];
+    requestOperation.responseSerializer = [AFHTTPResponseSerializer serializer];
+
+    [requestOperation start];
+}
+
+/**
+ *  @author CC, 2015-10-08
+ *
+ *  @brief  PUT请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param block            完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ */
+- (void) NetRequestPUTWithRequestURL: (NSString *) requestURLString
+                          WithParameter: (NSDictionary *) parameter
+                   WithReturnValeuBlock: (RequestComplete) block
+                     WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
+                       WithFailureBlock: (FailureBlock) failureBlock
+{
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
+    AFHTTPRequestOperation *requestOperation = [manager PUT:requestURLString parameters:parameter success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        NSLog(@"%@", dic);
+        block(dic);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        failureBlock(error);
+    }];
+
+    requestOperation.responseSerializer = [AFHTTPResponseSerializer serializer];
+
+    [requestOperation start];
+}
+
+/**
+ *  @author CC, 2015-10-08
+ *
+ *  @brief  PATCH请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param block            完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ */
+- (void) NetRequestPATCHWithRequestURL: (NSString *) requestURLString
+                          WithParameter: (NSDictionary *) parameter
+                   WithReturnValeuBlock: (RequestComplete) block
+                     WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
+                       WithFailureBlock: (FailureBlock) failureBlock
+{
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
+    AFHTTPRequestOperation *requestOperation = [manager PATCH:requestURLString parameters:parameter success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        NSLog(@"%@", dic);
+        block(dic);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        failureBlock(error);
+    }];
+
+    requestOperation.responseSerializer = [AFHTTPResponseSerializer serializer];
+
+    [requestOperation start];
 }
 
 #pragma mark - 上传下载
@@ -304,7 +418,7 @@ static CCHTTPManager *_sharedlnstance = nil;
                 postFileName = [NSString stringWithFormat:@"%@.jpg", str];
             }
                 break;
-                
+
             default:
                 break;
         }
@@ -314,7 +428,7 @@ static CCHTTPManager *_sharedlnstance = nil;
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         block(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        errorBlock(error);  
+        errorBlock(error);
     }];
 
     [requestOperation start];

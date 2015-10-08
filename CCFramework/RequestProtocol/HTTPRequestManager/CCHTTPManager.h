@@ -53,6 +53,7 @@
  */
 + (BOOL) netWorkReachabilityWithURLString:(NSString *) strUrl;
 
+#pragma mark - 请求方式
 /**
  *  @author CC, 2015-07-23
  *
@@ -92,6 +93,73 @@
                    WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
                      WithFailureBlock: (FailureBlock) failureBlock;
 
+/**
+ *  @author CC, 2015-10-08
+ *
+ *  @brief  DELETE请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param block            完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ */
+- (void) NetRequestDELETEWithRequestURL: (NSString *) requestURLString
+                          WithParameter: (NSDictionary *) parameter
+                   WithReturnValeuBlock: (RequestComplete) block
+                     WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
+                       WithFailureBlock: (FailureBlock) failureBlock;
+
+/**
+ *  @author CC, 2015-10-08
+ *
+ *  @brief  HEAD请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param block            完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ */
+- (void) NetRequestHEADWithRequestURL: (NSString *) requestURLString
+                        WithParameter: (NSDictionary *) parameter
+                 WithReturnValeuBlock: (RequestComplete) block
+                   WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
+                     WithFailureBlock: (FailureBlock) failureBlock;
+
+/**
+ *  @author CC, 2015-10-08
+ *
+ *  @brief  PUT请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param block            完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ */
+- (void) NetRequestPUTWithRequestURL: (NSString *) requestURLString
+                       WithParameter: (NSDictionary *) parameter
+                WithReturnValeuBlock: (RequestComplete) block
+                  WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
+                    WithFailureBlock: (FailureBlock) failureBlock;
+
+/**
+ *  @author CC, 2015-10-08
+ *
+ *  @brief  PATCH请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param block            完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ */
+- (void) NetRequestPATCHWithRequestURL: (NSString *) requestURLString
+                         WithParameter: (NSDictionary *) parameter
+                  WithReturnValeuBlock: (RequestComplete) block
+                    WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
+                      WithFailureBlock: (FailureBlock) failureBlock;
 
 #pragma mark - 上传下载
 /**
