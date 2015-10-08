@@ -159,11 +159,13 @@
 #import <CCFramework/FriendGroup.h>
 #import <CCFramework/MBProgressHUD.h>
 #import <CCFramework/MBProgressHUD+Add.h>
+#import <CCFramework/MKAnnotationView+WebCache.h>
 #import <CCFramework/NavMainViewController.h>
 #import <CCFramework/NSArray+BNSArray.h>
 #import <CCFramework/NSData+SRB64Additions.h>
 #import <CCFramework/NSDate+BNSDate.h>
 #import <CCFramework/NSData+Additions.h>
+#import <CCFramework/NSData+ImageContentType.h>
 #import <CCFramework/NSMutableArray+BNSMutableArray.h>
 #import <CCFramework/NSObject+SRJSON.h>
 #import <CCFramework/NSString+BNSString.h>
@@ -184,6 +186,7 @@
 #import <CCFramework/UIImage+CCRounded.h>
 #import <CCFramework/UIImage+Data.h>
 #import <CCFramework/UIImage+GIF.h>
+#import <CCFramework/UIImageView+HighlightedWebCache.h>
 #import <CCFramework/UIImage+MultiFormat.h>
 #import <CCFramework/UIImage+Operations.h>
 #import <CCFramework/UIImage+Resize.h>
@@ -196,5 +199,6 @@
 #import <CCFramework/UIView+BUIView.h>
 #import <CCFramework/UIView+CCBadgeView.h>
 #import <CCFramework/UIView+CCRemoteImage.h>
+#import <CCFramework/UIView+WebCacheOperation.h>
 #import <CCFramework/UIWindow+Additions.h>
 #import <CCFramework/UIWindow+BUIWindow.h>

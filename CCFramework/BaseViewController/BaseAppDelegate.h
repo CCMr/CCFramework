@@ -30,7 +30,14 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (nonatomic, copy) UIColor *BarTintColor;
+/**
+ *  @author C C, 15-08-18
+ *
+ *  @brief  修改导航栏颜色
+ *
+ *  @since <#1.0#>
+ */
+- (void)NavigationBarColor: (UIColor *)color;
 
 /**
  *  @author CC, 2015-07-30

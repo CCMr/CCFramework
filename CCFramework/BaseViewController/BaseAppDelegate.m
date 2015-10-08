@@ -53,8 +53,7 @@ static char OperationKey;
 
     [self uploadCrashLog];
 
-    _BarTintColor = [UIColor colorFromHexCode:@"ff9900"];
-    [self NavigationBarColor];
+    [self NavigationBarColor:[UIColor colorFromHexCode:@"3b3f4d"]];
 
     return YES;
 }
@@ -138,13 +137,13 @@ static char OperationKey;
  *
  *  @since <#1.0#>
  */
-- (void)NavigationBarColor
+- (void)NavigationBarColor: (UIColor *)color
 {
     if (CURRENT_SYS_VERSION >= 7.0) {
-        [[UINavigationBar appearance] setBarTintColor:_BarTintColor];
+        [[UINavigationBar appearance] setBarTintColor:color];
         [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     } else {
-        [[UINavigationBar appearance] setTintColor:_BarTintColor];
+        [[UINavigationBar appearance] setTintColor:color];
     }
 
 
