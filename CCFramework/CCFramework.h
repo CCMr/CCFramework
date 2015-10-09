@@ -196,6 +196,7 @@
 #import <CCFramework/UIImageView+WebCache.h>
 #import <CCFramework/UIScrollView+CCkeyboardControl.h>
 #import <CCFramework/UITableView+Additions.h>
+#import <CCFramework/UITabBarController+Additional.h>
 #import <CCFramework/UIView+BUIView.h>
 #import <CCFramework/UIView+CCBadgeView.h>
 #import <CCFramework/UIView+CCRemoteImage.h>

@@ -524,6 +524,8 @@
 		42B30DEB1BBD72AD0039BB94 /* SDWebImagePrefetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B30DCA1BBD72AD0039BB94 /* SDWebImagePrefetcher.m */; };
 		42B9D0E61B9FE3650086CA81 /* NSData+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 42B9D0E41B9FE3650086CA81 /* NSData+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42B9D0E71B9FE3650086CA81 /* NSData+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B9D0E51B9FE3650086CA81 /* NSData+Additions.m */; };
+		42BAB91A1BC7565100C70043 /* UITabBarController+Additional.h in Headers */ = {isa = PBXBuildFile; fileRef = 42BAB9181BC7565100C70043 /* UITabBarController+Additional.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42BAB91B1BC7565100C70043 /* UITabBarController+Additional.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BAB9191BC7565100C70043 /* UITabBarController+Additional.m */; settings = {ASSET_TAGS = (); }; };
 		42D0EDF61BBA68E10032A489 /* ResourcesPhotos.h in Headers */ = {isa = PBXBuildFile; fileRef = 42D0EDF41BBA68E10032A489 /* ResourcesPhotos.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42D0EDF71BBA68E10032A489 /* ResourcesPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D0EDF51BBA68E10032A489 /* ResourcesPhotos.m */; };
 		42DBA84F1BB4D5CB00AD47C6 /* UILabel+Addition.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA84D1BB4D5CB00AD47C6 /* UILabel+Addition.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1041,6 +1043,8 @@
 		42B30DCA1BBD72AD0039BB94 /* SDWebImagePrefetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebImagePrefetcher.m; sourceTree = "<group>"; };
 		42B9D0E41B9FE3650086CA81 /* NSData+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Additions.h"; sourceTree = "<group>"; };
 		42B9D0E51B9FE3650086CA81 /* NSData+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Additions.m"; sourceTree = "<group>"; };
+		42BAB9181BC7565100C70043 /* UITabBarController+Additional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITabBarController+Additional.h"; path = "UITabBarController/UITabBarController+Additional.h"; sourceTree = "<group>"; };
+		42BAB9191BC7565100C70043 /* UITabBarController+Additional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITabBarController+Additional.m"; path = "UITabBarController/UITabBarController+Additional.m"; sourceTree = "<group>"; };
 		42D0EDF41BBA68E10032A489 /* ResourcesPhotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourcesPhotos.h; sourceTree = "<group>"; };
 		42D0EDF51BBA68E10032A489 /* ResourcesPhotos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourcesPhotos.m; sourceTree = "<group>"; };
 		42DBA84D1BB4D5CB00AD47C6 /* UILabel+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UILabel+Addition.h"; path = "UILabel/UILabel+Addition.h"; sourceTree = "<group>"; };
@@ -2187,6 +2191,7 @@
 		429C9EC51B9EF8BF0013A44A /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				42BAB9131BC755EE00C70043 /* UITabBarController */,
 				429E33E91BB8FD06006C4DFF /* UIBarButtonItem */,
 				42DBA84C1BB4D5A700AD47C6 /* UILabel */,
 				42E2E81D1B9FB96100B2CE90 /* UITableView */,
@@ -2547,6 +2552,15 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		42BAB9131BC755EE00C70043 /* UITabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				42BAB9181BC7565100C70043 /* UITabBarController+Additional.h */,
+				42BAB9191BC7565100C70043 /* UITabBarController+Additional.m */,
+			);
+			name = UITabBarController;
+			sourceTree = "<group>";
+		};
 		42DBA84C1BB4D5A700AD47C6 /* UILabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -2746,6 +2760,7 @@
 				429CA0711B9EF8BF0013A44A /* CCPopMenu.h in Headers */,
 				429C9F9C1B9EF8BF0013A44A /* CCQRCodeViewController.h in Headers */,
 				429C9FAC1B9EF8BF0013A44A /* CCUserDefaults.h in Headers */,
+				42BAB91A1BC7565100C70043 /* UITabBarController+Additional.h in Headers */,
 				429CA02D1B9EF8BF0013A44A /* CCNumericKeypadView.h in Headers */,
 				429CA1141B9EF8BF0013A44A /* CCBubblePhotoImageView.h in Headers */,
 				429CA0171B9EF8BF0013A44A /* CCLineChartView.h in Headers */,
@@ -3020,6 +3035,7 @@
 				429C9F591B9EF8BF0013A44A /* BaseViewController.m in Sources */,
 				42B30DE21BBD72AD0039BB94 /* SDWebImageDownloaderOperation.m in Sources */,
 				429C9FA31B9EF8BF0013A44A /* CCSignatureView.m in Sources */,
+				42BAB91B1BC7565100C70043 /* UITabBarController+Additional.m in Sources */,
 				429C9F5D1B9EF8BF0013A44A /* CCDropzone.m in Sources */,
 				429CA0C01B9EF8BF0013A44A /* NSString+BNSString.m in Sources */,
 				426979441BA695BA00C3E93C /* UIImageView+AFNetworking.m in Sources */,

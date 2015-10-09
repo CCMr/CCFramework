@@ -294,8 +294,12 @@
  *
  *  @since <#1.0#>
  */
-- (void)pushNewViewController:(UIViewController *)newViewController {
-    [self.navigationController pushViewController:newViewController animated:YES];
+- (void)pushNewViewController:(UIViewController *)newViewController
+{
+    if (self.navigationController)
+        [self.navigationController pushViewController:newViewController animated:YES];
+    else
+        [self.extendNavigationController pushViewController:newViewController animated:YES];
 }
 
 /**

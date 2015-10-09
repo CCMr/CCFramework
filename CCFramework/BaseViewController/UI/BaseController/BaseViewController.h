@@ -37,6 +37,20 @@
 @interface BaseViewController : UIViewController<MBProgressHUDDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
 /**
+ *  @author CC, 2015-10-09
+ *
+ *  @brief  扩展递归该对象
+ */
+@property (nonatomic, strong) UINavigationController *extendNavigationController;
+
+/**
+ *  @author CC, 2015-10-09
+ *
+ *  @brief  扩展递归该对象
+ */
+@property (nonatomic, strong) UITabBarController *extendTabBarController;
+
+/**
  *  @author C C, 15-08-18
  *
  *  @brief  弹出层
