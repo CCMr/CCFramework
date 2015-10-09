@@ -26,6 +26,8 @@
 #import "NSString+BNSString.h"
 #import <CommonCrypto/CommonCrypto.h>
 #import "CCBase64.h"
+#import "ZXMultiFormatWriter.H"
+#import "ZXImage.h"
 
 @implementation NSString (BNSString)
 
@@ -310,6 +312,33 @@
 {
     NSData *datas = [[NSData alloc] initWithBase64Encoding:self];
     return [UIImage imageWithData:datas];
+}
+
+/**
+ *  @author CC, 2015-10-09
+ *
+ *  @brief  生成二维码图像
+ *
+ *  @param width  图像宽
+ *  @param height 图像高
+ *
+ *  @return 二维码图片
+ */
+- (UIImage *)becomeQRCodeWithQRstring: (int)width
+                            withHight: (int)height
+{
+
+    ZXMultiFormatWriter *writer = [ZXMultiFormatWriter writer];
+    ZXBitMatrix* result = [writer encode:self
+                                  format:kBarcodeFormatQRCode
+                                   width:width
+                                  height:height
+                                   error:nil];
+
+    CGImageRef image = [[ZXImage imageWithMatrix:result] cgimage];
+    UIImage *qrImage = [UIImage imageWithCGImage:image];
+
+    return qrImage;
 }
 
 /**

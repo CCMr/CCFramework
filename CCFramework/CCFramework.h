@@ -203,3 +203,4 @@
 #import <CCFramework/UIView+WebCacheOperation.h>
 #import <CCFramework/UIWindow+Additions.h>
 #import <CCFramework/UIWindow+BUIWindow.h>
+#import <CCFramework/QRCode.h>

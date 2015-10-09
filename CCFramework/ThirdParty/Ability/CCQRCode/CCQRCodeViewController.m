@@ -30,10 +30,13 @@
 #import "CCFoundationCommon.h"
 #import "UIButton+CCButtonTitlePosition.h"
 #import "CCCameraViewController.h"
+#import "QRCode.h"
 
 #define kCCScanningButtonPadding 36
 
-@interface CCQRCodeViewController ()
+typedef void (^Outcomeblock)(NSString *outcome);
+
+@interface CCQRCodeViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UIView *preview;
 
@@ -48,6 +51,8 @@
 @property (nonatomic, strong) CCCaptureHelper *captureHelper;
 
 @property (nonatomic, strong) CCCameraViewController *cameraViewController;
+
+@property (nonatomic, strong) Outcomeblock outcomeblock;
 
 @end
 
@@ -159,14 +164,56 @@
 - (CCCaptureHelper *)captureHelper {
     if (!_captureHelper) {
         _captureHelper = [[CCCaptureHelper alloc] init];
+        WEAKSELF
         [_captureHelper setDidOutputSampleBufferHandle:^(CMSampleBufferRef sampleBuffer) {
-            // 这里可以做子线程的QRCode识别
-            UIImage *images =  [CCVideoOutputSampleBufferFactory imageFromSampleBuffer:sampleBuffer];
-            NSLog(@"123");
-
+            [weakSelf analysisQRCode:[CCVideoOutputSampleBufferFactory imageFromSampleBuffer:sampleBuffer]];
         }];
     }
     return _captureHelper;
+}
+
+/**
+ *  @author CC, 2015-10-09
+ *
+ *  @brief  分析二维码
+ *
+ *  @param qrCode 二维码图片
+ */
+- (void)analysisQRCode: (UIImage *)qrCode
+{
+    CGImageRef imageToDecode = qrCode.CGImage;
+
+    ZXLuminanceSource *source = [[ZXCGImageLuminanceSource alloc] initWithCGImage:imageToDecode];
+    ZXBinaryBitmap *bitmap = [ZXBinaryBitmap binaryBitmapWithBinarizer:[ZXHybridBinarizer binarizerWithSource:source]];
+
+    NSError *error = nil;
+
+    ZXDecodeHints *hints = [ZXDecodeHints hints];
+
+    ZXMultiFormatReader *reader = [ZXMultiFormatReader reader];
+    ZXResult *result = [reader decode:bitmap
+                                hints:hints
+                                error:&error];
+
+    if (result) {
+        [self.captureHelper stopRunning];
+        if (_outcomeblock)
+            _outcomeblock(result.text);
+    }else{
+        [self.captureHelper startRunning];
+    }
+}
+
+/**
+ *  @author CC, 2015-10-09
+ *
+ *  @brief  二维码分析结果
+ *
+ *  @param block 返回结果回调函数
+ */
+- (void)diAnalysisOutcome:(void (^)(NSString *outcome))block
+{
+    _outcomeblock = block;
 }
 
 #pragma mark - Life Cycle
@@ -191,12 +238,22 @@
     [self.view addSubview:self.buttonContainerView];
 }
 
-- (void)showPhotoLibray {
-    if(!_cameraViewController)
-        _cameraViewController = [[CCCameraViewController alloc] init];
+- (void)showPhotoLibray
+{
+    [self.captureHelper stopRunning];
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.allowsEditing = YES;
+    picker.delegate = self;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:picker animated:YES completion:^{}];
+}
 
-    [_cameraViewController startPhotoFileWithViewController:self complate:^(id request) {
-
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    WEAKSELF
+    [self dismissViewControllerAnimated:YES completion:^{
+        [weakSelf analysisQRCode:image];
     }];
 }
 

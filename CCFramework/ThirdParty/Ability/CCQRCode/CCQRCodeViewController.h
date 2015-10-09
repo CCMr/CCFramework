@@ -27,4 +27,13 @@
 
 @interface CCQRCodeViewController : BaseViewController
 
+/**
+ *  @author CC, 2015-10-09
+ *
+ *  @brief  二维码分析结果
+ *
+ *  @param block 返回结果回调函数
+ */
+- (void)diAnalysisOutcome:(void (^)(NSString *outcome))block;
+
 @end

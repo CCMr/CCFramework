@@ -128,6 +128,19 @@
 - (UIImage *)decodedImage;
 
 /**
+ *  @author CC, 2015-10-09
+ *
+ *  @brief  生成二维码图像
+ *
+ *  @param width  图像宽
+ *  @param height 图像高
+ *
+ *  @return 二维码图片
+ */
+- (UIImage *)becomeQRCodeWithQRstring: (int)width
+                            withHight: (int)height;
+
+/**
  *  @author CC, 15-09-02
  *
  *  @brief  转换Data

@@ -36,4 +36,8 @@ typedef void(^DidOutputSampleBufferBlock)(CMSampleBufferRef sampleBuffer);
 
 - (void)showCaptureOnView:(UIView *)preview;
 
+- (void)startRunning;
+
+- (void)stopRunning;
+
 @end

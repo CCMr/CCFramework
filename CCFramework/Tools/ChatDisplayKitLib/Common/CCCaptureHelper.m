@@ -110,6 +110,16 @@
     return self;
 }
 
+- (void)startRunning
+{
+    [self.captureSession startRunning];
+}
+
+- (void)stopRunning
+{
+    [self.captureSession stopRunning];
+}
+
 - (void)dealloc {
     _captureSessionQueue = nil;
     _captureVideoPreviewLayer = nil;
