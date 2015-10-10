@@ -25,8 +25,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "CCDefines.h"
-
 // CCBase64
 //
 /// Helper for handling Base64 and WebSafeBase64 encodings

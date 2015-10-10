@@ -52,6 +52,7 @@
 #import <CCFramework/CCAnnotation.h>
 #import <CCFramework/CCAudioPlayerHelper.h>
 #import <CCFramework/CCAutoTextView.h>
+#import <CCFramework/CCBase64.h>
 #import <CCFramework/CCBackgroundView.h>
 #import <CCFramework/CCBadgeView.h>
 #import <CCFramework/CCBubblePhotoImageView.h>
