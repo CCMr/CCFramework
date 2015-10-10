@@ -996,6 +996,8 @@
 		42DBA8591BB5309300AD47C6 /* CCDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA8581BB5309300AD47C6 /* CCDefines.h */; };
 		42E2E8201B9FB97700B2CE90 /* UITableView+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 42E2E81E1B9FB97700B2CE90 /* UITableView+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42E2E8211B9FB97700B2CE90 /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E2E81F1B9FB97700B2CE90 /* UITableView+Additions.m */; };
+		42F945871BC8ED5D008882AE /* CCDisplayMediaViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F945851BC8ED5D008882AE /* CCDisplayMediaViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42F945881BC8ED5D008882AE /* CCDisplayMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F945861BC8ED5D008882AE /* CCDisplayMediaViewController.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1976,6 +1978,8 @@
 		42DBA8581BB5309300AD47C6 /* CCDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDefines.h; path = Base64/CCDefines.h; sourceTree = "<group>"; };
 		42E2E81E1B9FB97700B2CE90 /* UITableView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableView+Additions.h"; path = "UITableView/UITableView+Additions.h"; sourceTree = "<group>"; };
 		42E2E81F1B9FB97700B2CE90 /* UITableView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableView+Additions.m"; path = "UITableView/UITableView+Additions.m"; sourceTree = "<group>"; };
+		42F945851BC8ED5D008882AE /* CCDisplayMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDisplayMediaViewController.h; sourceTree = "<group>"; };
+		42F945861BC8ED5D008882AE /* CCDisplayMediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDisplayMediaViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3991,6 +3995,8 @@
 			children = (
 				429C9F071B9EF8BF0013A44A /* CCMessageTableViewController.h */,
 				429C9F081B9EF8BF0013A44A /* CCMessageTableViewController.m */,
+				42F945851BC8ED5D008882AE /* CCDisplayMediaViewController.h */,
+				42F945861BC8ED5D008882AE /* CCDisplayMediaViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -4305,6 +4311,7 @@
 				420DE4081BC7942300D87D6D /* ZXUPCEANExtension5Support.h in Headers */,
 				420DE3F81BC7942300D87D6D /* ZXITFWriter.h in Headers */,
 				420DE40C1BC7942300D87D6D /* ZXUPCEANReader.h in Headers */,
+				42F945871BC8ED5D008882AE /* CCDisplayMediaViewController.h in Headers */,
 				420DE3E11BC7942300D87D6D /* ZXCode128Reader.h in Headers */,
 				420DE3E51BC7942300D87D6D /* ZXCode39Reader.h in Headers */,
 				420DE3E31BC7942300D87D6D /* ZXCode128Writer.h in Headers */,
@@ -4865,6 +4872,7 @@
 				429CA0AE1B9EF8BF0013A44A /* SETextMagnifierRanged.m in Sources */,
 				429CA0A81B9EF8BF0013A44A /* SETextInput.m in Sources */,
 				42AC36461BB92014007B61D6 /* UIBarButtonItem+Addition.m in Sources */,
+				42F945881BC8ED5D008882AE /* CCDisplayMediaViewController.m in Sources */,
 				420DE3A61BC7942300D87D6D /* ZXAI013103decoder.m in Sources */,
 				420DE2D61BC7942300D87D6D /* ZXAddressBookParsedResult.m in Sources */,
 				429CA0A61B9EF8BF0013A44A /* SETextGeometry.m in Sources */,

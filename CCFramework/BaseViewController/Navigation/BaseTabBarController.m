@@ -61,4 +61,22 @@
         }
     }
 }
+
+#pragma mark - 转屏
+
+- (BOOL)shouldAutorotate
+{
+    return [[self.viewControllers objectAtIndex:self.selectedIndex] shouldAutorotate];
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return [[self.viewControllers objectAtIndex:self.selectedIndex] supportedInterfaceOrientations];
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return [[self.viewControllers objectAtIndex:self.selectedIndex] preferredInterfaceOrientationForPresentation];
+}
+
 @end

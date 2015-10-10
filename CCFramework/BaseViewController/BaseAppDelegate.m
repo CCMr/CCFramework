@@ -86,6 +86,11 @@ static char OperationKey;
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+-(UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+    return UIInterfaceOrientationMaskAll;
+}
+
 //首先在 application:didFinishLaunchingWithOptions: 中设置 minimun background fetch interval 类型为 UIApplicationBackgroundFetchIntervalMinimum（默认为 UIApplicationBackgroundFetchIntervalNever），然后实现代理方法 application:performFetchWithCompletionHandler: 中实现数据请求。
 //[application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler

@@ -790,6 +790,11 @@ static CGPoint  delayOffset = {0.0};
 
 #pragma mark - View Rotation
 
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 - (BOOL)shouldAutorotate {
     return NO;
 }

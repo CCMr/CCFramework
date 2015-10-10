@@ -63,6 +63,7 @@
 #import <CCFramework/CCCycleScroll.h>
 #import <CCFramework/CCDatePicker.h>
 #import <CCFramework/CCDisplayLocationViewController.h>
+#import <CCFramework/CCDisplayMediaViewController.h>
 #import <CCFramework/CCDropzone.h>
 #import <CCFramework/CCDropzoneViewController.h>
 #import <CCFramework/CCEmotion.h>
