@@ -215,11 +215,11 @@ static CCHTTPManager *_sharedlnstance = nil;
                        WithFailureBlock: (FailureBlock) failureBlock
 {
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
-    AFHTTPRequestOperation *requestOperation = [manager DELETE:requestURLString parameters:parameter success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    AFHTTPRequestOperation *requestOperation = [manager DELETE:requestURLString parameters:parameter success:^(AFHTTPRequestOperation * operation, id  responseObject) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         NSLog(@"%@", dic);
         block(dic);
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
         failureBlock(error);
     }];
 
@@ -246,9 +246,9 @@ static CCHTTPManager *_sharedlnstance = nil;
                      WithFailureBlock: (FailureBlock) failureBlock
 {
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
-    AFHTTPRequestOperation *requestOperation = [manager HEAD:requestURLString parameters:parameter success:^(AFHTTPRequestOperation * _Nonnull operation) {
+    AFHTTPRequestOperation *requestOperation = [manager HEAD:requestURLString parameters:parameter success:^(AFHTTPRequestOperation * operation) {
         
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+    } failure:^(AFHTTPRequestOperation *  operation, NSError * error) {
         failureBlock(error);
     }];
     requestOperation.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -274,11 +274,11 @@ static CCHTTPManager *_sharedlnstance = nil;
                        WithFailureBlock: (FailureBlock) failureBlock
 {
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
-    AFHTTPRequestOperation *requestOperation = [manager PUT:requestURLString parameters:parameter success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    AFHTTPRequestOperation *requestOperation = [manager PUT:requestURLString parameters:parameter success:^(AFHTTPRequestOperation * operation, id  responseObject) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         NSLog(@"%@", dic);
         block(dic);
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+    } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
         failureBlock(error);
     }];
 
@@ -305,11 +305,11 @@ static CCHTTPManager *_sharedlnstance = nil;
                        WithFailureBlock: (FailureBlock) failureBlock
 {
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
-    AFHTTPRequestOperation *requestOperation = [manager PATCH:requestURLString parameters:parameter success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    AFHTTPRequestOperation *requestOperation = [manager PATCH:requestURLString parameters:parameter success:^(AFHTTPRequestOperation * operation, id  responseObject) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         NSLog(@"%@", dic);
         block(dic);
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+    } failure:^(AFHTTPRequestOperation * operation, NSError *  error) {
         failureBlock(error);
     }];
 
