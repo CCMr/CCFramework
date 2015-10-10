@@ -26,6 +26,7 @@
 
 #import "BaseSearchTableViewController.h"
 #import "UIView+BUIView.h"
+#import "UITableView+Additions.h"
 
 @interface BaseSearchTableViewController () <UISearchDisplayDelegate, UISearchBarDelegate>
 
@@ -169,6 +170,7 @@
     _theCollation = [UILocalizedIndexedCollation currentCollation];
     [self configuraSectionIndexBackgroundColorWithTableView:self.tableView];
     self.tableView.tableHeaderView = self.searchBar;
+    [self.tableView extraCellLineHidden];
 
     UIView *views = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 30)];
     views.backgroundColor = [UIColor redColor];

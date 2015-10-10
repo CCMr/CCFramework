@@ -152,6 +152,8 @@
 #import <CCFramework/CCRadarPointView.h>
 #import <CCFramework/ColumnarChart.h>
 #import <CCFramework/Config.h>
+#import <CCFramework/ContactPersonEntity.h>
+#import <CCFramework/ContactRead.h>
 #import <CCFramework/CoreDataManager.h>
 #import <CCFramework/CustomIOS7AlertView.h>
 #import <CCFramework/EnumConfig.h>

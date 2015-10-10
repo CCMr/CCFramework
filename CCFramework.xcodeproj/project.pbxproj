@@ -527,6 +527,10 @@
 		426979491BA695BA00C3E93C /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 426979251BA695BA00C3E93C /* UIRefreshControl+AFNetworking.m */; };
 		4269794A1BA695BA00C3E93C /* UIWebView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 426979261BA695BA00C3E93C /* UIWebView+AFNetworking.h */; };
 		4269794B1BA695BA00C3E93C /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 426979271BA695BA00C3E93C /* UIWebView+AFNetworking.m */; };
+		428A12CC1BC8A1C6005D904D /* ContactPersonEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 428A12CA1BC8A1C6005D904D /* ContactPersonEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		428A12CD1BC8A1C6005D904D /* ContactPersonEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 428A12CB1BC8A1C6005D904D /* ContactPersonEntity.m */; settings = {ASSET_TAGS = (); }; };
+		428A12D01BC8A433005D904D /* ContactRead.h in Headers */ = {isa = PBXBuildFile; fileRef = 428A12CE1BC8A433005D904D /* ContactRead.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		428A12D11BC8A433005D904D /* ContactRead.m in Sources */ = {isa = PBXBuildFile; fileRef = 428A12CF1BC8A433005D904D /* ContactRead.m */; settings = {ASSET_TAGS = (); }; };
 		428B0C3F1BA7C2DF00F89879 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 428B0C3E1BA7C2DF00F89879 /* AFHTTPRequestOperation.m */; };
 		42986D1F1BB280400013D6F7 /* AssetsNO@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42986D1C1BB280400013D6F7 /* AssetsNO@2x.png */; };
 		42986D201BB280400013D6F7 /* AssetsYES@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42986D1D1BB280400013D6F7 /* AssetsYES@2x.png */; };
@@ -1501,6 +1505,10 @@
 		426979251BA695BA00C3E93C /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		426979261BA695BA00C3E93C /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		426979271BA695BA00C3E93C /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		428A12CA1BC8A1C6005D904D /* ContactPersonEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactPersonEntity.h; path = Contacts/Models/ContactPersonEntity.h; sourceTree = "<group>"; };
+		428A12CB1BC8A1C6005D904D /* ContactPersonEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactPersonEntity.m; path = Contacts/Models/ContactPersonEntity.m; sourceTree = "<group>"; };
+		428A12CE1BC8A433005D904D /* ContactRead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactRead.h; path = Contacts/ContactRead.h; sourceTree = "<group>"; };
+		428A12CF1BC8A433005D904D /* ContactRead.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactRead.m; path = Contacts/ContactRead.m; sourceTree = "<group>"; };
 		428B0C3E1BA7C2DF00F89879 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		42986D1C1BB280400013D6F7 /* AssetsNO@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AssetsNO@2x.png"; sourceTree = "<group>"; };
 		42986D1D1BB280400013D6F7 /* AssetsYES@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AssetsYES@2x.png"; sourceTree = "<group>"; };
@@ -2821,6 +2829,25 @@
 			path = UIKit;
 			sourceTree = "<group>";
 		};
+		428A12C81BC8A025005D904D /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				428A12C91BC8A15C005D904D /* Models */,
+				428A12CE1BC8A433005D904D /* ContactRead.h */,
+				428A12CF1BC8A433005D904D /* ContactRead.m */,
+			);
+			name = Contacts;
+			sourceTree = "<group>";
+		};
+		428A12C91BC8A15C005D904D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				428A12CA1BC8A1C6005D904D /* ContactPersonEntity.h */,
+				428A12CB1BC8A1C6005D904D /* ContactPersonEntity.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		429C9C8D1B9EF66A0013A44A = {
 			isa = PBXGroup;
 			children = (
@@ -3031,6 +3058,7 @@
 		429C9D2F1B9EF8BE0013A44A /* Ability */ = {
 			isa = PBXGroup;
 			children = (
+				428A12C81BC8A025005D904D /* Contacts */,
 				42DBA8531BB5301C00AD47C6 /* Base64 */,
 				429C9D301B9EF8BE0013A44A /* AFNetworking */,
 				429C9D5B1B9EF8BE0013A44A /* CCExceptionCatching */,
@@ -4379,6 +4407,7 @@
 				420DE2D91BC7942300D87D6D /* ZXBookmarkDoCoMoResultParser.h in Headers */,
 				420DE2D71BC7942300D87D6D /* ZXBizcardResultParser.h in Headers */,
 				420DE34E1BC7942300D87D6D /* ZXBinaryBitmap.h in Headers */,
+				428A12CC1BC8A1C6005D904D /* ContactPersonEntity.h in Headers */,
 				420DE3331BC7942300D87D6D /* ZXBoolArray.h in Headers */,
 				420DE3501BC7942300D87D6D /* ZXByteMatrix.h in Headers */,
 				420DE34B1BC7942300D87D6D /* ZXBarcodeFormat.h in Headers */,
@@ -4525,6 +4554,7 @@
 				429CA0251B9EF8BF0013A44A /* CCVoiceRecordHUD.h in Headers */,
 				429CA1281B9EF8BF0013A44A /* CCDisplayLocationViewController.h in Headers */,
 				429CA0191B9EF8BF0013A44A /* CCPieChart.h in Headers */,
+				428A12D01BC8A433005D904D /* ContactRead.h in Headers */,
 				4269792B1BA695BA00C3E93C /* AFURLSessionManager.h in Headers */,
 				429CA0951B9EF8BF0013A44A /* CustomIOS7AlertView.h in Headers */,
 				4230E1851BBB83000001E68F /* CCRadarIndicatorView.h in Headers */,
@@ -5161,6 +5191,7 @@
 				429CA0631B9EF8BF0013A44A /* CCPickerGroupViewController.m in Sources */,
 				420DE45E1BC7942300D87D6D /* ZXQRCodeDetector.m in Sources */,
 				429C9FCE1B9EF8BF0013A44A /* NSObject+SRJSON.m in Sources */,
+				428A12CD1BC8A1C6005D904D /* ContactPersonEntity.m in Sources */,
 				420DE4581BC7942300D87D6D /* ZXQRCodeVersion.m in Sources */,
 				429C9F9F1B9EF8BF0013A44A /* CCScanningView.m in Sources */,
 				420DE2F91BC7942300D87D6D /* ZXSMSMMSResultParser.m in Sources */,
@@ -5230,6 +5261,7 @@
 				429CA0701B9EF8BF0013A44A /* CCPickerCollectionViewCell.m in Sources */,
 				429CA1041B9EF8BF0013A44A /* CCMessageBubbleFactory.m in Sources */,
 				420DE3DA1BC7942300D87D6D /* ZXRSSPair.m in Sources */,
+				428A12D11BC8A433005D904D /* ContactRead.m in Sources */,
 				420DE3481BC7942300D87D6D /* ZXPerspectiveTransform.m in Sources */,
 				420DE3E41BC7942300D87D6D /* ZXCode128Writer.m in Sources */,
 				429CA0671B9EF8BF0013A44A /* CCPickerDatas.m in Sources */,

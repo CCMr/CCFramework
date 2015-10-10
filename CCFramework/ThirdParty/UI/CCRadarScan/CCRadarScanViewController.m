@@ -41,15 +41,42 @@
     [self InitLoadData];
 }
 
+/**
+ *  @author CC, 2015-10-10
+ *
+ *  @brief  页面被激活
+ *
+ *  @param animated animated description
+ */
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [_radarView startScanning];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 }
 
+/**
+ *  @author CC, 2015-10-10
+ *
+ *  @brief  页面加载完成
+ *
+ *  @param animated animated description
+ */
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [_radarView startScanning];
+}
+
+/**
+ *  @author CC, 2015-10-10
+ *
+ *  @brief  页面销毁
+ *
+ *  @param animated animated description
+ */
 -(void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
 }
 
@@ -108,7 +135,9 @@
 
 -(void)didDropOut
 {
-    [self dismissViewControllerAnimated:NO completion:nil];
+    self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
