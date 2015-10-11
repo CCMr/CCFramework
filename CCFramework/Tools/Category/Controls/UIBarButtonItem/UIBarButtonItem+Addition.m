@@ -55,6 +55,7 @@
                                        Action: (SEL)action
 {
     UIButton *button = [UIButton buttonWithImageTitle:backgroundImage Title:title Frame:CGRectMake(0, 0, [title calculateTextWidthHeight].width+10, 40)];
+    [button setTitleColor:[UIColor whiteColor]];
     [button addTarget:target action :action forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *itme = [[UIBarButtonItem alloc] initWithCustomView:button];
     return itme;

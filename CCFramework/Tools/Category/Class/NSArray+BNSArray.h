@@ -114,4 +114,15 @@
  */
 - (NSArray *)arrayForMinusWithOtherArray: (NSArray *)otherAry;
 
+/**
+ *  @author C C, 2015-10-10
+ *
+ *  @brief  分析数据对象分组
+ *
+ *  @param analysisName 分析对象名称
+ *
+ *  @return 返回分组集合对象
+ */
+- (NSMutableDictionary *)analysisSortGroup: (NSString *)analysisName;
+
 @end

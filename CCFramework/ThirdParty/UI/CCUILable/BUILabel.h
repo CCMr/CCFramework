@@ -41,17 +41,6 @@
 /**
  *  @author CC, 2015-07-31
  *
- *  @brief  对齐方式
- *
- *  @param Alignment <#Alignment description#>
- *
- *  @since 1.0
- */
--(void)setAlignmentCenter:(NSTextAlignment)Alignment;
-
-/**
- *  @author CC, 2015-07-31
- *
  *  @brief  横线显示文字
  *
  *  @param strikeThroughEnabled 是否
@@ -61,55 +50,64 @@
 - (void)setStrikeThroughEnabled:(BOOL)strikeThroughEnabled;
 
 /**
- *  @author CC, 2015-07-31
+ *  @author C C, 2015-10-11
+ *
+ *  @brief  设置文本位置
+ *
+ *  @param Alignment 位置
+ */
+- (void)setAlignmentCenter: (NSTextAlignment)Alignment;
+
+/**
+ *  @author C C, 2015-10-11
  *
  *  @brief  设置某段字的颜色
  *
- *  @param color    字体颜色
- *  @param location 设置开始位置
- *  @param length   设置长度
- *
- *  @since 1.0
+ *  @param color    文字颜色
+ *  @param location 开始位置
+ *  @param length   结束位置
  */
--(void)setColor:(UIColor *)color fromIndex:(NSInteger)location length:(NSInteger)length;
+- (void)setColor: (UIColor *)color
+       fromIndex: (NSInteger)location
+          length: (NSInteger)length;
 
 /**
- *  @author CC, 2015-07-31
+ *  @author C C, 2015-10-11
  *
  *  @brief  设置某段字的字体
  *
- *  @param font     字体风格
- *  @param location 设置开始位置
- *  @param length   设置长度
- *
- *  @since 1.0
+ *  @param font     文字字体
+ *  @param location 开始位置
+ *  @param length   结束位置
  */
--(void)setFont:(UIFont *)font fromIndex:(NSInteger)location length:(NSInteger)length;
+- (void)setFont: (UIFont *)font
+      fromIndex: (NSInteger)location
+         length: (NSInteger)length;
 
 /**
- *  @author CC, 2015-07-31
+ *  @author C C, 2015-10-11
  *
  *  @brief  设置某段字的风格
  *
- *  @param style    字体风格
- *  @param location 设置开始位置
- *  @param length   设置长度
- *
- *  @since 1.0
+ *  @param style    文字风格
+ *  @param location 开始位置
+ *  @param length   结束位置
  */
--(void)setStyle:(CTUnderlineStyle)style fromIndex:(NSInteger)location length:(NSInteger)length;
-
+- (void)setStyle: (CTUnderlineStyle)style
+       fromIndex: (NSInteger)location
+          length: (NSInteger)length;
 
 /**
- *  @author CC, 2015-06-05
+ *  @author CC, 2015-06-05 14:06:12
  *
  *  @brief  设置下划线
  *
- *  @param location 设置开始位置
- *  @param length   设置长度
+ *  @param location 开始位置
+ *  @param length   结束位置
  *
  *  @since 1.0
  */
--(void)setUnderline:(NSInteger)location length:(NSInteger)length;
+- (void)setUnderline: (NSInteger)location
+              length: (NSInteger)length;
 
 @end

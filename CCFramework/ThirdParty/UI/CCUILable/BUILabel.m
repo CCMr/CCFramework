@@ -40,28 +40,69 @@
         _attString = [[NSMutableAttributedString alloc] initWithString:text];
 }
 
--(void)setAlignmentCenter:(NSTextAlignment)Alignment{
+/**
+ *  @author C C, 2015-10-11
+ *
+ *  @brief  设置文本位置
+ *
+ *  @param Alignment 位置
+ */
+- (void)setAlignmentCenter: (NSTextAlignment)Alignment
+{
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setAlignment:Alignment];
     [_attString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, self.text.length)];
 }
 
-// 设置某段字的颜色
--(void)setColor:(UIColor *)color fromIndex:(NSInteger)location length:(NSInteger)length{
+/**
+ *  @author C C, 2015-10-11
+ *
+ *  @brief  设置某段字的颜色
+ *
+ *  @param color    文字颜色
+ *  @param location 开始位置
+ *  @param length   结束位置
+ */
+- (void)setColor: (UIColor *)color
+       fromIndex: (NSInteger)location
+          length: (NSInteger)length
+{
     if (location < 0||location>self.text.length-1||length+location>self.text.length)
         return;
     [_attString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)color.CGColor range:NSMakeRange(location, length)];
 }
 
-// 设置某段字的字体
--(void)setFont:(UIFont *)font fromIndex:(NSInteger)location length:(NSInteger)length{
+/**
+ *  @author C C, 2015-10-11
+ *
+ *  @brief  设置某段字的字体
+ *
+ *  @param font     文字字体
+ *  @param location 开始位置
+ *  @param length   结束位置
+ */
+- (void)setFont: (UIFont *)font
+      fromIndex: (NSInteger)location
+         length: (NSInteger)length
+{
     if (location < 0||location>self.text.length-1||length+location>self.text.length)
         return;
     [_attString addAttribute:(NSString *)kCTFontAttributeName value:(id)CFBridgingRelease(CTFontCreateWithName((CFStringRef)font.fontName,font.pointSize,NULL)) range:NSMakeRange(location, length)];
 }
 
-// 设置某段字的风格
--(void)setStyle:(CTUnderlineStyle)style fromIndex:(NSInteger)location length:(NSInteger)length{
+/**
+ *  @author C C, 2015-10-11
+ *
+ *  @brief  设置某段字的风格
+ *
+ *  @param style    文字风格
+ *  @param location 开始位置
+ *  @param length   结束位置
+ */
+- (void)setStyle: (CTUnderlineStyle)style
+       fromIndex: (NSInteger)location
+          length: (NSInteger)length
+{
     if (location < 0||location>self.text.length-1||length+location>self.text.length)
         return;
     [_attString addAttribute:(NSString *)kCTUnderlineStyleAttributeName value:(id)[NSNumber numberWithInt:style] range:NSMakeRange(location, length)];
@@ -72,12 +113,14 @@
  *
  *  @brief  设置下划线
  *
- *  @param location <#location description#>
- *  @param length   <#length description#>
+ *  @param location 开始位置
+ *  @param length   结束位置
  *
  *  @since 1.0
  */
--(void)setUnderline:(NSInteger)location length:(NSInteger)length{
+- (void)setUnderline: (NSInteger)location
+              length: (NSInteger)length
+{
     [_attString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(location, length)];
 }
 

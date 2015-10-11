@@ -99,7 +99,7 @@
     [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [variableStr appendFormat:@"%@",obj];
     }];
-
+    
     NSString *strForRigth = [variableStr substringWithRange:NSMakeRange(0, variableStr.length - 1)];
     return strForRigth;
 }
@@ -138,14 +138,14 @@
     NSMutableArray *intersectionArray=[NSMutableArray array];
     if(self.count==0) return nil;
     if(otherAry==nil) return nil;
-
+    
     //遍历
     for (id obj in self) {
         if(![otherAry containsObject:obj]) continue;
         //添加
         [intersectionArray addObject:obj];
     }
-
+    
     return intersectionArray;
 }
 
@@ -164,7 +164,7 @@
 {
     if(!self) return nil;
     if(!otherAry) return self;
-
+    
     NSMutableArray *minusArray=[NSMutableArray arrayWithArray:self];
     //遍历
     for (id obj in otherAry) {
@@ -172,8 +172,68 @@
         //添加
         [minusArray removeObject:obj];
     }
-
+    
     return minusArray;
+}
+
+/**
+ *  @author C C, 2015-10-10
+ *
+ *  @brief  分析数据对象分组
+ *
+ *  @param analysisName 分析对象名称
+ *
+ *  @return 返回分组集合对象
+ */
+- (NSMutableDictionary *)analysisSortGroup:(NSString *)analysisName
+{
+    NSMutableDictionary *sortGroupDic = [[NSMutableDictionary alloc] init];
+    for (NSDictionary *dic in self) {
+        NSString *persoName = [dic objectForKey:analysisName];
+        NSMutableString *personName = [[NSMutableString alloc] initWithString:persoName];
+        //转拼音带音标
+        CFStringTransform((__bridge CFMutableStringRef)personName, 0, kCFStringTransformMandarinLatin, NO);
+        //必须先执行转带音标方法 转拼音不带音标
+        CFStringTransform((__bridge CFMutableStringRef)personName, 0, kCFStringTransformStripDiacritics, NO);
+        
+        //转译错误的拼音
+        NSString *sectionName;
+        if ([[persoName substringToIndex:1] compare:@"长"] == NSOrderedSame)
+            [personName replaceCharactersInRange:NSMakeRange(0, 5) withString:@"chang"];
+        else if ([[personName substringToIndex:1] compare:@"沈"] == NSOrderedSame)
+            [personName replaceCharactersInRange:NSMakeRange(0, 4) withString:@"shen"];
+        else if ([[personName substringToIndex:1] compare:@"厦"] == NSOrderedSame)
+            [personName replaceCharactersInRange:NSMakeRange(0, 3) withString:@"xia"];
+        else if ([[personName substringToIndex:1] compare:@"地"] == NSOrderedSame)
+            [personName replaceCharactersInRange:NSMakeRange(0, 3) withString:@"di"];
+        else if ([[personName substringToIndex:1] compare:@"重"] == NSOrderedSame)
+            [personName replaceCharactersInRange:NSMakeRange(0, 5) withString:@"chong"];
+        
+        char first = [[personName substringToIndex:1] characterAtIndex:0]; //头字母 转码
+        //判断是是否 a-z|| A-Z
+        if (isalpha(first) > 0)
+            sectionName = [personName substringToIndex:1];
+        else
+            sectionName = @"#";
+        
+        NSMutableArray *temp = [[NSMutableArray alloc] initWithArray:[sortGroupDic objectForKey:[sectionName uppercaseString]]];
+        
+        NSMutableDictionary *PinyinDic = [[NSMutableDictionary alloc] initWithDictionary:dic];
+        
+        NSString *pinyin=personName;
+        NSArray *arr = [pinyin componentsSeparatedByString:@" "];
+        NSString *InitialName = @"";
+        for (NSString *str in arr)
+            InitialName = [NSString stringWithFormat:@"%@%@",InitialName,[str substringWithRange:NSMakeRange(0, 1)]];
+        
+        [PinyinDic setObject:[personName stringByReplacingOccurrencesOfString:@" " withString:@""]  forKey:@"Pinyin"];
+        [PinyinDic setObject:InitialName  forKey:@"InitialName"];
+        
+        [temp addObject:PinyinDic];
+        temp = [[NSMutableArray alloc] initWithArray:[temp sortedArrayUsingDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:analysisName ascending:YES], nil]]];
+        [sortGroupDic setObject:temp forKey:[sectionName uppercaseString]];
+    }
+    return sortGroupDic;
 }
 
 @end

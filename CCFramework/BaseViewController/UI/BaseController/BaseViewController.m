@@ -441,14 +441,6 @@
 
 }
 
-#pragma mark - 隐藏侧滑
-//-(void)CellDidReveal:(BaseTableViewCell *)cell{
-//    if (self.currentCell != cell) {
-//        self.currentCell.revealing = NO;
-//        self.currentCell = cell;
-//    }
-//}
-
 #pragma mark - 隐藏显示TabBar
 /**
  *  @author CC, 15-09-16
@@ -482,6 +474,31 @@
 
     self.tabBarController.tabBar.hidden = IsHide;
 }
+
+/**
+ *  @author C C, 2015-10-11
+ *
+ *  @brief  隐藏导航栏底部线
+ */
+- (void)hideNavigationControllerBottomLine
+{
+    if ([self.navigationController.navigationBar respondsToSelector:@selector( setBackgroundImage:forBarMetrics:)]){
+        NSArray *list=self.navigationController.navigationBar.subviews;
+        for (id obj in list) {
+            if ([obj isKindOfClass:[UIImageView class]]) {
+                UIImageView *imageView=(UIImageView *)obj;
+                NSArray *list2=imageView.subviews;
+                for (id obj2 in list2) {
+                    if ([obj2 isKindOfClass:[UIImageView class]]) {
+                        UIImageView *imageView2=(UIImageView *)obj2;
+                        imageView2.hidden=YES;
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 - (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];

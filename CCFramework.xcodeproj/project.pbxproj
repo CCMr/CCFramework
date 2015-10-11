@@ -989,6 +989,8 @@
 		42BAB91B1BC7565100C70043 /* UITabBarController+Additional.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BAB9191BC7565100C70043 /* UITabBarController+Additional.m */; settings = {ASSET_TAGS = (); }; };
 		42D0EDF61BBA68E10032A489 /* ResourcesPhotos.h in Headers */ = {isa = PBXBuildFile; fileRef = 42D0EDF41BBA68E10032A489 /* ResourcesPhotos.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42D0EDF71BBA68E10032A489 /* ResourcesPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D0EDF51BBA68E10032A489 /* ResourcesPhotos.m */; };
+		42D404C31BC9EB6A00C62FBD /* UIAlertView+Additional.h in Headers */ = {isa = PBXBuildFile; fileRef = 42D404C11BC9EB6A00C62FBD /* UIAlertView+Additional.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42D404C41BC9EB6A00C62FBD /* UIAlertView+Additional.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D404C21BC9EB6A00C62FBD /* UIAlertView+Additional.m */; settings = {ASSET_TAGS = (); }; };
 		42DBA84F1BB4D5CB00AD47C6 /* UILabel+Addition.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA84D1BB4D5CB00AD47C6 /* UILabel+Addition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42DBA8501BB4D5CB00AD47C6 /* UILabel+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBA84E1BB4D5CB00AD47C6 /* UILabel+Addition.m */; };
 		42DBA8561BB5305700AD47C6 /* CCBase64.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA8541BB5305700AD47C6 /* CCBase64.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1971,6 +1973,8 @@
 		42BAB9191BC7565100C70043 /* UITabBarController+Additional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITabBarController+Additional.m"; path = "UITabBarController/UITabBarController+Additional.m"; sourceTree = "<group>"; };
 		42D0EDF41BBA68E10032A489 /* ResourcesPhotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourcesPhotos.h; sourceTree = "<group>"; };
 		42D0EDF51BBA68E10032A489 /* ResourcesPhotos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourcesPhotos.m; sourceTree = "<group>"; };
+		42D404C11BC9EB6A00C62FBD /* UIAlertView+Additional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIAlertView+Additional.h"; path = "UIAlertView/UIAlertView+Additional.h"; sourceTree = "<group>"; };
+		42D404C21BC9EB6A00C62FBD /* UIAlertView+Additional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIAlertView+Additional.m"; path = "UIAlertView/UIAlertView+Additional.m"; sourceTree = "<group>"; };
 		42DBA84D1BB4D5CB00AD47C6 /* UILabel+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UILabel+Addition.h"; path = "UILabel/UILabel+Addition.h"; sourceTree = "<group>"; };
 		42DBA84E1BB4D5CB00AD47C6 /* UILabel+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+Addition.m"; path = "UILabel/UILabel+Addition.m"; sourceTree = "<group>"; };
 		42DBA8541BB5305700AD47C6 /* CCBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCBase64.h; path = Base64/CCBase64.h; sourceTree = "<group>"; };
@@ -3858,6 +3862,7 @@
 		429C9EC51B9EF8BF0013A44A /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				42D404C01BC9EB4A00C62FBD /* UIAlertView */,
 				42BAB9131BC755EE00C70043 /* UITabBarController */,
 				429E33E91BB8FD06006C4DFF /* UIBarButtonItem */,
 				42DBA84C1BB4D5A700AD47C6 /* UILabel */,
@@ -4230,6 +4235,15 @@
 			name = UITabBarController;
 			sourceTree = "<group>";
 		};
+		42D404C01BC9EB4A00C62FBD /* UIAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				42D404C11BC9EB6A00C62FBD /* UIAlertView+Additional.h */,
+				42D404C21BC9EB6A00C62FBD /* UIAlertView+Additional.m */,
+			);
+			name = UIAlertView;
+			sourceTree = "<group>";
+		};
 		42DBA84C1BB4D5A700AD47C6 /* UILabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -4334,6 +4348,7 @@
 				420DE2B61BC7942300D87D6D /* ZXAztecDecoder.h in Headers */,
 				420DE2C81BC7942300D87D6D /* ZXAztecDetectorResult.h in Headers */,
 				420DE3EB1BC7942300D87D6D /* ZXEAN13Reader.h in Headers */,
+				42D404C31BC9EB6A00C62FBD /* UIAlertView+Additional.h in Headers */,
 				420DE3F11BC7942300D87D6D /* ZXEAN8Writer.h in Headers */,
 				420DE3FA1BC7942300D87D6D /* ZXMultiFormatOneDReader.h in Headers */,
 				420DE4141BC7942300D87D6D /* ZXModulusPoly.h in Headers */,
@@ -5331,6 +5346,7 @@
 				4230E18E1BBB83CE0001E68F /* CCRadarPointView.m in Sources */,
 				4269793A1BA695BA00C3E93C /* AFURLResponseSerialization.m in Sources */,
 				429CA1081B9EF8BF0013A44A /* CCMessageVoiceFactory.m in Sources */,
+				42D404C41BC9EB6A00C62FBD /* UIAlertView+Additional.m in Sources */,
 				4269793C1BA695BA00C3E93C /* AFNetworkActivityIndicatorManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

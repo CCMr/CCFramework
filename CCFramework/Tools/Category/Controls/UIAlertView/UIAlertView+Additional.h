@@ -1,5 +1,5 @@
 //
-//  UILabel+Addition.m
+//  UIAlertView+Additional.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,22 +23,10 @@
 // THE SOFTWARE.
 //
 
-#import "UILabel+Addition.h"
+#import <UIKit/UIKit.h>
 
-@implementation UILabel (Addition)
+@interface UIAlertView (Additional)<UIAlertViewDelegate,UIActionSheetDelegate>
 
-/**
- *  @author CC, 15-09-25
- *
- *  @brief  设置CellLabel背景颜色
- *
- *  @param color 颜色值
- */
-- (void)cellLabelSetColor: (UIColor *)color
-{
-    [self setBackgroundColor:color];
-    [self performSelector:@selector(setBackgroundColor:) withObject:color afterDelay:0.01];
-}
-
+-(void)showWithCompletionHandler:(void (^)(NSInteger buttonIndex))completionHandler;
 
 @end

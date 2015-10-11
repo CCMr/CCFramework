@@ -170,7 +170,7 @@
 /**
  *  @author C C, 2015-08-02
  *
- *  @brief  软件显示回调事件
+ *  @brief  软盘显示回调事件
  *
  *  @param keyboardRect <#keyboardRect description#>
  *
@@ -214,4 +214,10 @@
  */
 - (void)setTabBarHideShow:(BOOL)IsHide;
 
+/**
+ *  @author C C, 2015-10-11
+ *
+ *  @brief  隐藏导航栏底部线
+ */
+- (void)hideNavigationControllerBottomLine;
 @end

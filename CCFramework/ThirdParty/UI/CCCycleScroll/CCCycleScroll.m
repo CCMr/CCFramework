@@ -87,10 +87,10 @@ static CGFloat SWITCH_FOCUS_PICTURE_INTERVAL = 5.0; //switch interval time
     for (int i = 0; i < containerArray.count; i++) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i * _SrcollView.frame.size.width+space, space, _SrcollView.frame.size.width-space*2, _SrcollView.frame.size.height-2*space-size.height)];
         if (_IsLocalImage) {
-            
+            imageView.image = [UIImage imageNamed:containerArray[i]];
         }else{
             if (_placeholder)
-            [imageView sd_setImageWithURLStr:containerArray[i] placeholderImage:_placeholder];
+                [imageView sd_setImageWithURLStr:containerArray[i] placeholderImage:_placeholder];
             else
                 [imageView sd_setImageWithURLStr:containerArray[i]];
         }
