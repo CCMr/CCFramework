@@ -27,6 +27,7 @@
 #import <objc/runtime.h>
 #import"AFNetworking.h"
 #import "UIKit+AFNetworking.h"
+#import "NSDate+BNSDate.h"
 
 static CCHTTPManager *_sharedlnstance = nil;
 @implementation CCHTTPManager
@@ -247,7 +248,7 @@ static CCHTTPManager *_sharedlnstance = nil;
 {
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
     AFHTTPRequestOperation *requestOperation = [manager HEAD:requestURLString parameters:parameter success:^(AFHTTPRequestOperation * operation) {
-        
+
     } failure:^(AFHTTPRequestOperation *  operation, NSError * error) {
         failureBlock(error);
     }];
@@ -268,10 +269,10 @@ static CCHTTPManager *_sharedlnstance = nil;
  *  @param failureBlock     网络错误回调
  */
 - (void) NetRequestPUTWithRequestURL: (NSString *) requestURLString
-                          WithParameter: (NSDictionary *) parameter
-                   WithReturnValeuBlock: (RequestComplete) block
-                     WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
-                       WithFailureBlock: (FailureBlock) failureBlock
+                       WithParameter: (NSDictionary *) parameter
+                WithReturnValeuBlock: (RequestComplete) block
+                  WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
+                    WithFailureBlock: (FailureBlock) failureBlock
 {
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
     AFHTTPRequestOperation *requestOperation = [manager PUT:requestURLString parameters:parameter success:^(AFHTTPRequestOperation * operation, id  responseObject) {
@@ -299,10 +300,10 @@ static CCHTTPManager *_sharedlnstance = nil;
  *  @param failureBlock     网络错误回调
  */
 - (void) NetRequestPATCHWithRequestURL: (NSString *) requestURLString
-                          WithParameter: (NSDictionary *) parameter
-                   WithReturnValeuBlock: (RequestComplete) block
-                     WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
-                       WithFailureBlock: (FailureBlock) failureBlock
+                         WithParameter: (NSDictionary *) parameter
+                  WithReturnValeuBlock: (RequestComplete) block
+                    WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
+                      WithFailureBlock: (FailureBlock) failureBlock
 {
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
     AFHTTPRequestOperation *requestOperation = [manager PATCH:requestURLString parameters:parameter success:^(AFHTTPRequestOperation * operation, id  responseObject) {
@@ -385,18 +386,44 @@ static CCHTTPManager *_sharedlnstance = nil;
  *
  *  @brief  上传文件(表单方式提交)
  *
- *  @param requestURLString 上传文件服务器地址
- *  @param fileName         上传文件路径
- *  @param fileType         上传文件类型
- *  @param block            完成回调
- *  @param errorBlock       错误回调
- *  @param progressBlock    进度回调
+ *  @param requestURLString     上传文件服务器地址
+ *  @param fileName             上传文件路径
+ *  @param fileType             上传文件类型
+ *  @param serviceReceivingName 服务器接收名称
+ *  @param block                完成回调
+ *  @param errorBlock           错误回调
+ *  @param progressBlock        进度回调
  *
  *  @since 1.0
  */
 - (void) NetRequestUploadFormWithRequestURL: (NSString *) requestURLString
                          WithUploadFilePath: (NSString *) filePath
                                    FileType: (CCUploadFormFileType)fileType
+                       ServiceReceivingName: (NSString *)serviceReceivingName
+                       WithReturnValeuBlock: (RequestComplete) block
+                         WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
+                          WithProgressBlock: (ProgressBlock) progressBlock
+{
+    [self NetRequestUploadFormWithRequestURL:requestURLString WithUploadFileImage:[UIImage imageWithContentsOfFile:filePath] FileType:fileType ServiceReceivingName:serviceReceivingName WithReturnValeuBlock:block WithErrorCodeBlock:errorBlock WithProgressBlock:progressBlock];
+}
+
+/**
+ *  @author CC, 2015-10-12
+ *
+ *  @brief  上传文件(表单方式提交)
+ *
+ *  @param requestURLString     上传文件服务器地址
+ *  @param fileImage            上传文件
+ *  @param fileType             上传文件类型
+ *  @param serviceReceivingName 服务器接收名称
+ *  @param block                完成回调
+ *  @param errorBlock           错误回调
+ *  @param progressBlock        进度回调
+ */
+- (void) NetRequestUploadFormWithRequestURL: (NSString *) requestURLString
+                        WithUploadFileImage: (UIImage *) fileImage
+                                   FileType: (CCUploadFormFileType)fileType
+                       ServiceReceivingName: (NSString *)serviceReceivingName
                        WithReturnValeuBlock: (RequestComplete) block
                          WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
                           WithProgressBlock: (ProgressBlock) progressBlock
@@ -406,31 +433,34 @@ static CCHTTPManager *_sharedlnstance = nil;
         NSData *postData;
         NSString *postFileType;
         NSString *postFileName;
+        NSString *postFileNameType;
         switch (fileType) {
             case CCUploadFormFileTypeImageJpeg:
-            {
-                postData = [NSData dataWithContentsOfFile:filePath];
+                postData = UIImageJPEGRepresentation(fileImage, 1);
                 postFileType = @"image/jpeg";
+                postFileNameType = @"jpeg";
+                break;
 
-                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                formatter.dateFormat = @"yyyyMMddHHmmss";
-                NSString *str = [formatter stringFromDate:[NSDate date]];
-                postFileName = [NSString stringWithFormat:@"%@.jpg", str];
-            }
+            case CCUploadFormFileTypeImagePNG:
+                postData = UIImagePNGRepresentation(fileImage);
+                postFileType = @"image/png";
+                postFileNameType = @"png";
                 break;
 
             default:
                 break;
         }
-        // 上传图片，以文件流的格式
-        [formData appendPartWithFileData:postData name:@"myfiles" fileName:postFileName mimeType:postFileType];
+        //上传图片保存名称与类型
+        postFileName = [NSString stringWithFormat:@"%@.%@", [[NSDate date] toStringFormat:@"yyyyMMddHHmmssSSS"],postFileNameType];
 
+        // 上传图片，以文件流的格式
+        [formData appendPartWithFileData:postData name:serviceReceivingName fileName:postFileName mimeType:postFileType];
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         block(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         errorBlock(error);
     }];
-
+    
     [requestOperation start];
 }
 

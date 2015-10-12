@@ -28,11 +28,73 @@
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 
-typedef void(^DidOutputSampleBufferBlock)(CMSampleBufferRef sampleBuffer);
+/**
+ *  @author CC, 2015-10-12
+ *
+ *  @brief  二维码扫描模式
+ */
+typedef NS_ENUM(NSInteger, CCCaptureHelperType){
+    /** 扫描图像三方解析 */
+    CCCaptureHelperTypeVideo,
+    /** 扫描图像系统解析 */
+    CCCaptureHelperTypeMeta, //默认模式
+};
+
+@class CCCaptureHelper;
+
+typedef void(^DidOutputScanResultBlock)(id scanResult);
+
+@protocol CCCaptureHelperDelegate <NSObject>
+
+/**
+ *  @author CC, 2015-10-12
+ *
+ *  @brief  扫描返回的结果
+ *
+ *  @param capture      当前对象
+ *  @param sampleBuffer 扫描结果对象
+ */
+-(void)DidOutputSampleBufferBlock: (CCCaptureHelper *)capture
+                CMSampleBufferRef: (CMSampleBufferRef) sampleBuffer;
+
+/**
+ *  @author CC, 2015-10-12
+ *
+ *  @brief  扫描返回结果系统自带
+ *
+ *  @param capture 当前对象
+ *  @param result  扫描之后的结果
+ */
+-(void)DidOutputSampleBufferBlock: (CCCaptureHelper *)capture
+                       ScanResult: (NSString *)result;
+
+@end
 
 @interface CCCaptureHelper : NSObject <AVCaptureVideoDataOutputSampleBufferDelegate>
 
-- (void)setDidOutputSampleBufferHandle:(DidOutputSampleBufferBlock)didOutputSampleBuffer;
+/**
+ *  @author CC, 2015-10-12
+ *
+ *  @brief  扫描方式
+ */
+@property (nonatomic, assign) CCCaptureHelperType captureType;
+
+/**
+ *  @author CC, 2015-10-12
+ *
+ *  @brief  扫描结果委托
+ */
+@property (nonatomic, weak) id<CCCaptureHelperDelegate> delegate;
+
+
+/**
+ *  @author CC, 2015-10-12
+ *
+ *  @brief  扫描结果回调函数
+ *
+ *  @param didOutputSampleBuffer 返回结果
+ */
+- (void)setDidOutputSampleBufferHandle:(DidOutputScanResultBlock)didOutputSampleBuffer;
 
 - (void)showCaptureOnView:(UIView *)preview;
 

@@ -232,8 +232,10 @@ typedef NS_ENUM(NSInteger, CCShareMenuItemType) {
  *  @since 1.0
  */
 typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
-    /** 图片Jpeg **/
+    /** 图片Jpeg */
     CCUploadFormFileTypeImageJpeg,
+    /** 图片PNG */
+    CCUploadFormFileTypeImagePNG,
 };
 
 #pragma mark - PageContainer

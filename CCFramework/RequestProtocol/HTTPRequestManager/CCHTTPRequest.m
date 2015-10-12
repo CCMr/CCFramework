@@ -86,18 +86,46 @@ static CCHTTPRequest *_sharedlnstance = nil;
 /**
  *  @author CC, 2015-07-23
  *
- *  @brief 拼接请求网络地址
+ *  @brief 追加网络请求地址
  *
- *  @param MethodName api地址
+ *  @param MethodName API地址
  *
- *  @return <#return value description#>
- *
- *  @since 1.0
+ *  @return 返回服务器API地址
  */
 - (NSString *)appendingServerURLWithString:(NSString *)MethodName
 {
 //    return [[NSString stringWithFormat:@"%@%@",ServiceAddress,MethodName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     return @"";
+}
+
+/**
+ *  @author CC, 2015-10-12
+ *
+ *  @brief  追加扩展网络请求地址
+ *
+ *  @param MethodName API地址
+ *
+ *  @return 返回服务器API地址
+ */
+- (NSString *)appendingExpandServerURLWithString:(NSString *)MethodName
+{
+    return @"";
+}
+
+/**
+ *  @author CC, 2015-10-12
+ *
+ *  @brief  拼接请求网络地址
+ *
+ *  @param serviceAddres 服务器地址
+ *  @param methodName    API地址
+ *
+ *  @return 返回服务器API地址
+ */
+- (NSString *)appendingServerURLWithString: (NSString *)serviceAddres
+                                MethodName: (NSString *)methodName
+{
+    return [[NSString stringWithFormat:@"%@%@",serviceAddres,methodName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
 /**
@@ -110,7 +138,9 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
--(void)setRequestOBJBlock:(RequestBlock)requestOBJBlock Key:(NSString *)key{
+-(void)setRequestOBJBlock: (RequestBlock)requestOBJBlock
+                      Key: (NSString *)key
+{
     objc_setAssociatedObject(self, (__bridge void*)key, requestOBJBlock, OBJC_ASSOCIATION_COPY);
 }
 
@@ -125,16 +155,45 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
--(RequestBlock)requestOBJBlock:(NSString *)key{
+-(RequestBlock)requestOBJBlock:(NSString *)key
+{
     return (RequestBlock)objc_getAssociatedObject(self,(__bridge void*)key);
+}
+
+/**
+ *  @author CC, 2015-10-12
+ *
+ *  @brief  SET委托
+ *
+ *  @param progressOBJBlock 委托Block函数
+ *  @param key              对应Key
+ */
+- (void)setProgressOBJBlock: (ProgressBlock)progressOBJBlock
+                        Key: (NSString *)key
+{
+    objc_setAssociatedObject(self, (__bridge void*)key, progressOBJBlock, OBJC_ASSOCIATION_COPY);
+}
+
+/**
+ *  @author CC, 2015-08-15
+ *
+ *  @brief  GET委托事件
+ *
+ *  @param key 对应Key
+ *
+ *  @return 返回委托Block函数
+ */
+- (ProgressBlock)ProgressOBJBlock: (NSString *)key
+{
+     return (ProgressBlock)objc_getAssociatedObject(self,(__bridge void*)key);
 }
 
 /**
  *  @author CC, 2015-07-24
  *
- *  @brief  响音处理事件
+ *  @brief  响应处理事件
  *
- *  @param responseData <#responseData description#>
+ *  @param responseData xiang
  *
  *  @since 1.0
  */

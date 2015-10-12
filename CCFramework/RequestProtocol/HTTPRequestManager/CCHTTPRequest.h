@@ -69,15 +69,37 @@
 /**
  *  @author CC, 2015-07-23
  *
- *  @brief 拼接请求网络地址 (必须继承该类实现该方法)
+ *  @brief 追加网络请求地址(必须继承该类实现该方法)
  *
- *  @param MethodName api地址
+ *  @param MethodName API地址
  *
- *  @return 拼接请求服务地址
- *
- *  @since 1.0
+ *  @return 返回服务器API地址
  */
 - (NSString *)appendingServerURLWithString:(NSString *)MethodName;
+
+/**
+ *  @author CC, 2015-10-12
+ *
+ *  @brief  追加扩展网络请求地址(用于多个服务器地址)
+ *
+ *  @param MethodName API地址
+ *
+ *  @return 返回服务器API地址
+ */
+- (NSString *)appendingExpandServerURLWithString:(NSString *)MethodName;
+
+/**
+ *  @author CC, 2015-10-12
+ *
+ *  @brief  拼接请求网络地址
+ *
+ *  @param serviceAddres 服务器地址
+ *  @param methodName    API地址
+ *
+ *  @return 返回服务器API地址
+ */
+- (NSString *)appendingServerURLWithString: (NSString *)serviceAddres
+                                MethodName: (NSString *)methodName;
 
 /**
  *  @author CC, 2015-08-15
@@ -103,6 +125,28 @@
  *  @since 1.0
  */
 - (RequestBlock)requestOBJBlock:(NSString *)key;
+
+/**
+ *  @author CC, 2015-10-12
+ *
+ *  @brief  SET委托
+ *
+ *  @param progressOBJBlock 委托Block函数
+ *  @param key              对应Key
+ */
+- (void)setProgressOBJBlock: (ProgressBlock)progressOBJBlock
+                        Key: (NSString *)key;
+
+/**
+ *  @author CC, 2015-08-15
+ *
+ *  @brief  GET委托事件
+ *
+ *  @param key 对应Key
+ *
+ *  @return 返回委托Block函数
+ */
+- (ProgressBlock)ProgressOBJBlock: (NSString *)key;
 
 /**
  *  @author CC, 2015-07-24

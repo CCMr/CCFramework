@@ -25,6 +25,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Config.h"
+#import <UIKit/UIKit.h>
 #import "EnumConfig.h"
 
 @interface CCHTTPManager : NSObject
@@ -197,6 +198,28 @@
 - (void) NetRequestUploadFormWithRequestURL: (NSString *) requestURLString
                          WithUploadFilePath: (NSString *) filePath
                                    FileType: (CCUploadFormFileType)fileType
+                       ServiceReceivingName: (NSString *)serviceReceivingName
+                       WithReturnValeuBlock: (RequestComplete) block
+                         WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
+                          WithProgressBlock: (ProgressBlock) progressBlock;
+
+/**
+ *  @author CC, 2015-10-12
+ *
+ *  @brief  上传文件(表单方式提交)
+ *
+ *  @param requestURLString     上传文件服务器地址
+ *  @param fileImage            上传文件
+ *  @param fileType             上传文件类型
+ *  @param serviceReceivingName 服务器接收名称
+ *  @param block                完成回调
+ *  @param errorBlock           错误回调
+ *  @param progressBlock        进度回调
+ */
+- (void) NetRequestUploadFormWithRequestURL: (NSString *) requestURLString
+                        WithUploadFileImage: (UIImage *) fileImage
+                                   FileType: (CCUploadFormFileType)fileType
+                       ServiceReceivingName: (NSString *)serviceReceivingName
                        WithReturnValeuBlock: (RequestComplete) block
                          WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
                           WithProgressBlock: (ProgressBlock) progressBlock;

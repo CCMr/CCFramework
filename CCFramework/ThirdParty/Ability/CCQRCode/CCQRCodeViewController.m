@@ -36,7 +36,7 @@
 
 typedef void (^Outcomeblock)(NSString *outcome);
 
-@interface CCQRCodeViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface CCQRCodeViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,CCCaptureHelperDelegate>
 
 @property (nonatomic, strong) UIView *preview;
 
@@ -164,12 +164,24 @@ typedef void (^Outcomeblock)(NSString *outcome);
 - (CCCaptureHelper *)captureHelper {
     if (!_captureHelper) {
         _captureHelper = [[CCCaptureHelper alloc] init];
-        WEAKSELF
-        [_captureHelper setDidOutputSampleBufferHandle:^(CMSampleBufferRef sampleBuffer) {
-            [weakSelf analysisQRCode:[CCVideoOutputSampleBufferFactory imageFromSampleBuffer:sampleBuffer]];
-        }];
+        _captureHelper.delegate = self;
     }
     return _captureHelper;
+}
+
+#pragma mark - 扫描委托
+-(void)DidOutputSampleBufferBlock: (CCCaptureHelper *)capture
+                       ScanResult: (NSString *)result
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    if (_outcomeblock)
+        _outcomeblock(result);
+}
+
+-(void)DidOutputSampleBufferBlock: (CCCaptureHelper *)capture
+                CMSampleBufferRef: (CMSampleBufferRef)sampleBuffer
+{
+    [self analysisQRCode:[CCVideoOutputSampleBufferFactory imageFromSampleBuffer:sampleBuffer]];
 }
 
 /**
@@ -196,7 +208,7 @@ typedef void (^Outcomeblock)(NSString *outcome);
                                 error:&error];
 
     if (result) {
-        [self.captureHelper stopRunning];
+        [self.navigationController popViewControllerAnimated:YES];
         if (_outcomeblock)
             _outcomeblock(result.text);
     }else{
@@ -211,7 +223,7 @@ typedef void (^Outcomeblock)(NSString *outcome);
  *
  *  @param block 返回结果回调函数
  */
-- (void)diAnalysisOutcome:(void (^)(NSString *outcome))block
+- (void)diAnalysisOutcome:(void (^)(NSString *))block
 {
     _outcomeblock = block;
 }
@@ -262,7 +274,8 @@ typedef void (^Outcomeblock)(NSString *outcome);
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     self.captureHelper = nil;
     self.scanningView = nil;
 }
