@@ -513,7 +513,7 @@
 
 - (BOOL)shouldAutorotate
 {
-    return NO;
+    return YES;
 }
 
 -(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation

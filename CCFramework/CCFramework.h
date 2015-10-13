@@ -147,6 +147,7 @@
 #import <CCFramework/CCVoiceRecordHUD.h>
 #import <CCFramework/CCWaterfallsFlow.h>
 #import <CCFramework/CCWebViewController.h>
+#import <CCFramework/CCWebView.h>
 #import <CCFramework/CCWebViewProgress.h>
 #import <CCFramework/CCWebViewProgressView.h>
 #import <CCFramework/CCRadarScanViewController.h>

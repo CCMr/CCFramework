@@ -31,6 +31,7 @@
 #import "UIButton+CCButtonTitlePosition.h"
 #import "CCCameraViewController.h"
 #import "QRCode.h"
+#import "CCQRCodeDisplayViewController.h"
 
 #define kCCScanningButtonPadding 36
 
@@ -170,14 +171,37 @@ typedef void (^Outcomeblock)(NSString *outcome);
 }
 
 #pragma mark - 扫描委托
+/**
+ *  @author CC, 2015-10-12
+ *
+ *  @brief  扫描返回结果系统自带
+ *
+ *  @param capture 当前对象
+ *  @param result  扫描之后的结果
+ */
 -(void)DidOutputSampleBufferBlock: (CCCaptureHelper *)capture
                        ScanResult: (NSString *)result
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.captureHelper stopRunning];
+
     if (_outcomeblock)
         _outcomeblock(result);
+
+    MainThread(^(){
+        CCQRCodeDisplayViewController *viewController = [[CCQRCodeDisplayViewController alloc] init];
+        viewController.baseURL = result;
+        [self pushNewViewController:viewController];
+    });
 }
 
+/**
+ *  @author CC, 2015-10-12
+ *
+ *  @brief  扫描返回的结果
+ *
+ *  @param capture      当前对象
+ *  @param sampleBuffer 扫描结果对象
+ */
 -(void)DidOutputSampleBufferBlock: (CCCaptureHelper *)capture
                 CMSampleBufferRef: (CMSampleBufferRef)sampleBuffer
 {
@@ -208,9 +232,14 @@ typedef void (^Outcomeblock)(NSString *outcome);
                                 error:&error];
 
     if (result) {
-        [self.navigationController popViewControllerAnimated:YES];
         if (_outcomeblock)
             _outcomeblock(result.text);
+
+        MainThread(^(){
+            CCQRCodeDisplayViewController *viewController = [[CCQRCodeDisplayViewController alloc] init];
+            viewController.baseURL = result.text;
+            [self pushNewViewController:viewController];
+        });
     }else{
         [self.captureHelper startRunning];
     }

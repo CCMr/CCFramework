@@ -948,6 +948,10 @@
 		429CA12D1B9EF8BF0013A44A /* SignalRManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F431B9EF8BF0013A44A /* SignalRManager.m */; };
 		429CA12E1B9EF8BF0013A44A /* CCTimePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F451B9EF8BF0013A44A /* CCTimePicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA12F1B9EF8BF0013A44A /* CCTimePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F461B9EF8BF0013A44A /* CCTimePicker.m */; };
+		42A58A401BCC94320027429C /* CCQRCodeDisplayViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 42A58A3E1BCC94320027429C /* CCQRCodeDisplayViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42A58A411BCC94320027429C /* CCQRCodeDisplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A58A3F1BCC94320027429C /* CCQRCodeDisplayViewController.m */; settings = {ASSET_TAGS = (); }; };
+		42A58A591BCCA23C0027429C /* CCWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42A58A571BCCA23C0027429C /* CCWebView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42A58A5A1BCCA23C0027429C /* CCWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A58A581BCCA23C0027429C /* CCWebView.m */; settings = {ASSET_TAGS = (); }; };
 		42AC36451BB92014007B61D6 /* UIBarButtonItem+Addition.h in Headers */ = {isa = PBXBuildFile; fileRef = 42AC36431BB92014007B61D6 /* UIBarButtonItem+Addition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42AC36461BB92014007B61D6 /* UIBarButtonItem+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AC36441BB92014007B61D6 /* UIBarButtonItem+Addition.m */; };
 		42B30DCB1BBD72AD0039BB94 /* SDImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 42B30DA71BBD72AD0039BB94 /* SDImageCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1932,6 +1936,10 @@
 		429C9F431B9EF8BF0013A44A /* SignalRManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignalRManager.m; sourceTree = "<group>"; };
 		429C9F451B9EF8BF0013A44A /* CCTimePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTimePicker.h; sourceTree = "<group>"; };
 		429C9F461B9EF8BF0013A44A /* CCTimePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTimePicker.m; sourceTree = "<group>"; };
+		42A58A3E1BCC94320027429C /* CCQRCodeDisplayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCQRCodeDisplayViewController.h; sourceTree = "<group>"; };
+		42A58A3F1BCC94320027429C /* CCQRCodeDisplayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCQRCodeDisplayViewController.m; sourceTree = "<group>"; };
+		42A58A571BCCA23C0027429C /* CCWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCWebView.h; sourceTree = "<group>"; };
+		42A58A581BCCA23C0027429C /* CCWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCWebView.m; sourceTree = "<group>"; };
 		42AC36431BB92014007B61D6 /* UIBarButtonItem+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBarButtonItem+Addition.h"; path = "UIBarButtonItem/UIBarButtonItem+Addition.h"; sourceTree = "<group>"; };
 		42AC36441BB92014007B61D6 /* UIBarButtonItem+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIBarButtonItem+Addition.m"; path = "UIBarButtonItem/UIBarButtonItem+Addition.m"; sourceTree = "<group>"; };
 		42B30DA71BBD72AD0039BB94 /* SDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCache.h; sourceTree = "<group>"; };
@@ -3125,6 +3133,8 @@
 				429C9D641B9EF8BE0013A44A /* ScanningView */,
 				429C9D621B9EF8BE0013A44A /* CCQRCodeViewController.h */,
 				429C9D631B9EF8BE0013A44A /* CCQRCodeViewController.m */,
+				42A58A3E1BCC94320027429C /* CCQRCodeDisplayViewController.h */,
+				42A58A3F1BCC94320027429C /* CCQRCodeDisplayViewController.m */,
 			);
 			path = CCQRCode;
 			sourceTree = "<group>";
@@ -3746,6 +3756,8 @@
 			children = (
 				429C9E8C1B9EF8BF0013A44A /* CCWebViewController.h */,
 				429C9E8D1B9EF8BF0013A44A /* CCWebViewController.m */,
+				42A58A571BCCA23C0027429C /* CCWebView.h */,
+				42A58A581BCCA23C0027429C /* CCWebView.m */,
 			);
 			path = CCWebView;
 			sourceTree = "<group>";
@@ -4479,6 +4491,7 @@
 				426979281BA695BA00C3E93C /* AFNetworking.h in Headers */,
 				429CA0D31B9EF8BF0013A44A /* UIImage+Data.h in Headers */,
 				429CA0F31B9EF8BF0013A44A /* CCMessageBubbleHelper.h in Headers */,
+				42A58A591BCCA23C0027429C /* CCWebView.h in Headers */,
 				426979451BA695BA00C3E93C /* UIKit+AFNetworking.h in Headers */,
 				429CA01D1B9EF8BF0013A44A /* CCCycleScroll.h in Headers */,
 				429CA0621B9EF8BF0013A44A /* CCPickerGroupViewController.h in Headers */,
@@ -4733,6 +4746,7 @@
 				420DE40E1BC7942300D87D6D /* ZXUPCEANWriter.h in Headers */,
 				420DE32B1BC7942300D87D6D /* ZXReedSolomonEncoder.h in Headers */,
 				420DE31F1BC7942300D87D6D /* ZXMathUtils.h in Headers */,
+				42A58A401BCC94320027429C /* CCQRCodeDisplayViewController.h in Headers */,
 				420DE3391BC7942300D87D6D /* ZXDecoderResult.h in Headers */,
 				420DE3451BC7942300D87D6D /* ZXIntArray.h in Headers */,
 				420DE3431BC7942300D87D6D /* ZXHybridBinarizer.h in Headers */,
@@ -5030,6 +5044,7 @@
 				429C9F5D1B9EF8BF0013A44A /* CCDropzone.m in Sources */,
 				429CA0C01B9EF8BF0013A44A /* NSString+BNSString.m in Sources */,
 				426979441BA695BA00C3E93C /* UIImageView+AFNetworking.m in Sources */,
+				42A58A5A1BCCA23C0027429C /* CCWebView.m in Sources */,
 				420DE3FB1BC7942300D87D6D /* ZXMultiFormatOneDReader.m in Sources */,
 				420DE4291BC7942300D87D6D /* ZXPDF417DetectionResultRowIndicatorColumn.m in Sources */,
 				429C9FD11B9EF8BF0013A44A /* SRExceptionHelper.m in Sources */,
@@ -5130,6 +5145,7 @@
 				429CA0721B9EF8BF0013A44A /* CCPopMenu.m in Sources */,
 				420DE45A1BC7942300D87D6D /* ZXQRCodeAlignmentPattern.m in Sources */,
 				420DE43E1BC7942300D87D6D /* ZXPDF417Common.m in Sources */,
+				42A58A411BCC94320027429C /* CCQRCodeDisplayViewController.m in Sources */,
 				429CA0EA1B9EF8BF0013A44A /* CCAudioPlayerHelper.m in Sources */,
 				420DE31C1BC7942300D87D6D /* ZXCGImageLuminanceSource.m in Sources */,
 				428B0C3F1BA7C2DF00F89879 /* AFHTTPRequestOperation.m in Sources */,

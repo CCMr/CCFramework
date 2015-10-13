@@ -96,10 +96,27 @@ typedef void(^DidOutputScanResultBlock)(id scanResult);
  */
 - (void)setDidOutputSampleBufferHandle:(DidOutputScanResultBlock)didOutputSampleBuffer;
 
+/**
+ *  @author CC, 2015-10-13
+ *
+ *  @brief  设置布局
+ *
+ *  @param preview 父View
+ */
 - (void)showCaptureOnView:(UIView *)preview;
 
+/**
+ *  @author CC, 2015-10-13
+ *
+ *  @brief  启动扫描
+ */
 - (void)startRunning;
 
+/**
+ *  @author CC, 2015-10-13
+ *
+ *  @brief  停止扫描
+ */
 - (void)stopRunning;
 
 @end

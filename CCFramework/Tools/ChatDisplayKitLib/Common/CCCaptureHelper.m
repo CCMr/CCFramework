@@ -23,7 +23,6 @@
 // THE SOFTWARE.
 //
 
-
 #import "CCCaptureHelper.h"
 
 @interface CCCaptureHelper ()<AVCaptureMetadataOutputObjectsDelegate>
@@ -33,19 +32,34 @@
 @property (nonatomic, strong) dispatch_queue_t captureSessionQueue;
 
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
-@property (nonatomic, strong) AVCaptureSession *captureSession;
-@property (nonatomic, strong) AVCaptureDeviceInput *captureInput;
-@property (nonatomic, strong) AVCaptureVideoDataOutput *captureOutput;
-@property (nonatomic, strong) AVCaptureMetadataOutput *captureMetadataOutput;
-@property (strong, nonatomic) AVCaptureDevice *defaultDevice;
+@property (nonatomic, strong) AVCaptureSession           *captureSession;
+@property (nonatomic, strong) AVCaptureDeviceInput       *captureInput;
+@property (nonatomic, strong) AVCaptureDeviceInput       *frontDeviceInput;
+@property (nonatomic, strong) AVCaptureVideoDataOutput   *captureOutput;
+@property (nonatomic, strong) AVCaptureMetadataOutput    *captureMetadataOutput;
+@property (strong, nonatomic) AVCaptureDevice            *defaultDevice;
 @end
 
 @implementation CCCaptureHelper
 
+/**
+ *  @author CC, 2015-10-13
+ *
+ *  @brief  回调Block
+ *
+ *  @param didOutputSampleBuffer 委托
+ */
 - (void)setDidOutputSampleBufferHandle:(DidOutputScanResultBlock)didOutputSampleBuffer {
     self.didOutputSampleBuffer = didOutputSampleBuffer;
 }
 
+/**
+ *  @author CC, 2015-10-13
+ *
+ *  @brief  显示扫描视图
+ *
+ *  @param preview 父View
+ */
 - (void)showCaptureOnView:(UIView *)preview {
     dispatch_async(self.captureSessionQueue, ^{
         [self.captureSession startRunning];
@@ -58,74 +72,83 @@
 }
 
 #pragma mark - Propertys
+/**
+ *  @author CC, 2015-10-13
+ *
+ *  @brief  初始化扫描
+ */
+- (void)setupAVComponents
+{
+    self.defaultDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
 
-- (AVCaptureSession *)captureSession {
-    if (!_captureSession) {
-        _captureSession = [[AVCaptureSession alloc] init];
+    if (_defaultDevice) {
+        self.captureInput             = [AVCaptureDeviceInput deviceInputWithDevice:_defaultDevice error:nil];
+        self.captureMetadataOutput    = [[AVCaptureMetadataOutput alloc] init];
+        self.captureSession           = [[AVCaptureSession alloc] init];
+        self.captureVideoPreviewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
 
-        if ([_captureSession canAddInput:self.captureInput])
-            [self.captureSession addInput:self.captureInput];
+        for (AVCaptureDevice *device in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
+            if (device.position == AVCaptureDevicePositionFront)
+                self.defaultDevice = device;
+        }
 
-        [self.captureSession addOutput: self.captureType == CCCaptureHelperTypeMeta ? self.captureMetadataOutput : self.captureOutput];
-
-//        NSString* preset = 0;
-//        if (NSClassFromString(@"NSOrderedSet") && // Proxy for "is this iOS 5" ...
-//            [UIScreen mainScreen].scale > 1 &&
-//            [inputDevice
-//             supportsAVCaptureSessionPreset:AVCaptureSessionPresetiFrame960x540]) {
-//                preset = AVCaptureSessionPresetiFrame960x540;
-//            }
-//        if (!preset) {
-//            preset = AVCaptureSessionPresetMedium;
-//        }
-//        self.captureSession.sessionPreset = preset;
+        if (_defaultDevice)
+            self.frontDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:_defaultDevice error:nil];
     }
-    return _captureSession;
 }
 
--(AVCaptureDevice *)defaultDevice
+/**
+ *  @author CC, 2015-10-13
+ *
+ *  @brief  加载扫描
+ */
+- (void)configureDefaultComponents
 {
-    if (!_defaultDevice) {
-        _defaultDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    }
-    return _defaultDevice;
-}
+    if (self.captureType == CCCaptureHelperTypeMeta) {
+        [_captureSession addOutput:_captureMetadataOutput];
 
--(AVCaptureDeviceInput *)captureInput
-{
-    if (!_captureInput) {
-        _captureInput = [AVCaptureDeviceInput deviceInputWithDevice:self.defaultDevice error:nil];
-    }
-    return _captureInput;
-}
+        if (_captureInput)
+            [_captureSession addInput:_captureInput];
 
-- (AVCaptureMetadataOutput *)captureMetadataOutput
-{
-    if (!_captureMetadataOutput) {
-        _captureMetadataOutput = [[AVCaptureMetadataOutput alloc] init];
         [_captureMetadataOutput setMetadataObjectsDelegate:self queue:self.captureSessionQueue];
 
-        if ([[_captureMetadataOutput availableMetadataObjectTypes] containsObject:AVMetadataObjectTypeQRCode]) {
+        if ([[_captureMetadataOutput availableMetadataObjectTypes] containsObject:AVMetadataObjectTypeQRCode])
             [_captureMetadataOutput setMetadataObjectTypes:@[ AVMetadataObjectTypeQRCode ]];
-        }
-    }
-    return _captureMetadataOutput;
-}
 
--(AVCaptureVideoDataOutput *)captureOutput
-{
-    if (!_captureOutput) {
-        _captureOutput = [[AVCaptureVideoDataOutput alloc] init];
-        _captureOutput.alwaysDiscardsLateVideoFrames = YES;
-        [_captureOutput setSampleBufferDelegate:self queue:self.captureSessionQueue];
+    }else{
+        if ([_captureSession canAddInput:_captureInput])
+            [self.captureSession addInput:_captureInput];
+
+        self.captureOutput = [[AVCaptureVideoDataOutput alloc] init];
+        self.captureOutput.alwaysDiscardsLateVideoFrames = YES;
+        [self.captureOutput setSampleBufferDelegate:self queue:self.captureSessionQueue];
         NSString *key = (NSString *)kCVPixelBufferPixelFormatTypeKey;
         NSNumber *value = [NSNumber numberWithUnsignedInt:kCVPixelFormatType_32BGRA];
         NSDictionary *videoSettings = [NSDictionary dictionaryWithObject:value forKey:key];
         [_captureOutput setVideoSettings:videoSettings];
+
+        [self.captureSession addOutput:self.captureOutput];
+
+        NSString* preset = 0;
+        // Proxy for "is this iOS 5" ...
+        if (NSClassFromString(@"NSOrderedSet") &&
+            [UIScreen mainScreen].scale > 1 &&
+            [_defaultDevice supportsAVCaptureSessionPreset:AVCaptureSessionPresetiFrame960x540])
+            preset = AVCaptureSessionPresetiFrame960x540;
+
+        if (!preset)
+            preset = AVCaptureSessionPresetMedium;
+        self.captureSession.sessionPreset = preset;
     }
-    return _captureOutput;
 }
 
+/**
+ *  @author CC, 2015-10-13
+ *
+ *  @brief  扫描视图
+ *
+ *  @return 返回扫描视图
+ */
 - (AVCaptureVideoPreviewLayer *)captureVideoPreviewLayer {
     if (!_captureVideoPreviewLayer) {
         _captureVideoPreviewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
@@ -134,28 +157,64 @@
     return _captureVideoPreviewLayer;
 }
 
+/**
+ *  @author CC, 2015-10-13
+ *
+ *  @brief  切换前后置摄像头
+ */
+- (void)switchDeviceInput
+{
+    if (_frontDeviceInput) {
+        [_captureSession beginConfiguration];
+
+        AVCaptureDeviceInput *currentInput = [_captureSession.inputs firstObject];
+        [_captureSession removeInput:currentInput];
+
+        AVCaptureDeviceInput *newDeviceInput = (currentInput.device.position == AVCaptureDevicePositionFront) ? _captureInput : _frontDeviceInput;
+        [_captureSession addInput:newDeviceInput];
+
+        [_captureSession commitConfiguration];
+    }
+}
+
 #pragma mark - Life Cycle
 
 - (id)init {
     self = [super init];
     if (self) {
-        _captureSessionQueue = dispatch_queue_create("com.CC.captureSessionQueue", 0);
+        self.captureSessionQueue = dispatch_queue_create("com.CC.captureSessionQueue", 0);
         self.captureType = CCCaptureHelperTypeMeta;
+        [self setupAVComponents];
+        [self configureDefaultComponents];
     }
     return self;
 }
 
+/**
+ *  @author CC, 2015-10-13
+ *
+ *  @brief  启动扫描
+ */
 - (void)startRunning
 {
-    [self.captureSession startRunning];
+    if (![self.captureSession isRunning])
+        [self.captureSession startRunning];
+
 }
 
+/**
+ *  @author CC, 2015-10-13
+ *
+ *  @brief  停止扫描
+ */
 - (void)stopRunning
 {
-    [self.captureSession stopRunning];
+    if ([self.captureSession isRunning])
+        [self.captureSession stopRunning];
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     _captureSessionQueue = nil;
     _captureVideoPreviewLayer = nil;
 
