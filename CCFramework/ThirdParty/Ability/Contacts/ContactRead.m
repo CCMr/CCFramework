@@ -27,10 +27,16 @@
 @import ContactsUI;
 #import "ContactRead.h"
 #import "ContactPersonEntity.h"
+#import <AddressBook/AddressBook.h>
+#import <AddressBookUI/AddressBookUI.h>
+
+typedef void (^ContactCompletion)(NSArray * contacts, NSError * error);
 
 @interface ContactRead ()
 
 @property (nonatomic, strong) CNContactStore *contactStore;
+
+@property (nonatomic, strong) ContactCompletion completion;
 
 /**
  *  @author CC, 2015-10-10
@@ -46,6 +52,11 @@
  */
 @property (nonatomic, strong) NSArray * contacts;
 
+#pragma mark - IOS9以下使用
+@property (nonatomic, readonly) ABAddressBookRef addressBook;
+
+@property (nonatomic, readonly) dispatch_queue_t localQueue;
+
 @end
 
 @implementation ContactRead
@@ -59,31 +70,94 @@
  */
 - (void)readContact:(void (^)(NSArray * contacts, NSError * error))completion
 {
+    self.completion = completion;
+    if([[[UIDevice currentDevice] systemVersion] floatValue] < 9.0) {
+        [self readAddress];
+    }else
+        [self readIOS9Contact];
+}
+
+-(void)readAddress
+{
+    WEAKSELF
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 6.0){
+        CFErrorRef *error = NULL;
+        _addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
+
+        if (error){
+            NSLog(@"%@", (__bridge_transfer NSString *)CFErrorCopyFailureReason(*error));
+            return;
+        }
+        NSString *name = [NSString stringWithFormat:@"com.addressbook.%ld",
+                          (long)self.hash];
+        _localQueue = dispatch_queue_create([name cStringUsingEncoding:NSUTF8StringEncoding], NULL);
+    }else{//如果系统是6.0之前的系统，不需要获得同意，直接访问
+        _addressBook = ABAddressBookCreate();
+    }
+    //占时不确定作用域
+    NSArray *descriptors = [NSArray array];
+
+    ABAddressBookRequestAccessWithCompletion(self.addressBook, ^(bool granted, CFErrorRef errorRef) {
+        dispatch_async(self.localQueue, ^{
+            NSArray *array = nil;
+            NSError *error = nil;
+            if (granted)
+            {
+                CFArrayRef peopleArrayRef = ABAddressBookCopyArrayOfAllPeople(self.addressBook);
+                NSUInteger contactCount = (NSUInteger)CFArrayGetCount(peopleArrayRef);
+                NSMutableArray *contacts = [[NSMutableArray alloc] init];
+                for (NSUInteger i = 0; i < contactCount; i++){
+                    ABRecordRef recordRef = CFArrayGetValueAtIndex(peopleArrayRef, i);
+                    ContactPersonEntity *contact = [[ContactPersonEntity alloc] initWithRecordRef:recordRef];
+                    [contacts addObject:contact];
+                }
+                [contacts sortUsingDescriptors:descriptors];
+                array = contacts.copy;
+                CFRelease(peopleArrayRef);
+            }else if (error){
+                error = (__bridge NSError *)errorRef;
+            }
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                weakSelf.completion(array,nil);
+            });
+        });
+    });
+}
+
+#pragma mark - IOS9
+/**
+ *  @author CC, 2015-10-13
+ *
+ *  @brief  IOS9加载通讯录
+ */
+- (void)readIOS9Contact
+{
     if (!self.contactStore)
         self.contactStore = [[CNContactStore alloc] init];
 
     NSError * _contactError = [NSError errorWithDomain:@"CCContactsErrorDomain" code:1 userInfo:@{NSLocalizedDescriptionKey:@"Not authorized to access Contacts."}];
-
+    WEAKSELF
     switch ( [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts] )
     {
         case CNAuthorizationStatusDenied:
         case CNAuthorizationStatusRestricted: //读取联系人错误
         {
             //跳转系统设置app获取通讯录权限  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-            completion(nil, _contactError);
+            self.completion(nil, _contactError);
             break;
         }
         case CNAuthorizationStatusNotDetermined:
         {
-            [_contactStore requestAccessForEntityType:CNEntityTypeContacts
-                                    completionHandler:^(BOOL granted, NSError * error) {
-                                        if (!granted ) {
-                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                completion(nil, _contactError);
-                                            });
-                                        }else
-                                            [self readContact:completion];
-                                    }];
+            [self.contactStore requestAccessForEntityType:CNEntityTypeContacts
+                                        completionHandler:^(BOOL granted, NSError * error) {
+                                            if (!granted) {
+                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                    weakSelf.completion(nil, _contactError);
+                                                });
+                                            }else
+                                                [weakSelf readContact:weakSelf.completion];
+                                        }];
             break;
         }
 
@@ -91,17 +165,16 @@
         {
             NSMutableArray * _contactsTemp = [NSMutableArray new];
             CNContactFetchRequest * _contactRequest = [[CNContactFetchRequest alloc] initWithKeysToFetch:[self contactKeys]];
-            [_contactStore enumerateContactsWithFetchRequest:_contactRequest error:nil usingBlock:^(CNContact * contact, BOOL * stop) {
+            [self.contactStore enumerateContactsWithFetchRequest:_contactRequest error:nil usingBlock:^(CNContact * contact, BOOL * stop) {
                 [_contactsTemp addObject:contact];
             }];
 
             dispatch_async(dispatch_get_main_queue(), ^{
-                completion([self analyzeContact:_contactsTemp], nil);
+                weakSelf.completion([self analyzeContact:_contactsTemp], nil);
             });
             break;
         }
     }
-    
 }
 
 /**
@@ -207,6 +280,17 @@
              CNContactRelationsKey,
              CNContactSocialProfilesKey,
              CNContactInstantMessageAddressesKey];
+}
+
+
+-(void)dealloc
+{
+    if (_addressBook)
+        CFRelease(_addressBook);
+
+#if !OS_OBJECT_USE_OBJC
+    dispatch_release(_localQueue);
+#endif
 }
 
 @end

@@ -259,6 +259,11 @@
 
         [controller setAllowsEditing:YES];// 设置是否可以管理已经存在的图片或者视频
         [controller setDelegate:self];// 设置代理
+
+        if([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+            _currentViewController.modalPresentationStyle=UIModalPresentationOverCurrentContext;
+        }
+
         [_currentViewController presentViewController:controller animated:YES completion:nil];
     }
 }

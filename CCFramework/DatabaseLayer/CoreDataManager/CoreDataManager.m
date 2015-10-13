@@ -84,8 +84,8 @@
         abort();
     }
     // 初始化上下文，设置persistentStoreCoordinator属性
-    _managedObjectContext = [[NSManagedObjectContext alloc] init];
-    _managedObjectContext.persistentStoreCoordinator = coordinator;
+    self.managedObjectContext = [[NSManagedObjectContext alloc] init];
+    self.managedObjectContext.persistentStoreCoordinator = coordinator;
 }
 
 /**
@@ -186,17 +186,17 @@
  */
 - (void)insertCoreData:(NSString *)tableName DataDic:(NSDictionary *)dataDic
 {
-    NSManagedObject *entity = [NSEntityDescription insertNewObjectForEntityForName:tableName inManagedObjectContext:_managedObjectContext];
+    NSManagedObject *entity = [NSEntityDescription insertNewObjectForEntityForName:tableName inManagedObjectContext:self.managedObjectContext];
     for (NSString *key in dataDic.allKeys) {
         if ([[dataDic objectForKey:key] isKindOfClass:[NSArray class]]){
-            NSRelationshipDescription *relationship = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:_managedObjectContext] relationshipsByName] objectForKey:key];
+            NSRelationshipDescription *relationship = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:self.managedObjectContext] relationshipsByName] objectForKey:key];
             [self RecursiveCategory:entity Relationship:relationship ForeignKeyValue:[dataDic objectForKey:relationship.inverseRelationship.name] DataArray:[dataDic objectForKey:key]];
         }else
             [entity setValue:[dataDic objectForKey:key] forKey:key];
     }
     
     NSError *error = nil;
-    if(![_managedObjectContext save:&error])
+    if(![self.managedObjectContext save:&error])
         NSLog(@"%@ insertNewObject Error:%@",tableName,[error localizedDescription]);
 }
 

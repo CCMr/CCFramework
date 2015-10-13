@@ -24,6 +24,7 @@
 //
 
 #import <CCFramework/CCFramework.h>
+#import <AddressBook/AddressBook.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -105,6 +106,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString * country;
 
 /**
+ *  @author CC, 2015-10-13
+ *
+ *  @brief  国家Code
+ */
+@property (nonatomic, copy) NSString *countryCode;
+
+/**
  *  @author CC, 2015-10-10
  *
  *  @brief  公司
@@ -159,6 +167,30 @@ NS_ASSUME_NONNULL_BEGIN
  *  @brief  头像
  */
 @property (nonatomic, copy) UIImage * thumb;
+
+/**
+ *  @author CC, 2015-10-13
+ *
+ *  @brief  记录ID
+ */
+@property (nonatomic, readonly) NSNumber *recordID;
+
+/**
+ *  @author CC, 2015-10-13
+ *
+ *  @brief  创建日期
+ */
+@property (nonatomic, readonly) NSDate *creationDate;
+
+/**
+ *  @author CC, 2015-10-13
+ *
+ *  @brief  修改日期
+ */
+@property (nonatomic, readonly) NSDate *modificationDate;
+
+
+- (id)initWithRecordRef:(ABRecordRef)recordRef;
 
 - (NSString *)addressString;
 
