@@ -63,7 +63,11 @@
  */
 @property (nonatomic, assign) BOOL IsLocalImage;
 
--(id)initWithFrame:(CGRect)frame ImageItems:(NSArray *)items IsAutoPlay:(BOOL)isAuto IsLocalImage:(BOOL)isLocalImage;
+-(id)initWithFrame: (CGRect)frame
+        ImageItems: (NSArray *)items
+       Placeholder: (UIImage *)placeholder
+        IsAutoPlay: (BOOL)isAuto
+      IsLocalImage: (BOOL)isLocalImage;
 
 - (void)scrollToIndex:(int)aIndex;
 

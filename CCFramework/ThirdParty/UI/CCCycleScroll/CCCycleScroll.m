@@ -26,13 +26,17 @@
 #import "CCCycleScroll.h"
 #import "Config.h"
 #import "UIView+BUIView.h"
-#import "UIImageView+WebCache.h"
+#import "UIImageView+Additional.h"
 
-@implementation CCCycleScroll{
-    NSArray *containerArray;
-    UIScrollView *_SrcollView;
-    UIPageControl *_pageControl;
-}
+@interface CCCycleScroll()
+
+@property (nonatomic, strong) NSArray *containerArray;
+@property (nonatomic, strong) UIScrollView *SrcollView;
+@property (nonatomic, strong) UIPageControl *pageControl;
+
+@end
+
+@implementation CCCycleScroll
 
 static CGFloat SWITCH_FOCUS_PICTURE_INTERVAL = 5.0; //switch interval time
 
@@ -43,11 +47,17 @@ static CGFloat SWITCH_FOCUS_PICTURE_INTERVAL = 5.0; //switch interval time
     return self;
 }
 
--(id)initWithFrame:(CGRect)frame ImageItems:(NSArray *)items IsAutoPlay:(BOOL)isAuto IsLocalImage:(BOOL)isLocalImage{
+-(id)initWithFrame: (CGRect)frame
+        ImageItems: (NSArray *)items
+       Placeholder: (UIImage *)placeholder
+        IsAutoPlay: (BOOL)isAuto
+      IsLocalImage: (BOOL)isLocalImage
+{
     if (self = [super initWithFrame:frame]) {
         _IsAutoPlay = isAuto;
-        containerArray = items;
+        _containerArray = items;
         _IsLocalImage = isLocalImage;
+        _placeholder = placeholder;
         [self setupViews];
     }
     return self;
@@ -68,7 +78,7 @@ static CGFloat SWITCH_FOCUS_PICTURE_INTERVAL = 5.0; //switch interval time
     _SrcollView.pagingEnabled = YES;
     _SrcollView.delegate = self;
     
-    _pageControl.numberOfPages = containerArray.count > 1 ? containerArray.count - 2 : containerArray.count;
+    _pageControl.numberOfPages = _containerArray.count > 1 ? _containerArray.count - 2 : _containerArray.count;
     _pageControl.currentPage = 0;
     
     [self initData:YES];
@@ -82,25 +92,23 @@ static CGFloat SWITCH_FOCUS_PICTURE_INTERVAL = 5.0; //switch interval time
     tapGestureRecognize.delegate = self;
     tapGestureRecognize.numberOfTapsRequired = 1;
     [_SrcollView addGestureRecognizer:tapGestureRecognize];
-    _SrcollView.contentSize = CGSizeMake(_SrcollView.frame.size.width * containerArray.count, _SrcollView.frame.size.height);
+    _SrcollView.contentSize = CGSizeMake(_SrcollView.frame.size.width * _containerArray.count, _SrcollView.frame.size.height);
     
-    for (int i = 0; i < containerArray.count; i++) {
+    for (int i = 0; i < _containerArray.count; i++) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i * _SrcollView.frame.size.width+space, space, _SrcollView.frame.size.width-space*2, _SrcollView.frame.size.height-2*space-size.height)];
         if (_IsLocalImage) {
-            imageView.image = [UIImage imageNamed:containerArray[i]];
+            imageView.image = [UIImage imageNamed:_containerArray[i]];
         }else{
             if (_placeholder)
-                [imageView sd_setImageWithURLStr:containerArray[i] placeholderImage:_placeholder];
-            else
-                [imageView sd_setImageWithURLStr:containerArray[i]];
+                [imageView setImageWithURL:_containerArray[i] placeholder:_placeholder];
         }
         imageView.tag =  1000 + i;
         [_SrcollView addSubview:imageView];
         if (bol)
-            imageView.image = [UIImage imageNamed:containerArray[i]];
+            imageView.image = [UIImage imageNamed:_containerArray[i]];
     }
     
-    if (containerArray.count > 1) {
+    if (_containerArray.count > 1) {
         [_SrcollView setContentOffset:CGPointMake(winsize.width, 0) animated:NO];
         if (_IsAutoPlay)
             [self performSelector:@selector(switchFocusImageItems) withObject:nil afterDelay:SWITCH_FOCUS_PICTURE_INTERVAL];
@@ -108,26 +116,26 @@ static CGFloat SWITCH_FOCUS_PICTURE_INTERVAL = 5.0; //switch interval time
 }
 
 -(void)setUrlImages:(NSArray *)urlImages{
-    containerArray = urlImages;
+    _containerArray = urlImages;
     [_SrcollView removeAllSubviews];
     [self initData:NO];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     float targetX = scrollView.contentOffset.x;
-    if (containerArray.count >= 3){
-        if (targetX >= winsize.width * (containerArray.count - 1)) {
+    if (_containerArray.count >= 3){
+        if (targetX >= winsize.width * (_containerArray.count - 1)) {
             targetX = winsize.width;
             [_SrcollView setContentOffset:CGPointMake(targetX, 0) animated:NO];
         }else if(targetX <= 0){
-            targetX = winsize.width *(containerArray.count - 2);
+            targetX = winsize.width *(_containerArray.count - 2);
             [_SrcollView setContentOffset:CGPointMake(targetX, 0) animated:NO];
         }
     }
     
     int page = (_SrcollView.contentOffset.x + winsize.width / 2.0) / winsize.width;
     
-    if (containerArray.count > 1)
+    if (_containerArray.count > 1)
     {
         page --;
         if (page >= _pageControl.numberOfPages)
@@ -145,7 +153,7 @@ static CGFloat SWITCH_FOCUS_PICTURE_INTERVAL = 5.0; //switch interval time
     targetX = (int)(targetX / winsize.width) * winsize.width;
     [self moveToTargetPosition:targetX];
     
-    if (containerArray.count > 1 && _IsAutoPlay)
+    if (_containerArray.count > 1 && _IsAutoPlay)
         [self performSelector:@selector(switchFocusImageItems) withObject:nil afterDelay:SWITCH_FOCUS_PICTURE_INTERVAL];
 }
 
@@ -156,7 +164,7 @@ static CGFloat SWITCH_FOCUS_PICTURE_INTERVAL = 5.0; //switch interval time
 
 - (void)singleTapGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer{
     NSInteger page = (_SrcollView.contentOffset.x / _SrcollView.frame.size.width);
-    if (page > -1 && page < containerArray.count) {
+    if (page > -1 && page < _containerArray.count) {
         if ([self.delegate respondsToSelector:@selector(didScrollSelect:)])
             [self.delegate didScrollSelect:page];
         
@@ -174,9 +182,9 @@ static CGFloat SWITCH_FOCUS_PICTURE_INTERVAL = 5.0; //switch interval time
 }
 
 - (void)scrollToIndex:(int)aIndex{
-    if (containerArray.count > 1){
-        if (aIndex >= (containerArray.count - 2))
-            aIndex = (int)containerArray.count - 3;
+    if (_containerArray.count > 1){
+        if (aIndex >= (_containerArray.count - 2))
+            aIndex = (int)_containerArray.count - 3;
         [self moveToTargetPosition:winsize.width * (aIndex + 1)];
     }else
         [self moveToTargetPosition:0];
