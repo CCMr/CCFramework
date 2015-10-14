@@ -26,7 +26,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import <CCFramework/AccelerationAnimation.h>
 #import <CCFramework/BaseAppDelegate.h>
 #import <CCFramework/BaseEntity.h>
 #import <CCFramework/BaseNavigationController.h>
@@ -53,7 +52,6 @@
 #import <CCFramework/CCAudioPlayerHelper.h>
 #import <CCFramework/CCAutoTextView.h>
 #import <CCFramework/CCBase64.h>
-#import <CCFramework/CCBackgroundView.h>
 #import <CCFramework/CCBadgeView.h>
 #import <CCFramework/CCBubblePhotoImageView.h>
 #import <CCFramework/CCCacheManager.h>
@@ -130,8 +128,7 @@
 #import <CCFramework/CCShareMenuItem.h>
 #import <CCFramework/CCShareMenuView.h>
 #import <CCFramework/CCSideMenu.h>
-#import <CCFramework/CCSideMenuCell.h>
-#import <CCFramework/CCSideMenuItem.h>
+#import <CCFramework/UIViewController+CCSideMenu.h>
 #import <CCFramework/CCSignatureView.h>
 #import <CCFramework/CCSlideShadowAnimation.h>
 #import <CCFramework/CCTableViewCell.h>

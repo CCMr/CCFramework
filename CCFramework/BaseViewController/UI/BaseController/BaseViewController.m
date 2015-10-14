@@ -521,6 +521,20 @@
     return UIInterfaceOrientationPortrait;
 }
 
+-(void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+    [coordinator animateAlongsideTransition:^(id  context) {
+        if (newCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
+
+        } else {
+
+        }
+        self.view.frame = self.view.bounds;
+        [self.view setNeedsLayout];
+    } completion:nil];
+}
+
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];

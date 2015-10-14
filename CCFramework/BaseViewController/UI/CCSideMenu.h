@@ -43,7 +43,12 @@
 @property (strong, readwrite, nonatomic) UIImage *backgroundImage;
 @property (assign, readwrite, nonatomic) BOOL hideStatusBarArea;
 @property (assign, readwrite, nonatomic) BOOL isShowing;
-@property (nonatomic, retain) UIView *containerView;
+/**
+ *  @author CC, 2015-10-14
+ *
+ *  @brief  自定义视图
+ */
+@property (strong, nonatomic) UIView *containerView;
 @property (assign, readwrite, nonatomic) BOOL isSide;
 
 - (id)initWithItems:(NSDictionary *)items;

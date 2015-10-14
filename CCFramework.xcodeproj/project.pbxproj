@@ -558,8 +558,6 @@
 		429C9F5D1B9EF8BF0013A44A /* CCDropzone.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D0E1B9EF8BE0013A44A /* CCDropzone.m */; };
 		429C9F5E1B9EF8BF0013A44A /* CCDropzoneViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D0F1B9EF8BE0013A44A /* CCDropzoneViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429C9F5F1B9EF8BF0013A44A /* CCDropzoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D101B9EF8BE0013A44A /* CCDropzoneViewController.m */; };
-		429C9F601B9EF8BF0013A44A /* CCSideMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D111B9EF8BE0013A44A /* CCSideMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		429C9F611B9EF8BF0013A44A /* CCSideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D121B9EF8BE0013A44A /* CCSideMenu.m */; };
 		429C9F621B9EF8BF0013A44A /* Config.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D141B9EF8BE0013A44A /* Config.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429C9F631B9EF8BF0013A44A /* EnumConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D151B9EF8BE0013A44A /* EnumConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429C9F641B9EF8BF0013A44A /* CCNSManagedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D181B9EF8BE0013A44A /* CCNSManagedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -598,16 +596,6 @@
 		429C9FAB1B9EF8BF0013A44A /* CCThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D781B9EF8BE0013A44A /* CCThemeManager.m */; };
 		429C9FAC1B9EF8BF0013A44A /* CCUserDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D7A1B9EF8BE0013A44A /* CCUserDefaults.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429C9FAD1B9EF8BF0013A44A /* CCUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D7B1B9EF8BE0013A44A /* CCUserDefaults.m */; };
-		429C9FAE1B9EF8BF0013A44A /* AccelerationAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D7D1B9EF8BE0013A44A /* AccelerationAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		429C9FAF1B9EF8BF0013A44A /* AccelerationAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D7E1B9EF8BE0013A44A /* AccelerationAnimation.m */; };
-		429C9FB01B9EF8BF0013A44A /* CCBackgroundView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D7F1B9EF8BE0013A44A /* CCBackgroundView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		429C9FB11B9EF8BF0013A44A /* CCBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D801B9EF8BE0013A44A /* CCBackgroundView.m */; };
-		429C9FB21B9EF8BF0013A44A /* CCSideMenuCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D811B9EF8BE0013A44A /* CCSideMenuCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		429C9FB31B9EF8BF0013A44A /* CCSideMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D821B9EF8BE0013A44A /* CCSideMenuCell.m */; };
-		429C9FB41B9EF8BF0013A44A /* CCSideMenuItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D831B9EF8BE0013A44A /* CCSideMenuItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		429C9FB51B9EF8BF0013A44A /* CCSideMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D841B9EF8BE0013A44A /* CCSideMenuItem.m */; };
-		429C9FB61B9EF8BF0013A44A /* Evaluate.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D851B9EF8BE0013A44A /* Evaluate.h */; };
-		429C9FB71B9EF8BF0013A44A /* Evaluate.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D861B9EF8BE0013A44A /* Evaluate.m */; };
 		429C9FB81B9EF8BF0013A44A /* Friend.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D881B9EF8BE0013A44A /* Friend.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429C9FB91B9EF8BF0013A44A /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D891B9EF8BE0013A44A /* Friend.m */; };
 		429C9FBA1B9EF8BF0013A44A /* FriendGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D8A1B9EF8BE0013A44A /* FriendGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -952,6 +940,12 @@
 		42A58A411BCC94320027429C /* CCQRCodeDisplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A58A3F1BCC94320027429C /* CCQRCodeDisplayViewController.m */; settings = {ASSET_TAGS = (); }; };
 		42A58A591BCCA23C0027429C /* CCWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42A58A571BCCA23C0027429C /* CCWebView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42A58A5A1BCCA23C0027429C /* CCWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A58A581BCCA23C0027429C /* CCWebView.m */; settings = {ASSET_TAGS = (); }; };
+		42A58A811BCDFE4F0027429C /* CCCommonFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 42A58A7B1BCDFE4F0027429C /* CCCommonFunctions.h */; settings = {ASSET_TAGS = (); }; };
+		42A58A821BCDFE4F0027429C /* CCCommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A58A7C1BCDFE4F0027429C /* CCCommonFunctions.m */; settings = {ASSET_TAGS = (); }; };
+		42A58A831BCDFE4F0027429C /* CCSideMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 42A58A7D1BCDFE4F0027429C /* CCSideMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42A58A841BCDFE4F0027429C /* CCSideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A58A7E1BCDFE4F0027429C /* CCSideMenu.m */; settings = {ASSET_TAGS = (); }; };
+		42A58A851BCDFE4F0027429C /* UIViewController+CCSideMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 42A58A7F1BCDFE4F0027429C /* UIViewController+CCSideMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42A58A861BCDFE4F0027429C /* UIViewController+CCSideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A58A801BCDFE4F0027429C /* UIViewController+CCSideMenu.m */; settings = {ASSET_TAGS = (); }; };
 		42AC36451BB92014007B61D6 /* UIBarButtonItem+Addition.h in Headers */ = {isa = PBXBuildFile; fileRef = 42AC36431BB92014007B61D6 /* UIBarButtonItem+Addition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42AC36461BB92014007B61D6 /* UIBarButtonItem+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AC36441BB92014007B61D6 /* UIBarButtonItem+Addition.m */; };
 		42B30DCB1BBD72AD0039BB94 /* SDImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 42B30DA71BBD72AD0039BB94 /* SDImageCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1546,8 +1540,6 @@
 		429C9D0E1B9EF8BE0013A44A /* CCDropzone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDropzone.m; sourceTree = "<group>"; };
 		429C9D0F1B9EF8BE0013A44A /* CCDropzoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDropzoneViewController.h; sourceTree = "<group>"; };
 		429C9D101B9EF8BE0013A44A /* CCDropzoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDropzoneViewController.m; sourceTree = "<group>"; };
-		429C9D111B9EF8BE0013A44A /* CCSideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSideMenu.h; sourceTree = "<group>"; };
-		429C9D121B9EF8BE0013A44A /* CCSideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCSideMenu.m; sourceTree = "<group>"; };
 		429C9D141B9EF8BE0013A44A /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		429C9D151B9EF8BE0013A44A /* EnumConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnumConfig.h; sourceTree = "<group>"; };
 		429C9D181B9EF8BE0013A44A /* CCNSManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNSManagedObject.h; sourceTree = "<group>"; };
@@ -1586,16 +1578,6 @@
 		429C9D781B9EF8BE0013A44A /* CCThemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCThemeManager.m; sourceTree = "<group>"; };
 		429C9D7A1B9EF8BE0013A44A /* CCUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCUserDefaults.h; sourceTree = "<group>"; };
 		429C9D7B1B9EF8BE0013A44A /* CCUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCUserDefaults.m; sourceTree = "<group>"; };
-		429C9D7D1B9EF8BE0013A44A /* AccelerationAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelerationAnimation.h; sourceTree = "<group>"; };
-		429C9D7E1B9EF8BE0013A44A /* AccelerationAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccelerationAnimation.m; sourceTree = "<group>"; };
-		429C9D7F1B9EF8BE0013A44A /* CCBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCBackgroundView.h; sourceTree = "<group>"; };
-		429C9D801B9EF8BE0013A44A /* CCBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCBackgroundView.m; sourceTree = "<group>"; };
-		429C9D811B9EF8BE0013A44A /* CCSideMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSideMenuCell.h; sourceTree = "<group>"; };
-		429C9D821B9EF8BE0013A44A /* CCSideMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCSideMenuCell.m; sourceTree = "<group>"; };
-		429C9D831B9EF8BE0013A44A /* CCSideMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSideMenuItem.h; sourceTree = "<group>"; };
-		429C9D841B9EF8BE0013A44A /* CCSideMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCSideMenuItem.m; sourceTree = "<group>"; };
-		429C9D851B9EF8BE0013A44A /* Evaluate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Evaluate.h; sourceTree = "<group>"; };
-		429C9D861B9EF8BE0013A44A /* Evaluate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Evaluate.m; sourceTree = "<group>"; };
 		429C9D881B9EF8BE0013A44A /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
 		429C9D891B9EF8BE0013A44A /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
 		429C9D8A1B9EF8BE0013A44A /* FriendGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendGroup.h; sourceTree = "<group>"; };
@@ -1940,6 +1922,12 @@
 		42A58A3F1BCC94320027429C /* CCQRCodeDisplayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCQRCodeDisplayViewController.m; sourceTree = "<group>"; };
 		42A58A571BCCA23C0027429C /* CCWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCWebView.h; sourceTree = "<group>"; };
 		42A58A581BCCA23C0027429C /* CCWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCWebView.m; sourceTree = "<group>"; };
+		42A58A7B1BCDFE4F0027429C /* CCCommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCommonFunctions.h; sourceTree = "<group>"; };
+		42A58A7C1BCDFE4F0027429C /* CCCommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCCommonFunctions.m; sourceTree = "<group>"; };
+		42A58A7D1BCDFE4F0027429C /* CCSideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSideMenu.h; sourceTree = "<group>"; };
+		42A58A7E1BCDFE4F0027429C /* CCSideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCSideMenu.m; sourceTree = "<group>"; };
+		42A58A7F1BCDFE4F0027429C /* UIViewController+CCSideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CCSideMenu.h"; sourceTree = "<group>"; };
+		42A58A801BCDFE4F0027429C /* UIViewController+CCSideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CCSideMenu.m"; sourceTree = "<group>"; };
 		42AC36431BB92014007B61D6 /* UIBarButtonItem+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBarButtonItem+Addition.h"; path = "UIBarButtonItem/UIBarButtonItem+Addition.h"; sourceTree = "<group>"; };
 		42AC36441BB92014007B61D6 /* UIBarButtonItem+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIBarButtonItem+Addition.m"; path = "UIBarButtonItem/UIBarButtonItem+Addition.m"; sourceTree = "<group>"; };
 		42B30DA71BBD72AD0039BB94 /* SDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCache.h; sourceTree = "<group>"; };
@@ -2947,8 +2935,6 @@
 				429C9D0E1B9EF8BE0013A44A /* CCDropzone.m */,
 				429C9D0F1B9EF8BE0013A44A /* CCDropzoneViewController.h */,
 				429C9D101B9EF8BE0013A44A /* CCDropzoneViewController.m */,
-				429C9D111B9EF8BE0013A44A /* CCSideMenu.h */,
-				429C9D121B9EF8BE0013A44A /* CCSideMenu.m */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -3074,6 +3060,7 @@
 		429C9D2F1B9EF8BE0013A44A /* Ability */ = {
 			isa = PBXGroup;
 			children = (
+				42A58A7A1BCDFE4F0027429C /* CCSideMenu */,
 				428A12C81BC8A025005D904D /* Contacts */,
 				42DBA8531BB5301C00AD47C6 /* Base64 */,
 				429C9D301B9EF8BE0013A44A /* AFNetworking */,
@@ -3085,7 +3072,6 @@
 				429C9D6D1B9EF8BE0013A44A /* CCStartPage */,
 				429C9D761B9EF8BE0013A44A /* CCThemeManager */,
 				429C9D791B9EF8BE0013A44A /* CCUserDefaults */,
-				429C9D7C1B9EF8BE0013A44A /* ExpandClass */,
 				429C9D871B9EF8BE0013A44A /* Group */,
 				429C9D8C1B9EF8BE0013A44A /* MBProgressHUD */,
 				429C9D8F1B9EF8BE0013A44A /* SignalR */,
@@ -3211,23 +3197,6 @@
 				429C9D7B1B9EF8BE0013A44A /* CCUserDefaults.m */,
 			);
 			path = CCUserDefaults;
-			sourceTree = "<group>";
-		};
-		429C9D7C1B9EF8BE0013A44A /* ExpandClass */ = {
-			isa = PBXGroup;
-			children = (
-				429C9D7D1B9EF8BE0013A44A /* AccelerationAnimation.h */,
-				429C9D7E1B9EF8BE0013A44A /* AccelerationAnimation.m */,
-				429C9D7F1B9EF8BE0013A44A /* CCBackgroundView.h */,
-				429C9D801B9EF8BE0013A44A /* CCBackgroundView.m */,
-				429C9D811B9EF8BE0013A44A /* CCSideMenuCell.h */,
-				429C9D821B9EF8BE0013A44A /* CCSideMenuCell.m */,
-				429C9D831B9EF8BE0013A44A /* CCSideMenuItem.h */,
-				429C9D841B9EF8BE0013A44A /* CCSideMenuItem.m */,
-				429C9D851B9EF8BE0013A44A /* Evaluate.h */,
-				429C9D861B9EF8BE0013A44A /* Evaluate.m */,
-			);
-			path = ExpandClass;
 			sourceTree = "<group>";
 		};
 		429C9D871B9EF8BE0013A44A /* Group */ = {
@@ -4166,6 +4135,19 @@
 			name = UIBarButtonItem;
 			sourceTree = "<group>";
 		};
+		42A58A7A1BCDFE4F0027429C /* CCSideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				42A58A7B1BCDFE4F0027429C /* CCCommonFunctions.h */,
+				42A58A7C1BCDFE4F0027429C /* CCCommonFunctions.m */,
+				42A58A7D1BCDFE4F0027429C /* CCSideMenu.h */,
+				42A58A7E1BCDFE4F0027429C /* CCSideMenu.m */,
+				42A58A7F1BCDFE4F0027429C /* UIViewController+CCSideMenu.h */,
+				42A58A801BCDFE4F0027429C /* UIViewController+CCSideMenu.m */,
+			);
+			path = CCSideMenu;
+			sourceTree = "<group>";
+		};
 		42B30DA51BBD72AD0039BB94 /* SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -4528,7 +4510,6 @@
 				429CA07B1B9EF8BF0013A44A /* CCRefreshBaseView.h in Headers */,
 				429CA0771B9EF8BF0013A44A /* CCPopMenuView.h in Headers */,
 				42B30DD31BBD72AD0039BB94 /* UIImage+GIF.h in Headers */,
-				429C9FB21B9EF8BF0013A44A /* CCSideMenuCell.h in Headers */,
 				429CA00F1B9EF8BF0013A44A /* CalendarFlowLayout.h in Headers */,
 				429CA0381B9EF8BF0013A44A /* CCPhotoToolbar.h in Headers */,
 				429C9F6C1B9EF8BF0013A44A /* CCUserDefaultsCrash.h in Headers */,
@@ -4549,7 +4530,6 @@
 				429CA1201B9EF8BF0013A44A /* CCEmotionManagerView.h in Headers */,
 				429C9F4C1B9EF8BF0013A44A /* BaseNavigationController.h in Headers */,
 				429CA07A1B9EF8BF0013A44A /* CCRefresh.h in Headers */,
-				429C9F601B9EF8BF0013A44A /* CCSideMenu.h in Headers */,
 				426979391BA695BA00C3E93C /* AFURLResponseSerialization.h in Headers */,
 				429CA07F1B9EF8BF0013A44A /* CCRefreshHeaderView.h in Headers */,
 				429CA0BB1B9EF8BF0013A44A /* NSDate+BNSDate.h in Headers */,
@@ -4575,11 +4555,11 @@
 				429CA1121B9EF8BF0013A44A /* CCShareMenuItem.h in Headers */,
 				429CA0B51B9EF8BF0013A44A /* CCCameraViewController.h in Headers */,
 				429CA0091B9EF8BF0013A44A /* CCBadgeView.h in Headers */,
-				429C9FAE1B9EF8BF0013A44A /* AccelerationAnimation.h in Headers */,
 				42B30DE11BBD72AD0039BB94 /* SDWebImageDownloaderOperation.h in Headers */,
 				429CA0C11B9EF8BF0013A44A /* UIColor+BUIColor.h in Headers */,
 				4269792F1BA695BA00C3E93C /* AFHTTPRequestOperationManager.h in Headers */,
 				42DBA8561BB5305700AD47C6 /* CCBase64.h in Headers */,
+				42A58A811BCDFE4F0027429C /* CCCommonFunctions.h in Headers */,
 				426979461BA695BA00C3E93C /* UIProgressView+AFNetworking.h in Headers */,
 				429CA0F71B9EF8BF0013A44A /* CCVoiceCommonHelper.h in Headers */,
 				429C9F641B9EF8BF0013A44A /* CCNSManagedObject.h in Headers */,
@@ -4639,8 +4619,6 @@
 				429CA0E11B9EF8BF0013A44A /* UIView+CCBadgeView.h in Headers */,
 				426979291BA695BA00C3E93C /* AFHTTPSessionManager.h in Headers */,
 				4264D7421BA2C19100E83159 /* CCPagesContainerTopBar.h in Headers */,
-				429C9FB01B9EF8BF0013A44A /* CCBackgroundView.h in Headers */,
-				429C9FB41B9EF8BF0013A44A /* CCSideMenuItem.h in Headers */,
 				4264D7401BA2C19100E83159 /* CCPagesContainer.h in Headers */,
 				429CA0CD1B9EF8BF0013A44A /* UIImage+Alpha.h in Headers */,
 				429CA0BD1B9EF8BF0013A44A /* NSMutableArray+BNSMutableArray.h in Headers */,
@@ -4702,6 +4680,7 @@
 				420DE3141BC7942300D87D6D /* ZXWifiParsedResult.h in Headers */,
 				420DE3161BC7942300D87D6D /* ZXWifiResultParser.h in Headers */,
 				420DE4671BC7942300D87D6D /* ZXQRCodeBlockPair.h in Headers */,
+				42A58A851BCDFE4F0027429C /* UIViewController+CCSideMenu.h in Headers */,
 				420DE46B1BC7942300D87D6D /* ZXQRCodeMaskUtil.h in Headers */,
 				420DE44D1BC7942300D87D6D /* ZXQRCodeDecoder.h in Headers */,
 				420DE4551BC7942300D87D6D /* ZXQRCodeMode.h in Headers */,
@@ -4776,7 +4755,6 @@
 				429C9FE41B9EF8BF0013A44A /* SRChunkBuffer.h in Headers */,
 				429C9FEA1B9EF8BF0013A44A /* SRAutoTransport.h in Headers */,
 				429C9FA61B9EF8BF0013A44A /* SmoothScrollView.h in Headers */,
-				429C9FB61B9EF8BF0013A44A /* Evaluate.h in Headers */,
 				429CA09B1B9EF8BF0013A44A /* SELineLayout.h in Headers */,
 				429CA09F1B9EF8BF0013A44A /* SESelectionGrabber.h in Headers */,
 				42DBA8591BB5309300AD47C6 /* CCDefines.h in Headers */,
@@ -4790,6 +4768,7 @@
 				4269793D1BA695BA00C3E93C /* UIActivityIndicatorView+AFNetworking.h in Headers */,
 				429CA0AF1B9EF8BF0013A44A /* SETextSelection.h in Headers */,
 				429CA0A31B9EF8BF0013A44A /* SETextEditingCaret.h in Headers */,
+				42A58A831BCDFE4F0027429C /* CCSideMenu.h in Headers */,
 				42B9D0E61B9FE3650086CA81 /* NSData+Additions.h in Headers */,
 				429CA0A71B9EF8BF0013A44A /* SETextInput.h in Headers */,
 				429C9FF81B9EF8BF0013A44A /* base64.h in Headers */,
@@ -4909,6 +4888,7 @@
 				429CA0B21B9EF8BF0013A44A /* SETextSelectionView.m in Sources */,
 				429CA0A21B9EF8BF0013A44A /* SETextAttachment.m in Sources */,
 				420DE4271BC7942300D87D6D /* ZXPDF417DetectionResultColumn.m in Sources */,
+				42A58A861BCDFE4F0027429C /* UIViewController+CCSideMenu.m in Sources */,
 				420DE3111BC7942300D87D6D /* ZXVINParsedResult.m in Sources */,
 				420DE3401BC7942300D87D6D /* ZXGlobalHistogramBinarizer.m in Sources */,
 				420DE3221BC7942300D87D6D /* ZXMonochromeRectangleDetector.m in Sources */,
@@ -4935,6 +4915,8 @@
 				420DE37E1BC7942300D87D6D /* ZXDataMatrixDefaultPlacement.m in Sources */,
 				420DE3CE1BC7942300D87D6D /* ZXRSSExpandedReader.m in Sources */,
 				420DE2B91BC7942300D87D6D /* ZXAztecDetector.m in Sources */,
+				42A58A821BCDFE4F0027429C /* CCCommonFunctions.m in Sources */,
+				42A58A841BCDFE4F0027429C /* CCSideMenu.m in Sources */,
 				429CA0F21B9EF8BF0013A44A /* CCLocationHelper.m in Sources */,
 				429C9FE71B9EF8BF0013A44A /* SREventSourceStreamReader.m in Sources */,
 				420DE3FF1BC7942300D87D6D /* ZXOneDimensionalCodeWriter.m in Sources */,
@@ -4963,7 +4945,6 @@
 				426979491BA695BA00C3E93C /* UIRefreshControl+AFNetworking.m in Sources */,
 				420DE46E1BC7942300D87D6D /* ZXQRCodeMatrixUtil.m in Sources */,
 				429CA0D21B9EF8BF0013A44A /* UIImage+CCRounded.m in Sources */,
-				429C9FB51B9EF8BF0013A44A /* CCSideMenuItem.m in Sources */,
 				429C9FBD1B9EF8BF0013A44A /* MBProgressHUD.m in Sources */,
 				42B30DE01BBD72AD0039BB94 /* SDWebImageDownloader.m in Sources */,
 				420DE3381BC7942300D87D6D /* ZXCharacterSetECI.m in Sources */,
@@ -4980,7 +4961,6 @@
 				420DE41B1BC7942300D87D6D /* ZXPDF417BarcodeValue.m in Sources */,
 				420DE3321BC7942300D87D6D /* ZXBitSource.m in Sources */,
 				429CA07C1B9EF8BF0013A44A /* CCRefreshBaseView.m in Sources */,
-				429C9FB31B9EF8BF0013A44A /* CCSideMenuCell.m in Sources */,
 				420DE47E1BC7942300D87D6D /* ZXMultiFormatWriter.m in Sources */,
 				429CA0001B9EF8BF0013A44A /* CCRourRotation.m in Sources */,
 				420DE2FF1BC7942300D87D6D /* ZXSMTPResultParser.m in Sources */,
@@ -5113,7 +5093,6 @@
 				429CA0061B9EF8BF0013A44A /* CCAnimatedImage.m in Sources */,
 				420DE2CB1BC7942300D87D6D /* ZXAztecReader.m in Sources */,
 				429CA0D41B9EF8BF0013A44A /* UIImage+Data.m in Sources */,
-				429C9FAF1B9EF8BF0013A44A /* AccelerationAnimation.m in Sources */,
 				429CA0221B9EF8BF0013A44A /* CCMessageInputView.m in Sources */,
 				420DE3F91BC7942300D87D6D /* ZXITFWriter.m in Sources */,
 				420DE3191BC7942300D87D6D /* ZXCapture.m in Sources */,
@@ -5296,7 +5275,6 @@
 				420DE4681BC7942300D87D6D /* ZXQRCodeBlockPair.m in Sources */,
 				420DE2EA1BC7942300D87D6D /* ZXGeoResultParser.m in Sources */,
 				420DE2D81BC7942300D87D6D /* ZXBizcardResultParser.m in Sources */,
-				429C9FB71B9EF8BF0013A44A /* Evaluate.m in Sources */,
 				429CA0701B9EF8BF0013A44A /* CCPickerCollectionViewCell.m in Sources */,
 				429CA1041B9EF8BF0013A44A /* CCMessageBubbleFactory.m in Sources */,
 				420DE3DA1BC7942300D87D6D /* ZXRSSPair.m in Sources */,
@@ -5314,7 +5292,6 @@
 				42B30DCC1BBD72AD0039BB94 /* SDImageCache.m in Sources */,
 				420DE3A11BC7942300D87D6D /* ZXGenericMultipleBarcodeReader.m in Sources */,
 				429C9FFA1B9EF8BF0013A44A /* NSData+SRB64Additions.m in Sources */,
-				429C9F611B9EF8BF0013A44A /* CCSideMenu.m in Sources */,
 				420DE4111BC7942300D87D6D /* ZXUPCEReader.m in Sources */,
 				420DE3551BC7942300D87D6D /* ZXDimension.m in Sources */,
 				429CA0921B9EF8BF0013A44A /* CCWebViewController.m in Sources */,
@@ -5344,7 +5321,6 @@
 				429CA0841B9EF8BF0013A44A /* CCTextViewPlaceholder.m in Sources */,
 				429CA0CE1B9EF8BF0013A44A /* UIImage+Alpha.m in Sources */,
 				429CA00A1B9EF8BF0013A44A /* CCBadgeView.m in Sources */,
-				429C9FB11B9EF8BF0013A44A /* CCBackgroundView.m in Sources */,
 				4264D7411BA2C19100E83159 /* CCPagesContainer.m in Sources */,
 				420DE3601BC7942300D87D6D /* ZXPlanarYUVLuminanceSource.m in Sources */,
 				429CA01E1B9EF8BF0013A44A /* CCCycleScroll.m in Sources */,
