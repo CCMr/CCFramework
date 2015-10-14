@@ -120,7 +120,20 @@
 #pragma mark -
 #pragma mark Public methods
 
-- (id)initWithContentViewController:(UIViewController *)contentViewController leftMenuViewController:(UIViewController *)leftMenuViewController rightMenuViewController:(UIViewController *)rightMenuViewController
+/**
+ *  @author CC, 2015-10-14
+ *
+ *  @brief  初始化侧边菜单
+ *
+ *  @param contentViewController   主视图控制器
+ *  @param leftMenuViewController  左视图控制器
+ *  @param rightMenuViewController 右视图控制器
+ *
+ *  @return 返回当前对象
+ */
+- (id)initWithContentViewController: (UIViewController *)contentViewController
+             leftMenuViewController: (UIViewController *)leftMenuViewController
+            rightMenuViewController: (UIViewController *)rightMenuViewController
 {
     self = [self init];
     if (self) {
@@ -131,12 +144,22 @@
     return self;
 }
 
+/**
+ *  @author CC, 2015-10-14
+ *
+ *  @brief  左视图控制器
+ */
 - (void)presentLeftMenuViewController
 {
     [self presentMenuViewContainerWithMenuViewController:self.leftMenuViewController];
     [self showLeftMenuViewController];
 }
 
+/**
+ *  @author CC, 2015-10-14
+ *
+ *  @brief  右视图控制器
+ */
 - (void)presentRightMenuViewController
 {
     [self presentMenuViewContainerWithMenuViewController:self.rightMenuViewController];
@@ -148,7 +171,16 @@
     [self hideMenuViewControllerAnimated:YES];
 }
 
-- (void)setContentViewController:(UIViewController *)contentViewController animated:(BOOL)animated
+/**
+ *  @author CC, 2015-10-14
+ *
+ *  @brief  跳转页面(当前控制器直接呈现)
+ *
+ *  @param contentViewController 跳转视图
+ *  @param animated              是否启用动画
+ */
+- (void)setContentViewController: (UIViewController *)contentViewController
+                        animated: (BOOL)animated
 {
     if (_contentViewController == contentViewController)
     {
@@ -177,6 +209,27 @@
             }
         }];
     }
+}
+
+/**
+ *  @author CC, 2015-10-14
+ *
+ *  @brief  跳转页面(推送方式跳转)
+ *
+ *  @param viewController 跳转视图
+ *  @param animated       是否启用动画
+ */
+- (void)pushViewController: (UIViewController *)viewController
+                  animated: (BOOL)animated
+{
+    //当前视图与跳转视图控制器一致时不做跳转
+    if (_contentViewController == viewController) return;
+
+    //当前视图如果不是导航栏不做跳转
+    if (![_contentViewController isKindOfClass:[UINavigationController class]]) return;
+
+    UINavigationController *navigationController = (UINavigationController *)_contentViewController;
+    [navigationController pushViewController:viewController animated:animated];
 }
 
 #pragma mark View life cycle
@@ -269,6 +322,11 @@
     }
 }
 
+/**
+ *  @author CC, 2015-10-14
+ *
+ *  @brief  显示左视图
+ */
 - (void)showLeftMenuViewController
 {
     if (!self.leftMenuViewController) {
@@ -316,6 +374,11 @@
     [self statusBarNeedsAppearanceUpdate];
 }
 
+/**
+ *  @author CC, 2015-10-14
+ *
+ *  @brief  显示右视图
+ */
 - (void)showRightMenuViewController
 {
     if (!self.rightMenuViewController) {
@@ -550,6 +613,13 @@
 #pragma mark -
 #pragma mark Pan gesture recognizer (Private)
 
+/**
+ *  @author CC, 2015-10-14
+ *
+ *  @brief  滑动手势
+ *
+ *  @param recognizer <#recognizer description#>
+ */
 - (void)panGestureRecognized:(UIPanGestureRecognizer *)recognizer
 {
     if ([self.delegate conformsToProtocol:@protocol(CCSideMenuDelegate)] && [self.delegate respondsToSelector:@selector(sideMenu:didRecognizePanGesture:)])
@@ -715,6 +785,13 @@
         self.backgroundImageView.image = backgroundImage;
 }
 
+/**
+ *  @author CC, 2015-10-14
+ *
+ *  @brief  无动画跳转
+ *
+ *  @param contentViewController 视图控制器
+ */
 - (void)setContentViewController:(UIViewController *)contentViewController
 {
     if (!_contentViewController) {
@@ -736,6 +813,13 @@
     }
 }
 
+/**
+ *  @author CC, 2015-10-14
+ *
+ *  @brief  设置左边视图控制器
+ *
+ *  @param leftMenuViewController 左视图控制器
+ */
 - (void)setLeftMenuViewController:(UIViewController *)leftMenuViewController
 {
     if (!_leftMenuViewController) {
@@ -755,6 +839,13 @@
     [self.view bringSubviewToFront:self.contentViewContainer];
 }
 
+/**
+ *  @author CC, 2015-10-14
+ *
+ *  @brief  设置右边视图控制器
+ *
+ *  @param rightMenuViewController 右视图控制器
+ */
 - (void)setRightMenuViewController:(UIViewController *)rightMenuViewController
 {
     if (!_rightMenuViewController) {
@@ -776,6 +867,16 @@
 
 #pragma mark -
 #pragma mark View Controller Rotation handler
+
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
+}
 
 - (BOOL)shouldAutorotate
 {

@@ -74,13 +74,57 @@
 @property (assign, readwrite, nonatomic) UIStatusBarStyle menuPreferredStatusBarStyle;
 @property (assign, readwrite, nonatomic) IBInspectable BOOL menuPrefersStatusBarHidden;
 
-- (id)initWithContentViewController:(UIViewController *)contentViewController
-             leftMenuViewController:(UIViewController *)leftMenuViewController
-            rightMenuViewController:(UIViewController *)rightMenuViewController;
+/**
+ *  @author CC, 2015-10-14
+ *
+ *  @brief  初始化侧边菜单
+ *
+ *  @param contentViewController   主视图控制器
+ *  @param leftMenuViewController  左视图控制器
+ *  @param rightMenuViewController 右视图控制器
+ *
+ *  @return 返回当前对象
+ */
+- (id)initWithContentViewController: (UIViewController *)contentViewController
+             leftMenuViewController: (UIViewController *)leftMenuViewController
+            rightMenuViewController: (UIViewController *)rightMenuViewController;
+
+/**
+ *  @author CC, 2015-10-14
+ *
+ *  @brief  左视图控制器
+ */
 - (void)presentLeftMenuViewController;
+
+/**
+ *  @author CC, 2015-10-14
+ *
+ *  @brief  右视图控制器
+ */
 - (void)presentRightMenuViewController;
 - (void)hideMenuViewController;
-- (void)setContentViewController:(UIViewController *)contentViewController animated:(BOOL)animated;
+
+/**
+ *  @author CC, 2015-10-14
+ *
+ *  @brief  跳转页面
+ *
+ *  @param contentViewController 跳转视图
+ *  @param animated              是否启用动画
+ */
+- (void)setContentViewController: (UIViewController *)contentViewController
+                        animated: (BOOL)animated;
+
+/**
+ *  @author CC, 2015-10-14
+ *
+ *  @brief  跳转页面(推送方式跳转)
+ *
+ *  @param viewController 跳转视图
+ *  @param animated       是否启用动画
+ */
+- (void)pushViewController: (UIViewController *)viewController
+                  animated: (BOOL)animated;
 
 @end
 
