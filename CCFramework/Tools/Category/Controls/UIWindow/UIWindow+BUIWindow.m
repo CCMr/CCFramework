@@ -35,9 +35,9 @@
     CGSize imageSize = [[UIScreen mainScreen] bounds].size;
     if (NULL != &UIGraphicsBeginImageContextWithOptions)
         UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0);
-    else
-        UIGraphicsBeginImageContext(imageSize);
-    
+//    else
+//        UIGraphicsBeginImageContext(imageSize);
+
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     // Iterate over every window from back to front

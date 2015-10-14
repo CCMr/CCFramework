@@ -84,11 +84,12 @@
     return _tableView;
 }
 
-- (NSMutableArray *)dataSource {
-    if (!_dataSource) {
-        _dataSource = [[NSMutableArray alloc] initWithCapacity:1];
+- (NSMutableArray *)ArrayDataSource
+{
+    if (!_ArrayDataSource) {
+        _ArrayDataSource = [[NSMutableArray alloc] initWithCapacity:1];
     }
-    return _dataSource;
+    return _ArrayDataSource;
 }
 
 #pragma mark - Life cycle
@@ -106,7 +107,7 @@
 }
 
 - (void)dealloc {
-    self.dataSource = nil;
+    self.ArrayDataSource = nil;
     self.tableView.delegate = nil;
     self.tableView.dataSource = nil;
     self.tableView = nil;
@@ -133,7 +134,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataSource.count;
+    return self.ArrayDataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

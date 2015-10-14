@@ -83,15 +83,15 @@
     else
         searchField = [((UIView *)[_searchBar.subviews objectAtIndex:0]).subviews lastObject];
 
-//    if ([searchField isKindOfClass:[UITextField class]]) {
-//        UIButton *leftIconButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 22, 22)];
-//        [leftIconButton setImage:[UIImage imageNamed:@"VoiceSearchStartBtn"] forState:UIControlStateNormal];
-//        [leftIconButton setImage:[UIImage imageNamed:@"VoiceSearchStartBtn_HL"] forState:UIControlStateHighlighted];
-//        [leftIconButton addTarget:self action:@selector(voiceButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-//
-//        searchField.rightView = leftIconButton;
-//        searchField.rightViewMode = UITextFieldViewModeAlways;
-//    }
+    //    if ([searchField isKindOfClass:[UITextField class]]) {
+    //        UIButton *leftIconButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 22, 22)];
+    //        [leftIconButton setImage:[UIImage imageNamed:@"VoiceSearchStartBtn"] forState:UIControlStateNormal];
+    //        [leftIconButton setImage:[UIImage imageNamed:@"VoiceSearchStartBtn_HL"] forState:UIControlStateHighlighted];
+    //        [leftIconButton addTarget:self action:@selector(voiceButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    //
+    //        searchField.rightView = leftIconButton;
+    //        searchField.rightViewMode = UITextFieldViewModeAlways;
+    //    }
 }
 
 #pragma mark - Propertys
@@ -118,6 +118,14 @@
 
 - (NSString *)getSearchBarText {
     return self.searchDisplayController.searchBar.text.lowercaseString;
+}
+
+-(NSMutableDictionary *)DicDataSource
+{
+    if (!_dicDataSource) {
+        _dicDataSource = [NSMutableDictionary dictionary];
+    }
+    return _dicDataSource;
 }
 
 /**
@@ -174,7 +182,7 @@
 
     UIView *views = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 30)];
     views.backgroundColor = [UIColor redColor];
-//    [self.tableView setTableHeaderView:views];
+    //    [self.tableView setTableHeaderView:views];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -257,17 +265,19 @@
     if ([self enableForSearchTableView:tableView]) {
         return 1;
     }
-    return self.dataSource.count;
+    return self.ArrayDataSource.count > 0 ? self.ArrayDataSource.count : self.dicDataSource.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView: (UITableView *)tableView
+ numberOfRowsInSection: (NSInteger)section
+{
     if ([self enableForSearchTableView:tableView]) {
         return self.filteredDataSource.count;
     }
-    return [self.dataSource[section] count];
+    return self.ArrayDataSource.count > 0 ? [self.ArrayDataSource[section] count] : [[self.dicDataSource objectForKey:[self.dicDataSource.allKeys objectAtIndex:section]] count];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView: (UITableView *)tableView heightForHeaderInSection :(NSInteger)section{
     return 22;
 }
 
@@ -282,7 +292,13 @@
     if ([self enableForSearchTableView:tableView]) {
         return nil;
     }
-    BOOL showSection = [[self.dataSource objectAtIndex:section] count] != 0;
+
+    BOOL showSection;
+    if (self.ArrayDataSource.count) {
+        showSection = [[self.ArrayDataSource objectAtIndex:section] count] != 0;
+    }else if (self.dicDataSource.count)
+        showSection = [[self.dicDataSource objectForKey:[self.dicDataSource.allKeys objectAtIndex:section]] count] != 0;
+
     //only show the section title if there are rows in the sections
 
     UIView *customHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 22.0f)];
@@ -293,7 +309,7 @@
     headerLabel.backgroundColor = [UIColor clearColor];
     headerLabel.font = [UIFont boldSystemFontOfSize:14.0f];
     headerLabel.textColor = [UIColor darkGrayColor];
-
+    
     [customHeaderView addSubview:headerLabel];
     return customHeaderView;
 }

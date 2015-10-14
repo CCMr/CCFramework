@@ -49,11 +49,9 @@
 /**
  *  @author CC, 15-08-18
  *
- *  @brief  大量数据的数据源
- *
- *  @since <#1.0#>
+ *  @brief  数组数据源
  */
-@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong) NSMutableArray *ArrayDataSource;
 
 /**
  *  @author CC, 15-08-18

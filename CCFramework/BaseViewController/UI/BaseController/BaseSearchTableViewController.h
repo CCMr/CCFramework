@@ -29,6 +29,13 @@
 @interface BaseSearchTableViewController : BaseTableViewController
 
 /**
+ *  @author CC, 2015-10-14
+ *
+ *  @brief  键值数据源
+ */
+@property (nonatomic, strong) NSMutableDictionary *dicDataSource;
+
+/**
  *  @author CC, 15-08-21
  *
  *  @brief  搜索结果数据源
