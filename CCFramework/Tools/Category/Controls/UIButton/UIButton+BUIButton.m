@@ -344,11 +344,12 @@ static char BUTTONCARRYOBJECTS;
     [button setTitle:title forState:UIControlStateNormal];
     button.titleLabel.numberOfLines = 0;
     button.titleLabel.font = [UIFont systemFontOfSize:[UIFont systemFontSize] - 1];
+    button.titleLabel.textAlignment = NSTextAlignmentCenter;
     
     UIImage *LeftIcon = [UIImage imageNamed:LeftImage];
     [button setImage:LeftIcon forState:UIControlStateNormal];
     [button setImage:LeftIcon forState:UIControlStateHighlighted];
-    button.imageEdgeInsets = UIEdgeInsetsMake(2, -(frame.size.width - button.imageView.frame.size.width - button.titleLabel.bounds.size.width+15), 3,5);
+    button.imageEdgeInsets = UIEdgeInsetsMake(0, -(frame.size.width - button.imageView.frame.size.width - button.titleLabel.bounds.size.width - 10), 0,0);
     
     return button;
 }

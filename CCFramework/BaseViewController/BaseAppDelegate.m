@@ -177,7 +177,6 @@ static char OperationKey;
     }else{
         UIImageView *splashScreen = [[UIImageView alloc] initWithFrame:self.window.bounds];
         splashScreen.image = [UIImage imageNamed:@"Default-568h"];
-        splashScreen.backgroundColor = [UIColor redColor];
         [self.window addSubview:splashScreen];
 
         [UIView animateWithDuration:2.5 animations:^{

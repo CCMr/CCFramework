@@ -118,6 +118,7 @@
 #import <CCFramework/CCPopMenuItemView.h>
 #import <CCFramework/CCPopMenuView.h>
 #import <CCFramework/CCQRCodeViewController.h>
+#import <CCFramework/CCQRCodeDisplayViewController.h>
 #import <CCFramework/CCRefresh.h>
 #import <CCFramework/CCRefreshBaseView.h>
 #import <CCFramework/CCRefreshFooterView.h>
@@ -190,6 +191,7 @@
 #import <CCFramework/UIImage+Data.h>
 #import <CCFramework/UIImage+GIF.h>
 #import <CCFramework/UIImageView+HighlightedWebCache.h>
+#import <CCFramework/UIImageView+Additional.h>
 #import <CCFramework/UIImage+MultiFormat.h>
 #import <CCFramework/UIImage+Operations.h>
 #import <CCFramework/UIImage+Resize.h>

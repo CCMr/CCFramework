@@ -946,6 +946,8 @@
 		42A58A841BCDFE4F0027429C /* CCSideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A58A7E1BCDFE4F0027429C /* CCSideMenu.m */; settings = {ASSET_TAGS = (); }; };
 		42A58A851BCDFE4F0027429C /* UIViewController+CCSideMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 42A58A7F1BCDFE4F0027429C /* UIViewController+CCSideMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42A58A861BCDFE4F0027429C /* UIViewController+CCSideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A58A801BCDFE4F0027429C /* UIViewController+CCSideMenu.m */; settings = {ASSET_TAGS = (); }; };
+		42AA96401BCE80A100DE1123 /* UIImageView+Additional.h in Headers */ = {isa = PBXBuildFile; fileRef = 42AA963E1BCE80A100DE1123 /* UIImageView+Additional.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42AA96411BCE80A100DE1123 /* UIImageView+Additional.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AA963F1BCE80A100DE1123 /* UIImageView+Additional.m */; settings = {ASSET_TAGS = (); }; };
 		42AC36451BB92014007B61D6 /* UIBarButtonItem+Addition.h in Headers */ = {isa = PBXBuildFile; fileRef = 42AC36431BB92014007B61D6 /* UIBarButtonItem+Addition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42AC36461BB92014007B61D6 /* UIBarButtonItem+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AC36441BB92014007B61D6 /* UIBarButtonItem+Addition.m */; };
 		42B30DCB1BBD72AD0039BB94 /* SDImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 42B30DA71BBD72AD0039BB94 /* SDImageCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1928,6 +1930,8 @@
 		42A58A7E1BCDFE4F0027429C /* CCSideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCSideMenu.m; sourceTree = "<group>"; };
 		42A58A7F1BCDFE4F0027429C /* UIViewController+CCSideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CCSideMenu.h"; sourceTree = "<group>"; };
 		42A58A801BCDFE4F0027429C /* UIViewController+CCSideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CCSideMenu.m"; sourceTree = "<group>"; };
+		42AA963E1BCE80A100DE1123 /* UIImageView+Additional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+Additional.h"; path = "UIImageVIew/UIImageView+Additional.h"; sourceTree = "<group>"; };
+		42AA963F1BCE80A100DE1123 /* UIImageView+Additional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+Additional.m"; path = "UIImageVIew/UIImageView+Additional.m"; sourceTree = "<group>"; };
 		42AC36431BB92014007B61D6 /* UIBarButtonItem+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBarButtonItem+Addition.h"; path = "UIBarButtonItem/UIBarButtonItem+Addition.h"; sourceTree = "<group>"; };
 		42AC36441BB92014007B61D6 /* UIBarButtonItem+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIBarButtonItem+Addition.m"; path = "UIBarButtonItem/UIBarButtonItem+Addition.m"; sourceTree = "<group>"; };
 		42B30DA71BBD72AD0039BB94 /* SDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCache.h; sourceTree = "<group>"; };
@@ -3843,6 +3847,7 @@
 		429C9EC51B9EF8BF0013A44A /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				42AA963D1BCE807400DE1123 /* UIImageVIew */,
 				42D404C01BC9EB4A00C62FBD /* UIAlertView */,
 				42BAB9131BC755EE00C70043 /* UITabBarController */,
 				429E33E91BB8FD06006C4DFF /* UIBarButtonItem */,
@@ -4148,6 +4153,15 @@
 			path = CCSideMenu;
 			sourceTree = "<group>";
 		};
+		42AA963D1BCE807400DE1123 /* UIImageVIew */ = {
+			isa = PBXGroup;
+			children = (
+				42AA963E1BCE80A100DE1123 /* UIImageView+Additional.h */,
+				42AA963F1BCE80A100DE1123 /* UIImageView+Additional.m */,
+			);
+			name = UIImageVIew;
+			sourceTree = "<group>";
+		};
 		42B30DA51BBD72AD0039BB94 /* SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -4315,6 +4329,7 @@
 				420DE4101BC7942300D87D6D /* ZXUPCEReader.h in Headers */,
 				420DE4061BC7942300D87D6D /* ZXUPCEANExtension2Support.h in Headers */,
 				420DE40A1BC7942300D87D6D /* ZXUPCEANExtensionSupport.h in Headers */,
+				42AA96401BCE80A100DE1123 /* UIImageView+Additional.h in Headers */,
 				420DE4041BC7942300D87D6D /* ZXUPCAWriter.h in Headers */,
 				420DE4081BC7942300D87D6D /* ZXUPCEANExtension5Support.h in Headers */,
 				420DE3F81BC7942300D87D6D /* ZXITFWriter.h in Headers */,
@@ -5263,6 +5278,7 @@
 				420DE4371BC7942300D87D6D /* ZXPDF417Dimensions.m in Sources */,
 				420DE3361BC7942300D87D6D /* ZXByteArray.m in Sources */,
 				429CA06E1B9EF8BF0013A44A /* CCPickerCollectionView.m in Sources */,
+				42AA96411BCE80A100DE1123 /* UIImageView+Additional.m in Sources */,
 				429CA1151B9EF8BF0013A44A /* CCBubblePhotoImageView.m in Sources */,
 				420DE3D61BC7942300D87D6D /* ZXRSSDataCharacter.m in Sources */,
 				42B30DDA1BBD72AD0039BB94 /* UIImageView+HighlightedWebCache.m in Sources */,
