@@ -94,7 +94,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  @author CC, 2015-10-10
  *
- *  @brief  <#Description#>
+ *  @brief  邮编
  */
 @property (nonnull, copy, nonatomic) NSString * zip;
 
@@ -108,7 +108,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  @author CC, 2015-10-13
  *
- *  @brief  国家Code
+ *  @brief  国家编号
  */
 @property (nonatomic, copy) NSString *countryCode;
 

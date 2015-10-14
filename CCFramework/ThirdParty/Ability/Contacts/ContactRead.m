@@ -191,7 +191,7 @@ typedef void (^ContactCompletion)(NSArray * contacts, NSError * error);
     __block NSMutableArray *array = [NSMutableArray array];
     [contactAry enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
         CNContact *contact = obj;
-        ContactPersonEntity *entity = [ContactPersonEntity new];
+        ContactPersonEntity *entity = [[ContactPersonEntity alloc] init];
 
         entity.photo = [UIImage imageWithData:contact.imageData];
         entity.thumb = [UIImage imageWithData:contact.thumbnailImageData];

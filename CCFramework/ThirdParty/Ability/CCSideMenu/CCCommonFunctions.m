@@ -1,6 +1,6 @@
 //
-//  BaseAppDelegate.h
-//
+// CCCommonFunctions.m
+// CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
 //
@@ -23,70 +23,23 @@
 // THE SOFTWARE.
 //
 
+#import "CCCommonFunctions.h"
 #import <UIKit/UIKit.h>
-#import "CCDropzone.h"
-#import "CCSideMenu.h"
 
-@interface BaseAppDelegate : UIResponder<UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-
-/**
- *  @author C C, 15-08-18
- *
- *  @brief  修改导航栏颜色
- *
- *  @since <#1.0#>
- */
-- (void)NavigationBarColor: (UIColor *)color;
-
-/**
- *  @author CC, 2015-07-30
- *
- *  @brief  动画消失启动页
- *
- *  @since 1.0
- */
-- (void)AnimationStartPage;
-
-/**
- *  @author CC, 15-08-21
- *
- *  @brief  引导页
- *
- *  @since <#1.0#>
- */
-- (void)initguidePages: (NSArray *)imageStrAry
-  EnterBackgroundImage: (NSString *)backgroundImage
-             EnterSzie: (CGSize)size;
-
-/**
- *  @author CC, 15-08-21
- *
- *  @brief  启动进入主窗口
- *
- *  @since 1.0
- */
-- (void)startViewController;
-
-/**
- *  @author C C, 2015-07-30
- *
- *  @brief  上传奔溃日志
- *
- *  @since 1.0
- */
-- (void)uploadCrashLog;
-
-/**
- *  @author CC, 15-09-22
- *
- *  @brief  重复执行函数
- *
- *  @param delay    相隔多少秒
- *  @param function 执行函数
- */
-- (void)repeatExecutionWithafterDelay: (NSTimeInterval)delay
-                    ExecutionFunction: (void(^)())function;
-
-@end
+BOOL CCSideMenuUIKitIsFlatMode(void)
+{
+    static BOOL isUIKitFlatMode = NO;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (floor(NSFoundationVersionNumber) > 993.0) {
+            // If your app is running in legacy mode, tintColor will be nil - else it must be set to some color.
+            if (UIApplication.sharedApplication.keyWindow) {
+                isUIKitFlatMode = [UIApplication.sharedApplication.delegate.window performSelector:@selector(tintColor)] != nil;
+            } else {
+                // Possible that we're called early on (e.g. when used in a Storyboard). Adapt and use a temporary window.
+                isUIKitFlatMode = [[UIWindow new] performSelector:@selector(tintColor)] != nil;
+            }
+        }
+    });
+    return isUIKitFlatMode;
+}
