@@ -239,7 +239,7 @@
             continue;
 
         // For string-key
-        id value = [dict objectForKey:keys];
+        id value = [self analysisValue:properties ValueDdic:dict Key:keys];
 
         // If the property type is NSString and the value is array,
         // join them with ","
@@ -387,6 +387,34 @@ static const char *getPropertyType(objc_property_t property) {
         }
     }
     return "";
+}
+
+/**
+ *  @author CC, 2015-10-15
+ *
+ *  @brief  分析数据值去除NULL
+ *
+ *  @param properties 对象属性列表
+ *  @param dict       对象数据值
+ *  @param key        属性名
+ *
+ *  @return 返回值
+ */
+- (id)analysisValue: (NSDictionary *)properties
+          ValueDdic: (NSDictionary *)dict
+                Key: (NSString *)key
+{
+    id value = [dict objectForKey:key];
+    if ([value isKindOfClass:[NSNull class]]) {
+        NSString *propertyType = [properties objectForKey:key];
+        if ([propertyType isEqualToString:@"NSString"]) {
+            value = @"";
+        }else if ([propertyType isEqualToString:@"i"]){
+            value = 0;
+        }
+    }
+
+    return value;
 }
 
 @end

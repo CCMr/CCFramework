@@ -267,6 +267,8 @@ typedef NS_ENUM(NSInteger, CCPageIndicatorViewType) {
     CCPageIndicatorViewTypeInvertedTriangle = 0,
     /** 水平横线 **/
     CCPageIndicatorViewTypeHorizontalLine,
+    /** 正三角 */
+    CCPageIndicatorViewTypeTriangle,
 };
 
 #endif
