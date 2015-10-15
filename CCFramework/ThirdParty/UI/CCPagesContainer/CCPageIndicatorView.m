@@ -32,7 +32,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-       [self setUp];
+        [self setUp];
     }
     return self;
 }
@@ -71,28 +71,28 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    switch (_indicatorType) {
-        case CCPageIndicatorViewTypeInvertedTriangle:
-        {
-            CGContextRef context = UIGraphicsGetCurrentContext();
 
-            CGContextClearRect(context, rect);
+    if (_indicatorType == CCPageIndicatorViewTypeInvertedTriangle || _indicatorType == CCPageIndicatorViewTypeTriangle) {
+        CGContextRef context = UIGraphicsGetCurrentContext();
 
-            CGContextBeginPath(context);
+        CGContextClearRect(context, rect);
+
+        CGContextBeginPath(context);
+        if (_indicatorType == CCPageIndicatorViewTypeInvertedTriangle) {
             CGContextMoveToPoint   (context, CGRectGetMinX(rect), CGRectGetMinY(rect));
             CGContextAddLineToPoint(context, CGRectGetMidX(rect), CGRectGetMaxY(rect));
             CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMinY(rect));
-            CGContextClosePath(context);
-
-            CGContextSetFillColorWithColor(context, self.color.CGColor);
-            CGContextFillPath(context);
+        }else{
+            CGContextMoveToPoint   (context, CGRectGetMinX(rect), CGRectGetMinY(rect));
+            CGContextAddLineToPoint(context, CGRectGetMidX(rect), CGRectGetMaxY(rect));
+            CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMinY(rect));
         }
-            break;
+        CGContextClosePath(context);
 
-        default:
-            break;
+        CGContextSetFillColorWithColor(context, self.color.CGColor);
+        CGContextFillPath(context);
     }
-
+    
 }
 
 

@@ -26,6 +26,7 @@
 
 #import "CCPopMenu.h"
 #import "CCPopMenuItemView.h"
+#import "CCPageIndicatorView.h"
 
 @interface CCPopMenu () <UITableViewDelegate, UITableViewDataSource>
 
@@ -89,6 +90,12 @@
         _menuContainerView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"MoreFunctionFrame"] resizableImageWithCapInsets:UIEdgeInsetsMake(30, 10, 30, 50) resizingMode:UIImageResizingModeTile]];
         _menuContainerView.userInteractionEnabled = YES;
         _menuContainerView.frame = CGRectMake(CGRectGetWidth(self.bounds) - kCCMenuTableViewWidth - 6, 0, kCCMenuTableViewWidth, self.menus.count * (kCCMenuItemViewHeight + kCCSeparatorLineImageViewHeight) + kCCMenuTableViewSapcing);
+
+        CCPageIndicatorView *IndicatorView = [[CCPageIndicatorView alloc] initWithFrame:CGRectMake(_menuContainerView.frame.size.width - 30, 7, 20, 10)];
+        IndicatorView.color = [UIColor whiteColor];
+        IndicatorView.indicatorType = CCPageIndicatorViewTypeTriangle;
+
+        [_menuContainerView addSubview:IndicatorView];
 
         [_menuContainerView addSubview:self.menuTableView];
     }
