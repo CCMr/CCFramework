@@ -203,7 +203,7 @@ static CCHTTPRequest *_sharedlnstance = nil;
     void (^responseProcessBlock)(id responseData,BOOL isError) = [self requestOBJBlock:key];
     if (responseProcessBlock) {
         NSDictionary *dic = responseData;
-        if (![dic isKindOfClass:[NSDictionary class]]){
+        if (![dic isKindOfClass:[NSDictionary class]] && ![dic isKindOfClass:[NSNull class]]){
             NSData *datas = responseData;
             if ([datas isKindOfClass:[NSString class]])
                 datas = [responseData dataUsingEncoding:NSUTF8StringEncoding];
