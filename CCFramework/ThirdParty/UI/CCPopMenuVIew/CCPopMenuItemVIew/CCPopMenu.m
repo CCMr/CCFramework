@@ -30,7 +30,8 @@
 
 @interface CCPopMenu () <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) UIImageView *menuContainerView;
+@property (nonatomic, strong) UIView *menuContainerView;
+@property (nonatomic, strong) CCPageIndicatorView *indicatorView;
 
 @property (nonatomic, strong) UITableView *menuTableView;
 @property (nonatomic, strong) NSMutableArray *menus;
@@ -39,6 +40,8 @@
 @property (nonatomic, assign) CGPoint targetPoint;
 
 @property (nonatomic, strong) NSIndexPath *indexPath;
+
+@property (nonatomic, assign) CGFloat fromTheTop;
 
 @end
 
@@ -59,6 +62,11 @@
 - (void)showMenu {
     if (![self.currentSuperView.subviews containsObject:self]) {
         self.alpha = 0.0;
+
+        if ([self.currentSuperView isKindOfClass:[UIWindow class]]){
+            self.fromTheTop = 64;
+            [self layoutSubviews];
+        }
         [self.currentSuperView addSubview:self];
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.alpha = 1.0;
@@ -84,22 +92,38 @@
 }
 
 #pragma mark - Propertys
+-(void)layoutSubviews
+{
+    CGRect frame = self.indicatorView.frame;
+    frame.origin.y = _fromTheTop;
+    self.indicatorView.frame = frame;
 
-- (UIImageView *)menuContainerView {
+    frame = self.menuContainerView.frame;
+    frame.origin.y = _fromTheTop + 8;
+    self.menuContainerView.frame = frame;
+}
+
+- (UIView *)menuContainerView {
     if (!_menuContainerView) {
-        _menuContainerView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"MoreFunctionFrame"] resizableImageWithCapInsets:UIEdgeInsetsMake(30, 10, 30, 50) resizingMode:UIImageResizingModeTile]];
+        _menuContainerView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - kCCMenuTableViewWidth - 6, _fromTheTop + 8, kCCMenuTableViewWidth, self.menus.count * (kCCMenuItemViewHeight + kCCSeparatorLineImageViewHeight) + kCCMenuTableViewSapcing)];
+        _menuContainerView.backgroundColor = [UIColor whiteColor];
+        _menuContainerView.layer.cornerRadius = 5;
+        _menuContainerView.layer.masksToBounds = YES;
         _menuContainerView.userInteractionEnabled = YES;
-        _menuContainerView.frame = CGRectMake(CGRectGetWidth(self.bounds) - kCCMenuTableViewWidth - 6, 0, kCCMenuTableViewWidth, self.menus.count * (kCCMenuItemViewHeight + kCCSeparatorLineImageViewHeight) + kCCMenuTableViewSapcing);
-
-        CCPageIndicatorView *IndicatorView = [[CCPageIndicatorView alloc] initWithFrame:CGRectMake(_menuContainerView.frame.size.width - 30, 7, 20, 10)];
-        IndicatorView.color = [UIColor whiteColor];
-        IndicatorView.indicatorType = CCPageIndicatorViewTypeTriangle;
-
-        [_menuContainerView addSubview:IndicatorView];
 
         [_menuContainerView addSubview:self.menuTableView];
     }
     return _menuContainerView;
+}
+
+-(CCPageIndicatorView *)indicatorView
+{
+    if (!_indicatorView) {
+        _indicatorView = [[CCPageIndicatorView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 35, _fromTheTop, 20, 8)];
+        _indicatorView.color = [UIColor whiteColor];
+        _indicatorView.indicatorType = CCPageIndicatorViewTypeTriangle;
+    }
+    return _indicatorView;
 }
 
 - (UITableView *)menuTableView {
@@ -116,12 +140,39 @@
     return _menuTableView;
 }
 
+/**
+ *  @author CC, 2015-10-16
+ *
+ *  @brief  设置菜单栏背景颜色
+ *
+ *  @param menuBackgroundColor 颜色值
+ */
+-(void)setMenuBackgroundColor:(UIColor *)menuBackgroundColor
+{
+    _menuContainerView.backgroundColor = menuBackgroundColor;
+    _indicatorView.color = menuBackgroundColor;
+}
+
+/**
+ *  @author CC, 2015-10-16
+ *
+ *  @brief  设置菜单文字颜色
+ *
+ *  @param menuItemTextColor 颜色值
+ */
+-(void)setMenuItemTextColor:(UIColor *)menuItemTextColor
+{
+    _menuItemTextColor = menuItemTextColor;
+    [self.menuTableView reloadData];
+}
+
 #pragma mark - Life Cycle
 
 - (void)setup {
+    _fromTheTop = 0;
     self.frame = [[UIScreen mainScreen] bounds];
-    self.backgroundColor = [UIColor clearColor];
-
+    self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.1];
+    [self addSubview:self.indicatorView];
     [self addSubview:self.menuContainerView];
 }
 
@@ -180,6 +231,8 @@
     if (indexPath.row < self.menus.count) {
         [popMenuItemView setupPopMenuItem:self.menus[indexPath.row] atIndexPath:indexPath isBottom:(indexPath.row == self.menus.count - 1)];
     }
+
+    popMenuItemView.textLabel.textColor = self.menuItemTextColor;
 
     return popMenuItemView;
 }

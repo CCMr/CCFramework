@@ -39,6 +39,20 @@ typedef void(^PopMenuDidSlectedCompledBlock)(NSInteger index, CCPopMenuItem *men
 
 - (void)showMenuOnView:(UIView *)view atPoint:(CGPoint)point;
 
+/**
+ *  @author CC, 2015-10-16
+ *
+ *  @brief  菜单背景颜色
+ */
+@property (nonatomic, copy) UIColor *menuBackgroundColor;
+
+/**
+ *  @author CC, 2015-10-16
+ *
+ *  @brief  菜单文字颜色
+ */
+@property (nonatomic, copy) UIColor *menuItemTextColor;
+
 @property (nonatomic, copy) PopMenuDidSlectedCompledBlock popMenuDidSlectedCompled;
 
 @property (nonatomic, copy) PopMenuDidSlectedCompledBlock popMenuDidDismissCompled;
