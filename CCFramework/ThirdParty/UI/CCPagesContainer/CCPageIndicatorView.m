@@ -83,16 +83,15 @@
             CGContextAddLineToPoint(context, CGRectGetMidX(rect), CGRectGetMaxY(rect));
             CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMinY(rect));
         }else{
-            CGContextMoveToPoint   (context, CGRectGetMinX(rect), CGRectGetMinY(rect));
-            CGContextAddLineToPoint(context, CGRectGetMidX(rect), CGRectGetMaxY(rect));
-            CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMinY(rect));
+            CGContextMoveToPoint   (context, CGRectGetMinX(rect), CGRectGetMaxY(rect));
+            CGContextAddLineToPoint(context, CGRectGetMidX(rect), CGRectGetMinY(rect));
+            CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMaxY(rect));
         }
         CGContextClosePath(context);
 
         CGContextSetFillColorWithColor(context, self.color.CGColor);
         CGContextFillPath(context);
     }
-    
 }
 
 
