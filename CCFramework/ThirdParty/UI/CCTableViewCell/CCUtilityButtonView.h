@@ -1,5 +1,5 @@
 //
-//  CCRefreshHeaderView.h
+//  CCUtilityButtonView.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -22,11 +22,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-//  下拉刷新
 
-#import "CCRefreshBaseView.h"
+#import <UIKit/UIKit.h>
 
-// 类
-@interface CCRefreshHeaderView : CCRefreshBaseView
-+ (id)header;
+@class CCTableViewCell;
+
+#define kUtilityButtonWidthDefault 90
+
+@interface CCUtilityButtonView : UIView
+
+- (id)initWithUtilityButtons: (NSArray *)utilityButtons
+                  parentCell: (CCTableViewCell *)parentCell
+       utilityButtonSelector: (SEL)utilityButtonSelector;
+
+- (id)initWithFrame: (CGRect)frame
+     utilityButtons: (NSArray *)utilityButtons
+         parentCell: (CCTableViewCell *)parentCell
+utilityButtonSelector: (SEL)utilityButtonSelector;
+
+@property (nonatomic, weak, readonly) CCTableViewCell *parentCell;
+@property (nonatomic, copy) NSArray *utilityButtons;
+@property (nonatomic, assign) SEL utilityButtonSelector;
+
+- (void)setUtilityButtons:(NSArray *)utilityButtons WithButtonWidth:(CGFloat)width;
+- (void)pushBackgroundColors;
+- (void)popBackgroundColors;
+
 @end

@@ -1,5 +1,5 @@
 //
-//  CCRefreshHeaderView.h
+//  CCCellScrollView.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -22,11 +22,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-//  下拉刷新
 
-#import "CCRefreshBaseView.h"
+#import <UIKit/UIKit.h>
 
-// 类
-@interface CCRefreshHeaderView : CCRefreshBaseView
-+ (id)header;
+@interface CCCellScrollView : UIScrollView <UIGestureRecognizerDelegate>
+
 @end

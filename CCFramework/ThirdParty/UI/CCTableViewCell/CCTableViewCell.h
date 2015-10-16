@@ -1,6 +1,6 @@
 //
-//  BaseTableViewCell.h
-//  HomeImprovement
+//  CCTableViewCell.h
+//  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
 //
@@ -24,70 +24,96 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <UIKit/UIGestureRecognizerSubclass.h>
 
 @class CCTableViewCell;
 
-typedef enum {
-    CCFeedStatusNormal = 0,
-    CCFeedStatusLeftExpanded,
-    CCFeedStatusLeftExpanding,
-    CCFeedStatusRightExpanded,
-    CCFeedStatusRightExpanding,
-} CCFeedStatus;
+typedef NS_ENUM(NSInteger, CCCellState)
+{
+    kCellStateCenter,
+    kCellStateLeft,
+    kCellStateRight,
+};
 
-typedef void (^didSelectedCell)(NSObject *requestData,BOOL IsError);
-
-//委托
 @protocol CCTableViewCellDelegate <NSObject>
+
 @optional
-- (void)didShowBaseCellImage:(NSMutableDictionary *) ImageDic;
+/**
+ *  @author CC, 2015-10-16
+ *
+ *  @brief  左侧菜单按钮回调
+ *
+ *  @param cell  当前Cell
+ *  @param index 按钮下标
+ */
+- (void)CCipeableTableViewCell:(CCTableViewCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index;
+/**
+ *  @author CC, 2015-10-16
+ *
+ *  @brief  右侧菜单按钮回调
+ *
+ *  @param cell  当前Cell
+ *  @param index 按钮下标
+ */
+- (void)CCipeableTableViewCell:(CCTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index;
 
-- (void)didCellMenu:(CCTableViewCell *)Cell MenuIndex:(NSInteger)index RowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)CCipeableTableViewCell:(CCTableViewCell *)cell scrollingToState:(CCCellState)state;
+- (BOOL)CCipeableTableViewCellShouldHideUtilityButtonsOnSwipe:(CCTableViewCell *)cell;
 
 /**
- *  @author CC, 2015-06-19 08:06:24
+ *  @author CC, 2015-10-16
  *
- *  @brief  隐藏菜单
+ *  @brief  刷新所有单元格状态
  *
- *  @param cell <#cell description#>
+ *  @param cell  当前Cell
+ *  @param state 状态
  *
- *  @since 1.0
+ *  @return 返回是否关闭菜单栏
  */
--(void)CellDidReveal:(CCTableViewCell *)cell;
+- (BOOL)CCipeableTableViewCell:(CCTableViewCell *)cell canSwipeToState:(CCCellState)state;
+- (void)CCipeableTableViewCellDidEndScrolling:(CCTableViewCell *)cell;
+- (void)CCipeableTableViewCell:(CCTableViewCell *)cell didScroll:(UIScrollView *)scrollView;
 
 @end
 
-@interface CCTableViewCell : UITableViewCell<UIGestureRecognizerDelegate>
+@interface CCTableViewCell : UITableViewCell
 
--(id)initWithMenu:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
-/**
- *  从nib初始化  edit by lpx
- */
-- (instancetype)initWithNib;
+@property (nonatomic, copy) NSArray *leftUtilityButtons;
+@property (nonatomic, copy) NSArray *rightUtilityButtons;
 
+@property (nonatomic, weak) id <CCTableViewCellDelegate> delegate;
 
-@property (nonatomic, weak) id<CCTableViewCellDelegate> delegate;
-@property (nonatomic, copy) didSelectedCell didSelected;
-@property (nonatomic, retain) NSMutableArray *LeftMenuButton; // Container on the left Dialogue (where to put your UI elements)
-@property (nonatomic, retain) NSMutableArray *RightMenuButton; // Container on the right dialogue (where to put your UI elements)
-@property (nonatomic, assign) CCFeedStatus currentStatus;
-@property (nonatomic, assign) BOOL revealing;
-@property (nonatomic, assign) BOOL beLine;
-//设置Cell数据
--(void)setDatas:(NSObject *) objDatas;
--(void)SetDatas:(NSArray *) ArDatas;
--(void)setDatas:(NSObject *)objDatas RowAtIndexPath:(NSIndexPath *)indexPath;
--(void)setDatas:(NSObject *) objDatas didSelectedBlock:(didSelectedCell)seletedBlock;
--(void)SetDatas:(NSArray *) ArDatas didSelectedBlock:(didSelectedCell)seletedBlock;
+- (void)setRightUtilityButtons:(NSArray *)rightUtilityButtons WithButtonWidth:(CGFloat) width;
+- (void)setLeftUtilityButtons:(NSArray *)leftUtilityButtons WithButtonWidth:(CGFloat) width;
+- (void)hideUtilityButtonsAnimated:(BOOL)animated;
+- (void)showLeftUtilityButtonsAnimated:(BOOL)animated;
+- (void)showRightUtilityButtonsAnimated:(BOOL)animated;
+
+- (BOOL)isUtilityButtonsHidden;
 
 @end
 
-#pragma mark - Cell添加按钮
-@interface NSMutableArray (CellButtons)
+#pragma mark - Array
+@interface NSMutableArray (CCUtilityButtons)
 
-+(id)addCellButtonArray:(id)fistObject,...;
+- (void)cc_addUtilityButtonWithColor: (UIColor *)color
+                               title: (NSString *)title;
 
--(void)addCellButton:(UIColor *)color Title:(NSString *)title RowAtIndexPath:(NSIndexPath *)indexPath;
--(void)addCellButton:(UIColor *)color Icon:(NSString *)icon RowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)cc_addUtilityButtonWithColor: (UIColor *)color
+                     attributedTitle: (NSAttributedString *)title;
+
+- (void)cc_addUtilityButtonWithColor: (UIColor *)color
+                                icon: (UIImage *)icon;
+
+- (void)cc_addUtilityButtonWithColor: (UIColor *)color
+                          normalIcon: (UIImage *)normalIcon
+                        selectedIcon: (UIImage *)selectedIcon;
+
+@end
+
+
+@interface NSArray (CCUtilityButtons)
+
+- (BOOL)cc_isEqualToButtons:(NSArray *)buttons;
 
 @end

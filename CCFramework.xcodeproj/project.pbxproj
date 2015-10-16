@@ -486,6 +486,16 @@
 		4230E1921BBB83E40001E68F /* CCRadarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E1901BBB83E40001E68F /* CCRadarView.m */; };
 		4230E1961BBB8F7C0001E68F /* CCRadarScanViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4230E1941BBB8F7C0001E68F /* CCRadarScanViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4230E1971BBB8F7C0001E68F /* CCRadarScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E1951BBB8F7C0001E68F /* CCRadarScanViewController.m */; };
+		426476A21BD0E3AF00EE191C /* CCCellScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 426476961BD0E3AF00EE191C /* CCCellScrollView.h */; settings = {ASSET_TAGS = (); }; };
+		426476A31BD0E3AF00EE191C /* CCCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 426476971BD0E3AF00EE191C /* CCCellScrollView.m */; settings = {ASSET_TAGS = (); }; };
+		426476A41BD0E3AF00EE191C /* CCLongPressGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 426476981BD0E3AF00EE191C /* CCLongPressGestureRecognizer.h */; settings = {ASSET_TAGS = (); }; };
+		426476A51BD0E3AF00EE191C /* CCLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 426476991BD0E3AF00EE191C /* CCLongPressGestureRecognizer.m */; settings = {ASSET_TAGS = (); }; };
+		426476A61BD0E3AF00EE191C /* CCTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4264769A1BD0E3AF00EE191C /* CCTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		426476A71BD0E3AF00EE191C /* CCTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4264769B1BD0E3AF00EE191C /* CCTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		426476A81BD0E3AF00EE191C /* CCUtilityButtonTapGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4264769C1BD0E3AF00EE191C /* CCUtilityButtonTapGestureRecognizer.h */; settings = {ASSET_TAGS = (); }; };
+		426476A91BD0E3AF00EE191C /* CCUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4264769D1BD0E3AF00EE191C /* CCUtilityButtonTapGestureRecognizer.m */; settings = {ASSET_TAGS = (); }; };
+		426476AA1BD0E3AF00EE191C /* CCUtilityButtonView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4264769E1BD0E3AF00EE191C /* CCUtilityButtonView.h */; settings = {ASSET_TAGS = (); }; };
+		426476AB1BD0E3AF00EE191C /* CCUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4264769F1BD0E3AF00EE191C /* CCUtilityButtonView.m */; settings = {ASSET_TAGS = (); }; };
 		4264D73E1BA2C19100E83159 /* CCPageIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4264D7381BA2C19100E83159 /* CCPageIndicatorView.h */; };
 		4264D73F1BA2C19100E83159 /* CCPageIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4264D7391BA2C19100E83159 /* CCPageIndicatorView.m */; };
 		4264D7401BA2C19100E83159 /* CCPagesContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4264D73A1BA2C19100E83159 /* CCPagesContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -761,8 +771,6 @@
 		429CA07E1B9EF8BF0013A44A /* CCRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E721B9EF8BF0013A44A /* CCRefreshFooterView.m */; };
 		429CA07F1B9EF8BF0013A44A /* CCRefreshHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E731B9EF8BF0013A44A /* CCRefreshHeaderView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA0801B9EF8BF0013A44A /* CCRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E741B9EF8BF0013A44A /* CCRefreshHeaderView.m */; };
-		429CA0811B9EF8BF0013A44A /* CCTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E761B9EF8BF0013A44A /* CCTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		429CA0821B9EF8BF0013A44A /* CCTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E771B9EF8BF0013A44A /* CCTableViewCell.m */; };
 		429CA0831B9EF8BF0013A44A /* CCTextViewPlaceholder.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E791B9EF8BF0013A44A /* CCTextViewPlaceholder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA0841B9EF8BF0013A44A /* CCTextViewPlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E7A1B9EF8BF0013A44A /* CCTextViewPlaceholder.m */; };
 		429CA0851B9EF8BF0013A44A /* BUILabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E7C1B9EF8BF0013A44A /* BUILabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1468,6 +1476,16 @@
 		4230E1901BBB83E40001E68F /* CCRadarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRadarView.m; path = Radar/Scanning/CCRadarView.m; sourceTree = "<group>"; };
 		4230E1941BBB8F7C0001E68F /* CCRadarScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRadarScanViewController.h; path = CCRadarScan/CCRadarScanViewController.h; sourceTree = "<group>"; };
 		4230E1951BBB8F7C0001E68F /* CCRadarScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRadarScanViewController.m; path = CCRadarScan/CCRadarScanViewController.m; sourceTree = "<group>"; };
+		426476961BD0E3AF00EE191C /* CCCellScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCellScrollView.h; sourceTree = "<group>"; };
+		426476971BD0E3AF00EE191C /* CCCellScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCCellScrollView.m; sourceTree = "<group>"; };
+		426476981BD0E3AF00EE191C /* CCLongPressGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLongPressGestureRecognizer.h; sourceTree = "<group>"; };
+		426476991BD0E3AF00EE191C /* CCLongPressGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLongPressGestureRecognizer.m; sourceTree = "<group>"; };
+		4264769A1BD0E3AF00EE191C /* CCTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTableViewCell.h; sourceTree = "<group>"; };
+		4264769B1BD0E3AF00EE191C /* CCTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTableViewCell.m; sourceTree = "<group>"; };
+		4264769C1BD0E3AF00EE191C /* CCUtilityButtonTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCUtilityButtonTapGestureRecognizer.h; sourceTree = "<group>"; };
+		4264769D1BD0E3AF00EE191C /* CCUtilityButtonTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCUtilityButtonTapGestureRecognizer.m; sourceTree = "<group>"; };
+		4264769E1BD0E3AF00EE191C /* CCUtilityButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCUtilityButtonView.h; sourceTree = "<group>"; };
+		4264769F1BD0E3AF00EE191C /* CCUtilityButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCUtilityButtonView.m; sourceTree = "<group>"; };
 		4264D7381BA2C19100E83159 /* CCPageIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPageIndicatorView.h; path = CCPagesContainer/CCPageIndicatorView.h; sourceTree = "<group>"; };
 		4264D7391BA2C19100E83159 /* CCPageIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCPageIndicatorView.m; path = CCPagesContainer/CCPageIndicatorView.m; sourceTree = "<group>"; };
 		4264D73A1BA2C19100E83159 /* CCPagesContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPagesContainer.h; path = CCPagesContainer/CCPagesContainer.h; sourceTree = "<group>"; };
@@ -1745,8 +1763,6 @@
 		429C9E721B9EF8BF0013A44A /* CCRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCRefreshFooterView.m; sourceTree = "<group>"; };
 		429C9E731B9EF8BF0013A44A /* CCRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCRefreshHeaderView.h; sourceTree = "<group>"; };
 		429C9E741B9EF8BF0013A44A /* CCRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCRefreshHeaderView.m; sourceTree = "<group>"; };
-		429C9E761B9EF8BF0013A44A /* CCTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTableViewCell.h; sourceTree = "<group>"; };
-		429C9E771B9EF8BF0013A44A /* CCTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTableViewCell.m; sourceTree = "<group>"; };
 		429C9E791B9EF8BF0013A44A /* CCTextViewPlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTextViewPlaceholder.h; sourceTree = "<group>"; };
 		429C9E7A1B9EF8BF0013A44A /* CCTextViewPlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTextViewPlaceholder.m; sourceTree = "<group>"; };
 		429C9E7C1B9EF8BF0013A44A /* BUILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUILabel.h; sourceTree = "<group>"; };
@@ -3669,8 +3685,16 @@
 		429C9E751B9EF8BF0013A44A /* CCTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				429C9E761B9EF8BF0013A44A /* CCTableViewCell.h */,
-				429C9E771B9EF8BF0013A44A /* CCTableViewCell.m */,
+				426476961BD0E3AF00EE191C /* CCCellScrollView.h */,
+				426476971BD0E3AF00EE191C /* CCCellScrollView.m */,
+				426476981BD0E3AF00EE191C /* CCLongPressGestureRecognizer.h */,
+				426476991BD0E3AF00EE191C /* CCLongPressGestureRecognizer.m */,
+				4264769A1BD0E3AF00EE191C /* CCTableViewCell.h */,
+				4264769B1BD0E3AF00EE191C /* CCTableViewCell.m */,
+				4264769C1BD0E3AF00EE191C /* CCUtilityButtonTapGestureRecognizer.h */,
+				4264769D1BD0E3AF00EE191C /* CCUtilityButtonTapGestureRecognizer.m */,
+				4264769E1BD0E3AF00EE191C /* CCUtilityButtonView.h */,
+				4264769F1BD0E3AF00EE191C /* CCUtilityButtonView.m */,
 			);
 			path = CCTableViewCell;
 			sourceTree = "<group>";
@@ -4469,6 +4493,7 @@
 				429C9FC11B9EF8BF0013A44A /* SRHubInvocation.h in Headers */,
 				429C9FC51B9EF8BF0013A44A /* SRHubProxyInterface.h in Headers */,
 				429C9FC01B9EF8BF0013A44A /* SRHubConnectionInterface.h in Headers */,
+				426476AA1BD0E3AF00EE191C /* CCUtilityButtonView.h in Headers */,
 				429C9FBE1B9EF8BF0013A44A /* SRHubConnection.h in Headers */,
 				429C9FDC1B9EF8BF0013A44A /* SRConnectionState.h in Headers */,
 				4269793B1BA695BA00C3E93C /* AFNetworkActivityIndicatorManager.h in Headers */,
@@ -4535,6 +4560,7 @@
 				429C9F661B9EF8BF0013A44A /* CoreDataManager.h in Headers */,
 				429CA02F1B9EF8BF0013A44A /* CCPhoto.h in Headers */,
 				42B30DDB1BBD72AD0039BB94 /* UIImageView+WebCache.h in Headers */,
+				426476A61BD0E3AF00EE191C /* CCTableViewCell.h in Headers */,
 				426979481BA695BA00C3E93C /* UIRefreshControl+AFNetworking.h in Headers */,
 				429CA0C71B9EF8BF0013A44A /* UIButton+CCButtonTitlePosition.h in Headers */,
 				429CA11C1B9EF8BF0013A44A /* CCEmotionCollectionViewCell.h in Headers */,
@@ -4629,6 +4655,7 @@
 				429C9F9A1B9EF8BF0013A44A /* CCLanguage.h in Headers */,
 				42B30DE31BBD72AD0039BB94 /* SDWebImageCompat.h in Headers */,
 				429CA0911B9EF8BF0013A44A /* CCWebViewController.h in Headers */,
+				426476A81BD0E3AF00EE191C /* CCUtilityButtonTapGestureRecognizer.h in Headers */,
 				426979331BA695BA00C3E93C /* AFNetworkReachabilityManager.h in Headers */,
 				429CA0CB1B9EF8BF0013A44A /* UIImage+Additions.h in Headers */,
 				429CA0E11B9EF8BF0013A44A /* UIView+CCBadgeView.h in Headers */,
@@ -4640,7 +4667,6 @@
 				429CA0B91B9EF8BF0013A44A /* NSArray+BNSArray.h in Headers */,
 				429C9F501B9EF8BF0013A44A /* NavMainViewController.h in Headers */,
 				429CA0DF1B9EF8BF0013A44A /* UIView+BUIView.h in Headers */,
-				429CA0811B9EF8BF0013A44A /* CCTableViewCell.h in Headers */,
 				429CA0051B9EF8BF0013A44A /* CCAnimatedImage.h in Headers */,
 				429CA0601B9EF8BF0013A44A /* CCPickerAssetsViewController.h in Headers */,
 				429CA0D91B9EF8BF0013A44A /* UIImage+RoundedCorner.h in Headers */,
@@ -4712,6 +4738,7 @@
 				420DE45F1BC7942300D87D6D /* ZXQRCodeFinderPattern.h in Headers */,
 				420DE4571BC7942300D87D6D /* ZXQRCodeVersion.h in Headers */,
 				420DE4691BC7942300D87D6D /* ZXQRCodeEncoder.h in Headers */,
+				426476A21BD0E3AF00EE191C /* CCCellScrollView.h in Headers */,
 				420DE4451BC7942300D87D6D /* ZXQRCodeBitMatrixParser.h in Headers */,
 				420DE4631BC7942300D87D6D /* ZXQRCodeFinderPatternInfo.h in Headers */,
 				420DE44B1BC7942300D87D6D /* ZXQRCodeDecodedBitStreamParser.h in Headers */,
@@ -4781,6 +4808,7 @@
 				429CA0B11B9EF8BF0013A44A /* SETextSelectionView.h in Headers */,
 				429CA0AD1B9EF8BF0013A44A /* SETextMagnifierRanged.h in Headers */,
 				4269793D1BA695BA00C3E93C /* UIActivityIndicatorView+AFNetworking.h in Headers */,
+				426476A41BD0E3AF00EE191C /* CCLongPressGestureRecognizer.h in Headers */,
 				429CA0AF1B9EF8BF0013A44A /* SETextSelection.h in Headers */,
 				429CA0A31B9EF8BF0013A44A /* SETextEditingCaret.h in Headers */,
 				42A58A831BCDFE4F0027429C /* CCSideMenu.h in Headers */,
@@ -4906,10 +4934,12 @@
 				42A58A861BCDFE4F0027429C /* UIViewController+CCSideMenu.m in Sources */,
 				420DE3111BC7942300D87D6D /* ZXVINParsedResult.m in Sources */,
 				420DE3401BC7942300D87D6D /* ZXGlobalHistogramBinarizer.m in Sources */,
+				426476A51BD0E3AF00EE191C /* CCLongPressGestureRecognizer.m in Sources */,
 				420DE3221BC7942300D87D6D /* ZXMonochromeRectangleDetector.m in Sources */,
 				429CA0B41B9EF8BF0013A44A /* SETextView.m in Sources */,
 				420DE4481BC7942300D87D6D /* ZXQRCodeDataBlock.m in Sources */,
 				420DE3D41BC7942300D87D6D /* ZXRSS14Reader.m in Sources */,
+				426476A71BD0E3AF00EE191C /* CCTableViewCell.m in Sources */,
 				420DE3911BC7942300D87D6D /* ZXDataMatrixReader.m in Sources */,
 				429CA0AC1B9EF8BF0013A44A /* SETextMagnifierCaret.m in Sources */,
 				42B9D0E71B9FE3650086CA81 /* NSData+Additions.m in Sources */,
@@ -5002,11 +5032,13 @@
 				429CA0801B9EF8BF0013A44A /* CCRefreshHeaderView.m in Sources */,
 				429C9F691B9EF8BF0013A44A /* BaseEntity.m in Sources */,
 				429CA0391B9EF8BF0013A44A /* CCPhotoToolbar.m in Sources */,
+				426476AB1BD0E3AF00EE191C /* CCUtilityButtonView.m in Sources */,
 				420DE3AA1BC7942300D87D6D /* ZXAI01392xDecoder.m in Sources */,
 				429CA0C61B9EF8BF0013A44A /* UIButton+BUIButton.m in Sources */,
 				429CA09C1B9EF8BF0013A44A /* SELineLayout.m in Sources */,
 				429CA1021B9EF8BF0013A44A /* CCMessageAvatarFactory.m in Sources */,
 				429CA01C1B9EF8BF0013A44A /* ColumnarChart.m in Sources */,
+				426476A91BD0E3AF00EE191C /* CCUtilityButtonTapGestureRecognizer.m in Sources */,
 				420DE2EC1BC7942300D87D6D /* ZXISBNParsedResult.m in Sources */,
 				429CA0F01B9EF8BF0013A44A /* CCFoundationCommon.m in Sources */,
 				429CA0371B9EF8BF0013A44A /* CCPhotoProgressView.m in Sources */,
@@ -5151,6 +5183,7 @@
 				420DE37A1BC7942300D87D6D /* ZXDataMatrixBase256Encoder.m in Sources */,
 				420DE3AE1BC7942300D87D6D /* ZXAI013x0x1xDecoder.m in Sources */,
 				429CA0E41B9EF8BF0013A44A /* UIView+CCRemoteImage.m in Sources */,
+				426476A31BD0E3AF00EE191C /* CCCellScrollView.m in Sources */,
 				429CA0EE1B9EF8BF0013A44A /* CCConfigurationHelper.m in Sources */,
 				4230E1921BBB83E40001E68F /* CCRadarView.m in Sources */,
 				420DE4791BC7942300D87D6D /* ZXQRCodeWriter.m in Sources */,
@@ -5257,7 +5290,6 @@
 				4230E1971BBB8F7C0001E68F /* CCRadarScanViewController.m in Sources */,
 				429CA11F1B9EF8BF0013A44A /* CCEmotionCollectionViewFlowLayout.m in Sources */,
 				429CA0A01B9EF8BF0013A44A /* SESelectionGrabber.m in Sources */,
-				429CA0821B9EF8BF0013A44A /* CCTableViewCell.m in Sources */,
 				420DE4131BC7942300D87D6D /* ZXModulusGF.m in Sources */,
 				429C9F4F1B9EF8BF0013A44A /* BaseTabBarController.m in Sources */,
 				420DE4211BC7942300D87D6D /* ZXPDF417CodewordDecoder.m in Sources */,
