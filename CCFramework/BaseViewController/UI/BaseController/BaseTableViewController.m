@@ -108,8 +108,6 @@
 
 - (void)dealloc {
     self.ArrayDataSource = nil;
-    self.tableView.delegate = nil;
-    self.tableView.dataSource = nil;
     self.tableView = nil;
 }
 
