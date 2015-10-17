@@ -422,6 +422,13 @@ static NSString * const kTableViewPanState = @"state";
 
 - (void)scrollViewTapped:(UIGestureRecognizer *)gestureRecognizer
 {
+    for (CCTableViewCell *cell in [self.containingTableView visibleCells]) { //检查tableView中是否有侧滑Cell
+        if (cell.cellState != kCellStateCenter) {
+            [cell hideUtilityButtonsAnimated:YES];
+            return;
+        }
+    }
+
     if (_cellState == kCellStateCenter)
     {
         if (self.isSelected)
@@ -483,6 +490,16 @@ static NSString * const kTableViewPanState = @"state";
                 [self.containingTableView.delegate tableView:self.containingTableView didDeselectRowAtIndexPath:cellIndexPath];
             }
         }
+        
+        if ([self.delegate respondsToSelector:@selector(CCipeableTableViewCellShouldHideUtilityButtonsOnSwipe:)])
+        {
+            for (CCTableViewCell *cell in [self.containingTableView visibleCells]) {
+                if (cell != self && [cell isKindOfClass:[CCTableViewCell class]] && [self.delegate CCipeableTableViewCellShouldHideUtilityButtonsOnSwipe:cell]) {
+                    [cell hideUtilityButtonsAnimated:YES];
+                }
+            }
+        }
+
     }
 }
 
