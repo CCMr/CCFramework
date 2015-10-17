@@ -1105,6 +1105,7 @@
 		42DBA8591BB5309300AD47C6 /* CCDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA8581BB5309300AD47C6 /* CCDefines.h */; };
 		42E2E8201B9FB97700B2CE90 /* UITableView+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 42E2E81E1B9FB97700B2CE90 /* UITableView+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42E2E8211B9FB97700B2CE90 /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E2E81F1B9FB97700B2CE90 /* UITableView+Additions.m */; };
+		42F696ED1BD2C4F000587D55 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F696EC1BD2C4F000587D55 /* AlipaySDK.framework */; settings = {ASSET_TAGS = (); }; };
 		42F945871BC8ED5D008882AE /* CCDisplayMediaViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F945851BC8ED5D008882AE /* CCDisplayMediaViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42F945881BC8ED5D008882AE /* CCDisplayMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F945861BC8ED5D008882AE /* CCDisplayMediaViewController.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
@@ -2196,6 +2197,7 @@
 		42DBA8581BB5309300AD47C6 /* CCDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDefines.h; path = Base64/CCDefines.h; sourceTree = "<group>"; };
 		42E2E81E1B9FB97700B2CE90 /* UITableView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableView+Additions.h"; path = "UITableView/UITableView+Additions.h"; sourceTree = "<group>"; };
 		42E2E81F1B9FB97700B2CE90 /* UITableView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableView+Additions.m"; path = "UITableView/UITableView+Additions.m"; sourceTree = "<group>"; };
+		42F696EC1BD2C4F000587D55 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		42F945851BC8ED5D008882AE /* CCDisplayMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDisplayMediaViewController.h; sourceTree = "<group>"; };
 		42F945861BC8ED5D008882AE /* CCDisplayMediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDisplayMediaViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2207,6 +2209,7 @@
 			files = (
 				425477271BD2AEC20071BBC5 /* libcrypto.a in Frameworks */,
 				425477281BD2AEC20071BBC5 /* libssl.a in Frameworks */,
+				42F696ED1BD2C4F000587D55 /* AlipaySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2995,6 +2998,7 @@
 		425476C21BD2AEC20071BBC5 /* ResourceFile */ = {
 			isa = PBXGroup;
 			children = (
+				42F696EC1BD2C4F000587D55 /* AlipaySDK.framework */,
 				425476C31BD2AEC20071BBC5 /* AlipaySDK.bundle */,
 				425476C51BD2AEC20071BBC5 /* libcrypto.a */,
 				425476C61BD2AEC20071BBC5 /* libssl.a */,
