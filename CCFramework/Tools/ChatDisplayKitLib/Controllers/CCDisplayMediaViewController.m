@@ -66,8 +66,7 @@
     _message = message;
     if ([message messageMediaType] == CCBubbleMessageMediaTypeVideo) {
         self.title = CCLocalization(@"详细视频");
-        NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"IMG_1555.MOV" ofType:@""];
-        self.moviePlayerController.contentURL = [NSURL fileURLWithPath:videoPath];
+        self.moviePlayerController.contentURL = [NSURL fileURLWithPath:message.videoPath];
         [self.moviePlayerController play];
     } else if ([message messageMediaType] == CCBubbleMessageMediaTypePhoto) {
         self.title = CCLocalization(@"详细照片");
