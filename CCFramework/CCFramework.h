@@ -49,6 +49,7 @@
 #import <CCFramework/CCAnimatedImage.h>
 #import <CCFramework/CCAnimatedImageView.h>
 #import <CCFramework/CCAnnotation.h>
+#import <CCFramework/CCAliPayEngine.h>
 #import <CCFramework/CCAudioPlayerHelper.h>
 #import <CCFramework/CCAutoTextView.h>
 #import <CCFramework/CCBase64.h>
