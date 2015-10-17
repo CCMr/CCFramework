@@ -489,7 +489,6 @@
 		425476BD1BD2A9DC0071BBC5 /* CCAliPayEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 425476BB1BD2A9DC0071BBC5 /* CCAliPayEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		425476BE1BD2A9DC0071BBC5 /* CCAliPayEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 425476BC1BD2A9DC0071BBC5 /* CCAliPayEngine.m */; settings = {ASSET_TAGS = (); }; };
 		425477251BD2AEC20071BBC5 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 425476C31BD2AEC20071BBC5 /* AlipaySDK.bundle */; settings = {ASSET_TAGS = (); }; };
-		425477261BD2AEC20071BBC5 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 425476C41BD2AEC20071BBC5 /* AlipaySDK.framework */; settings = {ASSET_TAGS = (); }; };
 		425477271BD2AEC20071BBC5 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 425476C51BD2AEC20071BBC5 /* libcrypto.a */; settings = {ASSET_TAGS = (); }; };
 		425477281BD2AEC20071BBC5 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 425476C61BD2AEC20071BBC5 /* libssl.a */; settings = {ASSET_TAGS = (); }; };
 		425477291BD2AEC20071BBC5 /* aes.h in Headers */ = {isa = PBXBuildFile; fileRef = 425476C81BD2AEC20071BBC5 /* aes.h */; settings = {ASSET_TAGS = (); }; };
@@ -1579,7 +1578,6 @@
 		425476BB1BD2A9DC0071BBC5 /* CCAliPayEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCAliPayEngine.h; path = Pay/Alipay/CCAliPayEngine.h; sourceTree = "<group>"; };
 		425476BC1BD2A9DC0071BBC5 /* CCAliPayEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCAliPayEngine.m; path = Pay/Alipay/CCAliPayEngine.m; sourceTree = "<group>"; };
 		425476C31BD2AEC20071BBC5 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
-		425476C41BD2AEC20071BBC5 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		425476C51BD2AEC20071BBC5 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		425476C61BD2AEC20071BBC5 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		425476C81BD2AEC20071BBC5 /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
@@ -2208,7 +2206,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				425477271BD2AEC20071BBC5 /* libcrypto.a in Frameworks */,
-				425477261BD2AEC20071BBC5 /* AlipaySDK.framework in Frameworks */,
 				425477281BD2AEC20071BBC5 /* libssl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2999,7 +2996,6 @@
 			isa = PBXGroup;
 			children = (
 				425476C31BD2AEC20071BBC5 /* AlipaySDK.bundle */,
-				425476C41BD2AEC20071BBC5 /* AlipaySDK.framework */,
 				425476C51BD2AEC20071BBC5 /* libcrypto.a */,
 				425476C61BD2AEC20071BBC5 /* libssl.a */,
 				425476C71BD2AEC20071BBC5 /* openssl */,
