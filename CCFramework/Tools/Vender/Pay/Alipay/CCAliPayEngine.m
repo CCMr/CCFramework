@@ -153,9 +153,9 @@ typedef void (^ResponseCallback)(NSInteger resultStatus,NSString *result,NSStrin
     if (signedString) {
         NSString *orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",orderSpec, signedString, @"RSA"];
         typeof(self) __weak weakSelf = self;
-        [[AlipaySDK defaultService] payOrder:orderString fromScheme:self.appScheme callback:^(NSDictionary *resultDic) {
-            weakSelf.responseCallback([[resultDic objectForKey:@"resultStatus"] integerValue],[resultDic objectForKey:@"result"],[resultDic objectForKey:@"memo"],nil);
-        }];
+//        [[AlipaySDK defaultService] payOrder:orderString fromScheme:self.appScheme callback:^(NSDictionary *resultDic) {
+//            weakSelf.responseCallback([[resultDic objectForKey:@"resultStatus"] integerValue],[resultDic objectForKey:@"result"],[resultDic objectForKey:@"memo"],nil);
+//        }];
     }
 }
 
