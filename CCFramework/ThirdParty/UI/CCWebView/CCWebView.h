@@ -24,6 +24,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CCWebViewProgressView.h"
 
 @class CCWebView;
 
@@ -40,14 +41,13 @@
 - (void)webViewDidFinishLoad:(CCWebView *)webView Title: (NSString *)title;
 
 /**
- *  @author CC, 2015-10-13
+ *  @author CC, 2015-10-19
  *
- *  @brief  网页加载进度
+ *  @brief  初始化进度条
  *
- *  @param webViewProgress 当前视图
- *  @param progress        进度值
+ *  @return 返回当前视图的导航栏
  */
-- (void)webViewProgress:(CCWebView *)webViewProgress updateProgress:(float)progress;
+-(UINavigationBar *)webViewInitWithProgress;
 
 @end
 

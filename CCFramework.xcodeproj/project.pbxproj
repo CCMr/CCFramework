@@ -489,8 +489,8 @@
 		425476BD1BD2A9DC0071BBC5 /* CCAliPayEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 425476BB1BD2A9DC0071BBC5 /* CCAliPayEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		425476BE1BD2A9DC0071BBC5 /* CCAliPayEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 425476BC1BD2A9DC0071BBC5 /* CCAliPayEngine.m */; settings = {ASSET_TAGS = (); }; };
 		425477251BD2AEC20071BBC5 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 425476C31BD2AEC20071BBC5 /* AlipaySDK.bundle */; settings = {ASSET_TAGS = (); }; };
-		425477271BD2AEC20071BBC5 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 425476C51BD2AEC20071BBC5 /* libcrypto.a */; settings = {ASSET_TAGS = (); }; };
-		425477281BD2AEC20071BBC5 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 425476C61BD2AEC20071BBC5 /* libssl.a */; settings = {ASSET_TAGS = (); }; };
+		425477271BD2AEC20071BBC5 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 425476C51BD2AEC20071BBC5 /* libcrypto.a */; settings = {ATTRIBUTES = (Required, ); }; };
+		425477281BD2AEC20071BBC5 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 425476C61BD2AEC20071BBC5 /* libssl.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		425477291BD2AEC20071BBC5 /* aes.h in Headers */ = {isa = PBXBuildFile; fileRef = 425476C81BD2AEC20071BBC5 /* aes.h */; settings = {ASSET_TAGS = (); }; };
 		4254772A1BD2AEC20071BBC5 /* asn1.h in Headers */ = {isa = PBXBuildFile; fileRef = 425476C91BD2AEC20071BBC5 /* asn1.h */; settings = {ASSET_TAGS = (); }; };
 		4254772B1BD2AEC20071BBC5 /* asn1_mac.h in Headers */ = {isa = PBXBuildFile; fileRef = 425476CA1BD2AEC20071BBC5 /* asn1_mac.h */; settings = {ASSET_TAGS = (); }; };
@@ -1105,7 +1105,7 @@
 		42DBA8591BB5309300AD47C6 /* CCDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA8581BB5309300AD47C6 /* CCDefines.h */; };
 		42E2E8201B9FB97700B2CE90 /* UITableView+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 42E2E81E1B9FB97700B2CE90 /* UITableView+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42E2E8211B9FB97700B2CE90 /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E2E81F1B9FB97700B2CE90 /* UITableView+Additions.m */; };
-		42F696ED1BD2C4F000587D55 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F696EC1BD2C4F000587D55 /* AlipaySDK.framework */; settings = {ASSET_TAGS = (); }; };
+		42F696ED1BD2C4F000587D55 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F696EC1BD2C4F000587D55 /* AlipaySDK.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		42F945871BC8ED5D008882AE /* CCDisplayMediaViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F945851BC8ED5D008882AE /* CCDisplayMediaViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42F945881BC8ED5D008882AE /* CCDisplayMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F945861BC8ED5D008882AE /* CCDisplayMediaViewController.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
@@ -2207,9 +2207,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42F696ED1BD2C4F000587D55 /* AlipaySDK.framework in Frameworks */,
 				425477271BD2AEC20071BBC5 /* libcrypto.a in Frameworks */,
 				425477281BD2AEC20071BBC5 /* libssl.a in Frameworks */,
-				42F696ED1BD2C4F000587D55 /* AlipaySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
