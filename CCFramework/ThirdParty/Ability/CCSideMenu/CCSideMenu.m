@@ -589,6 +589,7 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
+    [self detectingIsSideslip];
     IF_IOS7_OR_GREATER(
        if (self.interactivePopGestureRecognizerEnabled && [self.contentViewController isKindOfClass:[UINavigationController class]]) {
            UINavigationController *navigationController = (UINavigationController *)self.contentViewController;
@@ -610,6 +611,23 @@
     return YES;
 }
 
+/**
+ *  @author CC, 2015-10-19
+ *
+ *  @brief  屏蔽所有页面都能滑动
+ */
+-(void)detectingIsSideslip
+{
+    if ([self.contentViewController isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *tabBar = (UITabBarController *)self.contentViewController;
+        UINavigationController *nav = [tabBar.viewControllers objectAtIndex:tabBar.selectedIndex];
+        if (nav.viewControllers.count > 1)
+            self.panGestureEnabled = NO;
+        else
+            self.panGestureEnabled = YES;
+    }
+}
+
 #pragma mark -
 #pragma mark Pan gesture recognizer (Private)
 
@@ -618,7 +636,7 @@
  *
  *  @brief  滑动手势
  *
- *  @param recognizer <#recognizer description#>
+ *  @param recognizer recognizer description
  */
 - (void)panGestureRecognized:(UIPanGestureRecognizer *)recognizer
 {
