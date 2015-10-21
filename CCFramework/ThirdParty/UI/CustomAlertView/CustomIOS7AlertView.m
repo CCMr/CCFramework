@@ -74,7 +74,7 @@ CGFloat buttonSpacerHeight = 0;
     dialogView.layer.opacity = 0.5f;
     dialogView.layer.transform = CATransform3DMakeScale(1.3f, 1.3f, 1.0);
 
-    self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+    self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.7];
 
     [self addSubview:dialogView];
 
@@ -210,7 +210,8 @@ CGFloat buttonSpacerHeight = 0;
     lineView.backgroundColor = [UIColor colorWithRed:198.0/255.0 green:198.0/255.0 blue:198.0/255.0 alpha:1.0f];
     [dialogContainer addSubview:lineView];
     // ^^^
-
+    containerView.layer.cornerRadius = 7;
+    containerView.layer.masksToBounds = YES;
     // Add the custom container if there is any
     [dialogContainer addSubview:containerView];
 

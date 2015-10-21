@@ -70,7 +70,7 @@
     _originLable.textAlignment = NSTextAlignmentCenter;
     _originLable.textColor = [UIColor whiteColor];
     _originLable.font = [UIFont systemFontOfSize:12];
-    _originLable.text = @"网页由 mp.kurrent.cn 提供";
+    _originLable.text = @"网页由 www.ccskill.com 提供";
     [backgroundView addSubview:_originLable];
 
     if (NSClassFromString(@"WKWebView"))
@@ -173,7 +173,11 @@
  */
 - (void)loadRequest: (NSString *)baseURL
 {
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[baseURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+    NSURL *url = [NSURL URLWithString:[baseURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+
+    _originLable.text = [NSString stringWithFormat:@"网页由 %@ 提供",url.host];
+
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
     if ([self.webView isKindOfClass:[UIWebView class]])
         [((UIWebView *)self.webView) loadRequest:request];
     else
