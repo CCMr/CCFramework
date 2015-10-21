@@ -38,6 +38,13 @@
 @property (nonatomic, strong) Completion completion;
 
 /**
+ *  @author CC, 2015-10-21
+ *
+ *  @brief  当前Cell数据源
+ */
+@property (nonatomic, strong) id dataSources;
+
+/**
  *  @author C C, 2015-10-01
  *
  *  @brief  Cell 获取下标

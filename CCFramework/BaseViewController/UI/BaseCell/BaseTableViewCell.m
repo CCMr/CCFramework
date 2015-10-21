@@ -102,7 +102,7 @@
  */
 - (void)setData:(id)data
 {
-
+    _dataSources = data;
 }
 
 /**
@@ -118,6 +118,7 @@
 - (void)setData:(id)data
     CompletionL:(Completion)completion
 {
+    _dataSources = data;
     _completion = completion;
 }
 
