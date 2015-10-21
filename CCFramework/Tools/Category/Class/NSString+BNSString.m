@@ -403,7 +403,7 @@
  */
 - (CGSize)calculateTextWidthHeight
 {
-  return  [self sizeWithFont:[UIFont systemFontOfSize:[UIFont systemFontSize]] constrainedToSize:CGSizeMake(MAXFLOAT, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+    return  [self sizeWithFont:[UIFont systemFontOfSize:[UIFont systemFontSize]] constrainedToSize:CGSizeMake(MAXFLOAT, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
 }
 
 #pragma mark - 加密
@@ -538,6 +538,56 @@
 
     return subFolderPath;
 
+}
+
+#pragma mark - 处理
+
+/**
+ *  @author CC, 2015-10-20
+ *
+ *  @brief  拼接字符串
+ *
+ *  @param format 多个参数
+ *
+ *  @return 返回拼接完成的字符串
+ */
+- (NSString *)appendFormats:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2)
+{
+    NSMutableString *mutableString = [NSMutableString string];
+
+    if (self)
+        mutableString = [NSMutableString stringWithString:self];
+
+    va_list args;
+    va_start(args, format);
+
+    for (NSString *str = format; str != nil; str = va_arg(args, NSString *))
+        [mutableString appendFormat:@"%@",str];
+
+    va_end(args);
+    
+    return mutableString;
+}
+
+/**
+ *  @author CC, 2015-10-20
+ *
+ *  @brief  添加字符串
+ *
+ *  @param aString 字符喘
+ *
+ *  @return 返回添加之后的字符串
+ */
+- (NSString *)appendStrings:(NSString *)aString
+{
+    NSMutableString *mutableString = [NSMutableString string];
+
+    if (self)
+        mutableString = [NSMutableString stringWithString:self];
+
+    [mutableString appendString:aString];
+    
+    return mutableString;
 }
 
 @end

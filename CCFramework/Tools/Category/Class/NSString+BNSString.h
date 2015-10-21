@@ -259,4 +259,29 @@
  *  @since <#1.0#>
  */
 -(NSString *)createSubFolder:(NSString *)subFolder;
+
+#pragma mark - 处理
+
+/**
+ *  @author CC, 2015-10-20
+ *
+ *  @brief  拼接字符串
+ *
+ *  @param format 多个参数
+ *
+ *  @return 返回拼接完成的字符串
+ */
+- (NSString *)appendFormats:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
+
+/**
+ *  @author CC, 2015-10-20
+ *
+ *  @brief  添加字符串
+ *
+ *  @param aString 字符喘
+ *
+ *  @return 返回添加之后的字符串
+ */
+- (NSString *)appendStrings:(NSString *)aString;
+
 @end
