@@ -409,8 +409,12 @@ static const char *getPropertyType(objc_property_t property) {
         NSString *propertyType = [properties objectForKey:key];
         if ([propertyType isEqualToString:@"NSString"]) {
             value = @"";
-        }else if ([propertyType isEqualToString:@"i"]){
-            value = 0;
+        }else if ([propertyType isEqualToString:@"i"] ||
+                  [propertyType isEqualToString:@"l"] ||
+                  [propertyType isEqualToString:@"q"] ||
+                  [propertyType isEqualToString:@"I"])
+        {
+            value = @(-1);
         }
     }
 
