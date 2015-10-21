@@ -28,6 +28,13 @@
 @interface CCQRCodeViewController : BaseViewController
 
 /**
+ *  @author CC, 2015-10-20
+ *
+ *  @brief  是否系统处理
+ */
+@property (nonatomic, assign) BOOL scanDealWithResult;
+
+/**
  *  @author CC, 2015-10-09
  *
  *  @brief  二维码分析结果

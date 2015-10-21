@@ -183,15 +183,7 @@ typedef void (^Outcomeblock)(NSString *outcome);
                        ScanResult: (NSString *)result
 {
     [self.captureHelper stopRunning];
-
-    if (_outcomeblock)
-        _outcomeblock(result);
-
-    MainThread(^(){
-        CCQRCodeDisplayViewController *viewController = [[CCQRCodeDisplayViewController alloc] init];
-        viewController.baseURL = result;
-        [self pushNewViewController:viewController];
-    });
+    [self scanDealWithResult:result];
 }
 
 /**
@@ -231,17 +223,30 @@ typedef void (^Outcomeblock)(NSString *outcome);
                                 hints:hints
                                 error:&error];
 
-    if (result) {
-        if (_outcomeblock)
-            _outcomeblock(result.text);
+    if (result)
+        [self scanDealWithResult:result.text];
+    else
+        [self.captureHelper startRunning];
+}
 
+/**
+ *  @author CC, 2015-10-20
+ *
+ *  @brief  处理方式
+ *
+ *  @param resultAddress 扫描结果地址
+ */
+- (void)scanDealWithResult: (NSString *)resultAddress
+{
+    if (_scanDealWithResult){//系统处理
         MainThread(^(){
             CCQRCodeDisplayViewController *viewController = [[CCQRCodeDisplayViewController alloc] init];
-            viewController.baseURL = result.text;
+            viewController.baseURL = resultAddress;
             [self pushNewViewController:viewController];
         });
-    }else{
-        [self.captureHelper startRunning];
+    }else{// 自行处理
+        if (_outcomeblock)
+            _outcomeblock(resultAddress);
     }
 }
 
@@ -277,6 +282,8 @@ typedef void (^Outcomeblock)(NSString *outcome);
 
     [self.view addSubview:self.scanningView];
     [self.view addSubview:self.buttonContainerView];
+
+    _scanDealWithResult = YES;
 }
 
 - (void)showPhotoLibray
