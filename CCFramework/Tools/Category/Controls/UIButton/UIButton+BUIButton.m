@@ -325,7 +325,7 @@ static char BUTTONCARRYOBJECTS;
 /**
  *  @author CC, 2015-07-16
  *
- *  @brief  设置背景图片与位置
+ *  @brief  左图右文
  *
  *  @param LeftImage 左图片
  *  @param image 背景图片
@@ -357,7 +357,7 @@ static char BUTTONCARRYOBJECTS;
 /**
  *  @author CC, 2015-07-16
  *
- *  @brief  设置背景图片与位置
+ *  @brief  上图下文字
  *
  *  @param image 上图片
  *  @param title 标题
