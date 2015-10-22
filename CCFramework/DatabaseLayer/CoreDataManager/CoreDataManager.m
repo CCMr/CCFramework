@@ -30,6 +30,11 @@
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
+@property (nonatomic, strong) NSManagedObjectContext *privateContext;
+
+@property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
 @end
 
 @implementation CoreDataManager
@@ -53,57 +58,71 @@
     return _sharedlnstance;
 }
 
--(instancetype)init
-{
-    if(self = [super init]){
-        [self inittalizeDataBase];
+- (NSManagedObjectContext *)managedObjectContext {
+    // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.)
+    if (_managedObjectContext != nil) {
+        return _managedObjectContext;
     }
-    return self;
+
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    if (!coordinator) {
+        return nil;
+    }
+    self.managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    [self.managedObjectContext setPersistentStoreCoordinator:coordinator];
+    return self.managedObjectContext;
 }
 
-/**
- *  @author CC, 2015-07-24
- *
- *  @brief  初始化
- *
- *  @since 1.0
- */
-- (void)inittalizeDataBase
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
 {
-    // 传入模型对象，初始化NSPersistentStoreCoordinator
-    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    // 构建SQLite数据库文件的路径
-    //NSString *databasePath = [self PathForDocuments:@"coreData.db" inDir:@"db"];
+    // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it.
+    if (_persistentStoreCoordinator != nil) {
+        return _persistentStoreCoordinator;
+    }
+
+    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     NSError *error = nil;
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"coreData.sqlite"];
-    
-    NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption:@YES,NSInferMappingModelAutomaticallyOption:@YES};
-    
-    if (![coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]){
-        NSLog(@"Create / open database failed :%@",[error localizedDescription]);
+    NSString *failureReason = @"There was an error creating or loading the application's saved data.";
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+        // Report any error we got.
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        dict[NSLocalizedDescriptionKey] = @"Failed to initialize the application's saved data";
+        dict[NSLocalizedFailureReasonErrorKey] = failureReason;
+        dict[NSUnderlyingErrorKey] = error;
+        error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
+        // Replace this with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
-    // 初始化上下文，设置persistentStoreCoordinator属性
-    self.managedObjectContext = [[NSManagedObjectContext alloc] init];
-    self.managedObjectContext.persistentStoreCoordinator = coordinator;
+
+    return _persistentStoreCoordinator;
 }
 
 /**
  *  @author CC, 15-09-22
  *
  *  @brief  数据库名称
- 继承子类必须实现
+ *          继承子类必须实现
  *
  *  @return 返回数据库名称
  */
 - (NSString *)coredataName
 {
-    return @"";
+    return @"CoreData";
 }
 
 - (NSManagedObjectModel *)managedObjectModel
 {
-    return [[NSManagedObjectModel alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:[self coredataName] withExtension:@"momd"]];
+    // The managed object model for the application. It is a fatal error for the application not to be able to find and load its model.
+    if (_managedObjectModel != nil)
+        return _managedObjectModel;
+
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:[self coredataName] withExtension:@"momd"];
+    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+
+    return _managedObjectModel;
 }
 
 - (NSURL *)applicationDocumentsDirectory
@@ -115,14 +134,15 @@
  *  @author CC, 2015-07-24
  *
  *  @brief  保存对象
- *
- *  @since <#version number#>
  */
 - (void)saveContext
 {
-    NSError *error = nil;
-    if (_managedObjectContext != nil) {
-        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil) {
+        NSError *error = nil;
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
@@ -140,7 +160,7 @@
 {
     NSError* error;
     NSString* path = [[self DocumentPath] stringByAppendingPathComponent:dir];
-    
+
     if(![[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error])
         NSLog(@"create dir error: %@",error.debugDescription);
     return path;
@@ -168,8 +188,8 @@
 - (NSFetchRequest *)InitFetchRequest:(NSString *)tableName
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    [fetchRequest setEntity:[NSEntityDescription entityForName:tableName inManagedObjectContext:_managedObjectContext]];
-    
+    [fetchRequest setEntity:[NSEntityDescription entityForName:tableName inManagedObjectContext:self.managedObjectContext]];
+
     return fetchRequest;
 }
 
@@ -188,16 +208,24 @@
 {
     NSManagedObject *entity = [NSEntityDescription insertNewObjectForEntityForName:tableName inManagedObjectContext:self.managedObjectContext];
     for (NSString *key in dataDic.allKeys) {
-        if ([[dataDic objectForKey:key] isKindOfClass:[NSArray class]]){
+        if ([[dataDic objectForKey:key] isKindOfClass:[NSArray class]])
+        {
             NSRelationshipDescription *relationship = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:self.managedObjectContext] relationshipsByName] objectForKey:key];
-            [self RecursiveCategory:entity Relationship:relationship ForeignKeyValue:[dataDic objectForKey:relationship.inverseRelationship.name] DataArray:[dataDic objectForKey:key]];
-        }else
+            [self RecursiveCategory: entity
+                       Relationship: relationship
+                    ForeignKeyValue: [dataDic objectForKey:relationship.inverseRelationship.name]
+                          DataArray: [dataDic objectForKey:key]
+             inManagedObjectContext: self.managedObjectContext];
+        }else{
             [entity setValue:[dataDic objectForKey:key] forKey:key];
+        }
     }
-    
+
     NSError *error = nil;
-    if(![self.managedObjectContext save:&error])
-        NSLog(@"%@ insertNewObject Error:%@",tableName,[error localizedDescription]);
+    if ([self.managedObjectContext hasChanges]) {
+        if(![self.managedObjectContext save:&error])
+            NSLog(@"%@ insertNewObject Error:%@",tableName,[error localizedDescription]);
+    }
 }
 
 -(void)insertCoreDatas:(NSString *)tableName DataArray:(NSArray *)dataArray
@@ -216,14 +244,43 @@
  *
  *  @since 1.0
  */
--(void)insertCoreData:(NSString *)tableName DataArray:(NSArray *)dataArray
+-(void)insertCoreData: (NSString *)tableName
+            DataArray: (NSArray *)dataArray
 {
+    if (!dataArray.count) return;
+
+    self.privateContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    [self.privateContext setParentContext:self.managedObjectContext];
+
     for (NSDictionary *dic in dataArray)
-        [self insertCoreData:tableName DataDic:dic];
+    {
+        NSManagedObject *entity = [NSEntityDescription insertNewObjectForEntityForName:tableName inManagedObjectContext:self.privateContext];
+        for (NSString *key in dic.allKeys) {
+            if ([[dic objectForKey:key] isKindOfClass:[NSArray class]]){
+                NSRelationshipDescription *relationship = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:self.privateContext] relationshipsByName] objectForKey:key];
+
+                [self RecursiveCategory: entity
+                           Relationship: relationship
+                        ForeignKeyValue: [dic objectForKey:relationship.inverseRelationship.name]
+                              DataArray: [dic objectForKey:key]
+                 inManagedObjectContext: self.privateContext];
+            }else{
+                [entity setValue:[dic objectForKey:key] forKey:key];
+            }
+        }
+    }
+
+    [self.privateContext performBlock:^{
+        NSError *error = nil;
+        if ([self.privateContext hasChanges]) {
+            if(![self.privateContext save:&error])
+                NSLog(@"%@ insertNewObject Error:%@",tableName,[error localizedDescription]);
+        }
+    }];
 }
 
 /**
- *  @author CC, 2015-07-24
+ *  @author CC, 2015-10-22
  *
  *  @brief  递归关联对象新增
  *
@@ -231,27 +288,37 @@
  *  @param relationship    子对象
  *  @param foreignKeyValue 子对象键
  *  @param dataArray       子对象值
- *
- *  @since 1.0
+ *  @param context         核心处理对象
  */
-- (void)RecursiveCategory:(NSManagedObject *)entity Relationship:(NSRelationshipDescription *)relationship ForeignKeyValue:(NSString *)foreignKeyValue DataArray:(NSArray *)dataArray
+- (void)RecursiveCategory: (NSManagedObject *)entity
+             Relationship: (NSRelationshipDescription *)relationship
+          ForeignKeyValue: (NSString *)foreignKeyValue
+                DataArray: (NSArray *)dataArray
+   inManagedObjectContext: (NSManagedObjectContext *)context
 {
     NSMutableSet *SonCategory = [NSMutableSet set];
     //    NSInteger count = [[self selectCoreData:[[relationship destinationEntity] name]] count]; //自定义增长ID
     for (NSDictionary *dic in dataArray) {
-        NSManagedObject *entitySon = [NSEntityDescription insertNewObjectForEntityForName:[[relationship destinationEntity] name] inManagedObjectContext:_managedObjectContext];
+        NSManagedObject *entitySon = [NSEntityDescription insertNewObjectForEntityForName:[[relationship destinationEntity] name] inManagedObjectContext:context];
 
         //有自定义关联外键
         if (foreignKeyValue)
             [entitySon setValue:foreignKeyValue forKey:relationship.name];//设置当前主键
         [entitySon setValue:entity forKey:relationship.inverseRelationship.name];
-        
+
         for (NSString *key in dic.allKeys) {
-            if ([[dic objectForKey:key] isKindOfClass:[NSArray class]]){
-                NSRelationshipDescription *CategoryRelationship = [[[NSEntityDescription entityForName:[[relationship destinationEntity] name] inManagedObjectContext:_managedObjectContext] relationshipsByName] objectForKey:key];
-                [self RecursiveCategory:entitySon Relationship:CategoryRelationship ForeignKeyValue:[dic objectForKey:CategoryRelationship.inverseRelationship.name] DataArray:[dic objectForKey:key]];
-            }else
+            if ([[dic objectForKey:key] isKindOfClass:[NSArray class]])
+            {
+                NSRelationshipDescription *CategoryRelationship = [[[NSEntityDescription entityForName:[[relationship destinationEntity] name] inManagedObjectContext:context] relationshipsByName] objectForKey:key];
+
+                [self RecursiveCategory: entitySon
+                           Relationship: CategoryRelationship
+                        ForeignKeyValue: [dic objectForKey:CategoryRelationship.inverseRelationship.name]
+                              DataArray: [dic objectForKey:key]
+                 inManagedObjectContext: context];
+            }else{
                 [entitySon setValue:[dic objectForKey:key] forKey:key];
+            }
         }
         [SonCategory addObject:entitySon];
     }
@@ -272,14 +339,15 @@
 {
     NSFetchRequest *fetchRequest = [self InitFetchRequest:tableName];
     [fetchRequest setIncludesPropertyValues:NO];
-    
+
     NSError *error = nil;
-    NSArray *datas = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *datas = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (!error && datas && [datas count]) {
         [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            [_managedObjectContext deleteObject:obj];
+            [self.managedObjectContext deleteObject:obj];
         }];
-        if (![_managedObjectContext save:&error])
+
+        if (![self.managedObjectContext save:&error])
             NSLog(@"Clear %@ CoreData Error : %@",tableName,[error localizedDescription]);
     }
 }
@@ -299,15 +367,15 @@
     NSFetchRequest *fetchRequest = [self InitFetchRequest:tableName];
     if (condition)
         [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
-    
+
     NSError *error = nil;
-    NSArray *datas = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *datas = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (!error && datas && [datas count]) {
         [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            [_managedObjectContext deleteObject:obj];
+            [self.managedObjectContext deleteObject:obj];
         }];
-        
-        if (![_managedObjectContext save:&error])
+
+        if (![self.managedObjectContext save:&error])
             NSLog(@"Delete %@ CoreData Error : %@",tableName,[error localizedDescription]);
     }
 }
@@ -326,14 +394,14 @@
 {
     NSFetchRequest *fetchRequest = [self InitFetchRequest:tableName];
     NSError *error = nil;
-    NSArray *datas = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *datas = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (!error && datas && [datas count]) {
         [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             if ([((NSManagedObject *)obj).objectID isEqual:conditionID])
-                [_managedObjectContext deleteObject:obj];
+                [self.managedObjectContext deleteObject:obj];
         }];
-        
-        if (![_managedObjectContext save:&error])
+
+        if (![self.managedObjectContext save:&error])
             NSLog(@"Delete %@ CoreData Error : %@",tableName,[error localizedDescription]);
     }
 }
@@ -349,7 +417,7 @@
  *  @param value     字段值
  */
 -(void)batchUpdataCoredData: (NSString *)tableName
-                  ColumnKeyValue: (NSDictionary *)columnDic
+             ColumnKeyValue: (NSDictionary *)columnDic
 {
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:tableName inManagedObjectContext:self.managedObjectContext];
 
@@ -415,22 +483,22 @@
     NSFetchRequest *fetchRequest = [self InitFetchRequest:tableName];
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
     [fetchRequest setReturnsObjectsAsFaults:NO];
-    
+
     NSError *error = nil;
-    NSArray *datas = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *datas = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (!error && datas && [datas count]) {
         [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             for (NSString *key in editData.allKeys) {
                 if ([[editData objectForKey:key] isKindOfClass:[NSArray class]]){
-                    NSRelationshipDescription *relationship = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:_managedObjectContext] relationshipsByName] objectForKey:key];
+                    NSRelationshipDescription *relationship = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:self.managedObjectContext] relationshipsByName] objectForKey:key];
                     for (NSDictionary *childDic in [editData objectForKey:key])
                         [self updateCoreData:[[relationship destinationEntity] name] ConditionID:[childDic objectForKey:@"objectID"] EditData:childDic];
                 }else
                     [obj setValue:[editData objectForKey:key] forKey:key];
             }
         }];
-        
-        if (![_managedObjectContext save:&error])
+
+        if (![self.managedObjectContext save:&error])
             NSLog(@"Update %@ CoreData Error : %@",tableName,[error localizedDescription]);
     }
 }
@@ -452,13 +520,13 @@
     NSFetchRequest *fetchRequest = [self InitFetchRequest:tableName];
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
     NSError *error = nil;
-    NSArray *datas = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *datas = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (!error && datas && [datas count]) {
         [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             [obj setValue:attributeValue forKey:attributeName];
         }];
-        
-        if (![_managedObjectContext save:&error])
+
+        if (![self.managedObjectContext save:&error])
             NSLog(@"Update %@ CoreData Error : %@",tableName,[error localizedDescription]);
     }
 }
@@ -494,13 +562,13 @@
 {
     NSFetchRequest *fetchRequest = [self InitFetchRequest:tableName];
     NSError *error = nil;
-    NSArray *datas = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *datas = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (!error && datas && [datas count]) {
         [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             if ([((NSManagedObject *)obj).objectID isEqual:conditionID]) {
                 for (NSString *key in editData.allKeys) {
                     if ([[editData objectForKey:key] isKindOfClass:[NSArray class]]){
-                        NSRelationshipDescription *relationship = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:_managedObjectContext] relationshipsByName] objectForKey:key];
+                        NSRelationshipDescription *relationship = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:self.managedObjectContext] relationshipsByName] objectForKey:key];
                         for (NSDictionary *childDic in [editData objectForKey:key])
                             [self updateCoreData:[[relationship destinationEntity] name] ConditionID:[childDic objectForKey:@"objectID"] EditData:childDic];
                     }else{
@@ -510,8 +578,8 @@
                 }
             }
         }];
-        
-        if (![_managedObjectContext save:&error])
+
+        if (![self.managedObjectContext save:&error])
             NSLog(@"Update %@ CoreData Error : %@",tableName,[error localizedDescription]);
     }
 }
@@ -531,9 +599,9 @@
 - (NSArray *)selectCoreData:(NSString *)tableName
 {
     NSFetchRequest *fetchRequest = [self InitFetchRequest:tableName];
-    
+
     NSMutableArray *DataArray = [NSMutableArray array];
-    [[_managedObjectContext executeFetchRequest:fetchRequest error:nil] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [[self.managedObjectContext executeFetchRequest:fetchRequest error:nil] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [DataArray addObject:[self RecursiveChildren:obj]];
     }];
     return DataArray;
@@ -555,9 +623,9 @@
 {
     NSFetchRequest *fetchRequest = [self InitFetchRequest:tableName];
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
-    
-    NSArray *array = [_managedObjectContext executeFetchRequest:fetchRequest error:nil];
-    
+
+    NSArray *array = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+
     NSMutableArray *DataArray = [NSMutableArray array];
     [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [DataArray addObject:[self RecursiveChildren:obj]];
@@ -581,9 +649,9 @@
 - (NSArray *)selectCoreData:(NSString *)tableName sortWithKey:(NSString *)key ascending:(BOOL)ascending
 {
     NSFetchRequest *fetchRequest = [self InitFetchRequest:tableName];
-    
+
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:key ascending:ascending]];
-    NSArray *array = [_managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    NSArray *array = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
     NSMutableArray *DataArray = [NSMutableArray array];
     [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [DataArray addObject:[self RecursiveChildren:obj]];
@@ -604,7 +672,7 @@
  */
 - (NSDictionary *)RecursiveChildren:(NSManagedObject *)entity
 {
-    
+
     NSMutableDictionary *dic = [[entity ChangedDictionary] mutableCopy];
     for (NSString *key in dic.allKeys) {
         if ([[dic objectForKey:key] isKindOfClass:[NSArray class]]) {
@@ -659,9 +727,9 @@
     NSFetchRequest *fetchRequest = [self InitFetchRequest:tableName];
     [fetchRequest setFetchLimit:pageSize];
     [fetchRequest setFetchOffset:currentPage];
-    
-    NSArray *array = [_managedObjectContext executeFetchRequest:fetchRequest error:nil];
-    
+
+    NSArray *array = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+
     NSMutableArray *DataArray = [NSMutableArray array];
     [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [DataArray addObject:[obj ChangedDictionary]];
@@ -691,8 +759,8 @@
         [fetchRequest setFetchOffset:currentPage];
     }
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
-    NSArray *array = [_managedObjectContext executeFetchRequest:fetchRequest error:nil];
-    
+    NSArray *array = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+
     NSMutableArray *DataArray = [NSMutableArray array];
     [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [DataArray addObject:[obj ChangedDictionary]];

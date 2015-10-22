@@ -33,6 +33,7 @@ typedef void (^CoreDataManagerBlock)(NSObject *requestData,BOOL IsError);
 //单列模式
 +(id)sharedlnstance;
 
+#pragma mark - Core Data Saving support
 -(void)saveContext;
 
 /**
