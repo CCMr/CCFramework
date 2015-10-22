@@ -98,16 +98,26 @@ typedef void (^RequestBlock)(id responseData,BOOL isError);
  */
 typedef void (^ProgressBlock)(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead);
 
+/**
+ *  @author CC, 2015-10-22
+ *
+ *  @brief  请求完成处理回调函数
+ *
+ *  @param responseData 请求返回数据
+ *  @param userInfo     字典接收
+ */
+typedef void (^CompletionBlock)(id responseData,id userInfo);
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //输出日志处理
-#ifdef DEBUG
- #define NSLog(...) NSLog(__VA_ARGS__)
- #define debugMethod() NSLog(@"%s", __func__)
-#else
- #define NSLog(...)
- #define debugMethod()
-#endif
+//#ifdef DEBUG
+// #define NSLog(...) NSLog(__VA_ARGS__)
+// #define debugMethod() NSLog(@"%s", __func__)
+//#else
+// #define NSLog(...)
+// #define debugMethod()
+//#endif
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - 全局变量与方法
