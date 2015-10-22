@@ -46,6 +46,7 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
 /// Used for storing button configuration.
 @interface CCActionSheetItem : NSObject
 @property (copy, nonatomic) NSString *title;
+@property (copy, nonatomic) UIColor *titleColor;
 @property (strong, nonatomic) UIImage *image;
 @property (nonatomic) CCActionSheetButtonType type;
 @property (strong, nonatomic) CCActionSheetHandler handler;
@@ -78,8 +79,8 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
     }
 
     CCActionSheet *appearance = [self appearance];
-//    [appearance setBlurRadius:16.0f];
-//    [appearance setBlurTintColor:[UIColor colorWithWhite:1.0f alpha:0.5f]];
+    //    [appearance setBlurRadius:16.0f];
+    //    [appearance setBlurTintColor:[UIColor colorWithWhite:1.0f alpha:0.5f]];
     [appearance setBlurRadius:.1f];
     [appearance setBlurTintColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.7]];
     [appearance setBlurSaturationDeltaFactor:1.8f];
@@ -160,6 +161,7 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
 
     NSAttributedString *attrTitle = [[NSAttributedString alloc] initWithString:item.title attributes:attributes];
     cell.textLabel.attributedText = attrTitle;
+    cell.textLabel.textColor = item.titleColor;
     cell.textLabel.textAlignment = [self.buttonTextCenteringEnabled boolValue] ? NSTextAlignmentCenter : NSTextAlignmentLeft;
 
     if (item.type == CCActionSheetButtonTypeTextAlignmentCenter)
@@ -266,15 +268,30 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
 
 #pragma mark - Public
 
-- (void)addButtonWithTitle:(NSString *)title type:(CCActionSheetButtonType)type handler:(CCActionSheetHandler)handler
+- (void)addButtonWithTitle: (NSString *)title
+                      type: (CCActionSheetButtonType)type
+                   handler: (CCActionSheetHandler)handler
 {
     [self addButtonWithTitle:title image:nil type:type handler:handler];
 }
 
-- (void)addButtonWithTitle:(NSString *)title image:(UIImage *)image type:(CCActionSheetButtonType)type handler:(CCActionSheetHandler)handler
+- (void)addButtonWithTitle: (NSString *)title
+                     image: (UIImage *)image
+                      type: (CCActionSheetButtonType)type
+                   handler: (CCActionSheetHandler)handler
+{
+    [self addButtonWithTitle:title TitleColor:[UIColor blackColor] image:image type:type handler:handler];
+}
+
+- (void)addButtonWithTitle: (NSString *)title
+                TitleColor: (UIColor *)color
+                     image: (UIImage *)image
+                      type: (CCActionSheetButtonType)type
+                   handler: (CCActionSheetHandler)handler
 {
     CCActionSheetItem *item = [[CCActionSheetItem alloc] init];
     item.title = title;
+    item.titleColor = color;
     item.image = image;
     item.type = type;
     item.handler = handler;
@@ -531,9 +548,12 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
         CGSize labelSize = [label sizeThatFits:CGSizeMake(labelWidth, MAXFLOAT)];
         label.frame = CGRectMake(leftRightPadding, topBottomPadding, labelWidth, labelSize.height);
         label.backgroundColor = [UIColor clearColor];
+        label.textAlignment = NSTextAlignmentCenter;
 
         // create and add a header consisting of the label
-        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), labelSize.height + 2*topBottomPadding)];
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), labelSize.height + 2 * topBottomPadding)];
+        if (_title.length > 0)
+            headerView.backgroundColor = [UIColor whiteColor];
         [headerView addSubview:label];
         self.tableView.tableHeaderView = headerView;
 

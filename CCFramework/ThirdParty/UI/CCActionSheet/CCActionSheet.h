@@ -108,7 +108,9 @@ typedef void(^CCActionSheetHandler)(CCActionSheet *actionSheet);
  *
  *  @param handler A completion handler block to execute when a dismissal animation (after the user tapped on the button) has finished.
  */
-- (void)addButtonWithTitle:(NSString *)title type:(CCActionSheetButtonType)type handler:(CCActionSheetHandler)handler;
+- (void)addButtonWithTitle: (NSString *)title
+                      type: (CCActionSheetButtonType)type
+                   handler: (CCActionSheetHandler)handler;
 
 /**
  *  Adds a button with an image. Has to be called before showing the action sheet.
@@ -116,7 +118,17 @@ typedef void(^CCActionSheetHandler)(CCActionSheet *actionSheet);
  *  @param image   The image to display on the left of the title.
  *  @param handler A completion handler block to execute when a dismissal animation (after the user tapped on the button) has finished.
  */
-- (void)addButtonWithTitle:(NSString *)title image:(UIImage *)image type:(CCActionSheetButtonType)type handler:(CCActionSheetHandler)handler;
+- (void)addButtonWithTitle: (NSString *)title
+                     image: (UIImage *)image
+                      type: (CCActionSheetButtonType)type
+                   handler: (CCActionSheetHandler)handler;
+
+
+- (void)addButtonWithTitle: (NSString *)title
+                TitleColor: (UIColor *)color
+                     image: (UIImage *)image
+                      type: (CCActionSheetButtonType)type
+                   handler: (CCActionSheetHandler)handler;
 
 /// Displays the action sheet.
 - (void)show;
