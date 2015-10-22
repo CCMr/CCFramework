@@ -186,8 +186,8 @@ static CCHTTPManager *_sharedlnstance = nil;
         NSLog(@"%@", dic);
         block(dic);
 
-        if (requestOperation.userInfo && completionBlock)
-            completionBlock(dic,requestOperation.userInfo);
+        if (operation.userInfo && completionBlock)
+            completionBlock(dic,operation.userInfo);
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failureBlock(error);
@@ -257,8 +257,8 @@ static CCHTTPManager *_sharedlnstance = nil;
         NSLog(@"%@", dic);
         block(dic);
 
-        if (requestOperation.userInfo && completionBlock)
-            completionBlock(dic,requestOperation.userInfo);
+        if (operation.userInfo && completionBlock)
+            completionBlock(dic,operation.userInfo);
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failureBlock(error);
@@ -326,8 +326,8 @@ static CCHTTPManager *_sharedlnstance = nil;
         NSLog(@"%@", dic);
         block(dic);
 
-        if (requestOperation.userInfo && completionBlock)
-            completionBlock(dic,requestOperation.userInfo);
+        if (operation.userInfo && completionBlock)
+            completionBlock(dic,operation.userInfo);
 
     } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
         failureBlock(error);
@@ -393,8 +393,8 @@ static CCHTTPManager *_sharedlnstance = nil;
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
     AFHTTPRequestOperation *requestOperation = [manager HEAD:requestURLString parameters:parameter success:^(AFHTTPRequestOperation * operation) {
 
-        if (requestOperation.userInfo && completionBlock)
-            completionBlock(nil,requestOperation.userInfo);
+        if (operation.userInfo && completionBlock)
+            completionBlock(nil,operation.userInfo);
 
     } failure:^(AFHTTPRequestOperation *  operation, NSError * error) {
         failureBlock(error);
@@ -462,8 +462,8 @@ static CCHTTPManager *_sharedlnstance = nil;
         NSLog(@"%@", dic);
         block(dic);
 
-        if (requestOperation.userInfo && completionBlock)
-            completionBlock(dic,requestOperation.userInfo);
+        if (operation.userInfo && completionBlock)
+            completionBlock(dic,operation.userInfo);
 
     } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
         failureBlock(error);
@@ -531,8 +531,8 @@ static CCHTTPManager *_sharedlnstance = nil;
         NSLog(@"%@", dic);
         block(dic);
 
-        if (requestOperation.userInfo && completionBlock)
-            completionBlock(dic,requestOperation.userInfo);
+        if (operation.userInfo && completionBlock)
+            completionBlock(dic,operation.userInfo);
 
     } failure:^(AFHTTPRequestOperation * operation, NSError *  error) {
         failureBlock(error);

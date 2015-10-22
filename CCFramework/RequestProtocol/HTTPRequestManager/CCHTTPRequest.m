@@ -306,7 +306,14 @@ static CCHTTPRequest *_sharedlnstance = nil;
 {
     void (^CompletionBlock)(id responseData,id userInfo) = [self completionOBJBlock:key];
     if (CompletionBlock) {
-        CompletionBlock(completionData,userInfo);
+        NSDictionary *dic = completionData;
+        if (![dic isKindOfClass:[NSDictionary class]] && ![dic isKindOfClass:[NSNull class]]){
+            NSData *datas = completionData;
+            if ([datas isKindOfClass:[NSString class]])
+                datas = [completionData dataUsingEncoding:NSUTF8StringEncoding];
+            dic =  [NSJSONSerialization JSONObjectWithData:datas options:NSJSONReadingAllowFragments error:nil];
+        }
+        CompletionBlock(dic,userInfo);
     }
 }
 
