@@ -30,9 +30,27 @@
 
 @interface BaseViewModel : NSObject
 
+/**
+ *  @author CC, 2015-10-22
+ *
+ *  @brief  请求成功回调函数
+ */
 @property (nonatomic, strong) Completion returnBlock;
+
+/**
+ *  @author CC, 2015-10-22
+ *
+ *  @brief  请求错误回调函数
+ */
 @property (nonatomic, strong) ErrorCodeBlock errorBlock;
+
+/**
+ *  @author CC, 2015-10-22
+ *
+ *  @brief  请求故障回调函数
+ */
 @property (nonatomic, strong) FailureBlock failureBlock;
+
 
 /**
  *  @author CC, 15-08-20
