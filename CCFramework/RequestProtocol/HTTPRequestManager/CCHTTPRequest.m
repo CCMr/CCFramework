@@ -49,6 +49,7 @@ static CCHTTPRequest *_sharedlnstance = nil;
     return _sharedlnstance;
 }
 
+#pragma mark - 参数设置
 /**
  *  @author CC, 2015-07-23
  *
@@ -128,6 +129,7 @@ static CCHTTPRequest *_sharedlnstance = nil;
     return [[NSString stringWithFormat:@"%@%@",serviceAddres,methodName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
+#pragma mark - 回调函数设置
 /**
  *  @author CC, 2015-08-15
  *
@@ -189,6 +191,40 @@ static CCHTTPRequest *_sharedlnstance = nil;
 }
 
 /**
+ *  @author CC, 2015-08-15
+ *
+ *  @brief  SET委托事件
+ *
+ *  @param requestOBJBlock 委托Block函数
+ *  @param key             对应key
+ *
+ *  @since 1.0
+ */
+-(void)setCompletionOBJBlock: (CompletionBlock)completionOBJBlock
+                         Key: (NSString *)key
+{
+    objc_setAssociatedObject(self, (__bridge void*)key, completionOBJBlock, OBJC_ASSOCIATION_COPY);
+}
+
+/**
+ *  @author CC, 2015-08-15
+ *
+ *  @brief  GET委托事件
+ *
+ *  @param key 对应Key
+ *
+ *  @return 返回委托Block函数
+ *
+ *  @since 1.0
+ */
+- (CompletionBlock)completionOBJBlock:(NSString *)key
+{
+    return (CompletionBlock)objc_getAssociatedObject(self,(__bridge void*)key);
+}
+
+
+#pragma mark - 回调时间处理
+/**
  *  @author CC, 2015-07-24
  *
  *  @brief  响应处理事件
@@ -197,8 +233,8 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (void)responseProcessEvent:(id)responseData
-                     BlokKey:(NSString *)key
+- (void)responseProcessEvent: (id)responseData
+                    BlockKey: (NSString *)key
 {
     void (^responseProcessBlock)(id responseData,BOOL isError) = [self requestOBJBlock:key];
     if (responseProcessBlock) {
@@ -222,8 +258,8 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (void)errorCodeWithDic:(id)errorDic
-                 BlokKey:(NSString *)key
+- (void)errorCodeWithDic: (id)errorDic
+                BlockKey: (NSString *)key
 {
     void (^errorCodeBlock)(id responseData,BOOL isError) = [self requestOBJBlock:key];
     if (errorCodeBlock) {
@@ -240,8 +276,8 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (void)netFailure:(NSError *)error
-           BlokKey:(NSString *)key
+- (void)netFailure: (NSError *)error
+          BlockKey: (NSString *)key
 {
     void (^netFailureBlock)(id responseData,BOOL isError) = [self requestOBJBlock:key];
     if (netFailureBlock) {
@@ -252,6 +288,25 @@ static CCHTTPRequest *_sharedlnstance = nil;
         }else{
             netFailureBlock(@"请求服务器失败",YES);
         }
+    }
+}
+
+/**
+ *  @author CC, 2015-10-22
+ *
+ *  @brief  请求完成后回调函数
+ *
+ *  @param completionData 返回数据
+ *  @param userInfo       字典接收
+ *  @param key            key
+ */
+- (void)completion: (id)completionData
+          UserInfo: (id)userInfo
+          BlockKey: (NSString *)key
+{
+    void (^CompletionBlock)(id responseData,id userInfo) = [self completionOBJBlock:key];
+    if (CompletionBlock) {
+        CompletionBlock(completionData,userInfo);
     }
 }
 

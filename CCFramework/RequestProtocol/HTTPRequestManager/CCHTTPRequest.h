@@ -40,6 +40,7 @@
  */
 +(id)sharedlnstance;
 
+#pragma mark - 参数设置
 /**
  *  @author CC, 2015-07-23
  *
@@ -101,6 +102,7 @@
 - (NSString *)appendingServerURLWithString: (NSString *)serviceAddres
                                 MethodName: (NSString *)methodName;
 
+#pragma mark - 回调函数设置
 /**
  *  @author CC, 2015-08-15
  *
@@ -149,6 +151,32 @@
 - (ProgressBlock)ProgressOBJBlock: (NSString *)key;
 
 /**
+ *  @author CC, 2015-08-15
+ *
+ *  @brief  SET委托事件
+ *
+ *  @param requestOBJBlock 委托Block函数
+ *  @param key             对应key
+ *
+ *  @since 1.0
+ */
+-(void)setCompletionOBJBlock: (CompletionBlock)completionOBJBlock
+                         Key: (NSString *)key;
+/**
+ *  @author CC, 2015-08-15
+ *
+ *  @brief  GET委托事件
+ *
+ *  @param key 对应Key
+ *
+ *  @return 返回委托Block函数
+ *
+ *  @since 1.0
+ */
+- (CompletionBlock)completionOBJBlock:(NSString *)key;
+
+#pragma mark - 回调时间处理
+/**
  *  @author CC, 2015-07-24
  *
  *  @brief  响音处理事件
@@ -158,7 +186,7 @@
  *  @since 1.0
  */
 - (void)responseProcessEvent:(id)responseData
-                     BlokKey:(NSString *)key;
+                     BlockKey:(NSString *)key;
 
 /**
  *  @author CC, 2015-07-23
@@ -170,7 +198,7 @@
  *  @since 1.0
  */
 - (void)errorCodeWithDic:(id)errorDic
-                 BlokKey:(NSString *)key;
+                 BlockKey:(NSString *)key;
 
 /**
  *  @author CC, 2015-07-23
@@ -181,7 +209,20 @@
  *
  *  @since 1.0
  */
-- (void)netFailure:(NSError *)error
-           BlokKey:(NSString *)key;
+- (void)netFailure: (NSError *)error
+          BlockKey: (NSString *)key;
+
+/**
+ *  @author CC, 2015-10-22
+ *
+ *  @brief  请求完成后回调函数
+ *
+ *  @param completionData 返回数据
+ *  @param userInfo       字典接收
+ *  @param key            key
+ */
+- (void)completion: (id)completionData
+          UserInfo: (id)userInfo
+          BlockKey: (NSString *)key;
 
 @end

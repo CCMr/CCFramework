@@ -127,6 +127,8 @@ static CCHTTPManager *_sharedlnstance = nil;
 }
 
 #pragma mark - 请求方式
+
+#pragma mark - GET请求方式
 /**
  *  @author CC, 2015-07-23
  *
@@ -146,24 +148,60 @@ static CCHTTPManager *_sharedlnstance = nil;
                   WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
                     WithFailureBlock: (FailureBlock) failureBlock
 {
+    [self NetRequestGETWithRequestURL: requestURLString
+                        WithParameter: parameter
+                         WithUserInfo: nil
+                 WithReturnValeuBlock: block
+                   WithErrorCodeBlock: errorBlock
+                     WithFailureBlock: failureBlock
+                       WithCompletion: nil];
+}
+
+/**
+ *  @author CC, 2015-10-22
+ *
+ *  @brief  GET请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param userInfo         字典接收
+ *  @param block            完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ *  @param completionBlock  请求完成回调函数
+ */
+- (void) NetRequestGETWithRequestURL: (NSString *) requestURLString
+                       WithParameter: (NSDictionary *) parameter
+                        WithUserInfo: (NSDictionary *)userInfo
+                WithReturnValeuBlock: (RequestComplete) block
+                  WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
+                    WithFailureBlock: (FailureBlock) failureBlock
+                      WithCompletion: (CompletionBlock)completionBlock
+{
+
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
 
     AFHTTPRequestOperation *requestOperation = [manager GET:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         NSLog(@"%@", dic);
-
         block(dic);
+
+        if (requestOperation.userInfo && completionBlock)
+            completionBlock(dic,requestOperation.userInfo);
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failureBlock(error);
     }];
 
+    if (_userInfo || userInfo)
+        requestOperation.userInfo = userInfo ? userInfo : _userInfo;
+
     requestOperation.responseSerializer = [AFHTTPResponseSerializer serializer];
 
     [requestOperation start];
-
 }
 
+#pragma mark - POST请求方式
 /**
  *  @author CC, 2015-07-23
  *
@@ -183,21 +221,58 @@ static CCHTTPManager *_sharedlnstance = nil;
                    WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
                      WithFailureBlock: (FailureBlock) failureBlock
 {
+    [self NetRequestPOSTWithRequestURL: requestURLString
+                         WithParameter: parameter
+                          WithUserInfo: nil
+                  WithReturnValeuBlock: block
+                    WithErrorCodeBlock: errorBlock
+                      WithFailureBlock: failureBlock
+                        WithCompletion: nil];
+}
+
+/**
+ *  @author CC, 2015-10-22
+ *
+ *  @brief  POST请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param userInfo         字典接收
+ *  @param block            请求失败回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ *  @param completionBlock  请求完成回调函数
+ */
+- (void) NetRequestPOSTWithRequestURL: (NSString *) requestURLString
+                       WithParameter: (NSDictionary *) parameter
+                        WithUserInfo: (NSDictionary *)userInfo
+                WithReturnValeuBlock: (RequestComplete) block
+                  WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
+                    WithFailureBlock: (FailureBlock) failureBlock
+                      WithCompletion: (CompletionBlock)completionBlock
+{
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
     AFHTTPRequestOperation *requestOperation = [manager POST:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         NSLog(@"%@", dic);
         block(dic);
+
+        if (requestOperation.userInfo && completionBlock)
+            completionBlock(dic,requestOperation.userInfo);
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failureBlock(error);
     }];
 
+    if (_userInfo || userInfo)
+        requestOperation.userInfo = userInfo ? userInfo : _userInfo;
+
     requestOperation.responseSerializer = [AFHTTPResponseSerializer serializer];
 
     [requestOperation start];
-
 }
 
+#pragma mark DELETE请求方式
 /**
  *  @author CC, 2015-10-08
  *
@@ -215,20 +290,59 @@ static CCHTTPManager *_sharedlnstance = nil;
                      WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
                        WithFailureBlock: (FailureBlock) failureBlock
 {
+    [self NetRequestDELETEWithRequestURL: requestURLString
+                           WithParameter: parameter
+                            WithUserInfo: nil
+                    WithReturnValeuBlock: block
+                      WithErrorCodeBlock: errorBlock
+                        WithFailureBlock: failureBlock
+                          WithCompletion: nil];
+}
+
+/**
+ *  @author CC, 2015-10-22
+ *
+ *  @brief  DELETE请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param userInfo         字典接收
+ *  @param block            完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ *  @param completionBlock  请求完成回调函数
+ */
+- (void) NetRequestDELETEWithRequestURL: (NSString *) requestURLString
+                          WithParameter: (NSDictionary *) parameter
+                           WithUserInfo: (NSDictionary *)userInfo
+                   WithReturnValeuBlock: (RequestComplete) block
+                     WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
+                       WithFailureBlock: (FailureBlock) failureBlock
+                         WithCompletion: (CompletionBlock)completionBlock
+{
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
     AFHTTPRequestOperation *requestOperation = [manager DELETE:requestURLString parameters:parameter success:^(AFHTTPRequestOperation * operation, id  responseObject) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         NSLog(@"%@", dic);
         block(dic);
+
+        if (requestOperation.userInfo && completionBlock)
+            completionBlock(dic,requestOperation.userInfo);
+
     } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
         failureBlock(error);
     }];
 
+    if (_userInfo || userInfo)
+        requestOperation.userInfo = userInfo ? userInfo : _userInfo;
+
     requestOperation.responseSerializer = [AFHTTPResponseSerializer serializer];
 
     [requestOperation start];
+
 }
 
+#pragma mark HEAD请求方式
 /**
  *  @author CC, 2015-10-08
  *
@@ -246,17 +360,55 @@ static CCHTTPManager *_sharedlnstance = nil;
                    WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
                      WithFailureBlock: (FailureBlock) failureBlock
 {
+    [self NetRequestHEADWithRequestURL: requestURLString
+                         WithParameter: parameter
+                          WithUserInfo: nil
+                  WithReturnValeuBlock: block
+                    WithErrorCodeBlock: errorBlock
+                      WithFailureBlock: failureBlock
+                        WithCompletion: nil];
+}
+
+/**
+ *  @author CC, 2015-10-22
+ *
+ *  @brief  HEAD请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param userInfo         字典接收
+ *  @param block            完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ *  @param completionBlock  请求完成回调函数
+ */
+- (void) NetRequestHEADWithRequestURL: (NSString *) requestURLString
+                        WithParameter: (NSDictionary *) parameter
+                         WithUserInfo: (NSDictionary *)userInfo
+                 WithReturnValeuBlock: (RequestComplete) block
+                   WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
+                     WithFailureBlock: (FailureBlock) failureBlock
+                       WithCompletion: (CompletionBlock)completionBlock
+{
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
     AFHTTPRequestOperation *requestOperation = [manager HEAD:requestURLString parameters:parameter success:^(AFHTTPRequestOperation * operation) {
+
+        if (requestOperation.userInfo && completionBlock)
+            completionBlock(nil,requestOperation.userInfo);
 
     } failure:^(AFHTTPRequestOperation *  operation, NSError * error) {
         failureBlock(error);
     }];
+
+    if (_userInfo || userInfo)
+        requestOperation.userInfo = userInfo ? userInfo : _userInfo;
+
     requestOperation.responseSerializer = [AFHTTPResponseSerializer serializer];
 
     [requestOperation start];
 }
 
+#pragma mark PUT请求方式
 /**
  *  @author CC, 2015-10-08
  *
@@ -274,20 +426,58 @@ static CCHTTPManager *_sharedlnstance = nil;
                   WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
                     WithFailureBlock: (FailureBlock) failureBlock
 {
+    [self NetRequestPUTWithRequestURL: requestURLString
+                        WithParameter: parameter
+                         WithUserInfo: nil
+                 WithReturnValeuBlock: block
+                   WithErrorCodeBlock: errorBlock
+                     WithFailureBlock: failureBlock
+                       WithCompletion: nil];
+}
+
+/**
+ *  @author CC, 2015-10-22
+ *
+ *  @brief  PUT请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param userInfo         字典接收
+ *  @param block            完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ *  @param completionBlock  请求完成回调函数
+ */
+- (void) NetRequestPUTWithRequestURL: (NSString *) requestURLString
+                       WithParameter: (NSDictionary *) parameter
+                        WithUserInfo: (NSDictionary *)userInfo
+                WithReturnValeuBlock: (RequestComplete) block
+                  WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
+                    WithFailureBlock: (FailureBlock) failureBlock
+                      WithCompletion: (CompletionBlock)completionBlock
+{
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
     AFHTTPRequestOperation *requestOperation = [manager PUT:requestURLString parameters:parameter success:^(AFHTTPRequestOperation * operation, id  responseObject) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         NSLog(@"%@", dic);
         block(dic);
+
+        if (requestOperation.userInfo && completionBlock)
+            completionBlock(dic,requestOperation.userInfo);
+
     } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
         failureBlock(error);
     }];
+
+    if (_userInfo || userInfo)
+        requestOperation.userInfo = userInfo ? userInfo : _userInfo;
 
     requestOperation.responseSerializer = [AFHTTPResponseSerializer serializer];
 
     [requestOperation start];
 }
 
+#pragma mark PATCH请求方式
 /**
  *  @author CC, 2015-10-08
  *
@@ -305,14 +495,51 @@ static CCHTTPManager *_sharedlnstance = nil;
                     WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
                       WithFailureBlock: (FailureBlock) failureBlock
 {
+    [self NetRequestPATCHWithRequestURL: requestURLString
+                          WithParameter: parameter
+                           WithUserInfo: nil
+                   WithReturnValeuBlock: block
+                     WithErrorCodeBlock: errorBlock
+                       WithFailureBlock: failureBlock
+                         WithCompletion: nil];
+}
+
+/**
+ *  @author CC, 2015-10-22
+ *
+ *  @brief  PATCH请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param userInfo         字典接收
+ *  @param block            完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ *  @param completionBlock  请求完成回调函数
+ */
+- (void) NetRequestPATCHWithRequestURL: (NSString *) requestURLString
+                         WithParameter: (NSDictionary *) parameter
+                          WithUserInfo: (NSDictionary *)userInfo
+                  WithReturnValeuBlock: (RequestComplete) block
+                    WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
+                      WithFailureBlock: (FailureBlock) failureBlock
+                        WithCompletion: (CompletionBlock)completionBlock
+{
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
     AFHTTPRequestOperation *requestOperation = [manager PATCH:requestURLString parameters:parameter success:^(AFHTTPRequestOperation * operation, id  responseObject) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         NSLog(@"%@", dic);
         block(dic);
+
+        if (requestOperation.userInfo && completionBlock)
+            completionBlock(dic,requestOperation.userInfo);
+
     } failure:^(AFHTTPRequestOperation * operation, NSError *  error) {
         failureBlock(error);
     }];
+
+    if (_userInfo || userInfo)
+        requestOperation.userInfo = userInfo ? userInfo : _userInfo;
 
     requestOperation.responseSerializer = [AFHTTPResponseSerializer serializer];
 
