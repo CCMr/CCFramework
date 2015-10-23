@@ -113,24 +113,29 @@ typedef void (^CoreDataManagerBlock)(NSObject *requestData,BOOL IsError);
  *
  *  @brief  批量修改属性值
  *
- *  @param tableName 表名
- *  @param key       字段名
- *  @param value     字段值
+ *  @param tableName      表名
+ *  @param ColumnKeyValue 字段名 value 字段值
  */
 -(void)batchUpdataCoredData: (NSString *)tableName
              ColumnKeyValue: (NSDictionary *)columnDic;
+
 /**
- *  @author CC, 2015-07-24
+ *  @author CC, 2015-10-23
  *
- *  @brief  根据条件修改对象及其子项
+ *  @brief  修改对象及子项
+ *          操作方式 属性 条件 值（editDataArray 对象中获取Key值）
  *
- *  @param tableName     表名
- *  @param condition     查询条件
- *  @param editDataArray 修改条件
- *
- *  @since 1.0
+ *  @param tableName      表名
+ *  @param conditionKey   条件字段
+ *  @param condition      调价今年
+ *  @param conditionValue 条件值的Key
+ *  @param editDataArray  编辑的对象
  */
--(void)updateCoreData:(NSString *)tableName Condition:(NSString *)condition EditDataArray:(NSArray *)editDataArray;
+- (void)updateCoreData: (NSString *)tableName
+          ConditionKey: (NSString *)conditionKey
+             Condition: (NSString *)condition
+        ConditionValue: (NSString *)conditionValue
+         EditDataArray: (NSArray *)editDataArray;
 
 /**
  *  @author CC, 2015-07-24
@@ -139,11 +144,13 @@ typedef void (^CoreDataManagerBlock)(NSObject *requestData,BOOL IsError);
  *
  *  @param tableName 表名
  *  @param condition 查询条件
- *  @param editData  修改对象
+ *  @param editData  字段名 value 字段值
  *
  *  @since 1.0
  */
--(void)updateCoreData:(NSString *)tableName Condition:(NSString *)condition EditData:(NSDictionary *)editData;
+-(void)updateCoreData: (NSString *)tableName
+            Condition: (NSString *)condition
+             EditData: (NSDictionary *)editData;
 
 /**
  *  @author CC, 2015-07-24
@@ -157,7 +164,10 @@ typedef void (^CoreDataManagerBlock)(NSObject *requestData,BOOL IsError);
  *
  *  @since 1.0
  */
--(void)updateCoreData:(NSString *)tableName Condition:(NSString *)condition AttributeName:(NSString *)attributeName AttributeValue:(NSString *)attributeValue;
+-(void)updateCoreData: (NSString *)tableName
+            Condition: (NSString *)condition
+        AttributeName: (NSString *)attributeName
+       AttributeValue: (NSString *)attributeValue;
 
 /**
  *  @author CC, 2015-07-24
@@ -169,7 +179,8 @@ typedef void (^CoreDataManagerBlock)(NSObject *requestData,BOOL IsError);
  *
  *  @since 1.0
  */
--(void)updateCoreData:(NSString *)tableName EditDataArray:(NSArray *)editDataAry;
+-(void)updateCoreData: (NSString *)tableName
+        EditDataArray: (NSArray *)editDataAry;
 
 #pragma mark - 查询
 /**
@@ -183,7 +194,7 @@ typedef void (^CoreDataManagerBlock)(NSObject *requestData,BOOL IsError);
  *
  *  @since 1.0
  */
--(NSArray *)selectCoreData:(NSString *)tableName;
+-(NSArray *)selectCoreData: (NSString *)tableName;
 
 /**
  *  @author CC, 2015-07-24
@@ -197,22 +208,43 @@ typedef void (^CoreDataManagerBlock)(NSObject *requestData,BOOL IsError);
  *
  *  @since 1.0
  */
--(NSArray *)selectCoreData:(NSString *)tableName Condition:(NSString *)condition;
+-(NSArray *)selectCoreData: (NSString *)tableName
+                 Condition: (NSString *)condition;
+
+/**
+ *  @author CC, 2015-10-23
+ *
+ *  @brief  查询对象
+ *          条件查询与排序
+ *
+ *  @param tableName 表名
+ *  @param condition 查询条件
+ *  @param key       排序字段
+ *  @param ascending 是否升序
+ *
+ *  @return 返回结果集
+ */
+- (NSArray *)selectCoreData: (NSString *)tableName
+                  Condition: (NSString *)condition
+                sortWithKey: (NSString *)key
+                  ascending: (BOOL)ascending;
 
 /**
  *  @author CC, 2015-07-24
  *
- *  @brief  分类查询 暂未测试
+ *  @brief  查询表所有信息排序
  *
  *  @param tableName 表名
  *  @param key       分类键
- *  @param ascending <#ascending description#>
+ *  @param ascending 是否升序
  *
- *  @return <#return value description#>
+ *  @return 返回结果集
  *
  *  @since 1.0
  */
--(NSArray *)selectCoreData:(NSString *)tableName sortWithKey:(NSString *)key ascending:(BOOL)ascending;
+-(NSArray *)selectCoreData: (NSString *)tableName
+               sortWithKey: (NSString *)key
+                 ascending: (BOOL)ascending;
 
 /**
  *  @author CC, 2015-07-24
@@ -227,7 +259,9 @@ typedef void (^CoreDataManagerBlock)(NSObject *requestData,BOOL IsError);
  *
  *  @since 1.0
  */
--(NSArray *)selectCoreData:(NSString *)tableName PageSize:(int)pageSize AndOffset:(int)currentPage;
+-(NSArray *)selectCoreData: (NSString *)tableName
+                  PageSize: (int)pageSize
+                 AndOffset: (int)currentPage;
 
 /**
  *  @author CC, 2015-07-24
@@ -243,5 +277,8 @@ typedef void (^CoreDataManagerBlock)(NSObject *requestData,BOOL IsError);
  *
  *  @since 1.0
  */
--(NSArray *)selectCoreData:(NSString *)tableName Condition:(NSString *)condition PageSize:(int)pageSize AndOffset:(int)currentPage;
+-(NSArray *)selectCoreData: (NSString *)tableName
+                 Condition: (NSString *)condition
+                  PageSize: (int)pageSize
+                 AndOffset: (int)currentPage;
 @end

@@ -449,22 +449,67 @@
     }
 }
 
-
 /**
- *  @author CC, 2015-07-24
+ *  @author CC, 2015-10-23
  *
- *  @brief  根据条件修改对象及其子项
+ *  @brief  修改对象及子项
+ *          操作方式 属性 条件 值（editDataArray 对象中获取Key值）
  *
- *  @param tableName     表名
- *  @param condition     查询条件
- *  @param editDataArray 修改条件
- *
- *  @since 1.0
+ *  @param tableName      表名
+ *  @param conditionKey   条件字段
+ *  @param condition      调价今年
+ *  @param conditionValue 条件值的Key
+ *  @param editDataArray  编辑的对象
  */
-- (void)updateCoreData:(NSString *)tableName Condition:(NSString *)condition EditDataArray:(NSArray *)editDataArray
+- (void)updateCoreData: (NSString *)tableName
+          ConditionKey: (NSString *)conditionKey
+             Condition: (NSString *)condition
+        ConditionValue: (NSString *)conditionValue
+         EditDataArray: (NSArray *)editDataArray
 {
-    for (NSDictionary *d in editDataArray)
-        [self updateCoreData:tableName Condition:condition EditData:d];
+    if (!editDataArray.count) return;
+
+    self.privateContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    [self.privateContext setParentContext:self.managedObjectContext];
+
+
+    for (NSDictionary *endtDic in editDataArray)
+    {
+        NSFetchRequest *fetchRequest = [self InitFetchRequest:tableName];
+        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%@ %@ '%@'",conditionKey,condition,[endtDic objectForKey:conditionValue]]]];
+        [fetchRequest setReturnsObjectsAsFaults:NO];
+
+        NSError *error = nil;
+        NSArray *datas = [self.privateContext executeFetchRequest:fetchRequest error:&error];
+        if (!error && datas && [datas count]) {
+            [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                for (NSString *key in endtDic.allKeys)
+                {
+                    if ([[endtDic objectForKey:key] isKindOfClass:[NSArray class]])
+                    {
+                        NSRelationshipDescription *relationship = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:self.privateContext] relationshipsByName] objectForKey:key];
+                        for (NSDictionary *childDic in [endtDic objectForKey:key])
+                        {
+                            [self updateCoreData: self.privateContext
+                                       TableName: [[relationship destinationEntity] name]
+                                     ConditionID: [childDic objectForKey:@"objectID"]
+                                        EditData: childDic];
+                        }
+                    }else
+                        [obj setValue:[endtDic objectForKey:key] forKey:key];
+                }
+            }];
+        }
+    }
+
+    [self.privateContext performBlock:^{
+        NSError *error = nil;
+        if ([self.privateContext hasChanges]) {
+            if(![self.privateContext save:&error])
+                NSLog(@"%@ insertNewObject Error:%@",tableName,[error localizedDescription]);
+        }
+    }];
+
 }
 
 /**
@@ -478,7 +523,9 @@
  *
  *  @since 1.0
  */
-- (void)updateCoreData:(NSString *)tableName Condition:(NSString *)condition EditData:(NSDictionary *)editData
+- (void)updateCoreData: (NSString *)tableName
+             Condition: (NSString *)condition
+              EditData: (NSDictionary *)editData
 {
     NSFetchRequest *fetchRequest = [self InitFetchRequest:tableName];
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
@@ -515,7 +562,10 @@
  *
  *  @since 1.0
  */
-- (void)updateCoreData:(NSString *)tableName Condition:(NSString *)condition AttributeName:(NSString *)attributeName AttributeValue:(NSString *)attributeValue
+- (void)updateCoreData: (NSString *)tableName
+             Condition: (NSString *)condition
+         AttributeName: (NSString *)attributeName
+        AttributeValue: (NSString *)attributeValue
 {
     NSFetchRequest *fetchRequest = [self InitFetchRequest:tableName];
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
@@ -558,19 +608,46 @@
  *
  *  @since 1.0
  */
-- (void)updateCoreData:(NSString *)tableName ConditionID:(NSManagedObjectID *)conditionID EditData:(NSDictionary *)editData
+- (void)updateCoreData: (NSString *)tableName
+           ConditionID: (NSManagedObjectID *)conditionID
+              EditData: (NSDictionary *)editData
+{
+    [self updateCoreData: self.managedObjectContext
+               TableName: tableName
+             ConditionID: conditionID
+                EditData: editData];
+}
+
+/**
+ *  @author CC, 2015-10-23
+ *
+ *  @brief  主键修改数据对象及子项
+ *
+ *  @param context     操作对象
+ *  @param tableName   表名
+ *  @param conditionID 主键ID
+ *  @param editData    编辑的数据集
+ */
+- (void)updateCoreData: (NSManagedObjectContext *)context
+             TableName: (NSString *)tableName
+           ConditionID: (NSManagedObjectID *)conditionID
+              EditData: (NSDictionary *)editData
 {
     NSFetchRequest *fetchRequest = [self InitFetchRequest:tableName];
     NSError *error = nil;
-    NSArray *datas = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *datas = [context executeFetchRequest:fetchRequest error:&error];
     if (!error && datas && [datas count]) {
         [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             if ([((NSManagedObject *)obj).objectID isEqual:conditionID]) {
                 for (NSString *key in editData.allKeys) {
                     if ([[editData objectForKey:key] isKindOfClass:[NSArray class]]){
-                        NSRelationshipDescription *relationship = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:self.managedObjectContext] relationshipsByName] objectForKey:key];
-                        for (NSDictionary *childDic in [editData objectForKey:key])
-                            [self updateCoreData:[[relationship destinationEntity] name] ConditionID:[childDic objectForKey:@"objectID"] EditData:childDic];
+                        NSRelationshipDescription *relationship = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:context] relationshipsByName] objectForKey:key];
+                        for (NSDictionary *childDic in [editData objectForKey:key]){
+                            [self updateCoreData: context
+                                       TableName: [[relationship destinationEntity] name]
+                                     ConditionID: [childDic objectForKey:@"objectID"]
+                                        EditData: childDic];
+                        }
                     }else{
                         if (![key isEqualToString:@"objectID"])
                             [obj setValue:[editData objectForKey:key] forKey:key];
@@ -582,9 +659,31 @@
         if (![self.managedObjectContext save:&error])
             NSLog(@"Update %@ CoreData Error : %@",tableName,[error localizedDescription]);
     }
+    
 }
 
 #pragma mark - 查询
+/**
+ *  @author CC, 2015-10-23
+ *
+ *  @brief  查询函数
+ *
+ *  @param fetchRequest 查询条件
+ *
+ *  @return 返回结果
+ */
+- (NSArray *)selectCoreDataWithRequest: (NSFetchRequest *)fetchRequest
+{
+    NSArray *array = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+
+    NSMutableArray *DataArray = [NSMutableArray array];
+    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [DataArray addObject:[self RecursiveChildren:obj]];
+    }];
+//  [[NSSet setWithArray:DataArray] allObjects]; 去除重复
+    return DataArray;
+}
+
 /**
  *  @author CC, 2015-07-24
  *
@@ -596,15 +695,10 @@
  *
  *  @since 1.0
  */
-- (NSArray *)selectCoreData:(NSString *)tableName
+- (NSArray *)selectCoreData: (NSString *)tableName
 {
     NSFetchRequest *fetchRequest = [self InitFetchRequest:tableName];
-
-    NSMutableArray *DataArray = [NSMutableArray array];
-    [[self.managedObjectContext executeFetchRequest:fetchRequest error:nil] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [DataArray addObject:[self RecursiveChildren:obj]];
-    }];
-    return DataArray;
+    return [self selectCoreDataWithRequest:fetchRequest];
 }
 
 /**
@@ -619,44 +713,61 @@
  *
  *  @since 1.0
  */
-- (NSArray *)selectCoreData:(NSString *)tableName Condition:(NSString *)condition
+- (NSArray *)selectCoreData: (NSString *)tableName
+                  Condition: (NSString *)condition
 {
     NSFetchRequest *fetchRequest = [self InitFetchRequest:tableName];
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
 
-    NSArray *array = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    return [self selectCoreDataWithRequest:fetchRequest];
+}
 
-    NSMutableArray *DataArray = [NSMutableArray array];
-    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [DataArray addObject:[self RecursiveChildren:obj]];
-    }];
-    return [[NSSet setWithArray:DataArray] allObjects];
+/**
+ *  @author CC, 2015-10-23
+ *
+ *  @brief  查询对象
+ *          条件查询与排序
+ *
+ *  @param tableName 表名
+ *  @param condition 查询条件
+ *  @param key       排序字段
+ *  @param ascending 是否升序
+ *
+ *  @return 返回结果集
+ */
+- (NSArray *)selectCoreData: (NSString *)tableName
+                  Condition: (NSString *)condition
+                sortWithKey: (NSString *)key
+                  ascending: (BOOL)ascending
+{
+    NSFetchRequest *fetchRequest = [self InitFetchRequest:tableName];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
+    [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:key ascending:ascending]]];
+
+    return [self selectCoreDataWithRequest:fetchRequest];
 }
 
 /**
  *  @author CC, 2015-07-24
  *
- *  @brief  分类查询 暂未测试
+ *  @brief  查询表所有信息排序
  *
  *  @param tableName 表名
  *  @param key       分类键
- *  @param ascending <#ascending description#>
+ *  @param ascending 是否升序
  *
- *  @return <#return value description#>
+ *  @return 返回结果集
  *
  *  @since 1.0
  */
-- (NSArray *)selectCoreData:(NSString *)tableName sortWithKey:(NSString *)key ascending:(BOOL)ascending
+- (NSArray *)selectCoreData: (NSString *)tableName
+                sortWithKey: (NSString *)key
+                  ascending: (BOOL)ascending
 {
     NSFetchRequest *fetchRequest = [self InitFetchRequest:tableName];
-
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:key ascending:ascending]];
-    NSArray *array = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
-    NSMutableArray *DataArray = [NSMutableArray array];
-    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [DataArray addObject:[self RecursiveChildren:obj]];
-    }];
-    return [[NSSet setWithArray:DataArray] allObjects];
+
+    return [self selectCoreDataWithRequest:fetchRequest];
 }
 
 /**
@@ -670,9 +781,8 @@
  *
  *  @since 1.0
  */
-- (NSDictionary *)RecursiveChildren:(NSManagedObject *)entity
+- (NSDictionary *)RecursiveChildren: (NSManagedObject *)entity
 {
-
     NSMutableDictionary *dic = [[entity ChangedDictionary] mutableCopy];
     for (NSString *key in dic.allKeys) {
         if ([[dic objectForKey:key] isKindOfClass:[NSArray class]]) {
@@ -722,19 +832,15 @@
  *
  *  @since 1.0
  */
-- (NSArray *)selectCoreData:(NSString *)tableName PageSize:(int)pageSize AndOffset:(int)currentPage
+- (NSArray *)selectCoreData: (NSString *)tableName
+                   PageSize: (int)pageSize
+                  AndOffset: (int)currentPage
 {
     NSFetchRequest *fetchRequest = [self InitFetchRequest:tableName];
     [fetchRequest setFetchLimit:pageSize];
     [fetchRequest setFetchOffset:currentPage];
 
-    NSArray *array = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
-
-    NSMutableArray *DataArray = [NSMutableArray array];
-    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [DataArray addObject:[obj ChangedDictionary]];
-    }];
-    return [[NSSet setWithArray:DataArray] allObjects];
+    return [self selectCoreDataWithRequest:fetchRequest];
 }
 
 /**
@@ -751,7 +857,10 @@
  *
  *  @since 1.0
  */
-- (NSArray *)selectCoreData:(NSString *)tableName Condition:(NSString *)condition PageSize:(int)pageSize AndOffset:(int)currentPage
+- (NSArray *)selectCoreData: (NSString *)tableName
+                  Condition: (NSString *)condition
+                   PageSize: (int)pageSize
+                  AndOffset: (int)currentPage
 {
     NSFetchRequest *fetchRequest = [self InitFetchRequest:tableName];
     if (pageSize != 0 && currentPage != 0){
@@ -759,12 +868,7 @@
         [fetchRequest setFetchOffset:currentPage];
     }
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
-    NSArray *array = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
 
-    NSMutableArray *DataArray = [NSMutableArray array];
-    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [DataArray addObject:[obj ChangedDictionary]];
-    }];
-    return [[NSSet setWithArray:DataArray] allObjects];
+    return [self selectCoreDataWithRequest:fetchRequest];
 }
 @end
