@@ -67,6 +67,18 @@
 
 #pragma mark - CCWebViewDelegate
 
+/**
+ *  @author CC, 2015-10-19
+ *
+ *  @brief  初始化进度条
+ *
+ *  @return 返回当前视图的导航栏
+ */
+-(UINavigationBar *)webViewInitWithProgress
+{
+    return self.navigationController.navigationBar;
+}
+
 -(void)webViewDidFinishLoad:(CCWebView *)webView Title:(NSString *)title
 {
     self.title = title;
