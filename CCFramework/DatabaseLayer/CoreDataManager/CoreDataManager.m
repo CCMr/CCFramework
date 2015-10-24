@@ -151,11 +151,31 @@
 
 
 #pragma mark - sqlile创建路径
+/**
+ *  @author CC, 2015-10-24
+ *
+ *  @brief  返回数据路径与创建文件路径
+ *
+ *  @param filename 文件名
+ *  @param dir      路径
+ *
+ *  @return 返回完整路径地址
+ */
 - (NSString *)PathForDocuments:(NSString *)filename inDir:(NSString *)dir
 {
     return [[self DirectoryForDocuments:dir] stringByAppendingPathComponent:filename];
 }
 
+/**
+ *  @author CC, 2015-10-24
+ *
+ *  @brief  判断路径
+ *          否 创建 是返回
+ *
+ *  @param dir 路径地址
+ *
+ *  @return 返回完整正路
+ */
 - (NSString *)DirectoryForDocuments:(NSString *)dir
 {
     NSError* error;
@@ -166,6 +186,13 @@
     return path;
 }
 
+/**
+ *  @author CC, 2015-10-24
+ *
+ *  @brief  文件夹路径
+ *
+ *  @return 返回安装文件夹路径
+ */
 - (NSString *)DocumentPath
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -193,7 +220,21 @@
     return fetchRequest;
 }
 
+
+- (void)saveContext: (void (^)(NSManagedObjectContext *))saveContext
+         completion: (void (^)(NSError *))completion
+{
+    __block BOOL success = YES;
+    __block NSError *error = nil;
+    m
+}
+
+
 #pragma mark - 增加
+
+
+
+
 /**
  *  @author CC, 2015-07-24
  *

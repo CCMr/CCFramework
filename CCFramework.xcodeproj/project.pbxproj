@@ -601,6 +601,20 @@
 		4264D7411BA2C19100E83159 /* CCPagesContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4264D73B1BA2C19100E83159 /* CCPagesContainer.m */; };
 		4264D7421BA2C19100E83159 /* CCPagesContainerTopBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 4264D73C1BA2C19100E83159 /* CCPagesContainerTopBar.h */; };
 		4264D7431BA2C19100E83159 /* CCPagesContainerTopBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4264D73D1BA2C19100E83159 /* CCPagesContainerTopBar.m */; };
+		4267DCF21BDB32CD00B0C43F /* NSManagedObject+FetchRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4267DCF01BDB32CD00B0C43F /* NSManagedObject+FetchRequest.h */; settings = {ASSET_TAGS = (); }; };
+		4267DCF31BDB32CD00B0C43F /* NSManagedObject+FetchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4267DCF11BDB32CD00B0C43F /* NSManagedObject+FetchRequest.m */; settings = {ASSET_TAGS = (); }; };
+		4267DD001BDB584000B0C43F /* NSManagedObject+Mapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 4267DCFE1BDB584000B0C43F /* NSManagedObject+Mapping.h */; settings = {ASSET_TAGS = (); }; };
+		4267DD011BDB584000B0C43F /* NSManagedObject+Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 4267DCFF1BDB584000B0C43F /* NSManagedObject+Mapping.m */; settings = {ASSET_TAGS = (); }; };
+		4267DD081BDB5A7000B0C43F /* BaseManagedObject+Facade.h in Headers */ = {isa = PBXBuildFile; fileRef = 4267DD021BDB5A7000B0C43F /* BaseManagedObject+Facade.h */; settings = {ASSET_TAGS = (); }; };
+		4267DD091BDB5A7000B0C43F /* NSManagedObject+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 4267DD031BDB5A7000B0C43F /* NSManagedObject+Convenience.m */; settings = {ASSET_TAGS = (); }; };
+		4267DD0A1BDB5A7000B0C43F /* NSManagedObject+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 4267DD041BDB5A7000B0C43F /* NSManagedObject+Create.m */; settings = {ASSET_TAGS = (); }; };
+		4267DD0B1BDB5A7000B0C43F /* NSManagedObject+Modify.m in Sources */ = {isa = PBXBuildFile; fileRef = 4267DD051BDB5A7000B0C43F /* NSManagedObject+Modify.m */; settings = {ASSET_TAGS = (); }; };
+		4267DD0C1BDB5A7000B0C43F /* NSManagedObject+Queries.m in Sources */ = {isa = PBXBuildFile; fileRef = 4267DD061BDB5A7000B0C43F /* NSManagedObject+Queries.m */; settings = {ASSET_TAGS = (); }; };
+		4267DD0D1BDB5A7000B0C43F /* NSManagedObject+Removed.m in Sources */ = {isa = PBXBuildFile; fileRef = 4267DD071BDB5A7000B0C43F /* NSManagedObject+Removed.m */; settings = {ASSET_TAGS = (); }; };
+		4267DD1C1BDB5C5900B0C43F /* BaseManagedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4267DD181BDB5C5900B0C43F /* BaseManagedObject.h */; settings = {ASSET_TAGS = (); }; };
+		4267DD1D1BDB5C5900B0C43F /* BaseManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4267DD191BDB5C5900B0C43F /* BaseManagedObject.m */; settings = {ASSET_TAGS = (); }; };
+		4267DD1E1BDB5C5900B0C43F /* CoreDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4267DD1A1BDB5C5900B0C43F /* CoreDataManager.h */; settings = {ASSET_TAGS = (); }; };
+		4267DD1F1BDB5C5900B0C43F /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4267DD1B1BDB5C5900B0C43F /* CoreDataManager.m */; settings = {ASSET_TAGS = (); }; };
 		426979281BA695BA00C3E93C /* AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 426978FE1BA695BA00C3E93C /* AFNetworking.h */; };
 		426979291BA695BA00C3E93C /* AFHTTPSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 426979001BA695BA00C3E93C /* AFHTTPSessionManager.h */; };
 		4269792A1BA695BA00C3E93C /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 426979011BA695BA00C3E93C /* AFHTTPSessionManager.m */; };
@@ -669,10 +683,6 @@
 		429C9F5F1B9EF8BF0013A44A /* CCDropzoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D101B9EF8BE0013A44A /* CCDropzoneViewController.m */; };
 		429C9F621B9EF8BF0013A44A /* Config.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D141B9EF8BE0013A44A /* Config.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429C9F631B9EF8BF0013A44A /* EnumConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D151B9EF8BE0013A44A /* EnumConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		429C9F641B9EF8BF0013A44A /* CCNSManagedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D181B9EF8BE0013A44A /* CCNSManagedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		429C9F651B9EF8BF0013A44A /* CCNSManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D191B9EF8BE0013A44A /* CCNSManagedObject.m */; };
-		429C9F661B9EF8BF0013A44A /* CoreDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D1A1B9EF8BE0013A44A /* CoreDataManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		429C9F671B9EF8BF0013A44A /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D1B1B9EF8BE0013A44A /* CoreDataManager.m */; };
 		429C9F681B9EF8BF0013A44A /* BaseEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D1E1B9EF8BE0013A44A /* BaseEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429C9F691B9EF8BF0013A44A /* BaseEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D1F1B9EF8BE0013A44A /* BaseEntity.m */; };
 		429C9F6A1B9EF8BF0013A44A /* BaseViewModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D211B9EF8BE0013A44A /* BaseViewModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1098,6 +1108,8 @@
 		42D0EDF71BBA68E10032A489 /* ResourcesPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D0EDF51BBA68E10032A489 /* ResourcesPhotos.m */; };
 		42D404C31BC9EB6A00C62FBD /* UIAlertView+Additional.h in Headers */ = {isa = PBXBuildFile; fileRef = 42D404C11BC9EB6A00C62FBD /* UIAlertView+Additional.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42D404C41BC9EB6A00C62FBD /* UIAlertView+Additional.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D404C21BC9EB6A00C62FBD /* UIAlertView+Additional.m */; settings = {ASSET_TAGS = (); }; };
+		42D850F91BDB248D00CB194E /* NSManagedObject+CCManagedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 42D850F71BDB248D00CB194E /* NSManagedObject+CCManagedObject.h */; settings = {ASSET_TAGS = (); }; };
+		42D850FA1BDB248D00CB194E /* NSManagedObject+CCManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D850F81BDB248D00CB194E /* NSManagedObject+CCManagedObject.m */; settings = {ASSET_TAGS = (); }; };
 		42DBA84F1BB4D5CB00AD47C6 /* UILabel+Addition.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA84D1BB4D5CB00AD47C6 /* UILabel+Addition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42DBA8501BB4D5CB00AD47C6 /* UILabel+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBA84E1BB4D5CB00AD47C6 /* UILabel+Addition.m */; };
 		42DBA8561BB5305700AD47C6 /* CCBase64.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA8541BB5305700AD47C6 /* CCBase64.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1691,6 +1703,20 @@
 		4264D73B1BA2C19100E83159 /* CCPagesContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCPagesContainer.m; path = CCPagesContainer/CCPagesContainer.m; sourceTree = "<group>"; };
 		4264D73C1BA2C19100E83159 /* CCPagesContainerTopBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPagesContainerTopBar.h; path = CCPagesContainer/CCPagesContainerTopBar.h; sourceTree = "<group>"; };
 		4264D73D1BA2C19100E83159 /* CCPagesContainerTopBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCPagesContainerTopBar.m; path = CCPagesContainer/CCPagesContainerTopBar.m; sourceTree = "<group>"; };
+		4267DCF01BDB32CD00B0C43F /* NSManagedObject+FetchRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+FetchRequest.h"; path = "CoreDataFactory/Category/NSManagedObject+FetchRequest.h"; sourceTree = "<group>"; };
+		4267DCF11BDB32CD00B0C43F /* NSManagedObject+FetchRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+FetchRequest.m"; path = "CoreDataFactory/Category/NSManagedObject+FetchRequest.m"; sourceTree = "<group>"; };
+		4267DCFE1BDB584000B0C43F /* NSManagedObject+Mapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+Mapping.h"; path = "CoreDataFactory/Category/NSManagedObject+Mapping.h"; sourceTree = "<group>"; };
+		4267DCFF1BDB584000B0C43F /* NSManagedObject+Mapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+Mapping.m"; path = "CoreDataFactory/Category/NSManagedObject+Mapping.m"; sourceTree = "<group>"; };
+		4267DD021BDB5A7000B0C43F /* BaseManagedObject+Facade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BaseManagedObject+Facade.h"; path = "CoreDataFactory/Core/BaseManagedObject+Facade.h"; sourceTree = "<group>"; };
+		4267DD031BDB5A7000B0C43F /* NSManagedObject+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+Convenience.m"; path = "CoreDataFactory/Core/NSManagedObject+Convenience.m"; sourceTree = "<group>"; };
+		4267DD041BDB5A7000B0C43F /* NSManagedObject+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+Create.m"; path = "CoreDataFactory/Core/NSManagedObject+Create.m"; sourceTree = "<group>"; };
+		4267DD051BDB5A7000B0C43F /* NSManagedObject+Modify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+Modify.m"; path = "CoreDataFactory/Core/NSManagedObject+Modify.m"; sourceTree = "<group>"; };
+		4267DD061BDB5A7000B0C43F /* NSManagedObject+Queries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+Queries.m"; path = "CoreDataFactory/Core/NSManagedObject+Queries.m"; sourceTree = "<group>"; };
+		4267DD071BDB5A7000B0C43F /* NSManagedObject+Removed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+Removed.m"; path = "CoreDataFactory/Core/NSManagedObject+Removed.m"; sourceTree = "<group>"; };
+		4267DD181BDB5C5900B0C43F /* BaseManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseManagedObject.h; path = Macros/BaseManagedObject.h; sourceTree = "<group>"; };
+		4267DD191BDB5C5900B0C43F /* BaseManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseManagedObject.m; path = Macros/BaseManagedObject.m; sourceTree = "<group>"; };
+		4267DD1A1BDB5C5900B0C43F /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataManager.h; path = Macros/CoreDataManager.h; sourceTree = "<group>"; };
+		4267DD1B1BDB5C5900B0C43F /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataManager.m; path = Macros/CoreDataManager.m; sourceTree = "<group>"; };
 		426978FE1BA695BA00C3E93C /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
 		426979001BA695BA00C3E93C /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
 		426979011BA695BA00C3E93C /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
@@ -1761,10 +1787,6 @@
 		429C9D101B9EF8BE0013A44A /* CCDropzoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDropzoneViewController.m; sourceTree = "<group>"; };
 		429C9D141B9EF8BE0013A44A /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		429C9D151B9EF8BE0013A44A /* EnumConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnumConfig.h; sourceTree = "<group>"; };
-		429C9D181B9EF8BE0013A44A /* CCNSManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNSManagedObject.h; sourceTree = "<group>"; };
-		429C9D191B9EF8BE0013A44A /* CCNSManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCNSManagedObject.m; sourceTree = "<group>"; };
-		429C9D1A1B9EF8BE0013A44A /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
-		429C9D1B1B9EF8BE0013A44A /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
 		429C9D1E1B9EF8BE0013A44A /* BaseEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseEntity.h; sourceTree = "<group>"; };
 		429C9D1F1B9EF8BE0013A44A /* BaseEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseEntity.m; sourceTree = "<group>"; };
 		429C9D211B9EF8BE0013A44A /* BaseViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewModel.h; sourceTree = "<group>"; };
@@ -2190,6 +2212,8 @@
 		42D0EDF51BBA68E10032A489 /* ResourcesPhotos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourcesPhotos.m; sourceTree = "<group>"; };
 		42D404C11BC9EB6A00C62FBD /* UIAlertView+Additional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIAlertView+Additional.h"; path = "UIAlertView/UIAlertView+Additional.h"; sourceTree = "<group>"; };
 		42D404C21BC9EB6A00C62FBD /* UIAlertView+Additional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIAlertView+Additional.m"; path = "UIAlertView/UIAlertView+Additional.m"; sourceTree = "<group>"; };
+		42D850F71BDB248D00CB194E /* NSManagedObject+CCManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+CCManagedObject.h"; path = "CoreDataFactory/Category/NSManagedObject+CCManagedObject.h"; sourceTree = "<group>"; };
+		42D850F81BDB248D00CB194E /* NSManagedObject+CCManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+CCManagedObject.m"; path = "CoreDataFactory/Category/NSManagedObject+CCManagedObject.m"; sourceTree = "<group>"; };
 		42DBA84D1BB4D5CB00AD47C6 /* UILabel+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UILabel+Addition.h"; path = "UILabel/UILabel+Addition.h"; sourceTree = "<group>"; };
 		42DBA84E1BB4D5CB00AD47C6 /* UILabel+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+Addition.m"; path = "UILabel/UILabel+Addition.m"; sourceTree = "<group>"; };
 		42DBA8541BB5305700AD47C6 /* CCBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCBase64.h; path = Base64/CCBase64.h; sourceTree = "<group>"; };
@@ -2936,6 +2960,41 @@
 			path = detector;
 			sourceTree = "<group>";
 		};
+		42105D131BDB1791003EE23E /* CoreDataFactory */ = {
+			isa = PBXGroup;
+			children = (
+				42105D151BDB17EB003EE23E /* Core */,
+				42105D141BDB17E6003EE23E /* Category */,
+			);
+			name = CoreDataFactory;
+			sourceTree = "<group>";
+		};
+		42105D141BDB17E6003EE23E /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				42D850F71BDB248D00CB194E /* NSManagedObject+CCManagedObject.h */,
+				42D850F81BDB248D00CB194E /* NSManagedObject+CCManagedObject.m */,
+				4267DCF01BDB32CD00B0C43F /* NSManagedObject+FetchRequest.h */,
+				4267DCF11BDB32CD00B0C43F /* NSManagedObject+FetchRequest.m */,
+				4267DCFE1BDB584000B0C43F /* NSManagedObject+Mapping.h */,
+				4267DCFF1BDB584000B0C43F /* NSManagedObject+Mapping.m */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
+		42105D151BDB17EB003EE23E /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				4267DD021BDB5A7000B0C43F /* BaseManagedObject+Facade.h */,
+				4267DD031BDB5A7000B0C43F /* NSManagedObject+Convenience.m */,
+				4267DD041BDB5A7000B0C43F /* NSManagedObject+Create.m */,
+				4267DD051BDB5A7000B0C43F /* NSManagedObject+Modify.m */,
+				4267DD061BDB5A7000B0C43F /* NSManagedObject+Queries.m */,
+				4267DD071BDB5A7000B0C43F /* NSManagedObject+Removed.m */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
 		4230E1811BBB7F730001E68F /* Radar */ = {
 			isa = PBXGroup;
 			children = (
@@ -3126,6 +3185,24 @@
 				4264D73D1BA2C19100E83159 /* CCPagesContainerTopBar.m */,
 			);
 			name = CCPagesContainer;
+			sourceTree = "<group>";
+		};
+		4267DD121BDB5BAF00B0C43F /* CoreDataMasterSlave */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = CoreDataMasterSlave;
+			sourceTree = "<group>";
+		};
+		4267DD171BDB5C3400B0C43F /* Macros */ = {
+			isa = PBXGroup;
+			children = (
+				4267DD181BDB5C5900B0C43F /* BaseManagedObject.h */,
+				4267DD191BDB5C5900B0C43F /* BaseManagedObject.m */,
+				4267DD1A1BDB5C5900B0C43F /* CoreDataManager.h */,
+				4267DD1B1BDB5C5900B0C43F /* CoreDataManager.m */,
+			);
+			name = Macros;
 			sourceTree = "<group>";
 		};
 		426978FF1BA695BA00C3E93C /* NSRULSession */ = {
@@ -3347,20 +3424,11 @@
 		429C9D161B9EF8BE0013A44A /* DatabaseLayer */ = {
 			isa = PBXGroup;
 			children = (
-				429C9D171B9EF8BE0013A44A /* CoreDataManager */,
+				4267DD171BDB5C3400B0C43F /* Macros */,
+				4267DD121BDB5BAF00B0C43F /* CoreDataMasterSlave */,
+				42105D131BDB1791003EE23E /* CoreDataFactory */,
 			);
 			path = DatabaseLayer;
-			sourceTree = "<group>";
-		};
-		429C9D171B9EF8BE0013A44A /* CoreDataManager */ = {
-			isa = PBXGroup;
-			children = (
-				429C9D181B9EF8BE0013A44A /* CCNSManagedObject.h */,
-				429C9D191B9EF8BE0013A44A /* CCNSManagedObject.m */,
-				429C9D1A1B9EF8BE0013A44A /* CoreDataManager.h */,
-				429C9D1B1B9EF8BE0013A44A /* CoreDataManager.m */,
-			);
-			path = CoreDataManager;
 			sourceTree = "<group>";
 		};
 		429C9D1C1B9EF8BE0013A44A /* ModelLayer */ = {
@@ -4848,9 +4916,11 @@
 				420DE34B1BC7942300D87D6D /* ZXBarcodeFormat.h in Headers */,
 				420DE34C1BC7942300D87D6D /* ZXBinarizer.h in Headers */,
 				420DE39E1BC7942300D87D6D /* ZXByQuadrantReader.h in Headers */,
+				4267DD001BDB584000B0C43F /* NSManagedObject+Mapping.h in Headers */,
 				4254772F1BD2AEC20071BBC5 /* bn.h in Headers */,
 				420DE3351BC7942300D87D6D /* ZXByteArray.h in Headers */,
 				420DE32D1BC7942300D87D6D /* ZXBitArray.h in Headers */,
+				4267DD081BDB5A7000B0C43F /* BaseManagedObject+Facade.h in Headers */,
 				420DE3311BC7942300D87D6D /* ZXBitSource.h in Headers */,
 				420DE36B1BC7942300D87D6D /* ZXDataMatrixBitMatrixParser.h in Headers */,
 				425477651BD2AEC20071BBC5 /* ssl.h in Headers */,
@@ -4950,7 +5020,6 @@
 				429C9F9E1B9EF8BF0013A44A /* CCScanningView.h in Headers */,
 				425477661BD2AEC20071BBC5 /* ssl2.h in Headers */,
 				429C9F4A1B9EF8BF0013A44A /* BaseAppDelegate.h in Headers */,
-				429C9F661B9EF8BF0013A44A /* CoreDataManager.h in Headers */,
 				429CA02F1B9EF8BF0013A44A /* CCPhoto.h in Headers */,
 				42B30DDB1BBD72AD0039BB94 /* UIImageView+WebCache.h in Headers */,
 				426476A61BD0E3AF00EE191C /* CCTableViewCell.h in Headers */,
@@ -5005,7 +5074,6 @@
 				42A58A811BCDFE4F0027429C /* CCCommonFunctions.h in Headers */,
 				426979461BA695BA00C3E93C /* UIProgressView+AFNetworking.h in Headers */,
 				429CA0F71B9EF8BF0013A44A /* CCVoiceCommonHelper.h in Headers */,
-				429C9F641B9EF8BF0013A44A /* CCNSManagedObject.h in Headers */,
 				429CA0ED1B9EF8BF0013A44A /* CCConfigurationHelper.h in Headers */,
 				429CA0CF1B9EF8BF0013A44A /* UIImage+BUIImage.h in Headers */,
 				42AC36451BB92014007B61D6 /* UIBarButtonItem+Addition.h in Headers */,
@@ -5063,6 +5131,7 @@
 				429CA1141B9EF8BF0013A44A /* CCBubblePhotoImageView.h in Headers */,
 				429CA0171B9EF8BF0013A44A /* CCLineChartView.h in Headers */,
 				429C9F9A1B9EF8BF0013A44A /* CCLanguage.h in Headers */,
+				4267DCF21BDB32CD00B0C43F /* NSManagedObject+FetchRequest.h in Headers */,
 				425477561BD2AEC20071BBC5 /* pem.h in Headers */,
 				425477581BD2AEC20071BBC5 /* pkcs12.h in Headers */,
 				42B30DE31BBD72AD0039BB94 /* SDWebImageCompat.h in Headers */,
@@ -5100,6 +5169,7 @@
 				429C9FFF1B9EF8BF0013A44A /* CCRourRotation.h in Headers */,
 				429CA06F1B9EF8BF0013A44A /* CCPickerCollectionViewCell.h in Headers */,
 				429CA08F1B9EF8BF0013A44A /* CCWebViewProgressView.h in Headers */,
+				42D850F91BDB248D00CB194E /* NSManagedObject+CCManagedObject.h in Headers */,
 				429CA10B1B9EF8BF0013A44A /* CCEmotion.h in Headers */,
 				429C9F4E1B9EF8BF0013A44A /* BaseTabBarController.h in Headers */,
 				429C9FFD1B9EF8BF0013A44A /* CCSlideShadowAnimation.h in Headers */,
@@ -5131,6 +5201,7 @@
 				420DE3AB1BC7942300D87D6D /* ZXAI01393xDecoder.h in Headers */,
 				420DE3121BC7942300D87D6D /* ZXVINResultParser.h in Headers */,
 				420DE3B51BC7942300D87D6D /* ZXAI01weightDecoder.h in Headers */,
+				4267DD1E1BDB5C5900B0C43F /* CoreDataManager.h in Headers */,
 				420DE3B71BC7942300D87D6D /* ZXAnyAIDecoder.h in Headers */,
 				420DE30E1BC7942300D87D6D /* ZXVEventResultParser.h in Headers */,
 				420DE3141BC7942300D87D6D /* ZXWifiParsedResult.h in Headers */,
@@ -5166,6 +5237,7 @@
 				420DE4491BC7942300D87D6D /* ZXQRCodeDataMask.h in Headers */,
 				420DE4731BC7942300D87D6D /* ZXQRCodeMultiReader.h in Headers */,
 				420DE4761BC7942300D87D6D /* ZXQRCodeReader.h in Headers */,
+				4267DD1C1BDB5C5900B0C43F /* BaseManagedObject.h in Headers */,
 				420DE45D1BC7942300D87D6D /* ZXQRCodeDetector.h in Headers */,
 				420DE3B31BC7942300D87D6D /* ZXAI01decoder.h in Headers */,
 				420DE2DB1BC7942300D87D6D /* ZXCalendarParsedResult.h in Headers */,
@@ -5366,6 +5438,7 @@
 				42F945881BC8ED5D008882AE /* CCDisplayMediaViewController.m in Sources */,
 				420DE3A61BC7942300D87D6D /* ZXAI013103decoder.m in Sources */,
 				420DE2D61BC7942300D87D6D /* ZXAddressBookParsedResult.m in Sources */,
+				4267DD0B1BDB5A7000B0C43F /* NSManagedObject+Modify.m in Sources */,
 				429CA0A61B9EF8BF0013A44A /* SETextGeometry.m in Sources */,
 				429CA0AA1B9EF8BF0013A44A /* SETextLayout.m in Sources */,
 				429CA0B21B9EF8BF0013A44A /* SETextSelectionView.m in Sources */,
@@ -5394,6 +5467,7 @@
 				420DE3301BC7942300D87D6D /* ZXBitMatrix.m in Sources */,
 				420DE4701BC7942300D87D6D /* ZXMultiDetector.m in Sources */,
 				429CA0B81B9EF8BF0013A44A /* CALayer+Transition.m in Sources */,
+				4267DCF31BDB32CD00B0C43F /* NSManagedObject+FetchRequest.m in Sources */,
 				429CA09A1B9EF8BF0013A44A /* SEConstants.m in Sources */,
 				420DE3EC1BC7942300D87D6D /* ZXEAN13Reader.m in Sources */,
 				420DE2F51BC7942300D87D6D /* ZXProductResultParser.m in Sources */,
@@ -5451,6 +5525,8 @@
 				420DE2FF1BC7942300D87D6D /* ZXSMTPResultParser.m in Sources */,
 				420DE36C1BC7942300D87D6D /* ZXDataMatrixBitMatrixParser.m in Sources */,
 				429CA0241B9EF8BF0013A44A /* CCMessageTextView.m in Sources */,
+				4267DD0C1BDB5A7000B0C43F /* NSManagedObject+Queries.m in Sources */,
+				4267DD0A1BDB5A7000B0C43F /* NSManagedObject+Create.m in Sources */,
 				429CA12F1B9EF8BF0013A44A /* CCTimePicker.m in Sources */,
 				429CA0981B9EF8BF0013A44A /* SECompatibility.m in Sources */,
 				426979321BA695BA00C3E93C /* AFURLConnectionOperation.m in Sources */,
@@ -5472,6 +5548,7 @@
 				429CA0801B9EF8BF0013A44A /* CCRefreshHeaderView.m in Sources */,
 				429C9F691B9EF8BF0013A44A /* BaseEntity.m in Sources */,
 				429CA0391B9EF8BF0013A44A /* CCPhotoToolbar.m in Sources */,
+				4267DD1D1BDB5C5900B0C43F /* BaseManagedObject.m in Sources */,
 				425477781BD2AEC20071BBC5 /* DataSigner.m in Sources */,
 				426476AB1BD0E3AF00EE191C /* CCUtilityButtonView.m in Sources */,
 				420DE3AA1BC7942300D87D6D /* ZXAI01392xDecoder.m in Sources */,
@@ -5504,6 +5581,7 @@
 				420DE3F71BC7942300D87D6D /* ZXITFReader.m in Sources */,
 				420DE3B41BC7942300D87D6D /* ZXAI01decoder.m in Sources */,
 				420DE3721BC7942300D87D6D /* ZXDataMatrixDecoder.m in Sources */,
+				42D850FA1BDB248D00CB194E /* NSManagedObject+CCManagedObject.m in Sources */,
 				429C9F591B9EF8BF0013A44A /* BaseViewController.m in Sources */,
 				42B30DE21BBD72AD0039BB94 /* SDWebImageDownloaderOperation.m in Sources */,
 				429C9FA31B9EF8BF0013A44A /* CCSignatureView.m in Sources */,
@@ -5597,7 +5675,6 @@
 				429CA0C81B9EF8BF0013A44A /* UIButton+CCButtonTitlePosition.m in Sources */,
 				420DE4231BC7942300D87D6D /* ZXPDF417DecodedBitStreamParser.m in Sources */,
 				420DE33E1BC7942300D87D6D /* ZXDetectorResult.m in Sources */,
-				429C9F651B9EF8BF0013A44A /* CCNSManagedObject.m in Sources */,
 				429C9FEB1B9EF8BF0013A44A /* SRAutoTransport.m in Sources */,
 				42DBA8501BB4D5CB00AD47C6 /* UILabel+Addition.m in Sources */,
 				429CA0D61B9EF8BF0013A44A /* UIImage+Operations.m in Sources */,
@@ -5605,6 +5682,7 @@
 				420DE4421BC7942300D87D6D /* ZXPDF417ResultMetadata.m in Sources */,
 				420DE3FD1BC7942300D87D6D /* ZXMultiFormatUPCEANReader.m in Sources */,
 				429C9FF21B9EF8BF0013A44A /* SRServerSentEventsTransport.m in Sources */,
+				4267DD011BDB584000B0C43F /* NSManagedObject+Mapping.m in Sources */,
 				420DE2E41BC7942300D87D6D /* ZXExpandedProductParsedResult.m in Sources */,
 				429CA02E1B9EF8BF0013A44A /* CCNumericKeypadView.m in Sources */,
 				420DE3261BC7942300D87D6D /* ZXGenericGF.m in Sources */,
@@ -5690,7 +5768,6 @@
 				429CA0331B9EF8BF0013A44A /* CCPhotoBrowser.m in Sources */,
 				420DE3CC1BC7942300D87D6D /* ZXRSSExpandedPair.m in Sources */,
 				420DE3EE1BC7942300D87D6D /* ZXEAN13Writer.m in Sources */,
-				429C9F671B9EF8BF0013A44A /* CoreDataManager.m in Sources */,
 				429CA0651B9EF8BF0013A44A /* CCPickerViewController.m in Sources */,
 				42D0EDF71BBA68E10032A489 /* ResourcesPhotos.m in Sources */,
 				429CA0EC1B9EF8BF0013A44A /* CCCaptureHelper.m in Sources */,
@@ -5711,6 +5788,7 @@
 				42DBA8571BB5305700AD47C6 /* CCBase64.m in Sources */,
 				420DE32A1BC7942300D87D6D /* ZXReedSolomonDecoder.m in Sources */,
 				420DE3BA1BC7942300D87D6D /* ZXRSSExpandedBlockParsedResult.m in Sources */,
+				4267DD1F1BDB5C5900B0C43F /* CoreDataManager.m in Sources */,
 				420DE3A81BC7942300D87D6D /* ZXAI01320xDecoder.m in Sources */,
 				429CA00C1B9EF8BF0013A44A /* CalendarCollectionViewCell.m in Sources */,
 				420DE3981BC7942300D87D6D /* ZXMaxiCodeDecodedBitStreamParser.m in Sources */,
@@ -5722,6 +5800,7 @@
 				429CA0961B9EF8BF0013A44A /* CustomIOS7AlertView.m in Sources */,
 				429CA0161B9EF8BF0013A44A /* CalendarViewController.m in Sources */,
 				420DE2C51BC7942300D87D6D /* ZXAztecState.m in Sources */,
+				4267DD091BDB5A7000B0C43F /* NSManagedObject+Convenience.m in Sources */,
 				420DE32C1BC7942300D87D6D /* ZXReedSolomonEncoder.m in Sources */,
 				420DE3631BC7942300D87D6D /* ZXResult.m in Sources */,
 				420DE3461BC7942300D87D6D /* ZXIntArray.m in Sources */,
@@ -5817,6 +5896,7 @@
 				420DE3C81BC7942300D87D6D /* ZXRSSExpandedGeneralAppIdDecoder.m in Sources */,
 				429C9FFE1B9EF8BF0013A44A /* CCSlideShadowAnimation.m in Sources */,
 				429CA0841B9EF8BF0013A44A /* CCTextViewPlaceholder.m in Sources */,
+				4267DD0D1BDB5A7000B0C43F /* NSManagedObject+Removed.m in Sources */,
 				429CA0CE1B9EF8BF0013A44A /* UIImage+Alpha.m in Sources */,
 				429CA00A1B9EF8BF0013A44A /* CCBadgeView.m in Sources */,
 				4264D7411BA2C19100E83159 /* CCPagesContainer.m in Sources */,

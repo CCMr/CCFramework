@@ -96,7 +96,6 @@
 #import <CCFramework/CCMessageTextView.h>
 #import <CCFramework/CCMessageVideoConverPhotoFactory.h>
 #import <CCFramework/CCMessageVoiceFactory.h>
-#import <CCFramework/CCNSManagedObject.h>
 #import <CCFramework/CCNumericKeypadView.h>
 #import <CCFramework/CCPagesContainer.h>
 #import <CCFramework/CCPhoto.h>
