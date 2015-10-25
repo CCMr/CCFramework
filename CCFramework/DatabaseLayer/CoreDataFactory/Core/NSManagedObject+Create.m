@@ -27,17 +27,43 @@
 
 @implementation NSManagedObject (Create)
 
+/**
+ *  @author C C, 2015-10-25
+ *
+ *  @brief  创建新对象
+ *
+ *  @return 返回新对象
+ */
 + (id)cc_New
 {
     NSManagedObjectContext *manageContext = [self defaultPrivateContext];
     return [NSEntityDescription insertNewObjectForEntityForName:[self cc_EntityName] inManagedObjectContext:manageContext];
 }
 
+/**
+ *  @author C C, 2015-10-25
+ *
+ *  @brief  根据管理对象创建新对象
+ *
+ *  @param context 管理对象
+ *
+ *  @return 返回新对象
+ */
 + (id)cc_NewInContext: (NSManagedObjectContext *)context
 {
     return [NSEntityDescription insertNewObjectForEntityForName:[self cc_EntityName] inManagedObjectContext:context];
 }
 
+/**
+ *  @author C C, 2015-10-25
+ *
+ *  @brief  创建单个对象
+ *
+ *  @param data    对象数据
+ *  @param context 管理对象
+ *
+ *  @return 返回创建单个对象
+ */
 + (id)cc_NewOrUpdateWithData: (NSDictionary *)data
                    inContext: (NSManagedObjectContext *)context
 {
@@ -47,6 +73,16 @@
     return nil;
 }
 
+/**
+ *  @author C C, 2015-10-25
+ *
+ *  @brief  创建多个对象
+ *
+ *  @param dataAry 对象集
+ *  @param context 管理对象
+ *
+ *  @return 返回创建对象集
+ */
 + (NSArray *)cc_NewOrUpdateWithArray: (NSArray *)dataAry
                           inContext: (NSManagedObjectContext *)context
 {
@@ -67,6 +103,17 @@
     return objs;
 }
 
+/**
+ *  @author C C, 2015-10-25
+ *
+ *  @brief  新增对象及子对象
+ *
+ *  @param data        对象数据
+ *  @param primaryKeys 主键
+ *  @param context     管理对象
+ *
+ *  @return 返回新增对象
+ */
 + (id)objctWithData: (NSDictionary *)data
         primaryKeys: (NSSet *)primaryKeys
           inContext: (NSManagedObjectContext *)context
@@ -133,10 +180,13 @@
 
                 }else{
                     if ([attributes containsObject:key]) {
-                        [entity mergeAttributeForKey:key withValue:remoteValue];
+                        [entity mergeAttributeForKey:key
+                                           withValue:remoteValue];
 
                     }else if ([relationships containsObject:key]){
-                        [entity mergeRelationshipForKey:key withValue:remoteValue];
+                        [entity mergeRelationshipForKey:key
+                                              withValue:remoteValue
+                                                  IsAdd:YES];
                     }
                 }
             }

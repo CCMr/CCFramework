@@ -30,9 +30,11 @@
 @implementation NSManagedObject (Queries)
 
 /**
- *  find a local object
+ *  @author C C, 2015-10-25
  *
- *  @return the anyone object
+ *  @brief  第一个对象
+ *
+ *  @return 返回第一个对象
  */
 + (id)cc_Anyone
 {
@@ -40,9 +42,11 @@
 }
 
 /**
- *  sync find all objects
+ *  @author C C, 2015-10-25
  *
- *  @return all local objects
+ *  @brief  所有对象
+ *
+ *  @return 返回所有对象
  */
 + (NSArray *)cc_All
 {
@@ -50,9 +54,11 @@
 }
 
 /**
- *  async find all objects
+ *  @author C C, 2015-10-25
  *
- *  @param handler finished handler block
+ *  @brief  异步查询所有对象
+ *
+ *  @param handler 返回所有对象
  */
 + (void)cc_AllWithHandler: (void (^)(NSError *, NSArray *))handler
 {
@@ -83,12 +89,14 @@
 }
 
 /**
- *  sync find objects where property is equal to a specification value
+ *  @author C C, 2015-10-25
  *
- *  @param property priperty name
- *  @param value    expect value
+ *  @brief  属性查询对象
  *
- *  @return all objects fit in this condition
+ *  @param property 属性名
+ *  @param value    属性值
+ *
+ *  @return 返回查询对象集
  */
 + (NSArray *)cc_WhereProperty: (NSString *)property
                       equalTo: (id)value
@@ -100,26 +108,34 @@
 }
 
 /**
- *  sync find objects where property is equal to a specification value
+ *  @author C C, 2015-10-25
  *
- *  @param property property name
- *  @param value    expect value
- *  @param handler  finished handler block
+ *  @brief  属性查询对象
+ *
+ *  @param property 属性名
+ *  @param value    属性值
+ *  @param handler  完成回调函数
  */
 + (void)cc_WhereProperty: (NSString *)property
                  equalTo: (id)value
                  handler: (void (^)(NSError *, NSArray *))handler
 {
-    return [self cc_WhereProperty:property equalTo:value sortedKeyPath:nil ascending:NO handler:handler];
+    return [self cc_WhereProperty: property
+                          equalTo: value
+                    sortedKeyPath: nil
+                        ascending: NO
+                          handler: handler];
 }
 
 /**
- *  sync find objects where property is equal to a specification value
+ *  @author C C, 2015-10-25
  *
- *  @param property priperty name
- *  @param value    expect value
+ *  @brief  同步属性查询
  *
- *  @return an object fit in this condition
+ *  @param property 属性名
+ *  @param value    属性值
+ *
+ *  @return 返回查询对象
  */
 + (id)cc_FirstWhereProperty: (NSString *)property
                     equalTo: (id)value
@@ -140,14 +156,16 @@
 }
 
 /**
- *  sync find objects where property is equal to a specification value and sorted using a keypath
+ *  @author C C, 2015-10-25
  *
- *  @param property  property name
- *  @param value     expect value
- *  @param keyPath   keypath
- *  @param ascending ascending
+ *  @brief  同步属性值查询
  *
- *  @return objects fit in this condition
+ *  @param property  属性名
+ *  @param value     属性值
+ *  @param keyPath   排序字段
+ *  @param ascending 是否升序
+ *
+ *  @return 返回查询结果集
  */
 + (NSArray *)cc_WhereProperty:(NSString *)property
                       equalTo:(id)value
@@ -164,13 +182,15 @@
 }
 
 /**
- *  async find objects where property is equal to a specification value and sorted using a keypath
+ *  @author C C, 2015-10-25
  *
- *  @param property property name
- *  @param value    expect value
- *  @param keyPath  keypath
- *  @param ascendng ascending
- *  @param handler  finished fetch block
+ *  @brief  异步属性值查询
+ *
+ *  @param property  属性名
+ *  @param value     属性值
+ *  @param keyPath   排序字段
+ *  @param ascending 是否升序
+ *  @param handler   完成回调函数
  */
 + (void)cc_WhereProperty: (NSString *)property
                  equalTo: (id)value
@@ -189,11 +209,13 @@
 }
 
 /**
- *  find all objects fit this predicate
+ *  @author C C, 2015-10-25
  *
- *  @param predicate a specification NSPredicate
+ *  @brief  查找所有符合条件对象
  *
- *  @return all objects fit this predicate
+ *  @param predicate 条件对象
+ *
+ *  @return 返回查询结果集
  */
 + (NSArray *)cc_AllWithPredicate: (NSPredicate *)predicate
 {
@@ -212,11 +234,13 @@
 }
 
 /**
- *  find an object fit this predicate
+ *  @author C C, 2015-10-25
  *
- *  @param predicate a specification NSPredicate
+ *  @brief  查找所有符合条件对象
  *
- *  @return an objects fit this predicate
+ *  @param predicate 条件对象
+ *
+ *  @return 返回查询结果集
  */
 + (id)cc_AnyoneWithPredicate: (NSPredicate *)predicate
 {
@@ -234,16 +258,19 @@
 }
 
 /**
- *  sync find objects where property is equal to a specification value and sorted using a keypath
+ *  @author C C, 2015-10-25
  *
- *  @param property  property name
- *  @param value     exect value
- *  @param keyPath   keypath
- *  @param ascending ascending
- *  @param batchSize  batchSize to fetch
- *  @param fetchLimit fetch limit
+ *  @brief  同步属性分页查询
  *
- *  @return objects fit in this condition
+ *  @param property    属性名
+ *  @param value       属性值
+ *  @param keyPath     排序字段
+ *  @param ascending   是否升序
+ *  @param batchSize   页码
+ *  @param fetchLimit  页数
+ *  @param fetchOffset <#fetchOffset description#>
+ *
+ *  @return 返回查询结果集
  */
 + (NSArray *)cc_WhereProperty: (NSString *)property
                       equalTo: (id)value
@@ -262,15 +289,18 @@
 }
 
 /**
- *  async find objects where property is equal to a specification value and sorted using a keypath
+ *  @author C C, 2015-10-25
  *
- *  @param property  property name
- *  @param value     exect value
- *  @param keyPath   keypath
- *  @param ascending ascending
- *  @param batchSize  batchSize to fetch
- *  @param fetchLimit fetch limit
- *  @param handler    finished fetch handler block
+ *  @brief  同步属性分页查询
+ *
+ *  @param property    属性名
+ *  @param value       属性值
+ *  @param keyPath     排序字段
+ *  @param ascending   是否升序
+ *  @param batchSize   页码
+ *  @param fetchLimit  页数
+ *  @param fetchOffset <#fetchOffset description#>
+ *  @param handler     完成回调函数
  */
 + (void)cc_WhereProperty: (NSString *)property
                  equalTo: (id)value
@@ -303,11 +333,13 @@
 }
 
 /**
- *  sync find objects with vargars paramaters
+ *  @author C C, 2015-10-25
  *
- *  @param condition like [NSString stringWithFormat:]
+ *  @brief  同步查询对象
  *
- *  @return objects fit this condition
+ *  @param condition 条件
+ *
+ *  @return 返回查询结果集
  */
 + (NSArray *)cc_Where: (NSString *)condition, ...
 {
@@ -329,13 +361,16 @@
 }
 
 /**
- *  sync find objects with vargars paramaters
+ *  @author C C, 2015-10-25
  *
- *  @param keyPath     sorted keyPath
- *  @param ascending   ascending
- *  @param condition   vargars paramaters conditons
+ *  @brief  同步查询对象
  *
- *  @return objects fit this condition
+ *  @param keyPath   排序字段
+ *  @param ascending 是否升序
+ *  @param batchSize 页码
+ *  @param condition 条件
+ *
+ *  @return 返回查询结果集
  */
 + (NSArray *)cc_SortedKeyPath: (NSString *)keyPath
                     ascending: (BOOL)ascending
@@ -365,16 +400,18 @@
 }
 
 /**
- *  sync find objects with vargars paramaters
+ *  @author C C, 2015-10-25
  *
- *  @param keyPath     sorted keyPath
- *  @param ascending   ascending
- *  @param batchSize   perform fetch batch size
- *  @param fetchLimit  max count of objects one time to fetch
- *  @param fetchOffset fetch offset
- *  @param condition   vargars paramaters conditons
+ *  @brief  同步查询对象
  *
- *  @return objects fit this condition
+ *  @param keyPath     排序字段
+ *  @param ascending   是否升序
+ *  @param batchSize   页码
+ *  @param fetchLimit  页数
+ *  @param fetchOffset <#fetchOffset description#>
+ *  @param condition   条件
+ *
+ *  @return 返回查询结果集
  */
 + (NSArray *)cc_SortedKeyPath: (NSString *)keyPath
                     ascending: (BOOL)ascending
@@ -407,9 +444,11 @@
 }
 
 /**
- *  fetch count of all objects
+ *  @author C C, 2015-10-25
  *
- *  @return the entity's count
+ *  @brief  查询所有对象数量
+ *
+ *  @return 返回结果集数量
  */
 + (NSUInteger)cc_Count
 {
@@ -417,11 +456,13 @@
 }
 
 /**
- *  fetch count of all objects in this condition
+ *  @author C C, 2015-10-25
  *
- *  @param condition filter condition
+ *  @brief  条件查询对象数量
  *
- *  @return count of objects
+ *  @param condition 条件
+ *
+ *  @return 返回结果集数量
  */
 + (NSUInteger)cc_CountWhere: (NSString *)condition, ...
 {

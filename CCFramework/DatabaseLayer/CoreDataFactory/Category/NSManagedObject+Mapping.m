@@ -28,7 +28,9 @@
 
 @implementation NSManagedObject (Mapping)
 
-- (void)mergeAttributeForKey:(NSString *)attributeName withValue:(id)value {
+- (void)mergeAttributeForKey: (NSString *)attributeName
+                   withValue: (id)value
+{
     NSAttributeDescription *attributeDes = [self attributeDescriptionForAttribute:attributeName];
 
     if (value != [NSNull null]) {
@@ -60,7 +62,9 @@
     }
 }
 
-- (void)mergeRelationshipForKey:(NSString *)relationshipName withValue:(id)value
+- (void)mergeRelationshipForKey: (NSString *)relationshipName
+                      withValue: (id)value
+                          IsAdd: (BOOL)isAdd
 {
     if ([value isEqual:[NSNull null]]) {
         return;
@@ -70,7 +74,7 @@
     if (relationshipDes.isToMany) {
         NSArray *destinationObjs = [NSClassFromString(desClassName) cc_NewOrUpdateWithArray:value inContext:self.managedObjectContext];
         if (destinationObjs != nil && destinationObjs.count > 0) {
-            if (YES) {//添加数据
+            if (isAdd) {//添加数据
                 if(relationshipDes.isOrdered) {
                     NSMutableOrderedSet *localOrderedSet = [self mutableOrderedSetValueForKey:relationshipName];
                     [localOrderedSet addObjectsFromArray:destinationObjs];

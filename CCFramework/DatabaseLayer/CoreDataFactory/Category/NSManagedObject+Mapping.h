@@ -27,11 +27,16 @@
 
 @interface NSManagedObject (Mapping)
 
--(void)mergeAttributeForKey:(NSString *)attributeName withValue:(id)value;
--(void)mergeRelationshipForKey:(NSString *)relationshipName withValue:(id)value;
+-(void)mergeAttributeForKey: (NSString *)attributeName
+                  withValue: (id)value;
+
+-(void)mergeRelationshipForKey: (NSString *)relationshipName
+                     withValue: (id)value
+                         IsAdd: (BOOL)isAdd;
 
 -(NSArray *)allAttributeNames;
 -(NSArray *)allRelationshipNames;
+
 -(NSAttributeDescription *)attributeDescriptionForAttribute:(NSString *)attributeName;
 -(NSRelationshipDescription *)relationshipDescriptionForRelationship:(NSString *)relationshipName;
 

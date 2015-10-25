@@ -80,5 +80,4 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
     return context;
 }
 
-
 @end

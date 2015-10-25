@@ -35,9 +35,10 @@
  *
  *  @param saveContext 线程管理对象
  */
-+ (void)saveContext:(void (^)(NSManagedObjectContext *))saveContext
++ (void)saveContext: (void (^)(NSManagedObjectContext *))saveContext
 {
-    [self saveContext:saveContext completion:nil];
+    [self saveContext:saveContext
+           completion:nil];
 }
 
 /**
@@ -51,16 +52,53 @@
 + (void)saveContext: (void(^)(NSManagedObjectContext *currentContext))saveContext
          completion: (void(^)(NSError *error))completion
 {
+    [self saveWithContext: [self currentContext]
+         SaveContextBlock: saveContext
+               completion: completion];
+}
+
+/**
+ *  @author C C, 2015-10-25
+ *
+ *  @brief  保存对象
+ *
+ *  @param saveContext 线程管理对象
+ *  @param completion  完成回调函数
+ */
++ (void)saveWithContext: (NSManagedObjectContext *)saveContext
+             completion: (void(^)(NSError *error))completion
+{
+    [self saveWithContext: saveContext
+         SaveContextBlock: nil
+               completion: completion];
+}
+
+/**
+ *  @author C C, 2015-10-25
+ *
+ *  @brief  保存对象
+ *
+ *  @param saveContext 管理对象
+ *  @param block       回调执行函数
+ *  @param completion  完成回调函数
+ */
++ (void)saveWithContext: (NSManagedObjectContext *)saveContext
+       SaveContextBlock: (void(^)(NSManagedObjectContext *currentContext))saveContextBlock
+             completion: (void(^)(NSError *error))completion
+{
     __block BOOL success = YES;
     __block NSError *error = nil;
-    NSManagedObjectContext *context = [self currentContext];
-    [context performBlock:^{
-
-        saveContext(context);
-        success = [context save:&error];
+    
+    [saveContext performBlock:^{
+        
+        if (saveContextBlock)
+            saveContextBlock(saveContext);
+        
+        success = [saveContext save:&error];
+        
         if (error == nil) {
-            [context.parentContext performBlockAndWait:^{
-                [context.parentContext save:&error];
+            [saveContext.parentContext performBlockAndWait:^{
+                [saveContext.parentContext save:&error];
             }];
         }
         
@@ -68,7 +106,6 @@
             completion(error);
         }
     }];
-
 }
 
 @end
