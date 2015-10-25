@@ -27,7 +27,14 @@
 
 @implementation BaseManagedObject
 
-+(NSSet *)uniquedPropertyKeys
+/**
+ *  @author CC, 2015-10-24
+ *
+ *  @brief  子项实现
+ *
+ *  @return 返回表的主键
+ */
++ (NSSet *)uniquedPropertyKeys
 {
     return [NSSet setWithObjects:@"", nil];
 }

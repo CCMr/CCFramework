@@ -23,10 +23,7 @@
 // THE SOFTWARE.
 //
 
-#import <CoreData/CoreData.h>
-#import "NSManagedObject+FetchRequest.h"
-#import "NSManagedObject+CCManagedObject.h"
-#import "NSManagedObject+Mapping.h"
+#import "CCCoreData.h"
 
 @interface BaseManagedObject : NSManagedObject
 

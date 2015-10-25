@@ -23,15 +23,35 @@
 // THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+#import "CCCoreData.h"
 
 @interface CoreDataManager : NSObject
 
+/**
+ *  @author C C, 2015-10-25
+ *
+ *  @brief  私有管理对象
+ */
 @property (nonatomic, strong) NSManagedObjectContext *privateContext;
+/**
+ *  @author C C, 2015-10-25
+ *
+ *  @brief  主管理对象
+ */
 @property (nonatomic, strong) NSManagedObjectContext *mainContext;
 
+/**
+ *  @author C C, 2015-10-25
+ *
+ *  @brief  模型对象
+ */
 @property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
+
+/**
+ *  @author C C, 2015-10-25
+ *
+ *  @brief  对象管理
+ */
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 /**
