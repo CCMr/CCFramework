@@ -1,5 +1,5 @@
 //
-//  CoreDataMasterSlave.h
+//  NSManagedObject+Additional.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,45 +23,15 @@
 // THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@interface CoreDataMasterSlave : NSObject
+@interface NSManagedObject (Additional)
 
-/**
- *  @author C C, 2015-10-25
- *
- *  @brief  单例
- *
- *  @return 返回对象
- */
-+ (id)sharedlnstance;
+@property (nonatomic, assign) BOOL traversed;
 
-/**
- *  @author CC, 2015-10-24
- *
- *  @brief  默认私有管理对象
- *
- *  @return 返回私有管理对象
- */
-@property (nonatomic, strong, readonly) NSManagedObjectContext *defaultPrivateContext;
+- (NSDictionary*)changedDictionary;
 
-/**
- *  @author CC, 2015-10-24
- *
- *  @brief  默认主管理对象
- *
- *  @return 返回主管理对象
- */
-@property (nonatomic, strong, readonly) NSManagedObjectContext *defaultMainContext;
-
-/**
- *  @author CC, 2015-10-24
- *
- *  @brief  当前管理对象
- *
- *  @return 返回当前管理对象
- */
-@property (nonatomic, strong, readonly) NSManagedObjectContext *currentContext;
++ (NSManagedObject *)createManagedObjectFromDictionary: (NSDictionary*)dict
+                                             inContext: (NSManagedObjectContext*)context;
 
 @end
