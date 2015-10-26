@@ -23,20 +23,14 @@
 // THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
-#import <Foundation/Foundation.h>
+#ifndef CCFramework_CCCoreData_h
+#define CCFramework_CCCoreData_h
 
-#import "NSManagedObject+FetchRequest.h"
-#import "NSManagedObject+CCManagedObject.h"
-#import "NSManagedObject+Mapping.h"
-#import "BaseManagedObject+Facade.h"
-#import "NSManagedObject+CCManagedObject.h"
-#import "NSManagedObject+FetchRequest.h"
-#import "NSManagedObject+Mapping.h"
+#import <CCFramework/BaseManagedObject+Facade.h>
+#import <CCFramework/CCCollectionViewFetchResultController.h>
+#import <CCFramework/CCTableViewFetchResultController.h>
 
-#import "CCCollectionViewFetchResultController.h"
-#import "CCTableViewFetchResultController.h"
+#import <CCFramework/CoreDataMasterSlave.h>
+#import <CCFramework/CoreDataMasterSlave+Manager.h>
 
-#import "CoreDataMasterSlave.h"
-#import "CoreDataMasterSlave+Manager.h"
+#endif
