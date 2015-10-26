@@ -24,7 +24,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CCWebViewProgressView.h"
 
 @class CCWebView;
 

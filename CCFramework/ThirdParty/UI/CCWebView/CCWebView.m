@@ -27,6 +27,7 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 #import "CCWebViewProgress.h"
+#import "CCWebViewProgressView.h"
 
 
 @interface CCWebView ()<WKNavigationDelegate,WKUIDelegate,CCWebViewProgressDelegate,CCWebViewProgressDelegate,UIWebViewDelegate>

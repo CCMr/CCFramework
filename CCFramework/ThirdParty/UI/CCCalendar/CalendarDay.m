@@ -30,7 +30,7 @@
 @implementation CalendarDay
 
 //公共的方法
-+ (CalendarDay *)calendarDayWithDateComponents:(NSDateComponents *)components Day:(int)day{
++ (CalendarDay *)calendarDayWithDateComponents:(NSDateComponents *)components Day:(NSInteger)day{
     CalendarDay *calendarDay = [[CalendarDay alloc] init];//初始化自身
     calendarDay.Year = components.year;//年
     calendarDay.Month = components.month;//月

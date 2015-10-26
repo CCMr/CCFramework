@@ -27,6 +27,12 @@
 #import "CCMessageTableViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "CCCameraViewController.h"
+#import "CCPhotographyHelper.h"
+#import "CCMessageVideoConverPhotoFactory.h"
+#import "CCMessageBubbleFactory.h"
+#import "CCLocationHelper.h"
+#import "CCVoiceRecordHelper.h"
+#import "UIScrollView+CCkeyboardControl.h"
 
 @interface CCMessageTableViewController ()
 

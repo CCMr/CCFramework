@@ -46,7 +46,7 @@ typedef NS_ENUM(NSInteger, CollectionViewCellDayType) {
 
 @property (assign, nonatomic) CollectionViewCellDayType style;//显示的样式
 
-+(CalendarDay *)calendarDayWithDateComponents:(NSDateComponents *)components Day:(int)day;
++(CalendarDay *)calendarDayWithDateComponents:(NSDateComponents *)components Day:(NSInteger)day;
 -(NSDate *)date;//返回当前天的NSDate对象
 -(NSString *)toString;//返回当前天的NSString对象
 -(NSString *)getWeek; //返回星期

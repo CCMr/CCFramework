@@ -33,9 +33,7 @@
 //Model
 #import "CCMessageModel.h"
 
-//Factorys
-#import "CCMessageBubbleFactory.h"
-#import "CCMessageVoiceFactory.h"
+
 
 
 #define kCCMessageBubbleDisplayMaxLine 200
