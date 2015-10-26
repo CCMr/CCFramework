@@ -23,9 +23,9 @@
 // THE SOFTWARE.
 //
 
+#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "Config.h"
-#import <UIKit/UIKit.h>
 #import "EnumConfig.h"
 
 @interface CCHTTPManager : NSObject
