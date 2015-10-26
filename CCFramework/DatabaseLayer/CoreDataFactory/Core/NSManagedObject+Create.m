@@ -24,6 +24,10 @@
 //
 
 #import "BaseManagedObject.h"
+#import "NSManagedObject+CCManagedObject.h"
+#import "NSManagedObject+FetchRequest.h"
+#import "NSManagedObject+Mapping.h"
+#import "BaseManagedObject+Facade.h"
 
 @implementation NSManagedObject (Create)
 

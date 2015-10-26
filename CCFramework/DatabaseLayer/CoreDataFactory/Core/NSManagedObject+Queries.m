@@ -26,6 +26,8 @@
 #import <UIKit/UIKit.h>
 #import "BaseManagedObject.h"
 #import "config.h"
+#import "NSManagedObject+CCManagedObject.h"
+#import "NSManagedObject+FetchRequest.h"
 
 @implementation NSManagedObject (Queries)
 
@@ -291,15 +293,14 @@
 /**
  *  @author C C, 2015-10-25
  *
- *  @brief  同步属性分页查询
+ *  @brief  分页查询
  *
- *  @param property    属性名
- *  @param value       属性值
+ *  @param tableName   表名
  *  @param keyPath     排序字段
  *  @param ascending   是否升序
- *  @param batchSize   页码
- *  @param fetchLimit  页数
- *  @param fetchOffset <#fetchOffset description#>
+ *  @param batchSize   加载筛选数据数
+ *  @param fetchLimit  限定查询结果数据量
+ *  @param fetchOffset 游标偏移量，从游标开始读取数据
  *  @param handler     完成回调函数
  */
 + (void)cc_WhereProperty: (NSString *)property

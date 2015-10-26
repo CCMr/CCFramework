@@ -26,6 +26,7 @@
 #import "BaseManagedObject.h"
 #import "NSManagedObject+CCManagedObject.h"
 #import "NSManagedObject+FetchRequest.h"
+#import "BaseManagedObject+Facade.h"
 
 @implementation NSManagedObject (Removed)
 
