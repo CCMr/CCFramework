@@ -480,7 +480,7 @@
 		420DE47E1BC7942300D87D6D /* ZXMultiFormatWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 420DE2B51BC7942300D87D6D /* ZXMultiFormatWriter.m */; settings = {ASSET_TAGS = (); }; };
 		4230E1851BBB83000001E68F /* CCRadarIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4230E1831BBB83000001E68F /* CCRadarIndicatorView.h */; };
 		4230E1861BBB83000001E68F /* CCRadarIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E1841BBB83000001E68F /* CCRadarIndicatorView.m */; };
-		4230E18D1BBB83CE0001E68F /* CCRadarPointView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4230E18B1BBB83CE0001E68F /* CCRadarPointView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4230E18D1BBB83CE0001E68F /* CCRadarPointView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4230E18B1BBB83CE0001E68F /* CCRadarPointView.h */; };
 		4230E18E1BBB83CE0001E68F /* CCRadarPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E18C1BBB83CE0001E68F /* CCRadarPointView.m */; };
 		4230E1911BBB83E40001E68F /* CCRadarView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4230E18F1BBB83E40001E68F /* CCRadarView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4230E1921BBB83E40001E68F /* CCRadarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E1901BBB83E40001E68F /* CCRadarView.m */; };
@@ -601,9 +601,9 @@
 		4264D7411BA2C19100E83159 /* CCPagesContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4264D73B1BA2C19100E83159 /* CCPagesContainer.m */; };
 		4264D7421BA2C19100E83159 /* CCPagesContainerTopBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 4264D73C1BA2C19100E83159 /* CCPagesContainerTopBar.h */; };
 		4264D7431BA2C19100E83159 /* CCPagesContainerTopBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4264D73D1BA2C19100E83159 /* CCPagesContainerTopBar.m */; };
-		4267DCF21BDB32CD00B0C43F /* NSManagedObject+FetchRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4267DCF01BDB32CD00B0C43F /* NSManagedObject+FetchRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4267DCF21BDB32CD00B0C43F /* NSManagedObject+FetchRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4267DCF01BDB32CD00B0C43F /* NSManagedObject+FetchRequest.h */; };
 		4267DCF31BDB32CD00B0C43F /* NSManagedObject+FetchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4267DCF11BDB32CD00B0C43F /* NSManagedObject+FetchRequest.m */; settings = {ASSET_TAGS = (); }; };
-		4267DD001BDB584000B0C43F /* NSManagedObject+Mapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 4267DCFE1BDB584000B0C43F /* NSManagedObject+Mapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4267DD001BDB584000B0C43F /* NSManagedObject+Mapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 4267DCFE1BDB584000B0C43F /* NSManagedObject+Mapping.h */; };
 		4267DD011BDB584000B0C43F /* NSManagedObject+Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 4267DCFF1BDB584000B0C43F /* NSManagedObject+Mapping.m */; settings = {ASSET_TAGS = (); }; };
 		4267DD081BDB5A7000B0C43F /* BaseManagedObject+Facade.h in Headers */ = {isa = PBXBuildFile; fileRef = 4267DD021BDB5A7000B0C43F /* BaseManagedObject+Facade.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4267DD091BDB5A7000B0C43F /* NSManagedObject+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 4267DD031BDB5A7000B0C43F /* NSManagedObject+Convenience.m */; settings = {ASSET_TAGS = (); }; };
@@ -662,9 +662,9 @@
 		4298C7761BDCA4C100A3581D /* CCCollectionViewFetchResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4298C7741BDCA4C100A3581D /* CCCollectionViewFetchResultController.m */; settings = {ASSET_TAGS = (); }; };
 		4298C7791BDCA5D700A3581D /* CCTableViewFetchResultController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4298C7771BDCA5D700A3581D /* CCTableViewFetchResultController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4298C77A1BDCA5D700A3581D /* CCTableViewFetchResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4298C7781BDCA5D700A3581D /* CCTableViewFetchResultController.m */; settings = {ASSET_TAGS = (); }; };
-		4298C77D1BDCAB3D00A3581D /* CoreDataMasterSlave.h in Headers */ = {isa = PBXBuildFile; fileRef = 4298C77B1BDCAB3D00A3581D /* CoreDataMasterSlave.h */; settings = {ASSET_TAGS = (); }; };
+		4298C77D1BDCAB3D00A3581D /* CoreDataMasterSlave.h in Headers */ = {isa = PBXBuildFile; fileRef = 4298C77B1BDCAB3D00A3581D /* CoreDataMasterSlave.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4298C77E1BDCAB3D00A3581D /* CoreDataMasterSlave.m in Sources */ = {isa = PBXBuildFile; fileRef = 4298C77C1BDCAB3D00A3581D /* CoreDataMasterSlave.m */; settings = {ASSET_TAGS = (); }; };
-		4298C7821BDCAC3100A3581D /* CoreDataMasterSlave+Manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4298C7801BDCAC3100A3581D /* CoreDataMasterSlave+Manager.h */; settings = {ASSET_TAGS = (); }; };
+		4298C7821BDCAC3100A3581D /* CoreDataMasterSlave+Manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4298C7801BDCAC3100A3581D /* CoreDataMasterSlave+Manager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4298C7831BDCAC3100A3581D /* CoreDataMasterSlave+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 4298C7811BDCAC3100A3581D /* CoreDataMasterSlave+Create.m */; settings = {ASSET_TAGS = (); }; };
 		4298C7861BDCB33D00A3581D /* CoreDataMasterSlave+Convenience.h in Headers */ = {isa = PBXBuildFile; fileRef = 4298C7841BDCB33D00A3581D /* CoreDataMasterSlave+Convenience.h */; settings = {ASSET_TAGS = (); }; };
 		4298C7871BDCB33D00A3581D /* CoreDataMasterSlave+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 4298C7851BDCB33D00A3581D /* CoreDataMasterSlave+Convenience.m */; settings = {ASSET_TAGS = (); }; };
@@ -769,7 +769,7 @@
 		429C9FDE1B9EF8BF0013A44A /* SRHeartbeatMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DB21B9EF8BE0013A44A /* SRHeartbeatMonitor.m */; };
 		429C9FDF1B9EF8BF0013A44A /* SRKeepAliveData.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DB31B9EF8BE0013A44A /* SRKeepAliveData.h */; };
 		429C9FE01B9EF8BF0013A44A /* SRKeepAliveData.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DB41B9EF8BE0013A44A /* SRKeepAliveData.m */; };
-		429C9FE11B9EF8BF0013A44A /* SRLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DB51B9EF8BE0013A44A /* SRLog.h */; };
+		429C9FE11B9EF8BF0013A44A /* SRLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DB51B9EF8BE0013A44A /* SRLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429C9FE21B9EF8BF0013A44A /* SRNegotiationResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DB61B9EF8BE0013A44A /* SRNegotiationResponse.h */; };
 		429C9FE31B9EF8BF0013A44A /* SRNegotiationResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DB71B9EF8BE0013A44A /* SRNegotiationResponse.m */; };
 		429C9FE41B9EF8BF0013A44A /* SRChunkBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DBA1B9EF8BE0013A44A /* SRChunkBuffer.h */; };
@@ -797,9 +797,9 @@
 		429C9FFA1B9EF8BF0013A44A /* NSData+SRB64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DD21B9EF8BE0013A44A /* NSData+SRB64Additions.m */; };
 		429C9FFB1B9EF8BF0013A44A /* SRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DD31B9EF8BE0013A44A /* SRWebSocket.h */; };
 		429C9FFC1B9EF8BF0013A44A /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DD41B9EF8BE0013A44A /* SRWebSocket.m */; };
-		429C9FFD1B9EF8BF0013A44A /* CCSlideShadowAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DD71B9EF8BE0013A44A /* CCSlideShadowAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429C9FFD1B9EF8BF0013A44A /* CCSlideShadowAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DD71B9EF8BE0013A44A /* CCSlideShadowAnimation.h */; };
 		429C9FFE1B9EF8BF0013A44A /* CCSlideShadowAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DD81B9EF8BE0013A44A /* CCSlideShadowAnimation.m */; };
-		429C9FFF1B9EF8BF0013A44A /* CCRourRotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DDA1B9EF8BE0013A44A /* CCRourRotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429C9FFF1B9EF8BF0013A44A /* CCRourRotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DDA1B9EF8BE0013A44A /* CCRourRotation.h */; };
 		429CA0001B9EF8BF0013A44A /* CCRourRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DDB1B9EF8BE0013A44A /* CCRourRotation.m */; };
 		429CA0011B9EF8BF0013A44A /* CCActionSheet.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DDE1B9EF8BF0013A44A /* CCActionSheet.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA0021B9EF8BF0013A44A /* CCActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DDF1B9EF8BF0013A44A /* CCActionSheet.m */; };
@@ -811,15 +811,15 @@
 		429CA0081B9EF8BF0013A44A /* CCAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DE61B9EF8BF0013A44A /* CCAnimatedImageView.m */; };
 		429CA0091B9EF8BF0013A44A /* CCBadgeView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DE81B9EF8BF0013A44A /* CCBadgeView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA00A1B9EF8BF0013A44A /* CCBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DE91B9EF8BF0013A44A /* CCBadgeView.m */; };
-		429CA00B1B9EF8BF0013A44A /* CalendarCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DEB1B9EF8BF0013A44A /* CalendarCollectionViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA00B1B9EF8BF0013A44A /* CalendarCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DEB1B9EF8BF0013A44A /* CalendarCollectionViewCell.h */; };
 		429CA00C1B9EF8BF0013A44A /* CalendarCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DEC1B9EF8BF0013A44A /* CalendarCollectionViewCell.m */; };
-		429CA00D1B9EF8BF0013A44A /* CalendarDay.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DED1B9EF8BF0013A44A /* CalendarDay.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA00D1B9EF8BF0013A44A /* CalendarDay.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DED1B9EF8BF0013A44A /* CalendarDay.h */; };
 		429CA00E1B9EF8BF0013A44A /* CalendarDay.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DEE1B9EF8BF0013A44A /* CalendarDay.m */; };
-		429CA00F1B9EF8BF0013A44A /* CalendarFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DEF1B9EF8BF0013A44A /* CalendarFlowLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA00F1B9EF8BF0013A44A /* CalendarFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DEF1B9EF8BF0013A44A /* CalendarFlowLayout.h */; };
 		429CA0101B9EF8BF0013A44A /* CalendarFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DF01B9EF8BF0013A44A /* CalendarFlowLayout.m */; };
-		429CA0111B9EF8BF0013A44A /* CalendarHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DF11B9EF8BF0013A44A /* CalendarHeaderView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0111B9EF8BF0013A44A /* CalendarHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DF11B9EF8BF0013A44A /* CalendarHeaderView.h */; };
 		429CA0121B9EF8BF0013A44A /* CalendarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DF21B9EF8BF0013A44A /* CalendarHeaderView.m */; };
-		429CA0131B9EF8BF0013A44A /* CalendarLogic.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DF31B9EF8BF0013A44A /* CalendarLogic.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0131B9EF8BF0013A44A /* CalendarLogic.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DF31B9EF8BF0013A44A /* CalendarLogic.h */; };
 		429CA0141B9EF8BF0013A44A /* CalendarLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DF41B9EF8BF0013A44A /* CalendarLogic.m */; };
 		429CA0151B9EF8BF0013A44A /* CalendarViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DF51B9EF8BF0013A44A /* CalendarViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA0161B9EF8BF0013A44A /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DF61B9EF8BF0013A44A /* CalendarViewController.m */; };
@@ -852,30 +852,30 @@
 		429CA0311B9EF8BF0013A44A /* CCPhotoBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 429C9E1B1B9EF8BF0013A44A /* CCPhotoBrowser.bundle */; };
 		429CA0321B9EF8BF0013A44A /* CCPhotoBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E1C1B9EF8BF0013A44A /* CCPhotoBrowser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA0331B9EF8BF0013A44A /* CCPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E1D1B9EF8BF0013A44A /* CCPhotoBrowser.m */; };
-		429CA0341B9EF8BF0013A44A /* CCPhotoLoadingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E1E1B9EF8BF0013A44A /* CCPhotoLoadingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0341B9EF8BF0013A44A /* CCPhotoLoadingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E1E1B9EF8BF0013A44A /* CCPhotoLoadingView.h */; };
 		429CA0351B9EF8BF0013A44A /* CCPhotoLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E1F1B9EF8BF0013A44A /* CCPhotoLoadingView.m */; };
-		429CA0361B9EF8BF0013A44A /* CCPhotoProgressView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E201B9EF8BF0013A44A /* CCPhotoProgressView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0361B9EF8BF0013A44A /* CCPhotoProgressView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E201B9EF8BF0013A44A /* CCPhotoProgressView.h */; };
 		429CA0371B9EF8BF0013A44A /* CCPhotoProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E211B9EF8BF0013A44A /* CCPhotoProgressView.m */; };
-		429CA0381B9EF8BF0013A44A /* CCPhotoToolbar.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E221B9EF8BF0013A44A /* CCPhotoToolbar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0381B9EF8BF0013A44A /* CCPhotoToolbar.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E221B9EF8BF0013A44A /* CCPhotoToolbar.h */; };
 		429CA0391B9EF8BF0013A44A /* CCPhotoToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E231B9EF8BF0013A44A /* CCPhotoToolbar.m */; };
-		429CA03A1B9EF8BF0013A44A /* CCPhotoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E241B9EF8BF0013A44A /* CCPhotoView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA03A1B9EF8BF0013A44A /* CCPhotoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E241B9EF8BF0013A44A /* CCPhotoView.h */; };
 		429CA03B1B9EF8BF0013A44A /* CCPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E251B9EF8BF0013A44A /* CCPhotoView.m */; };
 		429CA03C1B9EF8BF0013A44A /* MBProgressHUD+Add.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E271B9EF8BF0013A44A /* MBProgressHUD+Add.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA03D1B9EF8BF0013A44A /* MBProgressHUD+Add.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E281B9EF8BF0013A44A /* MBProgressHUD+Add.m */; };
 		429CA03E1B9EF8BF0013A44A /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 429C9E291B9EF8BF0013A44A /* MBProgressHUD.bundle */; };
-		429CA0601B9EF8BF0013A44A /* CCPickerAssetsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E4D1B9EF8BF0013A44A /* CCPickerAssetsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0601B9EF8BF0013A44A /* CCPickerAssetsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E4D1B9EF8BF0013A44A /* CCPickerAssetsViewController.h */; };
 		429CA0611B9EF8BF0013A44A /* CCPickerAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E4E1B9EF8BF0013A44A /* CCPickerAssetsViewController.m */; };
-		429CA0621B9EF8BF0013A44A /* CCPickerGroupViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E4F1B9EF8BF0013A44A /* CCPickerGroupViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0621B9EF8BF0013A44A /* CCPickerGroupViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E4F1B9EF8BF0013A44A /* CCPickerGroupViewController.h */; };
 		429CA0631B9EF8BF0013A44A /* CCPickerGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E501B9EF8BF0013A44A /* CCPickerGroupViewController.m */; };
 		429CA0641B9EF8BF0013A44A /* CCPickerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E511B9EF8BF0013A44A /* CCPickerViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA0651B9EF8BF0013A44A /* CCPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E521B9EF8BF0013A44A /* CCPickerViewController.m */; };
-		429CA0661B9EF8BF0013A44A /* CCPickerDatas.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E541B9EF8BF0013A44A /* CCPickerDatas.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0661B9EF8BF0013A44A /* CCPickerDatas.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E541B9EF8BF0013A44A /* CCPickerDatas.h */; };
 		429CA0671B9EF8BF0013A44A /* CCPickerDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E551B9EF8BF0013A44A /* CCPickerDatas.m */; };
-		429CA0681B9EF8BF0013A44A /* CCPickerGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E561B9EF8BF0013A44A /* CCPickerGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0681B9EF8BF0013A44A /* CCPickerGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E561B9EF8BF0013A44A /* CCPickerGroup.h */; };
 		429CA0691B9EF8BF0013A44A /* CCPickerGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E571B9EF8BF0013A44A /* CCPickerGroup.m */; };
-		429CA06D1B9EF8BF0013A44A /* CCPickerCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E5D1B9EF8BF0013A44A /* CCPickerCollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA06D1B9EF8BF0013A44A /* CCPickerCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E5D1B9EF8BF0013A44A /* CCPickerCollectionView.h */; };
 		429CA06E1B9EF8BF0013A44A /* CCPickerCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E5E1B9EF8BF0013A44A /* CCPickerCollectionView.m */; };
-		429CA06F1B9EF8BF0013A44A /* CCPickerCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E5F1B9EF8BF0013A44A /* CCPickerCollectionViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA06F1B9EF8BF0013A44A /* CCPickerCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E5F1B9EF8BF0013A44A /* CCPickerCollectionViewCell.h */; };
 		429CA0701B9EF8BF0013A44A /* CCPickerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E601B9EF8BF0013A44A /* CCPickerCollectionViewCell.m */; };
 		429CA0711B9EF8BF0013A44A /* CCPopMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E631B9EF8BF0013A44A /* CCPopMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA0721B9EF8BF0013A44A /* CCPopMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E641B9EF8BF0013A44A /* CCPopMenu.m */; };
@@ -903,9 +903,9 @@
 		429CA08A1B9EF8BF0013A44A /* CCAutoTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E821B9EF8BF0013A44A /* CCAutoTextView.m */; };
 		429CA08B1B9EF8BF0013A44A /* CCWaterfallsFlow.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E841B9EF8BF0013A44A /* CCWaterfallsFlow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA08C1B9EF8BF0013A44A /* CCWaterfallsFlow.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E851B9EF8BF0013A44A /* CCWaterfallsFlow.m */; };
-		429CA08D1B9EF8BF0013A44A /* CCWebViewProgress.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E871B9EF8BF0013A44A /* CCWebViewProgress.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA08D1B9EF8BF0013A44A /* CCWebViewProgress.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E871B9EF8BF0013A44A /* CCWebViewProgress.h */; };
 		429CA08E1B9EF8BF0013A44A /* CCWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E881B9EF8BF0013A44A /* CCWebViewProgress.m */; };
-		429CA08F1B9EF8BF0013A44A /* CCWebViewProgressView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E891B9EF8BF0013A44A /* CCWebViewProgressView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA08F1B9EF8BF0013A44A /* CCWebViewProgressView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E891B9EF8BF0013A44A /* CCWebViewProgressView.h */; };
 		429CA0901B9EF8BF0013A44A /* CCWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E8A1B9EF8BF0013A44A /* CCWebViewProgressView.m */; };
 		429CA0911B9EF8BF0013A44A /* CCWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E8C1B9EF8BF0013A44A /* CCWebViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA0921B9EF8BF0013A44A /* CCWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E8D1B9EF8BF0013A44A /* CCWebViewController.m */; };
@@ -923,7 +923,7 @@
 		429CA09E1B9EF8BF0013A44A /* SELinkText.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E9B1B9EF8BF0013A44A /* SELinkText.m */; };
 		429CA09F1B9EF8BF0013A44A /* SESelectionGrabber.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E9C1B9EF8BF0013A44A /* SESelectionGrabber.h */; };
 		429CA0A01B9EF8BF0013A44A /* SESelectionGrabber.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E9D1B9EF8BF0013A44A /* SESelectionGrabber.m */; };
-		429CA0A11B9EF8BF0013A44A /* SETextAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E9E1B9EF8BF0013A44A /* SETextAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0A11B9EF8BF0013A44A /* SETextAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E9E1B9EF8BF0013A44A /* SETextAttachment.h */; };
 		429CA0A21B9EF8BF0013A44A /* SETextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E9F1B9EF8BF0013A44A /* SETextAttachment.m */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA0A31B9EF8BF0013A44A /* SETextEditingCaret.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9EA01B9EF8BF0013A44A /* SETextEditingCaret.h */; };
 		429CA0A41B9EF8BF0013A44A /* SETextEditingCaret.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9EA11B9EF8BF0013A44A /* SETextEditingCaret.m */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -995,39 +995,39 @@
 		429CA0E61B9EF8BF0013A44A /* UIWindow+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9EEF1B9EF8BF0013A44A /* UIWindow+Additions.m */; };
 		429CA0E71B9EF8BF0013A44A /* UIWindow+BUIWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9EF01B9EF8BF0013A44A /* UIWindow+BUIWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA0E81B9EF8BF0013A44A /* UIWindow+BUIWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9EF11B9EF8BF0013A44A /* UIWindow+BUIWindow.m */; };
-		429CA0E91B9EF8BF0013A44A /* CCAudioPlayerHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9EF41B9EF8BF0013A44A /* CCAudioPlayerHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0E91B9EF8BF0013A44A /* CCAudioPlayerHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9EF41B9EF8BF0013A44A /* CCAudioPlayerHelper.h */; };
 		429CA0EA1B9EF8BF0013A44A /* CCAudioPlayerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9EF51B9EF8BF0013A44A /* CCAudioPlayerHelper.m */; };
-		429CA0EB1B9EF8BF0013A44A /* CCCaptureHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9EF61B9EF8BF0013A44A /* CCCaptureHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0EB1B9EF8BF0013A44A /* CCCaptureHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9EF61B9EF8BF0013A44A /* CCCaptureHelper.h */; };
 		429CA0EC1B9EF8BF0013A44A /* CCCaptureHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9EF71B9EF8BF0013A44A /* CCCaptureHelper.m */; };
-		429CA0ED1B9EF8BF0013A44A /* CCConfigurationHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9EF81B9EF8BF0013A44A /* CCConfigurationHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0ED1B9EF8BF0013A44A /* CCConfigurationHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9EF81B9EF8BF0013A44A /* CCConfigurationHelper.h */; };
 		429CA0EE1B9EF8BF0013A44A /* CCConfigurationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9EF91B9EF8BF0013A44A /* CCConfigurationHelper.m */; };
-		429CA0EF1B9EF8BF0013A44A /* CCFoundationCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9EFA1B9EF8BF0013A44A /* CCFoundationCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0EF1B9EF8BF0013A44A /* CCFoundationCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9EFA1B9EF8BF0013A44A /* CCFoundationCommon.h */; };
 		429CA0F01B9EF8BF0013A44A /* CCFoundationCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9EFB1B9EF8BF0013A44A /* CCFoundationCommon.m */; };
-		429CA0F11B9EF8BF0013A44A /* CCLocationHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9EFC1B9EF8BF0013A44A /* CCLocationHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0F11B9EF8BF0013A44A /* CCLocationHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9EFC1B9EF8BF0013A44A /* CCLocationHelper.h */; };
 		429CA0F21B9EF8BF0013A44A /* CCLocationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9EFD1B9EF8BF0013A44A /* CCLocationHelper.m */; };
-		429CA0F31B9EF8BF0013A44A /* CCMessageBubbleHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9EFE1B9EF8BF0013A44A /* CCMessageBubbleHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0F31B9EF8BF0013A44A /* CCMessageBubbleHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9EFE1B9EF8BF0013A44A /* CCMessageBubbleHelper.h */; };
 		429CA0F41B9EF8BF0013A44A /* CCMessageBubbleHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9EFF1B9EF8BF0013A44A /* CCMessageBubbleHelper.m */; };
-		429CA0F51B9EF8BF0013A44A /* CCPhotographyHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F001B9EF8BF0013A44A /* CCPhotographyHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0F51B9EF8BF0013A44A /* CCPhotographyHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F001B9EF8BF0013A44A /* CCPhotographyHelper.h */; };
 		429CA0F61B9EF8BF0013A44A /* CCPhotographyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F011B9EF8BF0013A44A /* CCPhotographyHelper.m */; };
-		429CA0F71B9EF8BF0013A44A /* CCVoiceCommonHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F021B9EF8BF0013A44A /* CCVoiceCommonHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0F71B9EF8BF0013A44A /* CCVoiceCommonHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F021B9EF8BF0013A44A /* CCVoiceCommonHelper.h */; };
 		429CA0F81B9EF8BF0013A44A /* CCVoiceCommonHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F031B9EF8BF0013A44A /* CCVoiceCommonHelper.m */; };
-		429CA0F91B9EF8BF0013A44A /* CCVoiceRecordHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F041B9EF8BF0013A44A /* CCVoiceRecordHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0F91B9EF8BF0013A44A /* CCVoiceRecordHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F041B9EF8BF0013A44A /* CCVoiceRecordHelper.h */; };
 		429CA0FA1B9EF8BF0013A44A /* CCVoiceRecordHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F051B9EF8BF0013A44A /* CCVoiceRecordHelper.m */; };
 		429CA0FB1B9EF8BF0013A44A /* CCMessageTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F071B9EF8BF0013A44A /* CCMessageTableViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA0FC1B9EF8BF0013A44A /* CCMessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F081B9EF8BF0013A44A /* CCMessageTableViewController.m */; };
-		429CA0FD1B9EF8BF0013A44A /* CCCacheManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F0B1B9EF8BF0013A44A /* CCCacheManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0FD1B9EF8BF0013A44A /* CCCacheManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F0B1B9EF8BF0013A44A /* CCCacheManager.h */; };
 		429CA0FE1B9EF8BF0013A44A /* CCCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F0C1B9EF8BF0013A44A /* CCCacheManager.m */; };
-		429CA0FF1B9EF8BF0013A44A /* CCFileAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F0D1B9EF8BF0013A44A /* CCFileAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA0FF1B9EF8BF0013A44A /* CCFileAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F0D1B9EF8BF0013A44A /* CCFileAttribute.h */; };
 		429CA1001B9EF8BF0013A44A /* CCFileAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F0E1B9EF8BF0013A44A /* CCFileAttribute.m */; };
-		429CA1011B9EF8BF0013A44A /* CCMessageAvatarFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F101B9EF8BF0013A44A /* CCMessageAvatarFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA1011B9EF8BF0013A44A /* CCMessageAvatarFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F101B9EF8BF0013A44A /* CCMessageAvatarFactory.h */; };
 		429CA1021B9EF8BF0013A44A /* CCMessageAvatarFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F111B9EF8BF0013A44A /* CCMessageAvatarFactory.m */; };
-		429CA1031B9EF8BF0013A44A /* CCMessageBubbleFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F121B9EF8BF0013A44A /* CCMessageBubbleFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA1031B9EF8BF0013A44A /* CCMessageBubbleFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F121B9EF8BF0013A44A /* CCMessageBubbleFactory.h */; };
 		429CA1041B9EF8BF0013A44A /* CCMessageBubbleFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F131B9EF8BF0013A44A /* CCMessageBubbleFactory.m */; };
-		429CA1051B9EF8BF0013A44A /* CCMessageVideoConverPhotoFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F141B9EF8BF0013A44A /* CCMessageVideoConverPhotoFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA1051B9EF8BF0013A44A /* CCMessageVideoConverPhotoFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F141B9EF8BF0013A44A /* CCMessageVideoConverPhotoFactory.h */; };
 		429CA1061B9EF8BF0013A44A /* CCMessageVideoConverPhotoFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F151B9EF8BF0013A44A /* CCMessageVideoConverPhotoFactory.m */; };
-		429CA1071B9EF8BF0013A44A /* CCMessageVoiceFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F161B9EF8BF0013A44A /* CCMessageVoiceFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA1071B9EF8BF0013A44A /* CCMessageVoiceFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F161B9EF8BF0013A44A /* CCMessageVoiceFactory.h */; };
 		429CA1081B9EF8BF0013A44A /* CCMessageVoiceFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F171B9EF8BF0013A44A /* CCMessageVoiceFactory.m */; };
-		429CA1091B9EF8BF0013A44A /* CCVideoOutputSampleBufferFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F181B9EF8BF0013A44A /* CCVideoOutputSampleBufferFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA1091B9EF8BF0013A44A /* CCVideoOutputSampleBufferFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F181B9EF8BF0013A44A /* CCVideoOutputSampleBufferFactory.h */; };
 		429CA10A1B9EF8BF0013A44A /* CCVideoOutputSampleBufferFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F191B9EF8BF0013A44A /* CCVideoOutputSampleBufferFactory.m */; };
 		429CA10B1B9EF8BF0013A44A /* CCEmotion.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F1B1B9EF8BF0013A44A /* CCEmotion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA10C1B9EF8BF0013A44A /* CCEmotion.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F1C1B9EF8BF0013A44A /* CCEmotion.m */; };
@@ -1046,17 +1046,17 @@
 		429CA1191B9EF8BF0013A44A /* CCMessageTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F2B1B9EF8BF0013A44A /* CCMessageTableView.m */; };
 		429CA11A1B9EF8BF0013A44A /* CCMessageTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F2C1B9EF8BF0013A44A /* CCMessageTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA11B1B9EF8BF0013A44A /* CCMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F2D1B9EF8BF0013A44A /* CCMessageTableViewCell.m */; };
-		429CA11C1B9EF8BF0013A44A /* CCEmotionCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F2F1B9EF8BF0013A44A /* CCEmotionCollectionViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA11C1B9EF8BF0013A44A /* CCEmotionCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F2F1B9EF8BF0013A44A /* CCEmotionCollectionViewCell.h */; };
 		429CA11D1B9EF8BF0013A44A /* CCEmotionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F301B9EF8BF0013A44A /* CCEmotionCollectionViewCell.m */; };
-		429CA11E1B9EF8BF0013A44A /* CCEmotionCollectionViewFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F311B9EF8BF0013A44A /* CCEmotionCollectionViewFlowLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA11E1B9EF8BF0013A44A /* CCEmotionCollectionViewFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F311B9EF8BF0013A44A /* CCEmotionCollectionViewFlowLayout.h */; };
 		429CA11F1B9EF8BF0013A44A /* CCEmotionCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F321B9EF8BF0013A44A /* CCEmotionCollectionViewFlowLayout.m */; };
 		429CA1201B9EF8BF0013A44A /* CCEmotionManagerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F331B9EF8BF0013A44A /* CCEmotionManagerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA1211B9EF8BF0013A44A /* CCEmotionManagerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F341B9EF8BF0013A44A /* CCEmotionManagerView.m */; };
-		429CA1221B9EF8BF0013A44A /* CCEmotionSectionBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F351B9EF8BF0013A44A /* CCEmotionSectionBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA1221B9EF8BF0013A44A /* CCEmotionSectionBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F351B9EF8BF0013A44A /* CCEmotionSectionBar.h */; };
 		429CA1231B9EF8BF0013A44A /* CCEmotionSectionBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F361B9EF8BF0013A44A /* CCEmotionSectionBar.m */; };
 		429CA1241B9EF8BF0013A44A /* CCShareMenuView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F371B9EF8BF0013A44A /* CCShareMenuView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA1251B9EF8BF0013A44A /* CCShareMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F381B9EF8BF0013A44A /* CCShareMenuView.m */; };
-		429CA1261B9EF8BF0013A44A /* CCAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F3A1B9EF8BF0013A44A /* CCAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA1261B9EF8BF0013A44A /* CCAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F3A1B9EF8BF0013A44A /* CCAnnotation.h */; };
 		429CA1271B9EF8BF0013A44A /* CCAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F3B1B9EF8BF0013A44A /* CCAnnotation.m */; };
 		429CA1281B9EF8BF0013A44A /* CCDisplayLocationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F3C1B9EF8BF0013A44A /* CCDisplayLocationViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA1291B9EF8BF0013A44A /* CCDisplayLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F3D1B9EF8BF0013A44A /* CCDisplayLocationViewController.m */; };
@@ -1117,12 +1117,24 @@
 		42B9D0E71B9FE3650086CA81 /* NSData+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B9D0E51B9FE3650086CA81 /* NSData+Additions.m */; };
 		42BAB91A1BC7565100C70043 /* UITabBarController+Additional.h in Headers */ = {isa = PBXBuildFile; fileRef = 42BAB9181BC7565100C70043 /* UITabBarController+Additional.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42BAB91B1BC7565100C70043 /* UITabBarController+Additional.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BAB9191BC7565100C70043 /* UITabBarController+Additional.m */; settings = {ASSET_TAGS = (); }; };
+		42C208E21BDDF91400C76004 /* Animation.h in Headers */ = {isa = PBXBuildFile; fileRef = 42C208E11BDDF91400C76004 /* Animation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42C208E41BDE021900C76004 /* Ability.h in Headers */ = {isa = PBXBuildFile; fileRef = 42C208E31BDE021900C76004 /* Ability.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42C208E61BDE025300C76004 /* UI.h in Headers */ = {isa = PBXBuildFile; fileRef = 42C208E51BDE025300C76004 /* UI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42C208E91BDE14C300C76004 /* Category.h in Headers */ = {isa = PBXBuildFile; fileRef = 42C208E81BDE14C300C76004 /* Category.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42C208EB1BDE14F200C76004 /* Tools.h in Headers */ = {isa = PBXBuildFile; fileRef = 42C208EA1BDE14F200C76004 /* Tools.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42C208ED1BDE14FC00C76004 /* ChatDisplayKitLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 42C208EC1BDE14FC00C76004 /* ChatDisplayKitLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42C208EF1BDE1D7D00C76004 /* ModelLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42C208EE1BDE1D7D00C76004 /* ModelLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42C208F11BDE1E4C00C76004 /* BaseController.h in Headers */ = {isa = PBXBuildFile; fileRef = 42C208F01BDE1E4C00C76004 /* BaseController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42C208F31BDE1EB400C76004 /* RequestProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 42C208F21BDE1EB400C76004 /* RequestProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42D0EDF61BBA68E10032A489 /* ResourcesPhotos.h in Headers */ = {isa = PBXBuildFile; fileRef = 42D0EDF41BBA68E10032A489 /* ResourcesPhotos.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42D0EDF71BBA68E10032A489 /* ResourcesPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D0EDF51BBA68E10032A489 /* ResourcesPhotos.m */; };
 		42D404C31BC9EB6A00C62FBD /* UIAlertView+Additional.h in Headers */ = {isa = PBXBuildFile; fileRef = 42D404C11BC9EB6A00C62FBD /* UIAlertView+Additional.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42D404C41BC9EB6A00C62FBD /* UIAlertView+Additional.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D404C21BC9EB6A00C62FBD /* UIAlertView+Additional.m */; settings = {ASSET_TAGS = (); }; };
-		42D850F91BDB248D00CB194E /* NSManagedObject+CCManagedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 42D850F71BDB248D00CB194E /* NSManagedObject+CCManagedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42D850F91BDB248D00CB194E /* NSManagedObject+CCManagedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 42D850F71BDB248D00CB194E /* NSManagedObject+CCManagedObject.h */; };
 		42D850FA1BDB248D00CB194E /* NSManagedObject+CCManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D850F81BDB248D00CB194E /* NSManagedObject+CCManagedObject.m */; settings = {ASSET_TAGS = (); }; };
+		42D8CB371BDDB1EF007CAC62 /* CCCoreData.h in Headers */ = {isa = PBXBuildFile; fileRef = 42D8CB361BDDB1EF007CAC62 /* CCCoreData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42D8CB3A1BDDC47C007CAC62 /* NSManagedObject+Additional.h in Headers */ = {isa = PBXBuildFile; fileRef = 42D8CB381BDDC47C007CAC62 /* NSManagedObject+Additional.h */; settings = {ASSET_TAGS = (); }; };
+		42D8CB3B1BDDC47C007CAC62 /* NSManagedObject+Additional.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D8CB391BDDC47C007CAC62 /* NSManagedObject+Additional.m */; settings = {ASSET_TAGS = (); }; };
 		42DBA84F1BB4D5CB00AD47C6 /* UILabel+Addition.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA84D1BB4D5CB00AD47C6 /* UILabel+Addition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42DBA8501BB4D5CB00AD47C6 /* UILabel+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBA84E1BB4D5CB00AD47C6 /* UILabel+Addition.m */; };
 		42DBA8561BB5305700AD47C6 /* CCBase64.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA8541BB5305700AD47C6 /* CCBase64.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1773,7 +1785,6 @@
 		42986D1C1BB280400013D6F7 /* AssetsNO@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AssetsNO@2x.png"; sourceTree = "<group>"; };
 		42986D1D1BB280400013D6F7 /* AssetsYES@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AssetsYES@2x.png"; sourceTree = "<group>"; };
 		42986D1E1BB280400013D6F7 /* returns@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "returns@2x.png"; sourceTree = "<group>"; };
-		4298C7711BDC6E0300A3581D /* CCCoreData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCCoreData.h; sourceTree = "<group>"; };
 		4298C7731BDCA4C100A3581D /* CCCollectionViewFetchResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCCollectionViewFetchResultController.h; path = CoreDataFactory/FetchController/CCCollectionViewFetchResultController.h; sourceTree = "<group>"; };
 		4298C7741BDCA4C100A3581D /* CCCollectionViewFetchResultController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCCollectionViewFetchResultController.m; path = CoreDataFactory/FetchController/CCCollectionViewFetchResultController.m; sourceTree = "<group>"; };
 		4298C7771BDCA5D700A3581D /* CCTableViewFetchResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCTableViewFetchResultController.h; path = CoreDataFactory/FetchController/CCTableViewFetchResultController.h; sourceTree = "<group>"; };
@@ -2235,12 +2246,24 @@
 		42B9D0E51B9FE3650086CA81 /* NSData+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Additions.m"; sourceTree = "<group>"; };
 		42BAB9181BC7565100C70043 /* UITabBarController+Additional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITabBarController+Additional.h"; path = "UITabBarController/UITabBarController+Additional.h"; sourceTree = "<group>"; };
 		42BAB9191BC7565100C70043 /* UITabBarController+Additional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITabBarController+Additional.m"; path = "UITabBarController/UITabBarController+Additional.m"; sourceTree = "<group>"; };
+		42C208E11BDDF91400C76004 /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
+		42C208E31BDE021900C76004 /* Ability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ability.h; sourceTree = "<group>"; };
+		42C208E51BDE025300C76004 /* UI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UI.h; sourceTree = "<group>"; };
+		42C208E81BDE14C300C76004 /* Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Category.h; sourceTree = "<group>"; };
+		42C208EA1BDE14F200C76004 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
+		42C208EC1BDE14FC00C76004 /* ChatDisplayKitLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatDisplayKitLib.h; sourceTree = "<group>"; };
+		42C208EE1BDE1D7D00C76004 /* ModelLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelLayer.h; sourceTree = "<group>"; };
+		42C208F01BDE1E4C00C76004 /* BaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseController.h; sourceTree = "<group>"; };
+		42C208F21BDE1EB400C76004 /* RequestProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestProtocol.h; sourceTree = "<group>"; };
 		42D0EDF41BBA68E10032A489 /* ResourcesPhotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourcesPhotos.h; sourceTree = "<group>"; };
 		42D0EDF51BBA68E10032A489 /* ResourcesPhotos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourcesPhotos.m; sourceTree = "<group>"; };
 		42D404C11BC9EB6A00C62FBD /* UIAlertView+Additional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIAlertView+Additional.h"; path = "UIAlertView/UIAlertView+Additional.h"; sourceTree = "<group>"; };
 		42D404C21BC9EB6A00C62FBD /* UIAlertView+Additional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIAlertView+Additional.m"; path = "UIAlertView/UIAlertView+Additional.m"; sourceTree = "<group>"; };
 		42D850F71BDB248D00CB194E /* NSManagedObject+CCManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+CCManagedObject.h"; path = "CoreDataFactory/Category/NSManagedObject+CCManagedObject.h"; sourceTree = "<group>"; };
 		42D850F81BDB248D00CB194E /* NSManagedObject+CCManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+CCManagedObject.m"; path = "CoreDataFactory/Category/NSManagedObject+CCManagedObject.m"; sourceTree = "<group>"; };
+		42D8CB361BDDB1EF007CAC62 /* CCCoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCoreData.h; sourceTree = "<group>"; };
+		42D8CB381BDDC47C007CAC62 /* NSManagedObject+Additional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+Additional.h"; path = "CoreDataMasterSlave/Core/NSManagedObject+Additional.h"; sourceTree = "<group>"; };
+		42D8CB391BDDC47C007CAC62 /* NSManagedObject+Additional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+Additional.m"; path = "CoreDataMasterSlave/Core/NSManagedObject+Additional.m"; sourceTree = "<group>"; };
 		42DBA84D1BB4D5CB00AD47C6 /* UILabel+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UILabel+Addition.h"; path = "UILabel/UILabel+Addition.h"; sourceTree = "<group>"; };
 		42DBA84E1BB4D5CB00AD47C6 /* UILabel+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+Addition.m"; path = "UILabel/UILabel+Addition.m"; sourceTree = "<group>"; };
 		42DBA8541BB5305700AD47C6 /* CCBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCBase64.h; path = Base64/CCBase64.h; sourceTree = "<group>"; };
@@ -3353,6 +3376,8 @@
 				4298C7881BDCBB0300A3581D /* CoreDataMasterSlave+Modify.m */,
 				4298C7891BDCBB0300A3581D /* CoreDataMasterSlave+Queries.m */,
 				4298C78A1BDCBB0300A3581D /* CoreDataMasterSlave+Removed.m */,
+				42D8CB381BDDC47C007CAC62 /* NSManagedObject+Additional.h */,
+				42D8CB391BDDC47C007CAC62 /* NSManagedObject+Additional.m */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -3408,6 +3433,7 @@
 		429C9CF61B9EF8BE0013A44A /* BaseViewController */ = {
 			isa = PBXGroup;
 			children = (
+				42C208F01BDE1E4C00C76004 /* BaseController.h */,
 				429C9CF91B9EF8BE0013A44A /* Navigation */,
 				429C9D001B9EF8BE0013A44A /* UI */,
 				429C9CF71B9EF8BE0013A44A /* BaseAppDelegate.h */,
@@ -3480,7 +3506,7 @@
 		429C9D161B9EF8BE0013A44A /* DatabaseLayer */ = {
 			isa = PBXGroup;
 			children = (
-				4298C7711BDC6E0300A3581D /* CCCoreData.h */,
+				42D8CB361BDDB1EF007CAC62 /* CCCoreData.h */,
 				4267DD171BDB5C3400B0C43F /* Macros */,
 				4267DD121BDB5BAF00B0C43F /* CoreDataMasterSlave */,
 				42105D131BDB1791003EE23E /* CoreDataFactory */,
@@ -3491,6 +3517,7 @@
 		429C9D1C1B9EF8BE0013A44A /* ModelLayer */ = {
 			isa = PBXGroup;
 			children = (
+				42C208EE1BDE1D7D00C76004 /* ModelLayer.h */,
 				429C9D1D1B9EF8BE0013A44A /* BaseEntity */,
 				429C9D201B9EF8BE0013A44A /* BaseViewModel */,
 				429C9D231B9EF8BE0013A44A /* UserDefaultsEntity */,
@@ -3528,6 +3555,7 @@
 		429C9D261B9EF8BE0013A44A /* RequestProtocol */ = {
 			isa = PBXGroup;
 			children = (
+				42C208F21BDE1EB400C76004 /* RequestProtocol.h */,
 				429C9D291B9EF8BE0013A44A /* HTTPRequestManager */,
 			);
 			path = RequestProtocol;
@@ -3557,6 +3585,7 @@
 		429C9D2F1B9EF8BE0013A44A /* Ability */ = {
 			isa = PBXGroup;
 			children = (
+				42C208E31BDE021900C76004 /* Ability.h */,
 				42A58A7A1BCDFE4F0027429C /* CCSideMenu */,
 				428A12C81BC8A025005D904D /* Contacts */,
 				42DBA8531BB5301C00AD47C6 /* Base64 */,
@@ -3836,6 +3865,7 @@
 		429C9DD51B9EF8BE0013A44A /* Animation */ = {
 			isa = PBXGroup;
 			children = (
+				42C208E11BDDF91400C76004 /* Animation.h */,
 				4230E1811BBB7F730001E68F /* Radar */,
 				429C9DD61B9EF8BE0013A44A /* CCSlideShadowAnimation */,
 				429C9DD91B9EF8BE0013A44A /* Rotation */,
@@ -3864,6 +3894,7 @@
 		429C9DDC1B9EF8BF0013A44A /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				42C208E51BDE025300C76004 /* UI.h */,
 				42B30DA51BBD72AD0039BB94 /* SDWebImage */,
 				4230E1931BBB8F4D0001E68F /* CCRadarScan */,
 				425A76B41BA17FE8006D18FE /* CCPagesContainer */,
@@ -4287,6 +4318,7 @@
 		429C9EB21B9EF8BF0013A44A /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				42C208EA1BDE14F200C76004 /* Tools.h */,
 				429C9EB31B9EF8BF0013A44A /* CameraViewController */,
 				429C9EB61B9EF8BF0013A44A /* Category */,
 				429C9EF21B9EF8BF0013A44A /* ChatDisplayKitLib */,
@@ -4310,6 +4342,7 @@
 		429C9EB61B9EF8BF0013A44A /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				42C208E81BDE14C300C76004 /* Category.h */,
 				429C9EB71B9EF8BF0013A44A /* Animation */,
 				429C9EBA1B9EF8BF0013A44A /* Class */,
 				429C9EC51B9EF8BF0013A44A /* Controls */,
@@ -4447,6 +4480,7 @@
 		429C9EF21B9EF8BF0013A44A /* ChatDisplayKitLib */ = {
 			isa = PBXGroup;
 			children = (
+				42C208EC1BDE14FC00C76004 /* ChatDisplayKitLib.h */,
 				429C9EF31B9EF8BF0013A44A /* Common */,
 				429C9F061B9EF8BF0013A44A /* Controllers */,
 				429C9F091B9EF8BF0013A44A /* Core */,
@@ -4845,6 +4879,7 @@
 				42F945871BC8ED5D008882AE /* CCDisplayMediaViewController.h in Headers */,
 				420DE3E11BC7942300D87D6D /* ZXCode128Reader.h in Headers */,
 				420DE3E51BC7942300D87D6D /* ZXCode39Reader.h in Headers */,
+				42C208E61BDE025300C76004 /* UI.h in Headers */,
 				420DE3E31BC7942300D87D6D /* ZXCode128Writer.h in Headers */,
 				420DE3E71BC7942300D87D6D /* ZXCode39Writer.h in Headers */,
 				420DE3E91BC7942300D87D6D /* ZXCode93Reader.h in Headers */,
@@ -4880,6 +4915,7 @@
 				4254773C1BD2AEC20071BBC5 /* dsa.h in Headers */,
 				420DE4121BC7942300D87D6D /* ZXModulusGF.h in Headers */,
 				420DE3FC1BC7942300D87D6D /* ZXMultiFormatUPCEANReader.h in Headers */,
+				42C208E41BDE021900C76004 /* Ability.h in Headers */,
 				420DE3991BC7942300D87D6D /* ZXMaxiCodeDecoder.h in Headers */,
 				420DE47B1BC7942300D87D6D /* ZXMultiFormatReader.h in Headers */,
 				420DE47D1BC7942300D87D6D /* ZXMultiFormatWriter.h in Headers */,
@@ -4974,6 +5010,7 @@
 				420DE3501BC7942300D87D6D /* ZXByteMatrix.h in Headers */,
 				420DE34B1BC7942300D87D6D /* ZXBarcodeFormat.h in Headers */,
 				420DE34C1BC7942300D87D6D /* ZXBinarizer.h in Headers */,
+				42C208E91BDE14C300C76004 /* Category.h in Headers */,
 				420DE39E1BC7942300D87D6D /* ZXByQuadrantReader.h in Headers */,
 				4267DD001BDB584000B0C43F /* NSManagedObject+Mapping.h in Headers */,
 				4254772F1BD2AEC20071BBC5 /* bn.h in Headers */,
@@ -5024,6 +5061,7 @@
 				425477811BD2AEC20071BBC5 /* RSADataSigner.h in Headers */,
 				429CA0B31B9EF8BF0013A44A /* SETextView.h in Headers */,
 				429CA12C1B9EF8BF0013A44A /* SignalRManager.h in Headers */,
+				42C208EB1BDE14F200C76004 /* Tools.h in Headers */,
 				429CA0EF1B9EF8BF0013A44A /* CCFoundationCommon.h in Headers */,
 				429CA0361B9EF8BF0013A44A /* CCPhotoProgressView.h in Headers */,
 				429CA0231B9EF8BF0013A44A /* CCMessageTextView.h in Headers */,
@@ -5043,6 +5081,7 @@
 				42B30DE61BBD72AD0039BB94 /* SDWebImageDecoder.h in Headers */,
 				429CA0FF1B9EF8BF0013A44A /* CCFileAttribute.h in Headers */,
 				429CA00D1B9EF8BF0013A44A /* CalendarDay.h in Headers */,
+				42C208F11BDE1E4C00C76004 /* BaseController.h in Headers */,
 				429CA0111B9EF8BF0013A44A /* CalendarHeaderView.h in Headers */,
 				429CA0C31B9EF8BF0013A44A /* UIActionSheet+BUIActionSheet.h in Headers */,
 				429C9FF91B9EF8BF0013A44A /* NSData+SRB64Additions.h in Headers */,
@@ -5092,6 +5131,7 @@
 				4298C7821BDCAC3100A3581D /* CoreDataMasterSlave+Manager.h in Headers */,
 				429CA12E1B9EF8BF0013A44A /* CCTimePicker.h in Headers */,
 				42B30DE51BBD72AD0039BB94 /* SDWebImageOperation.h in Headers */,
+				42D8CB371BDDB1EF007CAC62 /* CCCoreData.h in Headers */,
 				429CA0FD1B9EF8BF0013A44A /* CCCacheManager.h in Headers */,
 				429CA1201B9EF8BF0013A44A /* CCEmotionManagerView.h in Headers */,
 				429C9F4C1B9EF8BF0013A44A /* BaseNavigationController.h in Headers */,
@@ -5105,6 +5145,7 @@
 				426979371BA695BA00C3E93C /* AFURLRequestSerialization.h in Headers */,
 				42B30DD51BBD72AD0039BB94 /* UIImage+MultiFormat.h in Headers */,
 				429CA1011B9EF8BF0013A44A /* CCMessageAvatarFactory.h in Headers */,
+				42C208F31BDE1EB400C76004 /* RequestProtocol.h in Headers */,
 				429CA0031B9EF8BF0013A44A /* CCActionSheetViewController.h in Headers */,
 				429CA0D51B9EF8BF0013A44A /* UIImage+Operations.h in Headers */,
 				4254774B1BD2AEC20071BBC5 /* lhash.h in Headers */,
@@ -5119,6 +5160,7 @@
 				429CA0661B9EF8BF0013A44A /* CCPickerDatas.h in Headers */,
 				429CA0211B9EF8BF0013A44A /* CCMessageInputView.h in Headers */,
 				429CA0DB1B9EF8BF0013A44A /* UIImage+Utility.h in Headers */,
+				42D8CB3A1BDDC47C007CAC62 /* NSManagedObject+Additional.h in Headers */,
 				425477601BD2AEC20071BBC5 /* safestack.h in Headers */,
 				425477391BD2AEC20071BBC5 /* des.h in Headers */,
 				429CA0131B9EF8BF0013A44A /* CalendarLogic.h in Headers */,
@@ -5169,6 +5211,7 @@
 				429C9F5A1B9EF8BF0013A44A /* BaseTableViewHeaderFooterView.h in Headers */,
 				429CA1071B9EF8BF0013A44A /* CCMessageVoiceFactory.h in Headers */,
 				429C9FA01B9EF8BF0013A44A /* CCSecurityStrategy.h in Headers */,
+				42C208ED1BDE14FC00C76004 /* ChatDisplayKitLib.h in Headers */,
 				4254775B1BD2AEC20071BBC5 /* rand.h in Headers */,
 				429CA06D1B9EF8BF0013A44A /* CCPickerCollectionView.h in Headers */,
 				429C9FA41B9EF8BF0013A44A /* CCIntroductionViewController.h in Headers */,
@@ -5340,7 +5383,9 @@
 				429C9FD31B9EF8BF0013A44A /* SRVersion.h in Headers */,
 				4230E1911BBB83E40001E68F /* CCRadarView.h in Headers */,
 				429C9FF11B9EF8BF0013A44A /* SRServerSentEventsTransport.h in Headers */,
+				42C208E21BDDF91400C76004 /* Animation.h in Headers */,
 				429C9FE81B9EF8BF0013A44A /* SRServerSentEvent.h in Headers */,
+				42C208EF1BDE1D7D00C76004 /* ModelLayer.h in Headers */,
 				429C9FE21B9EF8BF0013A44A /* SRNegotiationResponse.h in Headers */,
 				4269792D1BA695BA00C3E93C /* AFHTTPRequestOperation.h in Headers */,
 				429C9FEF1B9EF8BF0013A44A /* SRLongPollingTransport.h in Headers */,
@@ -5973,6 +6018,7 @@
 				420DE3601BC7942300D87D6D /* ZXPlanarYUVLuminanceSource.m in Sources */,
 				429CA01E1B9EF8BF0013A44A /* CCCycleScroll.m in Sources */,
 				420DE3F41BC7942300D87D6D /* ZXEANManufacturerOrgSupport.m in Sources */,
+				42D8CB3B1BDDC47C007CAC62 /* NSManagedObject+Additional.m in Sources */,
 				420DE4391BC7942300D87D6D /* ZXPDF417ErrorCorrection.m in Sources */,
 				420DE3441BC7942300D87D6D /* ZXHybridBinarizer.m in Sources */,
 				429CA0DC1B9EF8BF0013A44A /* UIImage+Utility.m in Sources */,

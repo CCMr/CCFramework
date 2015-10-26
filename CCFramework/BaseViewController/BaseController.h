@@ -1,6 +1,6 @@
 //
-//  CCNSManagedObject.h
-//  CC
+//  BaseController.h
+//  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
 //
@@ -23,17 +23,19 @@
 // THE SOFTWARE.
 //
 
-#import <CoreData/CoreData.h>
+#ifndef CCFramework_BaseController_h
+#define CCFramework_BaseController_h
 
-@interface NSManagedObject(CCNSManagedObject)
+#import <CCFramework/BaseAppDelegate.h>
+#import <CCFramework/BaseNavigationController.h>
+#import <CCFramework/BaseSearchTableViewController.h>
+#import <CCFramework/BaseTabBarController.h>
+#import <CCFramework/BaseTableViewCell.h>
+#import <CCFramework/BaseTableViewController.h>
+#import <CCFramework/BaseTableViewHeaderFooterView.h>
+#import <CCFramework/BaseViewController.h>
+#import <CCFramework/NavMainViewController.h>
+#import <CCFramework/CCDropzone.h>
+#import <CCFramework/CCDropzoneViewController.h>
 
-@property (nonatomic, assign) BOOL traversed;
-
-//Returns the Dictionary object
-- (NSDictionary*) ChangedDictionary;
-
-- (void) populateFromDictionary:(NSDictionary*)dict;
-
-+ (NSManagedObject *) createManagedObjectFromDictionary:(NSDictionary*)dict inContext:(NSManagedObjectContext*)context;
-
-@end
+#endif
