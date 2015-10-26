@@ -27,6 +27,7 @@
 
 @implementation CoreDataMasterSlave (Convenience)
 
+#pragma mark - 查询条件
 /**
  *  @author CC, 2015-10-24
  *
@@ -60,8 +61,8 @@
  *
  *  @brief  分页请求
  *
- *  @param limit     页数
- *  @param batchSize 页码
+ *  @param limit     限定查询结果数据量
+ *  @param batchSize 加载筛选数据数
  *
  *  @return 返回请求条件对象
  */
@@ -80,9 +81,9 @@
  *
  *  @brief  请求条件
  *
- *  @param limit       页数
- *  @param batchSize   页码
- *  @param fetchOffset 集合数
+ *  @param limit       限定查询结果数据量
+ *  @param batchSize   加载筛选数据数
+ *  @param fetchOffset 游标偏移量，从游标开始读取数据
  *
  *  @return 返回请求条件对象
  */
@@ -98,7 +99,134 @@
     return fetchRequest;
 }
 
+#pragma mark - 查询
 
+/**
+ *  @author CC, 2015-10-26
+ *
+ *  @brief  查询数量
+ *
+ *  @param request 查询条件
+ *
+ *  @return 返回数量
+ */
+- (NSInteger)executeQueriesCount: (NSFetchRequest *)request
+{
+    __block NSInteger count = 0;
+    void (^Handler)(NSError *error, NSInteger requestCount) = ^(NSError *error, NSInteger requestCount){
+        count = requestCount;
+    };
+    
+    [self executeQueriesCount: request
+                      Handler: Handler];
+
+    return count;
+}
+
+/**
+ *  @author CC, 2015-10-26
+ *
+ *  @brief  查询数量
+ *
+ *  @param request 查询条件
+ *  @param handler 完成回调函数
+ */
+- (void)executeQueriesCount: (NSFetchRequest *)request
+                    Handler: (void (^)(NSError *error, NSInteger requestCount))handler
+{
+    [self executeQueriesCount: self.currentContext
+                 FetchRequest: request
+                      Handler: handler];
+}
+
+/**
+ *  @author CC, 2015-10-26
+ *
+ *  @brief  查询数量
+ *
+ *  @param queriesContext 管理对象
+ *  @param request        查询条件
+ *  @param handler        完成回调函数
+ */
+- (void)executeQueriesCount: (NSManagedObjectContext *)queriesContext
+               FetchRequest: (NSFetchRequest *)request
+                    Handler: (void (^)(NSError *error, NSInteger requestCount))handler
+{
+    [queriesContext performBlockAndWait:^{
+        NSError *error = nil;
+        NSInteger count = [queriesContext countForFetchRequest:request error:&error];
+
+        if (handler) {
+            handler(error,count);
+        }
+    }];
+}
+
+/**
+ *  @author CC, 2015-10-26
+ *
+ *  @brief  查询数据
+ *
+ *  @param request 查询条件
+ *
+ *  @return 返回结果集
+ */
+- (NSArray *)executeQueriesContext: (NSFetchRequest *)request
+{
+    __block NSArray *objs = nil;
+
+    void (^Handler)(NSError *error, NSArray *requestResults) = ^(NSError *error, NSArray *requestResults){
+        objs = requestResults;
+    };
+
+    [self executeQueriesContext: request
+                        Handler: Handler];
+
+    return objs;
+}
+
+/**
+ *  @author CC, 2015-10-26
+ *
+ *  @brief  查询数据
+ *
+ *  @param request 查询条件
+ *  @param handler 完成回调函数
+ */
+- (void)executeQueriesContext: (NSFetchRequest *)request
+                      Handler: (void (^)(NSError *error, NSArray *requestResults))handler
+{
+    [self executeQueriesContext: self.currentContext
+                   FetchRequest: request
+                        Handler: handler];
+}
+
+/**
+ *  @author CC, 2015-10-26
+ *
+ *  @brief  查询数据
+ *
+ *  @param queriesContext 管理对象
+ *  @param request        查询条件
+ *  @param handler        完成回调函数
+ */
+- (void)executeQueriesContext: (NSManagedObjectContext *)queriesContext
+                 FetchRequest: (NSFetchRequest *)request
+                      Handler: (void (^)(NSError *error, NSArray *))handler
+{
+    [queriesContext performBlock:^{
+        NSError *error = nil;
+        NSArray *objs = [queriesContext executeFetchRequest:request error:&error];
+
+        if (handler) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                handler(error,objs);
+            });
+        }
+    }];
+}
+
+#pragma mark - 保存数据
 
 /**
  *  @author CC, 2015-10-24
@@ -160,20 +288,20 @@
 {
     __block BOOL success = YES;
     __block NSError *error = nil;
-    
+
     [saveContext performBlock:^{
-        
+
         if (saveContextBlock)
             saveContextBlock(saveContext);
-        
+
         success = [saveContext save:&error];
-        
+
         if (error == nil) {
             [saveContext.parentContext performBlockAndWait:^{
                 [saveContext.parentContext save:&error];
             }];
         }
-        
+
         if (completion) {
             completion(error);
         }

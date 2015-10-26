@@ -27,6 +27,7 @@
 
 @interface CoreDataMasterSlave (Convenience)
 
+#pragma mark - 查询条件
 /**
  *  @author CC, 2015-10-24
  *
@@ -75,6 +76,78 @@
                      batchSize: (NSUInteger)batchSize
                    fetchOffset: (NSUInteger)fetchOffset;
 
+#pragma mark - 查询
+/**
+ *  @author CC, 2015-10-26
+ *
+ *  @brief  查询数量
+ *
+ *  @param request 查询条件
+ *
+ *  @return 返回数量
+ */
+- (NSInteger)executeQueriesCount: (NSFetchRequest *)request;
+
+/**
+ *  @author CC, 2015-10-26
+ *
+ *  @brief  查询数量
+ *
+ *  @param request 查询条件
+ *  @param handler 完成回调函数
+ */
+- (void)executeQueriesCount: (NSFetchRequest *)request
+                    Handler: (void (^)(NSError *error, NSInteger requestCount))handler;
+
+/**
+ *  @author CC, 2015-10-26
+ *
+ *  @brief  查询数量
+ *
+ *  @param queriesContext 管理对象
+ *  @param request        查询条件
+ *  @param handler        完成回调函数
+ */
+- (void)executeQueriesCount: (NSManagedObjectContext *)queriesContext
+               FetchRequest: (NSFetchRequest *)request
+                    Handler: (void (^)(NSError *error, NSInteger requestCount))handler;
+
+/**
+ *  @author CC, 2015-10-26
+ *
+ *  @brief  查询数据
+ *
+ *  @param request 查询条件
+ *
+ *  @return 返回结果集
+ */
+- (NSArray *)executeQueriesContext: (NSFetchRequest *)request;
+
+/**
+ *  @author CC, 2015-10-26
+ *
+ *  @brief  查询数据
+ *
+ *  @param request 查询条件
+ *  @param handler 完成回调函数
+ */
+- (void)executeQueriesContext: (NSFetchRequest *)request
+                      Handler: (void (^)(NSError *error, NSArray *requestResults))handler;
+
+/**
+ *  @author CC, 2015-10-26
+ *
+ *  @brief  查询数据
+ *
+ *  @param queriesContext 管理对象
+ *  @param request        查询条件
+ *  @param handler        完成回调函数
+ */
+- (void)executeQueriesContext: (NSManagedObjectContext *)queriesContext
+                 FetchRequest: (NSFetchRequest *)request
+                      Handler: (void (^)(NSError *error, NSArray *))handler;
+
+#pragma mark - 保存
 /**
  *  @author CC, 2015-10-24
  *
