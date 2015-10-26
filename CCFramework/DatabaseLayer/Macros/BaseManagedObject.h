@@ -23,9 +23,12 @@
 // THE SOFTWARE.
 //
 
-#import "CCCoreData.h"
+#import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
+#import <Foundation/Foundation.h>
 
 @interface BaseManagedObject : NSManagedObject
+
 
 /**
  *  @author CC, 2015-10-24

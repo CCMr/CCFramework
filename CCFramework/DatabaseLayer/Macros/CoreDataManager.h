@@ -23,7 +23,9 @@
 // THE SOFTWARE.
 //
 
-#import "CCCoreData.h"
+#import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
+#import <Foundation/Foundation.h>
 
 @interface CoreDataManager : NSObject
 
