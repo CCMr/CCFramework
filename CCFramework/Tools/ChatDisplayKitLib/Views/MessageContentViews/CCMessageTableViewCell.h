@@ -28,9 +28,6 @@
 #import "CCMessageModel.h"
 #import "CCMessageBubbleView.h"
 #import "CCBadgeView.h"
-#import "CCMessageAvatarFactory.h"
-#import "CCConfigurationHelper.h"
-#import "UIView+CCRemoteImage.h"
 
 @class CCMessageTableViewCell;
 

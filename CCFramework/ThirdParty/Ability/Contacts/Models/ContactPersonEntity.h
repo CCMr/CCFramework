@@ -23,8 +23,10 @@
 // THE SOFTWARE.
 //
 
-#import <CCFramework/CCFramework.h>
+#import <UIKit/UIKit.h>
 #import <AddressBook/AddressBook.h>
+#import "BaseEntity.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -129,7 +129,7 @@
     NSUInteger partialDaysCount = weeklyOrdinality - 1;//获取上月在这个月的日历上显示的天数
     NSDateComponents *components = [dayInThePreviousMonth YMDComponents];//获取年月日对象
     
-    for (int i = daysCount - partialDaysCount + 1; i < daysCount + 1; ++i) {
+    for (NSInteger i = daysCount - partialDaysCount + 1; i < daysCount + 1; ++i) {
         CalendarDay *calendarDay = [CalendarDay calendarDayWithDateComponents:components Day:i];
         calendarDay.style = CellDayTypeEmpty;//不显示
         [array addObject:calendarDay];

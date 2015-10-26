@@ -34,14 +34,7 @@
 #import "CCEmotionManagerView.h"
 #import "CCMessageTableView.h"
 
-#import "CCMessageVideoConverPhotoFactory.h"
-#import "CCMessageBubbleFactory.h"
 
-#import "CCPhotographyHelper.h"
-#import "CCLocationHelper.h"
-#import "CCVoiceRecordHelper.h"
-
-#import "UIScrollView+CCkeyboardControl.h"
 
 @protocol CCMessageTableViewControllerDelegate <NSObject>
 

@@ -29,6 +29,7 @@
 #import "ContactPersonEntity.h"
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
+#import "config.h"
 
 typedef void (^ContactCompletion)(NSArray * contacts, NSError * error);
 

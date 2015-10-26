@@ -28,6 +28,9 @@
 #import "CCAnimatedImage.h"
 #import "Config.h"
 #import "UIButton+BUIButton.h"
+//Factorys
+#import "CCMessageBubbleFactory.h"
+#import "CCMessageVoiceFactory.h"
 
 #define kCCHaveBubbleMargin 15.0f // 距离气泡上下边的间隙
 
