@@ -201,7 +201,7 @@ static CCHTTPRequest* _sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (void)setCompletionOBJBlock:(CompletionBlock)completionOBJBlock
+- (void)setCompletionOBJBlock:(CompletionCallback)completionOBJBlock
                           Key:(NSString*)key
 {
     objc_setAssociatedObject(self, (__bridge void*)key, completionOBJBlock, OBJC_ASSOCIATION_COPY);
@@ -218,9 +218,9 @@ static CCHTTPRequest* _sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (CompletionBlock)completionOBJBlock:(NSString*)key
+- (CompletionCallback)completionOBJBlock:(NSString*)key
 {
-    return (CompletionBlock)objc_getAssociatedObject(self, (__bridge void*)key);
+    return (CompletionCallback)objc_getAssociatedObject(self, (__bridge void*)key);
 }
 
 #pragma mark - 回调时间处理
@@ -356,8 +356,8 @@ static CCHTTPRequest* _sharedlnstance = nil;
           UserInfo:(id)userInfo
           BlockKey:(NSString*)key
 {
-    void (^CompletionBlock)(id responseData, id userInfo) = [self completionOBJBlock:key];
-    if (CompletionBlock) {
+    void (^CompletionCallback)(id responseData, id userInfo) = [self completionOBJBlock:key];
+    if (CompletionCallback) {
         NSDictionary* dic = completionData;
         if (![dic isKindOfClass:[NSDictionary class]] && ![dic isKindOfClass:[NSNull class]]) {
             NSData* datas = completionData;
@@ -365,7 +365,7 @@ static CCHTTPRequest* _sharedlnstance = nil;
                 datas = [completionData dataUsingEncoding:NSUTF8StringEncoding];
             dic = [NSJSONSerialization JSONObjectWithData:datas options:NSJSONReadingAllowFragments error:nil];
         }
-        CompletionBlock(dic, userInfo);
+        CompletionCallback(dic, userInfo);
     }
 }
 

@@ -160,7 +160,7 @@
  *
  *  @since 1.0
  */
-- (void)setCompletionOBJBlock:(CompletionBlock)completionOBJBlock
+- (void)setCompletionOBJBlock:(CompletionCallback)completionOBJBlock
                           Key:(NSString*)key;
 /**
  *  @author CC, 2015-08-15
@@ -173,7 +173,7 @@
  *
  *  @since 1.0
  */
-- (CompletionBlock)completionOBJBlock:(NSString*)key;
+- (CompletionCallback)completionOBJBlock:(NSString*)key;
 
 #pragma mark - 回调时间处理
 /**

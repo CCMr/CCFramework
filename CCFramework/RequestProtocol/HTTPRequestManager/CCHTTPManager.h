@@ -101,7 +101,7 @@
                WithReturnValeuBlock:(RequestComplete)block
                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                    WithFailureBlock:(FailureBlock)failureBlock
-                     WithCompletion:(CompletionBlock)completionBlock;
+                     WithCompletion:(CompletionCallback)completionBlock;
 
 #pragma mark - POST请求方式
 /**
@@ -142,7 +142,7 @@
                 WithReturnValeuBlock:(RequestComplete)block
                   WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                     WithFailureBlock:(FailureBlock)failureBlock
-                      WithCompletion:(CompletionBlock)completionBlock;
+                      WithCompletion:(CompletionCallback)completionBlock;
 
 #pragma mark - DELETE请求方式
 /**
@@ -181,7 +181,7 @@
                   WithReturnValeuBlock:(RequestComplete)block
                     WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                       WithFailureBlock:(FailureBlock)failureBlock
-                        WithCompletion:(CompletionBlock)completionBlock;
+                        WithCompletion:(CompletionCallback)completionBlock;
 
 #pragma mark - HEAD请求方式
 /**
@@ -220,7 +220,7 @@
                 WithReturnValeuBlock:(RequestComplete)block
                   WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                     WithFailureBlock:(FailureBlock)failureBlock
-                      WithCompletion:(CompletionBlock)completionBlock;
+                      WithCompletion:(CompletionCallback)completionBlock;
 
 #pragma mark - PUT请求方式
 /**
@@ -259,7 +259,7 @@
                WithReturnValeuBlock:(RequestComplete)block
                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                    WithFailureBlock:(FailureBlock)failureBlock
-                     WithCompletion:(CompletionBlock)completionBlock;
+                     WithCompletion:(CompletionCallback)completionBlock;
 
 #pragma mark - PATCH请求方式
 /**
@@ -298,7 +298,7 @@
                  WithReturnValeuBlock:(RequestComplete)block
                    WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                      WithFailureBlock:(FailureBlock)failureBlock
-                       WithCompletion:(CompletionBlock)completionBlock;
+                       WithCompletion:(CompletionCallback)completionBlock;
 
 #pragma mark - 上传下载
 /**

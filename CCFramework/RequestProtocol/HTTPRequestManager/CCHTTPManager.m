@@ -194,7 +194,7 @@ static CCHTTPManager* _sharedlnstance = nil;
                WithReturnValeuBlock:(RequestComplete)block
                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                    WithFailureBlock:(FailureBlock)failureBlock
-                     WithCompletion:(CompletionBlock)completionBlock
+                     WithCompletion:(CompletionCallback)completionBlock
 {
 
     AFHTTPRequestOperationManager* manager = [[AFHTTPRequestOperationManager alloc] init];
@@ -270,7 +270,7 @@ static CCHTTPManager* _sharedlnstance = nil;
                 WithReturnValeuBlock:(RequestComplete)block
                   WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                     WithFailureBlock:(FailureBlock)failureBlock
-                      WithCompletion:(CompletionBlock)completionBlock
+                      WithCompletion:(CompletionCallback)completionBlock
 {
     AFHTTPRequestOperationManager* manager = [[AFHTTPRequestOperationManager alloc] init];
     AFHTTPRequestOperation* requestOperation = [manager POST:requestURLString
@@ -342,7 +342,7 @@ static CCHTTPManager* _sharedlnstance = nil;
                   WithReturnValeuBlock:(RequestComplete)block
                     WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                       WithFailureBlock:(FailureBlock)failureBlock
-                        WithCompletion:(CompletionBlock)completionBlock
+                        WithCompletion:(CompletionCallback)completionBlock
 {
     AFHTTPRequestOperationManager* manager = [[AFHTTPRequestOperationManager alloc] init];
     AFHTTPRequestOperation* requestOperation = [manager DELETE:requestURLString
@@ -414,7 +414,7 @@ static CCHTTPManager* _sharedlnstance = nil;
                 WithReturnValeuBlock:(RequestComplete)block
                   WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                     WithFailureBlock:(FailureBlock)failureBlock
-                      WithCompletion:(CompletionBlock)completionBlock
+                      WithCompletion:(CompletionCallback)completionBlock
 {
     AFHTTPRequestOperationManager* manager = [[AFHTTPRequestOperationManager alloc] init];
     AFHTTPRequestOperation* requestOperation = [manager HEAD:requestURLString
@@ -483,7 +483,7 @@ static CCHTTPManager* _sharedlnstance = nil;
                WithReturnValeuBlock:(RequestComplete)block
                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                    WithFailureBlock:(FailureBlock)failureBlock
-                     WithCompletion:(CompletionBlock)completionBlock
+                     WithCompletion:(CompletionCallback)completionBlock
 {
     AFHTTPRequestOperationManager* manager = [[AFHTTPRequestOperationManager alloc] init];
     AFHTTPRequestOperation* requestOperation = [manager PUT:requestURLString
@@ -555,7 +555,7 @@ static CCHTTPManager* _sharedlnstance = nil;
                  WithReturnValeuBlock:(RequestComplete)block
                    WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                      WithFailureBlock:(FailureBlock)failureBlock
-                       WithCompletion:(CompletionBlock)completionBlock
+                       WithCompletion:(CompletionCallback)completionBlock
 {
     AFHTTPRequestOperationManager* manager = [[AFHTTPRequestOperationManager alloc] init];
     AFHTTPRequestOperation* requestOperation = [manager PATCH:requestURLString

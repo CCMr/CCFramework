@@ -6,19 +6,17 @@
 //  Copyright (c) 2014年 Alipay. All rights reserved.
 //
 
-
 ////////////////////////////////////////////////////////
 ////////////////version:2.1  motify:2014.12.24//////////
 ///////////////////Merry Christmas=。=//////////////////
 ////////////////////////////////////////////////////////
 
-
 #import "APayAuthInfo.h"
 #import <UIKit/UIKit.h>
 
-typedef void(^CompletionBlock)(NSDictionary *resultDic);
+typedef void (^CompletionBlock)(NSDictionary *resultDic);
 
-@interface AlipaySDK : NSObject<UIAlertViewDelegate>
+@interface AlipaySDK : NSObject <UIAlertViewDelegate>
 
 /**
  *  创建支付单例服务
@@ -41,8 +39,10 @@ typedef void(^CompletionBlock)(NSDictionary *resultDic);
 /**
  *  处理钱包或者独立快捷app支付跳回商户app携带的支付结果Url
  *
- *  @param resultUrl 支付结果url，传入后由SDK解析，统一在上面的pay方法的callback中回调
- *  @param completionBlock 跳钱包支付结果回调，保证跳转钱包支付过程中，即使调用方app被系统kill时，能通过这个回调取到支付结果。
+ *  @param resultUrl
+ *支付结果url，传入后由SDK解析，统一在上面的pay方法的callback中回调
+ *  @param completionBlock
+ *跳钱包支付结果回调，保证跳转钱包支付过程中，即使调用方app被系统kill时，能通过这个回调取到支付结果。
  */
 - (void)processOrderWithPaymentResult:(NSURL *)resultUrl
                       standbyCallback:(CompletionBlock)completionBlock;
@@ -68,7 +68,6 @@ typedef void(^CompletionBlock)(NSDictionary *resultDic);
  */
 - (void)setUrl:(NSString *)url;
 
-
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////授权1.0//////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -79,14 +78,14 @@ typedef void(^CompletionBlock)(NSDictionary *resultDic);
  *  @param completionBlock 授权结果回调
  */
 - (void)authWithInfo:(APayAuthInfo *)authInfo
-             callback:(CompletionBlock)completionBlock;
-
+            callback:(CompletionBlock)completionBlock;
 
 /**
  *  处理授权信息Url
  *
  *  @param resultUrl 钱包返回的授权结果url
- *  @param completionBlock 跳授权结果回调，保证跳转钱包授权过程中，即使调用方app被系统kill时，能通过这个回调取到支付结果。
+ *  @param completionBlock
+ *跳授权结果回调，保证跳转钱包授权过程中，即使调用方app被系统kill时，能通过这个回调取到支付结果。
  */
 - (void)processAuthResult:(NSURL *)resultUrl
           standbyCallback:(CompletionBlock)completionBlock;
@@ -110,7 +109,8 @@ typedef void(^CompletionBlock)(NSDictionary *resultDic);
  *  处理授权信息Url
  *
  *  @param resultUrl 钱包返回的授权结果url
- *  @param completionBlock 跳授权结果回调，保证跳转钱包授权过程中，即使调用方app被系统kill时，能通过这个回调取到支付结果。
+ *  @param completionBlock
+ *跳授权结果回调，保证跳转钱包授权过程中，即使调用方app被系统kill时，能通过这个回调取到支付结果。
  */
 - (void)processAuth_V2Result:(NSURL *)resultUrl
              standbyCallback:(CompletionBlock)completionBlock;
