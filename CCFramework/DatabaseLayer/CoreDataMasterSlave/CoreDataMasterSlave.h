@@ -44,7 +44,7 @@
  *
  *  @return 返回私有管理对象
  */
-@property (nonatomic, strong, readonly) NSManagedObjectContext *defaultPrivateContext;
++ (NSManagedObjectContext *)defaultPrivateContext;
 
 /**
  *  @author CC, 2015-10-24
@@ -53,7 +53,7 @@
  *
  *  @return 返回主管理对象
  */
-@property (nonatomic, strong, readonly) NSManagedObjectContext *defaultMainContext;
++ (NSManagedObjectContext *)defaultMainContext;
 
 /**
  *  @author CC, 2015-10-24
@@ -62,6 +62,6 @@
  *
  *  @return 返回当前管理对象
  */
-@property (nonatomic, strong, readonly) NSManagedObjectContext *currentContext;
++ (NSManagedObjectContext *)currentContext;
 
 @end

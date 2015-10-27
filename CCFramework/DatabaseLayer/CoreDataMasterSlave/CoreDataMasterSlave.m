@@ -26,7 +26,7 @@
 #import "CoreDataMasterSlave.h"
 #import "CoreDataManager.h"
 
-NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context";
+NSString *const CoreDataMasterSlaveCurrentThreadContext = @"CoreDataMasterSlave_CurrentThread_Context";
 
 @implementation CoreDataMasterSlave
 
@@ -54,7 +54,7 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
  *
  *  @return 返回私有管理对象
  */
-- (NSManagedObjectContext *)defaultPrivateContext
++ (NSManagedObjectContext *)defaultPrivateContext
 {
     return [CoreDataManager sharedlnstance].privateContext;
 }
@@ -66,7 +66,7 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
  *
  *  @return 返回主管理对象
  */
-- (NSManagedObjectContext *)defaultMainContext
++ (NSManagedObjectContext *)defaultMainContext
 {
     return [CoreDataManager sharedlnstance].mainContext;
 }
@@ -78,20 +78,20 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
  *
  *  @return 返回当前管理对象
  */
-- (NSManagedObjectContext *)currentContext
++ (NSManagedObjectContext *)currentContext
 {
     if ([NSThread isMainThread])
         return [self defaultMainContext];
     
     NSMutableDictionary *threadDict = [[NSThread currentThread] threadDictionary];
-    NSManagedObjectContext *context = [threadDict objectForKey:CoreDataCurrentThreadContext];
+    NSManagedObjectContext *context = [threadDict objectForKey:CoreDataMasterSlaveCurrentThreadContext];
     
     if (!context) {
         context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         [context setParentContext:[self defaultPrivateContext]];
         [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
         context.undoManager = nil;
-        [threadDict setObject:context forKey:CoreDataCurrentThreadContext];
+        [threadDict setObject:context forKey:CoreDataMasterSlaveCurrentThreadContext];
     }
     
     return context;

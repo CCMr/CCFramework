@@ -42,7 +42,7 @@
  *
  *  @since 1.0
  */
-- (void)cc_insertCoreData: (NSString *)tableName
++ (void)cc_insertCoreData: (NSString *)tableName
                   DataDic: (NSDictionary *)dataDic;
 
 /**
@@ -53,8 +53,8 @@
  *  @param tableName 表名
  *  @param dataArray 新增数据
  */
--(void)cc_insertCoreData: (NSString *)tableName
-               DataArray: (NSArray *)dataArray;
++ (void)cc_insertCoreData: (NSString *)tableName
+                DataArray: (NSArray *)dataArray;
 
 /**
  *  @author C C, 2015-10-25
@@ -65,7 +65,7 @@
  *  @param dataArray  新增数据
  *  @param completion 完成回调函数
  */
-- (void)cc_insertCoreData: (NSString *)tableName
++ (void)cc_insertCoreData: (NSString *)tableName
                 DataArray: (NSArray *)dataArray
                completion: (void(^)(NSError *error))completion;
 
@@ -79,7 +79,7 @@
  *
  *  @brief  删除所有对象
  */
-- (void)cc_RemovedAll: (NSString *)tableName;
++ (void)cc_RemovedAll: (NSString *)tableName;
 
 /**
  *  @author C C, 2015-10-25
@@ -88,7 +88,7 @@
  *
  *  @param completion 完成回调函数
  */
-- (void)cc_RemovedAll: (NSString *)tableName
++ (void)cc_RemovedAll: (NSString *)tableName
            completion: (void(^)(NSError *error))completion;
 
 /**
@@ -98,7 +98,7 @@
  *
  *  @param conditionID 对象ID
  */
-- (void)cc_RemovedManagedObjectID: (NSString *)tableName
++ (void)cc_RemovedManagedObjectID: (NSString *)tableName
                   ManagedObjectID: (NSManagedObjectID *)conditionID;
 
 /**
@@ -109,9 +109,20 @@
  *  @param conditionID 对象ID
  *  @param completion  完成回调函数
  */
-- (void)cc_RemovedManagedObjectID: (NSString *)tableName
++ (void)cc_RemovedManagedObjectID: (NSString *)tableName
                   ManagedObjectID: (NSManagedObjectID *)conditionID
                        completion: (void(^)(NSError *error))completion;
+
+/**
+ *  @author CC, 2015-10-26
+ *
+ *  @brief  条件删除数据
+ *
+ *  @param tableName 表名
+ *  @param condition 条件
+ */
++ (void)cc_RemovedWithCondition: (NSString *)tableName
+                      Condition: (NSString *)condition;
 
 /**
  *  @author C C, 2015-10-25
@@ -121,7 +132,7 @@
  *  @param propertyName 属性名
  *  @param value        属性值
  */
-- (void)cc_RemovedProperty: (NSString *)tableName
++ (void)cc_RemovedProperty: (NSString *)tableName
               PropertyName: (NSString *)propertyName
                    toValue: (id)value;
 
@@ -132,7 +143,7 @@
  *
  *  @param propertyKeyValues 属性名与值
  */
-- (void)cc_RemovedMultiProperty: (NSString *)tableName
++ (void)cc_RemovedMultiProperty: (NSString *)tableName
                   MultiProperty: (NSDictionary *)propertyKeyValues;
 
 /**
@@ -143,7 +154,7 @@
  *  @param propertyKeyValues 属性名与值
  *  @param completion        完成回调函数
  */
-- (void)cc_RemovedMultiProperty: (NSString *)tableName
++ (void)cc_RemovedMultiProperty: (NSString *)tableName
                   MultiProperty: (NSDictionary *)propertyKeyValues
                      completion: (void(^)(NSError *error))completion;
 
@@ -162,8 +173,8 @@
  *  @param key       字段名
  *  @param value     字段值
  */
--(void)cc_batchUpdataCoredData: (NSString *)tableName
-                ColumnKeyValue: (NSDictionary *)columnDic;
++ (void)cc_batchUpdataCoredData: (NSString *)tableName
+                 ColumnKeyValue: (NSDictionary *)columnDic;
 
 /**
  *  @author CC, 2015-10-25
@@ -177,7 +188,7 @@
  *  @param conditionValue 条件值的Key
  *  @param editDataArray  编辑的对象
  */
-- (void)cc_updateCoreData: (NSString *)tableName
++ (void)cc_updateCoreData: (NSString *)tableName
              ConditionKey: (NSString *)conditionKey
                 Condition: (NSString *)condition
            ConditionValue: (NSString *)conditionValue
@@ -195,7 +206,7 @@
  *  @param editDataArray  编辑属性
  *  @param completion     完成回调函数
  */
-- (void)cc_updateCoreData: (NSString *)tableName
++ (void)cc_updateCoreData: (NSString *)tableName
              ConditionKey: (NSString *)conditionKey
                 Condition: (NSString *)condition
            ConditionValue: (NSString *)conditionValue
@@ -213,7 +224,7 @@
  *
  *  @since 1.0
  */
-- (void)cc_updateCoreData: (NSString *)tableName
++ (void)cc_updateCoreData: (NSString *)tableName
                 Condition: (NSString *)condition
                  EditData: (NSDictionary *)editData;
 
@@ -227,7 +238,7 @@
  *  @param editData   编辑属性
  *  @param completion 完成回调函数
  */
-- (void)cc_updateCoreData: (NSString *)tableName
++ (void)cc_updateCoreData: (NSString *)tableName
                 Condition: (NSString *)condition
                  EditData: (NSDictionary *)editData
                completion: (void(^)(NSError *error))completion;
@@ -242,7 +253,7 @@
  *  @param attributeName  属性名
  *  @param attributeValue 属性值
  */
-- (void)cc_updateCoreData: (NSString *)tableName
++ (void)cc_updateCoreData: (NSString *)tableName
                 Condition: (NSString *)condition
             AttributeName: (NSString *)attributeName
            AttributeValue: (NSString *)attributeValue;
@@ -258,7 +269,7 @@
  *  @param attributeValue 属性值
  *  @param completion     完成回调函数
  */
-- (void)cc_updateCoreData: (NSString *)tableName
++ (void)cc_updateCoreData: (NSString *)tableName
                 Condition: (NSString *)condition
             AttributeName: (NSString *)attributeName
            AttributeValue: (NSString *)attributeValue
@@ -274,9 +285,9 @@
  *  @param conditionID 主键ID
  *  @param editData    编辑的数据集
  */
-- (void)cc_updateCoreData: (NSString *)tableName
-           ConditionID: (NSManagedObjectID *)conditionID
-              EditData: (NSDictionary *)editData;
++ (void)cc_updateCoreData: (NSString *)tableName
+              ConditionID: (NSManagedObjectID *)conditionID
+                 EditData: (NSDictionary *)editData;
 
 /**
  *  @author C C, 2015-10-25
@@ -288,7 +299,7 @@
  *  @param editData    编辑属性
  *  @param completion  完成回调函数
  */
-- (void)cc_updateCoreData: (NSString *)tableName
++ (void)cc_updateCoreData: (NSString *)tableName
               ConditionID: (NSManagedObjectID *)conditionID
                  EditData: (NSDictionary *)editData
                completion: (void(^)(NSError *error))completion;
@@ -307,7 +318,7 @@
  *
  *  @return 返回数量
  */
--(NSUInteger)cc_count: (NSString *)tableName;
++ (NSUInteger)cc_count: (NSString *)tableName;
 
 /**
  *  @author CC, 2015-10-26
@@ -319,8 +330,8 @@
  *
  *  @return 返回数量
  */
--(NSUInteger)cc_countWhere: (NSString *)tableName
-            WhereCondition: (NSString *)condition, ...;
++ (NSUInteger)cc_countWhere: (NSString *)tableName
+             WhereCondition: (NSString *)condition, ...;
 
 /**
  *  @author CC, 2015-10-26
@@ -331,7 +342,7 @@
  *
  *  @return 返回结果集
  */
-- (NSArray *)cc_selectCoreData: (NSString *)tableName;
++ (NSArray *)cc_selectCoreData: (NSString *)tableName;
 
 /**
  *  @author CC, 2015-10-26
@@ -343,7 +354,7 @@
  *
  *  @return 返回结果集
  */
-- (NSArray *)cc_selectCoreData: (NSString *)tableName
++ (NSArray *)cc_selectCoreData: (NSString *)tableName
                      Condition: (NSString *)condition;
 
 /**
@@ -355,7 +366,7 @@
  *  @param condition 条件
  *  @param handler   完成回调函数
  */
-- (void)cc_selectCoreData: (NSString *)tableName
++ (void)cc_selectCoreData: (NSString *)tableName
                 Condition: (NSString *)condition
                   Handler: (void (^)(NSError *error, NSArray *requestResults))handler;
 
@@ -370,7 +381,7 @@
  *
  *  @return 返回结果集
  */
-- (NSArray *)cc_selectCoreData: (NSString *)tableName
++ (NSArray *)cc_selectCoreData: (NSString *)tableName
                    sortWithKey: (NSString *)key
                      ascending: (BOOL)ascending;
 
@@ -386,7 +397,7 @@
  *
  *  @return 返回结果集
  */
-- (NSArray *)cc_selectCoreData: (NSString *)tableName
++ (NSArray *)cc_selectCoreData: (NSString *)tableName
                    sortWithKey: (NSString *)key
                      ascending: (BOOL)ascending
                      Condition: (NSString *)condition;
@@ -402,7 +413,7 @@
  *
  *  @return 返回结果集
  */
-- (NSArray *)cc_selectCoreData: (NSString *)tableName
++ (NSArray *)cc_selectCoreData: (NSString *)tableName
                     fetchLimit: (NSInteger)pageSize
                    fetchOffset: (NSInteger)currentPage;
 
@@ -418,7 +429,7 @@
  *
  *  @return 返回结果集
  */
-- (NSArray *)cc_selectCoreData: (NSString *)tableName
++ (NSArray *)cc_selectCoreData: (NSString *)tableName
                     fetchLimit: (NSInteger)pageSize
                    fetchOffset: (NSInteger)currentPage
                      Condition: (NSString *)condition;
@@ -437,7 +448,7 @@
  *
  *  @return 返回结果集
  */
-- (NSArray *)cc_selectCoreData: (NSString *)tableName
++ (NSArray *)cc_selectCoreData: (NSString *)tableName
                    sortWithKey: (NSString *)key
                      ascending: (BOOL)ascending
                     fetchLimit: (NSInteger)pageSize
@@ -455,7 +466,7 @@
  *
  *  @return 返回查询结果集
  */
-- (NSArray *)cc_whereProperty: (NSString *)tableName
++ (NSArray *)cc_whereProperty: (NSString *)tableName
                  PropertyName: (NSString *)property
                       equalTo: (id)value;
 
@@ -472,7 +483,7 @@
  *
  *  @return 返回查询结果集
  */
-- (NSArray *)cc_whereProperty: (NSString *)tableName
++ (NSArray *)cc_whereProperty: (NSString *)tableName
                  PropertyName: (NSString *)property
                       equalTo: (id)value
                 sortedKeyPath: (NSString *)keyPath
@@ -494,7 +505,7 @@
  *
  *  @return 返回查询结果集
  */
-- (NSArray *)cc_whereProperty: (NSString *)tableName
++ (NSArray *)cc_whereProperty: (NSString *)tableName
                  PropertyName: (NSString *)property
                       equalTo: (id)value
                 sortedKeyPath: (NSString *)keyPath
@@ -518,7 +529,7 @@
  *
  *  @return 返回查询结果集
  */
-- (NSArray *)cc_sortedKeyPath: (NSString *)tableName
++ (NSArray *)cc_sortedKeyPath: (NSString *)tableName
                       KeyPath: (NSString *)keyPath
                     ascending: (BOOL)ascending
                fetchBatchSize: (NSUInteger)batchSize

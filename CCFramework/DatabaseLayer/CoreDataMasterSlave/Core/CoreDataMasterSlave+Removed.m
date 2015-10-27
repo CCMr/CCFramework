@@ -33,7 +33,7 @@
  *
  *  @brief  删除所有对象
  */
-- (void)cc_RemovedAll: (NSString *)tableName
++ (void)cc_RemovedAll: (NSString *)tableName
 {
     [self cc_RemovedAll: tableName
              completion: nil];
@@ -46,7 +46,7 @@
  *
  *  @param completion 完成回调函数
  */
-- (void)cc_RemovedAll: (NSString *)tableName
++ (void)cc_RemovedAll: (NSString *)tableName
            completion: (void(^)(NSError *error))completion
 {
     [self saveContext:^(NSManagedObjectContext *currentContext) {
@@ -69,7 +69,7 @@
  *
  *  @param conditionID 对象ID
  */
-- (void)cc_RemovedManagedObjectID: (NSString *)tableName
++ (void)cc_RemovedManagedObjectID: (NSString *)tableName
                   ManagedObjectID: (NSManagedObjectID *)conditionID
 {
     [self cc_RemovedManagedObjectID:tableName
@@ -85,7 +85,7 @@
  *  @param conditionID 对象ID
  *  @param completion  完成回调函数
  */
-- (void)cc_RemovedManagedObjectID: (NSString *)tableName
++ (void)cc_RemovedManagedObjectID: (NSString *)tableName
                   ManagedObjectID: (NSManagedObjectID *)conditionID
                        completion: (void(^)(NSError *error))completion
 {
@@ -106,6 +106,31 @@
 }
 
 /**
+ *  @author CC, 2015-10-26
+ *
+ *  @brief  条件删除数据
+ *
+ *  @param tableName 表名
+ *  @param condition 条件
+ */
++ (void)cc_RemovedWithCondition: (NSString *)tableName
+                      Condition: (NSString *)condition
+{
+    [self saveContext:^(NSManagedObjectContext *currentContext) {
+
+        NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
+        if (condition)
+            [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
+
+        __block NSError *error = nil;
+        NSArray *allObjects = [currentContext executeFetchRequest:fetchRequest error:&error];
+        [allObjects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [currentContext deleteObject:obj];
+        }];
+    }];
+}
+
+/**
  *  @author C C, 2015-10-25
  *
  *  @brief  删除对象
@@ -113,7 +138,7 @@
  *  @param propertyName 属性名
  *  @param value        属性值
  */
-- (void)cc_RemovedProperty: (NSString *)tableName
++ (void)cc_RemovedProperty: (NSString *)tableName
               PropertyName: (NSString *)propertyName
                    toValue: (id)value
 {
@@ -128,7 +153,7 @@
  *
  *  @param propertyKeyValues 属性名与值
  */
-- (void)cc_RemovedMultiProperty: (NSString *)tableName
++ (void)cc_RemovedMultiProperty: (NSString *)tableName
                   MultiProperty: (NSDictionary *)propertyKeyValues
 {
     [self cc_RemovedMultiProperty: tableName
@@ -144,7 +169,7 @@
  *  @param propertyKeyValues 属性名与值
  *  @param completion        完成回调函数
  */
-- (void)cc_RemovedMultiProperty: (NSString *)tableName
++ (void)cc_RemovedMultiProperty: (NSString *)tableName
                   MultiProperty: (NSDictionary *)propertyKeyValues
                      completion: (void(^)(NSError *error))completion
 {
@@ -156,7 +181,7 @@
             for (NSString *key in propertyKeyValues.allKeys)
                 [conditions appendFormat:@"%@ = %@ AND ",key,[propertyKeyValues objectForKey:key]];
 
-            NSString *condition = [conditions substringToIndex:conditions.length - 4];
+            NSString *condition = [conditions substringToIndex:conditions.length + 4];
             NSPredicate *predicate = [NSPredicate predicateWithFormat:condition];
             fetchRequest.predicate = predicate;
         }

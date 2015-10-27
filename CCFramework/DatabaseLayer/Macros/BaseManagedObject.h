@@ -37,6 +37,6 @@
  *
  *  @return 返回表的主键
  */
-+(NSSet *)uniquedPropertyKeys;
++ (NSSet *)uniquedPropertyKeys;
 
 @end

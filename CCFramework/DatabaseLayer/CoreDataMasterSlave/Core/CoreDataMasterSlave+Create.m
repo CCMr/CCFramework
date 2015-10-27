@@ -38,7 +38,7 @@
  *
  *  @since 1.0
  */
-- (void)cc_insertCoreData: (NSString *)tableName
++ (void)cc_insertCoreData: (NSString *)tableName
                   DataDic: (NSDictionary *)dataDic
 {
     [self cc_insertCoreData: tableName
@@ -53,8 +53,8 @@
  *  @param tableName 表名
  *  @param dataArray 新增数据
  */
--(void)cc_insertCoreData: (NSString *)tableName
-               DataArray: (NSArray *)dataArray
++ (void)cc_insertCoreData: (NSString *)tableName
+                DataArray: (NSArray *)dataArray
 {
     if (!dataArray.count) return;
 
@@ -72,7 +72,7 @@
  *  @param dataArray  新增数据
  *  @param completion 完成回调函数
  */
-- (void)cc_insertCoreData: (NSString *)tableName
++ (void)cc_insertCoreData: (NSString *)tableName
                 DataArray: (NSArray *)dataArray
                completion: (void(^)(NSError *error))completion
 {
@@ -111,7 +111,7 @@
  *  @param dataArray       子对象值
  *  @param context         核心处理对象
  */
-- (void)cc_recursiveCategory: (NSManagedObject *)entity
++ (void)cc_recursiveCategory: (NSManagedObject *)entity
                 Relationship: (NSRelationshipDescription *)relationship
              ForeignKeyValue: (NSString *)foreignKeyValue
                    DataArray: (NSArray *)dataArray

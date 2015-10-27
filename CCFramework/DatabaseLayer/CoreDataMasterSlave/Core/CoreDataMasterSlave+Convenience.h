@@ -27,7 +27,7 @@
 
 @interface CoreDataMasterSlave (Convenience)
 
-#pragma mark - 查询条件
+#pragma mark + 查询条件
 /**
  *  @author CC, 2015-10-24
  *
@@ -35,7 +35,7 @@
  *
  *  @return 返回请求条件对象
  */
-- (NSFetchRequest *)cc_AllRequest: (NSString *)tableName;
++ (NSFetchRequest *)cc_AllRequest: (NSString *)tableName;
 
 /**
  *  @author CC, 2015-10-24
@@ -44,7 +44,7 @@
  *
  *  @return 返回请求条件对象
  */
-- (NSFetchRequest *)cc_AnyoneRequest: (NSString *)tableName;
++ (NSFetchRequest *)cc_AnyoneRequest: (NSString *)tableName;
 
 /**
  *  @author CC, 2015-10-24
@@ -56,7 +56,7 @@
  *
  *  @return 返回请求条件对象
  */
-- (NSFetchRequest *)cc_Request:(NSString *)tableName
++ (NSFetchRequest *)cc_Request:(NSString *)tableName
                     FetchLimit: (NSUInteger)limit
                      batchSize: (NSUInteger)batchSize;
 
@@ -71,12 +71,12 @@
  *
  *  @return 返回请求条件对象
  */
-- (NSFetchRequest *)cc_Request: (NSString *)tableName
++ (NSFetchRequest *)cc_Request: (NSString *)tableName
                     FetchLimit: (NSUInteger)limit
                      batchSize: (NSUInteger)batchSize
                    fetchOffset: (NSUInteger)fetchOffset;
 
-#pragma mark - 查询
+#pragma mark + 查询
 /**
  *  @author CC, 2015-10-26
  *
@@ -86,7 +86,7 @@
  *
  *  @return 返回数量
  */
-- (NSInteger)executeQueriesCount: (NSFetchRequest *)request;
++ (NSInteger)executeQueriesCount: (NSFetchRequest *)request;
 
 /**
  *  @author CC, 2015-10-26
@@ -96,7 +96,7 @@
  *  @param request 查询条件
  *  @param handler 完成回调函数
  */
-- (void)executeQueriesCount: (NSFetchRequest *)request
++ (void)executeQueriesCount: (NSFetchRequest *)request
                     Handler: (void (^)(NSError *error, NSInteger requestCount))handler;
 
 /**
@@ -108,7 +108,7 @@
  *  @param request        查询条件
  *  @param handler        完成回调函数
  */
-- (void)executeQueriesCount: (NSManagedObjectContext *)queriesContext
++ (void)executeQueriesCount: (NSManagedObjectContext *)queriesContext
                FetchRequest: (NSFetchRequest *)request
                     Handler: (void (^)(NSError *error, NSInteger requestCount))handler;
 
@@ -121,7 +121,7 @@
  *
  *  @return 返回结果集
  */
-- (NSArray *)executeQueriesContext: (NSFetchRequest *)request;
++ (NSArray *)executeQueriesContext: (NSFetchRequest *)request;
 
 /**
  *  @author CC, 2015-10-26
@@ -131,7 +131,7 @@
  *  @param request 查询条件
  *  @param handler 完成回调函数
  */
-- (void)executeQueriesContext: (NSFetchRequest *)request
++ (void)executeQueriesContext: (NSFetchRequest *)request
                       Handler: (void (^)(NSError *error, NSArray *requestResults))handler;
 
 /**
@@ -143,11 +143,11 @@
  *  @param request        查询条件
  *  @param handler        完成回调函数
  */
-- (void)executeQueriesContext: (NSManagedObjectContext *)queriesContext
++ (void)executeQueriesContext: (NSManagedObjectContext *)queriesContext
                  FetchRequest: (NSFetchRequest *)request
                       Handler: (void (^)(NSError *error, NSArray *))handler;
 
-#pragma mark - 保存
+#pragma mark + 保存
 /**
  *  @author CC, 2015-10-24
  *
@@ -155,7 +155,7 @@
  *
  *  @param saveContext 线程管理对象
  */
-- (void)saveContext: (void (^)(NSManagedObjectContext *))saveContext;
++ (void)saveContext: (void (^)(NSManagedObjectContext *currentContext))saveContext;
 
 /**
  *  @author CC, 2015-10-24
@@ -165,7 +165,7 @@
  *  @param saveContext 线程管理对象
  *  @param completion  完成回调函数
  */
-- (void)saveContext: (void(^)(NSManagedObjectContext *currentContext))saveContext
++ (void)saveContext: (void(^)(NSManagedObjectContext *currentContext))saveContext
          completion: (void(^)(NSError *error))completion;
 
 /**
@@ -176,7 +176,7 @@
  *  @param saveContext 线程管理对象
  *  @param completion  完成回调函数
  */
-- (void)saveWithContext: (NSManagedObjectContext *)saveContext
++ (void)saveWithContext: (NSManagedObjectContext *)saveContext
              completion: (void(^)(NSError *error))completion;
 
 /**
@@ -188,7 +188,7 @@
  *  @param block       回调执行函数
  *  @param completion  完成回调函数
  */
-- (void)saveWithContext: (NSManagedObjectContext *)saveContext
++ (void)saveWithContext: (NSManagedObjectContext *)saveContext
        SaveContextBlock: (void(^)(NSManagedObjectContext *currentContext))saveContextBlock
              completion: (void(^)(NSError *error))completion;
 

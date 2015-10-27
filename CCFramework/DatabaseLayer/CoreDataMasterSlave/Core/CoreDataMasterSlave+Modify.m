@@ -37,7 +37,7 @@
  *  @param key       字段名
  *  @param value     字段值
  */
--(void)cc_batchUpdataCoredData: (NSString *)tableName
++ (void)cc_batchUpdataCoredData: (NSString *)tableName
                 ColumnKeyValue: (NSDictionary *)columnDic
 {
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:tableName inManagedObjectContext:self.currentContext];
@@ -82,7 +82,7 @@
  *  @param conditionValue 条件值的Key
  *  @param editDataArray  编辑的对象
  */
-- (void)cc_updateCoreData: (NSString *)tableName
++ (void)cc_updateCoreData: (NSString *)tableName
              ConditionKey: (NSString *)conditionKey
                 Condition: (NSString *)condition
            ConditionValue: (NSString *)conditionValue
@@ -111,7 +111,7 @@
  *  @param editDataArray  编辑属性
  *  @param completion     完成回调函数
  */
-- (void)cc_updateCoreData: (NSString *)tableName
++ (void)cc_updateCoreData: (NSString *)tableName
              ConditionKey: (NSString *)conditionKey
                 Condition: (NSString *)condition
            ConditionValue: (NSString *)conditionValue
@@ -162,7 +162,7 @@
  *
  *  @since 1.0
  */
-- (void)cc_updateCoreData: (NSString *)tableName
++ (void)cc_updateCoreData: (NSString *)tableName
                 Condition: (NSString *)condition
                  EditData: (NSDictionary *)editData
 {
@@ -182,7 +182,7 @@
  *  @param editData   编辑属性
  *  @param completion 完成回调函数
  */
-- (void)cc_updateCoreData: (NSString *)tableName
++ (void)cc_updateCoreData: (NSString *)tableName
                 Condition: (NSString *)condition
                  EditData: (NSDictionary *)editData
                completion: (void(^)(NSError *error))completion
@@ -224,7 +224,7 @@
  *  @param attributeName  属性名
  *  @param attributeValue 属性值
  */
-- (void)cc_updateCoreData: (NSString *)tableName
++ (void)cc_updateCoreData: (NSString *)tableName
                 Condition: (NSString *)condition
             AttributeName: (NSString *)attributeName
            AttributeValue: (NSString *)attributeValue
@@ -247,7 +247,7 @@
  *  @param attributeValue 属性值
  *  @param completion     完成回调函数
  */
-- (void)cc_updateCoreData: (NSString *)tableName
++ (void)cc_updateCoreData: (NSString *)tableName
                 Condition: (NSString *)condition
             AttributeName: (NSString *)attributeName
            AttributeValue: (NSString *)attributeValue
@@ -276,7 +276,7 @@
  *  @param conditionID 主键ID
  *  @param editData    编辑的数据集
  */
-- (void)cc_updateCoreData: (NSString *)tableName
++ (void)cc_updateCoreData: (NSString *)tableName
               ConditionID: (NSManagedObjectID *)conditionID
                  EditData: (NSDictionary *)editData
 {
@@ -296,7 +296,7 @@
  *  @param editData    编辑属性
  *  @param completion  完成回调函数
  */
-- (void)cc_updateCoreData: (NSString *)tableName
++ (void)cc_updateCoreData: (NSString *)tableName
               ConditionID: (NSManagedObjectID *)conditionID
                  EditData: (NSDictionary *)editData
                completion: (void(^)(NSError *error))completion
