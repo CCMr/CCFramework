@@ -43,7 +43,6 @@
 -(void)InitControl
 {
     UIView *bgView = [[UIView alloc] initWithFrame:self.view.bounds];
-    bgView.backgroundColor = [UIColor redColor];
     [self.view addSubview:bgView];
 
 

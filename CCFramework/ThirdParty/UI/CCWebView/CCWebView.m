@@ -36,6 +36,8 @@
 
 @property (nonatomic, strong) UILabel *originLable;
 
+@property (nonatomic, strong) UIView *backgroundView;
+
 @property (nonatomic, strong) CCWebViewProgress *webViewProgress;
 
 @property (nonatomic, strong) CCWebViewProgressView *progressView;
@@ -62,9 +64,8 @@
 
 -(void)initView
 {
-    UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
-    backgroundView.backgroundColor = [UIColor colorWithRed:34/255.f green:37/255.f blue:36/255.f alpha:0.9];
-    [self addSubview:backgroundView];
+    _backgroundView = [[UIView alloc] initWithFrame:self.bounds];
+    [self addSubview:_backgroundView];
 
     _originLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, CGRectGetWidth(self.bounds), 20)];
     _originLable.backgroundColor = [UIColor clearColor];
@@ -72,7 +73,7 @@
     _originLable.textColor = [UIColor whiteColor];
     _originLable.font = [UIFont systemFontOfSize:12];
     _originLable.text = @"网页由 www.ccskill.com 提供";
-    [backgroundView addSubview:_originLable];
+    [_backgroundView addSubview:_originLable];
 
     if (NSClassFromString(@"WKWebView"))
         self.webView = [self InitWKWebView];
@@ -200,6 +201,7 @@
     if([keyPath isEqualToString:@"estimatedProgress"]) {
          [self progressChanged:[change objectForKey:NSKeyValueChangeNewKey]];
     }else if([keyPath isEqualToString:@"title"]) {
+        _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.8];
         if ([self.delegate respondsToSelector:@selector(webViewDidFinishLoad:Title:)])
             [self.delegate webViewDidFinishLoad:self Title:change[NSKeyValueChangeNewKey]];
     }
@@ -208,6 +210,7 @@
 #pragma mark - CCWebViewProgressDelegate
 -(void)webViewProgress:(CCWebViewProgress *)webViewProgress updateProgress:(float)progress{
     [_progressView setProgress:progress animated:YES];
+    _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.8];
     if ([self.delegate respondsToSelector:@selector(webViewDidFinishLoad:Title:)])
         [self.delegate webViewDidFinishLoad:self Title:[((UIWebView *)self.webView) stringByEvaluatingJavaScriptFromString:@"document.title"]];
 }
