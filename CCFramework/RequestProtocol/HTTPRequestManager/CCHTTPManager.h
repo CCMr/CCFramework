@@ -35,7 +35,7 @@
  *
  *  @brief   用户信息字典接收机
  */
-@property (nonatomic, strong) NSDictionary *userInfo;
+@property (nonatomic, strong) NSDictionary* userInfo;
 
 /**
  *  @author CC, 2015-07-23
@@ -46,7 +46,7 @@
  *
  *  @since 1.0
  */
-+(id)sharedlnstance;
++ (id)sharedlnstance;
 
 /**
  *  @author CC, 2015-07-23
@@ -59,7 +59,7 @@
  *
  *  @since 1.0
  */
-+ (BOOL) netWorkReachabilityWithURLString:(NSString *) strUrl;
++ (BOOL)netWorkReachabilityWithURLString:(NSString*)strUrl;
 
 #pragma mark - 请求方式
 #pragma mark - GET请求方式
@@ -76,11 +76,11 @@
  *
  *  @since 1.0
  */
-- (void) NetRequestGETWithRequestURL: (NSString *) requestURLString
-                       WithParameter: (NSDictionary *) parameter
-                WithReturnValeuBlock: (RequestComplete) block
-                  WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
-                    WithFailureBlock: (FailureBlock) failureBlock;
+- (void)NetRequestGETWithRequestURL:(NSString*)requestURLString
+                      WithParameter:(NSDictionary*)parameter
+               WithReturnValeuBlock:(RequestComplete)block
+                 WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                   WithFailureBlock:(FailureBlock)failureBlock;
 
 /**
  *  @author CC, 2015-10-22
@@ -95,13 +95,13 @@
  *  @param failureBlock     网络错误回调
  *  @param completionBlock  请求完成回调函数
  */
-- (void) NetRequestGETWithRequestURL: (NSString *) requestURLString
-                       WithParameter: (NSDictionary *) parameter
-                        WithUserInfo: (NSDictionary *)userInfo
-                WithReturnValeuBlock: (RequestComplete) block
-                  WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
-                    WithFailureBlock: (FailureBlock) failureBlock
-                      WithCompletion: (CompletionBlock)completionBlock;
+- (void)NetRequestGETWithRequestURL:(NSString*)requestURLString
+                      WithParameter:(NSDictionary*)parameter
+                       WithUserInfo:(NSDictionary*)userInfo
+               WithReturnValeuBlock:(RequestComplete)block
+                 WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                   WithFailureBlock:(FailureBlock)failureBlock
+                     WithCompletion:(CompletionBlock)completionBlock;
 
 #pragma mark - POST请求方式
 /**
@@ -117,11 +117,11 @@
  *
  *  @since 1.0
  */
-- (void) NetRequestPOSTWithRequestURL: (NSString *) requestURLString
-                        WithParameter: (NSDictionary *) parameter
-                 WithReturnValeuBlock: (RequestComplete) block
-                   WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
-                     WithFailureBlock: (FailureBlock) failureBlock;
+- (void)NetRequestPOSTWithRequestURL:(NSString*)requestURLString
+                       WithParameter:(NSDictionary*)parameter
+                WithReturnValeuBlock:(RequestComplete)block
+                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                    WithFailureBlock:(FailureBlock)failureBlock;
 
 /**
  *  @author CC, 2015-10-22
@@ -136,13 +136,13 @@
  *  @param failureBlock     网络错误回调
  *  @param completionBlock  请求完成回调函数
  */
-- (void) NetRequestPOSTWithRequestURL: (NSString *) requestURLString
-                        WithParameter: (NSDictionary *) parameter
-                         WithUserInfo: (NSDictionary *)userInfo
-                 WithReturnValeuBlock: (RequestComplete) block
-                   WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
-                     WithFailureBlock: (FailureBlock) failureBlock
-                       WithCompletion: (CompletionBlock)completionBlock;
+- (void)NetRequestPOSTWithRequestURL:(NSString*)requestURLString
+                       WithParameter:(NSDictionary*)parameter
+                        WithUserInfo:(NSDictionary*)userInfo
+                WithReturnValeuBlock:(RequestComplete)block
+                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                    WithFailureBlock:(FailureBlock)failureBlock
+                      WithCompletion:(CompletionBlock)completionBlock;
 
 #pragma mark - DELETE请求方式
 /**
@@ -156,11 +156,11 @@
  *  @param errorBlock       请求失败回调
  *  @param failureBlock     网络错误回调
  */
-- (void) NetRequestDELETEWithRequestURL: (NSString *) requestURLString
-                          WithParameter: (NSDictionary *) parameter
-                   WithReturnValeuBlock: (RequestComplete) block
-                     WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
-                       WithFailureBlock: (FailureBlock) failureBlock;
+- (void)NetRequestDELETEWithRequestURL:(NSString*)requestURLString
+                         WithParameter:(NSDictionary*)parameter
+                  WithReturnValeuBlock:(RequestComplete)block
+                    WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                      WithFailureBlock:(FailureBlock)failureBlock;
 
 /**
  *  @author CC, 2015-10-22
@@ -175,13 +175,13 @@
  *  @param failureBlock     网络错误回调
  *  @param completionBlock  请求完成回调函数
  */
-- (void) NetRequestDELETEWithRequestURL: (NSString *) requestURLString
-                          WithParameter: (NSDictionary *) parameter
-                           WithUserInfo: (NSDictionary *)userInfo
-                   WithReturnValeuBlock: (RequestComplete) block
-                     WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
-                       WithFailureBlock: (FailureBlock) failureBlock
-                         WithCompletion: (CompletionBlock)completionBlock;
+- (void)NetRequestDELETEWithRequestURL:(NSString*)requestURLString
+                         WithParameter:(NSDictionary*)parameter
+                          WithUserInfo:(NSDictionary*)userInfo
+                  WithReturnValeuBlock:(RequestComplete)block
+                    WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                      WithFailureBlock:(FailureBlock)failureBlock
+                        WithCompletion:(CompletionBlock)completionBlock;
 
 #pragma mark - HEAD请求方式
 /**
@@ -195,11 +195,11 @@
  *  @param errorBlock       请求失败回调
  *  @param failureBlock     网络错误回调
  */
-- (void) NetRequestHEADWithRequestURL: (NSString *) requestURLString
-                        WithParameter: (NSDictionary *) parameter
-                 WithReturnValeuBlock: (RequestComplete) block
-                   WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
-                     WithFailureBlock: (FailureBlock) failureBlock;
+- (void)NetRequestHEADWithRequestURL:(NSString*)requestURLString
+                       WithParameter:(NSDictionary*)parameter
+                WithReturnValeuBlock:(RequestComplete)block
+                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                    WithFailureBlock:(FailureBlock)failureBlock;
 
 /**
  *  @author CC, 2015-10-22
@@ -214,13 +214,13 @@
  *  @param failureBlock     网络错误回调
  *  @param completionBlock  请求完成回调函数
  */
-- (void) NetRequestHEADWithRequestURL: (NSString *) requestURLString
-                        WithParameter: (NSDictionary *) parameter
-                         WithUserInfo: (NSDictionary *)userInfo
-                 WithReturnValeuBlock: (RequestComplete) block
-                   WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
-                     WithFailureBlock: (FailureBlock) failureBlock
-                       WithCompletion: (CompletionBlock)completionBlock;
+- (void)NetRequestHEADWithRequestURL:(NSString*)requestURLString
+                       WithParameter:(NSDictionary*)parameter
+                        WithUserInfo:(NSDictionary*)userInfo
+                WithReturnValeuBlock:(RequestComplete)block
+                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                    WithFailureBlock:(FailureBlock)failureBlock
+                      WithCompletion:(CompletionBlock)completionBlock;
 
 #pragma mark - PUT请求方式
 /**
@@ -234,11 +234,11 @@
  *  @param errorBlock       请求失败回调
  *  @param failureBlock     网络错误回调
  */
-- (void) NetRequestPUTWithRequestURL: (NSString *) requestURLString
-                       WithParameter: (NSDictionary *) parameter
-                WithReturnValeuBlock: (RequestComplete) block
-                  WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
-                    WithFailureBlock: (FailureBlock) failureBlock;
+- (void)NetRequestPUTWithRequestURL:(NSString*)requestURLString
+                      WithParameter:(NSDictionary*)parameter
+               WithReturnValeuBlock:(RequestComplete)block
+                 WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                   WithFailureBlock:(FailureBlock)failureBlock;
 
 /**
  *  @author CC, 2015-10-22
@@ -253,13 +253,13 @@
  *  @param failureBlock     网络错误回调
  *  @param completionBlock  请求完成回调函数
  */
-- (void) NetRequestPUTWithRequestURL: (NSString *) requestURLString
-                       WithParameter: (NSDictionary *) parameter
-                        WithUserInfo: (NSDictionary *)userInfo
-                WithReturnValeuBlock: (RequestComplete) block
-                  WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
-                    WithFailureBlock: (FailureBlock) failureBlock
-                      WithCompletion: (CompletionBlock)completionBlock;
+- (void)NetRequestPUTWithRequestURL:(NSString*)requestURLString
+                      WithParameter:(NSDictionary*)parameter
+                       WithUserInfo:(NSDictionary*)userInfo
+               WithReturnValeuBlock:(RequestComplete)block
+                 WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                   WithFailureBlock:(FailureBlock)failureBlock
+                     WithCompletion:(CompletionBlock)completionBlock;
 
 #pragma mark - PATCH请求方式
 /**
@@ -273,11 +273,11 @@
  *  @param errorBlock       请求失败回调
  *  @param failureBlock     网络错误回调
  */
-- (void) NetRequestPATCHWithRequestURL: (NSString *) requestURLString
-                         WithParameter: (NSDictionary *) parameter
-                  WithReturnValeuBlock: (RequestComplete) block
-                    WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
-                      WithFailureBlock: (FailureBlock) failureBlock;
+- (void)NetRequestPATCHWithRequestURL:(NSString*)requestURLString
+                        WithParameter:(NSDictionary*)parameter
+                 WithReturnValeuBlock:(RequestComplete)block
+                   WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                     WithFailureBlock:(FailureBlock)failureBlock;
 
 /**
  *  @author CC, 2015-10-22
@@ -292,13 +292,13 @@
  *  @param failureBlock     网络错误回调
  *  @param completionBlock  请求完成回调函数
  */
-- (void) NetRequestPATCHWithRequestURL: (NSString *) requestURLString
-                         WithParameter: (NSDictionary *) parameter
-                          WithUserInfo: (NSDictionary *)userInfo
-                  WithReturnValeuBlock: (RequestComplete) block
-                    WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
-                      WithFailureBlock: (FailureBlock) failureBlock
-                        WithCompletion: (CompletionBlock)completionBlock;
+- (void)NetRequestPATCHWithRequestURL:(NSString*)requestURLString
+                        WithParameter:(NSDictionary*)parameter
+                         WithUserInfo:(NSDictionary*)userInfo
+                 WithReturnValeuBlock:(RequestComplete)block
+                   WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                     WithFailureBlock:(FailureBlock)failureBlock
+                       WithCompletion:(CompletionBlock)completionBlock;
 
 #pragma mark - 上传下载
 /**
@@ -313,11 +313,11 @@
  *
  *  @since <#1.0#>
  */
-- (void) NetRequestDownloadWithRequestURL: (NSString *) requestURLString
-                       WithUploadFileName: (NSString *) fileName
-                     WithReturnValeuBlock: (RequestComplete) block
-                       WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
-                        WithProgressBlock: (ProgressBlock) progressBlock;
+- (void)NetRequestDownloadWithRequestURL:(NSString*)requestURLString
+                      WithUploadFileName:(NSString*)fileName
+                    WithReturnValeuBlock:(RequestComplete)block
+                      WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                       WithProgressBlock:(ProgressBlock)progressBlock;
 
 /**
  *  @author CC, 15-08-19
@@ -333,13 +333,13 @@
  *
  *  @since 1.0
  */
-- (void) NetRequestUploadFormWithRequestURL: (NSString *) requestURLString
-                         WithUploadFilePath: (NSString *) filePath
-                                   FileType: (CCUploadFormFileType)fileType
-                       ServiceReceivingName: (NSString *)serviceReceivingName
-                       WithReturnValeuBlock: (RequestComplete) block
-                         WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
-                          WithProgressBlock: (ProgressBlock) progressBlock;
+- (void)NetRequestUploadFormWithRequestURL:(NSString*)requestURLString
+                        WithUploadFilePath:(NSString*)filePath
+                                  FileType:(CCUploadFormFileType)fileType
+                      ServiceReceivingName:(NSString*)serviceReceivingName
+                      WithReturnValeuBlock:(RequestComplete)block
+                        WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                         WithProgressBlock:(ProgressBlock)progressBlock;
 
 /**
  *  @author CC, 2015-10-12
@@ -354,13 +354,13 @@
  *  @param errorBlock           错误回调
  *  @param progressBlock        进度回调
  */
-- (void) NetRequestUploadFormWithRequestURL: (NSString *) requestURLString
-                        WithUploadFileImage: (UIImage *) fileImage
-                                   FileType: (CCUploadFormFileType)fileType
-                       ServiceReceivingName: (NSString *)serviceReceivingName
-                       WithReturnValeuBlock: (RequestComplete) block
-                         WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
-                          WithProgressBlock: (ProgressBlock) progressBlock;
+- (void)NetRequestUploadFormWithRequestURL:(NSString*)requestURLString
+                       WithUploadFileImage:(UIImage*)fileImage
+                                  FileType:(CCUploadFormFileType)fileType
+                      ServiceReceivingName:(NSString*)serviceReceivingName
+                      WithReturnValeuBlock:(RequestComplete)block
+                        WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                         WithProgressBlock:(ProgressBlock)progressBlock;
 
 /**
  *  @author CC, 15-08-19
@@ -375,10 +375,10 @@
  *
  *  @since 1.0
  */
-- (void) NetRequestUploadFormWithRequestURL: (NSString *) requestURLString
-                         WithUploadFilePath: (NSString *) filePath
-                       WithReturnValeuBlock: (RequestComplete) block
-                         WithErrorCodeBlock: (ErrorCodeBlock) errorBlock
-                          WithProgressBlock: (NSProgress * __autoreleasing *) progressBlock;
+- (void)NetRequestUploadFormWithRequestURL:(NSString*)requestURLString
+                        WithUploadFilePath:(NSString*)filePath
+                      WithReturnValeuBlock:(RequestComplete)block
+                        WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                         WithProgressBlock:(NSProgress* __autoreleasing*)progressBlock;
 
 @end

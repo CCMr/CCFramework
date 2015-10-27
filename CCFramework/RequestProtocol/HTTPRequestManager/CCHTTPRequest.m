@@ -27,7 +27,7 @@
 #import <objc/runtime.h>
 #import "Config.h"
 
-static CCHTTPRequest *_sharedlnstance = nil;
+static CCHTTPRequest* _sharedlnstance = nil;
 @implementation CCHTTPRequest
 
 /**
@@ -39,9 +39,10 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-+(id)sharedlnstance
++ (id)sharedlnstance
 {
-    @synchronized(self){
+    @synchronized(self)
+    {
         if (_sharedlnstance == nil) {
             _sharedlnstance = [[self alloc] init];
         }
@@ -61,7 +62,7 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-+ (BOOL) netWorkReachabilityWithURLString:(NSString *) strUrl
++ (BOOL)netWorkReachabilityWithURLString:(NSString*)strUrl
 {
     return [CCHTTPManager netWorkReachabilityWithURLString:strUrl];
 }
@@ -77,9 +78,9 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (NSMutableDictionary *)fixedParameters:(NSDictionary *)postData
+- (NSMutableDictionary*)fixedParameters:(NSDictionary*)postData
 {
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:postData];
+    NSMutableDictionary* dic = [[NSMutableDictionary alloc] initWithDictionary:postData];
 
     return dic;
 }
@@ -93,9 +94,9 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *
  *  @return 返回服务器API地址
  */
-- (NSString *)appendingServerURLWithString:(NSString *)MethodName
+- (NSString*)appendingServerURLWithString:(NSString*)MethodName
 {
-//    return [[NSString stringWithFormat:@"%@%@",ServiceAddress,MethodName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    //    return [[NSString stringWithFormat:@"%@%@",ServiceAddress,MethodName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     return @"";
 }
 
@@ -108,7 +109,7 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *
  *  @return 返回服务器API地址
  */
-- (NSString *)appendingExpandServerURLWithString:(NSString *)MethodName
+- (NSString*)appendingExpandServerURLWithString:(NSString*)MethodName
 {
     return @"";
 }
@@ -123,10 +124,10 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *
  *  @return 返回服务器API地址
  */
-- (NSString *)appendingServerURLWithString: (NSString *)serviceAddres
-                                MethodName: (NSString *)methodName
+- (NSString*)appendingServerURLWithString:(NSString*)serviceAddres
+                               MethodName:(NSString*)methodName
 {
-    return [[NSString stringWithFormat:@"%@%@",serviceAddres,methodName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    return [[NSString stringWithFormat:@"%@%@", serviceAddres, methodName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
 #pragma mark - 回调函数设置
@@ -140,8 +141,8 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
--(void)setRequestOBJBlock: (RequestBlock)requestOBJBlock
-                      Key: (NSString *)key
+- (void)setRequestOBJBlock:(RequestBlock)requestOBJBlock
+                       Key:(NSString*)key
 {
     objc_setAssociatedObject(self, (__bridge void*)key, requestOBJBlock, OBJC_ASSOCIATION_COPY);
 }
@@ -157,9 +158,9 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
--(RequestBlock)requestOBJBlock:(NSString *)key
+- (RequestBlock)requestOBJBlock:(NSString*)key
 {
-    return (RequestBlock)objc_getAssociatedObject(self,(__bridge void*)key);
+    return (RequestBlock)objc_getAssociatedObject(self, (__bridge void*)key);
 }
 
 /**
@@ -170,8 +171,8 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *  @param progressOBJBlock 委托Block函数
  *  @param key              对应Key
  */
-- (void)setProgressOBJBlock: (ProgressBlock)progressOBJBlock
-                        Key: (NSString *)key
+- (void)setProgressOBJBlock:(ProgressBlock)progressOBJBlock
+                        Key:(NSString*)key
 {
     objc_setAssociatedObject(self, (__bridge void*)key, progressOBJBlock, OBJC_ASSOCIATION_COPY);
 }
@@ -185,9 +186,9 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *
  *  @return 返回委托Block函数
  */
-- (ProgressBlock)ProgressOBJBlock: (NSString *)key
+- (ProgressBlock)ProgressOBJBlock:(NSString*)key
 {
-     return (ProgressBlock)objc_getAssociatedObject(self,(__bridge void*)key);
+    return (ProgressBlock)objc_getAssociatedObject(self, (__bridge void*)key);
 }
 
 /**
@@ -200,8 +201,8 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
--(void)setCompletionOBJBlock: (CompletionBlock)completionOBJBlock
-                         Key: (NSString *)key
+- (void)setCompletionOBJBlock:(CompletionBlock)completionOBJBlock
+                          Key:(NSString*)key
 {
     objc_setAssociatedObject(self, (__bridge void*)key, completionOBJBlock, OBJC_ASSOCIATION_COPY);
 }
@@ -217,11 +218,10 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (CompletionBlock)completionOBJBlock:(NSString *)key
+- (CompletionBlock)completionOBJBlock:(NSString*)key
 {
-    return (CompletionBlock)objc_getAssociatedObject(self,(__bridge void*)key);
+    return (CompletionBlock)objc_getAssociatedObject(self, (__bridge void*)key);
 }
-
 
 #pragma mark - 回调时间处理
 /**
@@ -233,19 +233,19 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (void)responseProcessEvent: (id)responseData
-                    BlockKey: (NSString *)key
+- (void)responseProcessEvent:(id)responseData
+                    BlockKey:(NSString*)key
 {
-    void (^responseProcessBlock)(id responseData,BOOL isError) = [self requestOBJBlock:key];
+    void (^responseProcessBlock)(id responseData, BOOL isError) = [self requestOBJBlock:key];
     if (responseProcessBlock) {
-        NSDictionary *dic = responseData;
-        if (![dic isKindOfClass:[NSDictionary class]] && ![dic isKindOfClass:[NSNull class]]){
-            NSData *datas = responseData;
+        NSDictionary* dic = responseData;
+        if (![dic isKindOfClass:[NSDictionary class]] && ![dic isKindOfClass:[NSNull class]]) {
+            NSData* datas = responseData;
             if ([datas isKindOfClass:[NSString class]])
                 datas = [responseData dataUsingEncoding:NSUTF8StringEncoding];
-            dic =  [NSJSONSerialization JSONObjectWithData:datas options:NSJSONReadingAllowFragments error:nil];
+            dic = [NSJSONSerialization JSONObjectWithData:datas options:NSJSONReadingAllowFragments error:nil];
         }
-        responseProcessBlock(dic,NO);
+        responseProcessBlock(dic, NO);
     }
 }
 
@@ -258,12 +258,12 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (void)errorCodeWithDic: (id)errorDic
-                BlockKey: (NSString *)key
+- (void)errorCodeWithDic: (NSError *)error
+                BlockKey: (NSString*)key
 {
-    void (^errorCodeBlock)(id responseData,BOOL isError) = [self requestOBJBlock:key];
+    void (^errorCodeBlock)(id responseData, BOOL isError) = [self requestOBJBlock:key];
     if (errorCodeBlock) {
-        errorCodeBlock(errorDic,YES);
+        errorCodeBlock([self httpErrorAnalysis:error.code], YES);
     }
 }
 
@@ -276,19 +276,71 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (void)netFailure: (NSError *)error
-          BlockKey: (NSString *)key
+- (void)netFailure:(NSError*)error
+          BlockKey:(NSString*)key
 {
-    void (^netFailureBlock)(id responseData,BOOL isError) = [self requestOBJBlock:key];
+    void (^netFailureBlock)(id responseData, BOOL isError) = [self requestOBJBlock:key];
     if (netFailureBlock) {
-        if (error.code == kCFURLErrorNotConnectedToInternet) {
-            netFailureBlock(@"当前网络状况不佳，请检查网络设置",YES);
-        }else if (error.code == kCFURLErrorTimedOut) {
-            netFailureBlock(@"请求超时，请检查网络设置",YES);
-        }else{
-            netFailureBlock(@"请求服务器失败",YES);
-        }
+        netFailureBlock([self httpErrorAnalysis:error.code], YES);
     }
+}
+
+- (NSString*)httpErrorAnalysis:(NSInteger)code
+{
+    NSString* errorContent = @"请求服务器失败";
+
+    NSMutableDictionary *errorInfo = [NSMutableDictionary dictionary];
+    //错误模块
+    [errorInfo setObject:@"HTTP 认证类型不支持" forKey:@(kCFErrorHTTPAuthenticationTypeUnsupported)];
+    [errorInfo setObject:@"HTTP 错误凭证" forKey:@(kCFErrorHTTPBadCredentials)];
+    [errorInfo setObject:@"HTTP 连接丢失" forKey:@(kCFErrorHTTPConnectionLost)];
+    [errorInfo setObject:@"HTTP 解析失败" forKey:@(kCFErrorHTTPParseFailure)];
+    [errorInfo setObject:@"HTTP 重定向检测到循环" forKey:@(kCFErrorHTTPRedirectionLoopDetected)];
+    [errorInfo setObject:@"HTTP 错误的URL" forKey:@(kCFErrorHTTPBadURL)];
+    [errorInfo setObject:@"HTTP 代理服务器连接失败" forKey:@(kCFErrorHTTPProxyConnectionFailure)];
+    [errorInfo setObject:@"HTTP 错误代理凭据" forKey:@(kCFErrorHTTPBadProxyCredentials)];
+    [errorInfo setObject:@"PAC 文件错误" forKey:@(kCFErrorPACFileError)];
+    [errorInfo setObject:@"PAC 文件验证错误" forKey:@(kCFErrorPACFileAuth)];
+    [errorInfo setObject:@"HTTPS 代理连接失败" forKey:@(kCFErrorHTTPSProxyConnectionFailure)];
+    [errorInfo setObject:@"流错误 HTTPS 代理失败意外响应连接方法" forKey:@(kCFStreamErrorHTTPSProxyFailureUnexpectedResponseToCONNECTMethod)];
+
+    //故障模块
+    [errorInfo setObject:@"请求故障! 会话由另一个进程使用" forKey:@(kCFURLErrorBackgroundSessionInUseByAnotherProcess)];
+    [errorInfo setObject:@"请求故障! 会话被中断" forKey:@(kCFURLErrorBackgroundSessionWasDisconnected)];
+    [errorInfo setObject:@"请求故障! 未知错误" forKey:@(kCFURLErrorUnknown)];
+    [errorInfo setObject:@"请求故障! 请求被取消" forKey:@(kCFURLErrorCancelled)];
+    [errorInfo setObject:@"请求故障! 错误的请求地址" forKey:@(kCFURLErrorBadURL)];
+    [errorInfo setObject:@"请求故障! 链接超时! 请检查网络设置" forKey:@(kCFURLErrorTimedOut)];
+    [errorInfo setObject:@"请求故障! 不支持的网址" forKey:@(kCFURLErrorUnsupportedURL)];
+    [errorInfo setObject:@"请求故障! 无法找到主机" forKey:@(kCFURLErrorCannotFindHost)];
+    [errorInfo setObject:@"请求故障! 无法连接到主机" forKey:@(kCFURLErrorCannotConnectToHost)];
+    [errorInfo setObject:@"请求故障! 网络连接丢失" forKey:@(kCFURLErrorNetworkConnectionLost)];
+    [errorInfo setObject:@"请求故障! DNS查找失败" forKey:@(kCFURLErrorDNSLookupFailed)];
+    [errorInfo setObject:@"请求故障! HTTP重定向过多" forKey:@(kCFURLErrorHTTPTooManyRedirects)];
+    [errorInfo setObject:@"请求故障! 资源不可用" forKey:@(kCFURLErrorResourceUnavailable)];
+    [errorInfo setObject:@"请求故障! 当前网络状况不佳! 请检查网络设置" forKey:@(kCFURLErrorNotConnectedToInternet)];
+    [errorInfo setObject:@"请求故障! 不存在的重定向位置" forKey:@(kCFURLErrorRedirectToNonExistentLocation)];
+    [errorInfo setObject:@"请求故障! 服务器无响应" forKey:@(kCFURLErrorBadServerResponse)];
+    [errorInfo setObject:@"请求故障! 用户取消认证" forKey:@(kCFURLErrorUserCancelledAuthentication)];
+    [errorInfo setObject:@"请求故障! 用户需要进行身份验证" forKey:@(kCFURLErrorUserAuthenticationRequired)];
+    [errorInfo setObject:@"请求故障! 请求资源零字节" forKey:@(kCFURLErrorZeroByteResource)];
+    [errorInfo setObject:@"请求故障! 不能解码原始数据" forKey:@(kCFURLErrorCannotDecodeRawData)];
+    [errorInfo setObject:@"请求故障! 不能解码的内容数据" forKey:@(kCFURLErrorCannotDecodeContentData)];
+    [errorInfo setObject:@"请求故障! 无法解析响应" forKey:@(kCFURLErrorCannotParseResponse)];
+    [errorInfo setObject:@"请求故障! 国际漫游关闭" forKey:@(kCFURLErrorInternationalRoamingOff)];
+    [errorInfo setObject:@"请求故障! 呼叫中活动" forKey:@(kCFURLErrorCallIsActive)];
+    [errorInfo setObject:@"请求故障! 数据不允许" forKey:@(kCFURLErrorDataNotAllowed)];
+    [errorInfo setObject:@"请求故障! 请求体流溢出" forKey:@(kCFURLErrorRequestBodyStreamExhausted)];
+    [errorInfo setObject:@"请求故障! 应用传输安全要求安全连接" forKey:@(kCFURLErrorAppTransportSecurityRequiresSecureConnection)];
+    [errorInfo setObject:@"请求故障! 文件不存在" forKey:@(kCFURLErrorFileDoesNotExist)];
+    [errorInfo setObject:@"请求故障! FileIs目录" forKey:@(kCFURLErrorFileIsDirectory)];
+    [errorInfo setObject:@"请求故障! 没有权限读取文件" forKey:@(kCFURLErrorNoPermissionsToReadFile)];
+    [errorInfo setObject:@"请求故障! 数据长度超过最大值" forKey:@(kCFURLErrorDataLengthExceedsMaximum)];
+
+    if ([errorInfo.allKeys containsObject:@(code)])
+        errorContent = [errorInfo objectForKey:@(code)];
+
+    return errorContent;
 }
 
 /**
@@ -300,20 +352,20 @@ static CCHTTPRequest *_sharedlnstance = nil;
  *  @param userInfo       字典接收
  *  @param key            key
  */
-- (void)completion: (id)completionData
-          UserInfo: (id)userInfo
-          BlockKey: (NSString *)key
+- (void)completion:(id)completionData
+          UserInfo:(id)userInfo
+          BlockKey:(NSString*)key
 {
-    void (^CompletionBlock)(id responseData,id userInfo) = [self completionOBJBlock:key];
+    void (^CompletionBlock)(id responseData, id userInfo) = [self completionOBJBlock:key];
     if (CompletionBlock) {
-        NSDictionary *dic = completionData;
-        if (![dic isKindOfClass:[NSDictionary class]] && ![dic isKindOfClass:[NSNull class]]){
-            NSData *datas = completionData;
+        NSDictionary* dic = completionData;
+        if (![dic isKindOfClass:[NSDictionary class]] && ![dic isKindOfClass:[NSNull class]]) {
+            NSData* datas = completionData;
             if ([datas isKindOfClass:[NSString class]])
                 datas = [completionData dataUsingEncoding:NSUTF8StringEncoding];
-            dic =  [NSJSONSerialization JSONObjectWithData:datas options:NSJSONReadingAllowFragments error:nil];
+            dic = [NSJSONSerialization JSONObjectWithData:datas options:NSJSONReadingAllowFragments error:nil];
         }
-        CompletionBlock(dic,userInfo);
+        CompletionBlock(dic, userInfo);
     }
 }
 

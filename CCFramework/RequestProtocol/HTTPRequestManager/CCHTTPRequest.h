@@ -38,7 +38,7 @@
  *
  *  @since 1.0
  */
-+(id)sharedlnstance;
++ (id)sharedlnstance;
 
 #pragma mark - 参数设置
 /**
@@ -52,7 +52,7 @@
  *
  *  @since 1.0
  */
-+ (BOOL) netWorkReachabilityWithURLString:(NSString *) strUrl;
++ (BOOL)netWorkReachabilityWithURLString:(NSString*)strUrl;
 
 /**
  *  @author CC, 2015-07-23
@@ -65,7 +65,7 @@
  *
  *  @since 1.0
  */
-- (NSMutableDictionary *)fixedParameters:(NSDictionary *)postData;
+- (NSMutableDictionary*)fixedParameters:(NSDictionary*)postData;
 
 /**
  *  @author CC, 2015-07-23
@@ -76,7 +76,7 @@
  *
  *  @return 返回服务器API地址
  */
-- (NSString *)appendingServerURLWithString:(NSString *)MethodName;
+- (NSString*)appendingServerURLWithString:(NSString*)MethodName;
 
 /**
  *  @author CC, 2015-10-12
@@ -87,7 +87,7 @@
  *
  *  @return 返回服务器API地址
  */
-- (NSString *)appendingExpandServerURLWithString:(NSString *)MethodName;
+- (NSString*)appendingExpandServerURLWithString:(NSString*)MethodName;
 
 /**
  *  @author CC, 2015-10-12
@@ -99,8 +99,8 @@
  *
  *  @return 返回服务器API地址
  */
-- (NSString *)appendingServerURLWithString: (NSString *)serviceAddres
-                                MethodName: (NSString *)methodName;
+- (NSString*)appendingServerURLWithString:(NSString*)serviceAddres
+                               MethodName:(NSString*)methodName;
 
 #pragma mark - 回调函数设置
 /**
@@ -113,8 +113,8 @@
  *
  *  @since 1.0
  */
--(void)setRequestOBJBlock:(RequestBlock)requestOBJBlock
-                      Key:(NSString *)key;
+- (void)setRequestOBJBlock:(RequestBlock)requestOBJBlock
+                       Key:(NSString*)key;
 /**
  *  @author CC, 2015-08-15
  *
@@ -126,7 +126,7 @@
  *
  *  @since 1.0
  */
-- (RequestBlock)requestOBJBlock:(NSString *)key;
+- (RequestBlock)requestOBJBlock:(NSString*)key;
 
 /**
  *  @author CC, 2015-10-12
@@ -136,8 +136,8 @@
  *  @param progressOBJBlock 委托Block函数
  *  @param key              对应Key
  */
-- (void)setProgressOBJBlock: (ProgressBlock)progressOBJBlock
-                        Key: (NSString *)key;
+- (void)setProgressOBJBlock:(ProgressBlock)progressOBJBlock
+                        Key:(NSString*)key;
 
 /**
  *  @author CC, 2015-08-15
@@ -148,7 +148,7 @@
  *
  *  @return 返回委托Block函数
  */
-- (ProgressBlock)ProgressOBJBlock: (NSString *)key;
+- (ProgressBlock)ProgressOBJBlock:(NSString*)key;
 
 /**
  *  @author CC, 2015-08-15
@@ -160,8 +160,8 @@
  *
  *  @since 1.0
  */
--(void)setCompletionOBJBlock: (CompletionBlock)completionOBJBlock
-                         Key: (NSString *)key;
+- (void)setCompletionOBJBlock:(CompletionBlock)completionOBJBlock
+                          Key:(NSString*)key;
 /**
  *  @author CC, 2015-08-15
  *
@@ -173,7 +173,7 @@
  *
  *  @since 1.0
  */
-- (CompletionBlock)completionOBJBlock:(NSString *)key;
+- (CompletionBlock)completionOBJBlock:(NSString*)key;
 
 #pragma mark - 回调时间处理
 /**
@@ -186,7 +186,7 @@
  *  @since 1.0
  */
 - (void)responseProcessEvent:(id)responseData
-                     BlockKey:(NSString *)key;
+                    BlockKey:(NSString*)key;
 
 /**
  *  @author CC, 2015-07-23
@@ -197,8 +197,8 @@
  *
  *  @since 1.0
  */
-- (void)errorCodeWithDic:(id)errorDic
-                 BlockKey:(NSString *)key;
+- (void)errorCodeWithDic:(NSError*)error
+                BlockKey:(NSString*)key;
 
 /**
  *  @author CC, 2015-07-23
@@ -209,8 +209,8 @@
  *
  *  @since 1.0
  */
-- (void)netFailure: (NSError *)error
-          BlockKey: (NSString *)key;
+- (void)netFailure:(NSError*)error
+          BlockKey:(NSString*)key;
 
 /**
  *  @author CC, 2015-10-22
@@ -221,8 +221,8 @@
  *  @param userInfo       字典接收
  *  @param key            key
  */
-- (void)completion: (id)completionData
-          UserInfo: (id)userInfo
-          BlockKey: (NSString *)key;
+- (void)completion:(id)completionData
+          UserInfo:(id)userInfo
+          BlockKey:(NSString*)key;
 
 @end

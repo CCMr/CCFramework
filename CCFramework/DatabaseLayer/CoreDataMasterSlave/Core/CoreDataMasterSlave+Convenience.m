@@ -35,11 +35,11 @@
  *
  *  @return 返回请求条件对象
  */
-+ (NSFetchRequest *)cc_AllRequest: (NSString *)tableName
++ (NSFetchRequest*)cc_AllRequest:(NSString*)tableName
 {
-    return [self cc_Request: tableName
-                 FetchLimit: 0
-                  batchSize: 0];
+    return [self cc_Request:tableName
+                 FetchLimit:0
+                  batchSize:0];
 }
 
 /**
@@ -49,11 +49,11 @@
  *
  *  @return 返回请求条件对象
  */
-+ (NSFetchRequest *)cc_AnyoneRequest: (NSString *)tableName
++ (NSFetchRequest*)cc_AnyoneRequest:(NSString*)tableName
 {
-    return [self cc_Request: tableName
-                 FetchLimit: 1
-                  batchSize: 1];
+    return [self cc_Request:tableName
+                 FetchLimit:1
+                  batchSize:1];
 }
 
 /**
@@ -66,14 +66,14 @@
  *
  *  @return 返回请求条件对象
  */
-+ (NSFetchRequest *)cc_Request:(NSString *)tableName
-                    FetchLimit: (NSUInteger)limit
-                     batchSize: (NSUInteger)batchSize
++ (NSFetchRequest*)cc_Request:(NSString*)tableName
+                   FetchLimit:(NSUInteger)limit
+                    batchSize:(NSUInteger)batchSize
 {
-    return [self cc_Request: tableName
-                 FetchLimit: limit
-                  batchSize: batchSize
-                fetchOffset: 0];
+    return [self cc_Request:tableName
+                 FetchLimit:limit
+                  batchSize:batchSize
+                fetchOffset:0];
 }
 
 /**
@@ -87,12 +87,12 @@
  *
  *  @return 返回请求条件对象
  */
-+ (NSFetchRequest *)cc_Request: (NSString *)tableName
-                    FetchLimit: (NSUInteger)limit
-                     batchSize: (NSUInteger)batchSize
-                   fetchOffset: (NSUInteger)fetchOffset
++ (NSFetchRequest*)cc_Request:(NSString*)tableName
+                   FetchLimit:(NSUInteger)limit
+                    batchSize:(NSUInteger)batchSize
+                  fetchOffset:(NSUInteger)fetchOffset
 {
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:tableName];
+    NSFetchRequest* fetchRequest = [NSFetchRequest fetchRequestWithEntityName:tableName];
     fetchRequest.fetchLimit = limit;
     fetchRequest.fetchBatchSize = batchSize;
     fetchRequest.fetchOffset = fetchOffset;
@@ -110,15 +110,15 @@
  *
  *  @return 返回数量
  */
-+ (NSInteger)executeQueriesCount: (NSFetchRequest *)request
++ (NSInteger)executeQueriesCount:(NSFetchRequest*)request
 {
     __block NSInteger count = 0;
-    void (^Handler)(NSError *error, NSInteger requestCount) = ^(NSError *error, NSInteger requestCount){
+    void (^Handler)(NSError* error, NSInteger requestCount) = ^(NSError* error, NSInteger requestCount) {
         count = requestCount;
     };
-    
-    [self executeQueriesCount: request
-                      Handler: Handler];
+
+    [self executeQueriesCount:request
+                      Handler:Handler];
 
     return count;
 }
@@ -131,12 +131,12 @@
  *  @param request 查询条件
  *  @param handler 完成回调函数
  */
-+ (void)executeQueriesCount: (NSFetchRequest *)request
-                    Handler: (void (^)(NSError *error, NSInteger requestCount))handler
++ (void)executeQueriesCount:(NSFetchRequest*)request
+                    Handler:(void (^)(NSError* error, NSInteger requestCount))handler
 {
-    [self executeQueriesCount: self.currentContext
-                 FetchRequest: request
-                      Handler: handler];
+    [self executeQueriesCount:self.currentContext
+                 FetchRequest:request
+                      Handler:handler];
 }
 
 /**
@@ -148,16 +148,16 @@
  *  @param request        查询条件
  *  @param handler        完成回调函数
  */
-+ (void)executeQueriesCount: (NSManagedObjectContext *)queriesContext
-               FetchRequest: (NSFetchRequest *)request
-                    Handler: (void (^)(NSError *error, NSInteger requestCount))handler
++ (void)executeQueriesCount:(NSManagedObjectContext*)queriesContext
+               FetchRequest:(NSFetchRequest*)request
+                    Handler:(void (^)(NSError* error, NSInteger requestCount))handler
 {
     [queriesContext performBlockAndWait:^{
-        NSError *error = nil;
+        NSError* error = nil;
         NSInteger count = [queriesContext countForFetchRequest:request error:&error];
 
         if (handler) {
-            handler(error,count);
+            handler(error, count);
         }
     }];
 }
@@ -171,16 +171,16 @@
  *
  *  @return 返回结果集
  */
-+ (NSArray *)executeQueriesContext: (NSFetchRequest *)request
++ (NSArray*)executeQueriesContext:(NSFetchRequest*)request
 {
-    __block NSArray *objs = nil;
+    __block NSArray* objs = nil;
 
-    void (^Handler)(NSError *error, NSArray *requestResults) = ^(NSError *error, NSArray *requestResults){
+    void (^Handler)(NSError* error, NSArray* requestResults) = ^(NSError* error, NSArray* requestResults) {
         objs = requestResults;
     };
 
-    [self executeQueriesContext: request
-                        Handler: Handler];
+    [self executeQueriesContext:request
+                        Handler:Handler];
 
     return objs;
 }
@@ -193,12 +193,12 @@
  *  @param request 查询条件
  *  @param handler 完成回调函数
  */
-+ (void)executeQueriesContext: (NSFetchRequest *)request
-                      Handler: (void (^)(NSError *error, NSArray *requestResults))handler
++ (void)executeQueriesContext:(NSFetchRequest*)request
+                      Handler:(void (^)(NSError* error, NSArray* requestResults))handler
 {
-    [self executeQueriesContext: self.currentContext
-                   FetchRequest: request
-                        Handler: handler];
+    [self executeQueriesContext:self.currentContext
+                   FetchRequest:request
+                        Handler:handler];
 }
 
 /**
@@ -210,17 +210,17 @@
  *  @param request        查询条件
  *  @param handler        完成回调函数
  */
-+ (void)executeQueriesContext: (NSManagedObjectContext *)queriesContext
-                 FetchRequest: (NSFetchRequest *)request
-                      Handler: (void (^)(NSError *error, NSArray *))handler
++ (void)executeQueriesContext:(NSManagedObjectContext*)queriesContext
+                 FetchRequest:(NSFetchRequest*)request
+                      Handler:(void (^)(NSError* error, NSArray*))handler
 {
     [queriesContext performBlock:^{
-        NSError *error = nil;
-        NSArray *objs = [queriesContext executeFetchRequest:request error:&error];
+        NSError* error = nil;
+        NSArray* objs = [queriesContext executeFetchRequest:request error:&error];
 
         if (handler) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                handler(error,objs);
+                handler(error, objs);
             });
         }
     }];
@@ -235,7 +235,7 @@
  *
  *  @param saveContext 线程管理对象
  */
-+ (void)saveContext: (void (^)(NSManagedObjectContext *currentContext))saveContext
++ (void)saveContext:(void (^)(NSManagedObjectContext* currentContext))saveContext
 {
     [self saveContext:saveContext
            completion:nil];
@@ -249,12 +249,12 @@
  *  @param saveContext 线程管理对象
  *  @param completion  完成回调函数
  */
-+ (void)saveContext: (void(^)(NSManagedObjectContext *currentContext))saveContext
-         completion: (void(^)(NSError *error))completion
++ (void)saveContext:(void (^)(NSManagedObjectContext* currentContext))saveContext
+         completion:(void (^)(NSError* error))completion
 {
-    [self saveWithContext: self.currentContext
-         SaveContextBlock: saveContext
-               completion: completion];
+    [self saveWithContext:self.currentContext
+         SaveContextBlock:saveContext
+               completion:completion];
 }
 
 /**
@@ -265,12 +265,12 @@
  *  @param saveContext 线程管理对象
  *  @param completion  完成回调函数
  */
-+ (void)saveWithContext: (NSManagedObjectContext *)saveContext
-             completion: (void(^)(NSError *error))completion
++ (void)saveWithContext:(NSManagedObjectContext*)saveContext
+             completion:(void (^)(NSError* error))completion
 {
-    [self saveWithContext: saveContext
-         SaveContextBlock: nil
-               completion: completion];
+    [self saveWithContext:saveContext
+         SaveContextBlock:nil
+               completion:completion];
 }
 
 /**
@@ -282,12 +282,12 @@
  *  @param block       回调执行函数
  *  @param completion  完成回调函数
  */
-+ (void)saveWithContext: (NSManagedObjectContext *)saveContext
-       SaveContextBlock: (void(^)(NSManagedObjectContext *currentContext))saveContextBlock
-             completion: (void(^)(NSError *error))completion
++ (void)saveWithContext:(NSManagedObjectContext*)saveContext
+       SaveContextBlock:(void (^)(NSManagedObjectContext* currentContext))saveContextBlock
+             completion:(void (^)(NSError* error))completion
 {
     __block BOOL success = YES;
-    __block NSError *error = nil;
+    __block NSError* error = nil;
 
     [saveContext performBlock:^{
 
@@ -307,6 +307,5 @@
         }
     }];
 }
-
 
 @end
