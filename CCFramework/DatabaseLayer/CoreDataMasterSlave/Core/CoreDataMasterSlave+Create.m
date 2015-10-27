@@ -90,7 +90,7 @@
                                   Relationship: relationship
                                ForeignKeyValue: [dic objectForKey:relationship.inverseRelationship.name]
                                      DataArray: [dic objectForKey:key]
-                        inManagedObjectContext: self.defaultPrivateContext];
+                        inManagedObjectContext: currentContext];
                 }else{
                     [entity setValue:[dic objectForKey:key] forKey:key];
                 }
