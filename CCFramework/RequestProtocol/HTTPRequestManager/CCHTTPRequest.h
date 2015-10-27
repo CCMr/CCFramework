@@ -197,8 +197,8 @@
  *
  *  @since 1.0
  */
-- (void)errorCodeWithDic:(NSError*)error
-                BlockKey:(NSString*)key;
+- (void)errorProcessEvent:(id)error
+                 BlockKey:(NSString*)key;
 
 /**
  *  @author CC, 2015-07-23

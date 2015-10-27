@@ -81,7 +81,7 @@ static CCHTTPRequest* _sharedlnstance = nil;
 - (NSMutableDictionary*)fixedParameters:(NSDictionary*)postData
 {
     NSMutableDictionary* dic = [[NSMutableDictionary alloc] initWithDictionary:postData];
-
+    
     return dic;
 }
 
@@ -258,12 +258,15 @@ static CCHTTPRequest* _sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (void)errorCodeWithDic: (NSError *)error
-                BlockKey: (NSString*)key
+- (void)errorProcessEvent: (id)error
+                 BlockKey: (NSString*)key
 {
     void (^errorCodeBlock)(id responseData, BOOL isError) = [self requestOBJBlock:key];
     if (errorCodeBlock) {
-        errorCodeBlock([self httpErrorAnalysis:error.code], YES);
+        NSString *errorStr = error;
+        if ([error isKindOfClass:[NSError class]])
+            errorStr = [self httpErrorAnalysis:((NSError *)error).code];
+        errorCodeBlock(errorStr, YES);
     }
 }
 
@@ -288,7 +291,7 @@ static CCHTTPRequest* _sharedlnstance = nil;
 - (NSString*)httpErrorAnalysis:(NSInteger)code
 {
     NSString* errorContent = @"请求服务器失败";
-
+    
     NSMutableDictionary *errorInfo = [NSMutableDictionary dictionary];
     //错误模块
     [errorInfo setObject:@"HTTP 认证类型不支持" forKey:@(kCFErrorHTTPAuthenticationTypeUnsupported)];
@@ -303,7 +306,7 @@ static CCHTTPRequest* _sharedlnstance = nil;
     [errorInfo setObject:@"PAC 文件验证错误" forKey:@(kCFErrorPACFileAuth)];
     [errorInfo setObject:@"HTTPS 代理连接失败" forKey:@(kCFErrorHTTPSProxyConnectionFailure)];
     [errorInfo setObject:@"流错误 HTTPS 代理失败意外响应连接方法" forKey:@(kCFStreamErrorHTTPSProxyFailureUnexpectedResponseToCONNECTMethod)];
-
+    
     //故障模块
     [errorInfo setObject:@"请求故障! 会话由另一个进程使用" forKey:@(kCFURLErrorBackgroundSessionInUseByAnotherProcess)];
     [errorInfo setObject:@"请求故障! 会话被中断" forKey:@(kCFURLErrorBackgroundSessionWasDisconnected)];
@@ -336,10 +339,10 @@ static CCHTTPRequest* _sharedlnstance = nil;
     [errorInfo setObject:@"请求故障! FileIs目录" forKey:@(kCFURLErrorFileIsDirectory)];
     [errorInfo setObject:@"请求故障! 没有权限读取文件" forKey:@(kCFURLErrorNoPermissionsToReadFile)];
     [errorInfo setObject:@"请求故障! 数据长度超过最大值" forKey:@(kCFURLErrorDataLengthExceedsMaximum)];
-
+    
     if ([errorInfo.allKeys containsObject:@(code)])
         errorContent = [errorInfo objectForKey:@(code)];
-
+    
     return errorContent;
 }
 
