@@ -26,7 +26,7 @@
 #import "CCAliPayEngine.h"
 #import "AliOrderFormEntity.h"
 #import "DataSigner.h"
-#import <AlipaySDK/AlipaySDK.h>
+#import "NSObject+Additions.h"
 
 typedef void (^ResponseCallback)(NSInteger resultStatus, NSString *result,
                                  NSString *memo, NSError *error);
@@ -157,16 +157,22 @@ typedef void (^ResponseCallback)(NSInteger resultStatus, NSString *result,
                                    orderSpec, signedString, @"RSA"];
 
     if (NSClassFromString(@"AlipaySDK")) {
-//      typeof(self) __weak weakSelf = self;
-//      [[AlipaySDK defaultService]
-//            payOrder:orderString
-//          fromScheme:self.appScheme
-//            callback:^(NSDictionary *resultDic) {
-//              weakSelf.responseCallback(
-//                  [[resultDic objectForKey:@"resultStatus"] integerValue],
-//                  [resultDic objectForKey:@"result"],
-//                  [resultDic objectForKey:@"memo"], nil);
-//            }];
+      Class Alipay = NSClassFromString(@"AlipaySDK");
+      id AlipaySDK = [[Alipay alloc] init];
+
+      SEL fcSelector = NSSelectorFromString(@"payOrder:fromScheme:callback:");
+
+      typeof(self) __weak weakSelf = self;
+      void (^callback)(NSDictionary *resultDic) = ^(NSDictionary *resultDic) {
+        weakSelf.responseCallback(
+            [[resultDic objectForKey:@"resultStatus"] integerValue],
+            [resultDic objectForKey:@"result"],
+            [resultDic objectForKey:@"memo"], nil);
+      };
+      [AlipaySDK performSelectors:fcSelector
+                       withObject:orderString, _appScheme, callback, nil];
+    }else{
+        NSLog(@"请在工程中导入AlipaySDK.framework文件");
     }
   }
 }
