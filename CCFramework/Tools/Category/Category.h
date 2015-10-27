@@ -58,5 +58,6 @@
 #import <CCFramework/UIWindow+BUIWindow.h>
 #import <CCFramework/UIControl+BUIControl.h>
 #import <CCFramework/CCBubblePhotoImageView.h>
+#import <CCFramework/NSObject+Additions.h>
 
 #endif

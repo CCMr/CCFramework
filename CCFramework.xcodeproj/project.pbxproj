@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		420C6A5A1BDFB0D200E7F956 /* NSObject+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 420C6A581BDFB0D200E7F956 /* NSObject+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		420C6A5B1BDFB0D200E7F956 /* NSObject+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 420C6A591BDFB0D200E7F956 /* NSObject+Additions.m */; settings = {ASSET_TAGS = (); }; };
 		420DE2B61BC7942300D87D6D /* ZXAztecDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 420DE0CF1BC7942200D87D6D /* ZXAztecDecoder.h */; };
 		420DE2B71BC7942300D87D6D /* ZXAztecDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 420DE0D01BC7942200D87D6D /* ZXAztecDecoder.m */; settings = {ASSET_TAGS = (); }; };
 		420DE2B81BC7942300D87D6D /* ZXAztecDetector.h in Headers */ = {isa = PBXBuildFile; fileRef = 420DE0D21BC7942200D87D6D /* ZXAztecDetector.h */; };
@@ -1148,6 +1150,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		420C6A581BDFB0D200E7F956 /* NSObject+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Additions.h"; sourceTree = "<group>"; };
+		420C6A591BDFB0D200E7F956 /* NSObject+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Additions.m"; sourceTree = "<group>"; };
 		420DE0CF1BC7942200D87D6D /* ZXAztecDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXAztecDecoder.h; sourceTree = "<group>"; };
 		420DE0D01BC7942200D87D6D /* ZXAztecDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXAztecDecoder.m; sourceTree = "<group>"; };
 		420DE0D21BC7942200D87D6D /* ZXAztecDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXAztecDetector.h; sourceTree = "<group>"; };
@@ -4374,6 +4378,8 @@
 				429C9EC41B9EF8BF0013A44A /* UIColor+BUIColor.m */,
 				42B9D0E41B9FE3650086CA81 /* NSData+Additions.h */,
 				42B9D0E51B9FE3650086CA81 /* NSData+Additions.m */,
+				420C6A581BDFB0D200E7F956 /* NSObject+Additions.h */,
+				420C6A591BDFB0D200E7F956 /* NSObject+Additions.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -5215,6 +5221,7 @@
 				420DE4001BC7942300D87D6D /* ZXOneDReader.h in Headers */,
 				420DE3411BC7942300D87D6D /* ZXGridSampler.h in Headers */,
 				420DE3231BC7942300D87D6D /* ZXWhiteRectangleDetector.h in Headers */,
+				420C6A5A1BDFB0D200E7F956 /* NSObject+Additions.h in Headers */,
 				420DE3471BC7942300D87D6D /* ZXPerspectiveTransform.h in Headers */,
 				420DE3371BC7942300D87D6D /* ZXCharacterSetECI.h in Headers */,
 				420DE3A31BC7942300D87D6D /* ZXAbstractExpandedDecoder.h in Headers */,
@@ -5600,6 +5607,7 @@
 				429CA0BE1B9EF8BF0013A44A /* NSMutableArray+BNSMutableArray.m in Sources */,
 				420DE45C1BC7942300D87D6D /* ZXQRCodeAlignmentPatternFinder.m in Sources */,
 				429CA0DE1B9EF8BF0013A44A /* UIScrollView+CCkeyboardControl.m in Sources */,
+				420C6A5B1BDFB0D200E7F956 /* NSObject+Additions.m in Sources */,
 				429CA08E1B9EF8BF0013A44A /* CCWebViewProgress.m in Sources */,
 				429CA0D81B9EF8BF0013A44A /* UIImage+Resize.m in Sources */,
 				420DE4071BC7942300D87D6D /* ZXUPCEANExtension2Support.m in Sources */,
