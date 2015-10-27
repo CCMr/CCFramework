@@ -38,5 +38,7 @@
 #import <CCFramework/CCMessageBubbleView.h>
 #import <CCFramework/CCEmotionManagerView.h>
 #import <CCFramework/CCShareMenuView.h>
+#import <CCFramework/CCMessageVideoConverPhotoFactory.h>
+#import <CCFramework/CCAudioPlayerHelper.h>
 
 #endif

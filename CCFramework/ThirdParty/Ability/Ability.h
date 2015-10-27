@@ -26,6 +26,7 @@
 #ifndef CCFramework_Ability_h
 #define CCFramework_Ability_h
 
+#import <CCFramework/CCRadarPointView.h>
 #import <CCFramework/CCUncaughtExceptionHandler.h>
 #import <CCFramework/CCSideMenu.h>
 #import <CCFramework/UIViewController+CCSideMenu.h>
@@ -36,7 +37,7 @@
 #import <CCFramework/CCQRCodeViewController.h>
 #import <CCFramework/CCQRCodeDisplayViewController.h>
 #import <CCFramework/CCScanningView.h>
-#import <CCFramework/QRCode.h>
+//#import <CCFramework/QRCode.h>
 #import <CCFramework/CCSecurityStrategy.h>
 #import <CCFramework/CCSignatureView.h>
 #import <CCFramework/CCIntroductionViewController.h>

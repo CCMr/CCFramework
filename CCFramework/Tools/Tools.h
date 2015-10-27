@@ -33,5 +33,6 @@
 #import <CCFramework/SignalRManager.h>
 #import <CCFramework/CCTimePicker.h>
 #import <CCFramework/CCAliPayEngine.h>
+#import <CCFramework/CCDisplayLocationViewController.h>
 
 #endif
