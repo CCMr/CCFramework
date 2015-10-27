@@ -46,10 +46,10 @@
  *  @param sellerKey  支付宝收款账号,手机号码或邮箱格式。
  *  @param privateKey 商家私有秘钥
  */
-- (void)setAliPaySchema: (NSString *)appScheme
-             PartnerKey: (NSString *)partnerKey
-              SellerKey: (NSString *)sellerKey
-             PrivateKey: (NSString *)privateKey;
+- (void)setAliPaySchema:(NSString *)appScheme
+             PartnerKey:(NSString *)partnerKey
+              SellerKey:(NSString *)sellerKey
+             PrivateKey:(NSString *)privateKey;
 
 /**
  *  @author C C, 2015-10-18
@@ -62,10 +62,13 @@
  *  @param amount             价格
  *  @param notifyURL          回调URL
  */
-- (void)payOrderForm: (NSString *)tradeNO
-         ProductName: (NSString *)productName
-  ProductDescription: (NSString *)productDescription
-              Amount: (NSString *)amount
-           notifyURL: (NSString *)notifyURL Callback: (nullable void (^)(NSInteger resultStatus,NSString *result,NSString *memo,NSError *error))block;
+- (void)payOrderForm:(NSString *)tradeNO
+         ProductName:(NSString *)productName
+  ProductDescription:(NSString *)productDescription
+              Amount:(NSString *)amount
+           notifyURL:(NSString *)notifyURL
+            Callback:(nullable void (^)(NSInteger resultStatus,
+                                        NSString *result, NSString *memo,
+                                        NSError *error))block;
 
 @end

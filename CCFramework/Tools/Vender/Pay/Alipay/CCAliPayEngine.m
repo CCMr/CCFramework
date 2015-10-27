@@ -28,7 +28,8 @@
 #import "DataSigner.h"
 #import <AlipaySDK/AlipaySDK.h>
 
-typedef void (^ResponseCallback)(NSInteger resultStatus,NSString *result,NSString *memo,NSError *error);
+typedef void (^ResponseCallback)(NSInteger resultStatus, NSString *result,
+                                 NSString *memo, NSError *error);
 
 @interface CCAliPayEngine ()
 
@@ -37,35 +38,34 @@ typedef void (^ResponseCallback)(NSInteger resultStatus,NSString *result,NSStrin
  *
  *  @brief  回调APP名称
  */
-@property (nonatomic, copy) NSString *appScheme;
+@property(nonatomic, copy) NSString *appScheme;
 
 /**
  *  @author C C, 2015-10-18
  *
  *  @brief  合作身份者ID,以 2088 开头由 16 位纯数字组成的字符串
  */
-@property (nonatomic, copy) NSString *partnerKey;
+@property(nonatomic, copy) NSString *partnerKey;
 /**
  *  @author C C, 2015-10-18
  *
  *  @brief  支付宝收款账号,手机号码或邮箱格式。
  */
-@property (nonatomic, copy) NSString *sellerKey;
+@property(nonatomic, copy) NSString *sellerKey;
 /**
  *  @author C C, 2015-10-18
  *
  *  @brief  商户方的私钥,pkcs8 格式。
  */
-@property (nonatomic, copy) NSString *privateKey;
+@property(nonatomic, copy) NSString *privateKey;
 /**
  *  @author C C, 2015-10-18
  *
  *  @brief  回调函数
  */
-@property (nonatomic, copy) ResponseCallback  responseCallback;
+@property(nonatomic, copy) ResponseCallback responseCallback;
 
 @end
-
 
 @implementation CCAliPayEngine
 
@@ -76,14 +76,13 @@ typedef void (^ResponseCallback)(NSInteger resultStatus,NSString *result,NSStrin
  *
  *  @return 返回当前对象
  */
-+ (instancetype)sharedlnstance
-{
-    static CCAliPayEngine *_sharedlnstance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _sharedlnstance = [[self alloc] init];
-    });
-    return _sharedlnstance;
++ (instancetype)sharedlnstance {
+  static CCAliPayEngine *_sharedlnstance = nil;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    _sharedlnstance = [[self alloc] init];
+  });
+  return _sharedlnstance;
 }
 
 /**
@@ -96,15 +95,14 @@ typedef void (^ResponseCallback)(NSInteger resultStatus,NSString *result,NSStrin
  *  @param sellerKey  支付宝收款账号,手机号码或邮箱格式。
  *  @param privateKey 商家私有秘钥
  */
-- (void)setAliPaySchema: (NSString *)appScheme
-             PartnerKey: (NSString *)partnerKey
-              SellerKey: (NSString *)sellerKey
-             PrivateKey: (NSString *)privateKey
-{
-    _appScheme = appScheme;
-    _partnerKey = partnerKey;
-    _sellerKey = sellerKey;
-    _privateKey = privateKey;
+- (void)setAliPaySchema:(NSString *)appScheme
+             PartnerKey:(NSString *)partnerKey
+              SellerKey:(NSString *)sellerKey
+             PrivateKey:(NSString *)privateKey {
+  _appScheme = appScheme;
+  _partnerKey = partnerKey;
+  _sellerKey = sellerKey;
+  _privateKey = privateKey;
 }
 
 /**
@@ -118,45 +116,60 @@ typedef void (^ResponseCallback)(NSInteger resultStatus,NSString *result,NSStrin
  *  @param amount             价格
  *  @param notifyURL          回调URL
  */
-- (void)payOrderForm: (NSString *)tradeNO
-         ProductName: (NSString *)productName
-  ProductDescription: (NSString *)productDescription
-              Amount: (NSString *)amount
-           notifyURL: (NSString *)notifyURL Callback: (nullable void (^)(NSInteger resultStatus,NSString *result,NSString *memo,NSError *error))block
-{
-    _responseCallback = block;
-    
-    if (_partnerKey.length == 0 || _sellerKey.length == 0 || _privateKey.length == 0 || _appScheme.length == 0) {
-        NSString *errMessage;
-        if (_partnerKey.length == 0 || _sellerKey.length == 0 )
-            errMessage = @"partner或seller参数为空";
-        
-        if (_privateKey.length == 0 || _appScheme.length == 0)
-            errMessage = @"privateKey或appScheme参数为空";
-        
-        NSError *err = [NSError errorWithDomain:errMessage code:-1 userInfo:nil];
-        block(-1,nil,nil,err);
-    }
-    
-    AliOrderFormEntity *entity = [[AliOrderFormEntity alloc] init];
-    entity.partner = self.partnerKey;
-    entity.seller = self.sellerKey;
-    entity.tradeNO = tradeNO;
-    entity.productDescription = productDescription;
-    entity.amount = amount;
-    entity.notifyURL = notifyURL;
+- (void)payOrderForm:(NSString *)tradeNO
+         ProductName:(NSString *)productName
+  ProductDescription:(NSString *)productDescription
+              Amount:(NSString *)amount
+           notifyURL:(NSString *)notifyURL
+            Callback:(nullable void (^)(NSInteger resultStatus,
+                                        NSString *result, NSString *memo,
+                                        NSError *error))block {
+  _responseCallback = block;
 
-    NSString *orderSpec = [entity description];
-    id<DataSigner> signer = CreateRSADataSigner(self.privateKey);
-    NSString *signedString = [signer signString:orderSpec];
-    
-    if (signedString) {
-        NSString *orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",orderSpec, signedString, @"RSA"];
-        typeof(self) __weak weakSelf = self;
-//        [[AlipaySDK defaultService] payOrder:orderString fromScheme:self.appScheme callback:^(NSDictionary *resultDic) {
-//            weakSelf.responseCallback([[resultDic objectForKey:@"resultStatus"] integerValue],[resultDic objectForKey:@"result"],[resultDic objectForKey:@"memo"],nil);
-//        }];
+  if (_partnerKey.length == 0 || _sellerKey.length == 0 ||
+      _privateKey.length == 0 || _appScheme.length == 0) {
+    NSString *errMessage;
+    if (_partnerKey.length == 0 || _sellerKey.length == 0)
+      errMessage = @"partner或seller参数为空";
+
+    if (_privateKey.length == 0 || _appScheme.length == 0)
+      errMessage = @"privateKey或appScheme参数为空";
+
+    NSError *err = [NSError errorWithDomain:errMessage code:-1 userInfo:nil];
+    block(-1, nil, nil, err);
+  }
+
+  AliOrderFormEntity *entity = [[AliOrderFormEntity alloc] init];
+  entity.partner = self.partnerKey;
+  entity.seller = self.sellerKey;
+  entity.tradeNO = tradeNO;
+  entity.productDescription = productDescription;
+  entity.amount = amount;
+  entity.notifyURL = notifyURL;
+
+  NSString *orderSpec = [entity description];
+  id<DataSigner> signer = CreateRSADataSigner(self.privateKey);
+  NSString *signedString = [signer signString:orderSpec];
+
+  if (signedString) {
+    NSString *orderString =
+        [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
+                                   orderSpec, signedString, @"RSA"];
+
+    if (!NSClassFromString(@"AlipaySDK")) {
+      typeof(self) __weak weakSelf = self;
+      //      [[AlipaySDK defaultService]
+      //            payOrder:orderString
+      //          fromScheme:self.appScheme
+      //            callback:^(NSDictionary *resultDic) {
+      //              weakSelf.responseCallback(
+      //                  [[resultDic objectForKey:@"resultStatus"]
+      //                  integerValue],
+      //                  [resultDic objectForKey:@"result"],
+      //                  [resultDic objectForKey:@"memo"], nil);
+      //            }];
     }
+  }
 }
 
 @end
