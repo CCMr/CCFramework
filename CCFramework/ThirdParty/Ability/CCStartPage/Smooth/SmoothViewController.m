@@ -28,7 +28,7 @@
 
 @interface SmoothViewController () <UIScrollViewDelegate>
 
-@property (nonatomic, strong) SmoothScrollView *scrollView;
+@property(nonatomic, strong) SmoothScrollView *scrollView;
 
 /**
  *  @author CC, 15-08-17
@@ -37,7 +37,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, strong) UIPageControl *pageControl;
+@property(nonatomic, strong) UIPageControl *pageControl;
 
 /**
  *  @author CC, 15-08-17
@@ -46,7 +46,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, strong) UIButton *enterButton;
+@property(nonatomic, strong) UIButton *enterButton;
 
 @end
 
@@ -63,8 +63,7 @@
  *
  *  @since 1.0
  */
-- (id)initWithCoverImageNames: (NSArray *)bgNames
-{
+- (id)initWithCoverImageNames:(NSArray *)bgNames {
     if (self = [super init]) {
         _images = bgNames;
     }
@@ -86,42 +85,45 @@
  *
  *  @since <#1.0#>
  */
-+ (BOOL)canShowNewFeature
-{
++ (BOOL)canShowNewFeature {
     BOOL firstStart = NO;
-    if (![userDefaults objectForKey:@"firstStart"] || [[userDefaults objectForKey:@"firstStart"] isEqualToString:@"YES"]) {
+    if (![userDefaults objectForKey:@"firstStart"] ||
+        [[userDefaults objectForKey:@"firstStart"] isEqualToString:@"YES"]) {
         firstStart = YES;
         [userDefaults setObject:@"YES" forKey:@"firstStart"];
         [userDefaults synchronize];
     }
-     return firstStart;
+    return firstStart;
 }
 
-- (void)initPrepare
-{
+- (void)initPrepare {
     _scrollView = [[SmoothScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView.delegate = self;
     _scrollView.pagingEnabled = YES;
     _scrollView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:_scrollView];
-
-    _pageControl = [[UIPageControl alloc] initWithFrame:[self frameOfPageControl]];
+    
+    _pageControl =
+    [[UIPageControl alloc] initWithFrame:[self frameOfPageControl]];
     self.pageControl.pageIndicatorTintColor = [UIColor grayColor];
     [self.view addSubview:self.pageControl];
-
+    
     if (!self.enterButton) {
         self.enterButton = [UIButton new];
-        [self.enterButton setTitle:NSLocalizedString(@"Enter", nil) forState:UIControlStateNormal];
+        [self.enterButton setTitle:NSLocalizedString(@"Enter", nil)
+                          forState:UIControlStateNormal];
         self.enterButton.layer.borderWidth = 0.5;
         self.enterButton.layer.borderColor = [UIColor whiteColor].CGColor;
     }
-
-    [_enterButton addTarget:self action:@selector(enter:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_enterButton addTarget:self
+                     action:@selector(enter:)
+           forControlEvents:UIControlEventTouchUpInside];
     _enterButton.frame = [self frameOfEnterButton];
     _enterButton.alpha = 0;
     [self.view addSubview:_enterButton];
-
-     [self reloadPages];
+    
+    [self reloadPages];
 }
 
 /**
@@ -133,9 +135,9 @@
  *
  *  @since 1.0
  */
--(void)setEnterBackgroundImage:(NSString *)enterBackgroundImage
-{
-    [self.enterButton setBackgroundImage:[UIImage imageNamed:enterBackgroundImage] forState:UIControlStateNormal];
+- (void)setEnterBackgroundImage:(NSString *)enterBackgroundImage {
+    [self.enterButton setBackgroundImage:[UIImage imageNamed:enterBackgroundImage]
+                                forState:UIControlStateNormal];
 }
 
 /**
@@ -147,9 +149,11 @@
  *
  *  @since 1.0
  */
-- (void)setEnterSzie:(CGSize)enterSzie
-{
-    self.enterButton.frame = CGRectMake(self.view.frame.size.width / 2 - enterSzie.width / 2, self.pageControl.frame.origin.y - enterSzie.height, enterSzie.width, enterSzie.height);
+- (void)setEnterSzie:(CGSize)enterSzie {
+    self.enterButton.frame =
+    CGRectMake(self.view.frame.size.width / 2 - enterSzie.width / 2,
+               self.pageControl.frame.origin.y - enterSzie.height,
+               enterSzie.width, enterSzie.height);
 }
 
 /**
@@ -159,26 +163,27 @@
  *
  *  @since 1.0
  */
-- (void)reloadPages
-{
+- (void)reloadPages {
     _pageControl.numberOfPages = [_images count];
     _scrollView.contentSize = [self contentSizeOfScrollView];
-
-    WEAKSELF
+    
+    WEAKSELF;
     [_images enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        UIImageView *imageV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:obj]];
+        UIImageView *imageV =
+        [[UIImageView alloc] initWithImage:[UIImage imageNamed:obj]];
         [weakSelf.scrollView addSubview:imageV];
     }];
-
+    
     // fix enterButton can not presenting if ScrollView have only one page
     if (_pageControl.numberOfPages == 1) {
         _enterButton.alpha = 1;
         _pageControl.alpha = 0;
     }
-
+    
     // fix ScrollView can not scrolling if it have only one page
     if (_scrollView.contentSize.width == _scrollView.frame.size.width) {
-        _scrollView.contentSize = CGSizeMake(_scrollView.contentSize.width + 1, _scrollView.contentSize.height);
+        _scrollView.contentSize = CGSizeMake(_scrollView.contentSize.width + 1,
+                                             _scrollView.contentSize.height);
     }
 }
 
@@ -191,11 +196,10 @@
  *
  *  @since 1.0
  */
-- (void)enter:(id)sender
-{
+- (void)enter:(id)sender {
     [userDefaults setObject:@"NO" forKey:@"firstStart"];
     [userDefaults synchronize];
-
+    
     if (_didSelectedEnter) {
         _didSelectedEnter(@"");
     }
@@ -210,13 +214,14 @@
  *
  *  @since 1.0
  */
-- (CGRect)frameOfEnterButton
-{
+- (CGRect)frameOfEnterButton {
     CGSize size = self.enterButton.bounds.size;
     if (CGSizeEqualToSize(size, CGSizeZero)) {
         size = CGSizeMake(self.view.frame.size.width * 0.6, 40);
     }
-    return CGRectMake(self.view.frame.size.width / 2 - size.width / 2, self.pageControl.frame.origin.y - size.height, size.width, size.height);
+    return CGRectMake(self.view.frame.size.width / 2 - size.width / 2,
+                      self.pageControl.frame.origin.y - size.height, size.width,
+                      size.height);
 }
 
 /**
@@ -228,9 +233,9 @@
  *
  *  @since 1.0
  */
-- (CGRect)frameOfPageControl
-{
-    return CGRectMake(0, self.view.bounds.size.height - 30, self.view.bounds.size.width, 30);
+- (CGRect)frameOfPageControl {
+    return CGRectMake(0, self.view.bounds.size.height - 30,
+                      self.view.bounds.size.width, 30);
 }
 
 /**
@@ -242,11 +247,10 @@
  *
  *  @since 1.0
  */
-- (CGSize)contentSizeOfScrollView
-{
-    return CGSizeMake(_scrollView.frame.size.width * _images.count, _scrollView.frame.size.height);
+- (CGSize)contentSizeOfScrollView {
+    return CGSizeMake(_scrollView.frame.size.width * _images.count,
+                      _scrollView.frame.size.height);
 }
-
 
 /**
  *  @author CC, 15-08-17
@@ -257,109 +261,108 @@
  *
  *  @since 1.0
  */
-- (void)didSelectedEnter:(Completion)enterBlock
-{
+- (void)didSelectedEnter:(Completion)enterBlock {
     _didSelectedEnter = enterBlock;
 }
 
 #pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    self.pageControl.currentPage = scrollView.contentOffset.x / (scrollView.contentSize.width / [self numberOfPagesInPagingScrollView]);
-
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    self.pageControl.currentPage =
+    scrollView.contentOffset.x /
+    (scrollView.contentSize.width / [self numberOfPagesInPagingScrollView]);
+    
     [self pagingScrollViewDidChangePages:scrollView];
 }
 
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
-{
-    if ([scrollView.panGestureRecognizer translationInView:scrollView.superview].x < 0) {
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+    if ([scrollView.panGestureRecognizer translationInView:scrollView.superview]
+        .x < 0) {
         if (![self hasNext:self.pageControl]) {
-//            [self enter:nil];
+            //            [self enter:nil];
         }
     }
 }
 
 #pragma mark - UIScrollView & UIPageControl DataSource
-- (BOOL)hasNext:(UIPageControl*)pageControl
-{
+- (BOOL)hasNext:(UIPageControl *)pageControl {
     return pageControl.numberOfPages > pageControl.currentPage + 1;
 }
 
-- (BOOL)isLast:(UIPageControl*)pageControl
-{
+- (BOOL)isLast:(UIPageControl *)pageControl {
     return pageControl.numberOfPages == pageControl.currentPage + 1;
 }
 
-- (NSInteger)numberOfPagesInPagingScrollView
-{
+- (NSInteger)numberOfPagesInPagingScrollView {
     return [_images count];
 }
 
-- (void)pagingScrollViewDidChangePages:(UIScrollView *)pagingScrollView
-{
+- (void)pagingScrollViewDidChangePages:(UIScrollView *)pagingScrollView {
     if ([self isLast:self.pageControl]) {
         if (self.pageControl.alpha == 1) {
             self.enterButton.alpha = 0;
-
-            [UIView animateWithDuration:0.4 animations:^{
-                self.enterButton.alpha = 1;
-                self.pageControl.alpha = 0;
-            }];
+            
+            [UIView animateWithDuration:0.4
+                             animations:^{
+                                 self.enterButton.alpha = 1;
+                                 self.pageControl.alpha = 0;
+                             }];
         }
     } else {
         if (self.pageControl.alpha == 0) {
-            [UIView animateWithDuration:0.4 animations:^{
-                self.enterButton.alpha = 0;
-                self.pageControl.alpha = 1;
-            }];
+            [UIView animateWithDuration:0.4
+                             animations:^{
+                                 self.enterButton.alpha = 0;
+                                 self.pageControl.alpha = 1;
+                             }];
         }
     }
 }
 
-- (BOOL)hasEnterButtonInView:(UIView*)page
-{
+- (BOOL)hasEnterButtonInView:(UIView *)page {
     __block BOOL result = NO;
-    [page.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if (obj && obj == self.enterButton) {
-            result = YES;
-        }
-    }];
+    [page.subviews
+     enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+         if (obj && obj == self.enterButton) {
+             result = YES;
+         }
+     }];
     return result;
 }
 
-- (UIImageView*)scrollViewPage:(NSString*)imageName
-{
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+- (UIImageView *)scrollViewPage:(NSString *)imageName {
+    UIImageView *imageView =
+    [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
-    CGSize size = {[[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height};
-    imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y, size.width, size.height);
+    CGSize size = {[[UIScreen mainScreen] bounds].size.width,
+        [[UIScreen mainScreen] bounds].size.height};
+    imageView.frame =
+    CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y, size.width,
+               size.height);
     return imageView;
 }
 
 #pragma mark - 转屏
--(UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
 
-- (BOOL)shouldAutorotate
-{
+- (BOOL)shouldAutorotate {
     return YES;
 }
 
--(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-{
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     return UIInterfaceOrientationPortrait;
 }
 
--(void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
-{
-    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
-    [coordinator animateAlongsideTransition:^(id  context) {
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection
+              withTransitionCoordinator:
+(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super willTransitionToTraitCollection:newCollection
+                 withTransitionCoordinator:coordinator];
+    [coordinator animateAlongsideTransition:^(id context) {
         if (newCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
-
+            
         } else {
-
         }
         self.view.frame = self.view.bounds;
         [self.view setNeedsLayout];

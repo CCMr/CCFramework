@@ -28,9 +28,9 @@
 #import "Config.h"
 #import "NSString+BNSString.h"
 
-@interface CCMessageInputView() <UITextViewDelegate>
+@interface CCMessageInputView () <UITextViewDelegate>
 
-@property (nonatomic, weak, readwrite) CCMessageTextView *inputTextView;
+@property(nonatomic, weak, readwrite) CCMessageTextView *inputTextView;
 
 /**
  *  @author CC, 2015-08-13
@@ -39,7 +39,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, weak, readwrite) UIButton *voiceChangeButton;
+@property(nonatomic, weak, readwrite) UIButton *voiceChangeButton;
 
 /**
  *  @author CC, 2015-08-13
@@ -48,9 +48,9 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, weak, readwrite) UIButton *multiMediaSendButton;
+@property(nonatomic, weak, readwrite) UIButton *multiMediaSendButton;
 
-@property (nonatomic, weak, readwrite) UIButton *faceSendButton;
+@property(nonatomic, weak, readwrite) UIButton *faceSendButton;
 
 /**
  *  @author CC, 2015-08-13
@@ -59,7 +59,7 @@
  *
  *  @since <#version number#>
  */
-@property (nonatomic, weak, readwrite) UIButton *holdDownButton;
+@property(nonatomic, weak, readwrite) UIButton *holdDownButton;
 
 /**
  *  @author CC, 2015-08-13
@@ -68,7 +68,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, assign, readwrite) BOOL isCancelled;
+@property(nonatomic, assign, readwrite) BOOL isCancelled;
 
 /**
  *  @author CC, 2015-08-13
@@ -77,16 +77,17 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, assign, readwrite) BOOL isRecording;
+@property(nonatomic, assign, readwrite) BOOL isRecording;
 
 /**
  *  @author CC, 2015-08-13
  *
- *  @brief  在切换语音和文本消息的时候，需要保存原本已经输入的文本，这样达到一个好的UE
+ *  @brief
+ *在切换语音和文本消息的时候，需要保存原本已经输入的文本，这样达到一个好的UE
  *
  *  @since 1.0
  */
-@property (nonatomic, copy) NSString *inputedText;
+@property(nonatomic, copy) NSString *inputedText;
 
 /**
  *  @author CC, 2015-08-13
@@ -158,8 +159,7 @@
  *
  *  @since 1.0
  */
-- (UIButton *)createButtonWithImage:(UIImage *)image
-                            HLImage:(UIImage *)hlImage;
+- (UIButton *)createButtonWithImage:(UIImage *)image HLImage:(UIImage *)hlImage;
 
 /**
  *  @author CC, 2015-08-13
@@ -179,7 +179,7 @@
  *
  *  @since 1.0
  */
-- (void)setup ;
+- (void)setup;
 
 #pragma mark - Message input view
 /**
@@ -199,8 +199,7 @@
 
 #pragma mark - Action
 
-- (void)messageStyleButtonClicked:(UIButton *)sender
-{
+- (void)messageStyleButtonClicked:(UIButton *)sender {
     NSInteger index = sender.tag;
     switch (index) {
         case 0: {
@@ -215,14 +214,19 @@
                 [self.inputTextView becomeFirstResponder];
             }
             
-            [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                self.holdDownButton.alpha = sender.selected;
-                self.inputTextView.alpha = !sender.selected;
-            } completion:^(BOOL finished) {
-                
-            }];
+            [UIView animateWithDuration:0.2
+                                  delay:0
+                                options:UIViewAnimationOptionCurveEaseInOut
+                             animations:^{
+                                 self.holdDownButton.alpha = sender.selected;
+                                 self.inputTextView.alpha = !sender.selected;
+                             }
+                             completion:^(BOOL finished){
+                                 
+                             }];
             
-            if ([self.delegate respondsToSelector:@selector(didChangeSendVoiceAction:)]) {
+            if ([self.delegate
+                 respondsToSelector:@selector(didChangeSendVoiceAction:)]) {
                 [self.delegate didChangeSendVoiceAction:sender.selected];
             }
             
@@ -233,19 +237,27 @@
             self.voiceChangeButton.selected = !sender.selected;
             
             if (!sender.selected) {
-                [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                    self.holdDownButton.alpha = sender.selected;
-                    self.inputTextView.alpha = !sender.selected;
-                } completion:^(BOOL finished) {
-                    
-                }];
+                [UIView animateWithDuration:0.2
+                                      delay:0
+                                    options:UIViewAnimationOptionCurveEaseInOut
+                                 animations:^{
+                                     self.holdDownButton.alpha = sender.selected;
+                                     self.inputTextView.alpha = !sender.selected;
+                                 }
+                                 completion:^(BOOL finished){
+                                     
+                                 }];
             } else {
-                [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                    self.holdDownButton.alpha = !sender.selected;
-                    self.inputTextView.alpha = sender.selected;
-                } completion:^(BOOL finished) {
-                    
-                }];
+                [UIView animateWithDuration:0.2
+                                      delay:0
+                                    options:UIViewAnimationOptionCurveEaseInOut
+                                 animations:^{
+                                     self.holdDownButton.alpha = !sender.selected;
+                                     self.inputTextView.alpha = sender.selected;
+                                 }
+                                 completion:^(BOOL finished){
+                                     
+                                 }];
             }
             
             if ([self.delegate respondsToSelector:@selector(didSendFaceAction:)]) {
@@ -255,8 +267,8 @@
         }
         case 2: {
             self.faceSendButton.selected = NO;
-            if ([self.delegate respondsToSelector:@selector(didSelectedMultipleMediaAction)])
-            {
+            if ([self.delegate
+                 respondsToSelector:@selector(didSelectedMultipleMediaAction)]) {
                 [self.delegate didSelectedMultipleMediaAction];
             }
             break;
@@ -269,32 +281,35 @@
 - (void)holdDownButtonTouchDown {
     self.isCancelled = NO;
     self.isRecording = NO;
-    if ([self.delegate respondsToSelector:@selector(prepareRecordingVoiceActionWithCompletion:)])
-    {
-        WEAKSELF
-        
-        //這邊回調 return 的 YES, 或 NO, 可以讓底層知道該次錄音是否成功, 進而處理無用的 record 對象
-        [self.delegate prepareRecordingVoiceActionWithCompletion:^BOOL{
-            STRONGSELF
-            
-            //這邊要判斷回調回來的時候, 使用者是不是已經早就鬆開手了
-            if (strongSelf && !strongSelf.isCancelled) {
-                strongSelf.isRecording = YES;
-                [strongSelf.delegate didStartRecordingVoiceAction];
-                return YES;
-            } else {
-                return NO;
-            }
-        }];
-    }
+    if ([self.delegate
+         respondsToSelector:@selector(
+                                      prepareRecordingVoiceActionWithCompletion:)]) {
+             WEAKSELF;
+             
+             //這邊回調 return 的 YES, 或 NO, 可以讓底層知道該次錄音是否成功,
+             //進而處理無用的 record 對象
+             [self.delegate prepareRecordingVoiceActionWithCompletion:^BOOL {
+                 STRONGSELF
+                 
+                 //這邊要判斷回調回來的時候, 使用者是不是已經早就鬆開手了
+                 if (strongSelf && !strongSelf.isCancelled) {
+                     strongSelf.isRecording = YES;
+                     [strongSelf.delegate didStartRecordingVoiceAction];
+                     return YES;
+                 } else {
+                     return NO;
+                 }
+             }];
+         }
 }
 
 - (void)holdDownButtonTouchUpOutside {
     
-    //如果已經開始錄音了, 才需要做取消的動作, 否則只要切換 isCancelled, 不讓錄音開始.
+    //如果已經開始錄音了, 才需要做取消的動作, 否則只要切換 isCancelled,
+    //不讓錄音開始.
     if (self.isRecording) {
-        if ([self.delegate respondsToSelector:@selector(didCancelRecordingVoiceAction)])
-        {
+        if ([self.delegate
+             respondsToSelector:@selector(didCancelRecordingVoiceAction)]) {
             [self.delegate didCancelRecordingVoiceAction];
         }
     } else {
@@ -304,10 +319,11 @@
 
 - (void)holdDownButtonTouchUpInside {
     
-    //如果已經開始錄音了, 才需要做結束的動作, 否則只要切換 isCancelled, 不讓錄音開始.
+    //如果已經開始錄音了, 才需要做結束的動作, 否則只要切換 isCancelled,
+    //不讓錄音開始.
     if (self.isRecording) {
-        if ([self.delegate respondsToSelector:@selector(didFinishRecoingVoiceAction)])
-        {
+        if ([self.delegate
+             respondsToSelector:@selector(didFinishRecoingVoiceAction)]) {
             [self.delegate didFinishRecoingVoiceAction];
         }
     } else {
@@ -317,10 +333,10 @@
 
 - (void)holdDownDragOutside {
     
-    //如果已經開始錄音了, 才需要做拖曳出去的動作, 否則只要切換 isCancelled, 不讓錄音開始.
+    //如果已經開始錄音了, 才需要做拖曳出去的動作, 否則只要切換 isCancelled,
+    //不讓錄音開始.
     if (self.isRecording) {
-        if ([self.delegate respondsToSelector:@selector(didDragOutsideAction)])
-        {
+        if ([self.delegate respondsToSelector:@selector(didDragOutsideAction)]) {
             [self.delegate didDragOutsideAction];
         }
     } else {
@@ -330,10 +346,10 @@
 
 - (void)holdDownDragInside {
     
-    //如果已經開始錄音了, 才需要做拖曳回來的動作, 否則只要切換 isCancelled, 不讓錄音開始.
+    //如果已經開始錄音了, 才需要做拖曳回來的動作, 否則只要切換 isCancelled,
+    //不讓錄音開始.
     if (self.isRecording) {
-        if ([self.delegate respondsToSelector:@selector(didDragInsideAction)])
-        {
+        if ([self.delegate respondsToSelector:@selector(didDragInsideAction)]) {
             [self.delegate didDragInsideAction];
         }
     } else {
@@ -343,9 +359,11 @@
 
 #pragma mark - layout subViews UI
 
-- (UIButton *)createButtonWithImage:(UIImage *)image HLImage:(UIImage *)hlImage
-{
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, [CCMessageInputView textViewLineHeight], [CCMessageInputView textViewLineHeight])];
+- (UIButton *)createButtonWithImage:(UIImage *)image
+                            HLImage:(UIImage *)hlImage {
+    UIButton *button = [[UIButton alloc]
+                        initWithFrame:CGRectMake(0, 0, [CCMessageInputView textViewLineHeight],
+                                                 [CCMessageInputView textViewLineHeight])];
     if (image)
         [button setBackgroundImage:image forState:UIControlStateNormal];
     if (hlImage)
@@ -354,8 +372,7 @@
     return button;
 }
 
-- (void)setupMessageInputViewBarWithStyle:(CCMessageInputViewStyle)style
-{
+- (void)setupMessageInputViewBarWithStyle:(CCMessageInputViewStyle)style {
     // 配置输入工具条的样式和布局
     
     // 需要显示按钮的总宽度，包括间隔在内
@@ -368,7 +385,8 @@
     CGFloat verticalPadding = 5;
     
     // 输入框
-    CGFloat textViewLeftMargin = ((style == CCMessageInputViewStyleFlat) ? 6.0 : 4.0);
+    CGFloat textViewLeftMargin =
+    ((style == CCMessageInputViewStyleFlat) ? 6.0 : 4.0);
     
     // 每个按钮统一使用的frame变量
     CGRect buttonFrame;
@@ -378,10 +396,14 @@
     
     // 允许发送语音
     if (self.allowsSendVoice) {
-        button = [self createButtonWithImage:[UIImage imageNamed:@"voice"] HLImage:[UIImage imageNamed:@"voice_HL"]];
-        [button addTarget:self action:@selector(messageStyleButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        button = [self createButtonWithImage:[UIImage imageNamed:@"voice"]
+                                     HLImage:[UIImage imageNamed:@"voice_HL"]];
+        [button addTarget:self
+                   action:@selector(messageStyleButtonClicked:)
+         forControlEvents:UIControlEventTouchUpInside];
         button.tag = 0;
-        [button setBackgroundImage:[UIImage imageNamed:@"keyboard"] forState:UIControlStateSelected];
+        [button setBackgroundImage:[UIImage imageNamed:@"keyboard"]
+                          forState:UIControlStateSelected];
         buttonFrame = button.frame;
         buttonFrame.origin = CGPointMake(horizontalPadding, verticalPadding);
         button.frame = buttonFrame;
@@ -394,12 +416,18 @@
     
     // 允许发送多媒体消息，为什么不是先放表情按钮呢？因为布局的需要！
     if (self.allowsSendMultiMedia) {
-        button = [self createButtonWithImage:[UIImage imageNamed:@"multiMedia"] HLImage:[UIImage imageNamed:@"multiMedia_HL"]];
+        button = [self createButtonWithImage:[UIImage imageNamed:@"multiMedia"]
+                                     HLImage:[UIImage imageNamed:@"multiMedia_HL"]];
         button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        [button addTarget:self action:@selector(messageStyleButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self
+                   action:@selector(messageStyleButtonClicked:)
+         forControlEvents:UIControlEventTouchUpInside];
         button.tag = 2;
         buttonFrame = button.frame;
-        buttonFrame.origin = CGPointMake(CGRectGetWidth(self.bounds) - horizontalPadding - CGRectGetWidth(buttonFrame), verticalPadding);
+        buttonFrame.origin =
+        CGPointMake(CGRectGetWidth(self.bounds) - horizontalPadding -
+                    CGRectGetWidth(buttonFrame),
+                    verticalPadding);
         button.frame = buttonFrame;
         [self addSubview:button];
         allButtonWidth += CGRectGetWidth(buttonFrame) + horizontalPadding * 2.5;
@@ -409,17 +437,27 @@
     
     // 允许发送表情
     if (self.allowsSendFace) {
-        button = [self createButtonWithImage:[UIImage imageNamed:@"face"] HLImage:[UIImage imageNamed:@"face_HL"]];
+        button = [self createButtonWithImage:[UIImage imageNamed:@"face"]
+                                     HLImage:[UIImage imageNamed:@"face_HL"]];
         button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        [button setBackgroundImage:[UIImage imageNamed:@"keyboard"] forState:UIControlStateSelected];
-        [button addTarget:self action:@selector(messageStyleButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [button setBackgroundImage:[UIImage imageNamed:@"keyboard"]
+                          forState:UIControlStateSelected];
+        [button addTarget:self
+                   action:@selector(messageStyleButtonClicked:)
+         forControlEvents:UIControlEventTouchUpInside];
         button.tag = 1;
         buttonFrame = button.frame;
         if (self.allowsSendMultiMedia) {
-            buttonFrame.origin = CGPointMake(CGRectGetMinX(self.multiMediaSendButton.frame) - CGRectGetWidth(buttonFrame) - horizontalPadding, verticalPadding);
+            buttonFrame.origin =
+            CGPointMake(CGRectGetMinX(self.multiMediaSendButton.frame) -
+                        CGRectGetWidth(buttonFrame) - horizontalPadding,
+                        verticalPadding);
             allButtonWidth += CGRectGetWidth(buttonFrame) + horizontalPadding * 1.5;
         } else {
-            buttonFrame.origin = CGPointMake(CGRectGetWidth(self.bounds) - horizontalPadding - CGRectGetWidth(buttonFrame), verticalPadding);
+            buttonFrame.origin =
+            CGPointMake(CGRectGetWidth(self.bounds) - horizontalPadding -
+                        CGRectGetWidth(buttonFrame),
+                        verticalPadding);
             allButtonWidth += CGRectGetWidth(buttonFrame) + horizontalPadding * 2.5;
         }
         button.frame = buttonFrame;
@@ -429,15 +467,18 @@
     }
     
     // 输入框的高度和宽度
-    CGFloat width = CGRectGetWidth(self.bounds) - (allButtonWidth ? allButtonWidth : (textViewLeftMargin * 2));
+    CGFloat width = CGRectGetWidth(self.bounds) -
+    (allButtonWidth ? allButtonWidth : (textViewLeftMargin * 2));
     CGFloat height = [CCMessageInputView textViewLineHeight];
     
     // 初始化输入框
-    CCMessageTextView *textView = [[CCMessageTextView  alloc] initWithFrame:CGRectZero];
+    CCMessageTextView *textView =
+    [[CCMessageTextView alloc] initWithFrame:CGRectZero];
     
     // 这个是仿微信的一个细节体验
     textView.returnKeyType = UIReturnKeySend;
-    textView.enablesReturnKeyAutomatically = YES; // UITextView内部判断send按钮是否可以用
+    textView.enablesReturnKeyAutomatically =
+    YES; // UITextView内部判断send按钮是否可以用
     
     textView.placeholder = @"";
     textView.delegate = self;
@@ -451,15 +492,19 @@
             _inputTextView.frame = CGRectMake(textViewLeftMargin, 3.0f, width, height);
             _inputTextView.backgroundColor = [UIColor whiteColor];
             
-            self.image = [[UIImage imageNamed:@"input-bar-background"] resizableImageWithCapInsets:UIEdgeInsetsMake(19.0f, 3.0f, 19.0f, 3.0f)
-                                                                                      resizingMode:UIImageResizingModeStretch];
+            self.image = [[UIImage imageNamed:@"input-bar-background"]
+                          resizableImageWithCapInsets:UIEdgeInsetsMake(19.0f, 3.0f, 19.0f, 3.0f)
+                          resizingMode:UIImageResizingModeStretch];
             
-            UIImageView *inputFieldBack = [[UIImageView alloc] initWithFrame:CGRectMake(_inputTextView.frame.origin.x - 1.0f,
-                                                                                        0.0f,
-                                                                                        _inputTextView.frame.size.width + 2.0f,
-                                                                                        self.frame.size.height)];
-            inputFieldBack.image = [[UIImage imageNamed:@"input-field-cover"] resizableImageWithCapInsets:UIEdgeInsetsMake(20.0f, 12.0f, 18.0f, 18.0f)];
-            inputFieldBack.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+            UIImageView *inputFieldBack = [[UIImageView alloc]
+                                           initWithFrame:CGRectMake(_inputTextView.frame.origin.x - 1.0f, 0.0f,
+                                                                    _inputTextView.frame.size.width + 2.0f,
+                                                                    self.frame.size.height)];
+            inputFieldBack.image = [[UIImage imageNamed:@"input-field-cover"]
+                                    resizableImageWithCapInsets:UIEdgeInsetsMake(20.0f, 12.0f, 18.0f,
+                                                                                 18.0f)];
+            inputFieldBack.autoresizingMask =
+            (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
             inputFieldBack.backgroundColor = [UIColor clearColor];
             [self addSubview:inputFieldBack];
             break;
@@ -467,12 +512,14 @@
         case CCMessageInputViewStyleFlat: {
             _inputTextView.frame = CGRectMake(textViewLeftMargin, 4.5f, width, height);
             _inputTextView.backgroundColor = [UIColor clearColor];
-            _inputTextView.layer.borderColor = [UIColor colorWithWhite:0.8f alpha:1.0f].CGColor;
+            _inputTextView.layer.borderColor =
+            [UIColor colorWithWhite:0.8f alpha:1.0f].CGColor;
             _inputTextView.layer.borderWidth = 0.65f;
             _inputTextView.layer.cornerRadius = 6.0f;
             self.backgroundColor = [UIColor whiteColor];
-            self.image = [[UIImage imageNamed:@"input-bar-flat"] resizableImageWithCapInsets:UIEdgeInsetsMake(2.0f, 0.0f, 0.0f, 0.0f)
-                                                                                resizingMode:UIImageResizingModeTile];
+            self.image = [[UIImage imageNamed:@"input-bar-flat"]
+                          resizableImageWithCapInsets:UIEdgeInsetsMake(2.0f, 0.0f, 0.0f, 0.0f)
+                          resizingMode:UIImageResizingModeTile];
             break;
         }
         default:
@@ -482,19 +529,40 @@
     // 如果是可以发送语言的，那就需要一个按钮录音的按钮，事件可以在外部添加
     if (self.allowsSendVoice) {
         UIEdgeInsets edgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
-        button = [self createButtonWithImage:CC_STRETCH_IMAGE([UIImage imageNamed:@"VoiceBtn_Black"], edgeInsets)
-                                     HLImage:CC_STRETCH_IMAGE([UIImage imageNamed:@"VoiceBtn_BlackHL"], edgeInsets)];
-        [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        [button setTitle:NSLocalizedStringFromTable(@"HoldToTalk", @"MessageDisplayKitString", nil) forState:UIControlStateNormal];
-        [button setTitle:NSLocalizedStringFromTable(@"ReleaseToSend", @"MessageDisplayKitString", nil)  forState:UIControlStateHighlighted];
-        buttonFrame = CGRectMake(textViewLeftMargin-5, 0, width+10, self.frame.size.height);
+        button = [self
+                  createButtonWithImage:CC_STRETCH_IMAGE(
+                                                         [UIImage imageNamed:@"VoiceBtn_Black"],
+                                                         edgeInsets)
+                  HLImage:CC_STRETCH_IMAGE(
+                                           [UIImage imageNamed:@"VoiceBtn_BlackHL"],
+                                           edgeInsets)];
+        [button setTitleColor:[UIColor darkGrayColor]
+                     forState:UIControlStateNormal];
+        [button setTitle:NSLocalizedStringFromTable(@"HoldToTalk",
+                                                    @"MessageDisplayKitString", nil)
+                forState:UIControlStateNormal];
+        [button setTitle:NSLocalizedStringFromTable(@"ReleaseToSend",
+                                                    @"MessageDisplayKitString", nil)
+                forState:UIControlStateHighlighted];
+        buttonFrame = CGRectMake(textViewLeftMargin - 5, 0, width + 10,
+                                 self.frame.size.height);
         button.frame = buttonFrame;
         button.alpha = self.voiceChangeButton.selected;
-        [button addTarget:self action:@selector(holdDownButtonTouchDown) forControlEvents:UIControlEventTouchDown];
-        [button addTarget:self action:@selector(holdDownButtonTouchUpOutside) forControlEvents:UIControlEventTouchUpOutside];
-        [button addTarget:self action:@selector(holdDownButtonTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
-        [button addTarget:self action:@selector(holdDownDragOutside) forControlEvents:UIControlEventTouchDragExit];
-        [button addTarget:self action:@selector(holdDownDragInside) forControlEvents:UIControlEventTouchDragEnter];
+        [button addTarget:self
+                   action:@selector(holdDownButtonTouchDown)
+         forControlEvents:UIControlEventTouchDown];
+        [button addTarget:self
+                   action:@selector(holdDownButtonTouchUpOutside)
+         forControlEvents:UIControlEventTouchUpOutside];
+        [button addTarget:self
+                   action:@selector(holdDownButtonTouchUpInside)
+         forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self
+                   action:@selector(holdDownDragOutside)
+         forControlEvents:UIControlEventTouchDragExit];
+        [button addTarget:self
+                   action:@selector(holdDownDragInside)
+         forControlEvents:UIControlEventTouchDragEnter];
         [self addSubview:button];
         self.holdDownButton = button;
     }
@@ -504,7 +572,8 @@
 
 - (void)setup {
     // 配置自适应
-    self.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin);
+    self.autoresizingMask =
+    (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin);
     self.opaque = YES;
     // 由于继承UIImageView，所以需要这个属性设置
     self.userInteractionEnabled = YES;
@@ -556,24 +625,25 @@
     NSUInteger numLines = MAX([self.inputTextView numberOfLinesOfText],
                               [self.inputTextView.text numberOfLines]);
     
-    self.inputTextView.frame = CGRectMake(prevFrame.origin.x,
-                                          prevFrame.origin.y,
-                                          prevFrame.size.width,
-                                          prevFrame.size.height + changeInHeight);
+    self.inputTextView.frame =
+    CGRectMake(prevFrame.origin.x, prevFrame.origin.y, prevFrame.size.width,
+               prevFrame.size.height + changeInHeight);
     
+    self.inputTextView.contentInset = UIEdgeInsetsMake(
+                                                       (numLines >= 6 ? 4.0f : 0.0f), 0.0f, (numLines >= 6 ? 4.0f : 0.0f), 0.0f);
     
-    self.inputTextView.contentInset = UIEdgeInsetsMake((numLines >= 6 ? 4.0f : 0.0f),
-                                                       0.0f,
-                                                       (numLines >= 6 ? 4.0f : 0.0f),
-                                                       0.0f);
-    
-    // from iOS 7, the content size will be accurate only if the scrolling is enabled.
+    // from iOS 7, the content size will be accurate only if the scrolling is
+    // enabled.
     self.inputTextView.scrollEnabled = YES;
     
     if (numLines >= 6) {
-        CGPoint bottomOffset = CGPointMake(0.0f, self.inputTextView.contentSize.height - self.inputTextView.bounds.size.height);
+        CGPoint bottomOffset =
+        CGPointMake(0.0f, self.inputTextView.contentSize.height -
+                    self.inputTextView.bounds.size.height);
         [self.inputTextView setContentOffset:bottomOffset animated:YES];
-        [self.inputTextView scrollRangeToVisible:NSMakeRange(self.inputTextView.text.length - 2, 1)];
+        [self.inputTextView
+         scrollRangeToVisible:NSMakeRange(self.inputTextView.text.length - 2,
+                                          1)];
     }
 }
 

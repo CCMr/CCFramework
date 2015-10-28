@@ -133,7 +133,7 @@ typedef void (^CompletionCallback)(id responseData, id userInfo);
  *
  *  @since 1.0
  */
-#define WEAKSELF typeof(self) __weak weakSelf = self;
+#define WEAKSELF typeof(self) __weak weakSelf = self
 
 /**
  *  @author CC, 2015-08-13
