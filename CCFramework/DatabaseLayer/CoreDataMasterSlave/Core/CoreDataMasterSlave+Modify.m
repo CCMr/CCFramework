@@ -37,32 +37,38 @@
  *  @param key       字段名
  *  @param value     字段值
  */
-+ (void)cc_batchUpdataCoredData: (NSString *)tableName
-                ColumnKeyValue: (NSDictionary *)columnDic
-{
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:tableName inManagedObjectContext:self.currentContext];
-
++ (void)cc_batchUpdataCoredData:(NSString *)tableName
+                 ColumnKeyValue:(NSDictionary *)columnDic {
+    NSEntityDescription *entityDescription =
+    [NSEntityDescription entityForName:tableName
+                inManagedObjectContext:self.currentContext];
+    
     // Initialize Batch Update Request
-    NSBatchUpdateRequest *batchUpdateRequest = [[NSBatchUpdateRequest alloc] initWithEntity:entityDescription];
-
+    NSBatchUpdateRequest *batchUpdateRequest =
+    [[NSBatchUpdateRequest alloc] initWithEntity:entityDescription];
+    
     // Configure Batch Update Request
     [batchUpdateRequest setResultType:NSUpdatedObjectIDsResultType];
     [batchUpdateRequest setPropertiesToUpdate:columnDic];
-
+    
     // Execute Batch Request
     NSError *batchUpdateRequestError = nil;
-    NSBatchUpdateResult *batchUpdateResult = (NSBatchUpdateResult *)[self.currentContext executeRequest:batchUpdateRequest error:&batchUpdateRequestError];
-
+    NSBatchUpdateResult *batchUpdateResult = (NSBatchUpdateResult *)
+    [self.currentContext executeRequest:batchUpdateRequest
+                                  error:&batchUpdateRequestError];
+    
     if (batchUpdateRequestError) {
-        NSLog(@"%@, %@", batchUpdateRequestError, batchUpdateRequestError.localizedDescription);
+        NSLog(@"%@, %@", batchUpdateRequestError,
+              batchUpdateRequestError.localizedDescription);
     } else {
         // Extract Object IDs
         NSArray *objectIDs = batchUpdateResult.result;
-
+        
         for (NSManagedObjectID *objectID in objectIDs) {
             // Turn Managed Objects into Faults
-            NSManagedObject *managedObject = [self.currentContext objectWithID:objectID];
-
+            NSManagedObject *managedObject =
+            [self.currentContext objectWithID:objectID];
+            
             if (managedObject) {
                 [self.currentContext refreshObject:managedObject mergeChanges:NO];
             }
@@ -82,21 +88,20 @@
  *  @param conditionValue 条件值的Key
  *  @param editDataArray  编辑的对象
  */
-+ (void)cc_updateCoreData: (NSString *)tableName
-             ConditionKey: (NSString *)conditionKey
-                Condition: (NSString *)condition
-           ConditionValue: (NSString *)conditionValue
-            EditDataArray: (NSArray *)editDataArray
-{
-    if (!editDataArray.count) return;
-
-    [self cc_updateCoreData: tableName
-               ConditionKey: conditionKey
-                  Condition: condition
-             ConditionValue: conditionKey
-              EditDataArray: editDataArray
-                 completion: nil];
-
++ (void)cc_updateCoreData:(NSString *)tableName
+             ConditionKey:(NSString *)conditionKey
+                Condition:(NSString *)condition
+           ConditionValue:(NSString *)conditionValue
+            EditDataArray:(NSArray *)editDataArray {
+    if (!editDataArray.count)
+        return;
+    
+    [self cc_updateCoreData:tableName
+               ConditionKey:conditionKey
+                  Condition:condition
+             ConditionValue:conditionKey
+              EditDataArray:editDataArray
+                 completion:nil];
 }
 
 /**
@@ -111,38 +116,45 @@
  *  @param editDataArray  编辑属性
  *  @param completion     完成回调函数
  */
-+ (void)cc_updateCoreData: (NSString *)tableName
-             ConditionKey: (NSString *)conditionKey
-                Condition: (NSString *)condition
-           ConditionValue: (NSString *)conditionValue
-            EditDataArray: (NSArray *)editDataArray
-               completion: (void(^)(NSError *error))completion
-{
-    if (!editDataArray.count) return;
-
++ (void)cc_updateCoreData:(NSString *)tableName
+             ConditionKey:(NSString *)conditionKey
+                Condition:(NSString *)condition
+           ConditionValue:(NSString *)conditionValue
+            EditDataArray:(NSArray *)editDataArray
+               completion:(void (^)(NSError *error))completion {
+    if (!editDataArray.count)
+        return;
+    
     [self saveContext:^(NSManagedObjectContext *currentContext) {
-        for (NSDictionary *endtDic in editDataArray)
-        {
+        for (NSDictionary *endtDic in editDataArray) {
             NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
-            [fetchRequest setPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%@ %@ '%@'",conditionKey,condition,[endtDic objectForKey:conditionValue]]]];
+            [fetchRequest
+             setPredicate:[NSPredicate
+                           predicateWithFormat:
+                           [NSString
+                            stringWithFormat:
+                            @"%@ %@ '%@'", conditionKey, condition,
+                            [endtDic objectForKey:conditionValue]]]];
             [fetchRequest setReturnsObjectsAsFaults:NO];
-
+            
             NSError *error = nil;
-            NSArray *datas = [currentContext executeFetchRequest:fetchRequest error:&error];
+            NSArray *datas =
+            [currentContext executeFetchRequest:fetchRequest error:&error];
             if (!error && datas && [datas count]) {
-                [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    for (NSString *key in endtDic.allKeys)
-                    {
-                        if ([[endtDic objectForKey:key] isKindOfClass:[NSArray class]])
-                        {
-                            NSRelationshipDescription *relationship = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:currentContext] relationshipsByName] objectForKey:key];
-                            for (NSDictionary *childDic in [endtDic objectForKey:key])
-                            {
-                                [self cc_updateCoreData: [[relationship destinationEntity] name]
-                                            ConditionID: [childDic objectForKey:@"objectID"]
-                                               EditData: childDic];
+                [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx,
+                                                    BOOL *stop) {
+                    for (NSString *key in endtDic.allKeys) {
+                        if ([[endtDic objectForKey:key] isKindOfClass:[NSArray class]]) {
+                            NSRelationshipDescription *relationship = [[[NSEntityDescription
+                                                                         entityForName:tableName
+                                                                         inManagedObjectContext:currentContext] relationshipsByName]
+                                                                       objectForKey:key];
+                            for (NSDictionary *childDic in [endtDic objectForKey:key]) {
+                                [self cc_updateCoreData:[[relationship destinationEntity] name]
+                                            ConditionID:[childDic objectForKey:@"objectID"]
+                                               EditData:childDic];
                             }
-                        }else
+                        } else
                             [obj setValue:[endtDic objectForKey:key] forKey:key];
                     }
                 }];
@@ -162,14 +174,13 @@
  *
  *  @since 1.0
  */
-+ (void)cc_updateCoreData: (NSString *)tableName
-                Condition: (NSString *)condition
-                 EditData: (NSDictionary *)editData
-{
-    [self cc_updateCoreData: tableName
-                  Condition: condition
-                   EditData: editData
-                 completion: nil];
++ (void)cc_updateCoreData:(NSString *)tableName
+                Condition:(NSString *)condition
+                 EditData:(NSDictionary *)editData {
+    [self cc_updateCoreData:tableName
+                  Condition:condition
+                   EditData:editData
+                 completion:nil];
 }
 
 /**
@@ -182,35 +193,38 @@
  *  @param editData   编辑属性
  *  @param completion 完成回调函数
  */
-+ (void)cc_updateCoreData: (NSString *)tableName
-                Condition: (NSString *)condition
-                 EditData: (NSDictionary *)editData
-               completion: (void(^)(NSError *error))completion
-{
++ (void)cc_updateCoreData:(NSString *)tableName
+                Condition:(NSString *)condition
+                 EditData:(NSDictionary *)editData
+               completion:(void (^)(NSError *error))completion {
     [self saveContext:^(NSManagedObjectContext *currentContext) {
-
+        
         NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
         [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
         [fetchRequest setReturnsObjectsAsFaults:NO];
-
+        
         NSError *error = nil;
-        NSArray *datas = [currentContext executeFetchRequest:fetchRequest error:&error];
+        NSArray *datas =
+        [currentContext executeFetchRequest:fetchRequest error:&error];
         if (!error && datas && [datas count]) {
             [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 for (NSString *key in editData.allKeys) {
-                    if ([[editData objectForKey:key] isKindOfClass:[NSArray class]]){
-                        NSRelationshipDescription *relationship = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:currentContext] relationshipsByName] objectForKey:key];
-                        for (NSDictionary *childDic in [editData objectForKey:key]){
-                            [self cc_updateCoreData: [[relationship destinationEntity] name]
-                                        ConditionID: [childDic objectForKey:@"objectID"]
-                                           EditData: childDic];
+                    if ([[editData objectForKey:key] isKindOfClass:[NSArray class]]) {
+                        NSRelationshipDescription *relationship = [[[NSEntityDescription
+                                                                     entityForName:tableName
+                                                                     inManagedObjectContext:currentContext] relationshipsByName]
+                                                                   objectForKey:key];
+                        for (NSDictionary *childDic in [editData objectForKey:key]) {
+                            [self cc_updateCoreData:[[relationship destinationEntity] name]
+                                        ConditionID:[childDic objectForKey:@"objectID"]
+                                           EditData:childDic];
                         }
-                    }else if ([[obj allKeys] containsObject:key])
+                    } else
                         [obj setValue:[editData objectForKey:key] forKey:key];
                 }
             }];
         }
-
+        
     } completion:completion];
 }
 
@@ -224,16 +238,15 @@
  *  @param attributeName  属性名
  *  @param attributeValue 属性值
  */
-+ (void)cc_updateCoreData: (NSString *)tableName
-                Condition: (NSString *)condition
-            AttributeName: (NSString *)attributeName
-           AttributeValue: (NSString *)attributeValue
-{
-    [self cc_updateCoreData: tableName
-                  Condition: condition
-              AttributeName: attributeName
-             AttributeValue: attributeValue
-                 completion: nil];
++ (void)cc_updateCoreData:(NSString *)tableName
+                Condition:(NSString *)condition
+            AttributeName:(NSString *)attributeName
+           AttributeValue:(NSString *)attributeValue {
+    [self cc_updateCoreData:tableName
+                  Condition:condition
+              AttributeName:attributeName
+             AttributeValue:attributeValue
+                 completion:nil];
 }
 
 /**
@@ -247,17 +260,17 @@
  *  @param attributeValue 属性值
  *  @param completion     完成回调函数
  */
-+ (void)cc_updateCoreData: (NSString *)tableName
-                Condition: (NSString *)condition
-            AttributeName: (NSString *)attributeName
-           AttributeValue: (NSString *)attributeValue
-               completion: (void(^)(NSError *error))completion
-{
++ (void)cc_updateCoreData:(NSString *)tableName
+                Condition:(NSString *)condition
+            AttributeName:(NSString *)attributeName
+           AttributeValue:(NSString *)attributeValue
+               completion:(void (^)(NSError *error))completion {
     [self saveContext:^(NSManagedObjectContext *currentContext) {
         NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
         [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
         NSError *error = nil;
-        NSArray *datas = [currentContext executeFetchRequest:fetchRequest error:&error];
+        NSArray *datas =
+        [currentContext executeFetchRequest:fetchRequest error:&error];
         if (!error && datas && [datas count]) {
             [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 [obj setValue:attributeValue forKey:attributeName];
@@ -276,14 +289,13 @@
  *  @param conditionID 主键ID
  *  @param editData    编辑的数据集
  */
-+ (void)cc_updateCoreData: (NSString *)tableName
-              ConditionID: (NSManagedObjectID *)conditionID
-                 EditData: (NSDictionary *)editData
-{
-    [self cc_updateCoreData: tableName
-                ConditionID: conditionID
-                   EditData: editData
-                 completion: nil];
++ (void)cc_updateCoreData:(NSString *)tableName
+              ConditionID:(NSManagedObjectID *)conditionID
+                 EditData:(NSDictionary *)editData {
+    [self cc_updateCoreData:tableName
+                ConditionID:conditionID
+                   EditData:editData
+                 completion:nil];
 }
 
 /**
@@ -296,28 +308,31 @@
  *  @param editData    编辑属性
  *  @param completion  完成回调函数
  */
-+ (void)cc_updateCoreData: (NSString *)tableName
-              ConditionID: (NSManagedObjectID *)conditionID
-                 EditData: (NSDictionary *)editData
-               completion: (void(^)(NSError *error))completion
-{
++ (void)cc_updateCoreData:(NSString *)tableName
+              ConditionID:(NSManagedObjectID *)conditionID
+                 EditData:(NSDictionary *)editData
+               completion:(void (^)(NSError *error))completion {
     [self saveContext:^(NSManagedObjectContext *currentContext) {
-
+        
         NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
         NSError *error = nil;
-        NSArray *datas = [currentContext executeFetchRequest:fetchRequest error:&error];
+        NSArray *datas =
+        [currentContext executeFetchRequest:fetchRequest error:&error];
         if (!error && datas && [datas count]) {
             [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 if ([((NSManagedObject *)obj).objectID isEqual:conditionID]) {
                     for (NSString *key in editData.allKeys) {
-                        if ([[editData objectForKey:key] isKindOfClass:[NSArray class]]){
-                            NSRelationshipDescription *relationship = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:currentContext] relationshipsByName] objectForKey:key];
-                            for (NSDictionary *childDic in [editData objectForKey:key]){
-                                [self cc_updateCoreData: [[relationship destinationEntity] name]
-                                            ConditionID: [childDic objectForKey:@"objectID"]
-                                               EditData: childDic];
+                        if ([[editData objectForKey:key] isKindOfClass:[NSArray class]]) {
+                            NSRelationshipDescription *relationship = [[[NSEntityDescription
+                                                                         entityForName:tableName
+                                                                         inManagedObjectContext:currentContext] relationshipsByName]
+                                                                       objectForKey:key];
+                            for (NSDictionary *childDic in [editData objectForKey:key]) {
+                                [self cc_updateCoreData:[[relationship destinationEntity] name]
+                                            ConditionID:[childDic objectForKey:@"objectID"]
+                                               EditData:childDic];
                             }
-                        }else if ([[obj allKeys] containsObject:key]){
+                        } else {
                             if (![key isEqualToString:@"objectID"])
                                 [obj setValue:[editData objectForKey:key] forKey:key];
                         }
