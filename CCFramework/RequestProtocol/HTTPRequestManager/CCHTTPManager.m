@@ -29,8 +29,33 @@
 #import "UIKit+AFNetworking.h"
 #import "NSDate+BNSDate.h"
 
-static CCHTTPManager *_sharedlnstance = nil;
+@interface CCHTTPManager ()
+
+/**
+ *  @author CC, 2015-10-29
+ *
+ *  @brief  请求对象
+ */
+@property(nonatomic, strong) AFHTTPRequestOperationManager *manager;
+
+@end
+
 @implementation CCHTTPManager
+
+/**
+ *  @author CC, 2015-10-29
+ *
+ *  @brief  请求管理
+ *
+ *  @return 返回请求对象
+ */
+- (AFHTTPRequestOperationManager *)manager
+{
+    if (!_manager) {
+        _manager = [AFHTTPRequestOperationManager manager];
+    }
+    return _manager;
+}
 
 /**
  *  @author CC, 15-08-19
@@ -42,7 +67,8 @@ static CCHTTPManager *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (void)setProgressBlock:(ProgressBlock)progressBlock Key:(NSString *)key {
+- (void)setProgressBlock:(ProgressBlock)progressBlock Key:(NSString *)key
+{
     objc_setAssociatedObject(self, (__bridge void *)key, progressBlock,
                              OBJC_ASSOCIATION_COPY);
 }
@@ -58,7 +84,8 @@ static CCHTTPManager *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (ProgressBlock)progressBlock:(NSString *)key {
+- (ProgressBlock)progressBlock:(NSString *)key
+{
     return (ProgressBlock)objc_getAssociatedObject(self, (__bridge void *)key);
 }
 
@@ -71,12 +98,13 @@ static CCHTTPManager *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-+ (id)sharedlnstance {
-    @synchronized(self) {
-        if (_sharedlnstance == nil) {
-            _sharedlnstance = [[self alloc] init];
-        }
-    }
++ (id)sharedlnstance
+{
+    static CCHTTPManager *_sharedlnstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedlnstance = [[self alloc] init];
+    });
     return _sharedlnstance;
 }
 
@@ -91,7 +119,8 @@ static CCHTTPManager *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-+ (BOOL)netWorkReachabilityWithURLString:(NSString *)strUrl {
++ (BOOL)netWorkReachabilityWithURLString:(NSString *)strUrl
+{
     __block BOOL netState = NO;
     
     NSURL *baseURL = [NSURL URLWithString:strUrl];
@@ -132,10 +161,10 @@ static CCHTTPManager *_sharedlnstance = nil;
  *
  *  @return 返回是否是故障
  */
-- (BOOL)errorAnalysis:(NSInteger)code {
+- (BOOL)errorAnalysis:(NSInteger)code
+{
     BOOL Isfailure = YES;
-    if (code >= 300 || code <= 311)
-        Isfailure = NO;
+    if (code >= 300 || code <= 311) Isfailure = NO;
     
     return Isfailure;
 }
@@ -160,7 +189,8 @@ static CCHTTPManager *_sharedlnstance = nil;
                       WithParameter:(NSDictionary *)parameter
                WithReturnValeuBlock:(RequestComplete)block
                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
-                   WithFailureBlock:(FailureBlock)failureBlock {
+                   WithFailureBlock:(FailureBlock)failureBlock
+{
     [self NetRequestGETWithRequestURL:requestURLString
                         WithParameter:parameter
                          WithUserInfo:nil
@@ -189,29 +219,29 @@ static CCHTTPManager *_sharedlnstance = nil;
                WithReturnValeuBlock:(RequestComplete)block
                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                    WithFailureBlock:(FailureBlock)failureBlock
-                     WithCompletion:(CompletionCallback)completionBlock {
+                     WithCompletion:(CompletionCallback)completionBlock
+{
     
-    AFHTTPRequestOperationManager *manager =
-    [[AFHTTPRequestOperationManager alloc] init];
     
-    AFHTTPRequestOperation *requestOperation = [manager GET:requestURLString
-                                                 parameters:parameter
-                                                    success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                        NSDictionary *dic =
-                                                        [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                        options:NSJSONReadingAllowFragments
-                                                                                          error:nil];
-                                                        NSLog(@"%@", dic);
-                                                        block(dic);
-                                                        
-                                                        if (operation.userInfo && completionBlock)
-                                                            completionBlock(dic, operation.userInfo);
-                                                        
-                                                    }
-                                                    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                        [self errorAnalysis:error.code] ? failureBlock(error)
-                                                        : errorBlock(error);
-                                                    }];
+    AFHTTPRequestOperation *requestOperation =
+    [self.manager GET:requestURLString
+           parameters:parameter
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  NSDictionary *dic = [NSJSONSerialization
+                                       JSONObjectWithData:responseObject
+                                       options:NSJSONReadingAllowFragments
+                                       error:nil];
+                  NSLog(@"%@", dic);
+                  block(dic);
+                  
+                  if (operation.userInfo && completionBlock)
+                      completionBlock(dic, operation.userInfo);
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  [self errorAnalysis:error.code] ? failureBlock(error)
+                  : errorBlock(error);
+              }];
     
     if (_userInfo || userInfo)
         requestOperation.userInfo = userInfo ? userInfo : _userInfo;
@@ -239,7 +269,8 @@ static CCHTTPManager *_sharedlnstance = nil;
                        WithParameter:(NSDictionary *)parameter
                 WithReturnValeuBlock:(RequestComplete)block
                   WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
-                    WithFailureBlock:(FailureBlock)failureBlock {
+                    WithFailureBlock:(FailureBlock)failureBlock
+{
     [self NetRequestPOSTWithRequestURL:requestURLString
                          WithParameter:parameter
                           WithUserInfo:nil
@@ -268,27 +299,27 @@ static CCHTTPManager *_sharedlnstance = nil;
                 WithReturnValeuBlock:(RequestComplete)block
                   WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                     WithFailureBlock:(FailureBlock)failureBlock
-                      WithCompletion:(CompletionCallback)completionBlock {
-    AFHTTPRequestOperationManager *manager =
-    [[AFHTTPRequestOperationManager alloc] init];
-    AFHTTPRequestOperation *requestOperation = [manager POST:requestURLString
-                                                  parameters:parameter
-                                                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                         NSDictionary *dic =
-                                                         [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                         options:NSJSONReadingAllowFragments
-                                                                                           error:nil];
-                                                         NSLog(@"%@", dic);
-                                                         block(dic);
-                                                         
-                                                         if (operation.userInfo && completionBlock)
-                                                             completionBlock(dic, operation.userInfo);
-                                                         
-                                                     }
-                                                     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                         [self errorAnalysis:error.code] ? failureBlock(error)
-                                                         : errorBlock(error);
-                                                     }];
+                      WithCompletion:(CompletionCallback)completionBlock
+{
+    AFHTTPRequestOperation *requestOperation =
+    [self.manager POST:requestURLString
+            parameters:parameter
+               success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                   NSDictionary *dic = [NSJSONSerialization
+                                        JSONObjectWithData:responseObject
+                                        options:NSJSONReadingAllowFragments
+                                        error:nil];
+                   NSLog(@"%@", dic);
+                   block(dic);
+                   
+                   if (operation.userInfo && completionBlock)
+                       completionBlock(dic, operation.userInfo);
+                   
+               }
+               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                   [self errorAnalysis:error.code] ? failureBlock(error)
+                   : errorBlock(error);
+               }];
     
     if (_userInfo || userInfo)
         requestOperation.userInfo = userInfo ? userInfo : _userInfo;
@@ -314,7 +345,8 @@ static CCHTTPManager *_sharedlnstance = nil;
                          WithParameter:(NSDictionary *)parameter
                   WithReturnValeuBlock:(RequestComplete)block
                     WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
-                      WithFailureBlock:(FailureBlock)failureBlock {
+                      WithFailureBlock:(FailureBlock)failureBlock
+{
     [self NetRequestDELETEWithRequestURL:requestURLString
                            WithParameter:parameter
                             WithUserInfo:nil
@@ -343,27 +375,27 @@ static CCHTTPManager *_sharedlnstance = nil;
                   WithReturnValeuBlock:(RequestComplete)block
                     WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                       WithFailureBlock:(FailureBlock)failureBlock
-                        WithCompletion:(CompletionCallback)completionBlock {
-    AFHTTPRequestOperationManager *manager =
-    [[AFHTTPRequestOperationManager alloc] init];
-    AFHTTPRequestOperation *requestOperation = [manager DELETE:requestURLString
-                                                    parameters:parameter
-                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                           NSDictionary *dic =
-                                                           [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                           options:NSJSONReadingAllowFragments
-                                                                                             error:nil];
-                                                           NSLog(@"%@", dic);
-                                                           block(dic);
-                                                           
-                                                           if (operation.userInfo && completionBlock)
-                                                               completionBlock(dic, operation.userInfo);
-                                                           
-                                                       }
-                                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                           [self errorAnalysis:error.code] ? failureBlock(error)
-                                                           : errorBlock(error);
-                                                       }];
+                        WithCompletion:(CompletionCallback)completionBlock
+{
+    AFHTTPRequestOperation *requestOperation =
+    [self.manager DELETE:requestURLString
+              parameters:parameter
+                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                     NSDictionary *dic = [NSJSONSerialization
+                                          JSONObjectWithData:responseObject
+                                          options:NSJSONReadingAllowFragments
+                                          error:nil];
+                     NSLog(@"%@", dic);
+                     block(dic);
+                     
+                     if (operation.userInfo && completionBlock)
+                         completionBlock(dic, operation.userInfo);
+                     
+                 }
+                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                     [self errorAnalysis:error.code] ? failureBlock(error)
+                     : errorBlock(error);
+                 }];
     
     if (_userInfo || userInfo)
         requestOperation.userInfo = userInfo ? userInfo : _userInfo;
@@ -389,7 +421,8 @@ static CCHTTPManager *_sharedlnstance = nil;
                        WithParameter:(NSDictionary *)parameter
                 WithReturnValeuBlock:(RequestComplete)block
                   WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
-                    WithFailureBlock:(FailureBlock)failureBlock {
+                    WithFailureBlock:(FailureBlock)failureBlock
+{
     [self NetRequestHEADWithRequestURL:requestURLString
                          WithParameter:parameter
                           WithUserInfo:nil
@@ -418,21 +451,21 @@ static CCHTTPManager *_sharedlnstance = nil;
                 WithReturnValeuBlock:(RequestComplete)block
                   WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                     WithFailureBlock:(FailureBlock)failureBlock
-                      WithCompletion:(CompletionCallback)completionBlock {
-    AFHTTPRequestOperationManager *manager =
-    [[AFHTTPRequestOperationManager alloc] init];
-    AFHTTPRequestOperation *requestOperation = [manager HEAD:requestURLString
-                                                  parameters:parameter
-                                                     success:^(AFHTTPRequestOperation *operation) {
-                                                         
-                                                         if (operation.userInfo && completionBlock)
-                                                             completionBlock(nil, operation.userInfo);
-                                                         
-                                                     }
-                                                     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                         [self errorAnalysis:error.code] ? failureBlock(error)
-                                                         : errorBlock(error);
-                                                     }];
+                      WithCompletion:(CompletionCallback)completionBlock
+{
+    AFHTTPRequestOperation *requestOperation =
+    [self.manager HEAD:requestURLString
+            parameters:parameter
+               success:^(AFHTTPRequestOperation *operation) {
+                   
+                   if (operation.userInfo && completionBlock)
+                       completionBlock(nil, operation.userInfo);
+                   
+               }
+               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                   [self errorAnalysis:error.code] ? failureBlock(error)
+                   : errorBlock(error);
+               }];
     
     if (_userInfo || userInfo)
         requestOperation.userInfo = userInfo ? userInfo : _userInfo;
@@ -458,7 +491,8 @@ static CCHTTPManager *_sharedlnstance = nil;
                       WithParameter:(NSDictionary *)parameter
                WithReturnValeuBlock:(RequestComplete)block
                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
-                   WithFailureBlock:(FailureBlock)failureBlock {
+                   WithFailureBlock:(FailureBlock)failureBlock
+{
     [self NetRequestPUTWithRequestURL:requestURLString
                         WithParameter:parameter
                          WithUserInfo:nil
@@ -487,27 +521,27 @@ static CCHTTPManager *_sharedlnstance = nil;
                WithReturnValeuBlock:(RequestComplete)block
                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                    WithFailureBlock:(FailureBlock)failureBlock
-                     WithCompletion:(CompletionCallback)completionBlock {
-    AFHTTPRequestOperationManager *manager =
-    [[AFHTTPRequestOperationManager alloc] init];
-    AFHTTPRequestOperation *requestOperation = [manager PUT:requestURLString
-                                                 parameters:parameter
-                                                    success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                        NSDictionary *dic =
-                                                        [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                        options:NSJSONReadingAllowFragments
-                                                                                          error:nil];
-                                                        NSLog(@"%@", dic);
-                                                        block(dic);
-                                                        
-                                                        if (operation.userInfo && completionBlock)
-                                                            completionBlock(dic, operation.userInfo);
-                                                        
-                                                    }
-                                                    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                        [self errorAnalysis:error.code] ? failureBlock(error)
-                                                        : errorBlock(error);
-                                                    }];
+                     WithCompletion:(CompletionCallback)completionBlock
+{
+    AFHTTPRequestOperation *requestOperation =
+    [self.manager PUT:requestURLString
+           parameters:parameter
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  NSDictionary *dic = [NSJSONSerialization
+                                       JSONObjectWithData:responseObject
+                                       options:NSJSONReadingAllowFragments
+                                       error:nil];
+                  NSLog(@"%@", dic);
+                  block(dic);
+                  
+                  if (operation.userInfo && completionBlock)
+                      completionBlock(dic, operation.userInfo);
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  [self errorAnalysis:error.code] ? failureBlock(error)
+                  : errorBlock(error);
+              }];
     
     if (_userInfo || userInfo)
         requestOperation.userInfo = userInfo ? userInfo : _userInfo;
@@ -533,7 +567,8 @@ static CCHTTPManager *_sharedlnstance = nil;
                         WithParameter:(NSDictionary *)parameter
                  WithReturnValeuBlock:(RequestComplete)block
                    WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
-                     WithFailureBlock:(FailureBlock)failureBlock {
+                     WithFailureBlock:(FailureBlock)failureBlock
+{
     [self NetRequestPATCHWithRequestURL:requestURLString
                           WithParameter:parameter
                            WithUserInfo:nil
@@ -562,27 +597,27 @@ static CCHTTPManager *_sharedlnstance = nil;
                  WithReturnValeuBlock:(RequestComplete)block
                    WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                      WithFailureBlock:(FailureBlock)failureBlock
-                       WithCompletion:(CompletionCallback)completionBlock {
-    AFHTTPRequestOperationManager *manager =
-    [[AFHTTPRequestOperationManager alloc] init];
-    AFHTTPRequestOperation *requestOperation = [manager PATCH:requestURLString
-                                                   parameters:parameter
-                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                          NSDictionary *dic =
-                                                          [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                          options:NSJSONReadingAllowFragments
-                                                                                            error:nil];
-                                                          NSLog(@"%@", dic);
-                                                          block(dic);
-                                                          
-                                                          if (operation.userInfo && completionBlock)
-                                                              completionBlock(dic, operation.userInfo);
-                                                          
-                                                      }
-                                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                          [self errorAnalysis:error.code] ? failureBlock(error)
-                                                          : errorBlock(error);
-                                                      }];
+                       WithCompletion:(CompletionCallback)completionBlock
+{
+    AFHTTPRequestOperation *requestOperation =
+    [self.manager PATCH:requestURLString
+             parameters:parameter
+                success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSDictionary *dic = [NSJSONSerialization
+                                         JSONObjectWithData:responseObject
+                                         options:NSJSONReadingAllowFragments
+                                         error:nil];
+                    NSLog(@"%@", dic);
+                    block(dic);
+                    
+                    if (operation.userInfo && completionBlock)
+                        completionBlock(dic, operation.userInfo);
+                    
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    [self errorAnalysis:error.code] ? failureBlock(error)
+                    : errorBlock(error);
+                }];
     
     if (_userInfo || userInfo)
         requestOperation.userInfo = userInfo ? userInfo : _userInfo;
@@ -609,7 +644,8 @@ static CCHTTPManager *_sharedlnstance = nil;
                       WithUploadFileName:(NSString *)fileName
                     WithReturnValeuBlock:(RequestComplete)block
                       WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
-                       WithProgressBlock:(ProgressBlock)progressBlock {
+                       WithProgressBlock:(ProgressBlock)progressBlock
+{
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
@@ -634,35 +670,38 @@ static CCHTTPManager *_sharedlnstance = nil;
         requestOperation.userInfo = @{ @"filePath" : fileNamePath };
         
         [requestOperation
-         setOutputStream:[NSOutputStream outputStreamToFileAtPath:fileNamePath
-                                                           append:NO]];
-        
+         setOutputStream:[NSOutputStream
+                          outputStreamToFileAtPath:fileNamePath
+                          append:NO]];
+						  
         //处理流
         [self readCacheToOutStreamWithPath:requestOperation Path:fileNamePath];
-        [requestOperation
-         addObserver:self
-         forKeyPath:@"isPaused"
-         options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
-         context:nil];
+        [requestOperation addObserver:self
+                           forKeyPath:@"isPaused"
+                              options:NSKeyValueObservingOptionNew |
+         NSKeyValueObservingOptionOld
+                              context:nil];
         
         //获取进度块
         [self setProgressBlock:progressBlock Key:fileName];
         
         [requestOperation setDownloadProgressBlock:progressBlock];
         
-        [requestOperation setDownloadProgressBlock:
+        [requestOperation
+         setDownloadProgressBlock:
          [self NewProgressBlockWithCacheLength:requestOperation
                                     CachLength:cacheLength
                                      CachePath:fileNamePath]];
         
         //获取成功回调块
-        [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *
-                                                          operation,
-                                                          id responseObject) {
-            block(operation.responseData);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            errorBlock(error);
-        }];
+        [requestOperation
+         setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation,
+                                         id responseObject) {
+             block(operation.responseData);
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             errorBlock(error);
+         }];
         [requestOperation start];
     }
 }
@@ -688,15 +727,17 @@ static CCHTTPManager *_sharedlnstance = nil;
                       ServiceReceivingName:(NSString *)serviceReceivingName
                       WithReturnValeuBlock:(RequestComplete)block
                         WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
-                         WithProgressBlock:(ProgressBlock)progressBlock {
-    [self NetRequestUploadFormWithRequestURL:requestURLString
-                         WithUploadFileImage:[UIImage
-                                              imageWithContentsOfFile:filePath]
-                                    FileType:fileType
-                        ServiceReceivingName:serviceReceivingName
-                        WithReturnValeuBlock:block
-                          WithErrorCodeBlock:errorBlock
-                           WithProgressBlock:progressBlock];
+                         WithProgressBlock:(ProgressBlock)progressBlock
+{
+    [self
+     NetRequestUploadFormWithRequestURL:requestURLString
+     WithUploadFileImage:[UIImage
+                          imageWithContentsOfFile:filePath]
+     FileType:fileType
+     ServiceReceivingName:serviceReceivingName
+     WithReturnValeuBlock:block
+     WithErrorCodeBlock:errorBlock
+     WithProgressBlock:progressBlock];
 }
 
 /**
@@ -718,50 +759,51 @@ static CCHTTPManager *_sharedlnstance = nil;
                       ServiceReceivingName:(NSString *)serviceReceivingName
                       WithReturnValeuBlock:(RequestComplete)block
                         WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
-                         WithProgressBlock:(ProgressBlock)progressBlock {
-    AFHTTPRequestOperationManager *manager =
-    [AFHTTPRequestOperationManager manager];
-    AFHTTPRequestOperation *requestOperation = [manager POST:requestURLString
-                                                  parameters:nil
-                                   constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                                       NSData *postData;
-                                       NSString *postFileType;
-                                       NSString *postFileName;
-                                       NSString *postFileNameType;
-                                       switch (fileType) {
-                                           case CCUploadFormFileTypeImageJpeg:
-                                               postData = UIImageJPEGRepresentation(fileImage, 1);
-                                               postFileType = @"image/jpeg";
-                                               postFileNameType = @"jpeg";
-                                               break;
-                                               
-                                           case CCUploadFormFileTypeImagePNG:
-                                               postData = UIImagePNGRepresentation(fileImage);
-                                               postFileType = @"image/png";
-                                               postFileNameType = @"png";
-                                               break;
-                                               
-                                           default:
-                                               break;
-                                       }
-                                       //上传图片保存名称与类型
-                                       postFileName = [NSString
-                                                       stringWithFormat:@"%@.%@", [[NSDate date]
-                                                                                   toStringFormat:@"yyyyMMddHHmmssSSS"],
-                                                       postFileNameType];
-                                       
-                                       // 上传图片，以文件流的格式
-                                       [formData appendPartWithFileData:postData
-                                                                   name:serviceReceivingName
-                                                               fileName:postFileName
-                                                               mimeType:postFileType];
-                                   }
-                                                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                         block(responseObject);
-                                                     }
-                                                     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                         errorBlock(error);
-                                                     }];
+                         WithProgressBlock:(ProgressBlock)progressBlock
+{
+    AFHTTPRequestOperation *requestOperation =
+    [self.manager POST:requestURLString
+            parameters:nil
+constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    NSData *postData;
+    NSString *postFileType;
+    NSString *postFileName;
+    NSString *postFileNameType;
+    switch (fileType) {
+        case CCUploadFormFileTypeImageJpeg:
+            postData = UIImageJPEGRepresentation(fileImage, 1);
+            postFileType = @"image/jpeg";
+            postFileNameType = @"jpeg";
+            break;
+            
+        case CCUploadFormFileTypeImagePNG:
+            postData = UIImagePNGRepresentation(fileImage);
+            postFileType = @"image/png";
+            postFileNameType = @"png";
+            break;
+            
+        default:
+            break;
+    }
+    //上传图片保存名称与类型
+    postFileName = [NSString
+                    stringWithFormat:@"%@.%@",
+                    [[NSDate date]
+                     toStringFormat:@"yyyyMMddHHmmssSSS"],
+                    postFileNameType];
+    
+    // 上传图片，以文件流的格式
+    [formData appendPartWithFileData:postData
+                                name:serviceReceivingName
+                            fileName:postFileName
+                            mimeType:postFileType];
+}
+               success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                   block(responseObject);
+               }
+               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                   errorBlock(error);
+               }];
     
     [requestOperation start];
 }
@@ -784,7 +826,8 @@ static CCHTTPManager *_sharedlnstance = nil;
                       WithReturnValeuBlock:(RequestComplete)block
                         WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                          WithProgressBlock:
-(NSProgress *__autoreleasing *)progressBlock {
+(NSProgress *__autoreleasing *)progressBlock
+{
     AFURLSessionManager *sessionManager = [[AFURLSessionManager alloc]
                                            initWithSessionConfiguration:[NSURLSessionConfiguration
                                                                          defaultSessionConfiguration]];
@@ -824,7 +867,8 @@ static CCHTTPManager *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (NSString *)filePath:(NSString *)fileName {
+- (NSString *)filePath:(NSString *)fileName
+{
     NSArray *cachePaths = NSSearchPathForDirectoriesInDomains(
                                                               NSCachesDirectory, NSUserDomainMask, YES);
     NSString *cachePath = [cachePaths objectAtIndex:0];
@@ -842,7 +886,8 @@ static CCHTTPManager *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (long long)cacheFileWithPath:(NSString *)path {
+- (long long)cacheFileWithPath:(NSString *)path
+{
     NSFileHandle *fh = [NSFileHandle fileHandleForReadingAtPath:path];
     NSData *contentData = [fh readDataToEndOfFile];
     return contentData ? contentData.length : 0;
@@ -860,7 +905,8 @@ static CCHTTPManager *_sharedlnstance = nil;
  *
  *  @since <#1.0#>
  */
-- (NSMutableURLRequest *)requestWithUrl:(id)url Range:(long long)length {
+- (NSMutableURLRequest *)requestWithUrl:(id)url Range:(long long)length
+{
     NSURL *requestUrl =
     [url isKindOfClass:[NSURL class]] ? url : [NSURL URLWithString:url];
     
@@ -888,7 +934,8 @@ static CCHTTPManager *_sharedlnstance = nil;
  *  @since 1.0
  */
 - (void)readCacheToOutStreamWithPath:(AFHTTPRequestOperation *)requestOperation
-                                Path:(NSString *)path {
+                                Path:(NSString *)path
+{
     NSFileHandle *fh = [NSFileHandle fileHandleForReadingAtPath:path];
     NSData *currentData = [fh readDataToEndOfFile];
     
@@ -904,9 +951,9 @@ static CCHTTPManager *_sharedlnstance = nil;
         
         bytesWrittenSoFar = 0;
         do {
-            bytesWritten =
-            [requestOperation.outputStream write:&dataBytes[bytesWrittenSoFar]
-                                       maxLength:dataLength - bytesWrittenSoFar];
+            bytesWritten = [requestOperation.outputStream
+                            write:&dataBytes[bytesWrittenSoFar]
+                            maxLength:dataLength - bytesWrittenSoFar];
             assert(bytesWritten != 0);
             if (bytesWritten == -1) {
                 break;
@@ -933,16 +980,19 @@ static CCHTTPManager *_sharedlnstance = nil;
 - (ProgressBlock)NewProgressBlockWithCacheLength:
 (AFHTTPRequestOperation *)requestOperation
                                       CachLength:(long long)cachLength
-                                       CachePath:(NSString *)fileNamePath {
+                                       CachePath:(NSString *)fileNamePath
+{
     WEAKSELF;
     void (^newProgressBlock)(NSUInteger bytesRead, long long totalBytesRead,
                              long long totalBytesExpectedToRead) =
     ^(NSUInteger bytesRead, long long totalBytesRead,
       long long totalBytesExpectedToRead) {
-        NSData* data = [NSData dataWithContentsOfFile:fileNamePath];
+        NSData *data = [NSData dataWithContentsOfFile:fileNamePath];
         [requestOperation setValue:data forKey:@"responseData"];
         
-        void (^progressBlock)(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) = [weakSelf progressBlock:fileNamePath];
+        void (^progressBlock)(NSUInteger bytesRead, long long totalBytesRead,
+                              long long totalBytesExpectedToRead) =
+        [weakSelf progressBlock:fileNamePath];
         if (progressBlock)
             progressBlock(bytesRead, totalBytesRead + cachLength,
                           totalBytesExpectedToRead + cachLength);
