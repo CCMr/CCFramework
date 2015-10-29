@@ -28,11 +28,19 @@
 
 @implementation NSManagedObject (Mapping)
 
-- (void)mergeAttributeForKey: (NSString *)attributeName
-                   withValue: (id)value
+/**
+ *  @author CC, 2015-10-29
+ *  
+ *  @brief  属性合并
+ *
+ *  @param attributeName 属性名
+ *  @param value         值
+ */
+- (void)mergeAttributeForKey:(NSString *)attributeName
+                   withValue:(id)value
 {
     NSAttributeDescription *attributeDes = [self attributeDescriptionForAttribute:attributeName];
-
+    
     if (value != [NSNull null]) {
         switch (attributeDes.attributeType) {
             case NSDecimalAttributeType:
@@ -46,8 +54,15 @@
             case NSBooleanAttributeType:
                 [self setValue:[NSNumber numberWithBool:[value boolValue]] forKey:attributeName];
                 break;
-            case NSDateAttributeType:
-                [self setValue:dateFromString(value) forKey:attributeName];
+            case NSDateAttributeType: {
+                id setvalue = value;
+                
+                if ([value isKindOfClass:[NSString class]])
+                    setvalue = dateFromString(value);
+                
+                [self setValue:setvalue forKey:attributeName];
+                break;
+            }
             case NSObjectIDAttributeType:
             case NSBinaryDataAttributeType:
             case NSStringAttributeType:
@@ -62,79 +77,110 @@
     }
 }
 
-- (void)mergeRelationshipForKey: (NSString *)relationshipName
-                      withValue: (id)value
-                          IsAdd: (BOOL)isAdd
+/**
+ *  @author CC, 2015-10-29
+ *  
+ *  @brief  关系合并
+ *
+ *  @param relationshipName 关系对象名
+ *  @param value            值
+ *  @param isAdd            是否添加对象
+ */
+- (void)mergeRelationshipForKey:(NSString *)relationshipName
+                      withValue:(id)value
+                          IsAdd:(BOOL)isAdd
 {
     if ([value isEqual:[NSNull null]]) {
         return;
     }
     NSRelationshipDescription *relationshipDes = [self relationshipDescriptionForRelationship:relationshipName];
     NSString *desClassName = relationshipDes.destinationEntity.managedObjectClassName;
+    
+    if ([desClassName isEqualToString:@"NSManagedObject"])
+        desClassName = relationshipDes.destinationEntity.name;
+    
     if (relationshipDes.isToMany) {
         NSArray *destinationObjs = [NSClassFromString(desClassName) cc_NewOrUpdateWithArray:value inContext:self.managedObjectContext];
         if (destinationObjs != nil && destinationObjs.count > 0) {
-            if (isAdd) {//添加数据
-                if(relationshipDes.isOrdered) {
+            if (isAdd) { //添加数据
+                if (relationshipDes.isOrdered) {
                     NSMutableOrderedSet *localOrderedSet = [self mutableOrderedSetValueForKey:relationshipName];
                     [localOrderedSet addObjectsFromArray:destinationObjs];
                     [self setValue:localOrderedSet forKey:relationshipName];
-                }
-                else {
+                } else {
                     NSMutableSet *localSet = [self mutableSetValueForKey:relationshipName];
                     [localSet addObjectsFromArray:destinationObjs];
                     [self setValue:localSet forKey:relationshipName];
                 }
-            }else{
+            } else {
                 if (relationshipDes.isOrdered) {
                     NSMutableOrderedSet *localOrderedSet = [self mutableOrderedSetValueForKey:relationshipName];
                     [localOrderedSet removeAllObjects];
                     [localOrderedSet addObjectsFromArray:destinationObjs];
                     [self setValue:localOrderedSet forKey:relationshipName];
-                }else{
+                } else {
                     [self setValue:[NSSet setWithArray:destinationObjs] forKey:relationshipName];
                 }
             }
         }
-    }else{
+    } else {
         id destinationObjs = [NSClassFromString(desClassName) cc_NewOrUpdateWithData:value inContext:self.managedObjectContext];
         [self setValue:destinationObjs forKey:relationshipName];
     }
-
 }
 
 #pragma mark - private methods
 
-- (NSArray *)allAttributeNames {
+/**
+ *  @author CC, 2015-10-29
+ *  
+ *  @brief  对象属性
+ *
+ *  @return 返回对象所有属性
+ */
+- (NSArray *)allAttributeNames
+{
     return self.entity.attributesByName.allKeys;
 }
 
-- (NSArray *)allRelationshipNames {
+/**
+ *  @author CC, 2015-10-29
+ *  
+ *  @brief  对象关系
+ *
+ *  @return 返回对象所有关系集合
+ */
+- (NSArray *)allRelationshipNames
+{
     return self.entity.relationshipsByName.allKeys;
 }
 
-- (NSAttributeDescription *)attributeDescriptionForAttribute:(NSString *)attributeName {
+- (NSAttributeDescription *)attributeDescriptionForAttribute:(NSString *)attributeName
+{
     return [self.entity.attributesByName objectForKey:attributeName];
 }
 
-- (NSRelationshipDescription *)relationshipDescriptionForRelationship:(NSString *)relationshipName {
+- (NSRelationshipDescription *)relationshipDescriptionForRelationship:(NSString *)relationshipName
+{
     return [self.entity.relationshipsByName objectForKey:relationshipName];
 }
 
 #pragma mark - transform methods
 
-NSDate * dateFromString(NSString *value) {
+NSDate *dateFromString(NSString *value)
+{
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
     [formatter setLocale:[NSLocale currentLocale]];
     [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssz"];
-
+    
     NSDate *parsedDate = [formatter dateFromString:value];
-
+    
     return parsedDate;
 }
 
-NSNumber * numberFromString(NSString *value) {
+NSNumber *numberFromString(NSString *value)
+{
     return [NSNumber numberWithDouble:[value doubleValue]];
 }
 
