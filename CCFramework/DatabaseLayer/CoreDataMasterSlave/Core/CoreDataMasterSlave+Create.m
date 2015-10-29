@@ -25,6 +25,7 @@
 
 #import "CoreDataMasterSlave+Manager.h"
 #import "CoreDataMasterSlave+Convenience.h"
+#import "NSManagedObject+Mapping.h"
 
 @implementation CoreDataMasterSlave (Create)
 
@@ -38,11 +39,11 @@
  *
  *  @since 1.0
  */
-+ (void)cc_insertCoreData: (NSString *)tableName
-                  DataDic: (NSDictionary *)dataDic
++ (void)cc_insertCoreData:(NSString *)tableName
+                  DataDic:(NSDictionary *)dataDic
 {
-    [self cc_insertCoreData: tableName
-                  DataArray: @[dataDic]];
+    [self cc_insertCoreData:tableName
+                  DataArray:@[ dataDic ]];
 }
 
 /**
@@ -53,14 +54,14 @@
  *  @param tableName 表名
  *  @param dataArray 新增数据
  */
-+ (void)cc_insertCoreData: (NSString *)tableName
-                DataArray: (NSArray *)dataArray
++ (void)cc_insertCoreData:(NSString *)tableName
+                DataArray:(NSArray *)dataArray
 {
     if (!dataArray.count) return;
-
-    [self cc_insertCoreData: tableName
-                  DataArray: dataArray
-                 completion: nil];
+    
+    [self cc_insertCoreData:tableName
+                  DataArray:dataArray
+                 completion:nil];
 }
 
 /**
@@ -72,80 +73,33 @@
  *  @param dataArray  新增数据
  *  @param completion 完成回调函数
  */
-+ (void)cc_insertCoreData: (NSString *)tableName
-                DataArray: (NSArray *)dataArray
-               completion: (void(^)(NSError *error))completion
++ (void)cc_insertCoreData:(NSString *)tableName
+                DataArray:(NSArray *)dataArray
+               completion:(void (^)(NSError *error))completion
 {
     if (!dataArray.count) return;
-
+    
     [self saveContext:^(NSManagedObjectContext *currentContext) {
-        for (NSDictionary *dic in dataArray)
-        {
+        for (NSDictionary *mapping in dataArray){
+            
             NSManagedObject *entity = [NSEntityDescription insertNewObjectForEntityForName:tableName inManagedObjectContext:currentContext];
-            for (NSString *key in dic.allKeys) {
-                if ([[dic objectForKey:key] isKindOfClass:[NSArray class]]){
-                    NSRelationshipDescription *relationship = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:currentContext] relationshipsByName] objectForKey:key];
-
-                    [self cc_recursiveCategory: entity
-                                  Relationship: relationship
-                               ForeignKeyValue: [dic objectForKey:relationship.inverseRelationship.name]
-                                     DataArray: [dic objectForKey:key]
-                        inManagedObjectContext: currentContext];
-                }else{
-                    [entity setValue:[dic objectForKey:key] forKey:key];
+            
+            NSArray *attributes = [entity allAttributeNames];
+            NSArray *relationships = [entity allRelationshipNames];
+            
+            [mapping.allKeys enumerateObjectsUsingBlock:^(id  _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
+                id remoteValue = [mapping objectForKey:key];
+                if (remoteValue) {
+                    if ([attributes containsObject:key]) {
+                        [entity mergeAttributeForKey:key withValue:remoteValue];
+                    }else if ([relationships containsObject:key]){
+                        [entity mergeRelationshipForKey:key withValue:remoteValue IsAdd:YES];
+                    }
                 }
-            }
+            }];
         }
-
+        
     } completion:completion];
 }
-
-/**
- *  @author CC, 2015-10-25
- *
- *  @brief  递归关联对象新增
- *
- *  @param entity          上级对象
- *  @param relationship    子对象
- *  @param foreignKeyValue 子对象键
- *  @param dataArray       子对象值
- *  @param context         核心处理对象
- */
-+ (void)cc_recursiveCategory: (NSManagedObject *)entity
-                Relationship: (NSRelationshipDescription *)relationship
-             ForeignKeyValue: (NSString *)foreignKeyValue
-                   DataArray: (NSArray *)dataArray
-      inManagedObjectContext: (NSManagedObjectContext *)context
-{
-    NSMutableSet *SonCategory = [NSMutableSet set];
-
-    for (NSDictionary *dic in dataArray) {
-        NSManagedObject *entitySon = [NSEntityDescription insertNewObjectForEntityForName:[[relationship destinationEntity] name] inManagedObjectContext:context];
-
-        //有自定义关联外键
-        if (foreignKeyValue)
-            [entitySon setValue:foreignKeyValue forKey:relationship.name];//设置当前主键
-
-        [entitySon setValue:entity forKey:relationship.inverseRelationship.name];
-
-        for (NSString *key in dic.allKeys) {
-            if ([[dic objectForKey:key] isKindOfClass:[NSArray class]])
-            {
-                NSRelationshipDescription *CategoryRelationship = [[[NSEntityDescription entityForName:[[relationship destinationEntity] name] inManagedObjectContext:context] relationshipsByName] objectForKey:key];
-
-                [self cc_recursiveCategory: entitySon
-                              Relationship: CategoryRelationship
-                           ForeignKeyValue: [dic objectForKey:CategoryRelationship.inverseRelationship.name]
-                                 DataArray: [dic objectForKey:key]
-                    inManagedObjectContext: context];
-            }else{
-                [entitySon setValue:[dic objectForKey:key] forKey:key];
-            }
-        }
-        [SonCategory addObject:entitySon];
-    }
-    [entity setValue:SonCategory forKey:relationship.name];
-}
-
 
 @end
