@@ -28,7 +28,7 @@
 @interface NSDate (BNSDate)
 
 /**
- *  @author CC, 2015-07-21 18:07:04
+ *  @author CC, 2015-07-21
  *
  *  @brief  时间转字符串
  *

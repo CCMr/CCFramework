@@ -23,12 +23,11 @@
 // THE SOFTWARE.
 //
 
-
 #import <Foundation/Foundation.h>
 
 @interface BaseEntity : NSObject
 
-//must override
+// must override
 + (id)dataWithJavaJsonDictonary:(NSDictionary *)jsonDic error:(NSError **)error;
 
 /**
@@ -42,7 +41,7 @@
  *
  *  @since 1.0
  */
-+ (id)BaseEntityWithJson: (NSString *)jsonStr;
++ (id)BaseEntityWithJson:(NSString *)jsonStr;
 
 /**
  *  @author CC, 2015-06-23
@@ -89,7 +88,7 @@
  *
  *  @since 1.0
  */
-- (void)setJson: (NSString *)jsonStr;
+- (void)setJson:(NSString *)jsonStr;
 
 /**
  *  @author CC, 2015-06-16

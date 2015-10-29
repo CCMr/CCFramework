@@ -30,16 +30,16 @@
 
 @interface CCPagesContainer () <CCPagesContainerTopBarDelegate, UIScrollViewDelegate>
 
-@property (strong, nonatomic) CCPagesContainerTopBar *topBar;
-@property (strong, nonatomic) UIScrollView *scrollView;
-@property (weak,   nonatomic) UIScrollView *observingScrollView;
-@property (strong, nonatomic) UIView *pageIndicatorView;
+@property(strong, nonatomic) CCPagesContainerTopBar *topBar;
+@property(strong, nonatomic) UIScrollView *scrollView;
+@property(weak, nonatomic) UIScrollView *observingScrollView;
+@property(strong, nonatomic) UIView *pageIndicatorView;
 
-@property (          assign, nonatomic) BOOL shouldObserveContentOffset;
-@property (readonly, assign, nonatomic) CGFloat scrollWidth;
-@property (readonly, assign, nonatomic) CGFloat scrollHeight;
+@property(assign, nonatomic) BOOL shouldObserveContentOffset;
+@property(readonly, assign, nonatomic) CGFloat scrollWidth;
+@property(readonly, assign, nonatomic) CGFloat scrollHeight;
 
-@property (readonly, assign, nonatomic) int currentIndex;
+@property(readonly, assign, nonatomic) int currentIndex;
 
 - (void)layoutSubviews;
 - (void)startObservingContentOffsetForScrollView:(UIScrollView *)scrollView;
@@ -100,7 +100,7 @@
 {
     [super viewDidLoad];
     self.shouldObserveContentOffset = YES;
-
+    
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.,
                                                                      _isBarTop ? self.topBarHeight : 0,
                                                                      CGRectGetWidth(self.view.frame),
@@ -113,7 +113,7 @@
     self.scrollView.bounces = YES;
     [self.view addSubview:self.scrollView];
     [self startObservingContentOffsetForScrollView:self.scrollView];
-
+    
     self.topBar = [[CCPagesContainerTopBar alloc] initWithFrame:CGRectMake(0.,
                                                                            _isBarTop ? 0 : CGRectGetHeight(self.view.frame) - self.topBarHeight,
                                                                            CGRectGetWidth(self.view.frame),
@@ -153,38 +153,37 @@
             self.pageIndicatorView.center = CGPointMake([self.topBar centerForSelectedItemAtIndex:selectedIndex].x,
                                                         [self pageIndicatorCenterY]);
         }
-        [UIView animateWithDuration:(animated) ? 0.3 : 0. delay:0. options:UIViewAnimationOptionBeginFromCurrentState animations:^
-         {
-             switch (_topBarType) {
-                 case CCPageContaiinerTopBarTypeText:
-                 case CCPageContaiinerTopBarTypeLeftMapRightText:
-                     [previosSelectdItem setTitleColor:self.pageItemsTitleColor forState:UIControlStateNormal];
-                     [nextSelectdItem setTitleColor:self.selectedPageItemTitleColor forState:UIControlStateNormal];
-                     break;
-                 case CCPageContaiinerTopBarTypeUPMapNextText:
-                 {
-                     UILabel *titleLabel = (UILabel *)[previosSelectdItem viewWithTag:9999];
-                     titleLabel.textColor = self.pageItemsTitleColor;
-
-                     //图片替换
-                     if (_topBarSelectedImageAry.count) {
-                         UIImageView *imageView = (UIImageView *)[previosSelectdItem viewWithTag:8888];
-                         imageView.image = [UIImage imageNamed:_topBarImageAry[_selectedIndex]];
-
-
-                         imageView = (UIImageView *)[nextSelectdItem viewWithTag:8888];
-                         imageView.image = [UIImage imageNamed:_topBarSelectedImageAry[selectedIndex]];
-                     }
-
-                     titleLabel = (UILabel *)[nextSelectdItem viewWithTag:9999];
-                     titleLabel.textColor = self.selectedPageItemTitleColor;
-                 }
-                     break;
-                 default:
-                     break;
-             }
-
-         } completion:nil];
+        [UIView animateWithDuration:(animated) ? 0.3 : 0. delay:0. options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            switch (_topBarType) {
+                case CCPageContaiinerTopBarTypeText:
+                case CCPageContaiinerTopBarTypeLeftMapRightText:
+                    [previosSelectdItem setTitleColor:self.pageItemsTitleColor forState:UIControlStateNormal];
+                    [nextSelectdItem setTitleColor:self.selectedPageItemTitleColor forState:UIControlStateNormal];
+                    break;
+                case CCPageContaiinerTopBarTypeUPMapNextText:
+                {
+                    UILabel *titleLabel = (UILabel *)[previosSelectdItem viewWithTag:9999];
+                    titleLabel.textColor = self.pageItemsTitleColor;
+                    
+                    //图片替换
+                    if (_topBarSelectedImageAry.count) {
+                        UIImageView *imageView = (UIImageView *)[previosSelectdItem viewWithTag:8888];
+                        imageView.image = [UIImage imageNamed:_topBarImageAry[_selectedIndex]];
+                        
+                        
+                        imageView = (UIImageView *)[nextSelectdItem viewWithTag:8888];
+                        imageView.image = [UIImage imageNamed:_topBarSelectedImageAry[selectedIndex]];
+                    }
+                    
+                    titleLabel = (UILabel *)[nextSelectdItem viewWithTag:9999];
+                    titleLabel.textColor = self.selectedPageItemTitleColor;
+                }
+                    break;
+                default:
+                    break;
+            }
+            
+        } completion:nil];
     } else {
         // This means we should "jump" over at least one view controller
         self.shouldObserveContentOffset = NO;
@@ -193,8 +192,8 @@
         UIViewController *rightViewController = self.viewControllers[MAX(self.selectedIndex, selectedIndex)];
         leftViewController.view.frame = CGRectMake(0., 0., self.scrollWidth, self.scrollHeight);
         rightViewController.view.frame = CGRectMake(self.scrollWidth, 0., self.scrollWidth, self.scrollHeight);
-        self.scrollView.contentSize = CGSizeMake(2 * self.scrollWidth, self.scrollHeight);
-
+        self.scrollView.contentSize = CGSizeMake(2 * self.scrollWidth, 0);
+        
         CGPoint targetOffset;
         if (scrollingRight) {
             self.scrollView.contentOffset = CGPointZero;
@@ -202,7 +201,6 @@
         } else {
             self.scrollView.contentOffset = CGPointMake(self.scrollWidth, 0.);
             targetOffset = CGPointZero;
-
         }
         [self.scrollView setContentOffset:targetOffset animated:YES];
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
@@ -219,17 +217,17 @@
                 {
                     UILabel *titleLabel = (UILabel *)[previosSelectdItem viewWithTag:9999];
                     titleLabel.textColor = self.pageItemsTitleColor;
-
+                    
                     //图片替换
                     if (_topBarSelectedImageAry.count) {
                         UIImageView *imageView = (UIImageView *)[previosSelectdItem viewWithTag:8888];
                         imageView.image = [UIImage imageNamed:_topBarImageAry[_selectedIndex]];
-
-
+                        
+                        
                         imageView = (UIImageView *)[nextSelectdItem viewWithTag:8888];
                         imageView.image = [UIImage imageNamed:_topBarSelectedImageAry[selectedIndex]];
                     }
-
+                    
                     titleLabel = (UILabel *)[nextSelectdItem viewWithTag:9999];
                     titleLabel.textColor = self.selectedPageItemTitleColor;
                 }
@@ -243,7 +241,7 @@
                 viewController.view.frame = CGRectMake(i * self.scrollWidth, 0., self.scrollWidth, self.scrollHeight);
                 [self.scrollView addSubview:viewController.view];
             }
-            self.scrollView.contentSize = CGSizeMake(self.scrollWidth * self.viewControllers.count, self.scrollHeight);
+            self.scrollView.contentSize = CGSizeMake(self.scrollWidth * self.viewControllers.count, 0);
             [self.scrollView setContentOffset:CGPointMake(selectedIndex * self.scrollWidth, 0.) animated:NO];
             self.scrollView.userInteractionEnabled = YES;
             self.shouldObserveContentOffset = YES;
@@ -328,8 +326,7 @@
 {
     if (_viewControllers != viewControllers) {
         _viewControllers = viewControllers;
-        if (_topBarType == CCPageContaiinerTopBarTypeUPMapNextText)
-        {
+        if (_topBarType == CCPageContaiinerTopBarTypeUPMapNextText) {
             self.topBar.topBarType = _topBarType;
             self.topBar.topBarImageAry = _topBarImageAry;
         }
@@ -340,7 +337,7 @@
             [self.scrollView addSubview:viewController.view];
             [viewController didMoveToParentViewController:self];
         }
-
+        
         self.selectedIndex = 0;
         self.pageIndicatorView.center = CGPointMake([self.topBar centerForSelectedItemAtIndex:self.selectedIndex].x,
                                                     [self pageIndicatorCenterY]);
@@ -382,13 +379,13 @@
     [self layoutSubviews];
 }
 
--(void)setIsBarTop:(BOOL)isBarTop
+- (void)setIsBarTop:(BOOL)isBarTop
 {
     _isBarTop = isBarTop;
     [self layoutSubviews];
 }
 
--(void)setBounces:(BOOL)bounces
+- (void)setBounces:(BOOL)bounces
 {
     self.scrollView.bounces = bounces;
 }
@@ -399,7 +396,7 @@
     self.topBar.IsCovered = IsCoverd;
 }
 
--(void)setHidetabBar:(BOOL)HidetabBar
+- (void)setHidetabBar:(BOOL)HidetabBar
 {
     _HidetabBar = HidetabBar;
     [self layoutSubviews];
@@ -417,7 +414,7 @@
  *
  *  @brief  滑动回调函数
  */
--(void)slidingCallback
+- (void)slidingCallback
 {
     SEL setupDefaultSEL = NSSelectorFromString(@"viewWillRefresh");
     UIViewController *viewController = self.viewControllers[self.selectedIndex];
@@ -431,7 +428,7 @@
     self.topBar.frame = CGRectMake(0., _isBarTop ? 0 : CGRectGetHeight(self.view.frame) - self.topBarHeight, CGRectGetWidth(self.view.frame), self.topBarHeight);
     
     self.pageIndicatorView.hidden = NO;
-    if (self.HidetabBar){
+    if (self.HidetabBar) {
         self.pageIndicatorView.hidden = YES;
         self.scrollView.frame = CGRectMake(0, 0, self.scrollWidth, self.scrollHeight);
         self.topBar.frame = CGRectMake(0, _isBarTop ? -self.topBarHeight : CGRectGetHeight(self.view.frame) + self.topBarHeight, CGRectGetWidth(self.view.frame), self.topBarHeight);
@@ -442,30 +439,29 @@
         viewController.view.frame = CGRectMake(x, 0, CGRectGetWidth(self.scrollView.frame), self.scrollHeight);
         x += CGRectGetWidth(self.scrollView.frame);
     }
-
-    self.scrollView.contentSize = CGSizeMake(x, self.scrollHeight);
+    
+    self.scrollView.contentSize = CGSizeMake(x, 0);
     [self.scrollView setContentOffset:CGPointMake(self.selectedIndex * self.scrollWidth, 0) animated:YES];
     self.pageIndicatorView.center = CGPointMake([self.topBar centerForSelectedItemAtIndex:self.selectedIndex].x,
                                                 [self pageIndicatorCenterY]);
-
+    
     self.topBar.scrollView.contentOffset = [self.topBar contentOffsetForSelectedItemAtIndex:self.selectedIndex];
     self.scrollView.userInteractionEnabled = YES;
-
-
+    
+    
     CGRect frame;
     switch (_indicatorType) {
         case CCPageIndicatorViewTypeInvertedTriangle:
-            frame = CGRectMake(0,_isBarTop ? 44 : CGRectGetHeight(self.view.frame) - self.topBarHeight - self.pageIndicatorViewSize.height,self.pageIndicatorViewSize.width,self.pageIndicatorViewSize.height);
+            frame = CGRectMake(0, _isBarTop ? 44 : CGRectGetHeight(self.view.frame) - self.topBarHeight - self.pageIndicatorViewSize.height, self.pageIndicatorViewSize.width, self.pageIndicatorViewSize.height);
             break;
         case CCPageIndicatorViewTypeHorizontalLine:
-            frame = CGRectMake(0, _isBarTop ? self.topBarHeight - .5 : CGRectGetHeight(self.view.frame) - self.topBarHeight, CGRectGetWidth([UIScreen mainScreen].bounds)/(_viewControllers.count * 1.0), .5);
+            frame = CGRectMake(0, _isBarTop ? self.topBarHeight - .5 : CGRectGetHeight(self.view.frame) - self.topBarHeight, CGRectGetWidth([UIScreen mainScreen].bounds) / (_viewControllers.count * 1.0), .5);
             break;
         default:
             break;
     }
-    _pageIndicatorView.frame =frame;
+    _pageIndicatorView.frame = frame;
     [(CCPageIndicatorView *)_pageIndicatorView setColor:_topIndicatiorColor];
-
 }
 
 - (CGFloat)pageIndicatorCenterY
@@ -478,7 +474,7 @@
     if (!_pageIndicatorView) {
         if (self.pageIndicatorImage) {
             _pageIndicatorView = [[UIImageView alloc] initWithImage:self.pageIndicatorImage];
-        } else{
+        } else {
             _pageIndicatorView = [[CCPageIndicatorView alloc] initWithFrame:CGRectZero];
             [(CCPageIndicatorView *)_pageIndicatorView setColor:_topIndicatiorColor];
         }
@@ -551,7 +547,7 @@
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-
+    
     CGFloat oldX = self.selectedIndex * CGRectGetWidth(self.scrollView.frame);
     if (oldX != self.scrollView.contentOffset.x && self.shouldObserveContentOffset) {
         BOOL scrollingTowards = (self.scrollView.contentOffset.x > oldX);
@@ -564,38 +560,38 @@
             CGFloat nextItemPageIndicatorX = [self.topBar centerForSelectedItemAtIndex:targetIndex].x;
             UIButton *previosSelectedItem = self.topBar.itemViews[self.selectedIndex];
             UIButton *nextSelectedItem = self.topBar.itemViews[targetIndex];
-
-
-
+            
+            
             CGFloat red, green, blue, alpha, highlightedRed, highlightedGreen, highlightedBlue, highlightedAlpha;
             [self getRed:&red green:&green blue:&blue alpha:&alpha fromColor:self.pageItemsTitleColor];
             [self getRed:&highlightedRed green:&highlightedGreen blue:&highlightedBlue alpha:&highlightedAlpha fromColor:self.selectedPageItemTitleColor];
-
+            
             CGFloat absRatio = fabs(ratio);
             UIColor *prev = [UIColor colorWithRed:red * absRatio + highlightedRed * (1 - absRatio)
                                             green:green * absRatio + highlightedGreen * (1 - absRatio)
-                                             blue:blue * absRatio + highlightedBlue  * (1 - absRatio)
-                                            alpha:alpha * absRatio + highlightedAlpha  * (1 - absRatio)];
+                                             blue:blue * absRatio + highlightedBlue * (1 - absRatio)
+                                            alpha:alpha * absRatio + highlightedAlpha * (1 - absRatio)];
             UIColor *next = [UIColor colorWithRed:red * (1 - absRatio) + highlightedRed * absRatio
                                             green:green * (1 - absRatio) + highlightedGreen * absRatio
                                              blue:blue * (1 - absRatio) + highlightedBlue * absRatio
                                             alpha:alpha * (1 - absRatio) + highlightedAlpha * absRatio];
-
+            
             [previosSelectedItem setTitleColor:prev forState:UIControlStateNormal];
             [nextSelectedItem setTitleColor:next forState:UIControlStateNormal];
-
-
-
+            
+            
             if (scrollingTowards) {
                 self.topBar.scrollView.contentOffset = CGPointMake(previousItemContentOffsetX +
-                                                                   (nextItemContentOffsetX - previousItemContentOffsetX) * ratio , 0.);
+                                                                   (nextItemContentOffsetX - previousItemContentOffsetX) * ratio,
+                                                                   0.);
                 self.pageIndicatorView.center = CGPointMake(previousItemPageIndicatorX +
                                                             (nextItemPageIndicatorX - previousItemPageIndicatorX) * ratio,
                                                             [self pageIndicatorCenterY]);
-
+                
             } else {
                 self.topBar.scrollView.contentOffset = CGPointMake(previousItemContentOffsetX -
-                                                                   (nextItemContentOffsetX - previousItemContentOffsetX) * ratio , 0.);
+                                                                   (nextItemContentOffsetX - previousItemContentOffsetX) * ratio,
+                                                                   0.);
                 self.pageIndicatorView.center = CGPointMake(previousItemPageIndicatorX -
                                                             (nextItemPageIndicatorX - previousItemPageIndicatorX) * ratio,
                                                             [self pageIndicatorCenterY]);

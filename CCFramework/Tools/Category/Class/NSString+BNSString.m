@@ -43,7 +43,10 @@
 - (NSString *)deleteSpace
 {
     NSMutableString *strM = [NSMutableString stringWithString:self];
-    [strM replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:NSMakeRange(0, strM.length)];
+    [strM replaceOccurrencesOfString:@" "
+                          withString:@""
+                             options:NSLiteralSearch
+                               range:NSMakeRange(0, strM.length)];
     return strM;
 }
 
@@ -65,45 +68,52 @@
      * 联通：130,131,132,152,155,156,185,186
      * 电信：133,1349,153,180,189
      */
-    NSString * MOBILE = @"^1(3[0-9]|5[0-35-9]|8[025-9])\\d{8}$";
+    NSString *MOBILE = @"^1(3[0-9]|5[0-35-9]|8[025-9])\\d{8}$";
     /**
      * 中国移动：China Mobile
      * 134[0-8],135,136,137,138,139,150,151,157,158,159,182,187,188
      */
-    NSString * CM = @"^1(34[0-8]|(3[5-9]|5[017-9]|8[278])\\d)\\d{7}$";
+    NSString *CM = @"^1(34[0-8]|(3[5-9]|5[017-9]|8[278])\\d)\\d{7}$";
     /**
      * 中国联通：China Unicom
      * 130,131,132,152,155,156,185,186
      */
-    NSString * CU = @"^1(3[0-2]|5[256]|8[56])\\d{8}$";
+    NSString *CU = @"^1(3[0-2]|5[256]|8[56])\\d{8}$";
     /**
      * 中国电信：China Telecom
      * 133,1349,153,180,189
      */
-    NSString * CT = @"^1((33|53|8[09])[0-9]|349)\\d{7}$";
+    NSString *CT = @"^1((33|53|8[09])[0-9]|349)\\d{7}$";
     /**
      * 大陆地区固话及小灵通
      * 区号：010,020,021,022,023,024,025,027,028,029
      * 号码：七位或八位
      */
     // NSString * PHS = @"^0(10|2[0-5789]|\\d{3})\\d{7,8}$";
-
-    NSPredicate *regextestmobile = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", MOBILE];
-    NSPredicate *regextestcm = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CM];
-    NSPredicate *regextestcu = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CU];
-    NSPredicate *regextestct = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CT];
-
-    if (([regextestmobile evaluateWithObject:self] == YES) || ([regextestcm evaluateWithObject:self] == YES) || ([regextestct evaluateWithObject:self] == YES) || ([regextestcu evaluateWithObject:self] == YES)){
-        if([regextestcm evaluateWithObject:self] == YES)
+    
+    NSPredicate *regextestmobile =
+    [NSPredicate predicateWithFormat:@"SELF MATCHES %@", MOBILE];
+    NSPredicate *regextestcm =
+    [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CM];
+    NSPredicate *regextestcu =
+    [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CU];
+    NSPredicate *regextestct =
+    [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CT];
+    
+    if (([regextestmobile evaluateWithObject:self] == YES) ||
+        ([regextestcm evaluateWithObject:self] == YES) ||
+        ([regextestct evaluateWithObject:self] == YES) ||
+        ([regextestcu evaluateWithObject:self] == YES)) {
+        if ([regextestcm evaluateWithObject:self] == YES)
             NSLog(@"China Mobile");
-        else if([regextestct evaluateWithObject:self] == YES)
+        else if ([regextestct evaluateWithObject:self] == YES)
             NSLog(@"China Telecom");
         else if ([regextestcu evaluateWithObject:self] == YES)
             NSLog(@"China Unicom");
         else
             NSLog(@"Unknow");
         return YES;
-    }else
+    } else
         return NO;
 }
 
@@ -119,10 +129,10 @@
 - (BOOL)validateEmailAddress
 {
     NSString *emailCheck = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,8}";
-    NSPredicate *emailMatch = [NSPredicate predicateWithFormat:@"SELF MATCHES%@",emailCheck];
-    if (![emailMatch evaluateWithObject:self])
-        return NO;
-
+    NSPredicate *emailMatch =
+    [NSPredicate predicateWithFormat:@"SELF MATCHES%@", emailCheck];
+    if (![emailMatch evaluateWithObject:self]) return NO;
+    
     return YES;
 }
 
@@ -137,11 +147,12 @@
  */
 - (BOOL)validateHttpURL
 {
-    NSString *regex =@"(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+";
-    NSPredicate *urlMatch = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
-    if (![urlMatch evaluateWithObject:self])
-        return NO;
-
+    NSString *regex = @"(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/"
+    @"]((\\w)*|([0-9]*)|([-|_])*))+";
+    NSPredicate *urlMatch =
+    [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    if (![urlMatch evaluateWithObject:self]) return NO;
+    
     return YES;
 }
 
@@ -156,23 +167,60 @@
  *
  *  @since 1.0
  */
-- (BOOL)validateIDCardNumber{
+- (BOOL)validateIDCardNumber
+{
     NSString *value = self;
-
-    value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
+    
+    value = [value stringByTrimmingCharactersInSet:
+             [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
     int length = 0;
     if (!value) {
         return NO;
-    }else {
+    } else {
         length = (int)value.length;
-
-        if (length !=15 && length !=18)
-            return NO;
+        
+        if (length != 15 && length != 18) return NO;
     }
     // 省份代码
-    NSArray *areasArray =@[@"11",@"12", @"13",@"14", @"15",@"21", @"22",@"23", @"31",@"32", @"33",@"34", @"35",@"36", @"37",@"41", @"42",@"43", @"44",@"45", @"46",@"50", @"51",@"52", @"53",@"54", @"61",@"62", @"63",@"64", @"65",@"71", @"81",@"82", @"91"];
-
+    NSArray *areasArray = @[
+                            @"11",
+                            @"12",
+                            @"13",
+                            @"14",
+                            @"15",
+                            @"21",
+                            @"22",
+                            @"23",
+                            @"31",
+                            @"32",
+                            @"33",
+                            @"34",
+                            @"35",
+                            @"36",
+                            @"37",
+                            @"41",
+                            @"42",
+                            @"43",
+                            @"44",
+                            @"45",
+                            @"46",
+                            @"50",
+                            @"51",
+                            @"52",
+                            @"53",
+                            @"54",
+                            @"61",
+                            @"62",
+                            @"63",
+                            @"64",
+                            @"65",
+                            @"71",
+                            @"81",
+                            @"82",
+                            @"91"
+                            ];
+    
     NSString *valueStart2 = [value substringToIndex:2];
     BOOL areaFlag = NO;
     for (NSString *areaCode in areasArray) {
@@ -181,52 +229,103 @@
             break;
         }
     }
-
-    if (!areaFlag)
-        return NO;
-
-
+    
+    if (!areaFlag) return NO;
+    
+    
     NSRegularExpression *regularExpression;
     NSUInteger numberofMatch;
-
-    int year =0;
+    
+    int year = 0;
     switch (length) {
         case 15:
-            year = [value substringWithRange:NSMakeRange(6,2)].intValue +1900;
-
-            if (year %4 ==0 || (year %100 ==0 && year %4 ==0))
-                regularExpression = [[NSRegularExpression alloc]initWithPattern:@"^[1-9][0-9]{5}[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))[0-9]{3}$" options:NSRegularExpressionCaseInsensitive error:nil];//测试出生日期的合法性
+            year = [value substringWithRange:NSMakeRange(6, 2)].intValue + 1900;
+            
+            if (year % 4 == 0 || (year % 100 == 0 && year % 4 == 0))
+                regularExpression = [[NSRegularExpression alloc]
+                                     initWithPattern:@"^[1-9][0-9]{5}[0-9]{2}((01|03|05|07|08|10|12)"
+                                     @"(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0["
+                                     @"1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))[" @"0-9]{3}$"
+                                     options:NSRegularExpressionCaseInsensitive
+                                     error:nil]; //测试出生日期的合法性
             else
-                regularExpression = [[NSRegularExpression alloc]initWithPattern:@"^[1-9][0-9]{5}[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|1[0-9]|2[0-8]))[0-9]{3}$" options:NSRegularExpressionCaseInsensitive error:nil];//测试出生日期的合法性
-
-            numberofMatch = [regularExpression numberOfMatchesInString:value options:NSMatchingReportProgress range:NSMakeRange(0, value.length)];
-
-            if(numberofMatch > 0)
+                regularExpression = [[NSRegularExpression alloc]
+                                     initWithPattern:@"^[1-9][0-9]{5}[0-9]{2}((01|03|05|07|08|10|12)"
+                                     @"(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0["
+                                     @"1-9]|[1-2][0-9]|30)|02(0[1-9]|1[0-9]|2[0-8])" @")[0-9]{3}$"
+                                     options:NSRegularExpressionCaseInsensitive
+                                     error:nil]; //测试出生日期的合法性
+            
+            numberofMatch = [regularExpression
+                             numberOfMatchesInString:value
+                             options:NSMatchingReportProgress
+                             range:NSMakeRange(0, value.length)];
+            
+            if (numberofMatch > 0)
                 return YES;
             else
                 return NO;
         case 18:
-            year = [value substringWithRange:NSMakeRange(6,4)].intValue;
-            if (year %4 ==0 || (year %100 ==0 && year %4 ==0))
-                regularExpression = [[NSRegularExpression alloc]initWithPattern:@"^[1-9][0-9]{5}19[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))[0-9]{3}[0-9Xx]$" options:NSRegularExpressionCaseInsensitive error:nil];//测试出生日期的合法性
+            year = [value substringWithRange:NSMakeRange(6, 4)].intValue;
+            if (year % 4 == 0 || (year % 100 == 0 && year % 4 == 0))
+                regularExpression = [[NSRegularExpression alloc]
+                                     initWithPattern:@"^[1-9][0-9]{5}19[0-9]{2}((01|03|05|07|08|10|"
+                                     @"12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)("
+                                     @"0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))"
+                                     @"[0-9]{3}[0-9Xx]$"
+                                     options:NSRegularExpressionCaseInsensitive
+                                     error:nil]; //测试出生日期的合法性
             else
-                regularExpression = [[NSRegularExpression alloc]initWithPattern:@"^[1-9][0-9]{5}19[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|1[0-9]|2[0-8]))[0-9]{3}[0-9Xx]$" options:NSRegularExpressionCaseInsensitive error:nil];//测试出生日期的合法性
-
-            numberofMatch = [regularExpression numberOfMatchesInString:value options:NSMatchingReportProgress range:NSMakeRange(0, value.length)];
-
-            if(numberofMatch >0) {
-                int S = ([value substringWithRange:NSMakeRange(0,1)].intValue + [value substringWithRange:NSMakeRange(10,1)].intValue) *7 + ([value substringWithRange:NSMakeRange(1,1)].intValue + [value substringWithRange:NSMakeRange(11,1)].intValue) *9 + ([value substringWithRange:NSMakeRange(2,1)].intValue + [value substringWithRange:NSMakeRange(12,1)].intValue) *10 + ([value substringWithRange:NSMakeRange(3,1)].intValue + [value substringWithRange:NSMakeRange(13,1)].intValue) *5 + ([value substringWithRange:NSMakeRange(4,1)].intValue + [value substringWithRange:NSMakeRange(14,1)].intValue) *8 + ([value substringWithRange:NSMakeRange(5,1)].intValue + [value substringWithRange:NSMakeRange(15,1)].intValue) *4 + ([value substringWithRange:NSMakeRange(6,1)].intValue + [value substringWithRange:NSMakeRange(16,1)].intValue) *2 + [value substringWithRange:NSMakeRange(7,1)].intValue *1 + [value substringWithRange:NSMakeRange(8,1)].intValue *6 + [value substringWithRange:NSMakeRange(9,1)].intValue *3;
-
+                regularExpression = [[NSRegularExpression alloc]
+                                     initWithPattern:@"^[1-9][0-9]{5}19[0-9]{2}((01|03|05|07|08|10|"
+                                     @"12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)("
+                                     @"0[1-9]|[1-2][0-9]|30)|02(0[1-9]|1[0-9]|2[0-"
+                                     @"8]))[0-9]{3}[0-9Xx]$"
+                                     options:NSRegularExpressionCaseInsensitive
+                                     error:nil]; //测试出生日期的合法性
+            
+            numberofMatch = [regularExpression
+                             numberOfMatchesInString:value
+                             options:NSMatchingReportProgress
+                             range:NSMakeRange(0, value.length)];
+            
+            if (numberofMatch > 0) {
+                int S = ([value substringWithRange:NSMakeRange(0, 1)].intValue +
+                         [value substringWithRange:NSMakeRange(10, 1)].intValue) *
+                7 +
+                ([value substringWithRange:NSMakeRange(1, 1)].intValue +
+                 [value substringWithRange:NSMakeRange(11, 1)].intValue) *
+                9 +
+                ([value substringWithRange:NSMakeRange(2, 1)].intValue +
+                 [value substringWithRange:NSMakeRange(12, 1)].intValue) *
+                10 +
+                ([value substringWithRange:NSMakeRange(3, 1)].intValue +
+                 [value substringWithRange:NSMakeRange(13, 1)].intValue) *
+                5 +
+                ([value substringWithRange:NSMakeRange(4, 1)].intValue +
+                 [value substringWithRange:NSMakeRange(14, 1)].intValue) *
+                8 +
+                ([value substringWithRange:NSMakeRange(5, 1)].intValue +
+                 [value substringWithRange:NSMakeRange(15, 1)].intValue) *
+                4 +
+                ([value substringWithRange:NSMakeRange(6, 1)].intValue +
+                 [value substringWithRange:NSMakeRange(16, 1)].intValue) *
+                2 +
+                [value substringWithRange:NSMakeRange(7, 1)].intValue * 1 +
+                [value substringWithRange:NSMakeRange(8, 1)].intValue * 6 +
+                [value substringWithRange:NSMakeRange(9, 1)].intValue * 3;
+                
                 int Y = S % 11;
-                NSString *M =@"F";
-                NSString *JYM =@"10X98765432";
-
-                M = [JYM substringWithRange:NSMakeRange(Y,1)];// 判断校验位
-                if ([M isEqualToString:[value substringWithRange:NSMakeRange(17,1)]])
-                    return YES;// 检测ID的校验位
+                NSString *M = @"F";
+                NSString *JYM = @"10X98765432";
+                
+                M = [JYM substringWithRange:NSMakeRange(Y, 1)]; // 判断校验位
+                if ([M isEqualToString:[value
+                                        substringWithRange:NSMakeRange(17, 1)]])
+                    return YES; // 检测ID的校验位
                 else
                     return NO;
-            }else
+            } else
                 return NO;
         default:
             return NO;
@@ -244,9 +343,11 @@
  */
 - (NSString *)encodeBase64String
 {
-    NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    NSData *data =
+    [self dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
     data = [CCBase64 encodeData:data];
-    NSString *base64String = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSString *base64String =
+    [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     return base64String;
 }
 
@@ -257,11 +358,13 @@
  *
  *  @return 返回编码后的字符串
  */
-- (NSString*)decodeBase64String
+- (NSString *)decodeBase64String
 {
-    NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    NSData *data =
+    [self dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
     data = [CCBase64 decodeData:data];
-    NSString *base64String = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSString *base64String =
+    [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     return base64String;
 }
 
@@ -292,7 +395,8 @@
  *
  *  @since 1.0
  */
-- (NSString *)convertingCurrencyFormat{
+- (NSString *)convertingCurrencyFormat
+{
     NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
     //    [nf setNumberStyle:NSNumberFormatterDecimalStyle];
     [nf setPositiveFormat:@"###,##0.00;"];
@@ -324,20 +428,19 @@
  *
  *  @return 二维码图片
  */
-- (UIImage *)becomeQRCodeWithQRstring: (int)width
-                            withHight: (int)height
+- (UIImage *)becomeQRCodeWithQRstring:(int)width withHight:(int)height
 {
-
+    
     ZXMultiFormatWriter *writer = [ZXMultiFormatWriter writer];
-    ZXBitMatrix* result = [writer encode:self
+    ZXBitMatrix *result = [writer encode:self
                                   format:kBarcodeFormatQRCode
                                    width:width
                                   height:height
                                    error:nil];
-
+    
     CGImageRef image = [[ZXImage imageWithMatrix:result] cgimage];
     UIImage *qrImage = [UIImage imageWithCGImage:image];
-
+    
     return qrImage;
 }
 
@@ -376,7 +479,9 @@
  */
 - (NSDictionary *)serialization
 {
-    return [NSJSONSerialization JSONObjectWithData:[self convertingData] options:NSJSONReadingAllowFragments error:nil];
+    return [NSJSONSerialization JSONObjectWithData:[self convertingData]
+                                           options:NSJSONReadingAllowFragments
+                                             error:nil];
 }
 
 #pragma mark - 取值
@@ -403,7 +508,9 @@
  */
 - (CGSize)calculateTextWidthHeight
 {
-    return  [self sizeWithFont:[UIFont systemFontOfSize:[UIFont systemFontSize]] constrainedToSize:CGSizeMake(MAXFLOAT, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+    return [self sizeWithFont:[UIFont systemFontOfSize:[UIFont systemFontSize]]
+            constrainedToSize:CGSizeMake(MAXFLOAT, MAXFLOAT)
+                lineBreakMode:NSLineBreakByWordWrapping];
 }
 
 #pragma mark - 加密
@@ -418,16 +525,18 @@
  */
 - (NSString *)MD5Hash
 {
-    if(self.length == 0)
-        return nil;
-
+    if (self.length == 0) return nil;
+    
     const char *cStr = [self UTF8String];
     unsigned char result[16];
     CC_MD5(cStr, (CC_LONG)strlen(cStr), result);
-
-    return [NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
-            result[0], result[1], result[2], result[3], result[4], result[5], result[6], result[7],
-            result[8], result[9], result[10], result[11],result[12], result[13], result[14], result[15]];
+    
+    return [NSString
+            stringWithFormat:
+            @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+            result[0], result[1], result[2], result[3], result[4], result[5],
+            result[6], result[7], result[8], result[9], result[10], result[11],
+            result[12], result[13], result[14], result[15]];
 }
 
 /**
@@ -443,15 +552,16 @@
 {
     const char *cStr = [self UTF8String];
     unsigned char digest[CC_MD5_DIGEST_LENGTH];
-
+    
     CC_MD5(cStr, (CC_LONG)strlen(cStr), digest);
-
-    NSMutableString *result = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
-
-    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++) {
+    
+    NSMutableString *result =
+    [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    
+    for (int i = 0; i < CC_MD5_DIGEST_LENGTH; i++) {
         [result appendFormat:@"%02x", digest[i]];
     }
-
+    
     return [result copy];
 }
 
@@ -469,15 +579,16 @@
     const char *cStr = [self UTF8String];
     NSData *data = [NSData dataWithBytes:cStr length:self.length];
     uint8_t digest[CC_SHA1_DIGEST_LENGTH];
-
+    
     CC_SHA1(data.bytes, (CC_LONG)data.length, digest);
-
-    NSMutableString *result = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
-
-    for(int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++) {
+    
+    NSMutableString *result =
+    [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+    
+    for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++) {
         [result appendFormat:@"%02x", digest[i]];
     }
-
+    
     return [result copy];
 }
 
@@ -491,9 +602,10 @@
  *
  *  @since 1.0
  */
-+(NSString *)documentFolder
++ (NSString *)documentFolder
 {
-    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    return [NSSearchPathForDirectoriesInDomains(
+                                                NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
 /**
@@ -505,15 +617,17 @@
  *
  *  @since 1.0
  */
-+(NSString *)cachesFolder
++ (NSString *)cachesFolder
 {
-    return [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    return [NSSearchPathForDirectoriesInDomains(
+                                                NSCachesDirectory, NSUserDomainMask, YES) lastObject];
 }
 
 /**
  *  @author CC, 15-08-21
  *
- *  @brief  生成子文件夹(如果子文件夹不存在，则直接创建；如果已经存在，则直接返回)
+ *  @brief
+ *生成子文件夹(如果子文件夹不存在，则直接创建；如果已经存在，则直接返回)
  *
  *  @param subFolder 子文件夹名
  *
@@ -521,23 +635,26 @@
  *
  *  @since 1.0
  */
--(NSString *)createSubFolder:(NSString *)subFolder
+- (NSString *)createSubFolder:(NSString *)subFolder
 {
-    NSString *subFolderPath=[NSString stringWithFormat:@"%@/%@",self,subFolder];
-
+    NSString *subFolderPath =
+    [NSString stringWithFormat:@"%@/%@", self, subFolder];
+    
     BOOL isDir = NO;
-
+    
     NSFileManager *fileManager = [NSFileManager defaultManager];
-
-    BOOL existed = [fileManager fileExistsAtPath:subFolderPath isDirectory:&isDir];
-
-    if ( !(isDir == YES && existed == YES) )
-    {
-        [fileManager createDirectoryAtPath:subFolderPath withIntermediateDirectories:YES attributes:nil error:nil];
+    
+    BOOL existed =
+    [fileManager fileExistsAtPath:subFolderPath isDirectory:&isDir];
+    
+    if (!(isDir == YES && existed == YES)) {
+        [fileManager createDirectoryAtPath:subFolderPath
+               withIntermediateDirectories:YES
+                                attributes:nil
+                                     error:nil];
     }
-
+    
     return subFolderPath;
-
 }
 
 #pragma mark - 处理
@@ -551,19 +668,19 @@
  *
  *  @return 返回拼接完成的字符串
  */
-- (NSString *)appendFormats:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2)
+- (NSString *)appendFormats:(NSString *)format, ... NS_FORMAT_FUNCTION(1, 2)
 {
     NSMutableString *mutableString = [NSMutableString string];
-
+    
     if (self)
         mutableString = [NSMutableString stringWithString:self];
-
+    
     va_list args;
     va_start(args, format);
-
+    
     for (NSString *str = format; str != nil; str = va_arg(args, NSString *))
         [mutableString appendFormat:@"%@",str];
-
+    
     va_end(args);
     
     return mutableString;
@@ -581,10 +698,10 @@
 - (NSString *)appendStrings:(NSString *)aString
 {
     NSMutableString *mutableString = [NSMutableString string];
-
+    
     if (self)
         mutableString = [NSMutableString stringWithString:self];
-
+    
     [mutableString appendString:aString];
     
     return mutableString;
