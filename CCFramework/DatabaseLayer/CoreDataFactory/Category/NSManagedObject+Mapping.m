@@ -25,6 +25,8 @@
 
 #import "NSManagedObject+Mapping.h"
 #import "BaseManagedObject+Facade.h"
+#import "CoreDataMasterSlave+Manager.h"
+#import "CoreDataMasterSlave.h"
 
 @implementation NSManagedObject (Mapping)
 
@@ -90,17 +92,19 @@
                       withValue:(id)value
                           IsAdd:(BOOL)isAdd
 {
-    if ([value isEqual:[NSNull null]]) {
-        return;
-    }
+    if ([value isEqual:[NSNull null]]) return;
+    
     NSRelationshipDescription *relationshipDes = [self relationshipDescriptionForRelationship:relationshipName];
     NSString *desClassName = relationshipDes.destinationEntity.managedObjectClassName;
     
-    if ([desClassName isEqualToString:@"NSManagedObject"])
-        desClassName = relationshipDes.destinationEntity.name;
-    
     if (relationshipDes.isToMany) {
-        NSArray *destinationObjs = [NSClassFromString(desClassName) cc_NewOrUpdateWithArray:value inContext:self.managedObjectContext];
+        NSArray *destinationObjs;
+        
+        if ([desClassName isEqualToString:@"NSManagedObject"])
+            destinationObjs = [CoreDataMasterSlave cc_insertCoreDataWithArray:relationshipDes.destinationEntity.name DataArray:value];
+        else
+            destinationObjs = [NSClassFromString(desClassName) cc_NewOrUpdateWithArray:value inContext:self.managedObjectContext];
+        
         if (destinationObjs != nil && destinationObjs.count > 0) {
             if (isAdd) { //添加数据
                 if (relationshipDes.isOrdered) {
@@ -124,7 +128,13 @@
             }
         }
     } else {
-        id destinationObjs = [NSClassFromString(desClassName) cc_NewOrUpdateWithData:value inContext:self.managedObjectContext];
+        id destinationObjs;
+        
+        if ([desClassName isEqualToString:@"NSManagedObject"])
+            destinationObjs = [CoreDataMasterSlave cc_insertCoreDataWithDic:relationshipDes.destinationEntity.name DataDic:value];
+        else
+            destinationObjs = [NSClassFromString(desClassName) cc_NewOrUpdateWithData:value inContext:self.managedObjectContext];
+        
         [self setValue:destinationObjs forKey:relationshipName];
     }
 }

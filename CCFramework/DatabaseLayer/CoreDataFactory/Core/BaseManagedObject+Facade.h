@@ -39,7 +39,7 @@
  *
  *  @param saveContext 线程管理对象
  */
-+ (void)saveContext: (void(^)(NSManagedObjectContext *currentContext))saveContext;
++ (void)saveContext:(void (^)(NSManagedObjectContext *currentContext))saveContext;
 
 /**
  *  @author CC, 2015-10-24
@@ -49,8 +49,8 @@
  *  @param saveContext 线程管理对象
  *  @param completion  完成回调
  */
-+ (void)saveContext: (void(^)(NSManagedObjectContext *currentContext))saveContext
-         completion: (void(^)(NSError *error))completion;
++ (void)saveContext:(void (^)(NSManagedObjectContext *currentContext))saveContext
+         completion:(void (^)(NSError *error))completion;
 
 /**
  *  @author C C, 2015-10-25
@@ -60,8 +60,8 @@
  *  @param saveContext 线程管理对象
  *  @param completion  完成回调函数
  */
-+ (void)saveWithContext: (NSManagedObjectContext *)saveContext
-             completion: (void(^)(NSError *error))completion;
++ (void)saveWithContext:(NSManagedObjectContext *)saveContext
+             completion:(void (^)(NSError *error))completion;
 
 /**
  *  @author C C, 2015-10-25
@@ -72,9 +72,9 @@
  *  @param block       回调执行函数
  *  @param completion  完成回调函数
  */
-+ (void)saveWithContext: (NSManagedObjectContext *)saveContext
-       SaveContextBlock: (void(^)(NSManagedObjectContext *currentContext))saveContextBlock
-             completion: (void(^)(NSError *error))completion;
++ (void)saveWithContext:(NSManagedObjectContext *)saveContext
+       SaveContextBlock:(void (^)(NSManagedObjectContext *currentContext))saveContextBlock
+             completion:(void (^)(NSError *error))completion;
 
 @end
 
@@ -99,7 +99,7 @@
  *
  *  @return 返回新对象
  */
-+ (id)cc_NewInContext: (NSManagedObjectContext *)context;
++ (id)cc_NewInContext:(NSManagedObjectContext *)context;
 
 /**
  *  @author C C, 2015-10-25
@@ -111,8 +111,8 @@
  *
  *  @return 返回创建单个对象
  */
-+ (id)cc_NewOrUpdateWithData: (NSDictionary *)data
-                   inContext: (NSManagedObjectContext *)context;
++ (id)cc_NewOrUpdateWithData:(NSDictionary *)data
+                   inContext:(NSManagedObjectContext *)context;
 
 /**
  *  @author C C, 2015-10-25
@@ -124,8 +124,8 @@
  *
  *  @return 返回创建对象集
  */
-+ (NSArray *)cc_NewOrUpdateWithArray: (NSArray *)dataAry
-                           inContext: (NSManagedObjectContext *)context;
++ (NSArray *)cc_NewOrUpdateWithArray:(NSArray *)dataAry
+                           inContext:(NSManagedObjectContext *)context;
 
 /**
  *  @author C C, 2015-10-25
@@ -138,9 +138,9 @@
  *
  *  @return 返回新增对象
  */
-+ (id)objctWithData: (NSDictionary *)data
-        primaryKeys: (NSSet *)primaryKeys
-          inContext: (NSManagedObjectContext *)context;
++ (id)objctWithData:(NSDictionary *)data
+        primaryKeys:(NSSet *)primaryKeys
+          inContext:(NSManagedObjectContext *)context;
 
 @end
 
@@ -161,7 +161,7 @@
  *
  *  @param completion 完成回调函数
  */
-+ (void)cc_RemovedAll: (void(^)(NSError *error))completion;
++ (void)cc_RemovedAll:(void (^)(NSError *error))completion;
 
 /**
  *  @author C C, 2015-10-25
@@ -170,7 +170,7 @@
  *
  *  @param context 管理对象
  */
-+ (void)cc_RemovedAllInContext: (NSManagedObjectContext *)context;
++ (void)cc_RemovedAllInContext:(NSManagedObjectContext *)context;
 
 /**
  *  @author C C, 2015-10-25
@@ -180,8 +180,8 @@
  *  @param context    管理对象
  *  @param completion 完成回调函数
  */
-+ (void)cc_RemovedAllInContext: (NSManagedObjectContext *)context
-                    completion: (void(^)(NSError *error))completion;
++ (void)cc_RemovedAllInContext:(NSManagedObjectContext *)context
+                    completion:(void (^)(NSError *error))completion;
 
 /**
  *  @author C C, 2015-10-25
@@ -191,8 +191,8 @@
  *  @param context    管理对象
  *  @param completion 完成回调函数
  */
-+ (void)cc_RemovedAllWithContext: (NSManagedObjectContext *)context
-                      completion: (void(^)(NSError *error))completion;
++ (void)cc_RemovedAllWithContext:(NSManagedObjectContext *)context
+                      completion:(void (^)(NSError *error))completion;
 
 /**
  *  @author C C, 2015-10-25
@@ -201,7 +201,7 @@
  *
  *  @param conditionID 对象ID
  */
-+ (void)cc_RemovedManagedObjectID: (NSManagedObjectID *)conditionID;
++ (void)cc_RemovedManagedObjectID:(NSManagedObjectID *)conditionID;
 
 /**
  *  @author C C, 2015-10-25
@@ -211,8 +211,8 @@
  *  @param conditionID 对象ID
  *  @param completion  完成回调函数
  */
-+ (void)cc_RemovedManagedObjectID: (NSManagedObjectID *)conditionID
-                       completion: (void(^)(NSError *error))completion;
++ (void)cc_RemovedManagedObjectID:(NSManagedObjectID *)conditionID
+                       completion:(void (^)(NSError *error))completion;
 
 /**
  *  @author C C, 2015-10-25
@@ -222,8 +222,8 @@
  *  @param propertyName 属性名
  *  @param value        属性值
  */
-+ (void)cc_RemovedProperty: (NSString *)propertyName
-                   toValue: (id)value;
++ (void)cc_RemovedProperty:(NSString *)propertyName
+                   toValue:(id)value;
 
 /**
  *  @author C C, 2015-10-25
@@ -232,7 +232,7 @@
  *
  *  @param propertyKeyValues 属性名与值
  */
-+ (void)cc_RemovedMultiProperty: (NSDictionary *)propertyKeyValues;
++ (void)cc_RemovedMultiProperty:(NSDictionary *)propertyKeyValues;
 
 /**
  *  @author C C, 2015-10-25
@@ -242,8 +242,8 @@
  *  @param propertyKeyValues 属性名与值
  *  @param completion        完成回调函数
  */
-+ (void)cc_RemovedMultiProperty: (NSDictionary *)propertyKeyValues
-                     completion: (void(^)(NSError *error))completion;
++ (void)cc_RemovedMultiProperty:(NSDictionary *)propertyKeyValues
+                     completion:(void (^)(NSError *error))completion;
 
 @end
 
@@ -258,8 +258,8 @@
  *  @param propertyName 属性名
  *  @param value        修改值
  */
-+ (void)cc_UpdateProperty: (NSString *)propertyName
-                  toValue: (id)value;
++ (void)cc_UpdateProperty:(NSString *)propertyName
+                  toValue:(id)value;
 
 /**
  *  @author C C, 2015-10-25
@@ -270,9 +270,9 @@
  *  @param value        修改值
  *  @param condition    条件
  */
-+ (void)cc_UpdateProperty: (NSString *)propertyName
-                  toValue: (id)value
-                    where: (NSString *)condition;
++ (void)cc_UpdateProperty:(NSString *)propertyName
+                  toValue:(id)value
+                    where:(NSString *)condition;
 
 /**
  *  @author C C, 2015-10-25
@@ -284,10 +284,10 @@
  *  @param condition    条件
  *  @param completion   完成回调函数
  */
-+ (void)cc_UpdateProperty: (NSString *)propertyName
-                  toValue: (id)value
-                    where: (NSString *)condition
-               completion: (void(^)(NSError *error))completion;
++ (void)cc_UpdateProperty:(NSString *)propertyName
+                  toValue:(id)value
+                    where:(NSString *)condition
+               completion:(void (^)(NSError *error))completion;
 
 /**
  *  @author C C, 2015-10-25
@@ -297,8 +297,8 @@
  *  @param propertyKeyValue 属性与值
  *  @param condition        条件
  */
-+ (void)cc_UpdateMultiProperty: (NSDictionary *)propertyKeyValue
-                         where: (NSString *)condition;
++ (void)cc_UpdateMultiProperty:(NSDictionary *)propertyKeyValue
+                         where:(NSString *)condition;
 
 /**
  *  @author C C, 2015-10-25
@@ -309,9 +309,9 @@
  *  @param condition        条件
  *  @param completion       完成回调函数
  */
-+ (void)cc_UpdateMultiProperty: (NSDictionary *)propertyKeyValue
-                         where: (NSString *)condition
-                    completion: (void(^)(NSError *error))completion;
++ (void)cc_UpdateMultiProperty:(NSDictionary *)propertyKeyValue
+                         where:(NSString *)condition
+                    completion:(void (^)(NSError *error))completion;
 
 /**
  *  @author C C, 2015-10-25
@@ -321,8 +321,8 @@
  *  @param keyPath 属性名
  *  @param value   值
  */
-+ (void)cc_UpdateKeyPath: (NSString *)keyPath
-                 toValue: (id)value;
++ (void)cc_UpdateKeyPath:(NSString *)keyPath
+                 toValue:(id)value;
 
 /**
  *  @author C C, 2015-10-25
@@ -333,9 +333,9 @@
  *  @param value     值
  *  @param condition 条件
  */
-+ (void)cc_UpdateKeyPath: (NSString *)keyPath
-                 toValue: (id)value
-                   where: (NSString *)condition;
++ (void)cc_UpdateKeyPath:(NSString *)keyPath
+                 toValue:(id)value
+                   where:(NSString *)condition;
 
 /**
  *  @author C C, 2015-10-25
@@ -347,10 +347,10 @@
  *  @param condition  条件
  *  @param completion 完成回调函数
  */
-+ (void)cc_UpdateKeyPath: (NSString *)keyPath
-                 toValue: (id)value
-                   where: (NSString *)condition
-              completion: (void(^)(NSError *error))completion;
++ (void)cc_UpdateKeyPath:(NSString *)keyPath
+                 toValue:(id)value
+                   where:(NSString *)condition
+              completion:(void (^)(NSError *error))completion;
 @end
 
 #pragma mark - Queries 查询对象
@@ -381,7 +381,7 @@
  *
  *  @param handler 返回所有对象
  */
-+ (void)cc_AllWithHandler: (void (^)(NSError *, NSArray *))handler;
++ (void)cc_AllWithHandler:(void (^)(NSError *, NSArray *))handler;
 
 /**
  *  @author C C, 2015-10-25
@@ -393,8 +393,8 @@
  *
  *  @return 返回查询对象集
  */
-+ (NSArray *)cc_WhereProperty: (NSString *)property
-                      equalTo: (id)value;
++ (NSArray *)cc_WhereProperty:(NSString *)property
+                      equalTo:(id)value;
 
 /**
  *  @author C C, 2015-10-25
@@ -405,9 +405,9 @@
  *  @param value    属性值
  *  @param handler  完成回调函数
  */
-+ (void)cc_WhereProperty: (NSString *)property
-                 equalTo: (id)value
-                 handler: (void (^)(NSError *, NSArray *))handler;
++ (void)cc_WhereProperty:(NSString *)property
+                 equalTo:(id)value
+                 handler:(void (^)(NSError *, NSArray *))handler;
 
 /**
  *  @author C C, 2015-10-25
@@ -419,8 +419,8 @@
  *
  *  @return 返回查询对象
  */
-+ (id)cc_FirstWhereProperty: (NSString *)property
-                    equalTo: (id)value;
++ (id)cc_FirstWhereProperty:(NSString *)property
+                    equalTo:(id)value;
 
 /**
  *  @author C C, 2015-10-25
@@ -450,11 +450,11 @@
  *  @param ascending 是否升序
  *  @param handler   完成回调函数
  */
-+ (void)cc_WhereProperty: (NSString *)property
-                 equalTo: (id)value
-           sortedKeyPath: (NSString *)keyPath
-               ascending: (BOOL)ascending
-                 handler: (void (^)(NSError *, NSArray *))handler;
++ (void)cc_WhereProperty:(NSString *)property
+                 equalTo:(id)value
+           sortedKeyPath:(NSString *)keyPath
+               ascending:(BOOL)ascending
+                 handler:(void (^)(NSError *, NSArray *))handler;
 
 /**
  *  @author C C, 2015-10-25
@@ -465,7 +465,7 @@
  *
  *  @return 返回查询结果集
  */
-+ (NSArray *)cc_AllWithPredicate: (NSPredicate *)predicate;
++ (NSArray *)cc_AllWithPredicate:(NSPredicate *)predicate;
 
 /**
  *  @author C C, 2015-10-25
@@ -476,7 +476,7 @@
  *
  *  @return 返回查询结果集
  */
-+ (id)cc_AnyoneWithPredicate: (NSPredicate *)predicate;
++ (id)cc_AnyoneWithPredicate:(NSPredicate *)predicate;
 
 /**
  *  @author C C, 2015-10-25
@@ -493,13 +493,13 @@
  *
  *  @return 返回查询结果集
  */
-+ (NSArray *)cc_WhereProperty: (NSString *)property
-                      equalTo: (id)value
-                sortedKeyPath: (NSString *)keyPath
-                    ascending: (BOOL)ascending
-               fetchBatchSize: (NSUInteger)batchSize
-                   fetchLimit: (NSUInteger)fetchLimit
-                  fetchOffset: (NSUInteger)fetchOffset;
++ (NSArray *)cc_WhereProperty:(NSString *)property
+                      equalTo:(id)value
+                sortedKeyPath:(NSString *)keyPath
+                    ascending:(BOOL)ascending
+               fetchBatchSize:(NSUInteger)batchSize
+                   fetchLimit:(NSUInteger)fetchLimit
+                  fetchOffset:(NSUInteger)fetchOffset;
 
 /**
  *  @author C C, 2015-10-25
@@ -515,14 +515,14 @@
  *  @param fetchOffset <#fetchOffset description#>
  *  @param handler     完成回调函数
  */
-+ (void)cc_WhereProperty: (NSString *)property
-                 equalTo: (id)value
-           sortedKeyPath: (NSString *)keyPath
-               ascending: (BOOL)ascending
-          fetchBatchSize: (NSUInteger)batchSize
-              fetchLimit: (NSUInteger)fetchLimit
-             fetchOffset: (NSUInteger)fetchOffset
-                 handler: (void (^)(NSError *, NSArray *))handler;
++ (void)cc_WhereProperty:(NSString *)property
+                 equalTo:(id)value
+           sortedKeyPath:(NSString *)keyPath
+               ascending:(BOOL)ascending
+          fetchBatchSize:(NSUInteger)batchSize
+              fetchLimit:(NSUInteger)fetchLimit
+             fetchOffset:(NSUInteger)fetchOffset
+                 handler:(void (^)(NSError *, NSArray *))handler;
 
 /**
  *  @author C C, 2015-10-25
