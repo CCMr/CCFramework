@@ -254,12 +254,14 @@ UIActivityIndicatorView *loadMoreActivityIndicatorView;
 
 #pragma mark - DataSource Change
 
-- (void)exChangeMessageDataSourceQueue:(void (^)())queue {
+- (void)exChangeMessageDataSourceQueue:(void (^)())queue
+{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
                    queue);
 }
 
-- (void)exMainQueue:(void (^)())queue {
+- (void)exMainQueue:(void (^)())queue
+{
     dispatch_async(dispatch_get_main_queue(), queue);
 }
 
@@ -272,7 +274,8 @@ UIActivityIndicatorView *loadMoreActivityIndicatorView;
  *
  *  @since 1.0
  */
-- (void)addMessage:(CCMessage *)addedMessage {
+- (void)addMessage:(CCMessage *)addedMessage
+{
     [self alterDataSource:[NSArray arrayWithObject:addedMessage]];
 }
 
@@ -285,7 +288,8 @@ UIActivityIndicatorView *loadMoreActivityIndicatorView;
  *
  *  @since 1.0
  */
-- (void)addMessageArray:(NSArray *)messageAry {
+- (void)addMessageArray:(NSArray *)messageAry
+{
     [self alterDataSource:messageAry];
 }
 
@@ -300,7 +304,8 @@ UIActivityIndicatorView *loadMoreActivityIndicatorView;
  *  @since 1.0
  */
 - (void)updateMessageData:(CCMessage *)messageData
-          MessageSendType:(CCMessageSendType)sendType {
+          MessageSendType:(CCMessageSendType)sendType
+{
     NSMutableArray *messages = [NSMutableArray arrayWithArray:self.messages];
     NSInteger index = [messages indexOfObject:messageData];
     if (index > -1) {
@@ -321,7 +326,8 @@ UIActivityIndicatorView *loadMoreActivityIndicatorView;
  *
  *  @since 1.0
  */
-- (void)alterDataSource:(NSArray *)dataArray {
+- (void)alterDataSource:(NSArray *)dataArray
+{
     WEAKSELF;
     [self exChangeMessageDataSourceQueue:^{
         NSMutableArray *messages =
@@ -340,7 +346,8 @@ UIActivityIndicatorView *loadMoreActivityIndicatorView;
     }];
 }
 
-- (void)removeMessageAtIndexPath:(NSIndexPath *)indexPath {
+- (void)removeMessageAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.row >= self.messages.count)
         return;
     [self.messages removeObjectAtIndex:indexPath.row];
@@ -355,7 +362,8 @@ UIActivityIndicatorView *loadMoreActivityIndicatorView;
 static CGPoint delayOffset = {0.0};
 
 - (void)insertOldMessages:(NSArray *)oldMessages
-               completion:(void (^)())completion {
+               completion:(void (^)())completion
+{
     WEAKSELF;
     [self exChangeMessageDataSourceQueue:^{
         NSMutableArray *messages =
@@ -398,20 +406,23 @@ static CGPoint delayOffset = {0.0};
     }];
 }
 
-- (void)insertOldMessages:(NSArray *)oldMessages {
+- (void)insertOldMessages:(NSArray *)oldMessages
+{
     [self insertOldMessages:oldMessages completion:nil];
 }
 
 #pragma mark - Propertys
 
-- (NSMutableArray *)messages {
+- (NSMutableArray *)messages
+{
     if (!_messages) {
         _messages = [[NSMutableArray alloc] initWithCapacity:0];
     }
     return _messages;
 }
 
-- (UIView *)headerContainerView {
+- (UIView *)headerContainerView
+{
     if (!_headerContainerView) {
         _headerContainerView = [[UIView alloc]
                                 initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
@@ -421,7 +432,8 @@ static CGPoint delayOffset = {0.0};
     }
     return _headerContainerView;
 }
-- (UIActivityIndicatorView *)loadMoreActivityIndicatorView {
+- (UIActivityIndicatorView *)loadMoreActivityIndicatorView
+{
     if (!_loadMoreActivityIndicatorView) {
         _loadMoreActivityIndicatorView = [[UIActivityIndicatorView alloc]
                                           initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -431,7 +443,8 @@ static CGPoint delayOffset = {0.0};
     }
     return _loadMoreActivityIndicatorView;
 }
-- (void)setLoadingMoreMessage:(BOOL)loadingMoreMessage {
+- (void)setLoadingMoreMessage:(BOOL)loadingMoreMessage
+{
     _loadingMoreMessage = loadingMoreMessage;
     if (loadingMoreMessage) {
         [self.loadMoreActivityIndicatorView startAnimating];
@@ -440,7 +453,8 @@ static CGPoint delayOffset = {0.0};
     }
 }
 
-- (CCShareMenuView *)shareMenuView {
+- (CCShareMenuView *)shareMenuView
+{
     if (!_shareMenuView) {
         CCShareMenuView *shareMenuView = [[CCShareMenuView alloc]
                                           initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds),
@@ -457,7 +471,8 @@ static CGPoint delayOffset = {0.0};
     return _shareMenuView;
 }
 
-- (CCEmotionManagerView *)emotionManagerView {
+- (CCEmotionManagerView *)emotionManagerView
+{
     if (!_emotionManagerView) {
         CCEmotionManagerView *emotionManagerView = [[CCEmotionManagerView alloc]
                                                     initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds),
@@ -475,7 +490,8 @@ static CGPoint delayOffset = {0.0};
     return _emotionManagerView;
 }
 
-- (CCVoiceRecordHUD *)voiceRecordHUD {
+- (CCVoiceRecordHUD *)voiceRecordHUD
+{
     if (!_voiceRecordHUD) {
         _voiceRecordHUD =
         [[CCVoiceRecordHUD alloc] initWithFrame:CGRectMake(0, 0, 140, 140)];
@@ -483,21 +499,24 @@ static CGPoint delayOffset = {0.0};
     return _voiceRecordHUD;
 }
 
-- (CCPhotographyHelper *)photographyHelper {
+- (CCPhotographyHelper *)photographyHelper
+{
     if (!_photographyHelper) {
         _photographyHelper = [[CCPhotographyHelper alloc] init];
     }
     return _photographyHelper;
 }
 
-- (CCLocationHelper *)locationHelper {
+- (CCLocationHelper *)locationHelper
+{
     if (!_locationHelper) {
         _locationHelper = [[CCLocationHelper alloc] init];
     }
     return _locationHelper;
 }
 
-- (CCVoiceRecordHelper *)voiceRecordHelper {
+- (CCVoiceRecordHelper *)voiceRecordHelper
+{
     if (!_voiceRecordHelper) {
         _isMaxTimeStop = NO;
         
@@ -526,7 +545,8 @@ static CGPoint delayOffset = {0.0};
 #pragma mark - Messages View Controller
 
 - (void)finishSendMessageWithBubbleMessageType:
-(CCBubbleMessageMediaType)mediaType {
+(CCBubbleMessageMediaType)mediaType
+{
     switch (mediaType) {
         case CCBubbleMessageMediaTypeText: {
             [self.messageInputView.inputTextView setText:nil];
@@ -562,18 +582,21 @@ static CGPoint delayOffset = {0.0};
     }
 }
 
-- (void)setBackgroundColor:(UIColor *)color {
+- (void)setBackgroundColor:(UIColor *)color
+{
     self.view.backgroundColor = color;
     _messageTableView.backgroundColor = color;
 }
 
-- (void)setBackgroundImage:(UIImage *)backgroundImage {
+- (void)setBackgroundImage:(UIImage *)backgroundImage
+{
     self.messageTableView.backgroundView = nil;
     self.messageTableView.backgroundView =
     [[UIImageView alloc] initWithImage:backgroundImage];
 }
 
-- (void)scrollToBottomAnimated:(BOOL)animated {
+- (void)scrollToBottomAnimated:(BOOL)animated
+{
     if (![self shouldAllowScroll])
         return;
     
@@ -590,7 +613,8 @@ static CGPoint delayOffset = {0.0};
 
 - (void)scrollToRowAtIndexPath:(NSIndexPath *)indexPath
               atScrollPosition:(UITableViewScrollPosition)position
-                      animated:(BOOL)animated {
+                      animated:(BOOL)animated
+{
     if (![self shouldAllowScroll])
         return;
     
@@ -601,7 +625,8 @@ static CGPoint delayOffset = {0.0};
 
 #pragma mark - Previte Method
 
-- (BOOL)shouldAllowScroll {
+- (BOOL)shouldAllowScroll
+{
     if (self.isUserScrolling) {
         if ([self.delegate
              respondsToSelector:
@@ -616,7 +641,8 @@ static CGPoint delayOffset = {0.0};
 
 #pragma mark - Life Cycle
 
-- (void)setup {
+- (void)setup
+{
     // iPhone or iPad keyboard view height set here.
     self.keyboardViewHeight = (kIsiPad ? 264 : 216);
     _allowsPanToDismissKeyboard = NO;
@@ -629,7 +655,8 @@ static CGPoint delayOffset = {0.0};
     self.dataSource = self;
 }
 
-- (id)init {
+- (id)init
+{
     self = [super init];
     if (self) {
         [self setup];
@@ -637,11 +664,13 @@ static CGPoint delayOffset = {0.0};
     return self;
 }
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     [self setup];
 }
 
-- (void)initilzer {
+- (void)initilzer
+{
     if ([self
          respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;
@@ -792,7 +821,8 @@ static CGPoint delayOffset = {0.0};
     CGRectGetHeight(_messageInputView.bounds);
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     // 设置键盘通知或者手势控制键盘消失
     [self.messageTableView
@@ -807,7 +837,8 @@ static CGPoint delayOffset = {0.0};
     [self.messageInputView.inputTextView setEditable:YES];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
     
     if (self.textViewInputViewType != CCInputViewTypeNormal) {
@@ -824,7 +855,8 @@ static CGPoint delayOffset = {0.0};
     [self.messageInputView.inputTextView setEditable:NO];
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     // 初始化消息页面布局
@@ -832,12 +864,14 @@ static CGPoint delayOffset = {0.0};
     [[CCMessageBubbleView appearance] setFont:[UIFont systemFontOfSize:16.0f]];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     _messages = nil;
     _delegate = nil;
     _dataSource = nil;
@@ -852,21 +886,25 @@ static CGPoint delayOffset = {0.0};
 
 #pragma mark - View Rotation
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
     return UIInterfaceOrientationMaskPortrait;
 }
 
-- (BOOL)shouldAutorotate {
+- (BOOL)shouldAutorotate
+{
     return NO;
 }
 
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
     return UIInterfaceOrientationPortrait;
 }
 
 #pragma mark - RecorderPath Helper Method
 
-- (NSString *)getRecorderPath {
+- (NSString *)getRecorderPath
+{
     NSString *recorderPath = nil;
     recorderPath = [NSSearchPathForDirectoriesInDomains(
                                                         NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
@@ -881,7 +919,8 @@ static CGPoint delayOffset = {0.0};
 
 #pragma mark - UITextView Helper Method
 
-- (CGFloat)getTextViewContentH:(UITextView *)textView {
+- (CGFloat)getTextViewContentH:(UITextView *)textView
+{
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
         return ceilf([textView sizeThatFits:textView.frame.size].height);
     } else {
@@ -891,7 +930,8 @@ static CGPoint delayOffset = {0.0};
 
 #pragma mark - Layout Message Input View Helper Method
 
-- (void)layoutAndAnimateMessageInputTextView:(UITextView *)textView {
+- (void)layoutAndAnimateMessageInputTextView:(UITextView *)textView
+{
     CGFloat maxHeight = [CCMessageInputView maxHeight];
     
     CGFloat contentH = [self getTextViewContentH:textView];
@@ -962,13 +1002,15 @@ static CGPoint delayOffset = {0.0};
 
 #pragma mark - Scroll Message TableView Helper Method
 
-- (void)setTableViewInsetsWithBottomValue:(CGFloat)bottom {
+- (void)setTableViewInsetsWithBottomValue:(CGFloat)bottom
+{
     UIEdgeInsets insets = [self tableViewInsetsWithBottomValue:bottom];
     self.messageTableView.contentInset = insets;
     self.messageTableView.scrollIndicatorInsets = insets;
 }
 
-- (UIEdgeInsets)tableViewInsetsWithBottomValue:(CGFloat)bottom {
+- (UIEdgeInsets)tableViewInsetsWithBottomValue:(CGFloat)bottom
+{
     UIEdgeInsets insets = UIEdgeInsetsZero;
     
     if ([self respondsToSelector:@selector(topLayoutGuide)]) {
@@ -983,7 +1025,8 @@ static CGPoint delayOffset = {0.0};
 #pragma mark - Message Calculate Cell Height
 
 - (CGFloat)calculateCellHeightWithMessage:(id<CCMessageModel>)message
-                              atIndexPath:(NSIndexPath *)indexPath {
+                              atIndexPath:(NSIndexPath *)indexPath
+{
     CGFloat cellHeight = 0;
     
     BOOL displayTimestamp = YES;
@@ -1003,7 +1046,8 @@ static CGPoint delayOffset = {0.0};
 
 #pragma mark - Message Send helper Method
 
-- (void)didSendMessageWithText:(NSString *)text {
+- (void)didSendMessageWithText:(NSString *)text
+{
     if ([self.delegate
          respondsToSelector:@selector(didSendText:fromSender:onDate:)]) {
         [self.delegate didSendText:text
@@ -1012,7 +1056,8 @@ static CGPoint delayOffset = {0.0};
     }
 }
 
-- (void)didSendMessageWithPhoto:(UIImage *)photo {
+- (void)didSendMessageWithPhoto:(UIImage *)photo
+{
     if ([self.delegate
          respondsToSelector:@selector(didSendPhoto:fromSender:onDate:)]) {
         [self.delegate didSendPhoto:photo
@@ -1022,7 +1067,8 @@ static CGPoint delayOffset = {0.0};
 }
 
 - (void)didSendMessageWithVideoConverPhoto:(UIImage *)videoConverPhoto
-                                 videoPath:(NSString *)videoPath {
+                                 videoPath:(NSString *)videoPath
+{
     if ([self.delegate respondsToSelector:@selector(didSendVideoConverPhoto:
                                                     videoPath:
                                                     fromSender:
@@ -1035,7 +1081,8 @@ static CGPoint delayOffset = {0.0};
 }
 
 - (void)didSendMessageWithVoice:(NSString *)voicePath
-                  voiceDuration:(NSString *)voiceDuration {
+                  voiceDuration:(NSString *)voiceDuration
+{
     if ([self.delegate respondsToSelector:@selector(didSendVoice:
                                                     voiceDuration:
                                                     fromSender:
@@ -1047,7 +1094,8 @@ static CGPoint delayOffset = {0.0};
     }
 }
 
-- (void)didSendEmotionMessageWithEmotionPath:(NSString *)emotionPath {
+- (void)didSendEmotionMessageWithEmotionPath:(NSString *)emotionPath
+{
     if ([self.delegate
          respondsToSelector:@selector(didSendEmotion:fromSender:onDate:)]) {
         [self.delegate didSendEmotion:emotionPath
@@ -1057,7 +1105,8 @@ static CGPoint delayOffset = {0.0};
 }
 
 - (void)didSendGeolocationsMessageWithGeolocaltions:(NSString *)geolcations
-                                           location:(CLLocation *)location {
+                                           location:(CLLocation *)location
+{
     if ([self.delegate respondsToSelector:@selector(didSendGeoLocationsPhoto:
                                                     geolocations:
                                                     location:
@@ -1073,7 +1122,8 @@ static CGPoint delayOffset = {0.0};
 
 #pragma mark - Other Menu View Frame Helper Mehtod
 
-- (void)layoutOtherMenuViewHiden:(BOOL)hide {
+- (void)layoutOtherMenuViewHiden:(BOOL)hide
+{
     [self.messageInputView.inputTextView resignFirstResponder];
     [UIView animateWithDuration:0.2
                           delay:0
@@ -1163,18 +1213,21 @@ static CGPoint delayOffset = {0.0};
 
 #pragma mark - Voice Recording Helper Method
 
-- (void)prepareRecordWithCompletion:(CCPrepareRecorderCompletion)completion {
+- (void)prepareRecordWithCompletion:(CCPrepareRecorderCompletion)completion
+{
     [self.voiceRecordHelper prepareRecordingWithPath:[self getRecorderPath]
                            prepareRecorderCompletion:completion];
 }
 
-- (void)startRecord {
+- (void)startRecord
+{
     [self.voiceRecordHUD startRecordingHUDAtView:self.view];
     [self.voiceRecordHelper startRecordingWithStartRecorderCompletion:^{
     }];
 }
 
-- (void)finishRecorded {
+- (void)finishRecorded
+{
     WEAKSELF;
     [self.voiceRecordHUD stopRecordCompled:^(BOOL fnished) {
         weakSelf.voiceRecordHUD = nil;
@@ -1186,15 +1239,18 @@ static CGPoint delayOffset = {0.0};
     }];
 }
 
-- (void)pauseRecord {
+- (void)pauseRecord
+{
     [self.voiceRecordHUD pauseRecord];
 }
 
-- (void)resumeRecord {
+- (void)resumeRecord
+{
     [self.voiceRecordHUD resaueRecord];
 }
 
-- (void)cancelRecord {
+- (void)cancelRecord
+{
     WEAKSELF;
     [self.voiceRecordHUD cancelRecordCompled:^(BOOL fnished) {
         weakSelf.voiceRecordHUD = nil;
@@ -1207,17 +1263,20 @@ static CGPoint delayOffset = {0.0};
 #pragma mark - CCMessageInputView Delegate
 
 - (void)inputTextViewWillBeginEditing:
-(CCMessageTextView *)messageInputTextView {
+(CCMessageTextView *)messageInputTextView
+{
     self.textViewInputViewType = CCInputViewTypeText;
 }
 
-- (void)inputTextViewDidBeginEditing:(CCMessageTextView *)messageInputTextView {
+- (void)inputTextViewDidBeginEditing:(CCMessageTextView *)messageInputTextView
+{
     if (!self.previousTextViewContentHeight)
         self.previousTextViewContentHeight =
         [self getTextViewContentH:messageInputTextView];
 }
 
-- (void)didChangeSendVoiceAction:(BOOL)changed {
+- (void)didChangeSendVoiceAction:(BOOL)changed
+{
     if (changed) {
         if (self.textViewInputViewType == CCInputViewTypeText)
             return;
@@ -1226,7 +1285,8 @@ static CGPoint delayOffset = {0.0};
     }
 }
 
-- (void)didSendTextAction:(NSString *)text {
+- (void)didSendTextAction:(NSString *)text
+{
     if ([self.delegate
          respondsToSelector:@selector(didSendText:fromSender:onDate:)]) {
         [self.delegate didSendText:text
@@ -1235,12 +1295,14 @@ static CGPoint delayOffset = {0.0};
     }
 }
 
-- (void)didSelectedMultipleMediaAction {
+- (void)didSelectedMultipleMediaAction
+{
     self.textViewInputViewType = CCInputViewTypeShareMenu;
     [self layoutOtherMenuViewHiden:NO];
 }
 
-- (void)didSendFaceAction:(BOOL)sendFace {
+- (void)didSendFaceAction:(BOOL)sendFace
+{
     if (sendFace) {
         self.textViewInputViewType = CCInputViewTypeEmotion;
         [self layoutOtherMenuViewHiden:NO];
@@ -1249,19 +1311,23 @@ static CGPoint delayOffset = {0.0};
     }
 }
 
-- (void)prepareRecordingVoiceActionWithCompletion:(BOOL (^)(void))completion {
+- (void)prepareRecordingVoiceActionWithCompletion:(BOOL (^)(void))completion
+{
     [self prepareRecordWithCompletion:completion];
 }
 
-- (void)didStartRecordingVoiceAction {
+- (void)didStartRecordingVoiceAction
+{
     [self startRecord];
 }
 
-- (void)didCancelRecordingVoiceAction {
+- (void)didCancelRecordingVoiceAction
+{
     [self cancelRecord];
 }
 
-- (void)didFinishRecoingVoiceAction {
+- (void)didFinishRecoingVoiceAction
+{
     if (self.isMaxTimeStop == NO) {
         [self finishRecorded];
     } else {
@@ -1269,11 +1335,13 @@ static CGPoint delayOffset = {0.0};
     }
 }
 
-- (void)didDragOutsideAction {
+- (void)didDragOutsideAction
+{
     [self resumeRecord];
 }
 
-- (void)didDragInsideAction {
+- (void)didDragInsideAction
+{
     [self pauseRecord];
 }
 
@@ -1290,7 +1358,8 @@ static CGPoint delayOffset = {0.0};
  *  @since 1.0
  */
 - (void)didSelecteShareMenuItem:(CCShareMenuItem *)shareMenuItem
-                        atIndex:(NSInteger)index {
+                        atIndex:(NSInteger)index
+{
     
     WEAKSELF;
     switch (shareMenuItem.itemType) {
@@ -1389,27 +1458,32 @@ static CGPoint delayOffset = {0.0};
 #pragma mark - CCEmotionManagerView Delegate
 
 - (void)didSelecteEmotion:(CCEmotion *)emotion
-              atIndexPath:(NSIndexPath *)indexPath {
+              atIndexPath:(NSIndexPath *)indexPath
+{
     [self didSendEmotionMessageWithEmotionPath:emotion.emotionPath];
 }
 
 #pragma mark - CCEmotionManagerView DataSource
 
-- (NSInteger)numberOfEmotionManagers {
+- (NSInteger)numberOfEmotionManagers
+{
     return 0;
 }
 
-- (CCEmotionManager *)emotionManagerForColumn:(NSInteger)column {
+- (CCEmotionManager *)emotionManagerForColumn:(NSInteger)column
+{
     return nil;
 }
 
-- (NSArray *)emotionManagersAtManager {
+- (NSArray *)emotionManagersAtManager
+{
     return nil;
 }
 
 #pragma mark - UIScrollView Delegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
     if ([self.delegate
          respondsToSelector:@selector(shouldLoadMoreMessagesScrollToTop)]) {
         BOOL shouldLoadMoreMessages =
@@ -1427,7 +1501,8 @@ static CGPoint delayOffset = {0.0};
     }
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
     self.isUserScrolling = YES;
     
     UIMenuController *menu = [UIMenuController sharedMenuController];
@@ -1441,35 +1516,41 @@ static CGPoint delayOffset = {0.0};
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView
-                  willDecelerate:(BOOL)decelerate {
+                  willDecelerate:(BOOL)decelerate
+{
     self.isUserScrolling = NO;
 }
 
 #pragma mark - CCMessageTableViewController Delegate
 
-- (BOOL)shouldPreventScrollToBottomWhileUserScrolling {
+- (BOOL)shouldPreventScrollToBottomWhileUserScrolling
+{
     return YES;
 }
 
 #pragma mark - CCMessageTableViewController DataSource
 
-- (id<CCMessageModel>)messageForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (id<CCMessageModel>)messageForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return self.messages[indexPath.row];
 }
 
 #pragma mark - Table View Data Source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section {
+ numberOfRowsInSection:(NSInteger)section
+{
     return self.messages.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     
     id<CCMessageModel> message =
     [self.dataSource messageForRowAtIndexPath:indexPath];

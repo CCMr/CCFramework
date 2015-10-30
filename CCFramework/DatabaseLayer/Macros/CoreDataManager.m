@@ -25,11 +25,11 @@
 
 #import "CoreDataManager.h"
 
-@interface CoreDataManager()
+@interface CoreDataManager ()
 
-@property (nonatomic, strong) NSURL *storeUrl;
+@property(nonatomic, strong) NSURL *storeUrl;
 
-@property (nonatomic, strong) NSPersistentStore *persistentStore;
+@property(nonatomic, strong) NSPersistentStore *persistentStore;
 
 @end
 
@@ -37,7 +37,7 @@
 
 #pragma mark - init methods
 
--(instancetype)init
+- (instancetype)init
 {
     if (self = [super init]) {
         [self addNotifications];
@@ -71,8 +71,10 @@
  *
  *  @param notification 通知
  */
-- (void)mainManageObjectContextDidSaved:(NSNotification *)notification {
-    @synchronized(self){
+- (void)mainManageObjectContextDidSaved:(NSNotification *)notification
+{
+    @synchronized(self)
+    {
         [self.privateContext performBlock:^{
             [self.privateContext mergeChangesFromContextDidSaveNotification:notification];
         }];
@@ -86,8 +88,10 @@
  *
  *  @param notification 通知
  */
-- (void)privateManageObjectContextDidSaved:(NSNotification *)notification {
-    @synchronized(self){
+- (void)privateManageObjectContextDidSaved:(NSNotification *)notification
+{
+    @synchronized(self)
+    {
         [self.mainContext performBlock:^{
             for(NSManagedObject *object in [[notification userInfo] objectForKey:NSUpdatedObjectsKey]) {
                 [[self.mainContext objectWithID:[object objectID]] willAccessValueForKey:nil];
@@ -103,11 +107,12 @@
  *
  *  @brief  删除所有记录
  */
-- (void)removeAllRecord {
+- (void)removeAllRecord
+{
     NSError *error = nil;
     NSPersistentStoreCoordinator *storeCoodinator = self.persistentStoreCoordinator;
     [storeCoodinator removePersistentStore:self.persistentStore error:&error];
-
+    
     [self removeNotifications];
     _privateContext = nil;
     _mainContext = nil;
@@ -127,12 +132,13 @@
  *
  *  @brief  添加通知
  */
-- (void)addNotifications {
+- (void)addNotifications
+{
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(mainManageObjectContextDidSaved:)
                                                  name:NSManagedObjectContextDidSaveNotification
                                                object:[self mainContext]];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(privateManageObjectContextDidSaved:)
                                                  name:NSManagedObjectContextDidSaveNotification
@@ -144,7 +150,8 @@
  *
  *  @brief  删除通知
  */
-- (void)removeNotifications {
+- (void)removeNotifications
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -157,19 +164,20 @@
  *
  *  @return 返回主线程管理对象
  */
-- (NSManagedObjectContext *)mainContext {
+- (NSManagedObjectContext *)mainContext
+{
     if (_mainContext != nil) {
         return _mainContext;
     }
-
+    
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (coordinator != nil) {
+    if (coordinator) {
         _mainContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
         _mainContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
         _mainContext.undoManager = nil;
         [_mainContext setPersistentStoreCoordinator:coordinator];
     }
-
+    
     return _mainContext;
 }
 
@@ -182,12 +190,12 @@
  */
 - (NSManagedObjectContext *)privateContext
 {
-    if (_privateContext != nil) {
+    if (_privateContext) {
         return _privateContext;
     }
-
+    
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (coordinator != nil) {
+    if (coordinator) {
         _privateContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         _privateContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
         _privateContext.undoManager = nil;
@@ -203,40 +211,41 @@
  *
  *  @return 返回数据实体模型
  */
-- (NSManagedObjectModel *)managedObjectModel {
-    if (_managedObjectModel != nil) {
+- (NSManagedObjectModel *)managedObjectModel
+{
+    if (_managedObjectModel) {
         return _managedObjectModel;
     }
     _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
-
+    
     return _managedObjectModel;
 }
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator
 {
     // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it.
-    if (_persistentStoreCoordinator != nil) {
+    if (_persistentStoreCoordinator) {
         return _persistentStoreCoordinator;
     }
-
+    
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-
+    
     NSError *error = nil;
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"coreData.sqlite"];
     self.storeUrl = storeURL;
-
+    
     NSDictionary *persistentStoreOptions = [self persistentStoreOptions];
-
+    
     NSPersistentStore *persistanceStore = [_persistentStoreCoordinator
                                            addPersistentStoreWithType:NSSQLiteStoreType
                                            configuration:nil
                                            URL:storeURL
                                            options:persistentStoreOptions
                                            error:&error];
-
+    
     self.persistentStore = persistanceStore;
-
-     NSString *failureReason = @"There was an error creating or loading the application's saved data.";
+    
+    NSString *failureReason = @"There was an error creating or loading the application's saved data.";
     if (!persistanceStore) {
         error = nil;
         if ([self removeSQLiteFilesAtStoreURL:storeURL error:&error]) {
@@ -246,25 +255,25 @@
                                     URL:storeURL
                                     options:persistentStoreOptions
                                     error:&error];
-        }else{
-             NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        } else {
+            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
             [dict setObject:@"Failed to initialize the application's saved data" forKey:NSLocalizedDescriptionKey];
             [dict setObject:failureReason forKey:NSLocalizedFailureReasonErrorKey];
             [dict setObject:error forKey:NSUnderlyingErrorKey];
-
-             error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
+            
+            error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
     }
-
+    
     return _persistentStoreCoordinator;
 }
 
-- (BOOL)removeSQLiteFilesAtStoreURL: (NSURL *)storeURL
-                              error: (NSError * __autoreleasing *)error
+- (BOOL)removeSQLiteFilesAtStoreURL:(NSURL *)storeURL
+                              error:(NSError *__autoreleasing *)error
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSURL *storeDirectory = [storeURL URLByDeletingLastPathComponent];
@@ -272,32 +281,33 @@
                                           includingPropertiesForKeys:nil
                                                              options:0
                                                         errorHandler:nil];
-
+    
     NSString *storeName = [storeURL.lastPathComponent stringByDeletingPathExtension];
     for (NSURL *url in enumerator) {
-
+        
         if ([url.lastPathComponent hasPrefix:storeName] == NO) {
             continue;
         }
-
+        
         NSError *fileManagerError = nil;
         if ([fileManager removeItemAtURL:url error:&fileManagerError] == NO) {
-
+            
             if (error != NULL) {
                 *error = fileManagerError;
             }
-
+            
             return NO;
         }
     }
-
+    
     return YES;
 }
 
-- (NSDictionary *)persistentStoreOptions {
-    return @{NSInferMappingModelAutomaticallyOption: @YES,
-             NSMigratePersistentStoresAutomaticallyOption: @YES,
-             NSSQLitePragmasOption: @{@"synchronous": @"NO"}};
+- (NSDictionary *)persistentStoreOptions
+{
+    return @{ NSInferMappingModelAutomaticallyOption : @YES,
+              NSMigratePersistentStoresAutomaticallyOption : @YES,
+              NSSQLitePragmasOption : @{@"synchronous" : @"NO"} };
 }
 
 #pragma mark - Application's Documents directory
