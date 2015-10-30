@@ -73,9 +73,9 @@
  */
 - (NSString *)findOutUrlValueWithKey:(NSString *)key
 {
-    for(NSString *string in self){
+    for (NSString *string in self) {
         NSRange range = [string rangeOfString:key];
-        if(range.location != NSNotFound){
+        if (range.location != NSNotFound) {
             return [string substringFromIndex:range.location + range.length];
         }
     }
@@ -115,7 +115,7 @@
  *
  *  @since 1.0
  */
-- (BOOL)compareIgnoreObjectOrderWithArray: (NSArray *)ary
+- (BOOL)compareIgnoreObjectOrderWithArray:(NSArray *)ary
 {
     NSSet *selfSet = [NSSet setWithArray:self];
     NSSet *arySet = [NSSet setWithArray:ary];
@@ -133,15 +133,15 @@
  *
  *  @since <#1.0#>
  */
-- (NSArray *)arrayForIntersectionWithOtherArray: (NSArray *)otherAry
+- (NSArray *)arrayForIntersectionWithOtherArray:(NSArray *)otherAry
 {
-    NSMutableArray *intersectionArray=[NSMutableArray array];
-    if(self.count==0) return nil;
-    if(otherAry==nil) return nil;
+    NSMutableArray *intersectionArray = [NSMutableArray array];
+    if (self.count == 0) return nil;
+    if (otherAry == nil) return nil;
     
     //遍历
     for (id obj in self) {
-        if(![otherAry containsObject:obj]) continue;
+        if (![otherAry containsObject:obj]) continue;
         //添加
         [intersectionArray addObject:obj];
     }
@@ -160,15 +160,15 @@
  *
  *  @since <#1.0#>
  */
-- (NSArray *)arrayForMinusWithOtherArray: (NSArray *)otherAry
+- (NSArray *)arrayForMinusWithOtherArray:(NSArray *)otherAry
 {
-    if(!self) return nil;
-    if(!otherAry) return self;
+    if (!self) return nil;
+    if (!otherAry) return self;
     
-    NSMutableArray *minusArray=[NSMutableArray arrayWithArray:self];
+    NSMutableArray *minusArray = [NSMutableArray arrayWithArray:self];
     //遍历
     for (id obj in otherAry) {
-        if(![self containsObject:obj]) continue;
+        if (![self containsObject:obj]) continue;
         //添加
         [minusArray removeObject:obj];
     }
@@ -220,20 +220,47 @@
         
         NSMutableDictionary *PinyinDic = [[NSMutableDictionary alloc] initWithDictionary:dic];
         
-        NSString *pinyin=personName;
+        NSString *pinyin = personName;
         NSArray *arr = [pinyin componentsSeparatedByString:@" "];
         NSString *InitialName = @"";
         for (NSString *str in arr)
-            InitialName = [NSString stringWithFormat:@"%@%@",InitialName,[str substringWithRange:NSMakeRange(0, 1)]];
+            InitialName = [NSString stringWithFormat:@"%@%@", InitialName, [str substringWithRange:NSMakeRange(0, 1)]];
         
-        [PinyinDic setObject:[personName stringByReplacingOccurrencesOfString:@" " withString:@""]  forKey:@"Pinyin"];
-        [PinyinDic setObject:InitialName  forKey:@"InitialName"];
+        [PinyinDic setObject:[personName stringByReplacingOccurrencesOfString:@" " withString:@""] forKey:@"Pinyin"];
+        [PinyinDic setObject:InitialName forKey:@"InitialName"];
         
         [temp addObject:PinyinDic];
         temp = [[NSMutableArray alloc] initWithArray:[temp sortedArrayUsingDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:analysisName ascending:YES], nil]]];
         [sortGroupDic setObject:temp forKey:[sectionName uppercaseString]];
     }
     return sortGroupDic;
+}
+
+/**
+ *  @author CC, 2015-10-30
+ *  
+ *  @brief  排序
+ *
+ *  @param ascending     是否升序
+ *  @param sortedWithKey 排序字段
+ *
+ *  @return 返回排序结果
+ */
+- (NSArray *)sortedArray:(BOOL)ascending
+           SortedWithKey:(NSString *)sortedWithKey, ... NS_REQUIRES_NIL_TERMINATION
+{
+    NSMutableArray *array = [NSMutableArray array];
+    if (sortedWithKey) {
+        va_list arguments;
+        id eachObject;
+        va_start(arguments, sortedWithKey);
+        while ((eachObject = va_arg(arguments, id))) {
+            NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:sortedWithKey ascending:ascending];
+            [array addObject:descriptor];
+        }
+        va_end(arguments);
+    }
+    return [self sortedArrayUsingDescriptors:array];
 }
 
 @end

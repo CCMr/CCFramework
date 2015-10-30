@@ -86,7 +86,7 @@
  *
  *  @since 1.0
  */
-- (BOOL)compareIgnoreObjectOrderWithArray: (NSArray *)ary;
+- (BOOL)compareIgnoreObjectOrderWithArray:(NSArray *)ary;
 
 /**
  *  @author CC, 15-09-02
@@ -99,7 +99,7 @@
  *
  *  @since <#1.0#>
  */
-- (NSArray *)arrayForIntersectionWithOtherArray: (NSArray *)otherAry;
+- (NSArray *)arrayForIntersectionWithOtherArray:(NSArray *)otherAry;
 
 /**
  *  @author CC, 15-09-02
@@ -112,7 +112,7 @@
  *
  *  @since <#1.0#>
  */
-- (NSArray *)arrayForMinusWithOtherArray: (NSArray *)otherAry;
+- (NSArray *)arrayForMinusWithOtherArray:(NSArray *)otherAry;
 
 /**
  *  @author C C, 2015-10-10
@@ -123,6 +123,19 @@
  *
  *  @return 返回分组集合对象
  */
-- (NSMutableDictionary *)analysisSortGroup: (NSString *)analysisName;
+- (NSMutableDictionary *)analysisSortGroup:(NSString *)analysisName;
+
+/**
+ *  @author CC, 2015-10-30
+ *  
+ *  @brief  排序
+ *
+ *  @param ascending     是否升序
+ *  @param sortedWithKey 排序字段
+ *
+ *  @return 返回排序结果
+ */
+- (NSArray *)sortedArray:(BOOL)ascending
+           SortedWithKey:(NSString *)sortedWithKey, ... NS_REQUIRES_NIL_TERMINATION;
 
 @end
