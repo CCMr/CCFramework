@@ -26,6 +26,8 @@
 #import "CoreDataMasterSlave+Manager.h"
 #import "CoreDataMasterSlave+Convenience.h"
 #import "NSManagedObject+Additional.h"
+#import "NSArray+BNSArray.h"
+#import "NSManagedObject+Mapping.h"
 
 @implementation CoreDataMasterSlave (Queries)
 
@@ -38,7 +40,8 @@
  *
  *  @return 返回数量
  */
-+ (NSUInteger)cc_count:(NSString *)tableName {
++ (NSUInteger)cc_count:(NSString *)tableName
+{
     return [self cc_countWhere:tableName WhereCondition:nil];
 }
 
@@ -53,7 +56,8 @@
  *  @return 返回数量
  */
 + (NSUInteger)cc_countWhere:(NSString *)tableName
-             WhereCondition:(NSString *)condition, ... {
+             WhereCondition:(NSString *)condition, ...
+{
     NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
     fetchRequest.resultType = NSCountResultType;
     [fetchRequest setIncludesSubentities:NO];
@@ -71,6 +75,31 @@
 }
 
 /**
+ *  @author CC, 2015-10-30
+ *  
+ *  @brief  自增长ID
+ *
+ *  @param tableName    表名
+ *  @param propertyName 自增长字段
+ *
+ *  @return 返回增长ID
+ */
++ (NSInteger)cc_autoincrement:(NSString *)tableName
+        AutoincrementProperty:(NSString *)propertyName
+{
+    
+    NSInteger autoincrementID = 0;
+    
+    NSArray *dataAry = [self cc_selectCoreData:tableName];
+    id propertyID = [[dataAry sortedArray:NO SortedWithKey:propertyName, nil].lastObject objectForKey:propertyName];
+    
+    if (propertyID && [propertyID integerValue])
+        autoincrementID = [propertyID integerValue];
+    
+    return autoincrementID++;
+}
+
+/**
  *  @author CC, 2015-10-26
  *
  *  @brief  查询所有数据
@@ -79,7 +108,8 @@
  *
  *  @return 返回结果集
  */
-+ (NSArray *)cc_selectCoreData:(NSString *)tableName {
++ (NSArray *)cc_selectCoreData:(NSString *)tableName
+{
     return [self cc_selectCoreData:tableName Condition:nil];
 }
 
@@ -94,7 +124,8 @@
  *  @return 返回结果集
  */
 + (NSArray *)cc_selectCoreData:(NSString *)tableName
-                     Condition:(NSString *)condition {
+                     Condition:(NSString *)condition
+{
     NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
     if (condition)
         [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
@@ -114,7 +145,8 @@
 + (void)cc_selectCoreData:(NSString *)tableName
                 Condition:(NSString *)condition
                   Handler:(void (^)(NSError *error,
-                                    NSArray *requestResults))handler {
+                                    NSArray *requestResults))handler
+{
     NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
     if (condition)
         [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
@@ -135,7 +167,8 @@
  */
 + (NSArray *)cc_selectCoreData:(NSString *)tableName
                    sortWithKey:(NSString *)key
-                     ascending:(BOOL)ascending {
+                     ascending:(BOOL)ascending
+{
     return [self cc_selectCoreData:tableName
                        sortWithKey:key
                          ascending:ascending
@@ -157,7 +190,8 @@
 + (NSArray *)cc_selectCoreData:(NSString *)tableName
                    sortWithKey:(NSString *)key
                      ascending:(BOOL)ascending
-                     Condition:(NSString *)condition {
+                     Condition:(NSString *)condition
+{
     return [self cc_selectCoreData:tableName
                        sortWithKey:key
                          ascending:ascending
@@ -179,7 +213,8 @@
  */
 + (NSArray *)cc_selectCoreData:(NSString *)tableName
                     fetchLimit:(NSInteger)pageSize
-                   fetchOffset:(NSInteger)currentPage {
+                   fetchOffset:(NSInteger)currentPage
+{
     return [self cc_selectCoreData:tableName
                         fetchLimit:pageSize
                        fetchOffset:currentPage
@@ -201,7 +236,8 @@
 + (NSArray *)cc_selectCoreData:(NSString *)tableName
                     fetchLimit:(NSInteger)pageSize
                    fetchOffset:(NSInteger)currentPage
-                     Condition:(NSString *)condition {
+                     Condition:(NSString *)condition
+{
     return [self cc_selectCoreData:tableName
                        sortWithKey:nil
                          ascending:NO
@@ -229,7 +265,8 @@
                      ascending:(BOOL)ascending
                     fetchLimit:(NSInteger)pageSize
                    fetchOffset:(NSInteger)currentPage
-                     Condition:(NSString *)condition {
+                     Condition:(NSString *)condition
+{
     
     NSFetchRequest *fetchRequest = [self cc_Request:tableName
                                          FetchLimit:pageSize
@@ -261,7 +298,8 @@
  */
 + (NSArray *)cc_whereProperty:(NSString *)tableName
                  PropertyName:(NSString *)property
-                      equalTo:(id)value {
+                      equalTo:(id)value
+{
     return [self cc_whereProperty:tableName
                      PropertyName:property
                           equalTo:value
@@ -286,7 +324,8 @@
                  PropertyName:(NSString *)property
                       equalTo:(id)value
                 sortedKeyPath:(NSString *)keyPath
-                    ascending:(BOOL)ascending {
+                    ascending:(BOOL)ascending
+{
     return [self cc_whereProperty:tableName
                      PropertyName:property
                           equalTo:value
@@ -320,7 +359,8 @@
                     ascending:(BOOL)ascending
                fetchBatchSize:(NSUInteger)batchSize
                    fetchLimit:(NSUInteger)fetchLimit
-                  fetchOffset:(NSUInteger)fetchOffset {
+                  fetchOffset:(NSUInteger)fetchOffset
+{
     return [self cc_sortedKeyPath:tableName
                           KeyPath:keyPath
                         ascending:ascending
@@ -351,7 +391,8 @@
                fetchBatchSize:(NSUInteger)batchSize
                    fetchLimit:(NSUInteger)fetchLimit
                   fetchOffset:(NSUInteger)fetchOffset
-                        where:(NSString *)condition, ... {
+                        where:(NSString *)condition, ...
+{
     NSFetchRequest *fetchRequest = [self cc_Request:tableName
                                          FetchLimit:fetchLimit
                                           batchSize:batchSize
@@ -360,8 +401,7 @@
     if (condition != nil) {
         va_list arguments;
         va_start(arguments, condition);
-        NSPredicate *predicate =
-        [NSPredicate predicateWithFormat:condition arguments:arguments];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:condition arguments:arguments];
         va_end(arguments);
         [fetchRequest setPredicate:predicate];
     }
@@ -384,69 +424,14 @@
  *
  *  @return 返回转换后的数据集合
  */
-+ (NSArray *)ConversionData:(NSArray *)data {
++ (NSArray *)ConversionData:(NSArray *)data
+{
     __block NSMutableArray *array = [NSMutableArray array];
-    [data enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx,
-                                       BOOL *_Nonnull stop) {
+    [data enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx,BOOL *_Nonnull stop) {
         NSManagedObject *managedObject = obj;
         [array addObject:[managedObject changedDictionary]];
     }];
     return array;
-}
-
-/**
- *  @author CC, 2015-10-26
- *
- *  @brief  递归查询关联子项
- *
- *  @param entity 递归对象
- *
- *  @return 返回对象
- */
-+ (NSDictionary *)cc_recursiveChildren:(NSManagedObject *)entity {
-    NSMutableDictionary *dic = [[entity changedDictionary] mutableCopy];
-    for (NSString *key in dic.allKeys) {
-        if ([[dic objectForKey:key] isKindOfClass:[NSArray class]]) {
-            NSMutableArray *array = [[dic objectForKey:key] mutableCopy];
-            NSRelationshipDescription *relationship =
-            [[entity.entity relationshipsByName] objectForKey:key];
-            id values = [dic objectForKey:relationship.inverseRelationship.name];
-            //自定义关联外键使用
-            if (values) {
-                NSArray *dataArray = [self
-                                      cc_selectCoreData:relationship.destinationEntity.name
-                                      Condition:[NSString
-                                                 stringWithFormat:
-                                                 @"%@ = '%@'", relationship.name,
-                                                 [dic objectForKey:relationship
-                                                  .inverseRelationship
-                                                  .name]]];
-                
-                //清理关联查询出来的数据
-                if (dataArray.count > 0)
-                    [array removeAllObjects];
-                
-                [dataArray
-                 enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                     NSDictionary *childrenDic = obj;
-                     if ([childrenDic isKindOfClass:[NSManagedObject class]])
-                         childrenDic = [self cc_recursiveChildren:obj];
-                     [array addObject:childrenDic];
-                 }];
-                array = [[[NSSet setWithArray:array] allObjects] mutableCopy];
-                [array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-                    if ([obj1 objectForKey:@"objectID"] > [obj2 objectForKey:@"objectID"])
-                        return NSOrderedAscending;
-                    if ([obj1 objectForKey:@"objectID"] < [obj2 objectForKey:@"objectID"])
-                        return NSOrderedDescending;
-                    return NSOrderedSame;
-                }];
-            }
-            
-            [dic setObject:array forKey:key];
-        }
-    }
-    return dic;
 }
 
 @end

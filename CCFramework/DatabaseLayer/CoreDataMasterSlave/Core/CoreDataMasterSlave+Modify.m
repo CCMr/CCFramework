@@ -38,7 +38,8 @@
  *  @param value     字段值
  */
 + (void)cc_batchUpdataCoredData:(NSString *)tableName
-                 ColumnKeyValue:(NSDictionary *)columnDic {
+                 ColumnKeyValue:(NSDictionary *)columnDic
+{
     NSEntityDescription *entityDescription =
     [NSEntityDescription entityForName:tableName
                 inManagedObjectContext:self.currentContext];
@@ -92,7 +93,8 @@
              ConditionKey:(NSString *)conditionKey
                 Condition:(NSString *)condition
            ConditionValue:(NSString *)conditionValue
-            EditDataArray:(NSArray *)editDataArray {
+            EditDataArray:(NSArray *)editDataArray
+{
     if (!editDataArray.count)
         return;
     
@@ -121,7 +123,8 @@
                 Condition:(NSString *)condition
            ConditionValue:(NSString *)conditionValue
             EditDataArray:(NSArray *)editDataArray
-               completion:(void (^)(NSError *error))completion {
+               completion:(void (^)(NSError *error))completion
+{
     if (!editDataArray.count)
         return;
     
@@ -176,7 +179,8 @@
  */
 + (void)cc_updateCoreData:(NSString *)tableName
                 Condition:(NSString *)condition
-                 EditData:(NSDictionary *)editData {
+                 EditData:(NSDictionary *)editData
+{
     [self cc_updateCoreData:tableName
                   Condition:condition
                    EditData:editData
@@ -196,7 +200,8 @@
 + (void)cc_updateCoreData:(NSString *)tableName
                 Condition:(NSString *)condition
                  EditData:(NSDictionary *)editData
-               completion:(void (^)(NSError *error))completion {
+               completion:(void (^)(NSError *error))completion
+{
     [self saveContext:^(NSManagedObjectContext *currentContext) {
         
         NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
@@ -241,7 +246,8 @@
 + (void)cc_updateCoreData:(NSString *)tableName
                 Condition:(NSString *)condition
             AttributeName:(NSString *)attributeName
-           AttributeValue:(NSString *)attributeValue {
+           AttributeValue:(NSString *)attributeValue
+{
     [self cc_updateCoreData:tableName
                   Condition:condition
               AttributeName:attributeName
@@ -264,7 +270,8 @@
                 Condition:(NSString *)condition
             AttributeName:(NSString *)attributeName
            AttributeValue:(NSString *)attributeValue
-               completion:(void (^)(NSError *error))completion {
+               completion:(void (^)(NSError *error))completion
+{
     [self saveContext:^(NSManagedObjectContext *currentContext) {
         NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
         [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
@@ -291,7 +298,8 @@
  */
 + (void)cc_updateCoreData:(NSString *)tableName
               ConditionID:(NSManagedObjectID *)conditionID
-                 EditData:(NSDictionary *)editData {
+                 EditData:(NSDictionary *)editData
+{
     [self cc_updateCoreData:tableName
                 ConditionID:conditionID
                    EditData:editData
@@ -311,7 +319,8 @@
 + (void)cc_updateCoreData:(NSString *)tableName
               ConditionID:(NSManagedObjectID *)conditionID
                  EditData:(NSDictionary *)editData
-               completion:(void (^)(NSError *error))completion {
+               completion:(void (^)(NSError *error))completion
+{
     [self saveContext:^(NSManagedObjectContext *currentContext) {
         
         NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
@@ -323,10 +332,7 @@
                 if ([((NSManagedObject *)obj).objectID isEqual:conditionID]) {
                     for (NSString *key in editData.allKeys) {
                         if ([[editData objectForKey:key] isKindOfClass:[NSArray class]]) {
-                            NSRelationshipDescription *relationship = [[[NSEntityDescription
-                                                                         entityForName:tableName
-                                                                         inManagedObjectContext:currentContext] relationshipsByName]
-                                                                       objectForKey:key];
+                            NSRelationshipDescription *relationship = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:currentContext] relationshipsByName] objectForKey:key];
                             for (NSDictionary *childDic in [editData objectForKey:key]) {
                                 [self cc_updateCoreData:[[relationship destinationEntity] name]
                                             ConditionID:[childDic objectForKey:@"objectID"]

@@ -27,6 +27,15 @@
 
 @interface CoreDataMasterSlave (Convenience)
 
+/**
+ *  @author CC, 2015-10-24
+ *
+ *  @brief  当前管理对象
+ *
+ *  @return 返回当前管理对象
+ */
++ (NSManagedObjectContext *)saveCurrentContext;
+
 #pragma mark + 查询条件
 /**
  *  @author CC, 2015-10-24
@@ -110,8 +119,7 @@
  *  @param handler 完成回调函数
  */
 + (void)executeQueriesCount:(NSFetchRequest *)request
-                    Handler:(void (^)(NSError *error,
-                                      NSInteger requestCount))handler;
+                    Handler:(void (^)(NSError *error, NSInteger requestCount))handler;
 
 /**
  *  @author CC, 2015-10-26
@@ -124,8 +132,7 @@
  */
 + (void)executeQueriesCount:(NSManagedObjectContext *)queriesContext
                FetchRequest:(NSFetchRequest *)request
-                    Handler:(void (^)(NSError *error,
-                                      NSInteger requestCount))handler;
+                    Handler:(void (^)(NSError *error, NSInteger requestCount))handler;
 
 /**
  *  @author CC, 2015-10-26
@@ -160,8 +167,7 @@
  *  @param handler 完成回调函数
  */
 + (void)executeQueriesContext:(NSFetchRequest *)request
-                      Handler:(void (^)(NSError *error,
-                                        NSArray *requestResults))handler;
+                      Handler:(void (^)(NSError *error, NSArray *requestResults))handler;
 
 /**
  *  @author CC, 2015-10-26
@@ -184,8 +190,7 @@
  *
  *  @param saveContext 线程管理对象
  */
-+ (void)saveContext:
-    (void (^)(NSManagedObjectContext *currentContext))saveContext;
++ (void)saveContext:(void (^)(NSManagedObjectContext *currentContext))saveContext;
 
 /**
  *  @author CC, 2015-10-24
@@ -195,8 +200,7 @@
  *  @param saveContext 线程管理对象
  *  @param completion  完成回调函数
  */
-+ (void)saveContext:
-            (void (^)(NSManagedObjectContext *currentContext))saveContext
++ (void)saveContext:(void (^)(NSManagedObjectContext *currentContext))saveContext
          completion:(void (^)(NSError *error))completion;
 
 /**
@@ -220,8 +224,7 @@
  *  @param completion  完成回调函数
  */
 + (void)saveWithContext:(NSManagedObjectContext *)saveContext
-       SaveContextBlock:
-           (void (^)(NSManagedObjectContext *currentContext))saveContextBlock
+       SaveContextBlock:(void (^)(NSManagedObjectContext *currentContext))saveContextBlock
              completion:(void (^)(NSError *error))completion;
 
 @end
