@@ -326,7 +326,7 @@ AFURLConnectionOperationRedirectResponseBlock redirectResponse;
         WEAKSELF;
         self.backgroundTaskIdentifier =
         [application beginBackgroundTaskWithExpirationHandler:^{
-            STRONGSELF
+            STRONGSELF;
             
             if (handler) {
                 handler();

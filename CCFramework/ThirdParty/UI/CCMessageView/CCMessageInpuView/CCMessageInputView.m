@@ -289,7 +289,7 @@
              //這邊回調 return 的 YES, 或 NO, 可以讓底層知道該次錄音是否成功,
              //進而處理無用的 record 對象
              [self.delegate prepareRecordingVoiceActionWithCompletion:^BOOL {
-                 STRONGSELF
+                 STRONGSELF;
                  
                  //這邊要判斷回調回來的時候, 使用者是不是已經早就鬆開手了
                  if (strongSelf && !strongSelf.isCancelled) {

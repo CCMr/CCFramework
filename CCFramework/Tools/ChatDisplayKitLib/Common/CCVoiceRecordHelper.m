@@ -146,7 +146,7 @@
                                         forKey:AVNumberOfChannelsKey];
                        
                        if (weakSelf) {
-                           STRONGSELF
+                           STRONGSELF;
                            strongSelf.recordPath = path;
                            error = nil;
                            
