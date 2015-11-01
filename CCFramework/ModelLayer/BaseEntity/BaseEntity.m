@@ -150,10 +150,9 @@
  */
 - (NSString *)ChangedJson
 {
-    NSData *jsonData =
-    [NSJSONSerialization dataWithJSONObject:[self ChangedDictionary]
-                                    options:NSJSONWritingPrettyPrinted
-                                      error:nil];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[self ChangedDictionary]
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:nil];
     return [jsonData ChangedString];
 }
 
