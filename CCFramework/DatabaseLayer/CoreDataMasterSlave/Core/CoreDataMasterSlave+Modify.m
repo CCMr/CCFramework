@@ -246,7 +246,7 @@
 + (void)cc_updateCoreData:(NSString *)tableName
                 Condition:(NSString *)condition
             AttributeName:(NSString *)attributeName
-           AttributeValue:(NSString *)attributeValue
+           AttributeValue:(id)attributeValue
 {
     [self cc_updateCoreData:tableName
                   Condition:condition
@@ -269,7 +269,7 @@
 + (void)cc_updateCoreData:(NSString *)tableName
                 Condition:(NSString *)condition
             AttributeName:(NSString *)attributeName
-           AttributeValue:(NSString *)attributeValue
+           AttributeValue:(id)attributeValue
                completion:(void (^)(NSError *error))completion
 {
     [self saveContext:^(NSManagedObjectContext *currentContext) {

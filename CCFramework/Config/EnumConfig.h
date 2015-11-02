@@ -99,7 +99,7 @@ typedef NS_ENUM(NSUInteger, CCBubbleImageViewStyle) {
  *  @since 1.0
  */
 typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
-
+    
     /** 消息选中文本复制 **/
     CCBubbleMessageMenuSelecteTypeTextCopy = 0,
     /** 消息选中文本转发 **/
@@ -108,7 +108,7 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
     CCBubbleMessageMenuSelecteTypeTextFavorites = 2,
     /** 消息选中文本更多 **/
     CCBubbleMessageMenuSelecteTypeTextMore = 3,
-
+    
     /** 消息选中图片复制 **/
     CCBubbleMessageMenuSelecteTypePhotoCopy = 4,
     /** 消息选中图片转发 **/
@@ -117,14 +117,14 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
     CCBubbleMessageMenuSelecteTypePhotoFavorites = 6,
     /** 消息选中图片更多 **/
     CCBubbleMessageMenuSelecteTypePhotoMore = 7,
-
+    
     /** 消息选中视频转发 **/
     CCBubbleMessageMenuSelecteTypeVideoTranspond = 8,
     /** 消息选中视频收藏 **/
     CCBubbleMessageMenuSelecteTypeVideoFavorites = 9,
     /** 消息选中视频更对 **/
     CCBubbleMessageMenuSelecteTypeVideoMore = 10,
-
+    
     /** 消息选中语音播放 **/
     CCBubbleMessageMenuSelecteTypeVoicePlay = 11,
     /** 消息选中语音收藏 **/
@@ -188,7 +188,7 @@ typedef NS_ENUM(NSInteger, CCScanningStyle) {
  *
  *  @since <#1.0#>
  */
-typedef NS_ENUM(NSInteger, CCButtonTitlePostionType){
+typedef NS_ENUM(NSInteger, CCButtonTitlePostionType) {
     /** 底部 **/
     CCButtonTitlePostionTypeBottom = 0,
 };

@@ -312,7 +312,7 @@
 + (void)cc_updateCoreData:(NSString *)tableName
                 Condition:(NSString *)condition
             AttributeName:(NSString *)attributeName
-           AttributeValue:(NSString *)attributeValue;
+           AttributeValue:(id)attributeValue;
 
 /**
  *  @author C C, 2015-10-25
@@ -328,7 +328,7 @@
 + (void)cc_updateCoreData:(NSString *)tableName
                 Condition:(NSString *)condition
             AttributeName:(NSString *)attributeName
-           AttributeValue:(NSString *)attributeValue
+           AttributeValue:(id)attributeValue
                completion:(void (^)(NSError *error))completion;
 
 /**

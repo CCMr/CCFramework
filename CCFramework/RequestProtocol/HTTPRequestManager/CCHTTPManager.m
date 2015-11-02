@@ -762,48 +762,44 @@
                          WithProgressBlock:(ProgressBlock)progressBlock
 {
     AFHTTPRequestOperation *requestOperation =
-    [self.manager POST:requestURLString
-            parameters:nil
-constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-    NSData *postData;
-    NSString *postFileType;
-    NSString *postFileName;
-    NSString *postFileNameType;
-    switch (fileType) {
-        case CCUploadFormFileTypeImageJpeg:
-            postData = UIImageJPEGRepresentation(fileImage, 1);
-            postFileType = @"image/jpeg";
-            postFileNameType = @"jpeg";
-            break;
-            
-        case CCUploadFormFileTypeImagePNG:
-            postData = UIImagePNGRepresentation(fileImage);
-            postFileType = @"image/png";
-            postFileNameType = @"png";
-            break;
-            
-        default:
-            break;
-    }
-    //上传图片保存名称与类型
-    postFileName = [NSString
-                    stringWithFormat:@"%@.%@",
-                    [[NSDate date]
-                     toStringFormat:@"yyyyMMddHHmmssSSS"],
-                    postFileNameType];
-    
-    // 上传图片，以文件流的格式
-    [formData appendPartWithFileData:postData
-                                name:serviceReceivingName
-                            fileName:postFileName
-                            mimeType:postFileType];
-}
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                   block(responseObject);
-               }
-               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                   errorBlock(error);
-               }];
+    [self.manager POST:requestURLString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        NSData *postData;
+        NSString *postFileType;
+        NSString *postFileName;
+        NSString *postFileNameType;
+        switch (fileType) {
+            case CCUploadFormFileTypeImageJpeg:
+                postData = UIImageJPEGRepresentation(fileImage, 1);
+                postFileType = @"image/jpeg";
+                postFileNameType = @"jpeg";
+                break;
+                
+            case CCUploadFormFileTypeImagePNG:
+                postData = UIImagePNGRepresentation(fileImage);
+                postFileType = @"image/png";
+                postFileNameType = @"png";
+                break;
+                
+            default:
+                break;
+        }
+        //上传图片保存名称与类型
+        postFileName = [NSString
+                        stringWithFormat:@"%@.%@",
+                        [[NSDate date]
+                         toStringFormat:@"yyyyMMddHHmmssSSS"],
+                        postFileNameType];
+        
+        // 上传图片，以文件流的格式
+        [formData appendPartWithFileData:postData
+                                    name:serviceReceivingName
+                                fileName:postFileName
+                                mimeType:postFileType];
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        block(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        errorBlock(error);
+    }];
     
     [requestOperation start];
 }
@@ -839,18 +835,14 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     NSURL *postFilePath = [NSURL fileURLWithPath:filePath];
     
     //发送上传请求
-    NSURLSessionUploadTask *uploadTask = [sessionManager
-                                          uploadTaskWithRequest:request
-                                          fromFile:postFilePath
-                                          progress:progressBlock
-                                          completionHandler:^(NSURLResponse *response, id responseObject,
-                                                              NSError *error) {
-                                              if (error) { //请求失败
-                                                  errorBlock(error);
-                                              } else { //请求成功
-                                                  block(responseObject);
-                                              }
-                                          }];
+    NSURLSessionUploadTask *uploadTask = [sessionManager uploadTaskWithRequest:request fromFile:postFilePath progress:progressBlock completionHandler:^(NSURLResponse *response, id responseObject,
+                                                                                                                                                        NSError *error) {
+        if (error) { //请求失败
+            errorBlock(error);
+        } else { //请求成功
+            block(responseObject);
+        }
+    }];
     
     //开始上传
     [uploadTask resume];

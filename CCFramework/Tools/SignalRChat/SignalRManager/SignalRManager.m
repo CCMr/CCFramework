@@ -24,7 +24,7 @@
 
 #import "SignalRManager.h"
 
-@interface SignalRManager()<SRConnectionDelegate>
+@interface SignalRManager () <SRConnectionDelegate>
 
 /**
  *  @author CC, 2015-08-15
@@ -33,7 +33,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, strong) SRHubConnection *hubConnection;
+@property(nonatomic, strong) SRHubConnection *hubConnection;
 
 @end
 
@@ -51,7 +51,8 @@ static SignalRManager *_sharedlnstance = nil;
  */
 + (id)sharedInstance
 {
-    @synchronized(self){
+    @synchronized(self)
+    {
         if (_sharedlnstance == nil) {
             _sharedlnstance = [[self alloc] init];
         }
@@ -71,11 +72,12 @@ static SignalRManager *_sharedlnstance = nil;
 - (instancetype)init
 {
     self = [super init];
-
+    
     if (self) {
         [self initObject];
+        [self addNotification];
     }
-
+    
     return self;
 }
 
@@ -116,7 +118,6 @@ static SignalRManager *_sharedlnstance = nil;
  */
 - (void)addNotification
 {
-
 }
 
 /**
@@ -133,8 +134,6 @@ static SignalRManager *_sharedlnstance = nil;
     _hubConnection.delegate = self;
     //设置聊天代理
     _chatProxy = [_hubConnection createHubProxy:[self SignalRProxyPort]];
-
-    [self addNotification];
 }
 
 /**
@@ -147,11 +146,10 @@ static SignalRManager *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (void)registerNotice: (NSString *)responseEventName
-              Selector: (id)selectorSelf
-         ResponseEvent: (SEL)eventCallback
+- (void)registerNotice:(NSString *)responseEventName
+              Selector:(id)selectorSelf
+         ResponseEvent:(SEL)eventCallback
 {
-
 }
 
 /**
@@ -176,7 +174,6 @@ static SignalRManager *_sharedlnstance = nil;
  */
 - (void)registerDevice
 {
-
 }
 
 /**
@@ -186,9 +183,8 @@ static SignalRManager *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
--(void)connectionWillReconnect
+- (void)connectionWillReconnect
 {
-
 }
 
 /**
@@ -200,7 +196,6 @@ static SignalRManager *_sharedlnstance = nil;
  */
 - (void)connectionDidClose
 {
-
 }
 
 /**
@@ -212,9 +207,8 @@ static SignalRManager *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
--(void)connectionReceiveError:(NSError *)error
+- (void)connectionReceiveError:(NSError *)error
 {
-
 }
 
 #pragma mark - SignalRDeletgate
@@ -241,7 +235,7 @@ static SignalRManager *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (void)SRConnectionWillReconnect:(id <SRConnectionInterface>)connection
+- (void)SRConnectionWillReconnect:(id<SRConnectionInterface>)connection
 {
     [self connectionWillReconnect];
 }
@@ -255,9 +249,8 @@ static SignalRManager *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (void)SRConnectionDidReconnect:(id <SRConnectionInterface>)connection
+- (void)SRConnectionDidReconnect:(id<SRConnectionInterface>)connection
 {
-
 }
 
 /**
@@ -270,7 +263,7 @@ static SignalRManager *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (void)SRConnection:(id <SRConnectionInterface>)connection didReceiveData:(id)data
+- (void)SRConnection:(id<SRConnectionInterface>)connection didReceiveData:(id)data
 {
     [self connectionDidClose];
 }
@@ -284,9 +277,8 @@ static SignalRManager *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (void)SRConnectionDidClose:(id <SRConnectionInterface>)connection
+- (void)SRConnectionDidClose:(id<SRConnectionInterface>)connection
 {
-
 }
 
 /**
@@ -299,7 +291,7 @@ static SignalRManager *_sharedlnstance = nil;
  *
  *  @since 1.0
  */
-- (void)SRConnection:(id <SRConnectionInterface>)connection didReceiveError:(NSError *)error
+- (void)SRConnection:(id<SRConnectionInterface>)connection didReceiveError:(NSError *)error
 {
     [self connectionReceiveError:error];
 }
@@ -317,7 +309,7 @@ static SignalRManager *_sharedlnstance = nil;
  */
 - (void)SRConnection:(id <SRConnectionInterface>)connection didChangeState:(connectionState)oldState newState:(connectionState)newState
 {
-
+    
 }
 
 /**
@@ -331,7 +323,7 @@ static SignalRManager *_sharedlnstance = nil;
  */
 - (void)SRConnectionDidSlow:(id <SRConnectionInterface>)connection
 {
-
+    
 }
 
 
