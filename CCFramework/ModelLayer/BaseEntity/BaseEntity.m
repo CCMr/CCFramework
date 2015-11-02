@@ -449,7 +449,7 @@ static const char *getPropertyType(objc_property_t property)
           ValueDdic:(NSDictionary *)dict
                 Key:(NSString *)key
 {
-				id value = [dict objectForKey:key];
+    id value = [dict objectForKey:key];
     if ([value isKindOfClass:[NSNull class]]) {
         NSString *propertyType = [properties objectForKey:key];
         if ([propertyType isEqualToString:@"NSString"]) {
@@ -459,6 +459,9 @@ static const char *getPropertyType(objc_property_t property)
                    [propertyType isEqualToString:@"q"] ||
                    [propertyType isEqualToString:@"I"]) {
             value = @(-1);
+        }else if ([propertyType isEqualToString:@"NSArray"] || 
+                  [propertyType isEqualToString:@"NSMutableArray"]){
+            value = @[];
         }
     }
     
