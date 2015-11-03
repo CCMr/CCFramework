@@ -604,8 +604,7 @@
  */
 + (NSString *)documentFolder
 {
-    return [NSSearchPathForDirectoriesInDomains(
-                                                NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
 /**
@@ -619,15 +618,13 @@
  */
 + (NSString *)cachesFolder
 {
-    return [NSSearchPathForDirectoriesInDomains(
-                                                NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    return [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
 }
 
 /**
  *  @author CC, 15-08-21
  *
- *  @brief
- *生成子文件夹(如果子文件夹不存在，则直接创建；如果已经存在，则直接返回)
+ *  @brief 生成子文件夹(如果子文件夹不存在，则直接创建；如果已经存在，则直接返回)
  *
  *  @param subFolder 子文件夹名
  *

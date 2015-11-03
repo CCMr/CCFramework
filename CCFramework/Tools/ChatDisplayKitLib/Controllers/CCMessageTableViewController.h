@@ -35,7 +35,6 @@
 #import "CCMessageTableView.h"
 
 
-
 @protocol CCMessageTableViewControllerDelegate <NSObject>
 
 @optional
@@ -75,7 +74,7 @@
  *  @param sender           发送者的名字
  *  @param date             发送时间
  */
-- (void)didSendVoice:(NSString *)voicePath voiceDuration:(NSString*)voiceDuration fromSender:(NSString *)sender onDate:(NSDate *)date;
+- (void)didSendVoice:(NSString *)voicePath voiceDuration:(NSString *)voiceDuration fromSender:(NSString *)sender onDate:(NSDate *)date;
 
 /**
  *  发送第三方表情消息的回调方法
@@ -104,7 +103,7 @@
  *
  *  @return 根据indexPath获取消息的Model的对象，从而判断返回YES or NO来控制是否显示时间轴Label
  */
-- (BOOL)shouldDisplayTimestampForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (BOOL)shouldDisplayTimestampForRowAtIndexPath:(NSIndexPath *)indexPath Timestamp:(NSDate *)timestamp;
 
 /**
  *  配置Cell的样式或者字体
@@ -159,7 +158,7 @@
 @protocol CCMessageTableViewControllerDataSource <NSObject>
 
 @required
-- (id <CCMessageModel>)messageForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (id<CCMessageModel>)messageForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @optional
 /**
@@ -176,78 +175,78 @@
 
 @end
 
-@interface CCMessageTableViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, CCMessageTableViewControllerDelegate, CCMessageTableViewControllerDataSource, CCMessageInputViewDelegate, CCMessageTableviewCellDelegate, CCShareMenuViewDelegate, CCEmotionManagerViewDelegate, CCEmotionManagerViewDataSource>
+@interface CCMessageTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, CCMessageTableViewControllerDelegate, CCMessageTableViewControllerDataSource, CCMessageInputViewDelegate, CCMessageTableviewCellDelegate, CCShareMenuViewDelegate, CCEmotionManagerViewDelegate, CCEmotionManagerViewDataSource>
 
-@property (nonatomic, weak) id <CCMessageTableViewControllerDelegate> delegate;
+@property(nonatomic, weak) id<CCMessageTableViewControllerDelegate> delegate;
 
-@property (nonatomic, weak) id <CCMessageTableViewControllerDataSource> dataSource;
+@property(nonatomic, weak) id<CCMessageTableViewControllerDataSource> dataSource;
 
 /**
  *  数据源，显示多少消息
  */
-@property (nonatomic, strong) NSMutableArray *messages;
+@property(nonatomic, strong) NSMutableArray *messages;
 
 /**
  *  第三方接入的功能，也包括系统自身的功能，比如拍照、发送地理位置
  */
-@property (nonatomic, strong) NSArray *shareMenuItems;
+@property(nonatomic, strong) NSArray *shareMenuItems;
 
 /**
  *  消息的主体，默认为nil
  */
-@property (nonatomic, copy) NSString *messageSender;
+@property(nonatomic, copy) NSString *messageSender;
 
 /**
  *  用于显示消息的TableView
  */
-@property (nonatomic, weak, readonly) CCMessageTableView *messageTableView;
+@property(nonatomic, weak, readonly) CCMessageTableView *messageTableView;
 
 /**
  *  用于显示发送消息类型控制的工具条，在底部
  */
-@property (nonatomic, weak, readonly) CCMessageInputView *messageInputView;
+@property(nonatomic, weak, readonly) CCMessageInputView *messageInputView;
 
 /**
  *  替换键盘的位置的第三方功能控件
  */
-@property (nonatomic, weak, readonly) CCShareMenuView *shareMenuView;
+@property(nonatomic, weak, readonly) CCShareMenuView *shareMenuView;
 
 
 /**
  *  管理第三方gif表情的控件
  */
-@property (nonatomic, weak, readonly) CCEmotionManagerView *emotionManagerView;
+@property(nonatomic, weak, readonly) CCEmotionManagerView *emotionManagerView;
 
 /**
  *  是否正在加载更多旧的消息数据
  */
-@property (nonatomic, assign) BOOL loadingMoreMessage;
+@property(nonatomic, assign) BOOL loadingMoreMessage;
 
 #pragma mark - Message View Controller Default stup
 /**
  *  是否允许手势关闭键盘，默认是允许
  */
-@property (nonatomic, assign) BOOL allowsPanToDismissKeyboard; // default is YES
+@property(nonatomic, assign) BOOL allowsPanToDismissKeyboard; // default is YES
 
 /**
  *  是否允许发送语音
  */
-@property (nonatomic, assign) BOOL allowsSendVoice; // default is YES
+@property(nonatomic, assign) BOOL allowsSendVoice; // default is YES
 
 /**
  *  是否允许发送多媒体
  */
-@property (nonatomic, assign) BOOL allowsSendMultiMedia; // default is YES
+@property(nonatomic, assign) BOOL allowsSendMultiMedia; // default is YES
 
 /**
  *  是否支持发送表情
  */
-@property (nonatomic, assign) BOOL allowsSendFace; // default is YES
+@property(nonatomic, assign) BOOL allowsSendFace; // default is YES
 
 /**
  *  输入框的样式，默认为扁平化
  */
-@property (nonatomic, assign) CCMessageInputViewStyle inputViewStyle;
+@property(nonatomic, assign) CCMessageInputViewStyle inputViewStyle;
 
 #pragma mark - DataSource Change
 /**
@@ -267,8 +266,8 @@
  *
  *  @since 1.0
  */
-- (void)updateMessageData: (CCMessage *)messageData
-          MessageSendType: (CCMessageSendType)sendType;
+- (void)updateMessageData:(CCMessage *)messageData
+          MessageSendType:(CCMessageSendType)sendType;
 
 /**
  *  @author CC, 15-08-20
@@ -279,7 +278,7 @@
  *
  *  @since 1.0
  */
-- (void) addMessageArray: (NSArray *) messageAry;
+- (void)addMessageArray:(NSArray *)messageAry;
 
 /**
  *  删除一条已存在的消息

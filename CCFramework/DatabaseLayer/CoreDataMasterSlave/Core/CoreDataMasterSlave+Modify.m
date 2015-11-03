@@ -132,26 +132,16 @@
         for (NSDictionary *endtDic in editDataArray) {
             NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
             [fetchRequest
-             setPredicate:[NSPredicate
-                           predicateWithFormat:
-                           [NSString
-                            stringWithFormat:
-                            @"%@ %@ '%@'", conditionKey, condition,
-                            [endtDic objectForKey:conditionValue]]]];
+             setPredicate:[NSPredicate predicateWithFormat: [NSString stringWithFormat: @"%@ %@ '%@'", conditionKey, condition, [endtDic objectForKey:conditionValue]]]];
             [fetchRequest setReturnsObjectsAsFaults:NO];
             
             NSError *error = nil;
-            NSArray *datas =
-            [currentContext executeFetchRequest:fetchRequest error:&error];
+            NSArray *datas = [currentContext executeFetchRequest:fetchRequest error:&error];
             if (!error && datas && [datas count]) {
-                [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx,
-                                                    BOOL *stop) {
+                [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                     for (NSString *key in endtDic.allKeys) {
                         if ([[endtDic objectForKey:key] isKindOfClass:[NSArray class]]) {
-                            NSRelationshipDescription *relationship = [[[NSEntityDescription
-                                                                         entityForName:tableName
-                                                                         inManagedObjectContext:currentContext] relationshipsByName]
-                                                                       objectForKey:key];
+                            NSRelationshipDescription *relationship = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:currentContext] relationshipsByName] objectForKey:key];
                             for (NSDictionary *childDic in [endtDic objectForKey:key]) {
                                 [self cc_updateCoreData:[[relationship destinationEntity] name]
                                             ConditionID:[childDic objectForKey:@"objectID"]

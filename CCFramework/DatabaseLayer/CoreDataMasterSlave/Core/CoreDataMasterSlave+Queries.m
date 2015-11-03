@@ -277,8 +277,7 @@
         [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
     
     if (key) {
-        NSSortDescriptor *sorted =
-        [NSSortDescriptor sortDescriptorWithKey:key ascending:ascending];
+        NSSortDescriptor *sorted = [NSSortDescriptor sortDescriptorWithKey:key ascending:ascending];
         [fetchRequest setSortDescriptors:@[ sorted ]];
     }
     

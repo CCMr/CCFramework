@@ -247,10 +247,9 @@
             NSData *datas = responseData;
             if ([datas isKindOfClass:[NSString class]])
                 datas = [responseData dataUsingEncoding:NSUTF8StringEncoding];
-            dic = [NSJSONSerialization
-                   JSONObjectWithData:datas
-                   options:NSJSONReadingAllowFragments
-                   error:nil];
+            dic = [NSJSONSerialization JSONObjectWithData:datas
+                                                  options:NSJSONReadingAllowFragments
+                                                    error:nil];
         }
         responseProcessBlock(dic, NO);
     }

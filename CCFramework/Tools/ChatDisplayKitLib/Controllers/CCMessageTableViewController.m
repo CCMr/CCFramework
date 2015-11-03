@@ -58,12 +58,10 @@
 @property(nonatomic, weak, readwrite) CCEmotionManagerView *emotionManagerView;
 @property(nonatomic, strong, readwrite) CCVoiceRecordHUD *voiceRecordHUD;
 
-@property(nonatomic, strong, readonly)
-CCCameraViewController *camerViewController;
+@property(nonatomic, strong, readonly) CCCameraViewController *camerViewController;
 
 @property(nonatomic, strong) UIView *headerContainerView;
-@property(nonatomic, strong)
-UIActivityIndicatorView *loadMoreActivityIndicatorView;
+@property(nonatomic, strong) UIActivityIndicatorView *loadMoreActivityIndicatorView;
 
 /**
  *  管理本机的摄像和图片库的工具对象
@@ -378,9 +376,8 @@ static CGPoint delayOffset = {0.0};
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:idx inSection:0];
             [indexPaths addObject:indexPath];
             
-            delayOffset.y +=
-            [weakSelf calculateCellHeightWithMessage:[messages objectAtIndex:idx]
-                                         atIndexPath:indexPath];
+            delayOffset.y += [weakSelf calculateCellHeightWithMessage:[messages objectAtIndex:idx]
+                                                          atIndexPath:indexPath];
             [indexSets addIndex:idx];
         }];
         [messages insertObjects:oldMessages atIndexes:indexSets];
@@ -1030,16 +1027,12 @@ static CGPoint delayOffset = {0.0};
     CGFloat cellHeight = 0;
     
     BOOL displayTimestamp = YES;
-    if ([self.delegate
-         respondsToSelector:@selector(
-                                      shouldDisplayTimestampForRowAtIndexPath:)]) {
-             displayTimestamp =
-             [self.delegate shouldDisplayTimestampForRowAtIndexPath:indexPath];
-         }
+    if ([self.delegate respondsToSelector:@selector(shouldDisplayTimestampForRowAtIndexPath:Timestamp:)]) {
+        displayTimestamp = [self.delegate shouldDisplayTimestampForRowAtIndexPath:indexPath Timestamp:message.timestamp];
+    }
     
-    cellHeight =
-    [CCMessageTableViewCell calculateCellHeightWithMessage:message
-                                         displaysTimestamp:displayTimestamp];
+    cellHeight = [CCMessageTableViewCell calculateCellHeightWithMessage:message
+                                                      displaysTimestamp:displayTimestamp];
     
     return cellHeight;
 }
@@ -1048,18 +1041,14 @@ static CGPoint delayOffset = {0.0};
 
 - (void)didSendMessageWithText:(NSString *)text
 {
-    if ([self.delegate
-         respondsToSelector:@selector(didSendText:fromSender:onDate:)]) {
-        [self.delegate didSendText:text
-                        fromSender:self.messageSender
-                            onDate:[NSDate date]];
+    if ([self.delegate respondsToSelector:@selector(didSendText:fromSender:onDate:)]) {
+        [self.delegate didSendText:text fromSender:self.messageSender onDate:[NSDate date]];
     }
 }
 
 - (void)didSendMessageWithPhoto:(UIImage *)photo
 {
-    if ([self.delegate
-         respondsToSelector:@selector(didSendPhoto:fromSender:onDate:)]) {
+    if ([self.delegate respondsToSelector:@selector(didSendPhoto:fromSender:onDate:)]) {
         [self.delegate didSendPhoto:photo
                          fromSender:self.messageSender
                              onDate:[NSDate date]];
@@ -1096,8 +1085,7 @@ static CGPoint delayOffset = {0.0};
 
 - (void)didSendEmotionMessageWithEmotionPath:(NSString *)emotionPath
 {
-    if ([self.delegate
-         respondsToSelector:@selector(didSendEmotion:fromSender:onDate:)]) {
+    if ([self.delegate respondsToSelector:@selector(didSendEmotion:fromSender:onDate:)]) {
         [self.delegate didSendEmotion:emotionPath
                            fromSender:self.messageSender
                                onDate:[NSDate date]];
@@ -1125,90 +1113,86 @@ static CGPoint delayOffset = {0.0};
 - (void)layoutOtherMenuViewHiden:(BOOL)hide
 {
     [self.messageInputView.inputTextView resignFirstResponder];
-    [UIView animateWithDuration:0.2
-                          delay:0
-                        options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-                         __block CGRect inputViewFrame = self.messageInputView.frame;
-                         __block CGRect otherMenuViewFrame;
-                         
-                         void (^InputViewAnimation)(BOOL hide) = ^(BOOL hide) {
-                             inputViewFrame.origin.y = (hide ? (CGRectGetHeight(self.view.bounds) -
-                                                                CGRectGetHeight(inputViewFrame))
-                                                        : (CGRectGetMinY(otherMenuViewFrame) -
-                                                           CGRectGetHeight(inputViewFrame)));
-                             self.messageInputView.frame = inputViewFrame;
-                         };
-                         
-                         void (^EmotionManagerViewAnimation)(BOOL hide) = ^(BOOL hide) {
-                             otherMenuViewFrame = self.emotionManagerView.frame;
-                             otherMenuViewFrame.origin.y =
-                             (hide ? CGRectGetHeight(self.view.frame)
-                              : (CGRectGetHeight(self.view.frame) -
-                                 CGRectGetHeight(otherMenuViewFrame)));
-                             self.emotionManagerView.alpha = !hide;
-                             self.emotionManagerView.frame = otherMenuViewFrame;
-                         };
-                         
-                         void (^ShareMenuViewAnimation)(BOOL hide) = ^(BOOL hide) {
-                             otherMenuViewFrame = self.shareMenuView.frame;
-                             otherMenuViewFrame.origin.y =
-                             (hide ? CGRectGetHeight(self.view.frame)
-                              : (CGRectGetHeight(self.view.frame) -
-                                 CGRectGetHeight(otherMenuViewFrame)));
-                             self.shareMenuView.alpha = !hide;
-                             self.shareMenuView.frame = otherMenuViewFrame;
-                         };
-                         
-                         if (hide) {
-                             switch (self.textViewInputViewType) {
-                                 case CCInputViewTypeEmotion: {
-                                     EmotionManagerViewAnimation(hide);
-                                     break;
-                                 }
-                                 case CCInputViewTypeShareMenu: {
-                                     ShareMenuViewAnimation(hide);
-                                     break;
-                                 }
-                                 default:
-                                     break;
-                             }
-                         } else {
-                             
-                             // 这里需要注意block的执行顺序，因为otherMenuViewFrame是公用的对象，所以对于被隐藏的Menu的frame的origin的y会是最大值
-                             switch (self.textViewInputViewType) {
-                                 case CCInputViewTypeEmotion: {
-                                     // 1、先隐藏和自己无关的View
-                                     ShareMenuViewAnimation(!hide);
-                                     // 2、再显示和自己相关的View
-                                     EmotionManagerViewAnimation(hide);
-                                     break;
-                                 }
-                                 case CCInputViewTypeShareMenu: {
-                                     // 1、先隐藏和自己无关的View
-                                     EmotionManagerViewAnimation(!hide);
-                                     // 2、再显示和自己相关的View
-                                     ShareMenuViewAnimation(hide);
-                                     break;
-                                 }
-                                 default:
-                                     break;
-                             }
-                         }
-                         
-                         InputViewAnimation(hide);
-                         
-                         [self setTableViewInsetsWithBottomValue:self.view.frame.size.height -
-                          self.messageInputView.frame
-                          .origin.y];
-                         
-                         [self scrollToBottomAnimated:NO];
-                     }
-                     completion:^(BOOL finished) {
-                         if (hide) {
-                             self.textViewInputViewType = CCInputViewTypeNormal;
-                         }
-                     }];
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        __block CGRect inputViewFrame = self.messageInputView.frame;
+        __block CGRect otherMenuViewFrame;
+        
+        void (^InputViewAnimation)(BOOL hide) = ^(BOOL hide) {
+            inputViewFrame.origin.y = (hide ? (CGRectGetHeight(self.view.bounds) -
+                                               CGRectGetHeight(inputViewFrame))
+                                       : (CGRectGetMinY(otherMenuViewFrame) -
+                                          CGRectGetHeight(inputViewFrame)));
+            self.messageInputView.frame = inputViewFrame;
+        };
+        
+        void (^EmotionManagerViewAnimation)(BOOL hide) = ^(BOOL hide) {
+            otherMenuViewFrame = self.emotionManagerView.frame;
+            otherMenuViewFrame.origin.y =
+            (hide ? CGRectGetHeight(self.view.frame)
+             : (CGRectGetHeight(self.view.frame) -
+                CGRectGetHeight(otherMenuViewFrame)));
+            self.emotionManagerView.alpha = !hide;
+            self.emotionManagerView.frame = otherMenuViewFrame;
+        };
+        
+        void (^ShareMenuViewAnimation)(BOOL hide) = ^(BOOL hide) {
+            otherMenuViewFrame = self.shareMenuView.frame;
+            otherMenuViewFrame.origin.y =
+            (hide ? CGRectGetHeight(self.view.frame)
+             : (CGRectGetHeight(self.view.frame) -
+                CGRectGetHeight(otherMenuViewFrame)));
+            self.shareMenuView.alpha = !hide;
+            self.shareMenuView.frame = otherMenuViewFrame;
+        };
+        
+        if (hide) {
+            switch (self.textViewInputViewType) {
+                case CCInputViewTypeEmotion: {
+                    EmotionManagerViewAnimation(hide);
+                    break;
+                }
+                case CCInputViewTypeShareMenu: {
+                    ShareMenuViewAnimation(hide);
+                    break;
+                }
+                default:
+                    break;
+            }
+        } else {
+            
+            // 这里需要注意block的执行顺序，因为otherMenuViewFrame是公用的对象，所以对于被隐藏的Menu的frame的origin的y会是最大值
+            switch (self.textViewInputViewType) {
+                case CCInputViewTypeEmotion: {
+                    // 1、先隐藏和自己无关的View
+                    ShareMenuViewAnimation(!hide);
+                    // 2、再显示和自己相关的View
+                    EmotionManagerViewAnimation(hide);
+                    break;
+                }
+                case CCInputViewTypeShareMenu: {
+                    // 1、先隐藏和自己无关的View
+                    EmotionManagerViewAnimation(!hide);
+                    // 2、再显示和自己相关的View
+                    ShareMenuViewAnimation(hide);
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+        
+        InputViewAnimation(hide);
+        
+        [self setTableViewInsetsWithBottomValue:self.view.frame.size.height -
+         self.messageInputView.frame
+         .origin.y];
+        
+        [self scrollToBottomAnimated:NO];
+    } completion:^(BOOL finished) {
+        if (hide) {
+            self.textViewInputViewType = CCInputViewTypeNormal;
+        }
+    }];
 }
 
 #pragma mark - Voice Recording Helper Method
@@ -1233,9 +1217,8 @@ static CGPoint delayOffset = {0.0};
         weakSelf.voiceRecordHUD = nil;
     }];
     [self.voiceRecordHelper stopRecordingWithStopRecorderCompletion:^{
-        [weakSelf
-         didSendMessageWithVoice:weakSelf.voiceRecordHelper.recordPath
-         voiceDuration:weakSelf.voiceRecordHelper.recordDuration];
+        [weakSelf didSendMessageWithVoice:weakSelf.voiceRecordHelper.recordPath 
+                            voiceDuration:weakSelf.voiceRecordHelper.recordDuration];
     }];
 }
 
@@ -1552,13 +1535,10 @@ static CGPoint delayOffset = {0.0};
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    id<CCMessageModel> message =
-    [self.dataSource messageForRowAtIndexPath:indexPath];
+    id<CCMessageModel> message = [self.dataSource messageForRowAtIndexPath:indexPath];
     
     // 如果需要定制复杂的业务UI，那么就实现该DataSource方法
-    if ([self.dataSource respondsToSelector:@selector(tableView:
-                                                      cellForRowAtIndexPath:
-                                                      targetMessage:)]) {
+    if ([self.dataSource respondsToSelector:@selector(tableView:cellForRowAtIndexPath:targetMessage:)]) {
         UITableViewCell *tableViewCell = [self.dataSource tableView:tableView
                                               cellForRowAtIndexPath:indexPath
                                                       targetMessage:message];
@@ -1566,12 +1546,9 @@ static CGPoint delayOffset = {0.0};
     }
     
     BOOL displayTimestamp = YES;
-    if ([self.delegate
-         respondsToSelector:@selector(
-                                      shouldDisplayTimestampForRowAtIndexPath:)]) {
-             displayTimestamp =
-             [self.delegate shouldDisplayTimestampForRowAtIndexPath:indexPath];
-         }
+    if ([self.delegate respondsToSelector:@selector(shouldDisplayTimestampForRowAtIndexPath:Timestamp:)]) {
+        displayTimestamp = [self.delegate shouldDisplayTimestampForRowAtIndexPath:indexPath Timestamp:message.timestamp];
+    }
     
     static NSString *cellIdentifier = @"CCMessageTableViewCell";
     
@@ -1579,10 +1556,9 @@ static CGPoint delayOffset = {0.0};
     [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (!messageTableViewCell) {
-        messageTableViewCell =
-        [[CCMessageTableViewCell alloc] initWithMessage:message
-                                      displaysTimestamp:displayTimestamp
-                                        reuseIdentifier:cellIdentifier];
+        messageTableViewCell = [[CCMessageTableViewCell alloc] initWithMessage:message
+                                                             displaysTimestamp:displayTimestamp
+                                                               reuseIdentifier:cellIdentifier];
         messageTableViewCell.delegate = self;
     }
     

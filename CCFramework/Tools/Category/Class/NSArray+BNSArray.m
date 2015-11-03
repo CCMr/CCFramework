@@ -251,12 +251,12 @@
 {
     NSMutableArray *array = [NSMutableArray array];
     if (sortedWithKey) {
+        [array addObject:[NSSortDescriptor sortDescriptorWithKey:sortedWithKey ascending:ascending]];
         va_list arguments;
         id eachObject;
         va_start(arguments, sortedWithKey);
         while ((eachObject = va_arg(arguments, id))) {
-            NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:sortedWithKey ascending:ascending];
-            [array addObject:descriptor];
+            [array addObject:[NSSortDescriptor sortDescriptorWithKey:sortedWithKey ascending:ascending]];
         }
         va_end(arguments);
     }
