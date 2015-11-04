@@ -224,7 +224,7 @@
                                     inUnit:NSMonthCalendarUnit
                                    forDate:date].length; // 延后的那个月天数
     Days -= [[date timeFormat:@"dd"] integerValue];      //当月天数 - 当日
-    dateComponents.day = day + Days; // 延后天数 + 当月余下天数
+    dateComponents.day = day + Days;			 // 延后天数 + 当月余下天数
     
     return
     [calendar dateByAddingComponents:dateComponents toDate:self options:0];
@@ -469,15 +469,49 @@
     NSInteger days = comps_today.day - comps_other.day;
     
     if (comps_today.year == comps_other.year && comps_today.month == comps_other.month && comps_today.day == comps_other.day)
-        strDate =  [NSString stringWithFormat:@"今天 %@",[self timeFormat:@"HH:mm"]];
+        strDate = [NSString stringWithFormat:@"今天 %@", [self timeFormat:@"HH:mm"]];
     else if (comps_today.year == comps_other.year && comps_today.month == comps_other.month && days == 1)
-        strDate =  [NSString stringWithFormat:@"昨天 %@",[self timeFormat:@"HH:mm"]];
+        strDate = [NSString stringWithFormat:@"昨天 %@", [self timeFormat:@"HH:mm"]];
     else if (comps_today.year == comps_other.year && comps_today.month == comps_other.month && days < 7)
-        strDate =  [NSString stringWithFormat:@"%@ %@",[NSDate getWeekStringFromInteger:(int)weekIntValue],[self timeFormat:@"HH:mm"]];
+        strDate = [NSString stringWithFormat:@"%@ %@", [NSDate getWeekStringFromInteger:(int)weekIntValue], [self timeFormat:@"HH:mm"]];
     else
         strDate = [self timeFormat:@"yyyy年MM月dd HH:mm"];
     
     return strDate;
+}
+
+/**
+ *  @author CC, 2015-11-04
+ *  
+ *  @brief  比较时间相隔
+ *
+ *  @param timestamp 时间
+ *
+ *  @return 返回相隔时间
+ */
+- (NSDictionary *)comparativeApart:(NSDate *)timestamp
+{
+    double intervalTime = [self timeIntervalSinceReferenceDate] - [timestamp timeIntervalSinceReferenceDate];
+    
+    long lTime = (long)intervalTime;
+    NSInteger iSeconds = lTime % 60;
+    NSInteger iMinutes = (lTime / 60) % 60;
+    NSInteger iHours = (lTime / 3600);
+    NSInteger iDays = lTime / 60 / 60 / 24;
+    NSInteger iMonth = lTime / 60 / 60 / 24 / 12;
+    NSInteger iYears = lTime /60 / 60 / 24 / 384;
+    
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:@(iYears) forKey:@"years"];
+    [dic setObject:@(iMonth) forKey:@"month"];
+    [dic setObject:@(iDays) forKey:@"days"];
+    [dic setObject:@(iHours) forKey:@"hours"];
+    [dic setObject:@(iMinutes) forKey:@"minutes"];
+    [dic setObject:@(iSeconds) forKey:@"seconds"];
+    
+    return dic;
+    
 }
 
 @end

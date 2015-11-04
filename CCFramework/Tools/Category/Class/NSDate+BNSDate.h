@@ -263,5 +263,15 @@
  */
 - (NSString *)convertingDataFormat;
 
+/**
+ *  @author CC, 2015-11-04
+ *  
+ *  @brief  比较时间相隔
+ *
+ *  @param timestamp 时间
+ *
+ *  @return 返回相隔时间
+ */
+- (NSDictionary *)comparativeApart:(NSDate *)timestamp;
 
 @end
