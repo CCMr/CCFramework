@@ -25,6 +25,7 @@
 
 #import "CoreDataMasterSlave+Manager.h"
 #import "CoreDataMasterSlave+Convenience.h"
+#import "NSManagedObject+Mapping.h"
 
 @implementation CoreDataMasterSlave (Modify)
 
@@ -131,25 +132,31 @@
     [self saveContext:^(NSManagedObjectContext *currentContext) {
         for (NSDictionary *endtDic in editDataArray) {
             NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
-            [fetchRequest
-             setPredicate:[NSPredicate predicateWithFormat: [NSString stringWithFormat: @"%@ %@ '%@'", conditionKey, condition, [endtDic objectForKey:conditionValue]]]];
+            [fetchRequest setPredicate:[NSPredicate predicateWithFormat: [NSString stringWithFormat: @"%@ %@ '%@'", conditionKey, condition, [endtDic objectForKey:conditionValue]]]];
             [fetchRequest setReturnsObjectsAsFaults:NO];
             
             NSError *error = nil;
             NSArray *datas = [currentContext executeFetchRequest:fetchRequest error:&error];
             if (!error && datas && [datas count]) {
-                [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    for (NSString *key in endtDic.allKeys) {
-                        if ([[endtDic objectForKey:key] isKindOfClass:[NSArray class]]) {
-                            NSRelationshipDescription *relationship = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:currentContext] relationshipsByName] objectForKey:key];
-                            for (NSDictionary *childDic in [endtDic objectForKey:key]) {
-                                [self cc_updateCoreData:[[relationship destinationEntity] name]
-                                            ConditionID:[childDic objectForKey:@"objectID"]
-                                               EditData:childDic];
+                [datas enumerateObjectsUsingBlock:^(id entity, NSUInteger idx, BOOL *stop) {
+                    
+                    NSArray *attributes = [entity allAttributeNames];
+                    NSArray *relationships = [entity allRelationshipNames];
+                    
+                    [endtDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                        id remoteValue = obj;
+                        if (remoteValue) {
+                            if ([attributes containsObject:key]) {
+                                [entity mergeAttributeForKey:key
+                                                   withValue:remoteValue];
+                                
+                            }else if ([relationships containsObject:key]) {
+                                [entity mergeRelationshipForKey:key
+                                                      withValue:remoteValue
+                                                          IsAdd:NO];
                             }
-                        } else
-                            [obj setValue:[endtDic objectForKey:key] forKey:key];
-                    }
+                        }
+                    }];
                 }];
             }
         }
@@ -202,21 +209,24 @@
         NSArray *datas =
         [currentContext executeFetchRequest:fetchRequest error:&error];
         if (!error && datas && [datas count]) {
-            [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                for (NSString *key in editData.allKeys) {
-                    if ([[editData objectForKey:key] isKindOfClass:[NSArray class]]) {
-                        NSRelationshipDescription *relationship = [[[NSEntityDescription
-                                                                     entityForName:tableName
-                                                                     inManagedObjectContext:currentContext] relationshipsByName]
-                                                                   objectForKey:key];
-                        for (NSDictionary *childDic in [editData objectForKey:key]) {
-                            [self cc_updateCoreData:[[relationship destinationEntity] name]
-                                        ConditionID:[childDic objectForKey:@"objectID"]
-                                           EditData:childDic];
+            [datas enumerateObjectsUsingBlock:^(id entity, NSUInteger idx, BOOL *stop) {
+                NSArray *attributes = [entity allAttributeNames];
+                NSArray *relationships = [entity allRelationshipNames];
+                
+                [editData enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                    id remoteValue = obj;
+                    if (remoteValue) {
+                        if ([attributes containsObject:key]) {
+                            [entity mergeAttributeForKey:key
+                                               withValue:remoteValue];
+                            
+                        }else if ([relationships containsObject:key]) {
+                            [entity mergeRelationshipForKey:key
+                                                  withValue:remoteValue
+                                                      IsAdd:NO];
                         }
-                    } else
-                        [obj setValue:[editData objectForKey:key] forKey:key];
-                }
+                    }
+                }];
             }];
         }
         
@@ -318,21 +328,26 @@
         NSArray *datas =
         [currentContext executeFetchRequest:fetchRequest error:&error];
         if (!error && datas && [datas count]) {
-            [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                if ([((NSManagedObject *)obj).objectID isEqual:conditionID]) {
-                    for (NSString *key in editData.allKeys) {
-                        if ([[editData objectForKey:key] isKindOfClass:[NSArray class]]) {
-                            NSRelationshipDescription *relationship = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:currentContext] relationshipsByName] objectForKey:key];
-                            for (NSDictionary *childDic in [editData objectForKey:key]) {
-                                [self cc_updateCoreData:[[relationship destinationEntity] name]
-                                            ConditionID:[childDic objectForKey:@"objectID"]
-                                               EditData:childDic];
+            [datas enumerateObjectsUsingBlock:^(id entity, NSUInteger idx, BOOL *stop) {
+                if ([((NSManagedObject *)entity).objectID isEqual:conditionID]) {
+                    
+                    NSArray *attributes = [entity allAttributeNames];
+                    NSArray *relationships = [entity allRelationshipNames];
+                    
+                    [editData enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                        id remoteValue = obj;
+                        if (remoteValue) {
+                            if ([attributes containsObject:key]) {
+                                [entity mergeAttributeForKey:key
+                                                   withValue:remoteValue];
+                                
+                            }else if ([relationships containsObject:key]) {
+                                [entity mergeRelationshipForKey:key
+                                                      withValue:remoteValue
+                                                          IsAdd:NO];
                             }
-                        } else {
-                            if (![key isEqualToString:@"objectID"])
-                                [obj setValue:[editData objectForKey:key] forKey:key];
                         }
-                    }
+                    }];
                 }
             }];
         }
