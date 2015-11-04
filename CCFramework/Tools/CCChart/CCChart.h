@@ -1,5 +1,5 @@
 //
-//  Tools.h
+//  CCChart.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,17 +23,10 @@
 // THE SOFTWARE.
 //
 
-#ifndef CCFramework_Tools_h
-#define CCFramework_Tools_h
 
-#import <CCFramework/ChatDisplayKitLib.h>
-#import <CCFramework/Category.h>
-#import <CCFramework/CCCameraViewController.h>
-#import <CCFramework/CCLocationManager.h>
-#import <CCFramework/SignalRManager.h>
-#import <CCFramework/CCTimePicker.h>
-#import <CCFramework/CCAliPayEngine.h>
-#import <CCFramework/CCDisplayLocationViewController.h>
-#import <CCFramework/CCChart.h>
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-#endif
+@interface CCChart : NSObject
+
+@end
