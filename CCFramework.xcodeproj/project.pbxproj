@@ -488,6 +488,10 @@
 		4230E1921BBB83E40001E68F /* CCRadarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E1901BBB83E40001E68F /* CCRadarView.m */; };
 		4230E1961BBB8F7C0001E68F /* CCRadarScanViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4230E1941BBB8F7C0001E68F /* CCRadarScanViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4230E1971BBB8F7C0001E68F /* CCRadarScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E1951BBB8F7C0001E68F /* CCRadarScanViewController.m */; };
+		4238385B1BEA009C00BC2B44 /* CCDropDownMenuItemView.h in Headers */ = {isa = PBXBuildFile; fileRef = 423838591BEA009C00BC2B44 /* CCDropDownMenuItemView.h */; settings = {ASSET_TAGS = (); }; };
+		4238385C1BEA009C00BC2B44 /* CCDropDownMenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4238385A1BEA009C00BC2B44 /* CCDropDownMenuItemView.m */; settings = {ASSET_TAGS = (); }; };
+		423B25301BE9E89900DAF075 /* CCDropDown.h in Headers */ = {isa = PBXBuildFile; fileRef = 423B252E1BE9E89900DAF075 /* CCDropDown.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		423B25311BE9E89900DAF075 /* CCDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 423B252F1BE9E89900DAF075 /* CCDropDown.m */; settings = {ASSET_TAGS = (); }; };
 		425476BD1BD2A9DC0071BBC5 /* CCAliPayEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 425476BB1BD2A9DC0071BBC5 /* CCAliPayEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		425476BE1BD2A9DC0071BBC5 /* CCAliPayEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 425476BC1BD2A9DC0071BBC5 /* CCAliPayEngine.m */; settings = {ASSET_TAGS = (); }; };
 		425477251BD2AEC20071BBC5 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 425476C31BD2AEC20071BBC5 /* AlipaySDK.bundle */; settings = {ASSET_TAGS = (); }; };
@@ -1617,6 +1621,10 @@
 		4230E1901BBB83E40001E68F /* CCRadarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRadarView.m; path = Radar/Scanning/CCRadarView.m; sourceTree = "<group>"; };
 		4230E1941BBB8F7C0001E68F /* CCRadarScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRadarScanViewController.h; path = CCRadarScan/CCRadarScanViewController.h; sourceTree = "<group>"; };
 		4230E1951BBB8F7C0001E68F /* CCRadarScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRadarScanViewController.m; path = CCRadarScan/CCRadarScanViewController.m; sourceTree = "<group>"; };
+		423838591BEA009C00BC2B44 /* CCDropDownMenuItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDropDownMenuItemView.h; path = CCDorpDown/CCDropDownMenuItemView.h; sourceTree = "<group>"; };
+		4238385A1BEA009C00BC2B44 /* CCDropDownMenuItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCDropDownMenuItemView.m; path = CCDorpDown/CCDropDownMenuItemView.m; sourceTree = "<group>"; };
+		423B252E1BE9E89900DAF075 /* CCDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDropDown.h; path = CCDorpDown/CCDropDown.h; sourceTree = "<group>"; };
+		423B252F1BE9E89900DAF075 /* CCDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCDropDown.m; path = CCDorpDown/CCDropDown.m; sourceTree = "<group>"; };
 		425476BB1BD2A9DC0071BBC5 /* CCAliPayEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCAliPayEngine.h; path = Pay/Alipay/CCAliPayEngine.h; sourceTree = "<group>"; };
 		425476BC1BD2A9DC0071BBC5 /* CCAliPayEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCAliPayEngine.m; path = Pay/Alipay/CCAliPayEngine.m; sourceTree = "<group>"; };
 		425476C31BD2AEC20071BBC5 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
@@ -3080,6 +3088,17 @@
 			name = CCRadarScan;
 			sourceTree = "<group>";
 		};
+		423B252D1BE9E86700DAF075 /* CCDorpDown */ = {
+			isa = PBXGroup;
+			children = (
+				423B252E1BE9E89900DAF075 /* CCDropDown.h */,
+				423B252F1BE9E89900DAF075 /* CCDropDown.m */,
+				423838591BEA009C00BC2B44 /* CCDropDownMenuItemView.h */,
+				4238385A1BEA009C00BC2B44 /* CCDropDownMenuItemView.m */,
+			);
+			name = CCDorpDown;
+			sourceTree = "<group>";
+		};
 		425475F71BD29C0A0071BBC5 /* Pay */ = {
 			isa = PBXGroup;
 			children = (
@@ -3899,6 +3918,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E51BDE025300C76004 /* UI.h */,
+				423B252D1BE9E86700DAF075 /* CCDorpDown */,
 				42B30DA51BBD72AD0039BB94 /* SDWebImage */,
 				4230E1931BBB8F4D0001E68F /* CCRadarScan */,
 				425A76B41BA17FE8006D18FE /* CCPagesContainer */,
@@ -5028,8 +5048,10 @@
 				426979391BA695BA00C3E93C /* AFURLResponseSerialization.h in Headers */,
 				429CA07F1B9EF8BF0013A44A /* CCRefreshHeaderView.h in Headers */,
 				425477521BD2AEC20071BBC5 /* ocsp.h in Headers */,
+				4238385B1BEA009C00BC2B44 /* CCDropDownMenuItemView.h in Headers */,
 				429CA0BB1B9EF8BF0013A44A /* NSDate+BNSDate.h in Headers */,
 				429CA0341B9EF8BF0013A44A /* CCPhotoLoadingView.h in Headers */,
+				423B25301BE9E89900DAF075 /* CCDropDown.h in Headers */,
 				429C9FB81B9EF8BF0013A44A /* Friend.h in Headers */,
 				426979371BA695BA00C3E93C /* AFURLRequestSerialization.h in Headers */,
 				42B30DD51BBD72AD0039BB94 /* UIImage+MultiFormat.h in Headers */,
@@ -5595,6 +5617,7 @@
 				429C9FE71B9EF8BF0013A44A /* SREventSourceStreamReader.m in Sources */,
 				420DE3FF1BC7942300D87D6D /* ZXOneDimensionalCodeWriter.m in Sources */,
 				420DE3D01BC7942300D87D6D /* ZXRSSExpandedRow.m in Sources */,
+				4238385C1BEA009C00BC2B44 /* CCDropDownMenuItemView.m in Sources */,
 				429C9FAD1B9EF8BF0013A44A /* CCUserDefaults.m in Sources */,
 				429C9FE91B9EF8BF0013A44A /* SRServerSentEvent.m in Sources */,
 				429C9F551B9EF8BF0013A44A /* BaseSearchTableViewController.m in Sources */,
@@ -5790,6 +5813,7 @@
 				425477841BD2AEC20071BBC5 /* RSADataVerifier.m in Sources */,
 				420DE3741BC7942300D87D6D /* ZXDataMatrixVersion.m in Sources */,
 				420DE30B1BC7942300D87D6D /* ZXURLTOResultParser.m in Sources */,
+				423B25311BE9E89900DAF075 /* CCDropDown.m in Sources */,
 				420DE3801BC7942300D87D6D /* ZXDataMatrixEdifactEncoder.m in Sources */,
 				429CA0C81B9EF8BF0013A44A /* UIButton+CCButtonTitlePosition.m in Sources */,
 				420DE4231BC7942300D87D6D /* ZXPDF417DecodedBitStreamParser.m in Sources */,
