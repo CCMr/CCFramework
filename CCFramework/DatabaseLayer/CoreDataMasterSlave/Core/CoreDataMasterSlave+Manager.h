@@ -360,6 +360,86 @@
                  EditData:(NSDictionary *)editData
                completion:(void (^)(NSError *error))completion;
 
+/**
+ *  @author CC, 2015-11-05
+ *  
+ *  @brief  更新或者添加数据
+ *
+ *  @param tableName   表名
+ *  @param primaryKeys 主键
+ *  @param data        数据源
+ *
+ *  @return 返回更新或者添加之后的对象
+ */
++ (id)cc_updateORInsertCoreData:(NSString *)tableName
+                    PrimaryKeys:(NSString *)primaryKeys
+                           Data:(NSDictionary *)data;
+
+/**
+ *  @author CC, 2015-11-05
+ *  
+ *  @brief  更新或者添加数据
+ *
+ *  @param tableName   表名
+ *  @param primaryKeys 主键
+ *  @param data        数据源
+ *  @param completion  完成回调
+ *
+ *  @return 返回更新或者添加之后的对象
+ */
++ (id)cc_updateORInsertCoreData:(NSString *)tableName
+                    PrimaryKeys:(NSString *)primaryKeys
+                           Data:(NSDictionary *)data
+                     completion:(void (^)(NSError *error))completion;
+
+/**
+ *  @author CC, 2015-11-05
+ *  
+ *  @brief  更新或者添加数据
+ *
+ *  @param tableName   表名
+ *  @param primaryKeys 主键
+ *  @param dataAry     数据源
+ *
+ *  @return 返回更新或者添加之后的对象集合
+ */
++ (NSArray *)cc_updateORInsertCoreData:(NSString *)tableName
+                           PrimaryKeys:(NSString *)primaryKeys
+                               DataAry:(NSArray *)dataAry;
+
+/**
+ *  @author CC, 2015-11-05
+ *  
+ *  @brief  更新或者添加数据
+ *
+ *  @param tableName   表名
+ *  @param primaryKeys 主键
+ *  @param dataAry     数据源
+ *  @param completion  完成回调
+ *
+ *  @return 返回更新或者添加之后的对象集合
+ */
++ (NSArray *)cc_updateORInsertCoreData:(NSString *)tableName
+                           PrimaryKeys:(NSString *)primaryKeys
+                               DataAry:(NSArray *)dataAry
+                            completion:(void (^)(NSError *error))completion;
+/**
+ *  @author CC, 2015-11-05
+ *  
+ *  @brief  更新或新增数据
+ *
+ *  @param tableName   表名
+ *  @param primaryKeys 主键
+ *  @param data        数据源
+ *  @param context     管理对象
+ *
+ *  @return 返回当前对象
+ */
++ (id)objctWithData:(NSString *)tableName
+        PrimaryKeys:(NSString *)primaryKeys
+               Data:(NSDictionary *)data
+          inContext:(NSManagedObjectContext *)context;
+
 @end
 
 #pragma mark - Queries 查询

@@ -319,8 +319,7 @@
  *  @param completion  完成回调函数
  */
 + (void)saveWithContext:(NSManagedObjectContext *)saveContext
-       SaveContextBlock:
-(void (^)(NSManagedObjectContext *currentContext))saveContextBlock
+       SaveContextBlock:(void (^)(NSManagedObjectContext *currentContext))saveContextBlock
              completion:(void (^)(NSError *error))completion
 {
     __block BOOL success = YES;

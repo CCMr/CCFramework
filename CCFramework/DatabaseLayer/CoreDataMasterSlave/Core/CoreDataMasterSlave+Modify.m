@@ -26,6 +26,7 @@
 #import "CoreDataMasterSlave+Manager.h"
 #import "CoreDataMasterSlave+Convenience.h"
 #import "NSManagedObject+Mapping.h"
+#import "NSManagedObject+Additional.h"
 
 @implementation CoreDataMasterSlave (Modify)
 
@@ -355,5 +356,169 @@
     } completion:completion];
 }
 
+/**
+ *  @author CC, 2015-11-05
+ *  
+ *  @brief  更新或者添加数据
+ *
+ *  @param tableName   表名
+ *  @param primaryKeys 主键
+ *  @param data        数据源
+ *
+ *  @return 返回更新或者添加之后的对象
+ */
++ (id)cc_updateORInsertCoreData:(NSString *)tableName
+                    PrimaryKeys:(NSString *)primaryKeys
+                           Data:(NSDictionary *)data
+{
+    return [self cc_updateORInsertCoreData:tableName
+                               PrimaryKeys:primaryKeys
+                                      Data:data
+                                completion:nil];
+}
+
+/**
+ *  @author CC, 2015-11-05
+ *  
+ *  @brief  更新或者添加数据
+ *
+ *  @param tableName   表名
+ *  @param primaryKeys 主键
+ *  @param data        数据源
+ *  @param completion  完成回调
+ *
+ *  @return 返回更新或者添加之后的对象
+ */
++ (id)cc_updateORInsertCoreData:(NSString *)tableName
+                    PrimaryKeys:(NSString *)primaryKeys
+                           Data:(NSDictionary *)data
+                     completion:(void (^)(NSError *error))completion
+{
+    return [self cc_updateORInsertCoreData:tableName
+                               PrimaryKeys:primaryKeys
+                                   DataAry:@[ data ]
+                                completion:completion].lastObject;
+}
+
+/**
+ *  @author CC, 2015-11-05
+ *  
+ *  @brief  更新或者添加数据
+ *
+ *  @param tableName   表名
+ *  @param primaryKeys 主键
+ *  @param dataAry     数据源
+ *
+ *  @return 返回更新或者添加之后的对象集合
+ */
++ (NSArray *)cc_updateORInsertCoreData:(NSString *)tableName
+                           PrimaryKeys:(NSString *)primaryKeys
+                               DataAry:(NSArray *)dataAry
+{
+    return [self cc_updateORInsertCoreData:tableName
+                               PrimaryKeys:primaryKeys
+                                   DataAry:dataAry
+                                completion:nil];
+}
+
+/**
+ *  @author CC, 2015-11-05
+ *  
+ *  @brief  更新或者添加数据
+ *
+ *  @param tableName   表名
+ *  @param primaryKeys 主键
+ *  @param dataAry     数据源
+ *  @param completion  完成回调
+ *
+ *  @return 返回更新或者添加之后的对象集合
+ */
++ (NSArray *)cc_updateORInsertCoreData:(NSString *)tableName
+                           PrimaryKeys:(NSString *)primaryKeys
+                               DataAry:(NSArray *)dataAry
+                            completion:(void (^)(NSError *error))completion
+{
+    __block NSMutableArray *objs = [NSMutableArray array];
+    [dataAry enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        NSManagedObject *managedObject = [self objctWithData:tableName PrimaryKeys:primaryKeys Data:obj inContext:self.saveCurrentContext];
+        [objs addObject:[managedObject changedDictionary]];
+    }];
+    
+    if (completion) {
+        completion(nil);
+    }
+    
+    return objs;
+}
+
+/**
+ *  @author CC, 2015-11-05
+ *  
+ *  @brief  更新或新增数据
+ *
+ *  @param tableName   表名
+ *  @param primaryKeys 主键
+ *  @param data        数据源
+ *  @param context     管理对象
+ *
+ *  @return 返回当前对象
+ */
++ (id)objctWithData:(NSString *)tableName
+        PrimaryKeys:(NSString *)primaryKeys
+               Data:(NSDictionary *)data
+          inContext:(NSManagedObjectContext *)context
+{
+    __block NSManagedObject *entity = nil;
+    @autoreleasepool
+    {
+        NSMutableArray *subPredicates = [NSMutableArray array];
+        NSAttributeDescription *attributeDes = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:context] attributesByName] objectForKey:primaryKeys];
+        id remoteValue = [data valueForKeyPath:primaryKeys];
+        if (attributeDes.attributeType == NSStringAttributeType) {
+            remoteValue = [remoteValue description];
+        } else {
+            remoteValue = [NSNumber numberWithLongLong:[remoteValue longLongValue]];
+        }
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", primaryKeys, remoteValue];
+        [subPredicates addObject:predicate];
+        
+        NSCompoundPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:subPredicates];
+        
+        NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:tableName];
+        fetchRequest.fetchLimit = 1;
+        fetchRequest.resultType = NSManagedObjectIDResultType;
+        [fetchRequest setPredicate:compoundPredicate];
+        
+        NSManagedObjectID *objectID = [[context executeFetchRequest:fetchRequest error:nil] firstObject];
+        BOOL IsAdd;
+        if (objectID) {
+            IsAdd = NO;
+            entity = [context existingObjectWithID:objectID error:nil];
+        } else {
+            entity = [NSEntityDescription insertNewObjectForEntityForName:tableName inManagedObjectContext:context];
+            IsAdd = YES;
+        }
+        
+        NSArray *attributes = [entity allAttributeNames];
+        NSArray *relationships = [entity allRelationshipNames];
+        
+        [data enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL *stop) {
+            id remoteValue = obj;
+            if (remoteValue) {
+                if ([attributes containsObject:key]) {
+                    [entity mergeAttributeForKey:key
+                                       withValue:remoteValue];
+                    
+                }else if ([relationships containsObject:key]) {
+                    [entity mergeRelationshipForKey:key
+                                          withValue:remoteValue
+                                              IsAdd:IsAdd];
+                }
+            }
+        }];
+    }
+    return entity;
+}
 
 @end
