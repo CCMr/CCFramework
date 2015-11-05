@@ -248,6 +248,7 @@
         }];
     }
     _selectedIndex = selectedIndex;
+    [self slidingCallback];
 }
 
 - (void)updateLayoutForNewOrientation:(UIInterfaceOrientation)orientation
@@ -518,9 +519,11 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    self.selectedIndex = scrollView.contentOffset.x / CGRectGetWidth(self.scrollView.frame);
+    NSUInteger index = scrollView.contentOffset.x / CGRectGetWidth(self.scrollView.frame);
+    if (index != self.selectedIndex)
+        self.selectedIndex = index;
+    
     self.scrollView.userInteractionEnabled = YES;
-    [self slidingCallback];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
