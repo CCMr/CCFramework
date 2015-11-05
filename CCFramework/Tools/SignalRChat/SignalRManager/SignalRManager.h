@@ -34,7 +34,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, strong) SRHubProxy *chatProxy;
+@property(nonatomic, strong) SRHubProxy *chatProxy;
 
 /**
  *  @author CC, 2015-08-15
@@ -88,9 +88,9 @@
  *
  *  @since 1.0
  */
-- (void)registerNotice: (NSString *)responseEventName
-              Selector: (id)selectorSelf
-         ResponseEvent: (SEL)eventCallback;
+- (void)registerNotice:(NSString *)responseEventName
+              Selector:(id)selectorSelf
+         ResponseEvent:(SEL)eventCallback;
 
 /**
  *  @author CC, 15-09-14
@@ -100,6 +100,13 @@
  *  @since 1.0
  */
 - (void)startLink;
+
+/**
+ *  @author CC, 2015-11-05
+ *  
+ *  @brief  停止链接
+ */
+- (void)stopLink;
 
 #pragma mark - 回调函数
 /**
@@ -118,7 +125,7 @@
  *
  *  @since 1.0
  */
--(void)connectionWillReconnect;
+- (void)connectionWillReconnect;
 
 /**
  *  @author CC, 15-09-18

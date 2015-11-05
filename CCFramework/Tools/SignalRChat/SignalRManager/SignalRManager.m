@@ -164,6 +164,17 @@ static SignalRManager *_sharedlnstance = nil;
     [_hubConnection start];
 }
 
+/**
+ *  @author CC, 2015-11-05
+ *  
+ *  @brief  停止链接
+ */
+- (void)stopLink
+{
+    [_hubConnection stop];
+    [_hubConnection didClose];
+}
+
 #pragma mark - 回调函数
 /**
  *  @author CC, 15-09-18
