@@ -6356,6 +6356,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Alipay/ResourceFile";
 				INFOPLIST_FILE = CCFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6390,6 +6391,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Alipay/ResourceFile";
 				INFOPLIST_FILE = CCFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
