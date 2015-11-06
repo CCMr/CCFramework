@@ -609,6 +609,8 @@
 		4264D7411BA2C19100E83159 /* CCPagesContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4264D73B1BA2C19100E83159 /* CCPagesContainer.m */; };
 		4264D7421BA2C19100E83159 /* CCPagesContainerTopBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 4264D73C1BA2C19100E83159 /* CCPagesContainerTopBar.h */; };
 		4264D7431BA2C19100E83159 /* CCPagesContainerTopBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4264D73D1BA2C19100E83159 /* CCPagesContainerTopBar.m */; };
+		4265289A1BECA1AB0096C0EF /* CCLoadingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 426528981BECA1AB0096C0EF /* CCLoadingView.h */; settings = {ASSET_TAGS = (); }; };
+		4265289B1BECA1AB0096C0EF /* CCLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 426528991BECA1AB0096C0EF /* CCLoadingView.m */; settings = {ASSET_TAGS = (); }; };
 		4267DCF21BDB32CD00B0C43F /* NSManagedObject+FetchRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4267DCF01BDB32CD00B0C43F /* NSManagedObject+FetchRequest.h */; };
 		4267DCF31BDB32CD00B0C43F /* NSManagedObject+FetchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4267DCF11BDB32CD00B0C43F /* NSManagedObject+FetchRequest.m */; settings = {ASSET_TAGS = (); }; };
 		4267DD001BDB584000B0C43F /* NSManagedObject+Mapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 4267DCFE1BDB584000B0C43F /* NSManagedObject+Mapping.h */; };
@@ -1782,6 +1784,8 @@
 		4264D73B1BA2C19100E83159 /* CCPagesContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCPagesContainer.m; path = CCPagesContainer/CCPagesContainer.m; sourceTree = "<group>"; };
 		4264D73C1BA2C19100E83159 /* CCPagesContainerTopBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPagesContainerTopBar.h; path = CCPagesContainer/CCPagesContainerTopBar.h; sourceTree = "<group>"; };
 		4264D73D1BA2C19100E83159 /* CCPagesContainerTopBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCPagesContainerTopBar.m; path = CCPagesContainer/CCPagesContainerTopBar.m; sourceTree = "<group>"; };
+		426528981BECA1AB0096C0EF /* CCLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCLoadingView.h; path = Loading/CCLoadingView.h; sourceTree = "<group>"; };
+		426528991BECA1AB0096C0EF /* CCLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCLoadingView.m; path = Loading/CCLoadingView.m; sourceTree = "<group>"; };
 		4267DCF01BDB32CD00B0C43F /* NSManagedObject+FetchRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+FetchRequest.h"; path = "CoreDataFactory/Category/NSManagedObject+FetchRequest.h"; sourceTree = "<group>"; };
 		4267DCF11BDB32CD00B0C43F /* NSManagedObject+FetchRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+FetchRequest.m"; path = "CoreDataFactory/Category/NSManagedObject+FetchRequest.m"; sourceTree = "<group>"; };
 		4267DCFE1BDB584000B0C43F /* NSManagedObject+Mapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+Mapping.h"; path = "CoreDataFactory/Category/NSManagedObject+Mapping.h"; sourceTree = "<group>"; };
@@ -3350,6 +3354,15 @@
 			name = CCPagesContainer;
 			sourceTree = "<group>";
 		};
+		426528971BECA16B0096C0EF /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				426528981BECA1AB0096C0EF /* CCLoadingView.h */,
+				426528991BECA1AB0096C0EF /* CCLoadingView.m */,
+			);
+			name = Loading;
+			sourceTree = "<group>";
+		};
 		4267DD121BDB5BAF00B0C43F /* CoreDataMasterSlave */ = {
 			isa = PBXGroup;
 			children = (
@@ -3978,6 +3991,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E11BDDF91400C76004 /* Animation.h */,
+				426528971BECA16B0096C0EF /* Loading */,
 				4230E1811BBB7F730001E68F /* Radar */,
 				429C9DD61B9EF8BE0013A44A /* CCSlideShadowAnimation */,
 				429C9DD91B9EF8BE0013A44A /* Rotation */,
@@ -5616,6 +5630,7 @@
 				429CA09F1B9EF8BF0013A44A /* SESelectionGrabber.h in Headers */,
 				42DBA8591BB5309300AD47C6 /* CCDefines.h in Headers */,
 				429CA0A51B9EF8BF0013A44A /* SETextGeometry.h in Headers */,
+				4265289A1BECA1AB0096C0EF /* CCLoadingView.h in Headers */,
 				429CA0991B9EF8BF0013A44A /* SEConstants.h in Headers */,
 				429CA0A91B9EF8BF0013A44A /* SETextLayout.h in Headers */,
 				429CA0AB1B9EF8BF0013A44A /* SETextMagnifierCaret.h in Headers */,
@@ -5842,6 +5857,7 @@
 				4298C78C1BDCBB0300A3581D /* CoreDataMasterSlave+Queries.m in Sources */,
 				429CA0001B9EF8BF0013A44A /* CCRourRotation.m in Sources */,
 				420DE2FF1BC7942300D87D6D /* ZXSMTPResultParser.m in Sources */,
+				4265289B1BECA1AB0096C0EF /* CCLoadingView.m in Sources */,
 				420DE36C1BC7942300D87D6D /* ZXDataMatrixBitMatrixParser.m in Sources */,
 				429CA0241B9EF8BF0013A44A /* CCMessageTextView.m in Sources */,
 				4267DD0C1BDB5A7000B0C43F /* NSManagedObject+Queries.m in Sources */,
