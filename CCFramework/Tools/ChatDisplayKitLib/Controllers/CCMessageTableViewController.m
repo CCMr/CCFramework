@@ -328,8 +328,7 @@
 {
     WEAKSELF;
     [self exChangeMessageDataSourceQueue:^{
-        NSMutableArray *messages =
-        [NSMutableArray arrayWithArray:weakSelf.messages];
+        NSMutableArray *messages = [NSMutableArray arrayWithArray:weakSelf.messages];
         [messages addObjectsFromArray:dataArray];
         
         NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:1];
@@ -364,15 +363,12 @@ static CGPoint delayOffset = {0.0};
 {
     WEAKSELF;
     [self exChangeMessageDataSourceQueue:^{
-        NSMutableArray *messages =
-        [[NSMutableArray alloc] initWithArray:weakSelf.messages];
+        NSMutableArray *messages = [[NSMutableArray alloc] initWithArray:weakSelf.messages];
         
         delayOffset = weakSelf.messageTableView.contentOffset;
-        NSMutableArray *indexPaths =
-        [[NSMutableArray alloc] initWithCapacity:oldMessages.count];
+        NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:oldMessages.count];
         NSMutableIndexSet *indexSets = [[NSMutableIndexSet alloc] init];
-        [oldMessages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx,
-                                                  BOOL *stop) {
+        [oldMessages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:idx inSection:0];
             [indexPaths addObject:indexPath];
             
@@ -421,10 +417,8 @@ static CGPoint delayOffset = {0.0};
 - (UIView *)headerContainerView
 {
     if (!_headerContainerView) {
-        _headerContainerView = [[UIView alloc]
-                                initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
-        _headerContainerView.backgroundColor =
-        self.messageTableView.backgroundColor;
+        _headerContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
+        _headerContainerView.backgroundColor = self.messageTableView.backgroundColor;
         [_headerContainerView addSubview:self.loadMoreActivityIndicatorView];
     }
     return _headerContainerView;
@@ -432,11 +426,9 @@ static CGPoint delayOffset = {0.0};
 - (UIActivityIndicatorView *)loadMoreActivityIndicatorView
 {
     if (!_loadMoreActivityIndicatorView) {
-        _loadMoreActivityIndicatorView = [[UIActivityIndicatorView alloc]
-                                          initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        _loadMoreActivityIndicatorView.center =
-        CGPointMake(CGRectGetWidth(_headerContainerView.bounds) / 2.0,
-                    CGRectGetHeight(_headerContainerView.bounds) / 2.0);
+        _loadMoreActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _loadMoreActivityIndicatorView.center = CGPointMake(CGRectGetWidth(_headerContainerView.bounds) / 2.0,
+                                                            CGRectGetHeight(_headerContainerView.bounds) / 2.0);
     }
     return _loadMoreActivityIndicatorView;
 }
@@ -453,10 +445,9 @@ static CGPoint delayOffset = {0.0};
 - (CCShareMenuView *)shareMenuView
 {
     if (!_shareMenuView) {
-        CCShareMenuView *shareMenuView = [[CCShareMenuView alloc]
-                                          initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds),
-                                                                   CGRectGetWidth(self.view.bounds),
-                                                                   self.keyboardViewHeight)];
+        CCShareMenuView *shareMenuView = [[CCShareMenuView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds),
+                                                                                           CGRectGetWidth(self.view.bounds),
+                                                                                           self.keyboardViewHeight)];
         shareMenuView.delegate = self;
         shareMenuView.backgroundColor = [UIColor colorWithWhite:0.961 alpha:1.000];
         shareMenuView.alpha = 0.0;
@@ -471,10 +462,9 @@ static CGPoint delayOffset = {0.0};
 - (CCEmotionManagerView *)emotionManagerView
 {
     if (!_emotionManagerView) {
-        CCEmotionManagerView *emotionManagerView = [[CCEmotionManagerView alloc]
-                                                    initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds),
-                                                                             CGRectGetWidth(self.view.bounds),
-                                                                             self.keyboardViewHeight)];
+        CCEmotionManagerView *emotionManagerView = [[CCEmotionManagerView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds),
+                                                                                                          CGRectGetWidth(self.view.bounds),
+                                                                                                          self.keyboardViewHeight)];
         emotionManagerView.delegate = self;
         emotionManagerView.dataSource = self;
         emotionManagerView.backgroundColor =
@@ -541,21 +531,18 @@ static CGPoint delayOffset = {0.0};
 
 #pragma mark - Messages View Controller
 
-- (void)finishSendMessageWithBubbleMessageType:
-(CCBubbleMessageMediaType)mediaType
+- (void)finishSendMessageWithBubbleMessageType:(CCBubbleMessageMediaType)mediaType
 {
     switch (mediaType) {
         case CCBubbleMessageMediaTypeText: {
             [self.messageInputView.inputTextView setText:nil];
             if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
                 self.messageInputView.inputTextView.enablesReturnKeyAutomatically = NO;
-                dispatch_after(
-                               dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)),
-                               dispatch_get_main_queue(), ^{
-                                   self.messageInputView.inputTextView.enablesReturnKeyAutomatically =
-                                   YES;
-                                   [self.messageInputView.inputTextView reloadInputViews];
-                               });
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    self.messageInputView.inputTextView.enablesReturnKeyAutomatically =
+                    YES;
+                    [self.messageInputView.inputTextView reloadInputViews];
+                });
             }
             break;
         }
@@ -681,21 +668,17 @@ static CGPoint delayOffset = {0.0};
     _isUserScrolling = NO;
     
     // 初始化message tableView
-    CCMessageTableView *messageTableView =
-    [[CCMessageTableView alloc] initWithFrame:self.view.bounds
-                                        style:UITableViewStylePlain];
-    messageTableView.autoresizingMask =
-    UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    CCMessageTableView *messageTableView = [[CCMessageTableView alloc] initWithFrame:self.view.bounds
+                                                                               style:UITableViewStylePlain];
+    messageTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     messageTableView.dataSource = self;
     messageTableView.delegate = self;
     messageTableView.separatorColor = [UIColor clearColor];
     messageTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     BOOL shouldLoadMoreMessagesScrollToTop = YES;
-    if ([self.delegate
-         respondsToSelector:@selector(shouldLoadMoreMessagesScrollToTop)]) {
-        shouldLoadMoreMessagesScrollToTop =
-        [self.delegate shouldLoadMoreMessagesScrollToTop];
+    if ([self.delegate respondsToSelector:@selector(shouldLoadMoreMessagesScrollToTop)]) {
+        shouldLoadMoreMessagesScrollToTop = [self.delegate shouldLoadMoreMessagesScrollToTop];
     }
     if (shouldLoadMoreMessagesScrollToTop) {
         messageTableView.tableHeaderView = self.headerContainerView;
@@ -705,23 +688,20 @@ static CGPoint delayOffset = {0.0};
     _messageTableView = messageTableView;
     
     // 设置Message TableView 的bottom edg
-    CGFloat inputViewHeight =
-    (self.inputViewStyle == CCMessageInputViewStyleFlat) ? 45.0f : 40.0f;
+    CGFloat inputViewHeight = (self.inputViewStyle == CCMessageInputViewStyleFlat) ? 45.0f : 40.0f;
     [self setTableViewInsetsWithBottomValue:inputViewHeight];
     
     // 设置整体背景颜色
     [self setBackgroundColor:[UIColor whiteColor]];
     
     // 输入工具条的frame
-    CGRect inputFrame =
-    CGRectMake(0.0f, self.view.frame.size.height - inputViewHeight,
-               self.view.frame.size.width, inputViewHeight);
+    CGRect inputFrame = CGRectMake(0.0f, self.view.frame.size.height - inputViewHeight,
+                                   self.view.frame.size.width, inputViewHeight);
     
     WEAKSELF;
     if (self.allowsPanToDismissKeyboard) {
         // 控制输入工具条的位置块
-        void (^AnimationForMessageInputViewAtPoint)(
-                                                    CGPoint point) = ^(CGPoint point) {
+        void (^AnimationForMessageInputViewAtPoint)(CGPoint point) = ^(CGPoint point) {
             CGRect inputViewFrame = weakSelf.messageInputView.frame;
             CGPoint keyboardOrigin = [weakSelf.view convertPoint:point fromView:nil];
             inputViewFrame.origin.y = keyboardOrigin.y - inputViewFrame.size.height;
@@ -772,13 +752,9 @@ static CGPoint delayOffset = {0.0};
                  if (inputViewFrameY > messageViewFrameBottom)
                      inputViewFrameY = messageViewFrameBottom;
                  
-                 weakSelf.messageInputView.frame = CGRectMake(
-                                                              inputViewFrame.origin.x, inputViewFrameY,
-                                                              inputViewFrame.size.width, inputViewFrame.size.height);
+                 weakSelf.messageInputView.frame = CGRectMake(inputViewFrame.origin.x, inputViewFrameY,inputViewFrame.size.width, inputViewFrame.size.height);
                  
-                 [weakSelf setTableViewInsetsWithBottomValue:
-                  weakSelf.view.frame.size.height -
-                  weakSelf.messageInputView.frame.origin.y];
+                 [weakSelf setTableViewInsetsWithBottomValue: weakSelf.view.frame.size.height - weakSelf.messageInputView.frame.origin.y];
                  if (showKeyboard)
                      [weakSelf scrollToBottomAnimated:NO];
              }
@@ -802,8 +778,7 @@ static CGPoint delayOffset = {0.0};
     };
     
     // 初始化输入工具条
-    CCMessageInputView *inputView =
-    [[CCMessageInputView alloc] initWithFrame:inputFrame];
+    CCMessageInputView *inputView = [[CCMessageInputView alloc] initWithFrame:inputFrame];
     inputView.allowsSendFace = self.allowsSendFace;
     inputView.allowsSendVoice = self.allowsSendVoice;
     inputView.allowsSendMultiMedia = self.allowsSendMultiMedia;
@@ -814,8 +789,7 @@ static CGPoint delayOffset = {0.0};
     _messageInputView = inputView;
     
     // 设置手势滑动，默认添加一个bar的高度值
-    self.messageTableView.messageInputBarHeight =
-    CGRectGetHeight(_messageInputView.bounds);
+    self.messageTableView.messageInputBarHeight = CGRectGetHeight(_messageInputView.bounds);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -903,14 +877,11 @@ static CGPoint delayOffset = {0.0};
 - (NSString *)getRecorderPath
 {
     NSString *recorderPath = nil;
-    recorderPath = [NSSearchPathForDirectoriesInDomains(
-                                                        NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    recorderPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSDate *now = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyyMMddHHmmssSSS"];
-    recorderPath =
-    [recorderPath stringByAppendingFormat:@"%@-MySound.m4a",
-     [dateFormatter stringFromDate:now]];
+    recorderPath = [recorderPath stringByAppendingFormat:@"%@-MySound.m4a", [dateFormatter stringFromDate:now]];
     return recorderPath;
 }
 
@@ -1363,79 +1334,6 @@ static CGPoint delayOffset = {0.0};
         default:
             break;
     }
-    
-    //    NSLog(@"title : %@   index:%ld", shareMenuItem.title, (long)index);
-    //
-    //    WEAKSELF
-    //    void (^PickerMediaBlock)(UIImage *image, NSDictionary *editingInfo) =
-    //    ^(UIImage *image, NSDictionary *editingInfo) {
-    //        if (image) {
-    //            [weakSelf didSendMessageWithPhoto:image];
-    //        } else {
-    //            if (!editingInfo)
-    //                return ;
-    //            NSString *mediaType = [editingInfo objectForKey:
-    //            UIImagePickerControllerMediaType];
-    //            NSString *videoPath;
-    //            NSURL *videoUrl;
-    //            if (CFStringCompare ((__bridge CFStringRef) mediaType,
-    //            kUTTypeMovie, 0) == kCFCompareEqualTo) {
-    //                videoUrl = (NSURL*)[editingInfo
-    //                objectForKey:UIImagePickerControllerMediaURL];
-    //                videoPath = [videoUrl path];
-    //
-    //                UIImage *thumbnailImage = [CCMessageVideoConverPhotoFactory
-    //                videoConverPhotoWithVideoPath:videoPath];
-    //
-    //                [weakSelf didSendMessageWithVideoConverPhoto:thumbnailImage
-    //                videoPath:videoPath];
-    //            } else {
-    //                [weakSelf didSendMessageWithPhoto:[editingInfo
-    //                valueForKey:UIImagePickerControllerOriginalImage]];
-    //            }
-    //        }
-    //    };
-    //
-    //    switch (index) {
-    //        case 0: {
-    //            [self.photographyHelper
-    //            showOnPickerViewControllerSourceType:UIImagePickerControllerSourceTypePhotoLibrary
-    //            onViewController:self compled:PickerMediaBlock];
-    //            break;
-    //        }
-    //        case 1: {
-    //            [self.photographyHelper
-    //            showOnPickerViewControllerSourceType:UIImagePickerControllerSourceTypeCamera
-    //            onViewController:self compled:PickerMediaBlock];
-    //            break;
-    //        }
-    //        case 2: {
-    //            WEAKSELF
-    //            [self.locationHelper getCurrentGeolocationsCompled:^(NSArray
-    //            *placemarks) {
-    //                CLPlacemark *placemark = [placemarks lastObject];
-    //                if (placemark) {
-    //                    NSDictionary *addressDictionary =
-    //                    placemark.addressDictionary;
-    //                    NSArray *formattedAddressLines = [addressDictionary
-    //                    valueForKey:@"FormattedAddressLines"];
-    //                    NSString *geoLocations = [formattedAddressLines
-    //                    lastObject];
-    //                    if (geoLocations) {
-    //                        [weakSelf
-    //                        didSendGeolocationsMessageWithGeolocaltions:geoLocations
-    //                        location:placemark.location];
-    //                    }
-    //                }
-    //            }];
-    //            break;
-    //        }
-    //        case 4:{
-    //            break;
-    //        }
-    //        default:
-    //            break;
-    //    }
 }
 
 #pragma mark - CCEmotionManagerView Delegate

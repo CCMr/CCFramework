@@ -492,6 +492,8 @@
 		4238385C1BEA009C00BC2B44 /* CCDropDownMenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4238385A1BEA009C00BC2B44 /* CCDropDownMenuItemView.m */; settings = {ASSET_TAGS = (); }; };
 		423B25301BE9E89900DAF075 /* CCDropDown.h in Headers */ = {isa = PBXBuildFile; fileRef = 423B252E1BE9E89900DAF075 /* CCDropDown.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		423B25311BE9E89900DAF075 /* CCDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 423B252F1BE9E89900DAF075 /* CCDropDown.m */; settings = {ASSET_TAGS = (); }; };
+		42534F1B1BEC39D200F59E40 /* UISearchBar+Addition.h in Headers */ = {isa = PBXBuildFile; fileRef = 42534F191BEC39D200F59E40 /* UISearchBar+Addition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42534F1C1BEC39D200F59E40 /* UISearchBar+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 42534F1A1BEC39D200F59E40 /* UISearchBar+Addition.m */; settings = {ASSET_TAGS = (); }; };
 		425476BD1BD2A9DC0071BBC5 /* CCAliPayEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 425476BB1BD2A9DC0071BBC5 /* CCAliPayEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		425476BE1BD2A9DC0071BBC5 /* CCAliPayEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 425476BC1BD2A9DC0071BBC5 /* CCAliPayEngine.m */; settings = {ASSET_TAGS = (); }; };
 		425477251BD2AEC20071BBC5 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 425476C31BD2AEC20071BBC5 /* AlipaySDK.bundle */; settings = {ASSET_TAGS = (); }; };
@@ -1663,6 +1665,8 @@
 		4238385A1BEA009C00BC2B44 /* CCDropDownMenuItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCDropDownMenuItemView.m; path = CCDorpDown/CCDropDownMenuItemView.m; sourceTree = "<group>"; };
 		423B252E1BE9E89900DAF075 /* CCDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDropDown.h; path = CCDorpDown/CCDropDown.h; sourceTree = "<group>"; };
 		423B252F1BE9E89900DAF075 /* CCDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCDropDown.m; path = CCDorpDown/CCDropDown.m; sourceTree = "<group>"; };
+		42534F191BEC39D200F59E40 /* UISearchBar+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UISearchBar+Addition.h"; path = "UISearchBar/UISearchBar+Addition.h"; sourceTree = "<group>"; };
+		42534F1A1BEC39D200F59E40 /* UISearchBar+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UISearchBar+Addition.m"; path = "UISearchBar/UISearchBar+Addition.m"; sourceTree = "<group>"; };
 		425476BB1BD2A9DC0071BBC5 /* CCAliPayEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCAliPayEngine.h; path = Pay/Alipay/CCAliPayEngine.h; sourceTree = "<group>"; };
 		425476BC1BD2A9DC0071BBC5 /* CCAliPayEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCAliPayEngine.m; path = Pay/Alipay/CCAliPayEngine.m; sourceTree = "<group>"; };
 		425476C31BD2AEC20071BBC5 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
@@ -3175,6 +3179,15 @@
 			name = CCDorpDown;
 			sourceTree = "<group>";
 		};
+		42534F181BEC39AE00F59E40 /* UISearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				42534F191BEC39D200F59E40 /* UISearchBar+Addition.h */,
+				42534F1A1BEC39D200F59E40 /* UISearchBar+Addition.m */,
+			);
+			name = UISearchBar;
+			sourceTree = "<group>";
+		};
 		425475F71BD29C0A0071BBC5 /* Pay */ = {
 			isa = PBXGroup;
 			children = (
@@ -4486,6 +4499,7 @@
 		429C9EC51B9EF8BF0013A44A /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				42534F181BEC39AE00F59E40 /* UISearchBar */,
 				42AA963D1BCE807400DE1123 /* UIImageVIew */,
 				42D404C01BC9EB4A00C62FBD /* UIAlertView */,
 				42BAB9131BC755EE00C70043 /* UITabBarController */,
@@ -5259,6 +5273,7 @@
 				420DE2D51BC7942300D87D6D /* ZXAddressBookParsedResult.h in Headers */,
 				420DE2D11BC7942300D87D6D /* ZXAddressBookAUResultParser.h in Headers */,
 				420DE2D31BC7942300D87D6D /* ZXAddressBookDoCoMoResultParser.h in Headers */,
+				42534F1B1BEC39D200F59E40 /* UISearchBar+Addition.h in Headers */,
 				420DE3F61BC7942300D87D6D /* ZXITFReader.h in Headers */,
 				420DE4021BC7942300D87D6D /* ZXUPCAReader.h in Headers */,
 				420DE4101BC7942300D87D6D /* ZXUPCEReader.h in Headers */,
@@ -6067,6 +6082,7 @@
 				420DE4521BC7942300D87D6D /* ZXQRCodeErrorCorrectionLevel.m in Sources */,
 				429C9F571B9EF8BF0013A44A /* BaseTableViewController.m in Sources */,
 				420DE30F1BC7942300D87D6D /* ZXVEventResultParser.m in Sources */,
+				42534F1C1BEC39D200F59E40 /* UISearchBar+Addition.m in Sources */,
 				420DE40D1BC7942300D87D6D /* ZXUPCEANReader.m in Sources */,
 				420DE40B1BC7942300D87D6D /* ZXUPCEANExtensionSupport.m in Sources */,
 				429CA0691B9EF8BF0013A44A /* CCPickerGroup.m in Sources */,
