@@ -29,8 +29,8 @@
 #import "UIButton+BUIButton.h"
 #import "UIView+BUIView.h"
 
-@interface BaseViewController (){
-    BOOL touchYES,inside;
+@interface BaseViewController () {
+    BOOL touchYES, inside;
     CGRect PopMenuFrame;
 }
 
@@ -41,7 +41,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, strong) UIView *BottomPopView;
+@property(nonatomic, strong) UIView *BottomPopView;
 
 /**
  *  @author CC, 2015-07-23 10:07:03
@@ -50,22 +50,23 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, assign) NSDate *SelectedDate;
+@property(nonatomic, assign) NSDate *SelectedDate;
 
-@property (nonatomic, assign) UIButton *leftBarButton;
-@property (nonatomic, assign) UIButton *rightBarButton;
+@property(nonatomic, assign) UIButton *leftBarButton;
+@property(nonatomic, assign) UIButton *rightBarButton;
 
 @end
 
 @implementation BaseViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         //        self.hidesBottomBarWhenPushed = YES;
-
+        
         //mAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        if([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]){
+        if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
             self.extendedLayoutIncludesOpaqueBars = NO;
             self.edgesForExtendedLayout = UIRectEdgeNone;
             self.modalPresentationCapturesStatusBarAppearance = NO;
@@ -75,35 +76,36 @@
     return self;
 }
 
-- (void)viewDidLoad{
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-
+    
     self.view.backgroundColor = [UIColor whiteColor];
     if (_isNotKeyboard) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     }
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveLanguageChangedNotification:) name:CCNotificationLanguageChanged object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveThemeChangedNotification:) name:CCThemeDidChangeNotification object:nil];
-
+    
     [self InitMBProgressHUD];
     [self InitNavigation];
     //    [self InitControl];
     //    [self InitLoadData];
-
 }
 
 #pragma mark - 初始化弹出层 HUD
--(void)InitMBProgressHUD{
+- (void)InitMBProgressHUD
+{
     if (!_HUD) {
-        if(self.navigationController != nil){
-            _HUD = [[MBProgressHUD alloc]initWithView:self.navigationController.view];
+        if (self.navigationController != nil) {
+            _HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
             [self.navigationController.view addSubview:_HUD];
             _HUD.delegate = self;
         }
     }
-
+    
     if (!_mAlertView) {
         _mAlertView = [[CustomIOS7AlertView alloc] init];
         _mAlertView.containerView.backgroundColor = [UIColor whiteColor];
@@ -115,31 +117,33 @@
 }
 
 #pragma mark - 底部弹出视图
--(void)bottomPopView:(UIView *)popView{
+- (void)bottomPopView:(UIView *)popView
+{
     popView.tag = 9999999;
-
+    
     _BottomPopView = [[UIView alloc] init];
     _BottomPopView.backgroundColor = RGBA(0, 0, 0, .3);
     [_BottomPopView addSubview:popView];
-
-
+    
+    
     UIViewController *topViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
     while (topViewController.presentedViewController != nil)
         topViewController = topViewController.presentedViewController;
-
+    
     if ([topViewController.view viewWithTag:9999999])
         [[topViewController.view viewWithTag:9999999] removeFromSuperview];
-
+    
     _BottomPopView.frame = topViewController.view.bounds;
     [topViewController.view addSubview:_BottomPopView];
-
-
+    
+    
     [UIView animateWithDuration:0.3 animations:^{
         popView.frame =  CGRectMake(0, _BottomPopView.frame.size.height - popView.frame.size.height, winsize.width, popView.frame.size.height);
     }];
 }
 
--(void)bottomPopViewHidden{
+- (void)bottomPopViewHidden
+{
     [UIView animateWithDuration:0.3 animations:^{
         CGRect frame = [_BottomPopView viewWithTag:9999999].frame;
         frame.origin.y = _BottomPopView.frame.size.height;
@@ -150,8 +154,8 @@
 }
 
 #pragma mark - 初始化导航栏
--(void)InitNavigation{
-
+- (void)InitNavigation
+{
 }
 
 - (UIButton *)leftBarButton
@@ -161,11 +165,11 @@
         [leftButton setImage:[UIImage imageNamed:@"public_back_btu_normal"] forState:UIControlStateNormal];
         [leftButton addTarget:self action:@selector(pressLeftBarButton:) forControlEvents:UIControlEventTouchUpInside];
         [leftButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.navigationItem setLeftBarButtonItem:[[[UIBarButtonItem alloc]init] initWithCustomView:leftButton]];
+        [self.navigationItem setLeftBarButtonItem:[[[UIBarButtonItem alloc] init] initWithCustomView:leftButton]];
         leftButton.hidden = YES;
         _leftBarButton = leftButton;
     }
-
+    
     return _leftBarButton;
 }
 
@@ -177,11 +181,11 @@
         [rightButton addTarget:self action:@selector(pressRightBarButton:) forControlEvents:UIControlEventTouchUpInside];
         [rightButton setImage:nil forState:UIControlStateNormal];
         [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc]init] initWithCustomView:rightButton]];
+        [self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc] init] initWithCustomView:rightButton]];
         rightButton.hidden = YES;
         _rightBarButton = rightButton;
     }
-
+    
     return _rightBarButton;
 }
 
@@ -217,13 +221,13 @@
 }
 
 #pragma mark - 初始化页面控件
--(void)InitControl{
-
+- (void)InitControl
+{
 }
 
 #pragma mark - 初始化数据
--(void)InitLoadData{
-
+- (void)InitLoadData
+{
 }
 
 #pragma mark - 语言
@@ -236,10 +240,9 @@
  *
  *  @since <#version number#>
  */
--(void)receiveLanguageChangedNotification:(NSNotification *)notification
+- (void)receiveLanguageChangedNotification:(NSNotification *)notification
 {
-    if ([notification.name isEqualToString:CCNotificationLanguageChanged])
-    {
+    if ([notification.name isEqualToString:CCNotificationLanguageChanged]) {
         [self SwitchingLanguages];
     }
 }
@@ -250,9 +253,8 @@
  *
  *  @since 1.0
  */
--(void)SwitchingLanguages
+- (void)SwitchingLanguages
 {
-
 }
 
 #pragma mark - 主题
@@ -265,10 +267,9 @@
  *
  *  @since <#version number#>
  */
--(void)receiveThemeChangedNotification:(NSNotification *)notification
+- (void)receiveThemeChangedNotification:(NSNotification *)notification
 {
-    if ([notification.name isEqualToString:CCThemeDidChangeNotification])
-    {
+    if ([notification.name isEqualToString:CCThemeDidChangeNotification]) {
         [self SwitchingTheme];
     }
 }
@@ -280,8 +281,8 @@
  *
  *  @since 1.0
  */
--(void)SwitchingTheme{
-
+- (void)SwitchingTheme
+{
 }
 
 #pragma mark - 基础功能
@@ -303,13 +304,30 @@
 }
 
 /**
+ *  @author CC, 2015-11-06
+ *  
+ *  @brief  push新的控制器到导航控制器 并设置返回文字
+ *
+ *  @param newViewController 目标新的控制器对象
+ *  @param title             标题
+ */
+- (void)pushNewViewControllerWithBackTitle:(UIViewController *)newViewController BackTitle:(NSString *)title
+{
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleBordered target:self action:nil];
+    if (self.navigationController)
+        [self.navigationController pushViewController:newViewController animated:YES];
+    else
+        [self.extendNavigationController pushViewController:newViewController animated:YES];
+}
+
+/**
  *  @author CC, 15-09-25
  *
  *  @brief  返回到指定页面
  *
  *  @param viewControllerClass 指定页面
  */
-- (void)popToViewController :(Class)viewControllerClass
+- (void)popToViewController:(Class)viewControllerClass
 {
     [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         if ([obj isKindOfClass:viewControllerClass])
@@ -327,8 +345,9 @@
  *
  *  @since <#1.0#>
  */
--(void)hudMessages:(NSString *)LabelText
-  DetailsLabelText:(NSString *)detailsLabelText{
+- (void)hudMessages:(NSString *)LabelText
+   DetailsLabelText:(NSString *)detailsLabelText
+{
     _HUD.mode = MBProgressHUDModeText;
     //    HUD.labelFont = Font19And17(systemFontOfSize, 15);
     _HUD.labelColor = [UIColor whiteColor];
@@ -356,16 +375,18 @@
 }
 
 #pragma mark - 页面加载完成事件
--(void)viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
 }
 
 
--(void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
-
+    
     NSString *mClassName = [NSString stringWithUTF8String:object_getClassName(self.navigationController.visibleViewController)];
-    NSLog(@"viewDidAppear : %@",mClassName);
+    NSLog(@"viewDidAppear : %@", mClassName);
 }
 
 /**
@@ -378,11 +399,12 @@
  *
  *  @since <#version number#>
  */
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
     UITouch *touch = [touches anyObject];
     NSArray *array = self.view.subviews;
     UITableView *views = (UITableView *)self.view.subviews.firstObject;
-    if(views)
+    if (views)
         array = views.subviews;
     for (UIView *v in array) {
         if (touch.view != v) {
@@ -398,47 +420,51 @@
  *
  *  @since 1.0
  */
--(void)resignFirstResponders{
+- (void)resignFirstResponders
+{
     for (UIView *v in self.view.subviews)
         [v endEditing:YES];
 }
 
 #pragma mark - 键盘事件
 #define _UIKeyboardFrameEndUserInfoKey (&UIKeyboardFrameEndUserInfoKey != NULL ? UIKeyboardFrameEndUserInfoKey : @"UIKeyboardBoundsUserInfoKey")
-- (void)keyboardWillShow:(NSNotification*)notification{
+- (void)keyboardWillShow:(NSNotification *)notification
+{
     //get the keyboard rect
     CGRect _keyboardRect = [[[notification userInfo] objectForKey:_UIKeyboardFrameEndUserInfoKey] CGRectValue];
-
+    
     //make an animation
     [UIView animateWithDuration:.25f animations:^{
         [self BasekeyboardWillShow:_keyboardRect];
     }];
 }
--(void)keyboardWillHide:(NSNotification*)notification{
+- (void)keyboardWillHide:(NSNotification *)notification
+{
     [UIView animateWithDuration:.25f animations:^{
         [self BasekeyboardWillHide];
     }];
 }
 
--(void)SlideFrame:(BOOL)Up{
-    const int movementDistance = 20; // tweak as needed
+- (void)SlideFrame:(BOOL)Up
+{
+    const int movementDistance = 20;     // tweak as needed
     const float movementDuration = 0.3f; // tweak as needed
-
+    
     int movement = (Up ? -movementDistance : movementDistance);
-
-    [UIView beginAnimations: @"anim" context: nil];
-    [UIView setAnimationBeginsFromCurrentState: YES];
-    [UIView setAnimationDuration: movementDuration];
+    
+    [UIView beginAnimations:@"anim" context:nil];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:movementDuration];
     self.view.frame = CGRectOffset(self.view.frame, 0, movement);
     [UIView commitAnimations];
 }
 
--(void)BasekeyboardWillShow:(CGRect)keyboardRect{
-
+- (void)BasekeyboardWillShow:(CGRect)keyboardRect
+{
 }
 
--(void)BasekeyboardWillHide{
-
+- (void)BasekeyboardWillHide
+{
 }
 
 #pragma mark - 隐藏显示TabBar
@@ -454,24 +480,23 @@
 - (void)setTabBarHideShow:(BOOL)IsHide
 {
     if ([self.tabBarController.view.subviews count] < 2) return;
-
+    
     UIView *contentView;
-
+    
     if ([[self.tabBarController.view.subviews objectAtIndex:0] isKindOfClass:[UITabBar class]])
         contentView = [self.tabBarController.view.subviews objectAtIndex:1];
     else
         contentView = [self.tabBarController.view.subviews objectAtIndex:0];
-
+    
     if (IsHide)
         contentView.frame = self.tabBarController.view.bounds;
-    else
-    {
+    else {
         contentView.frame = CGRectMake(self.tabBarController.view.bounds.origin.x,
                                        self.tabBarController.view.bounds.origin.y,
                                        self.tabBarController.view.bounds.size.width,
                                        self.tabBarController.view.bounds.size.height - self.tabBarController.tabBar.frame.size.height);
     }
-
+    
     self.tabBarController.tabBar.hidden = IsHide;
 }
 
@@ -482,16 +507,16 @@
  */
 - (void)hideNavigationControllerBottomLine
 {
-    if ([self.navigationController.navigationBar respondsToSelector:@selector( setBackgroundImage:forBarMetrics:)]){
-        NSArray *list=self.navigationController.navigationBar.subviews;
+    if ([self.navigationController.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
+        NSArray *list = self.navigationController.navigationBar.subviews;
         for (id obj in list) {
             if ([obj isKindOfClass:[UIImageView class]]) {
-                UIImageView *imageView=(UIImageView *)obj;
-                NSArray *list2=imageView.subviews;
+                UIImageView *imageView = (UIImageView *)obj;
+                NSArray *list2 = imageView.subviews;
                 for (id obj2 in list2) {
                     if ([obj2 isKindOfClass:[UIImageView class]]) {
-                        UIImageView *imageView2=(UIImageView *)obj2;
-                        imageView2.hidden=YES;
+                        UIImageView *imageView2 = (UIImageView *)obj2;
+                        imageView2.hidden = YES;
                     }
                 }
             }
@@ -500,13 +525,13 @@
 }
 
 
-- (void)didReceiveMemoryWarning{
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
-
 }
 
 #pragma mark - 转屏
--(UIInterfaceOrientationMask)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskPortrait;
 }
@@ -516,26 +541,26 @@
     return YES;
 }
 
--(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
     return UIInterfaceOrientationPortrait;
 }
 
--(void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
-    [coordinator animateAlongsideTransition:^(id  context) {
+    [coordinator animateAlongsideTransition:^(id context) {
         if (newCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
-
+            
         } else {
-
+            
         }
         self.view.frame = self.view.bounds;
         [self.view setNeedsLayout];
     } completion:nil];
 }
 
--(void)dealloc
+- (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];

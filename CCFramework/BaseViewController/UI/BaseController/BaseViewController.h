@@ -34,21 +34,21 @@
 #import "CCLanguage.h"
 #import "CCThemeManager.h"
 
-@interface BaseViewController : UIViewController<MBProgressHUDDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+@interface BaseViewController : UIViewController <MBProgressHUDDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 /**
  *  @author CC, 2015-10-09
  *
  *  @brief  扩展递归该对象
  */
-@property (nonatomic, strong) UINavigationController *extendNavigationController;
+@property(nonatomic, strong) UINavigationController *extendNavigationController;
 
 /**
  *  @author CC, 2015-10-09
  *
  *  @brief  扩展递归该对象
  */
-@property (nonatomic, strong) UITabBarController *extendTabBarController;
+@property(nonatomic, strong) UITabBarController *extendTabBarController;
 
 /**
  *  @author C C, 15-08-18
@@ -57,7 +57,7 @@
  *
  *  @since <#1.0#>
  */
-@property (nonatomic, strong) MBProgressHUD *HUD;
+@property(nonatomic, strong) MBProgressHUD *HUD;
 
 /**
  *  @author C C, 15-08-18
@@ -66,7 +66,7 @@
  *
  *  @since <#1.0#>
  */
-@property (nonatomic, strong) CustomIOS7AlertView *mAlertView;
+@property(nonatomic, strong) CustomIOS7AlertView *mAlertView;
 
 /**
  *  @author C C, 2015-08-02
@@ -75,7 +75,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, assign) BOOL isNotKeyboard;
+@property(nonatomic, assign) BOOL isNotKeyboard;
 
 /**
  *  @author C C, 2015-06-19 09:06:24
@@ -86,11 +86,11 @@
  */
 //@property (nonatomic, retain) CCTableViewCell *currentCell;
 
--(void)InitNavigation;
+- (void)InitNavigation;
 
--(void)InitControl;
+- (void)InitControl;
 
--(void)InitLoadData;
+- (void)InitLoadData;
 
 /**
  *  @author C C, 2015-08-02
@@ -125,13 +125,23 @@
 - (void)pushNewViewController:(UIViewController *)newViewController;
 
 /**
+ *  @author CC, 2015-11-06
+ *  
+ *  @brief  push新的控制器到导航控制器 并设置返回文字
+ *
+ *  @param newViewController 目标新的控制器对象
+ *  @param title             标题
+ */
+- (void)pushNewViewControllerWithBackTitle:(UIViewController *)newViewController BackTitle:(NSString *)title;
+
+/**
  *  @author CC, 15-09-25
  *
  *  @brief  返回到指定页面
  *
  *  @param viewControllerClass 指定页面
  */
-- (void)popToViewController :(Class)viewControllerClass;
+- (void)popToViewController:(Class)viewControllerClass;
 
 /**
  *  @author C C, 2015-07-23
