@@ -59,5 +59,6 @@
 #import <CCFramework/UIControl+BUIControl.h>
 #import <CCFramework/CCBubblePhotoImageView.h>
 #import <CCFramework/NSObject+Additions.h>
+#import <CCFramework/UISearchBar+Addition.h>
 
 #endif
