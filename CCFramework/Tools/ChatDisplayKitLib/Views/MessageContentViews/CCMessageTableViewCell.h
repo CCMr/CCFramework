@@ -29,6 +29,51 @@
 #import "CCMessageBubbleView.h"
 #import "CCBadgeView.h"
 
+/**
+ *  @author C C, 15-08-17
+ *
+ *  @brief  长按消息体状态
+ *
+ *  @since 1.0
+ */
+typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
+    
+    /** 消息选中文本复制 **/
+    CCBubbleMessageMenuSelecteTypeTextCopy = 0,
+    /** 消息选中文本转发 **/
+    CCBubbleMessageMenuSelecteTypeTextTranspond = 1,
+    /** 消息选中文本收藏 **/
+    CCBubbleMessageMenuSelecteTypeTextFavorites = 2,
+    /** 消息选中文本更多 **/
+    CCBubbleMessageMenuSelecteTypeTextMore = 3,
+    
+    /** 消息选中图片复制 **/
+    CCBubbleMessageMenuSelecteTypePhotoCopy = 4,
+    /** 消息选中图片转发 **/
+    CCBubbleMessageMenuSelecteTypePhotoTranspond = 5,
+    /** 消息选中图片收藏 **/
+    CCBubbleMessageMenuSelecteTypePhotoFavorites = 6,
+    /** 消息选中图片更多 **/
+    CCBubbleMessageMenuSelecteTypePhotoMore = 7,
+    
+    /** 消息选中视频转发 **/
+    CCBubbleMessageMenuSelecteTypeVideoTranspond = 8,
+    /** 消息选中视频收藏 **/
+    CCBubbleMessageMenuSelecteTypeVideoFavorites = 9,
+    /** 消息选中视频更对 **/
+    CCBubbleMessageMenuSelecteTypeVideoMore = 10,
+    
+    /** 消息选中语音播放 **/
+    CCBubbleMessageMenuSelecteTypeVoicePlay = 11,
+    /** 消息选中语音收藏 **/
+    CCBubbleMessageMenuSelecteTypeVoiceFavorites = 12,
+    /** 消息选中语音转文本 **/
+    CCBubbleMessageMenuSelecteTypeVoiceTurnToText = 13,
+    /** 消息选中语音更多 **/
+    CCBubbleMessageMenuSelecteTypeVoiceMore = 14,
+};
+
+
 @class CCMessageTableViewCell;
 
 @protocol CCMessageTableviewCellDelegate <NSObject>
@@ -42,7 +87,7 @@
  *  @param indexPath 该目标消息在哪个IndexPath里面
  *  @param messageTableViewCell 目标消息在该Cell上
  */
-- (void)multiMediaMessageDidSelectedOnMessage:(id <CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath onMessageTableViewCell:(CCMessageTableViewCell *)messageTableViewCell;
+- (void)multiMediaMessageDidSelectedOnMessage:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath onMessageTableViewCell:(CCMessageTableViewCell *)messageTableViewCell;
 
 /**
  *  双击文本消息，触发这个回调
@@ -50,14 +95,14 @@
  *  @param message   被操作的目标消息Model
  *  @param indexPath 该目标消息在哪个IndexPath里面
  */
-- (void)didDoubleSelectedOnTextMessage:(id <CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
+- (void)didDoubleSelectedOnTextMessage:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
 
 /**
  *  点击消息发送者的头像回调方法
  *
  *  @param indexPath 该目标消息在哪个IndexPath里面
  */
-- (void)didSelectedAvatarOnMessage:(id <CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
+- (void)didSelectedAvatarOnMessage:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
 
 /**
  *  Menu Control Selected Item
@@ -73,33 +118,33 @@
  *
  *  @since 1.0
  */
-- (void)didSelectedSendNotSuccessfulCallback:(id <CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
+- (void)didSelectedSendNotSuccessfulCallback:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
 @interface CCMessageTableViewCell : BaseTableViewCell
 
-@property (nonatomic, weak) id <CCMessageTableviewCellDelegate> delegate;
+@property(nonatomic, weak) id<CCMessageTableviewCellDelegate> delegate;
 
 /**
  *  自定义多媒体消息内容View
  */
-@property (nonatomic, weak, readonly) CCMessageBubbleView *messageBubbleView;
+@property(nonatomic, weak, readonly) CCMessageBubbleView *messageBubbleView;
 
 /**
  *  头像按钮
  */
-@property (nonatomic, weak, readonly) UIButton *avatarButton;
+@property(nonatomic, weak, readonly) UIButton *avatarButton;
 
 /**
  *  用户名标签
  */
-@property (nonatomic, weak, readonly) UILabel *userNameLabel;
+@property(nonatomic, weak, readonly) UILabel *userNameLabel;
 
 /**
  *  时间轴Label
  */
-@property (nonatomic, weak, readonly) CCBadgeView *timestampLabel;
+@property(nonatomic, weak, readonly) CCBadgeView *timestampLabel;
 
 /**
  *  获取消息类型

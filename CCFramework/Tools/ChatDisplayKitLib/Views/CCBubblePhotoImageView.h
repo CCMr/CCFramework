@@ -25,7 +25,7 @@
 
 
 #import <UIKit/UIKit.h>
-#import "EnumConfig.h"
+#import "CCMessageModel.h"
 
 #define kCCBubblePhotoMargin 8.0f
 

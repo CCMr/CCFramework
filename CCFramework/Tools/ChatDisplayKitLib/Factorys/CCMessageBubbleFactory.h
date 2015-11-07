@@ -25,7 +25,19 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "EnumConfig.h"
+#import "CCMessageModel.h"
+
+/**
+ *  @author C C, 15-08-17
+ *
+ *  @brief  气泡图片样式
+ *
+ *  @since 1.0
+ */
+typedef NS_ENUM(NSUInteger, CCBubbleImageViewStyle) {
+    /** 气泡图片样式微信 **/
+    CCBubbleImageViewStyleWeChat = 0
+};
 
 @interface CCMessageBubbleFactory : NSObject
 

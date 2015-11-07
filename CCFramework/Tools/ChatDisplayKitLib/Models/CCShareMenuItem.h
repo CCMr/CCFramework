@@ -25,7 +25,19 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "EnumConfig.h"
+
+/**
+ *  @author C C, 15-08-18
+ *
+ *  @brief  底部菜单选项
+ *
+ *  @since <#1.0#>
+ */
+typedef NS_ENUM(NSInteger, CCShareMenuItemType) {
+    /** 照片 **/
+    CCShareMenuItemTypePhoto,
+    CCShareMenuItemTypeVideo,
+};
 
 #define kCCShareMenuItemWidth 60
 #define KCCShareMenuItemHeight 80
@@ -35,12 +47,12 @@
 /**
  *  正常显示图片
  */
-@property (nonatomic, strong) UIImage *normalIconImage;
+@property(nonatomic, strong) UIImage *normalIconImage;
 
 /**
  *  第三方按钮的标题
  */
-@property (nonatomic, copy) NSString *title;
+@property(nonatomic, copy) NSString *title;
 
 /**
  *  @author CC, 15-08-18
@@ -49,7 +61,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, assign) CCShareMenuItemType itemType;
+@property(nonatomic, assign) CCShareMenuItemType itemType;
 
 /**
  *  根据正常图片和标题初始化一个Model对象

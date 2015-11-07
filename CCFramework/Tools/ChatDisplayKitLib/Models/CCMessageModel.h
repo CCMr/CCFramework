@@ -25,7 +25,51 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
-#import "EnumConfig.h"
+
+typedef NS_ENUM(NSInteger, CCBubbleMessageMediaType) {
+    /** 媒体留言文本类型 **/
+    CCBubbleMessageMediaTypeText = 0,
+    /** 媒体留言图片类型 **/
+    CCBubbleMessageMediaTypePhoto = 1,
+    /** 媒体留言视频类型 **/
+    CCBubbleMessageMediaTypeVideo = 2,
+    /** 媒体留言类型 **/
+    CCBubbleMessageMediaTypeVoice = 3,
+    /** 媒体留言表情类型 **/
+    CCBubbleMessageMediaTypeEmotion = 4,
+    /** 媒体留言地理位置类型 **/
+    CCBubbleMessageMediaTypeLocalPosition = 5,
+};
+
+/**
+ *  @author C C, 15-08-17
+ *
+ *  @brief  消息状态
+ *
+ *  @since 1.0
+ */
+typedef NS_ENUM(NSInteger, CCMessageSendType) {
+    /** 发送成功 **/
+    CCMessageSendTypeSuccessful,
+    /** 发送中 **/
+    CCMessageSendTypeRunIng,
+    /** 发送失败 **/
+    CCMessageSendTypeFailure,
+};
+
+/**
+ *  @author C C, 15-08-17
+ *
+ *  @brief  消息体类型
+ *
+ *  @since 1.0
+ */
+typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
+    /** 发送 **/
+    CCBubbleMessageTypeSending = 0,
+    /** 接收 **/
+    CCBubbleMessageTypeReceiving = 1,
+};
 
 @class CCMessage;
 

@@ -34,6 +34,24 @@
 #import "CCEmotionManagerView.h"
 #import "CCMessageTableView.h"
 
+/**
+ *  @author C C, 15-08-18
+ *
+ *  @brief  输入VIew类型
+ *
+ *  @since <#1.0#>
+ */
+typedef NS_ENUM(NSUInteger, CCInputViewType) {
+    /** 默认 **/
+    CCInputViewTypeNormal = 0,
+    /** 文本 **/
+    CCInputViewTypeText,
+    /** 表情 **/
+    CCInputViewTypeEmotion,
+    /** 共享菜单 **/
+    CCInputViewTypeShareMenu,
+};
+
 
 @protocol CCMessageTableViewControllerDelegate <NSObject>
 
