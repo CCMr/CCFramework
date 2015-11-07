@@ -1,5 +1,5 @@
 //
-//  CCFramework.h>
+//  Core.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,31 +23,10 @@
 // THE SOFTWARE.
 //
 
+#ifndef Core_h
+#define Core_h
 
-#import <UIKit/UIKit.h>
-
-/** 基类控制器 */
-#import <CCFramework/BaseController.h>
-/** 数据库操作 */
-#import <CCFramework/CCCoreData.h>
-/** 能力模块 */
-#import <CCFramework/Ability.h>
-/** 动画模块 */
-#import <CCFramework/Animation.h>
-/** UI模块 */
-#import <CCFramework/UI.h>
-/** 工具模块 */
-#import <CCFramework/Tools.h>
-/** 模型模块 */
-#import <CCFramework/ModelLayer.h>
-/** 网络请求 */
-#import <CCFramework/RequestProtocol.h>
-/** 配置文件模块 */
-#import <CCFramework/Config.h>
-/** 核心处理模块 */
-#import <CCFramework/Core.h>
+#import <CCFramework/CCBacktrace.h>
 
 
-
-
-
+#endif /* Core_h */
