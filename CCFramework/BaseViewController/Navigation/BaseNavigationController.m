@@ -39,7 +39,7 @@
     return self;
 }
 
--(id)initWithRootViewController:(UIViewController *)rootViewController title:(NSString *)rootTitle SelImage:(UIImage *) SelecteImage Image:(UIImage *)image Tag:(NSInteger)rootTag{
+-(id)initWithRootViewController:(UIViewController *)rootViewController title:(NSString *)rootTitle SelImage:(UIImage *) SelecteImage Image:(UIImage *)image{
     self =  [super initWithRootViewController:rootViewController];
     if (self) {
         [rootViewController setTitle:rootTitle];

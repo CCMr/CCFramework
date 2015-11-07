@@ -26,8 +26,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BaseNavigationController : UINavigationController<UINavigationControllerDelegate>
+@interface BaseNavigationController : UINavigationController <UINavigationControllerDelegate>
 
--(id)initWithRootViewController:(UIViewController *)rootViewController title:(NSString *)rootTitle SelImage:(UIImage *) SelecteImage Image:(UIImage *)image Tag:(NSInteger) rootTag;
+- (id)initWithRootViewController:(UIViewController *)rootViewController title:(NSString *)rootTitle SelImage:(UIImage *)SelecteImage Image:(UIImage *)image;
 
 @end
