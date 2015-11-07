@@ -53,11 +53,9 @@
  *
  *  @brief  监测网络的可链接性
  *
- *  @param strUrl <#strUrl description#>
+ *  @param strUrl 检验网络地址
  *
- *  @return <#return value description#>
- *
- *  @since 1.0
+ *  @return 返回网络是否可用
  */
 + (BOOL)netWorkReachabilityWithURLString:(NSString *)strUrl
 {
@@ -88,11 +86,5 @@
     
     return netState;
 }
-
-
-#pragma mark - 请求方式
-
-
-
 
 @end

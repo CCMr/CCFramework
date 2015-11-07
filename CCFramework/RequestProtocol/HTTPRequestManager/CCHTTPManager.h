@@ -54,9 +54,7 @@
  *
  *  @param strUrl 检验网络地址
  *
- *  @return <#return value description#>
- *
- *  @since 1.0
+ *  @return 返回网络是否可用
  */
 + (BOOL)netWorkReachabilityWithURLString:(NSString *)strUrl;
 
