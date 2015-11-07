@@ -24,7 +24,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EnumConfig.h"
+
+/**
+ *  @author C C, 15-08-18
+ *
+ *  @brief  按钮标题类型
+ *
+ *  @since <#1.0#>
+ */
+typedef NS_ENUM(NSInteger, CCButtonTitlePostionType) {
+    /** 底部 **/
+    CCButtonTitlePostionTypeBottom = 0,
+};
 
 @interface UIButton (CCButtonTitlePosition)
 

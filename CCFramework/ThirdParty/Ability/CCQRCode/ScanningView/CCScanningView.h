@@ -24,7 +24,24 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EnumConfig.h"
+
+/**
+ *  @author C C, 15-08-18
+ *
+ *  @brief  二维码扫描
+ *
+ *  @since <#1.0#>
+ */
+typedef NS_ENUM(NSInteger, CCScanningStyle) {
+    /** 扫描二维码 **/
+    CCScanningStyleQRCode = 0,
+    /** 扫描杂志封面 **/
+    CCScanningStyleBook,
+    /** 扫描街景 **/
+    CCScanningStyleStreet,
+    /** 扫描翻译 **/
+    CCScanningStyleWord,
+};
 
 @interface CCScanningView : UIView
 

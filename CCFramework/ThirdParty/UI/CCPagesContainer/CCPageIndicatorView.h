@@ -24,12 +24,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EnumConfig.h"
+#import "CCPagesContainer.h"
+
 
 @interface CCPageIndicatorView : UIView
 
-@property (strong, nonatomic) UIColor *color;
+@property(strong, nonatomic) UIColor *color;
 
-@property (assign, nonatomic) CCPageIndicatorViewType indicatorType;
+@property(assign, nonatomic) CCPageIndicatorViewType indicatorType;
 
 @end

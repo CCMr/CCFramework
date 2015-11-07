@@ -24,7 +24,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EnumConfig.h"
+#import "CCPagesContainer.h"
 
 @class CCPagesContainerTopBar;
 
