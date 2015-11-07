@@ -24,35 +24,67 @@
 //
 
 #import "CCHTTPRequest.h"
-#import <objc/runtime.h>
-#import "Config.h"
 
 @interface CCHTTPRequest ()
 
-@property(nonatomic, copy) RequestBlock requestBlock;
+/**
+ *  @author C C, 2015-11-07
+ *
+ *  @brief  请求相应处理回调
+ */
+@property(nonatomic, copy) RequestBacktrack requestBacktrack;
+
+/**
+ *  @author C C, 2015-11-07
+ *
+ *  @brief  请求响应完成回调
+ */
+@property(nonatomic, copy) RequestCompletionBacktrack requestCompletionBacktrack;
+
+/**
+ *  @author C C, 2015-11-07
+ *
+ *  @brief  请求响应进度回调
+ */
+@property(nonatomic, copy) RequestProgressBacktrack requestProgressBacktrack;
 
 @end
 
 @implementation CCHTTPRequest
 
 /**
- *  @author CC, 2015-07-23
+ *  @author C C, 2015-11-07
  *
- *  @brief  单列模式
+ *  @brief  创建并返回一个'CCHTTPRequest'对象。
  *
- *  @return 当前对象
- *
- *  @since 1.0
+ *  @return 返回'CCHTTPRequest'
  */
-+ (id)sharedlnstance
++ (instancetype)manager
 {
-    static CCHTTPRequest *_sharedlnstance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _sharedlnstance = [[self alloc] init];
-    });
-    return _sharedlnstance;
+    return [[self alloc] initWithBase];
 }
+
+
+- (instancetype)init
+{
+    return [self initWithBase];
+}
+
+/**
+ *  @author C C, 2015-11-07
+ *
+ *  @brief  初始化对象
+ *
+ *  @return 返回'CCHTTPRequest'
+ */
+- (instancetype)initWithBase
+{
+    if (self = [super init]) {
+        
+    }
+    return self;
+}
+
 
 #pragma mark - 参数设置
 /**
@@ -78,9 +110,7 @@
  *
  *  @param postData 请求参数
  *
- *  @return <#return value description#>
- *
- *  @since 1.0
+ *  @return 返回请求参数
  */
 - (NSMutableDictionary *)fixedParameters:(NSDictionary *)postData
 {
@@ -100,8 +130,7 @@
  */
 - (NSString *)appendingServerURLWithString:(NSString *)MethodName
 {
-    //    return [[NSString stringWithFormat:@"%@%@",ServiceAddress,MethodName]
-    //    stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    //    return [[NSString stringWithFormat:@"%@%@",ServiceAddress,MethodName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     return @"";
 }
 
@@ -138,110 +167,51 @@
 
 #pragma mark - 回调函数设置
 /**
- *  @author CC, 2015-08-15
+ *  @author C C, 2015-11-07
  *
- *  @brief  SET委托事件
+ *  @brief  相应处理函数
  *
- *  @param requestOBJBlock 委托Block函数
- *  @param key             对应key
- *
- *  @since 1.0
+ *  @param responseData 响应数据
  */
-- (void)setRequestOBJBlock:(RequestBlock)requestOBJBlock Key:(NSString *)key
+-(void)setRequestBacktrack:(RequestBacktrack)requestBacktrack
 {
-    objc_setAssociatedObject(self, (__bridge void *)key, requestOBJBlock, OBJC_ASSOCIATION_COPY);
+    self->_requestBacktrack = [requestBacktrack copy];
 }
 
 /**
- *  @author CC, 2015-08-15
+ *  @author C C, 2015-11-07
  *
- *  @brief  GET委托事件
+ *  @brief  设置响应进度回调
  *
- *  @param key 对应Key
- *
- *  @return 返回委托Block函数
- *
- *  @since 1.0
+ *  @param requestProgressBacktrack 回调函数
  */
-- (RequestBlock)requestOBJBlock:(NSString *)key
+- (void)setRequestProgressBacktrack:(RequestProgressBacktrack)requestProgressBacktrack
 {
-    return (RequestBlock)objc_getAssociatedObject(self, (__bridge void *)key);
+    self->_requestProgressBacktrack = [requestProgressBacktrack copy];
 }
 
 /**
- *  @author CC, 2015-10-12
+ *  @author C C, 2015-11-07
  *
- *  @brief  SET委托
+ *  @brief  设置响应完成回调
  *
- *  @param progressOBJBlock 委托Block函数
- *  @param key              对应Key
+ *  @param requestCompletionBacktrack 回调函数
  */
-- (void)setProgressOBJBlock:(ProgressBlock)progressOBJBlock Key:(NSString *)key
+- (void)setRequestCompletionBacktrack:(RequestCompletionBacktrack)requestCompletionBacktrack
 {
-    objc_setAssociatedObject(self, (__bridge void *)key, progressOBJBlock,
-                             OBJC_ASSOCIATION_COPY);
+    self->_requestCompletionBacktrack = [requestCompletionBacktrack copy];
 }
-
+#pragma mark - 回调事件处理
 /**
- *  @author CC, 2015-08-15
+ *  @author C C, 2015-11-07
  *
- *  @brief  GET委托事件
+ *  @brief  响应处理函数
  *
- *  @param key 对应Key
- *
- *  @return 返回委托Block函数
+ *  @param responseData 响应数据
  */
-- (ProgressBlock)ProgressOBJBlock:(NSString *)key
+-(void)responseProcessEvent:(id)responseData
 {
-    return (ProgressBlock)objc_getAssociatedObject(self, (__bridge void *)key);
-}
-
-/**
- *  @author CC, 2015-08-15
- *
- *  @brief  SET委托事件
- *
- *  @param requestOBJBlock 委托Block函数
- *  @param key             对应key
- *
- *  @since 1.0
- */
-- (void)setCompletionOBJBlock:(CompletionCallback)completionOBJBlock
-                          Key:(NSString *)key
-{
-    objc_setAssociatedObject(self, (__bridge void *)key, completionOBJBlock, OBJC_ASSOCIATION_COPY);
-}
-
-/**
- *  @author CC, 2015-08-15
- *
- *  @brief  GET委托事件
- *
- *  @param key 对应Key
- *
- *  @return 返回委托Block函数
- *
- *  @since 1.0
- */
-- (CompletionCallback)completionOBJBlock:(NSString *)key
-{
-    return (CompletionCallback)objc_getAssociatedObject(self, (__bridge void *)key);
-}
-
-#pragma mark - 回调时间处理
-/**
- *  @author CC, 2015-07-24
- *
- *  @brief  响应处理事件
- *
- *  @param responseData xiang
- *
- *  @since 1.0
- */
-- (void)responseProcessEvent:(id)responseData BlockKey:(NSString *)key
-{
-    void (^responseProcessBlock)(id responseData, BOOL isError) = [self requestOBJBlock:key];
-    if (responseProcessBlock) {
+    if (_requestBacktrack) {
         NSDictionary *dic = responseData;
         if (![dic isKindOfClass:[NSDictionary class]] &&
             ![dic isKindOfClass:[NSNull class]]) {
@@ -252,7 +222,7 @@
                                                   options:NSJSONReadingAllowFragments
                                                     error:nil];
         }
-        responseProcessBlock(dic, NO);
+        _requestBacktrack(dic, nil);
     }
 }
 
@@ -265,15 +235,13 @@
  *
  *  @since 1.0
  */
-- (void)errorProcessEvent:(id)error BlockKey:(NSString *)key
+- (void)errorProcessEvent:(NSError *)error
 {
-    void (^errorCodeBlock)(id responseData, BOOL isError) =
-    [self requestOBJBlock:key];
-    if (errorCodeBlock) {
-        NSString *errorStr = error;
+    if (_requestBacktrack) {
+        NSString *errorStr = error.domain;
         if ([error isKindOfClass:[NSError class]])
             errorStr = [self httpErrorAnalysis:((NSError *)error).code];
-        errorCodeBlock(errorStr, YES);
+        _requestBacktrack(nil, [NSError errorWithDomain:errorStr code:error.code userInfo:nil]);
     }
 }
 
@@ -286,12 +254,13 @@
  *
  *  @since 1.0
  */
-- (void)netFailure:(NSError *)error BlockKey:(NSString *)key
+- (void)netFailure:(NSError *)error
 {
-    void (^netFailureBlock)(id responseData, BOOL isError) =
-    [self requestOBJBlock:key];
-    if (netFailureBlock) {
-        netFailureBlock([self httpErrorAnalysis:error.code], YES);
+    if (_requestBacktrack) {
+        NSString *errorStr = error.domain;
+        if ([error isKindOfClass:[NSError class]])
+            errorStr = [self httpErrorAnalysis:((NSError *)error).code];
+        _requestBacktrack(nil, [NSError errorWithDomain:errorStr code:error.code userInfo:nil]);
     }
 }
 
@@ -302,14 +271,11 @@
  *
  *  @param completionData 返回数据
  *  @param userInfo       字典接收
- *  @param key            key
  */
 - (void)completion:(id)completionData
-          UserInfo:(id)userInfo
-          BlockKey:(NSString *)key
+      withUserInfo:(NSDictionary *)userInfo
 {
-    void (^CompletionCallback)(id responseData, id userInfo) = [self completionOBJBlock:key];
-    if (CompletionCallback) {
+    if (_requestCompletionBacktrack) {
         NSDictionary *dic = completionData;
         if (![dic isKindOfClass:[NSDictionary class]] && ![dic isKindOfClass:[NSNull class]]) {
             NSData *datas = completionData;
@@ -317,7 +283,7 @@
                 datas = [completionData dataUsingEncoding:NSUTF8StringEncoding];
             dic = [NSJSONSerialization JSONObjectWithData:datas options:NSJSONReadingAllowFragments error:nil];
         }
-        CompletionCallback(dic, userInfo);
+        _requestCompletionBacktrack(dic, userInfo);
     }
 }
 

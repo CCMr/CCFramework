@@ -28,17 +28,23 @@
 
 @interface CCHTTPRequest : NSObject
 
-#pragma mark - HTTPRequest
 /**
- *  @author CC, 2015-07-23
+ *  @author C C, 2015-11-07
  *
- *  @brief  单列模式
+ *  @brief  创建并返回一个'CCHTTPRequest'对象。
  *
- *  @return 当前对象
- *
- *  @since 1.0
+ *  @return 返回'CCHTTPRequest'
  */
-+ (id)sharedlnstance;
++ (instancetype)manager;
+
+/**
+ *  @author C C, 2015-11-07
+ *
+ *  @brief  初始化对象
+ *
+ *  @return 返回'CCHTTPRequest'
+ */
+- (instancetype)initWithBase;
 
 #pragma mark - 参数设置
 /**
@@ -48,9 +54,7 @@
  *
  *  @param strUrl 检验网络地址
  *
- *  @return <#return value description#>
- *
- *  @since 1.0
+ *  @return 返回是否可以访问
  */
 + (BOOL)netWorkReachabilityWithURLString:(NSString*)strUrl;
 
@@ -61,9 +65,7 @@
  *
  *  @param postData 请求参数
  *
- *  @return <#return value description#>
- *
- *  @since 1.0
+ *  @return 返回请求参数
  */
 - (NSMutableDictionary*)fixedParameters:(NSDictionary*)postData;
 
@@ -104,125 +106,69 @@
 
 #pragma mark - 回调函数设置
 /**
- *  @author CC, 2015-08-15
+ *  @author C C, 2015-11-07
  *
- *  @brief  SET委托事件
+ *  @brief  设置响应回调
  *
- *  @param requestOBJBlock 委托Block函数
- *  @param key             对应key
- *
- *  @since 1.0
+ *  @param requestBacktrack 回调函数
  */
-- (void)setRequestOBJBlock:(RequestBlock)requestOBJBlock
-                       Key:(NSString*)key;
-/**
- *  @author CC, 2015-08-15
- *
- *  @brief  GET委托事件
- *
- *  @param key 对应Key
- *
- *  @return 返回委托Block函数
- *
- *  @since 1.0
- */
-- (RequestBlock)requestOBJBlock:(NSString*)key;
+- (void)setRequestBacktrack:(RequestBacktrack)requestBacktrack;
 
 /**
- *  @author CC, 2015-10-12
+ *  @author C C, 2015-11-07
  *
- *  @brief  SET委托
+ *  @brief  设置响应进度回调
  *
- *  @param progressOBJBlock 委托Block函数
- *  @param key              对应Key
+ *  @param requestProgressBacktrack 回调函数
  */
-- (void)setProgressOBJBlock:(ProgressBlock)progressOBJBlock
-                        Key:(NSString*)key;
+- (void)setRequestProgressBacktrack:(RequestProgressBacktrack)requestProgressBacktrack;
 
 /**
- *  @author CC, 2015-08-15
+ *  @author C C, 2015-11-07
  *
- *  @brief  GET委托事件
+ *  @brief  设置响应完成回调
  *
- *  @param key 对应Key
- *
- *  @return 返回委托Block函数
+ *  @param requestCompletionBacktrack 回调函数
  */
-- (ProgressBlock)ProgressOBJBlock:(NSString*)key;
-
-/**
- *  @author CC, 2015-08-15
- *
- *  @brief  SET委托事件
- *
- *  @param requestOBJBlock 委托Block函数
- *  @param key             对应key
- *
- *  @since 1.0
- */
-- (void)setCompletionOBJBlock:(CompletionCallback)completionOBJBlock
-                          Key:(NSString*)key;
-/**
- *  @author CC, 2015-08-15
- *
- *  @brief  GET委托事件
- *
- *  @param key 对应Key
- *
- *  @return 返回委托Block函数
- *
- *  @since 1.0
- */
-- (CompletionCallback)completionOBJBlock:(NSString*)key;
+- (void)setRequestCompletionBacktrack:(RequestCompletionBacktrack)requestCompletionBacktrack;
 
 #pragma mark - 回调时间处理
 /**
- *  @author CC, 2015-07-24
+ *  @author C C, 2015-11-07
  *
- *  @brief  响音处理事件
+ *  @brief  响应处理函数
  *
- *  @param responseData <#responseData description#>
- *
- *  @since 1.0
+ *  @param responseData 响应数据
  */
-- (void)responseProcessEvent:(id)responseData
-                    BlockKey:(NSString*)key;
+-(void)responseProcessEvent:(id)responseData;
 
 /**
  *  @author CC, 2015-07-23
  *
- *  @brief  对ErrorCode进行处理
+ *  @brief  响应处理错误函数
  *
- *  @param errorDic <#errorDic description#>
- *
- *  @since 1.0
+ *  @param errorDic 错误信息
  */
-- (void)errorProcessEvent:(id)error
-                 BlockKey:(NSString*)key;
+- (void)errorProcessEvent:(NSError *)error;
 
 /**
  *  @author CC, 2015-07-23
  *
- *  @brief  对网路异常进行处理
+ *  @brief  响应故障处理函数
  *
- *  @param error <#error description#>
- *
- *  @since 1.0
+ *  @param error 故障信息
  */
-- (void)netFailure:(NSError*)error
-          BlockKey:(NSString*)key;
+- (void)netFailure:(NSError*)error;
 
 /**
  *  @author CC, 2015-10-22
  *
- *  @brief  请求完成后回调函数
+ *  @brief  响应完成处理函数
  *
- *  @param completionData 返回数据
+ *  @param completionData 响应数据
  *  @param userInfo       字典接收
- *  @param key            key
  */
 - (void)completion:(id)completionData
-          UserInfo:(id)userInfo
-          BlockKey:(NSString*)key;
+      withUserInfo:(NSDictionary *)userInfo;
 
 @end
