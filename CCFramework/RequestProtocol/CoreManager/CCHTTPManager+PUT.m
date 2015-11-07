@@ -41,14 +41,14 @@
  */
 + (void)NetRequestPUTWithRequestURL:(NSString *)requestURLString
                       WithParameter:(NSDictionary *)parameter
-               WithReturnValeuBlock:(RequestComplete)block
+               WithReturnValeuBlock:(RequestBacktrack)blockTrack
                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                    WithFailureBlock:(FailureBlock)failureBlock
 {
     [self NetRequestPUTWithRequestURL:requestURLString
                         WithParameter:parameter
                          WithUserInfo:nil
-                 WithReturnValeuBlock:block
+                 WithReturnValeuBlock:blockTrack
                    WithErrorCodeBlock:errorBlock
                      WithFailureBlock:failureBlock
                        WithCompletion:nil];
@@ -70,15 +70,15 @@
 + (void)NetRequestPUTWithRequestURL:(NSString *)requestURLString
                       WithParameter:(NSDictionary *)parameter
                        WithUserInfo:(NSDictionary *)userInfo
-               WithReturnValeuBlock:(RequestComplete)block
+               WithReturnValeuBlock:(RequestBacktrack)blockTrack
                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                    WithFailureBlock:(FailureBlock)failureBlock
-                     WithCompletion:(CompletionCallback)completionBlock
+                     WithCompletion:(RequestCompletionBacktrack)completionBlock
 {
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperationManager manager] PUT:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         NSLog(@"%@", dic);
-        block(dic);
+        blockTrack(dic,nil);
         
         if (operation.userInfo && completionBlock)
             completionBlock(dic, operation.userInfo);

@@ -41,14 +41,14 @@
  */
 + (void)NetRequestHEADWithRequestURL:(NSString *)requestURLString
                        WithParameter:(NSDictionary *)parameter
-                WithReturnValeuBlock:(RequestComplete)block
+                WithReturnValeuBlock:(RequestBacktrack)blockTrack
                   WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                     WithFailureBlock:(FailureBlock)failureBlock
 {
     [self NetRequestHEADWithRequestURL:requestURLString
                          WithParameter:parameter
                           WithUserInfo:nil
-                  WithReturnValeuBlock:block
+                  WithReturnValeuBlock:blockTrack
                     WithErrorCodeBlock:errorBlock
                       WithFailureBlock:failureBlock
                         WithCompletion:nil];
@@ -70,10 +70,10 @@
 + (void)NetRequestHEADWithRequestURL:(NSString *)requestURLString
                        WithParameter:(NSDictionary *)parameter
                         WithUserInfo:(NSDictionary *)userInfo
-                WithReturnValeuBlock:(RequestComplete)block
+                WithReturnValeuBlock:(RequestBacktrack)blockTrack
                   WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                     WithFailureBlock:(FailureBlock)failureBlock
-                      WithCompletion:(CompletionCallback)completionBlock
+                      WithCompletion:(RequestCompletionBacktrack)completionBlock
 {
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperationManager manager] HEAD:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *operation) {
         if (operation.userInfo && completionBlock)

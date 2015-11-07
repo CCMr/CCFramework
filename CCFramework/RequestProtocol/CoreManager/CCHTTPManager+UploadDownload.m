@@ -23,43 +23,10 @@
 // THE SOFTWARE.
 //
 #import "CCHTTPManager+Addition.h"
-#import <objc/runtime.h>
 #import "AFNetworking.h"
 #import "NSDate+BNSDate.h"
 
 @implementation CCHTTPManager (UploadDownload)
-
-/**
- *  @author CC, 15-08-19
- *
- *  @brief  SET委托事件
- *
- *  @param progressBlock 委托Block函数
- *  @param key           对应key
- *
- *  @since 1.0
- */
-+ (void)setProgressBlock:(ProgressBlock)progressBlock Key:(NSString *)key
-{
-    objc_setAssociatedObject(self, (__bridge void *)key, progressBlock,
-                             OBJC_ASSOCIATION_COPY);
-}
-
-/**
- *  @author CC, 2015-08-15
- *
- *  @brief  GET委托事件
- *
- *  @param key 对应Key
- *
- *  @return 返回委托Block函数
- *
- *  @since 1.0
- */
-+ (ProgressBlock)progressBlock:(NSString *)key
-{
-    return (ProgressBlock)objc_getAssociatedObject(self, (__bridge void *)key);
-}
 
 /**
  *  @author CC, 15-08-19
@@ -75,9 +42,9 @@
  */
 + (void)NetRequestDownloadWithRequestURL:(NSString *)requestURLString
                       WithUploadFileName:(NSString *)fileName
-                    WithReturnValeuBlock:(RequestComplete)block
+                    WithReturnValeuBlock:(RequestBacktrack)blockTrack
                       WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
-                       WithProgressBlock:(ProgressBlock)progressBlock
+                       WithProgressBlock:(RequestProgressBacktrack)progressBlock
 {
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -88,7 +55,7 @@
     
     if ([fileManager fileExistsAtPath:fileNamePath]) {
         NSData *data = [NSData dataWithContentsOfFile:fileNamePath];
-        block(data);
+        blockTrack(data,nil);
     } else {
         
         //获取缓存的长度
@@ -120,23 +87,15 @@
                 [requestOperation setValue:@"0" forKey:@"totalBytesRead"];
                 
                 //重组进度block
-                [requestOperation setDownloadProgressBlock:[self NewProgressBlockWithCacheLength:requestOperation CachLength:cacheLength CachePath:cachePath]];
+                [requestOperation setDownloadProgressBlock:progressBlock];
             }
         } forKeyPath:@"isPaused" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-        
-        
-        //获取进度块
-        [self setProgressBlock:progressBlock Key:fileName];
-        
+
         [requestOperation setDownloadProgressBlock:progressBlock];
-        
-        [requestOperation setDownloadProgressBlock:[self NewProgressBlockWithCacheLength:requestOperation
-                                        CachLength:cacheLength
-                                         CachePath:fileNamePath]];
         
         //获取成功回调块
         [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-             block(operation.responseData);
+             blockTrack(operation.responseData,nil);
          }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              errorBlock(error);
          }];
@@ -163,19 +122,17 @@
                         WithUploadFilePath:(NSString *)filePath
                                   FileType:(CCUploadFormFileType)fileType
                       ServiceReceivingName:(NSString *)serviceReceivingName
-                      WithReturnValeuBlock:(RequestComplete)block
+                      WithReturnValeuBlock:(RequestBacktrack)blockTrack
                         WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
-                         WithProgressBlock:(ProgressBlock)progressBlock
+                         WithProgressBlock:(RequestProgressBacktrack)progressBlock
 {
-    [self
-     NetRequestUploadFormWithRequestURL:requestURLString
-     WithUploadFileImage:[UIImage
-                          imageWithContentsOfFile:filePath]
-     FileType:fileType
-     ServiceReceivingName:serviceReceivingName
-     WithReturnValeuBlock:block
-     WithErrorCodeBlock:errorBlock
-     WithProgressBlock:progressBlock];
+    [self NetRequestUploadFormWithRequestURL:requestURLString
+                         WithUploadFileImage:[UIImage imageWithContentsOfFile:filePath]
+                                    FileType:fileType
+                        ServiceReceivingName:serviceReceivingName
+                        WithReturnValeuBlock:blockTrack
+                          WithErrorCodeBlock:errorBlock
+                           WithProgressBlock:progressBlock];
 }
 
 /**
@@ -195,9 +152,9 @@
                        WithUploadFileImage:(UIImage *)fileImage
                                   FileType:(CCUploadFormFileType)fileType
                       ServiceReceivingName:(NSString *)serviceReceivingName
-                      WithReturnValeuBlock:(RequestComplete)block
+                      WithReturnValeuBlock:(RequestBacktrack)blockTrack
                         WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
-                         WithProgressBlock:(ProgressBlock)progressBlock
+                         WithProgressBlock:(RequestProgressBacktrack)progressBlock
 {
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperationManager manager] POST:requestURLString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         NSData *postData;
@@ -229,7 +186,7 @@
                                 fileName:postFileName
                                 mimeType:postFileType];
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        block(responseObject);
+        blockTrack(responseObject,nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         errorBlock(error);
     }];
@@ -252,7 +209,7 @@
  */
 + (void)NetRequestUploadFormWithRequestURL:(NSString *)requestURLString
                         WithUploadFilePath:(NSString *)filePath
-                      WithReturnValeuBlock:(RequestComplete)block
+                      WithReturnValeuBlock:(RequestBacktrack)blockTrack
                         WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                          WithProgressBlock:
 (NSProgress *__autoreleasing *)progressBlock
@@ -271,7 +228,7 @@
         if (error) { //请求失败
             errorBlock(error);
         } else { //请求成功
-            block(responseObject);
+            blockTrack(responseObject,nil);
         }
     }];
     
@@ -292,8 +249,7 @@
  */
 + (NSString *)filePath:(NSString *)fileName
 {
-    NSArray *cachePaths = NSSearchPathForDirectoriesInDomains(
-                                                              NSCachesDirectory, NSUserDomainMask, YES);
+    NSArray *cachePaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *cachePath = [cachePaths objectAtIndex:0];
     return [cachePath stringByAppendingPathComponent:fileName];
 }
@@ -384,42 +340,6 @@
             }
         } while (bytesWrittenSoFar != dataLength);
     }
-}
-
-/**
- *  @author CC, 15-08-19
- *
- *  @brief  重组进度块
- *
- *  @param requestOperation 请求对象
- *  @param cachLength       缓存字节长度
- *  @param fileNamePath     缓存文件路径
- *
- *  @return 返回重组对象回调
- *
- *  @since 1.0
- */
-+ (ProgressBlock)NewProgressBlockWithCacheLength:(AFHTTPRequestOperation *)requestOperation
-                                      CachLength:(long long)cachLength
-                                       CachePath:(NSString *)fileNamePath
-{
-    WEAKSELF;
-    void (^newProgressBlock)(NSUInteger bytesRead, long long totalBytesRead,
-                             long long totalBytesExpectedToRead) =
-    ^(NSUInteger bytesRead, long long totalBytesRead,
-      long long totalBytesExpectedToRead) {
-        NSData *data = [NSData dataWithContentsOfFile:fileNamePath];
-        [requestOperation setValue:data forKey:@"responseData"];
-        
-        void (^progressBlock)(NSUInteger bytesRead, long long totalBytesRead,
-                              long long totalBytesExpectedToRead) =
-        [weakSelf progressBlock:fileNamePath];
-        if (progressBlock)
-            progressBlock(bytesRead, totalBytesRead + cachLength,
-                          totalBytesExpectedToRead + cachLength);
-    };
-    
-    return newProgressBlock;
 }
 
 @end
