@@ -28,5 +28,6 @@
 
 #import <CCFramework/CCHTTPManager.h>
 #import <CCFramework/CCHTTPRequest.h>
+#import <CCFramework/CCHTTPManager+Addition.h>
 
 #endif
