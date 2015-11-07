@@ -480,6 +480,9 @@
 		420DE47C1BC7942300D87D6D /* ZXMultiFormatReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 420DE2B31BC7942300D87D6D /* ZXMultiFormatReader.m */; settings = {ASSET_TAGS = (); }; };
 		420DE47D1BC7942300D87D6D /* ZXMultiFormatWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 420DE2B41BC7942300D87D6D /* ZXMultiFormatWriter.h */; };
 		420DE47E1BC7942300D87D6D /* ZXMultiFormatWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 420DE2B51BC7942300D87D6D /* ZXMultiFormatWriter.m */; settings = {ASSET_TAGS = (); }; };
+		422978601BEE3A1100CECBBF /* CCResponseObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4229785E1BEE3A1100CECBBF /* CCResponseObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		422978611BEE3A1100CECBBF /* CCResponseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229785F1BEE3A1100CECBBF /* CCResponseObject.m */; settings = {ASSET_TAGS = (); }; };
+		422978631BEE407400CECBBF /* CCBlockTrace.h in Headers */ = {isa = PBXBuildFile; fileRef = 422978621BEE405900CECBBF /* CCBlockTrace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4230E1851BBB83000001E68F /* CCRadarIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4230E1831BBB83000001E68F /* CCRadarIndicatorView.h */; };
 		4230E1861BBB83000001E68F /* CCRadarIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E1841BBB83000001E68F /* CCRadarIndicatorView.m */; };
 		4230E18D1BBB83CE0001E68F /* CCRadarPointView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4230E18B1BBB83CE0001E68F /* CCRadarPointView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1669,6 +1672,9 @@
 		420DE2B31BC7942300D87D6D /* ZXMultiFormatReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXMultiFormatReader.m; sourceTree = "<group>"; };
 		420DE2B41BC7942300D87D6D /* ZXMultiFormatWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXMultiFormatWriter.h; sourceTree = "<group>"; };
 		420DE2B51BC7942300D87D6D /* ZXMultiFormatWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXMultiFormatWriter.m; sourceTree = "<group>"; };
+		4229785E1BEE3A1100CECBBF /* CCResponseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCResponseObject.h; path = ResponseEntity/CCResponseObject.h; sourceTree = "<group>"; };
+		4229785F1BEE3A1100CECBBF /* CCResponseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCResponseObject.m; path = ResponseEntity/CCResponseObject.m; sourceTree = "<group>"; };
+		422978621BEE405900CECBBF /* CCBlockTrace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCBlockTrace.h; sourceTree = "<group>"; };
 		4230E1831BBB83000001E68F /* CCRadarIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRadarIndicatorView.h; path = Radar/Scanning/CCRadarIndicatorView.h; sourceTree = "<group>"; };
 		4230E1841BBB83000001E68F /* CCRadarIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRadarIndicatorView.m; path = Radar/Scanning/CCRadarIndicatorView.m; sourceTree = "<group>"; };
 		4230E18B1BBB83CE0001E68F /* CCRadarPointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRadarPointView.h; path = Radar/Scanning/CCRadarPointView.h; sourceTree = "<group>"; };
@@ -3170,6 +3176,15 @@
 			name = Core;
 			sourceTree = "<group>";
 		};
+		4229785D1BEE39E000CECBBF /* ResponseEntity */ = {
+			isa = PBXGroup;
+			children = (
+				4229785E1BEE3A1100CECBBF /* CCResponseObject.h */,
+				4229785F1BEE3A1100CECBBF /* CCResponseObject.m */,
+			);
+			name = ResponseEntity;
+			sourceTree = "<group>";
+		};
 		4230E1811BBB7F730001E68F /* Radar */ = {
 			isa = PBXGroup;
 			children = (
@@ -3397,6 +3412,7 @@
 				42D566FB1BEDFA4E00DCE44D /* CCExtScope.h */,
 				426529C81BED93600096C0EF /* CCMetamacros.h */,
 				426529CB1BED95960096C0EF /* CCProperty.h */,
+				422978621BEE405900CECBBF /* CCBlockTrace.h */,
 			);
 			path = Macros;
 			sourceTree = "<group>";
@@ -3721,6 +3737,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208F21BDE1EB400C76004 /* RequestProtocol.h */,
+				4229785D1BEE39E000CECBBF /* ResponseEntity */,
 				429C9D291B9EF8BE0013A44A /* HTTPRequestManager */,
 				42B647451BEDD45400B2F6FD /* Coremanager */,
 			);
@@ -5089,6 +5106,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				422978631BEE407400CECBBF /* CCBlockTrace.h in Headers */,
 				42B647411BEDA9DA00B2F6FD /* Core.h in Headers */,
 				42B647401BEDA9C600B2F6FD /* CCProperty.h in Headers */,
 				420DE4221BC7942300D87D6D /* ZXPDF417DecodedBitStreamParser.h in Headers */,
@@ -5615,6 +5633,7 @@
 				429CA0011B9EF8BF0013A44A /* CCActionSheet.h in Headers */,
 				429C9FFF1B9EF8BF0013A44A /* CCRourRotation.h in Headers */,
 				429CA06F1B9EF8BF0013A44A /* CCPickerCollectionViewCell.h in Headers */,
+				422978601BEE3A1100CECBBF /* CCResponseObject.h in Headers */,
 				429CA08F1B9EF8BF0013A44A /* CCWebViewProgressView.h in Headers */,
 				42D850F91BDB248D00CB194E /* NSManagedObject+CCManagedObject.h in Headers */,
 				429CA10B1B9EF8BF0013A44A /* CCEmotion.h in Headers */,
@@ -5875,6 +5894,7 @@
 				42F24C641BEA5091008CDEDC /* PNPieChart.m in Sources */,
 				420DE4701BC7942300D87D6D /* ZXMultiDetector.m in Sources */,
 				429CA0B81B9EF8BF0013A44A /* CALayer+Transition.m in Sources */,
+				422978611BEE3A1100CECBBF /* CCResponseObject.m in Sources */,
 				42B6474D1BEDE00200B2F6FD /* CCHTTPManager+POST.m in Sources */,
 				4267DCF31BDB32CD00B0C43F /* NSManagedObject+FetchRequest.m in Sources */,
 				429CA09A1B9EF8BF0013A44A /* SEConstants.m in Sources */,

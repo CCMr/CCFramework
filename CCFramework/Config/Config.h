@@ -31,6 +31,7 @@
 #import <CCFramework/CCProperty.h>
 #import <CCFramework/CCExtScope.h>
 #import <CCFramework/CCMetamacros.h>
+#import <CCFramework/CCBlockTrace.h>
 
 
 #pragma mark - 定义全局回调函数
@@ -47,74 +48,6 @@ typedef void (^Completion)(id request);
  */
 typedef void (^NetWorkBlock)(BOOL netConnetState);
 
-/**
- *  @author CC, 2015-07-23
- *
- *  @brief  网络请求完成
- *
- *  @param request <#request description#>
- *
- *  @since 1.0
- */
-typedef void (^RequestComplete)(id responseData);
-
-/**
- *  @author CC, 2015-07-23
- *
- *  @brief  错误代码块
- *
- *  @param errorCodeBlock <#errorCodeBlock description#>
- *
- *  @since 1.0
- */
-typedef void (^ErrorCodeBlock)(id errorCode);
-
-/**
- *  @author CC, 2015-07-23
- *
- *  @brief  超时或者请求失败
- *
- *  @param failureBlock <#failureBlock description#>
- *
- *  @since 1.0
- */
-typedef void (^FailureBlock)(id failure);
-
-/**
- *  @author CC, 2015-07-23
- *
- *  @brief  请求回调相应
- *
- *  @param responseData 相应数据
- *  @param isError      是否有错误
- *
- *  @since 1.0
- */
-typedef void (^RequestBlock)(id responseData, BOOL isError);
-
-/**
- *  @author CC, 15-08-19
- *
- *  @brief  上传下载进度回调
- *
- *  @param bytesRead                读取的字节
- *  @param totalBytesRead           总字节数学
- *  @param totalBytesExpectedToRead 读取字节数
- *
- *  @since <#1.0#>
- */
-typedef void (^ProgressBlock)(NSUInteger bytesRead, long long totalBytesRead,
-                              long long totalBytesExpectedToRead);
-
-/**
- *  @author CC, 2015-10-22
- *
- *  @brief  请求完成处理回调函数
- *
- *  @param responseData 请求返回数据
- *  @param userInfo     字典接收
- */
-typedef void (^CompletionCallback)(id responseData, id userInfo);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

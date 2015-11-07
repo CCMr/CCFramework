@@ -44,7 +44,7 @@
  * (like a one line \c if). In practice, this is not an issue, since \@onExit is
  * a useless construct in such a case anyways.
  */
-#define onExit         \
+#define onExit \
 autoreleasepool {} \
 __strong cc_cleanupBlock_t metamacro_concat(cc_exitBlock_, __LINE__) __attribute__((cleanup(cc_executeCleanupBlock), unused)) = ^
 
@@ -58,9 +58,9 @@ __strong cc_cleanupBlock_t metamacro_concat(cc_exitBlock_, __LINE__) __attribute
  *
  * See #strongify for an example of usage.
  */
-#define weakify(...)   \
+#define weakify(...) \
 autoreleasepool {} \
-metamacro_foreach_cxt(cc_weakify_, , __weak, __VA_ARGS__)
+metamacro_foreach_cxt(cc_weakify_,, __weak, __VA_ARGS__)
 
 /**
  * Like #weakify, but uses \c __unsafe_unretained instead, for targets or
@@ -68,7 +68,7 @@ metamacro_foreach_cxt(cc_weakify_, , __weak, __VA_ARGS__)
  */
 #define unsafeify(...) \
 autoreleasepool {} \
-metamacro_foreach_cxt(ccc_weakify_, , __unsafe_unretained, __VA_ARGS__)
+metamacro_foreach_cxt(cc_weakify_,, __unsafe_unretained, __VA_ARGS__)
 
 /**
  * Strongly references each of the variables provided as arguments, which must
@@ -96,20 +96,17 @@ metamacro_foreach_cxt(ccc_weakify_, , __unsafe_unretained, __VA_ARGS__)
  
  * @endcode
  */
-#define strongify(...)                                      \
-try {                                                   \
-} @finally {                                            \
-}                                                       \
-_Pragma("clang diagnostic push")                        \
-_Pragma("clang diagnostic ignored \"-Wshadow\"")    \
-metamacro_foreach(cc_strongify_, , __VA_ARGS__) \
+#define strongify(...) \
+try {} @finally {} \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wshadow\"") \
+metamacro_foreach(cc_strongify_,, __VA_ARGS__) \
 _Pragma("clang diagnostic pop")
 
 /*** implementation details follow ***/
 typedef void (^cc_cleanupBlock_t)();
 
-static inline void cc_executeCleanupBlock(__strong cc_cleanupBlock_t *block)
-{
+static inline void cc_executeCleanupBlock (__strong cc_cleanupBlock_t *block) {
     (*block)();
 }
 
