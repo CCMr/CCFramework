@@ -91,15 +91,15 @@
                 [requestOperation setDownloadProgressBlock:progressBlock];
             }
         } forKeyPath:@"isPaused" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-
+        
         [requestOperation setDownloadProgressBlock:progressBlock];
         
         //获取成功回调块
         [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-             blockTrack(operation.responseData,nil);
-         }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             errorBlock(error);
-         }];
+            blockTrack(operation.responseData,nil);
+        }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            errorBlock(error);
+        }];
         [requestOperation start];
     }
 }
@@ -229,8 +229,9 @@
         if (error) { //请求失败
             errorBlock(error);
         } else { //请求成功
-             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-             NSLog(@"%@", dic);
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+            
+            CCNSLogger(@"%@", dic);
             
             CCResponseObject *entity = [[CCResponseObject alloc] initWithDict:dic];
             blockTrack(entity,nil);

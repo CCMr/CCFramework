@@ -26,6 +26,7 @@
 #import "BaseViewController.h"
 #import "BaseNavigationController.h"
 #import "Config.h"
+#import "CCNSLog.h"
 #import "UIButton+BUIButton.h"
 #import "UIView+BUIView.h"
 
@@ -386,7 +387,7 @@
     [super viewWillAppear:animated];
     
     NSString *mClassName = [NSString stringWithUTF8String:object_getClassName(self.navigationController.visibleViewController)];
-    NSLog(@"viewDidAppear : %@", mClassName);
+    CCNSLogger(@"viewDidAppear : %@", mClassName);
 }
 
 /**

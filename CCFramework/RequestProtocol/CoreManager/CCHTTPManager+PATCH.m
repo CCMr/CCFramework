@@ -78,7 +78,8 @@
     AFHTTPRequestOperation *requestOperation =
     [[AFHTTPRequestOperationManager manager] PATCH:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-        NSLog(@"%@", dic);
+        
+        CCNSLogger(@"%@", dic);
         
         CCResponseObject *entity = [[CCResponseObject alloc] initWithDict:dic];
         blockTrack(entity,nil);
