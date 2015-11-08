@@ -25,6 +25,7 @@
 
 #import "CCHTTPManager+Addition.h"
 #import "AFNetworking.h"
+#import "CCResponseObject.h"
 
 @implementation CCHTTPManager (PSOT)
 
@@ -79,8 +80,9 @@
 {
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperationManager manager] POST:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-        NSLog(@"%@", dic);
-        blockTrack(dic,nil);
+         NSLog(@"%@", dic);
+        CCResponseObject *entity = [[CCResponseObject alloc] initWithDict:dic];
+        blockTrack(entity,nil);
         
         if (operation.userInfo && completionBlock)
             completionBlock(dic, operation.userInfo);

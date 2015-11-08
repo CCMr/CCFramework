@@ -330,7 +330,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  */
 + (void)NetRequestDownloadWithRequestURL:(NSString *)requestURLString
                       WithUploadFileName:(NSString *)fileName
-                    WithReturnValeuBlock:(RequestBacktrack)blockTrack
+                    WithReturnValeuBlock:(RequestDownloadBacktrack)blockTrack
                       WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                        WithProgressBlock:(RequestProgressBacktrack)progressBlock;
 

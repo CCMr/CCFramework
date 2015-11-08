@@ -112,7 +112,7 @@
  *
  *  @param requestBacktrack 回调函数
  */
-- (void)setRequestBacktrack:(RequestBacktrack)requestBacktrack;
+- (void)setRequestBacktrack:(CCRequestBacktrack)requestBacktrack;
 
 /**
  *  @author C C, 2015-11-07
@@ -149,7 +149,7 @@
  *
  *  @param errorDic 错误信息
  */
-- (void)errorProcessEvent:(NSError *)error;
+- (void)errorProcessEvent:(id)error;
 
 /**
  *  @author CC, 2015-07-23
@@ -158,7 +158,7 @@
  *
  *  @param error 故障信息
  */
-- (void)netFailure:(NSError*)error;
+- (void)netFailure:(id)error;
 
 /**
  *  @author CC, 2015-10-22

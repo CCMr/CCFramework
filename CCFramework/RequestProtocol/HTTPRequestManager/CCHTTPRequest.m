@@ -24,6 +24,7 @@
 //
 
 #import "CCHTTPRequest.h"
+#import "CCResponseObject.h"
 
 @interface CCHTTPRequest ()
 
@@ -32,7 +33,7 @@
  *
  *  @brief  请求相应处理回调
  */
-@property(nonatomic, copy) RequestBacktrack requestBacktrack;
+@property(nonatomic, copy) CCRequestBacktrack requestBacktrack;
 
 /**
  *  @author C C, 2015-11-07
@@ -173,7 +174,7 @@
  *
  *  @param responseData 响应数据
  */
--(void)setRequestBacktrack:(RequestBacktrack)requestBacktrack
+-(void)setRequestBacktrack:(CCRequestBacktrack)requestBacktrack
 {
     self->_requestBacktrack = [requestBacktrack copy];
 }
@@ -235,13 +236,13 @@
  *
  *  @since 1.0
  */
-- (void)errorProcessEvent:(NSError *)error
+- (void)errorProcessEvent:(id)error
 {
     if (_requestBacktrack) {
-        NSString *errorStr = error.domain;
+        NSString *errorStr = error;
         if ([error isKindOfClass:[NSError class]])
             errorStr = [self httpErrorAnalysis:((NSError *)error).code];
-        _requestBacktrack(nil, [NSError errorWithDomain:errorStr code:error.code userInfo:nil]);
+        _requestBacktrack(nil, [NSError errorWithDomain:errorStr code:((NSError *)error).code userInfo:nil]);
     }
 }
 
@@ -254,13 +255,13 @@
  *
  *  @since 1.0
  */
-- (void)netFailure:(NSError *)error
+- (void)netFailure:(id)error
 {
     if (_requestBacktrack) {
-        NSString *errorStr = error.domain;
+        NSString *errorStr = error;
         if ([error isKindOfClass:[NSError class]])
             errorStr = [self httpErrorAnalysis:((NSError *)error).code];
-        _requestBacktrack(nil, [NSError errorWithDomain:errorStr code:error.code userInfo:nil]);
+        _requestBacktrack(nil, [NSError errorWithDomain:errorStr code:((NSError *)error).code userInfo:nil]);
     }
 }
 

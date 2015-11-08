@@ -25,6 +25,7 @@
 #import "CCHTTPManager+Addition.h"
 #import "AFNetworking.h"
 #import "NSDate+BNSDate.h"
+#import "CCResponseObject.h"
 
 @implementation CCHTTPManager (UploadDownload)
 
@@ -42,7 +43,7 @@
  */
 + (void)NetRequestDownloadWithRequestURL:(NSString *)requestURLString
                       WithUploadFileName:(NSString *)fileName
-                    WithReturnValeuBlock:(RequestBacktrack)blockTrack
+                    WithReturnValeuBlock:(RequestDownloadBacktrack)blockTrack
                       WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                        WithProgressBlock:(RequestProgressBacktrack)progressBlock
 {
@@ -228,6 +229,12 @@
         if (error) { //请求失败
             errorBlock(error);
         } else { //请求成功
+             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+             NSLog(@"%@", dic);
+            
+            CCResponseObject *entity = [[CCResponseObject alloc] initWithDict:dic];
+            blockTrack(entity,nil);
+            
             blockTrack(responseObject,nil);
         }
     }];
@@ -286,8 +293,7 @@
  */
 + (NSMutableURLRequest *)requestWithUrl:(id)url Range:(long long)length
 {
-    NSURL *requestUrl =
-    [url isKindOfClass:[NSURL class]] ? url : [NSURL URLWithString:url];
+    NSURL *requestUrl = [url isKindOfClass:[NSURL class]] ? url : [NSURL URLWithString:url];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestUrl
                                                            cachePolicy:NSURLRequestReloadIgnoringCacheData
