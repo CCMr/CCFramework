@@ -1167,6 +1167,8 @@
 		42DBA8561BB5305700AD47C6 /* CCBase64.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA8541BB5305700AD47C6 /* CCBase64.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42DBA8571BB5305700AD47C6 /* CCBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBA8551BB5305700AD47C6 /* CCBase64.m */; };
 		42DBA8591BB5309300AD47C6 /* CCDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA8581BB5309300AD47C6 /* CCDefines.h */; };
+		42DC3EEB1BEF49EE00F9CC38 /* CCNSLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DC3EE91BEF49EE00F9CC38 /* CCNSLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42DC3EEC1BEF49EE00F9CC38 /* CCNSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DC3EEA1BEF49EE00F9CC38 /* CCNSLog.m */; settings = {ASSET_TAGS = (); }; };
 		42E2E8201B9FB97700B2CE90 /* UITableView+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 42E2E81E1B9FB97700B2CE90 /* UITableView+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42E2E8211B9FB97700B2CE90 /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E2E81F1B9FB97700B2CE90 /* UITableView+Additions.m */; };
 		42F24C4F1BEA5091008CDEDC /* PNBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F24C2D1BEA5091008CDEDC /* PNBar.h */; settings = {ASSET_TAGS = (); }; };
@@ -2361,6 +2363,8 @@
 		42DBA8541BB5305700AD47C6 /* CCBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCBase64.h; path = Base64/CCBase64.h; sourceTree = "<group>"; };
 		42DBA8551BB5305700AD47C6 /* CCBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCBase64.m; path = Base64/CCBase64.m; sourceTree = "<group>"; };
 		42DBA8581BB5309300AD47C6 /* CCDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDefines.h; path = Base64/CCDefines.h; sourceTree = "<group>"; };
+		42DC3EE91BEF49EE00F9CC38 /* CCNSLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCNSLog.h; path = Core/CCLog/CCNSLog.h; sourceTree = "<group>"; };
+		42DC3EEA1BEF49EE00F9CC38 /* CCNSLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCNSLog.m; path = Core/CCLog/CCNSLog.m; sourceTree = "<group>"; };
 		42E2E81E1B9FB97700B2CE90 /* UITableView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableView+Additions.h"; path = "UITableView/UITableView+Additions.h"; sourceTree = "<group>"; };
 		42E2E81F1B9FB97700B2CE90 /* UITableView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableView+Additions.m"; path = "UITableView/UITableView+Additions.m"; sourceTree = "<group>"; };
 		42F24C2D1BEA5091008CDEDC /* PNBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNBar.h; sourceTree = "<group>"; };
@@ -4965,6 +4969,7 @@
 			isa = PBXGroup;
 			children = (
 				42B6473F1BEDA8DD00B2F6FD /* Core.h */,
+				42DC3EE81BEF49CD00F9CC38 /* CCLog */,
 				42B6473A1BEDA87E00B2F6FD /* Backtrace */,
 			);
 			name = Core;
@@ -5029,6 +5034,15 @@
 				42DBA8551BB5305700AD47C6 /* CCBase64.m */,
 			);
 			name = Base64;
+			sourceTree = "<group>";
+		};
+		42DC3EE81BEF49CD00F9CC38 /* CCLog */ = {
+			isa = PBXGroup;
+			children = (
+				42DC3EE91BEF49EE00F9CC38 /* CCNSLog.h */,
+				42DC3EEA1BEF49EE00F9CC38 /* CCNSLog.m */,
+			);
+			name = CCLog;
 			sourceTree = "<group>";
 		};
 		42E2E81D1B9FB96100B2CE90 /* UITableView */ = {
@@ -5751,6 +5765,7 @@
 				42B30DCB1BBD72AD0039BB94 /* SDImageCache.h in Headers */,
 				4264D73E1BA2C19100E83159 /* CCPageIndicatorView.h in Headers */,
 				42F24C671BEA5091008CDEDC /* PNRadarChart.h in Headers */,
+				42DC3EEB1BEF49EE00F9CC38 /* CCNSLog.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5881,6 +5896,7 @@
 				429CA0AC1B9EF8BF0013A44A /* SETextMagnifierCaret.m in Sources */,
 				42B9D0E71B9FE3650086CA81 /* NSData+Additions.m in Sources */,
 				42F24C501BEA5091008CDEDC /* PNBar.m in Sources */,
+				42DC3EEC1BEF49EE00F9CC38 /* CCNSLog.m in Sources */,
 				420DE3BE1BC7942300D87D6D /* ZXRSSExpandedDecodedChar.m in Sources */,
 				429CA0A41B9EF8BF0013A44A /* SETextEditingCaret.m in Sources */,
 				420DE4621BC7942300D87D6D /* ZXQRCodeFinderPatternFinder.m in Sources */,
