@@ -23,7 +23,7 @@
 // THE SOFTWARE.
 //
 
-#import <CCFramework/CCFramework.h>
+#import "BaseEntity.h"
 
 @interface CCResponseObject : BaseEntity
 
@@ -39,6 +39,13 @@
  *  @brief  响应状态
  */
 @property (nonatomic, assign) BOOL success;
+
+/**
+ *  @author C C, 2015-11-08
+ *
+ *  @brief  请求状态
+ */
+@property (nonatomic, assign) BOOL status;
 
 /**
  *  @author C C, 2015-11-07

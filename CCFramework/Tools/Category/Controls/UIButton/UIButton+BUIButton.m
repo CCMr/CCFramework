@@ -78,6 +78,10 @@ static char BUTTONCARRYOBJECTS;
 - (void)setFont:(UIFont *)font
 {
     [self.titleLabel setFont:font];
+    UILabel *title = (UILabel *)[self viewWithTag:9999];
+    if ([title isKindOfClass:[UILabel class]])
+        title.font = font;
+
 }
 
 /**

@@ -9,6 +9,18 @@
 #ifndef CCBlockTrace_h
 #define CCBlockTrace_h
 
+#import <CCFramework/CCResponseObject.h>
+
+/**
+ *  @author C C, 2015-11-08
+ *
+ *  @brief  HTTP返回处理结果
+ *
+ *  @param responseObject 响应数据
+ *  @param error          错误消息
+ */
+typedef void (^CCRequestBacktrack)(id responseObject, NSError *error);
+
 /**
  *  @author C C, 2015-11-07
  *
@@ -17,7 +29,7 @@
  *  @param responseObject 响应数据
  *  @param error          错误信息
  */
-typedef void (^RequestBacktrack)(id responseObject, NSError *error);
+typedef void (^RequestBacktrack)(CCResponseObject *responseObject, NSError *error);
 
 /**
  *  @author CC, 2015-11-07
@@ -39,6 +51,16 @@ typedef void (^RequestCompletionBacktrack)(id responseObject, NSDictionary *user
  *  @param totalBytesExpectedToRead 读取字节数
  */
 typedef void (^RequestProgressBacktrack)(NSUInteger bytesRead, long long totalBytesRead,long long totalBytesExpectedToRead);
+
+/**
+ *  @author C C, 2015-11-08
+ *
+ *  @brief  响应下载回调
+ *
+ *  @param data  下载数据
+ *  @param error 错误信息
+ */
+typedef void (^RequestDownloadBacktrack)(NSData *data, NSError *error);
 
 
 /**
