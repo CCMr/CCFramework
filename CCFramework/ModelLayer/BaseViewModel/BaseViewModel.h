@@ -35,21 +35,21 @@
  *
  *  @brief  请求成功回调函数
  */
-@property (nonatomic, strong) Completion returnBlock;
+@property (nonatomic, copy) Completion returnBlock;
 
 /**
  *  @author CC, 2015-10-22
  *
  *  @brief  请求错误回调函数
  */
-@property (nonatomic, strong) ErrorCodeBlock errorBlock;
+@property (nonatomic, copy) ErrorCodeBlock errorBlock;
 
 /**
  *  @author CC, 2015-10-22
  *
  *  @brief  请求故障回调函数
  */
-@property (nonatomic, strong) FailureBlock failureBlock;
+@property (nonatomic, copy) FailureBlock failureBlock;
 
 
 /**

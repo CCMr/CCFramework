@@ -24,86 +24,8 @@
 //
 
 #import "BaseViewModel.h"
-#import <objc/runtime.h>
-
-static char OperationKey;
 
 @implementation BaseViewModel
-
-#pragma mark - 委托回调函数
-
--(void)setReturnBlock:(Completion)returnBlock
-{
-    NSString *key = [NSString stringWithFormat:@"%@returnBlock",NSStringFromClass(self.class)];
-    [self callBackFunction:key withBlock:returnBlock];
-}
-
-- (Completion)returnBlock
-{
-    NSString *key = [NSString stringWithFormat:@"%@returnBlock",NSStringFromClass(self.class)];
-    return [self callActionBlockFunction:key];
-}
-
--(void)setErrorBlock:(ErrorCodeBlock)errorBlock
-{
-    NSString *key = [NSString stringWithFormat:@"%@errorBlock",NSStringFromClass(self.class)];
-    [self callBackFunction:key withBlock:errorBlock];
-}
-
-- (ErrorCodeBlock)errorBlock
-{
-    NSString *key = [NSString stringWithFormat:@"%@errorBlock",NSStringFromClass(self.class)];
-    return [self callActionBlockFunction:key];
-}
-
--(void)setFailureBlock:(FailureBlock)failureBlock
-{
-    NSString *key = [NSString stringWithFormat:@"%@failureBlock",NSStringFromClass(self.class)];
-    [self callBackFunction:key withBlock:failureBlock];
-}
-
-- (FailureBlock)failureBlock
-{
-    NSString *key = [NSString stringWithFormat:@"%@failureBlock",NSStringFromClass(self.class)];
-    return [self callActionBlockFunction:key];
-}
-
-#pragma mark - Private 函数
-/**
- *  @author CC, 15-09-21
- *
- *  @brief  存储回调函数
- *
- *  @param key   函数KEY名
- *  @param block 回调函数
- */
-- (void)callBackFunction: (NSString *)key withBlock: (id)block
-{
-    NSMutableDictionary *opreations = (NSMutableDictionary*)objc_getAssociatedObject(self, &OperationKey);
-
-    if(!opreations)
-    {
-        opreations = [[NSMutableDictionary alloc] init];
-        objc_setAssociatedObject(self, &OperationKey, opreations, OBJC_ASSOCIATION_RETAIN);
-    }
-    [opreations setObject:block forKey:key];
-}
-
-/**
- *  @author CC, 15-09-21
- *
- *  @brief  获取回调函数
- *
- *  @param event 函数KEY名
- *
- *  @return 返回回调函数
- */
--(id)callActionBlockFunction:(NSString *)event
-{
-    NSMutableDictionary *opreations = (NSMutableDictionary*)objc_getAssociatedObject(self, &OperationKey);
-    void(^block)(id sender) = [opreations objectForKey:event];
-    return block;
-}
 
 #pragma mark - Public 函数
 /**
@@ -138,9 +60,10 @@ static char OperationKey;
             WithErrorBlock: (ErrorCodeBlock) errorBlock
           WithFailureBlock: (FailureBlock)failureBlock
 {
-    self.returnBlock = returnBlock;
-    self.errorBlock = errorBlock;
-    self.failureBlock = failureBlock;
+    self.returnBlock = [returnBlock copy];
+    self.returnBlock = [returnBlock copy];
+    self.errorBlock = [errorBlock copy];
+    self.failureBlock = [failureBlock copy];
 }
 
 /**
