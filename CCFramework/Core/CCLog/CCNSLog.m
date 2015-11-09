@@ -24,103 +24,45 @@
 //
 
 #import "CCNSLog.h"
-#import "NSDate+BNSDate.h"
+#import "NSObject+Additions.h"
 
-@interface CCNSLog ()
-
-/**
- *  @author C C, 2015-11-08
- *
- *  @brief  应用信息
- */
-@property (nonatomic, strong) NSDictionary *applicationInfo;
-
-@end
-
-@implementation CCNSLog
-
-
-+ (instancetype)sharedInstance
+FOUNDATION_EXPORT void cc_NSLog(const char *file, const char *method, int lineNumber, NSString *format)
 {
-    static id sharedInstance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[self alloc] init];
-    });
+    if (![format hasSuffix:@"\n"])
+        format = [format stringByAppendingString:@"\n"];
     
-    return sharedInstance;
-}
-
-/**
- *  @author C C, 2015-11-08
- *
- *  @brief  应用信息
- *
- *  @return 返回信用信息
- */
-- (NSDictionary *)applicationInfo
-{
-    if (!_applicationInfo)
-         _applicationInfo = [[NSBundle mainBundle] infoDictionary];
-    return _applicationInfo;
-}
-
-/**
- *  @author C C, 2015-11-08
- *
- *  @brief  输出日志消息
- *
- *  @param fileName 消息记录文件
- *  @param method   消息记录方法
- *  @param lineNr   源代码中的行数
- *  @param format   任意参数
- */
-+ (void)cc_NSLog:(NSString *)fileName
-          method:(NSString*)method
-          lineNr:(NSNumber*)lineNr
-            text:(NSString *)format,...
-{
-    va_list args;
-    va_start(args, format);
-    [[self sharedInstance] cc_NSLog:fileName method:method lineNr:lineNr text:format, args];
-    va_end(args);
-    
-}
-
-/**
- *  @author C C, 2015-11-08
- *
- *  @brief  输出日志消息
- *
- *  @param fileName 消息记录文件
- *  @param method   消息记录方法
- *  @param lineNr   源代码中的行数
- *  @param format   任意参数
- */
-- (void)cc_NSLog:(NSString *)fileName
-          method:(NSString *)method
-          lineNr:(NSNumber *)lineNr
-            text:(NSString *)format,...
-{
-    method = [[method substringWithRange:NSMakeRange(2, method.length-3)] componentsSeparatedByString:@" "].lastObject;
-
     NSMutableString *log = [NSMutableString string];
-    [log appendFormat:@"%@ ",[self.applicationInfo objectForKey:(NSString *)kCFBundleExecutableKey]];//工程名
-    [log appendFormat:@"Version：%@ ",[self.applicationInfo objectForKey:(NSString *)kCFBundleVersionKey]];
-    [log appendFormat:@"(%@) ",[[NSDate date] toStringFormat:@"yyyy-MM-dd HH:mm:ss.SSS"]];
-//    [log appendFormat:@"Class：%@ \n",fileName];
-//    [log appendFormat:@"Method：%@ ",method];
-    [log appendFormat:@"Line：%@\n",lineNr];
-    [log appendFormat:@"%@ \n\n",format];
     
-    if (log.length>0) {
-        va_list args;
-        va_start(args, format);
-        #ifdef DEBUG
-        vprintf(log.UTF8String, args);
-        #endif
-        va_end(args);
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+    [dateFormatter setLocale:enUSPOSIXLocale];
+    [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+    [dateFormatter setDateFormat:@"y-MM-dd HH:mm:ss.SSS"];
+    NSString *currentTime = [dateFormatter stringFromDate:[NSDate date]];
+    
+    [log appendFormat:@"%@", currentTime];
+    
+    NSDictionary *applicationInfo = [[NSBundle mainBundle] infoDictionary];
+    NSString *applicationName = [applicationInfo objectForKey:(NSString *)kCFBundleExecutableKey]; //app名称
+    [log appendFormat:@" %@ ", applicationName];
+    
+    NSString *applicationVersion = [applicationInfo objectForKey:(NSString *)kCFBundleVersionKey]; //app版本
+    [log appendFormat:@"Version：%@ ", applicationVersion];
+    
+    if (file) {
+        NSString *fileName = [[NSString stringWithUTF8String:file] lastPathComponent]; //文件名
+        [log appendFormat:@"\n Class：%@", fileName];
     }
+    
+    if (method) {
+        NSString *metodName = [NSString stringWithUTF8String:method]; //函数名称
+        metodName = [[metodName substringWithRange:NSMakeRange(2, metodName.length - 3)] componentsSeparatedByString:@" "].lastObject;
+        metodName = [metodName componentsSeparatedByString:@"]"].firstObject;
+        [log appendFormat:@"\nMethod：%@\n", metodName];
+    }
+    
+    [log appendFormat:@"  Line：%d\n", lineNumber];
+    [log appendFormat:@"%@ \n", format];
+    
+    fprintf(stderr, "%s", [log UTF8String]);
 }
-
-@end

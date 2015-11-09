@@ -26,28 +26,10 @@
 #import <Foundation/Foundation.h>
 
 #ifdef DEBUG
-#define CCNSLogger( s , ... )\
-    [CCNSLog cc_NSLog: [[NSString stringWithUTF8String:__FILE__] lastPathComponent] \
-               method: [NSString stringWithUTF8String:__PRETTY_FUNCTION__] \
-               lineNr: [NSNumber numberWithInt:__LINE__] \
-                 text: [NSString stringWithFormat:(s), ##__VA_ARGS__]]
+#define CCNSLogger(format, ...) cc_NSLog(nil, nil, __LINE__, [NSString stringWithFormat:(format), ##__VA_ARGS__])			//输出格式（时间 工程名称 版本号 行数）
+#define CCExtLogger(format, ...) cc_NSLog(__FILE__, __PRETTY_FUNCTION__, __LINE__, [NSString stringWithFormat:(format), ##__VA_ARGS__]) //输出格式（时间 工程名称 版本号 类名 函数名 行数）
+#else
+#define CCNSLogger(...) NSLog(__VA_ARGS__)
 #endif
 
-@interface CCNSLog : NSObject
-
-/**
- *  @author C C, 2015-11-08
- *
- *  @brief  不要直接调用此方法，而只是使用的NSLog（）直接，它会再*调用此方法传递正确的paramters。
- *
- *  @param fileName 消息记录文件
- *  @param method   消息记录方法
- *  @param lineNr   源代码中的行数
- *  @param format   任意参数
- */
-+ (void)cc_NSLog:(NSString *)fileName
-          method:(NSString*)method
-          lineNr:(NSNumber*)lineNr
-            text:(NSString *)format, ...;
-
-@end
+FOUNDATION_EXPORT void cc_NSLog(const char *file, const char *method, int lineNumber, NSString *format);
