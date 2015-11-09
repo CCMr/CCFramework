@@ -628,7 +628,7 @@ static CGPoint delayOffset = {0.0};
 - (void)setup
 {
     // iPhone or iPad keyboard view height set here.
-    self.keyboardViewHeight = (kIsiPad ? 264 : 216);
+    self.keyboardViewHeight = (isiPad ? 264 : 216);
     _allowsPanToDismissKeyboard = NO;
     _allowsSendVoice = YES;
     _allowsSendMultiMedia = YES;

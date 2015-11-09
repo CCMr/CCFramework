@@ -3743,7 +3743,7 @@
 				42C208F21BDE1EB400C76004 /* RequestProtocol.h */,
 				4229785D1BEE39E000CECBBF /* ResponseEntity */,
 				429C9D291B9EF8BE0013A44A /* HTTPRequestManager */,
-				42B647451BEDD45400B2F6FD /* Coremanager */,
+				42B647451BEDD45400B2F6FD /* CoreManager */,
 			);
 			path = RequestProtocol;
 			sourceTree = "<group>";
@@ -4984,7 +4984,7 @@
 			name = Backtrace;
 			sourceTree = "<group>";
 		};
-		42B647451BEDD45400B2F6FD /* Coremanager */ = {
+		42B647451BEDD45400B2F6FD /* CoreManager */ = {
 			isa = PBXGroup;
 			children = (
 				42B647481BEDDA8200B2F6FD /* CCHTTPManager+Addition.h */,
@@ -4996,7 +4996,7 @@
 				42B647501BEDE08F00B2F6FD /* CCHTTPManager+PATCH.m */,
 				42B647561BEDE57300B2F6FD /* CCHTTPManager+UploadDownload.m */,
 			);
-			name = Coremanager;
+			name = CoreManager;
 			sourceTree = "<group>";
 		};
 		42BAB9131BC755EE00C70043 /* UITabBarController */ = {
@@ -5801,7 +5801,6 @@
 				TargetAttributes = {
 					429C9C961B9EF66A0013A44A = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = S9823S3XWX;
 					};
 					429C9CBD1B9EF7570013A44A = {
 						CreatedOnToolsVersion = 6.4;
@@ -6509,6 +6508,7 @@
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Alipay",
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Alipay/ResourceFile",
 				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Alipay/ResourceFile";
 				INFOPLIST_FILE = CCFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -6544,6 +6544,7 @@
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Alipay",
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Alipay/ResourceFile",
 				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Alipay/ResourceFile";
 				INFOPLIST_FILE = CCFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

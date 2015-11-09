@@ -101,7 +101,7 @@
 
 // 计算文本实际的大小
 + (CGSize)neededSizeForText:(NSString *)text {
-    CGFloat maxWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]) * (kIsiPad ? 0.8 : (kIs_iPhone_6 ? 0.6 : (kIs_iPhone_6P ? 0.62 : 0.55)));
+    CGFloat maxWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]) * (isiPad ? 0.8 : (iPhone6 ? 0.6 : (iPhone6P ? 0.62 : 0.55)));
 
     CGFloat dyWidth = [CCMessageBubbleView neededWidthForText:text];
 

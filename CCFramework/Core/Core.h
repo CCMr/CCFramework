@@ -29,5 +29,4 @@
 #import <CCFramework/CCBacktrace.h>
 #import <CCFramework/CCNSLog.h>
 
-
 #endif /* Core_h */

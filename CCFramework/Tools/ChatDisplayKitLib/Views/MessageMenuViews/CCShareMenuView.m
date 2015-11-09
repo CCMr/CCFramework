@@ -10,7 +10,7 @@
 #import "Config.h"
 
 // 每行有4个
-#define kCCShareMenuPerRowItemCount (kIsiPad ? 10 : 4)
+#define kCCShareMenuPerRowItemCount (isiPad ? 10 : 4)
 #define kCCShareMenuPerColum 2
 
 @interface CCShareMenuItemView : UIView

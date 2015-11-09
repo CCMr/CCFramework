@@ -24,7 +24,7 @@
 //
 
 #import "CCHTTPManager.h"
-#import "CCNSLog.h"
+#include "CCNSLog.h"
 
 #define errorAnalysis(code) (code >= 300 || code <= 311) ? YES : NO
 
@@ -41,8 +41,6 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
     /** 图片PNG */
     CCUploadFormFileTypeImagePNG,
 };
-
-
 
 
 @interface CCHTTPManager (Addition)

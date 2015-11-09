@@ -81,7 +81,6 @@
 - (instancetype)initWithBase
 {
     if (self = [super init]) {
-        
     }
     return self;
 }
@@ -174,7 +173,7 @@
  *
  *  @param responseData 响应数据
  */
--(void)setRequestBacktrack:(CCRequestBacktrack)requestBacktrack
+- (void)setRequestBacktrack:(CCRequestBacktrack)requestBacktrack
 {
     self->_requestBacktrack = [requestBacktrack copy];
 }
@@ -210,7 +209,7 @@
  *
  *  @param responseData 响应数据
  */
--(void)responseProcessEvent:(id)responseData
+- (void)responseProcessEvent:(id)responseData
 {
     if (_requestBacktrack) {
         NSDictionary *dic = responseData;
@@ -238,11 +237,15 @@
  */
 - (void)errorProcessEvent:(id)error
 {
+    
     if (_requestBacktrack) {
         NSString *errorStr = error;
-        if ([error isKindOfClass:[NSError class]])
+        NSInteger code = 0;
+        if ([error isKindOfClass:[NSError class]]) {
+            code = ((NSError *)error).code;
             errorStr = [self httpErrorAnalysis:((NSError *)error).code];
-        _requestBacktrack(nil, [NSError errorWithDomain:errorStr code:((NSError *)error).code userInfo:nil]);
+        }
+        _requestBacktrack(nil, [NSError errorWithDomain:errorStr code:code userInfo:nil]);
     }
 }
 
@@ -259,9 +262,12 @@
 {
     if (_requestBacktrack) {
         NSString *errorStr = error;
-        if ([error isKindOfClass:[NSError class]])
+        NSInteger code = 0;
+        if ([error isKindOfClass:[NSError class]]) {
+            code = ((NSError *)error).code;
             errorStr = [self httpErrorAnalysis:((NSError *)error).code];
-        _requestBacktrack(nil, [NSError errorWithDomain:errorStr code:((NSError *)error).code userInfo:nil]);
+        }
+        _requestBacktrack(nil, [NSError errorWithDomain:errorStr code:code userInfo:nil]);
     }
 }
 

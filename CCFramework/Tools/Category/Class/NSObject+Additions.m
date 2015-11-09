@@ -41,9 +41,9 @@
     NSMethodSignature *methodSignature = [self methodSignatureForSelector:selector];
     
     id anObject = nil;
-    if (methodSignature){
+    if (methodSignature) {
         
-        NSInvocation* invo = [NSInvocation invocationWithMethodSignature:methodSignature];
+        NSInvocation *invo = [NSInvocation invocationWithMethodSignature:methodSignature];
         [invo setTarget:self];
         [invo setSelector:selector];
         [invo setArgument:&aObject atIndex:2];

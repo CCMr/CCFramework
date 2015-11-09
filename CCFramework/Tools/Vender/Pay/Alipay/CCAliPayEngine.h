@@ -27,14 +27,7 @@
 
 @interface CCAliPayEngine : NSObject
 
-/**
- *  @author C C, 2015-10-18
- *
- *  @brief  单例模式
- *
- *  @return 返回当前对象
- */
-+ (instancetype)sharedlnstance;
++ (instancetype)manager;
 
 /**
  *  @author C C, 2015-10-18

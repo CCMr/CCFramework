@@ -62,6 +62,20 @@ const NSStringDrawingOptions CCDrawingOptions = NSStringDrawingUsesLineFragmentO
 }
 
 /**
+ *  @author CC, 2015-11-09
+ *  
+ *  @brief   初始化
+ *
+ *  @param aDecoder <#aDecoder description#>
+ *
+ *  @return <#return value description#>
+ */
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    return [self initWithFrame:CGRectZero edgeInsets:UIEdgeInsetsZero];
+}
+
+/**
  *  @author CC, 2015-07-31
  *
  *  @brief  初始化设置
@@ -91,6 +105,7 @@ const NSStringDrawingOptions CCDrawingOptions = NSStringDrawingUsesLineFragmentO
     return self;
 }
 
+
 /**
  *  @author CC, 2015-07-31
  *
@@ -109,7 +124,7 @@ const NSStringDrawingOptions CCDrawingOptions = NSStringDrawingUsesLineFragmentO
     CGFloat height;
     
     if ([text isKindOfClass:[NSString class]]) {
-        height = [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:CCDrawingOptions attributes:@{NSFontAttributeName: font} context:nil].size.height;
+        height = [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:CCDrawingOptions attributes:@{ NSFontAttributeName : font } context:nil].size.height;
     } else {
         height = [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:CCDrawingOptions context:nil].size.height;
     }

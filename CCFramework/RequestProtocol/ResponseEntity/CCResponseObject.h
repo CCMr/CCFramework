@@ -38,20 +38,26 @@
  *
  *  @brief  响应状态
  */
-@property (nonatomic, assign) BOOL success;
+@property(nonatomic, assign) BOOL success;
 
 /**
  *  @author C C, 2015-11-08
  *
  *  @brief  请求状态
  */
-@property (nonatomic, assign) BOOL status;
+@property(nonatomic, assign) BOOL status;
 
 /**
  *  @author C C, 2015-11-07
  *
  *  @brief  响应数据
  */
-@property (nonatomic, copy) NSString *data;
+@property(nonatomic, copy) NSString *data;
+
+
+#pragma mark -_- 汇信
+@property(nonatomic, assign) BOOL code;
+
+@property (nonatomic, copy) NSString *bodyMessage;
 
 @end

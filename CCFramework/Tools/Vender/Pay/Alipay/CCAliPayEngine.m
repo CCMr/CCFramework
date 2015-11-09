@@ -76,7 +76,7 @@ typedef void (^ResponseCallback)(NSInteger resultStatus, NSString *result,
  *
  *  @return 返回当前对象
  */
-+ (instancetype)sharedlnstance
++ (id)manager
 {
     static CCAliPayEngine *_sharedlnstance = nil;
     static dispatch_once_t onceToken;
@@ -170,8 +170,7 @@ typedef void (^ResponseCallback)(NSInteger resultStatus, NSString *result,
                                           [resultDic objectForKey:@"result"],
                                           [resultDic objectForKey:@"memo"], nil);
             };
-            [AlipaySDK performSelectors:fcSelector
-                             withObject:orderString, _appScheme, callback, nil];
+            [AlipaySDK performSelectors:fcSelector withObject:orderString, _appScheme, callback, nil];
         }else{
             NSLog(@"请在工程中导入AlipaySDK.framework文件");
         }
