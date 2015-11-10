@@ -80,11 +80,11 @@
             //暂停状态
             if ([keyPath isEqualToString:@"isPaused"] && [[change objectForKey:@"new"] intValue] == 1) {
                 //缓存路径
-                NSString* cachePath = [requestOperation.userInfo objectForKey:@"filePath"];
+//                NSString* cachePath = [requestOperation.userInfo objectForKey:@"filePath"];
                 
-                long long cacheLength = [[self class] cacheFileWithPath:cachePath];
+//                long long cacheLength = [[self class] cacheFileWithPath:cachePath];
                 //暂停读取data 从文件中获取到NSNumber
-                cacheLength = [[requestOperation.outputStream propertyForKey:NSStreamFileCurrentOffsetKey] unsignedLongLongValue];
+//                long long cacheLength = [[requestOperation.outputStream propertyForKey:NSStreamFileCurrentOffsetKey] unsignedLongLongValue];
                 [requestOperation setValue:@"0" forKey:@"totalBytesRead"];
                 
                 //重组进度block

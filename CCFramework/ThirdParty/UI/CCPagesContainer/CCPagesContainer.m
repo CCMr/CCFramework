@@ -450,7 +450,7 @@
     self.scrollView.userInteractionEnabled = YES;
     
     
-    CGRect frame;
+    CGRect frame = CGRectZero;
     switch (_indicatorType) {
         case CCPageIndicatorViewTypeInvertedTriangle:
             frame = CGRectMake(0, _isBarTop ? 44 : CGRectGetHeight(self.view.frame) - self.topBarHeight - self.pageIndicatorViewSize.height, self.pageIndicatorViewSize.width, self.pageIndicatorViewSize.height);

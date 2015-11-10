@@ -82,16 +82,16 @@
         searchField = [_searchBar.subviews objectAtIndex:1];
     else
         searchField = [((UIView *)[_searchBar.subviews objectAtIndex:0]).subviews lastObject];
-
-    //    if ([searchField isKindOfClass:[UITextField class]]) {
-    //        UIButton *leftIconButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 22, 22)];
-    //        [leftIconButton setImage:[UIImage imageNamed:@"VoiceSearchStartBtn"] forState:UIControlStateNormal];
-    //        [leftIconButton setImage:[UIImage imageNamed:@"VoiceSearchStartBtn_HL"] forState:UIControlStateHighlighted];
-    //        [leftIconButton addTarget:self action:@selector(voiceButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    //
-    //        searchField.rightView = leftIconButton;
-    //        searchField.rightViewMode = UITextFieldViewModeAlways;
-    //    }
+    
+    if ([searchField isKindOfClass:[UITextField class]]) {
+        UIButton *leftIconButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 22, 22)];
+        [leftIconButton setImage:[UIImage imageNamed:@"VoiceSearchStartBtn"] forState:UIControlStateNormal];
+        [leftIconButton setImage:[UIImage imageNamed:@"VoiceSearchStartBtn_HL"] forState:UIControlStateHighlighted];
+        [leftIconButton addTarget:self action:@selector(voiceButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        searchField.rightView = leftIconButton;
+        searchField.rightViewMode = UITextFieldViewModeAlways;
+    }
 }
 
 #pragma mark - Propertys
@@ -107,7 +107,7 @@
     if (!_searchBar) {
         _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
         _searchBar.delegate = self;
-
+        
         _searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
         _searchController.delegate = self;
         _searchController.searchResultsDelegate = self;
@@ -168,7 +168,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-
+    
     [self configureSearchBarLeftIconButton];
 }
 
@@ -179,7 +179,7 @@
     [self configuraSectionIndexBackgroundColorWithTableView:self.tableView];
     self.tableView.tableHeaderView = self.searchBar;
     [self.tableView extraCellLineHidden];
-
+    
     UIView *views = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 30)];
     views.backgroundColor = [UIColor redColor];
     //    [self.tableView setTableHeaderView:views];
@@ -220,20 +220,20 @@
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
     [self filterContentForSearchText:searchString scope:
      [self.searchDisplayController.searchBar scopeButtonTitles][[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
-
+    
     return YES;
 }
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
     [self filterContentForSearchText:[self.searchDisplayController.searchBar text] scope:
      [self.searchDisplayController.searchBar scopeButtonTitles][searchOption]];
-
+    
     return YES;
 }
 #pragma mark - SearchBar Delegate
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-
+    
 }
 
 #pragma mark - UITableView DataSource
@@ -257,7 +257,7 @@
         [tableView scrollRectToVisible:_searchBar.frame animated:NO];
         indexs = -1;
     }
-
+    
     return indexs;
 }
 
@@ -292,18 +292,18 @@
     if ([self enableForSearchTableView:tableView]) {
         return nil;
     }
-
-    BOOL showSection;
+    
+    BOOL showSection = NO;
     if (self.ArrayDataSource.count) {
         showSection = [[self.ArrayDataSource objectAtIndex:section] count] != 0;
     }else if (self.dicDataSource.count)
         showSection = [[self.dicDataSource objectForKey:[self.dicDataSource.allKeys objectAtIndex:section]] count] != 0;
-
+    
     //only show the section title if there are rows in the sections
-
+    
     UIView *customHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 22.0f)];
     customHeaderView.backgroundColor = [UIColor colorWithRed:0.926 green:0.920 blue:0.956 alpha:1.000];
-
+    
     UILabel *headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(15.0f, 0, CGRectGetWidth(customHeaderView.bounds) - 15.0f, 22.0f)];
     headerLabel.text = (showSection) ? (self.sectionIndexTitles.count == [[_theCollation sectionTitles] count] ? [_sectionIndexTitles objectAtIndex:section] : [_sectionIndexTitles objectAtIndex:section + 1]) : nil;
     headerLabel.backgroundColor = [UIColor clearColor];

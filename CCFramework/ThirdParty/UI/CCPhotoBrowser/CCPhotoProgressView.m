@@ -67,8 +67,8 @@
     }
     else if (_type == ProgressTypeCircle)
     {
-        CGColorRef colorBackAlpha = CGColorCreateCopyWithAlpha(_trackTintColor.CGColor, 0.05f);
-        CGColorRef colorProgressAlpha = CGColorCreateCopyWithAlpha(_progressTintColor. CGColor, 0.2f);
+        UIColor *colorBackAlpha = (UIColor *)CFBridgingRelease(CGColorCreateCopyWithAlpha(_trackTintColor.CGColor, 0.05f));
+        UIColor *colorProgressAlpha = (UIColor *)CFBridgingRelease(CGColorCreateCopyWithAlpha(_progressTintColor. CGColor, 0.2f));
         
         CGRect allRect = rect;
         CGRect circleRect = CGRectMake(allRect.origin.x + 2, allRect.origin.y + 2, allRect.size.width - 4, allRect.size.height - 4);
@@ -77,8 +77,8 @@
         float angle = (_progress) * 360.0f;
         
         CGContextSaveGState(context);
-        CGContextSetStrokeColorWithColor(context, colorProgressAlpha);
-        CGContextSetFillColorWithColor(context, colorBackAlpha);
+        CGContextSetStrokeColorWithColor(context, colorProgressAlpha.CGColor);
+        CGContextSetFillColorWithColor(context, colorBackAlpha.CGColor);
         CGContextSetLineWidth(context, 4.0);
         CGContextFillEllipseInRect(context, circleRect);
         CGContextStrokeEllipseInRect(context, circleRect);

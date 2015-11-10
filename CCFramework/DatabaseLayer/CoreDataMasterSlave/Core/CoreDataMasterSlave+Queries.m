@@ -96,7 +96,7 @@
     if (propertyID && [propertyID integerValue])
         autoincrementID = [propertyID integerValue];
     
-    return autoincrementID++;
+    return autoincrementID+1;
 }
 
 /**

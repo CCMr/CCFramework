@@ -123,7 +123,7 @@ typedef void (^ContactCompletion)(NSArray *contacts, NSError *error);
                                                      }
                                                      
                                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                         weakSelf.completion(array, nil);
+                                                         weakSelf.completion(array, error);
                                                      });
                                                  });
                                              });

@@ -110,9 +110,8 @@
     
     CGImageRef imageRef = viewImage.CGImage;
     CGRect rect = CGRectMake(0, 0, winsize.width * screenScale,winsize.height * screenScale);
-    
-    CGImageRef imageRefRect =CGImageCreateWithImageInRect(imageRef, rect);
-    UIImage *sendImage = [[UIImage alloc] initWithCGImage:imageRefRect];
+
+    UIImage *sendImage = [[UIImage alloc] initWithCGImage:CGImageCreateWithImageInRect(imageRef, rect)];
     
     return sendImage;
 }

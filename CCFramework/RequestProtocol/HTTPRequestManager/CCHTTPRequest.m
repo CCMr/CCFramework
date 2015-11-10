@@ -85,11 +85,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    NSLog(@"CCHTTPRequest   123");
-}
-
 #pragma mark - 参数设置
 /**
  *  @author CC, 2015-07-23
