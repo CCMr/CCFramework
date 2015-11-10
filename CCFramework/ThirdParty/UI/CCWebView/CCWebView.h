@@ -37,22 +37,15 @@
  *  @param webView 当前视图
  *  @param title   标示
  */
-- (void)webViewDidFinishLoad:(CCWebView *)webView Title: (NSString *)title;
-
-/**
- *  @author CC, 2015-10-19
- *
- *  @brief  初始化进度条
- *
- *  @return 返回当前视图的导航栏
- */
--(UINavigationBar *)webViewInitWithProgress;
+- (void)webViewDidFinishLoad:(CCWebView *)webView Title:(NSString *)title;
 
 @end
 
 @interface CCWebView : UIView
 
-@property (nonatomic, weak) id<CCWebViewDelegate> delegate;
+@property(nonatomic, weak) id<CCWebViewDelegate> delegate;
+
+@property(nonatomic, assign) UINavigationBar *webViewInitWithProgress;
 
 /**
  *  @author CC, 2015-10-13
@@ -61,6 +54,6 @@
  *
  *  @param baseURL 网页地址
  */
-- (void)loadRequest: (NSString *)baseURL;
+- (void)loadRequest:(NSString *)baseURL;
 
 @end

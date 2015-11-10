@@ -30,23 +30,23 @@
 #import "CCWebViewProgressView.h"
 
 
-@interface CCWebView ()<WKNavigationDelegate,WKUIDelegate,CCWebViewProgressDelegate,CCWebViewProgressDelegate,UIWebViewDelegate>
+@interface CCWebView () <WKNavigationDelegate, WKUIDelegate, CCWebViewProgressDelegate, CCWebViewProgressDelegate, UIWebViewDelegate>
 
-@property (nonatomic, strong) UIView *webView;
+@property(nonatomic, strong) UIView *webView;
 
-@property (nonatomic, strong) UILabel *originLable;
+@property(nonatomic, strong) UILabel *originLable;
 
-@property (nonatomic, strong) UIView *backgroundView;
+@property(nonatomic, strong) UIView *backgroundView;
 
-@property (nonatomic, strong) CCWebViewProgress *webViewProgress;
+@property(nonatomic, strong) CCWebViewProgress *webViewProgress;
 
-@property (nonatomic, strong) CCWebViewProgressView *progressView;
+@property(nonatomic, strong) CCWebViewProgressView *progressView;
 
 @end
 
 @implementation CCWebView
 
--(instancetype)init
+- (instancetype)init
 {
     if (self = [super init]) {
         [self initView];
@@ -62,11 +62,11 @@
     return self;
 }
 
--(void)initView
+- (void)initView
 {
     _backgroundView = [[UIView alloc] initWithFrame:self.bounds];
     [self addSubview:_backgroundView];
-
+    
     _originLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, CGRectGetWidth(self.bounds), 20)];
     _originLable.backgroundColor = [UIColor clearColor];
     _originLable.textAlignment = NSTextAlignmentCenter;
@@ -74,13 +74,13 @@
     _originLable.font = [UIFont systemFontOfSize:12];
     _originLable.text = @"网页由 www.ccskill.com 提供";
     [_backgroundView addSubview:_originLable];
-
+    
     if (NSClassFromString(@"WKWebView"))
         self.webView = [self InitWKWebView];
-     else
+    else
         self.webView = [self InitWebView];
-
-    [self.webView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+    
+    [self.webView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     [self addSubview:self.webView];
 }
 
@@ -91,22 +91,22 @@
  *
  *  @return 返回WKWebView
  */
--(WKWebView *)InitWKWebView
+- (WKWebView *)InitWKWebView
 {
-    WKWebViewConfiguration* configuration = [[NSClassFromString(@"WKWebViewConfiguration") alloc] init];
+    WKWebViewConfiguration *configuration = [[NSClassFromString(@"WKWebViewConfiguration") alloc] init];
     configuration.preferences = [NSClassFromString(@"WKPreferences") new];
     configuration.userContentController = [NSClassFromString(@"WKUserContentController") new];
-
+    
     WKWebView *webView = [[NSClassFromString(@"WKWebView") alloc] initWithFrame:self.bounds configuration:configuration];
     webView.UIDelegate = self;
     webView.navigationDelegate = self;
     webView.allowsBackForwardNavigationGestures = YES;
     webView.scrollView.backgroundColor = [UIColor clearColor];
-
+    
     [webView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
     [webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
-
+    
     return webView;
 }
 
@@ -119,25 +119,23 @@
  */
 - (UIWebView *)InitWebView
 {
-    UIWebView* webView = [[UIWebView alloc] initWithFrame:self.bounds];
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:self.bounds];
     webView.backgroundColor = [UIColor whiteColor];
     webView.opaque = NO;
-    for (UIView *subview in [webView.scrollView subviews])
-    {
-        if ([subview isKindOfClass:[UIImageView class]])
-        {
-            ((UIImageView *) subview).image = nil;
+    for (UIView *subview in [webView.scrollView subviews]) {
+        if ([subview isKindOfClass:[UIImageView class]]) {
+            ((UIImageView *)subview).image = nil;
             subview.backgroundColor = [UIColor clearColor];
         }
     }
-
+    
     _webViewProgress = [[CCWebViewProgress alloc] init];
     webView.delegate = _webViewProgress;
     _webViewProgress.webViewProxyDelegate = self;
     _webViewProgress.progressDelegate = self;
-
+    
     [webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
-
+    
     return webView;
 }
 
@@ -148,19 +146,16 @@
  *
  *  @return 返回进度条
  */
--(CCWebViewProgressView *)progressView
+- (CCWebViewProgressView *)progressView
 {
     if (!_progressView) {
-        if ([self.delegate respondsToSelector:@selector(webViewInitWithProgress)]) {
-            UINavigationBar *navigationBar = [self.delegate webViewInitWithProgress];
-            if (navigationBar) {
-                CGFloat progressBarHeight = 2.f;
-                CGRect navigaitonBarBounds = navigationBar.bounds;
-                CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);
-                _progressView = [[CCWebViewProgressView alloc] initWithFrame:barFrame];
-                _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-                [navigationBar addSubview:_progressView];
-            }
+        if (_webViewInitWithProgress) {
+            CGFloat progressBarHeight = 2.f;
+            CGRect navigaitonBarBounds = _webViewInitWithProgress.bounds;
+            CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);
+            _progressView = [[CCWebViewProgressView alloc] initWithFrame:barFrame];
+            _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+            [_webViewInitWithProgress addSubview:_progressView];
         }
     }
     return _progressView;
@@ -173,17 +168,17 @@
  *
  *  @param baseURL 网页地址
  */
-- (void)loadRequest: (NSString *)baseURL
+- (void)loadRequest:(NSString *)baseURL
 {
     NSURL *url = [NSURL URLWithString:[baseURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-
-    _originLable.text = [NSString stringWithFormat:@"网页由 %@ 提供",url.host];
-
+    
+    _originLable.text = [NSString stringWithFormat:@"网页由 %@ 提供", url.host];
+    
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     if ([self.webView isKindOfClass:[UIWebView class]])
-        [((UIWebView *)self.webView) loadRequest:request];
+        [((UIWebView *)self.webView)loadRequest:request];
     else
-       [((WKWebView *)self.webView) loadRequest:request];
+        [((WKWebView *)self.webView)loadRequest:request];
 }
 
 /**
@@ -196,11 +191,11 @@
  *  @param change  <#change description#>
  *  @param context <#context description#>
  */
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if([keyPath isEqualToString:@"estimatedProgress"]) {
-         [self progressChanged:[change objectForKey:NSKeyValueChangeNewKey]];
-    }else if([keyPath isEqualToString:@"title"]) {
+    if ([keyPath isEqualToString:@"estimatedProgress"]) {
+        [self progressChanged:[change objectForKey:NSKeyValueChangeNewKey]];
+    } else if ([keyPath isEqualToString:@"title"]) {
         _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.8];
         if ([self.delegate respondsToSelector:@selector(webViewDidFinishLoad:Title:)])
             [self.delegate webViewDidFinishLoad:self Title:change[NSKeyValueChangeNewKey]];
@@ -208,11 +203,12 @@
 }
 
 #pragma mark - CCWebViewProgressDelegate
--(void)webViewProgress:(CCWebViewProgress *)webViewProgress updateProgress:(float)progress{
+- (void)webViewProgress:(CCWebViewProgress *)webViewProgress updateProgress:(float)progress
+{
     [_progressView setProgress:progress animated:YES];
     _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.8];
     if ([self.delegate respondsToSelector:@selector(webViewDidFinishLoad:Title:)])
-        [self.delegate webViewDidFinishLoad:self Title:[((UIWebView *)self.webView) stringByEvaluatingJavaScriptFromString:@"document.title"]];
+        [self.delegate webViewDidFinishLoad:self Title:[((UIWebView *)self.webView)stringByEvaluatingJavaScriptFromString:@"document.title"]];
 }
 
 /**
@@ -225,7 +221,7 @@
 - (void)progressChanged:(NSNumber *)newValue
 {
     if (!self.progressView) return;
-
+    
     self.progressView.progress = newValue.floatValue;
     if (self.progressView.progress == 1) {
         self.progressView.progress = 0;
@@ -239,7 +235,7 @@
     }
 }
 
--(void)dealloc
+- (void)dealloc
 {
     [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
     [self.webView removeObserver:self forKeyPath:@"title"];

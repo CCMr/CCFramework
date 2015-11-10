@@ -30,28 +30,30 @@
 
 @interface CCPopMenu () <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) UIView *menuContainerView;
-@property (nonatomic, strong) CCPageIndicatorView *indicatorView;
+@property(nonatomic, strong) UIView *menuContainerView;
+@property(nonatomic, strong) CCPageIndicatorView *indicatorView;
 
-@property (nonatomic, strong) UITableView *menuTableView;
-@property (nonatomic, strong) NSMutableArray *menus;
+@property(nonatomic, strong) UITableView *menuTableView;
+@property(nonatomic, strong) NSMutableArray *menus;
 
-@property (nonatomic, weak) UIView *currentSuperView;
-@property (nonatomic, assign) CGPoint targetPoint;
+@property(nonatomic, weak) UIView *currentSuperView;
+@property(nonatomic, assign) CGPoint targetPoint;
 
-@property (nonatomic, strong) NSIndexPath *indexPath;
+@property(nonatomic, strong) NSIndexPath *indexPath;
 
-@property (nonatomic, assign) CGFloat fromTheTop;
+@property(nonatomic, assign) CGFloat fromTheTop;
 
 @end
 
 @implementation CCPopMenu
 
-- (void)showMenuAtPoint:(CGPoint)point {
+- (void)showMenuAtPoint:(CGPoint)point
+{
     [self showMenuOnView:[[UIApplication sharedApplication] keyWindow] atPoint:point];
 }
 
-- (void)showMenuOnView:(UIView *)view atPoint:(CGPoint)point {
+- (void)showMenuOnView:(UIView *)view atPoint:(CGPoint)point
+{
     self.currentSuperView = view;
     self.targetPoint = point;
     [self showMenu];
@@ -59,28 +61,36 @@
 
 #pragma mark - animation
 
-- (void)showMenu {
+- (void)showMenu
+{
     if (![self.currentSuperView.subviews containsObject:self]) {
         self.alpha = 0.0;
-
-        if ([self.currentSuperView isKindOfClass:[UIWindow class]]){
+        
+        if ([self.currentSuperView isKindOfClass:[UIWindow class]]) {
             self.fromTheTop = 64;
             [self layoutSubviews];
         }
         [self.currentSuperView addSubview:self];
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.alpha = 1.0;
-        } completion:^(BOOL finished) {
-
+            
+            self.menuContainerView.frame = CGRectMake(CGRectGetWidth(self.bounds) - kCCMenuTableViewWidth - 6, _fromTheTop + 8, kCCMenuTableViewWidth, self.menus.count * (kCCMenuItemViewHeight + kCCSeparatorLineImageViewHeight) + kCCMenuTableViewSapcing);
+            self.menuTableView.frame = CGRectMake(0, kCCMenuTableViewSapcing, CGRectGetWidth(_menuContainerView.bounds), CGRectGetHeight(_menuContainerView.bounds) - kCCMenuTableViewSapcing);
+            
+        } completion:^(BOOL finished){
+            
         }];
     } else {
         [self dissMissPopMenuAnimatedOnMenuSelected:NO];
     }
 }
 
-- (void)dissMissPopMenuAnimatedOnMenuSelected:(BOOL)selected {
+- (void)dissMissPopMenuAnimatedOnMenuSelected:(BOOL)selected
+{
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.alpha = 0.0;
+        self.menuContainerView.frame = CGRectMake(CGRectGetWidth(self.bounds) - kCCMenuTableViewWidth - 6, _fromTheTop + 8, kCCMenuTableViewWidth, 0);
+        self.menuTableView.frame = CGRectMake(0, kCCMenuTableViewSapcing, CGRectGetWidth(_menuContainerView.bounds), 0);
     } completion:^(BOOL finished) {
         if (selected) {
             if (self.popMenuDidDismissCompled) {
@@ -92,31 +102,32 @@
 }
 
 #pragma mark - Propertys
--(void)layoutSubviews
+- (void)layoutSubviews
 {
     CGRect frame = self.indicatorView.frame;
     frame.origin.y = _fromTheTop;
     self.indicatorView.frame = frame;
-
+    
     frame = self.menuContainerView.frame;
     frame.origin.y = _fromTheTop + 8;
     self.menuContainerView.frame = frame;
 }
 
-- (UIView *)menuContainerView {
+- (UIView *)menuContainerView
+{
     if (!_menuContainerView) {
-        _menuContainerView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - kCCMenuTableViewWidth - 6, _fromTheTop + 8, kCCMenuTableViewWidth, self.menus.count * (kCCMenuItemViewHeight + kCCSeparatorLineImageViewHeight) + kCCMenuTableViewSapcing)];
+        _menuContainerView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - kCCMenuTableViewWidth - 6, _fromTheTop + 8, kCCMenuTableViewWidth, 0)];
         _menuContainerView.backgroundColor = [UIColor whiteColor];
         _menuContainerView.layer.cornerRadius = 5;
         _menuContainerView.layer.masksToBounds = YES;
         _menuContainerView.userInteractionEnabled = YES;
-
+        
         [_menuContainerView addSubview:self.menuTableView];
     }
     return _menuContainerView;
 }
 
--(CCPageIndicatorView *)indicatorView
+- (CCPageIndicatorView *)indicatorView
 {
     if (!_indicatorView) {
         _indicatorView = [[CCPageIndicatorView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 35, _fromTheTop, 20, 8)];
@@ -126,9 +137,10 @@
     return _indicatorView;
 }
 
-- (UITableView *)menuTableView {
+- (UITableView *)menuTableView
+{
     if (!_menuTableView) {
-        _menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kCCMenuTableViewSapcing, CGRectGetWidth(_menuContainerView.bounds), CGRectGetHeight(_menuContainerView.bounds) - kCCMenuTableViewSapcing) style:UITableViewStylePlain];
+        _menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kCCMenuTableViewSapcing, CGRectGetWidth(_menuContainerView.bounds), 0) style:UITableViewStylePlain];
         _menuTableView.backgroundColor = [UIColor clearColor];
         _menuTableView.separatorColor = [UIColor clearColor];
         _menuTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -147,7 +159,7 @@
  *
  *  @param menuBackgroundColor 颜色值
  */
--(void)setMenuBackgroundColor:(UIColor *)menuBackgroundColor
+- (void)setMenuBackgroundColor:(UIColor *)menuBackgroundColor
 {
     _menuContainerView.backgroundColor = menuBackgroundColor;
     _indicatorView.color = menuBackgroundColor;
@@ -160,7 +172,7 @@
  *
  *  @param menuItemTextColor 颜色值
  */
--(void)setMenuItemTextColor:(UIColor *)menuItemTextColor
+- (void)setMenuItemTextColor:(UIColor *)menuItemTextColor
 {
     _menuItemTextColor = menuItemTextColor;
     [self.menuTableView reloadData];
@@ -168,7 +180,8 @@
 
 #pragma mark - Life Cycle
 
-- (void)setup {
+- (void)setup
+{
     _fromTheTop = 0;
     self.frame = [[UIScreen mainScreen] bounds];
     self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.1];
@@ -176,7 +189,8 @@
     [self addSubview:self.menuContainerView];
 }
 
-- (id)initWithMenus:(NSArray *)menus {
+- (id)initWithMenus:(NSArray *)menus
+{
     self = [super init];
     if (self) {
         self.menus = [[NSMutableArray alloc] initWithArray:menus];
@@ -185,7 +199,8 @@
     return self;
 }
 
-- (instancetype)initWithObjects:(id)firstObj, ... NS_REQUIRES_NIL_TERMINATION {
+- (instancetype)initWithObjects:(id)firstObj, ... NS_REQUIRES_NIL_TERMINATION
+{
     self = [super init];
     if (self) {
         NSMutableArray *menuItems = [[NSMutableArray alloc] init];
@@ -194,7 +209,7 @@
         if (firstObj) {
             [menuItems addObject:firstObj];
             va_start(argumentList, firstObj);
-            while((eachItem = va_arg(argumentList, CCPopMenuItem *))) {
+            while ((eachItem = va_arg(argumentList, CCPopMenuItem *))) {
                 [menuItems addObject:eachItem];
             }
             va_end(argumentList);
@@ -205,7 +220,8 @@
     return self;
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
     UITouch *touch = [touches anyObject];
     CGPoint localPoint = [touch locationInView:self];
     if (CGRectContainsPoint(_menuContainerView.frame, localPoint)) {
@@ -217,29 +233,32 @@
 
 #pragma mark - UITableView DataSource
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return self.menus.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *cellIdentifer = @"cellIdentifer";
     CCPopMenuItemView *popMenuItemView = (CCPopMenuItemView *)[tableView dequeueReusableCellWithIdentifier:cellIdentifer];
     if (!popMenuItemView) {
         popMenuItemView = [[CCPopMenuItemView alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifer];
     }
-
+    
     if (indexPath.row < self.menus.count) {
         [popMenuItemView setupPopMenuItem:self.menus[indexPath.row] atIndexPath:indexPath isBottom:(indexPath.row == self.menus.count - 1)];
     }
-
+    
     popMenuItemView.textLabel.textColor = self.menuItemTextColor;
-
+    
     return popMenuItemView;
 }
 
 #pragma mark - UITableView Delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     self.indexPath = indexPath;
     [self dissMissPopMenuAnimatedOnMenuSelected:YES];
