@@ -85,6 +85,10 @@
     return self;
 }
 
+- (void)dealloc
+{
+    NSLog(@"CCHTTPRequest   123");
+}
 
 #pragma mark - 参数设置
 /**
@@ -212,7 +216,7 @@
 - (void)responseProcessEvent:(id)responseData
 {
     if (_requestBacktrack) {
-        NSDictionary *dic = responseData;
+        id dic = responseData;
         if (![dic isKindOfClass:[NSDictionary class]] &&
             ![dic isKindOfClass:[NSNull class]]) {
             NSData *datas = responseData;
@@ -221,6 +225,11 @@
             dic = [NSJSONSerialization JSONObjectWithData:datas
                                                   options:NSJSONReadingAllowFragments
                                                     error:nil];
+            if (!dic) {
+                NSRange range = [dic rangeOfString:@"["];
+                if (!range.length)
+                    dic = responseData;
+            }
         }
         _requestBacktrack(dic, nil);
     }

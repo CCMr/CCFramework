@@ -87,7 +87,7 @@
         blockTrack(entity,nil);
         
         if (operation.userInfo && completionBlock)
-            completionBlock(dic, operation.userInfo);
+            completionBlock(entity, operation.userInfo);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         errorAnalysis(error.code)? failureBlock(error) : errorBlock(error);
