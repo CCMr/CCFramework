@@ -36,6 +36,6 @@
  *
  *  @return 返回函数值
  */
-- (id)performSelectors:(SEL)selector withObject:aObject, ...;
+- (id)performSelectors:(SEL)selector withObject:aObject, ... NS_REQUIRES_NIL_TERMINATION;
 
 @end

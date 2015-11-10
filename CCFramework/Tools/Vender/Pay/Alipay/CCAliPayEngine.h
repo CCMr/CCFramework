@@ -27,7 +27,7 @@
 
 @interface CCAliPayEngine : NSObject
 
-+ (instancetype)manager;
++ (id)sharedlnstance;
 
 /**
  *  @author C C, 2015-10-18
