@@ -587,11 +587,9 @@ static CGPoint delayOffset = {0.0};
     NSInteger rows = [self.messageTableView numberOfRowsInSection:0];
     
     if (rows > 0) {
-        [self.messageTableView
-         scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:rows - 1
-                                                   inSection:0]
-         atScrollPosition:UITableViewScrollPositionBottom
-         animated:animated];
+        [self.messageTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:rows - 1 inSection:0]
+                                     atScrollPosition:UITableViewScrollPositionBottom
+                                             animated:animated];
     }
 }
 
@@ -612,9 +610,7 @@ static CGPoint delayOffset = {0.0};
 - (BOOL)shouldAllowScroll
 {
     if (self.isUserScrolling) {
-        if ([self.delegate
-             respondsToSelector:
-             @selector(shouldPreventScrollToBottomWhileUserScrolling)] &&
+        if ([self.delegate respondsToSelector:@selector(shouldPreventScrollToBottomWhileUserScrolling)] &&
             [self.delegate shouldPreventScrollToBottomWhileUserScrolling]) {
             return NO;
         }
@@ -1314,7 +1310,6 @@ static CGPoint delayOffset = {0.0};
 - (void)didSelecteShareMenuItem:(CCShareMenuItem *)shareMenuItem
                         atIndex:(NSInteger)index
 {
-    
     WEAKSELF;
     switch (shareMenuItem.itemType) {
         case CCShareMenuItemTypePhoto: {
@@ -1322,10 +1317,9 @@ static CGPoint delayOffset = {0.0};
             [_camerViewController startPhotoFileWithViewController:
              weakSelf complate:^(id request) {
                  NSArray *photoAry = request;
-                 [photoAry
-                  enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                      [weakSelf didSendMessageWithPhoto:obj];
-                  }];
+                 [photoAry enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                     [weakSelf didSendMessageWithPhoto:obj];
+                 }];
              }];
         } break;
         case CCShareMenuItemTypeVideo:
@@ -1365,15 +1359,13 @@ static CGPoint delayOffset = {0.0};
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if ([self.delegate
-         respondsToSelector:@selector(shouldLoadMoreMessagesScrollToTop)]) {
-        BOOL shouldLoadMoreMessages =
-        [self.delegate shouldLoadMoreMessagesScrollToTop];
+    if ([self.delegate respondsToSelector:@selector(shouldLoadMoreMessagesScrollToTop)]) {
+        BOOL shouldLoadMoreMessages = [self.delegate shouldLoadMoreMessagesScrollToTop];
         if (shouldLoadMoreMessages) {
-            if (scrollView.contentOffset.y >= 0 && scrollView.contentOffset.y <= 44) {
+            if (scrollView.contentOffset.y <= -44) {
                 if (!self.loadingMoreMessage) {
-                    if ([self.delegate
-                         respondsToSelector:@selector(loadMoreMessagesScrollTotop)]) {
+                    self.loadingMoreMessage = YES;
+                    if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollTotop)]) {
                         [self.delegate loadMoreMessagesScrollTotop];
                     }
                 }

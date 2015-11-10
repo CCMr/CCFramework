@@ -26,35 +26,37 @@
 #import "CCQRCodeDisplayViewController.h"
 #import "CCWebView.h"
 
-@interface CCQRCodeDisplayViewController ()<CCWebViewDelegate>
+@interface CCQRCodeDisplayViewController () <CCWebViewDelegate>
 
-@property (nonatomic, strong) CCWebView *webView;
+@property(nonatomic, strong) CCWebView *webView;
 
 @end
 
 @implementation CCQRCodeDisplayViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self InitControl];
 }
 
--(void)InitControl
+- (void)InitControl
 {
     UIView *bgView = [[UIView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:bgView];
-
-
+    
+    
     CGRect frame = self.view.bounds;
     frame.size.height -= 64;
-     _webView = [[CCWebView alloc] initWithFrame:frame];
+    _webView = [[CCWebView alloc] initWithFrame:frame];
     _webView.backgroundColor = [UIColor clearColor];
+    [_webView setWebViewInitWithProgress:self.navigationController.navigationBar];
     _webView.delegate = self;
     [self.view addSubview:_webView];
 }
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.webView loadRequest:self.baseURL];
@@ -66,30 +68,17 @@
 
 #pragma mark - CCWebViewDelegate
 
-/**
- *  @author CC, 2015-10-19
- *
- *  @brief  初始化进度条
- *
- *  @return 返回当前视图的导航栏
- */
--(UINavigationBar *)webViewInitWithProgress
-{
-    return self.navigationController.navigationBar;
-}
-
--(void)webViewDidFinishLoad:(CCWebView *)webView Title:(NSString *)title
+- (void)webViewDidFinishLoad:(CCWebView *)webView Title:(NSString *)title
 {
     self.title = title;
 }
 
--(void)webViewProgress:(CCWebView *)webViewProgress updateProgress:(float)progress
+- (void)webViewProgress:(CCWebView *)webViewProgress updateProgress:(float)progress
 {
-    
 }
 
 #pragma mark - 转屏
--(UIInterfaceOrientationMask)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskAll;
 }
@@ -99,19 +88,19 @@
     return YES;
 }
 
--(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
     return UIInterfaceOrientationPortrait;
 }
 
--(void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
-    [coordinator animateAlongsideTransition:^(id  context) {
+    [coordinator animateAlongsideTransition:^(id context) {
         if (newCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
-
+            
         } else {
-
+            
         }
         _webView.frame = self.view.bounds;
         [self.view setNeedsLayout];

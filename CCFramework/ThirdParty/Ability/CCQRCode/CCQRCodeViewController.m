@@ -263,8 +263,7 @@ CCCaptureHelperDelegate>
 - (void)scanDealWithResult:(NSString *)resultAddress {
     if (_scanDealWithResult) { //系统处理
         MainThread(^() {
-            CCQRCodeDisplayViewController *viewController =
-            [[CCQRCodeDisplayViewController alloc] init];
+            CCQRCodeDisplayViewController *viewController = [[CCQRCodeDisplayViewController alloc] init];
             viewController.baseURL = resultAddress;
             [self pushNewViewController:viewController];
         });
