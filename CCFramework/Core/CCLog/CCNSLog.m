@@ -31,6 +31,19 @@ FOUNDATION_EXPORT void cc_NSLog(const char *file, const char *method, int lineNu
     if (![format hasSuffix:@"\n"])
         format = [format stringByAppendingString:@"\n"];
     
+    
+    format = ({
+        format = [format stringByReplacingOccurrencesOfString:@"\\u" withString:@"\\U"];
+        format = [format stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+        format = [[@"\"" stringByAppendingString:format] stringByAppendingString:@"\""];
+        format = [NSPropertyListSerialization propertyListFromData:[format dataUsingEncoding:NSUTF8StringEncoding]
+                                                  mutabilityOption:NSPropertyListImmutable
+                                                            format:NULL
+                                                  errorDescription:NULL];
+        
+        [format stringByReplacingOccurrencesOfString:@"\\r\\n" withString:@"\n"];
+    });
+    
     NSMutableString *log = [NSMutableString string];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

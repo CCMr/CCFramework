@@ -26,8 +26,16 @@
 #import <Foundation/Foundation.h>
 
 #ifdef DEBUG
-#define CCNSLogger(format, ...) cc_NSLog(nil, nil, __LINE__, [NSString stringWithFormat:(format), ##__VA_ARGS__])			//输出格式（时间 工程名称 版本号 行数）
-#define CCExtLogger(format, ...) cc_NSLog(__FILE__, __PRETTY_FUNCTION__, __LINE__, [NSString stringWithFormat:(format), ##__VA_ARGS__]) //输出格式（时间 工程名称 版本号 类名 函数名 行数）
+#define CCNSLogger(format, ...) \
+cc_NSLog(nil,nil, __LINE__, [NSString stringWithFormat:(format), ##__VA_ARGS__])			//输出格式（时间 工程名称 版本号 行数）
+
+ //输出格式（时间 工程名称 版本号 类名 函数名 行数）
+#define CCExtLogger(format, ...)\
+cc_NSLog(__FILE__,\
+         __PRETTY_FUNCTION__,\
+         __LINE__, \
+        [NSString stringWithFormat:(format), ##__VA_ARGS__])
+
 #else
 #define CCNSLogger(...) NSLog(__VA_ARGS__)
 #endif
