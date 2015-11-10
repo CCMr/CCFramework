@@ -40,7 +40,7 @@
     if (self = [super initWithFrame:frame]) {
         _selectedImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 15, self.bounds.size.width - 10, self.bounds.size.width - 10)];
         _selectedImageView.layer.cornerRadius = _selectedImageView.frame.size.width / 2;
-        _selectedImageView.backgroundColor = RGBA(26, 168, 186, 1);
+        _selectedImageView.backgroundColor = cc_ColorRGBA(26, 168, 186, 1);
         [self addSubview:_selectedImageView];
         
         //日期
@@ -86,7 +86,7 @@
                 _dateLabel.textColor = [UIColor orangeColor];
             }else{
                 _dateLabel.text = [NSString stringWithFormat:@"%d",(int)calendarDay.Day];
-                _dateLabel.textColor = RGBA(26, 168, 186, 1);
+                _dateLabel.textColor = cc_ColorRGBA(26, 168, 186, 1);
             }
             
             _selectedImageView.hidden = YES;
@@ -112,7 +112,7 @@
             _dateLabel.textColor = [UIColor whiteColor];
             
             _lunarCalendar.font = [UIFont boldSystemFontOfSize:15];
-            _lunarCalendar.textColor = RGBA(26, 168, 186, 1);
+            _lunarCalendar.textColor = cc_ColorRGBA(26, 168, 186, 1);
             
             _selectedImageView.hidden = NO;
             break;

@@ -530,10 +530,10 @@
     if (self.allowsSendVoice) {
         UIEdgeInsets edgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
         button = [self
-                  createButtonWithImage:CC_STRETCH_IMAGE(
+                  createButtonWithImage:cc_Stretch_Image(
                                                          [UIImage imageNamed:@"VoiceBtn_Black"],
                                                          edgeInsets)
-                  HLImage:CC_STRETCH_IMAGE(
+                  HLImage:cc_Stretch_Image(
                                            [UIImage imageNamed:@"VoiceBtn_BlackHL"],
                                            edgeInsets)];
         [button setTitleColor:[UIColor darkGrayColor]

@@ -120,7 +120,7 @@
     [ToolbarView addSubview:PreviewBtn];
     
     SendCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(winsize.width - 80, 13, 25, 25)];
-    SendCountLabel.backgroundColor =  RGBA(0, 204, 51, 1);
+    SendCountLabel.backgroundColor =  cc_ColorRGBA(0, 204, 51, 1);
     SendCountLabel.layer.cornerRadius = 13;
     SendCountLabel.layer.masksToBounds = YES;
     SendCountLabel.textColor = [UIColor whiteColor];
@@ -129,8 +129,8 @@
     [ToolbarView addSubview:SendCountLabel];
     
     SendBtn = [UIButton buttonWithTitle:@"确定"];
-    [SendBtn setTitleColor:RGBA(0, 204, 51, 1) forState:UIControlStateNormal];
-    [SendBtn setTitleColor:RGBA(0, 204, 51, 1) forState:UIControlStateHighlighted];
+    [SendBtn setTitleColor:cc_ColorRGBA(0, 204, 51, 1) forState:UIControlStateNormal];
+    [SendBtn setTitleColor:cc_ColorRGBA(0, 204, 51, 1) forState:UIControlStateHighlighted];
     SendBtn.frame = CGRectMake(winsize.width - 60, 5, 50, 40);
     SendBtn.enabled = NO;
     SendBtn.alpha = .5;

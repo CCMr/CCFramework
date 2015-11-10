@@ -246,9 +246,8 @@
  */
 - (void)errorProcessEvent:(id)error
 {
-    
     if (_requestBacktrack) {
-        NSString *errorStr = error;
+        NSString *errorStr = error ?:@"";
         NSInteger code = 0;
         if ([error isKindOfClass:[NSError class]]) {
             code = ((NSError *)error).code;
@@ -270,7 +269,7 @@
 - (void)netFailure:(id)error
 {
     if (_requestBacktrack) {
-        NSString *errorStr = error;
+        NSString *errorStr = error?:@"";
         NSInteger code = 0;
         if ([error isKindOfClass:[NSError class]]) {
             code = ((NSError *)error).code;

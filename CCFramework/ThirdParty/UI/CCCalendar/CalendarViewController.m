@@ -167,7 +167,7 @@ static NSString *CellHeaderIdentifier = @"CalendarHeader";
     for (int i = 0; i < _optionDayNumber; i++) {
         UIView *tipsView = [[UIView alloc] initWithFrame:CGRectMake(x, winsize.height - 100, winsize.width - 150, 70)];
         tipsView.layer.cornerRadius = 5;
-        tipsView.backgroundColor = RGBA(0, 0, 0, .7);
+        tipsView.backgroundColor = cc_ColorRGBA(0, 0, 0, .7);
         tipsView.tag = i == 0 ? 123456789 : 987654321;
         tipsView.hidden = YES;
         [self.view addSubview:tipsView];

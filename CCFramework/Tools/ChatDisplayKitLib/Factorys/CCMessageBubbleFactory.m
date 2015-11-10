@@ -72,8 +72,7 @@
   UIImage *bublleImage = [UIImage imageNamed:messageTypeString];
   UIEdgeInsets bubbleImageEdgeInsets =
       [self bubbleImageEdgeInsetsWithStyle:style];
-  UIImage *edgeBubbleImage =
-      CC_STRETCH_IMAGE(bublleImage, bubbleImageEdgeInsets);
+  UIImage *edgeBubbleImage = cc_Stretch_Image(bublleImage, bubbleImageEdgeInsets);
   return edgeBubbleImage;
 }
 

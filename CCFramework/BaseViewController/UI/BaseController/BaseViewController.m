@@ -123,7 +123,7 @@
     popView.tag = 9999999;
     
     _BottomPopView = [[UIView alloc] init];
-    _BottomPopView.backgroundColor = RGBA(0, 0, 0, .3);
+    _BottomPopView.backgroundColor = cc_ColorRGBA(0, 0, 0, .3);
     [_BottomPopView addSubview:popView];
     
     
@@ -203,14 +203,14 @@
 - (void)setLeftBarButtonWithTitle:(NSString *)title imageName:(NSString *)imageName
 {
     [self.leftBarButton setTitle:title forState:UIControlStateNormal];
-    [self.leftBarButton setImage:[UIImage imageNamed:CCSafeString(imageName)] forState:UIControlStateNormal];
+    [self.leftBarButton setImage:[UIImage imageNamed:cc_SafeString(imageName)] forState:UIControlStateNormal];
     self.leftBarButton.hidden = NO;
 }
 
 - (void)setRightBarButtonWithTitle:(NSString *)title imageName:(NSString *)imageName
 {
     [self.rightBarButton setTitle:title forState:UIControlStateNormal];
-    [self.rightBarButton setImage:[UIImage imageNamed:CCSafeString(imageName)] forState:UIControlStateNormal];
+    [self.rightBarButton setImage:[UIImage imageNamed:cc_SafeString(imageName)] forState:UIControlStateNormal];
     self.rightBarButton.hidden = NO;
 }
 

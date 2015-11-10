@@ -87,7 +87,7 @@
     [self addSubview:_saveImageBtn];
     
     SendCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width - (btnWidth + 30), (btnWidth - 20) / 2, 20, 20)];
-    SendCountLabel.backgroundColor =  RGBA(0, 204, 51, 1);
+    SendCountLabel.backgroundColor =  cc_ColorRGBA(0, 204, 51, 1);
     SendCountLabel.layer.cornerRadius = 10;
     SendCountLabel.layer.masksToBounds = YES;
     SendCountLabel.textColor = [UIColor whiteColor];
@@ -100,8 +100,8 @@
         completeBtn = [UIButton buttonWithTitle:@"完成"];
         completeBtn.frame = CGRectMake(self.bounds.size.width - (btnWidth + 10), 0, btnWidth, btnWidth);
         completeBtn.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        [completeBtn setTitleColor:RGBA(0, 204, 51, 1) forState:UIControlStateNormal];
-        [completeBtn setTitleColor:RGBA(0, 204, 51, 1) forState:UIControlStateHighlighted];
+        [completeBtn setTitleColor:cc_ColorRGBA(0, 204, 51, 1) forState:UIControlStateNormal];
+        [completeBtn setTitleColor:cc_ColorRGBA(0, 204, 51, 1) forState:UIControlStateHighlighted];
 //        completeBtn.titleLabel.font = Font19And17(systemFontOfSize, 15);
         [completeBtn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
             // 通知代理

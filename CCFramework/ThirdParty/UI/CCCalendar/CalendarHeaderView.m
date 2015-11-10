@@ -58,7 +58,7 @@
     [masterLabel setBackgroundColor:[UIColor clearColor]];
     [masterLabel setTextAlignment:NSTextAlignmentCenter];
     [masterLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:17.0f]];
-    masterLabel.textColor = RGBA(26, 168, 186, 1);
+    masterLabel.textColor = cc_ColorRGBA(26, 168, 186, 1);
     masterLabel.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:.8];
     [self addSubview:masterLabel];
     
@@ -68,7 +68,7 @@
         UILabel *dayLabel = [[UILabel alloc] initWithFrame:CGRectMake(i * width, 40, width, 25)];
         dayLabel.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:.6];
         dayLabel.textAlignment = NSTextAlignmentCenter;
-        dayLabel.textColor = RGBA(26, 168, 186, 1);
+        dayLabel.textColor = cc_ColorRGBA(26, 168, 186, 1);
         if (i == 0 || i == 6)
             dayLabel.textColor = [UIColor redColor];
         dayLabel.text = array[i];

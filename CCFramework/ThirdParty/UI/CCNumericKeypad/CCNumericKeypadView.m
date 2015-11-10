@@ -66,7 +66,7 @@
     
     
     UILabel *Title = [[UILabel alloc] initWithFrame:CGRectMake(winsize.width / 2.5, 5, 200, 20)];
-    Title.textColor = RGBA(191, 191, 191, 1);
+    Title.textColor = cc_ColorRGBA(191, 191, 191, 1);
     Title.font = [UIFont systemFontOfSize:13];
     Title.text = @"凯润特安全输入";
     [self addSubview:Title];
@@ -78,19 +78,19 @@
     
     
     UIView *VerticalLine1 = [[UIView alloc] initWithFrame:CGRectMake(KeyboardNumericKeyWidth, y, 1, h)];
-    VerticalLine1.backgroundColor = RGBA(143, 143, 143, 1);
+    VerticalLine1.backgroundColor = cc_ColorRGBA(143, 143, 143, 1);
     [self addSubview:VerticalLine1];
     
     UIView *VerticalLine2 = [[UIView alloc] initWithFrame:CGRectMake(KeyboardNumericKeyWidth * 2, y, 1, h)];
-    VerticalLine2.backgroundColor = RGBA(143, 143, 143, 1);
+    VerticalLine2.backgroundColor = cc_ColorRGBA(143, 143, 143, 1);
     [self addSubview:VerticalLine2];
     
     UIView *VerticalLine3 = [[UIView alloc] initWithFrame:CGRectMake(KeyboardNumericKeyWidth * 3, y, 1, h)];
-    VerticalLine3.backgroundColor = RGBA(143, 143, 143, 1);
+    VerticalLine3.backgroundColor = cc_ColorRGBA(143, 143, 143, 1);
     [self addSubview:VerticalLine3];
     
     UIView *horizontalLine0 = [[UIView alloc] initWithFrame:CGRectMake(0, y, winsize.width, 1)];
-    horizontalLine0.backgroundColor = RGBA(143, 143, 143, 1);
+    horizontalLine0.backgroundColor = cc_ColorRGBA(143, 143, 143, 1);
     [self addSubview:horizontalLine0];
     
     [self addSubview:[self addNumericKeyWithTitle:@"1" BottomTitle:@"" frame:CGRectMake(0, y+1, KeyboardNumericKeyWidth, KeyboardNumericKeyHeight-1)]];
@@ -98,7 +98,7 @@
     [self addSubview:[self addNumericKeyWithTitle:@"3" BottomTitle:@"" frame:CGRectMake(KeyboardNumericKeyWidth * 2 + 1, y+1, KeyboardNumericKeyWidth-1, KeyboardNumericKeyHeight-1)]];
     
     UIView *horizontalLine1 = [[UIView alloc] initWithFrame:CGRectMake(0, KeyboardNumericKeyHeight+ y, winsize.width - 80, 1)];
-    horizontalLine1.backgroundColor = RGBA(143, 143, 143, 1);
+    horizontalLine1.backgroundColor = cc_ColorRGBA(143, 143, 143, 1);
     [self addSubview:horizontalLine1];
     
     [self addSubview:[self addNumericKeyWithTitle:@"4" BottomTitle:@"" frame:CGRectMake(0, KeyboardNumericKeyHeight +y+1, KeyboardNumericKeyWidth, KeyboardNumericKeyHeight-1)]];
@@ -106,7 +106,7 @@
     [self addSubview:[self addNumericKeyWithTitle:@"6" BottomTitle:@"" frame:CGRectMake(KeyboardNumericKeyWidth * 2 + 1, KeyboardNumericKeyHeight + y+1, KeyboardNumericKeyWidth-1, KeyboardNumericKeyHeight-1)]];
     
     UIView *horizontalLine2 = [[UIView alloc] initWithFrame:CGRectMake(0, KeyboardNumericKeyHeight * 2 + y, winsize.width - 80, 1)];
-    horizontalLine2.backgroundColor = RGBA(143, 143, 143, 1);
+    horizontalLine2.backgroundColor = cc_ColorRGBA(143, 143, 143, 1);
     [self addSubview:horizontalLine2];
     
     [self addSubview:[self addNumericKeyWithTitle:@"7" BottomTitle:@"" frame:CGRectMake(0, KeyboardNumericKeyHeight * 2 + y +1, KeyboardNumericKeyWidth-1, KeyboardNumericKeyHeight)]];
@@ -114,7 +114,7 @@
     [self addSubview:[self addNumericKeyWithTitle:@"9" BottomTitle:@"" frame:CGRectMake(KeyboardNumericKeyWidth * 2 +1, KeyboardNumericKeyHeight * 2 + y+1, KeyboardNumericKeyWidth - 1, KeyboardNumericKeyHeight - 1)]];
     
     UIView *horizontalLine3 = [[UIView alloc] initWithFrame:CGRectMake(0, KeyboardNumericKeyHeight * 3 + y, winsize.width - 80, 1)];
-    horizontalLine3.backgroundColor = RGBA(143, 143, 143, 1);
+    horizontalLine3.backgroundColor = cc_ColorRGBA(143, 143, 143, 1);
     [self addSubview:horizontalLine3];
     
     [self addSubview:[self addNumericKeyWithTitle:@"." BottomTitle:@"" frame:CGRectMake(0, KeyboardNumericKeyHeight * 3 + y+1, KeyboardNumericKeyWidth, KeyboardNumericKeyHeight - 1)]];
