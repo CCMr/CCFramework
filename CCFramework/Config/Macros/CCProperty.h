@@ -2,50 +2,107 @@
 //  CCProperty.h
 //  CCFramework
 //
-//  Created by CC on 15/11/7.
-//  Copyright © 2015年 CC. All rights reserved.
+// Copyright (c) 2015 CC ( http://www.ccskill.com )
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 //
 
 #ifndef CCProperty_h
 #define CCProperty_h
 
 #define Bundle                              [NSBundle mainBundle]
-#define VersonNumber                        [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey] //版本号
-#define AppName                             [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleNameKey]	 //应用名称
-#define deviceUID                           [[[UIDevice currentDevice] identifierForVendor] UUIDString]				   //设备编号
-#define deviceType                          [[UIDevice currentDevice] model];							   //设备类型
+
+/** 版本号 */
+#define VersonNumber                        [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey]
+
+/** 应用名称 */
+#define AppName                             [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleNameKey]
+
+/** 设备编号 */
+#define deviceUID                           [[[UIDevice currentDevice] identifierForVendor] UUIDString]
+
+/** 设备类型 */
+#define deviceType                          [[UIDevice currentDevice] model];
 #define IsiOS7Later                         !(CURRENT_SYS_VERSION < 7.0)
-#define CURRENT_SYS_VERSION                 [[[UIDevice currentDevice] systemVersion] floatValue] //设备版本号
-#define userDefaults                        [NSUserDefaults standardUserDefaults]			  //获取缓存
+
+/** 设备版本号 */
+#define CURRENT_SYS_VERSION                 [[[UIDevice currentDevice] systemVersion] floatValue]
+
+/** 获取缓存 */
+#define userDefaults                        [NSUserDefaults standardUserDefaults]
+
+/** 应用委托 */
 #define ApplicationDelegate                 [[UIApplication sharedApplication] delegate]
 #define SharedApplication                   [UIApplication sharedApplication]
 #define StatusBarHeight                     [UIApplication sharedApplication].statusBarFrame.size.height
+
+/** 设置网络活动指示灯 */
 #define ShowNetworkActivityIndicator()      [UIApplication sharedApplication].networkActivityIndicatorVisible = YES
 #define HideNetworkActivityIndicator()      [UIApplication sharedApplication].networkActivityIndicatorVisible = NO
 #define NetworkActivityIndicatorVisible(x)  [UIApplication sharedApplication].networkActivityIndicatorVisible = x
+
+/** 导航栏 */
 #define SelfNavBar                          self.navigationController.navigationBar
-#define SelfTabBar                          self.tabBarController.tabBar
 #define SelfNavBarHeight                    self.navigationController.navigationBar.bounds.size.height
-#define SelfTabBarHeight                    self.tabBarController.tabBar.bounds.size.height
 #define SelfDefaultToolbarHeight            self.navigationController.navigationBar.frame.size.height
+
+/** 底部导航 */
+#define SelfTabBar                          self.tabBarController.tabBar
+#define SelfTabBarHeight                    self.tabBarController.tabBar.bounds.size.height
+
+/** 主屏幕 */
 #define MainScreen                          [UIScreen mainScreen]
+
+/** 屏幕高宽 */
 #define ScreenRect                          [[UIScreen mainScreen] bounds]
-#define winsize                             [[UIScreen mainScreen] bounds].size //获取屏幕
-#define winsizeWidth                        [[UIScreen mainScreen] bounds].size.width
-#define winsizeHeight                       [[UIScreen mainScreen] bounds].size.height
+
+/** 屏幕大小 */
+#define winsize                             [[UIScreen mainScreen] bounds].size
 
 
-//设置颜色RGB
-#define RGB(r, g, b)                        [UIColor colorWithRed:(r) / 255.f green:(g) / 255.f blue:(b) / 255.f alpha:1.f]
-#define RGBA(r, g, b, a)                    [UIColor colorWithRed:r / 255.0 green:g / 255.0 blue:b / 255.0 alpha:a]
-// rgb颜色转换（16进制->10进制）
-#define UIColorFromRGB(rgbValue)            [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16)) / 255.0 green:((float)((rgbValue & 0xFF00) >> 8)) / 255.0 blue:((float)(rgbValue & 0xFF)) / 255.0 alpha:1.0] 
-#define CCSafeString(str)                   (str == nil ? @"" : str)//判断字符串
-#define CCServiceString(str)                ([str isKindOfClass:[NSNull class]] ? @"" : str)
-#define CC_STRETCH_IMAGE(image, edgeInsets) (CURRENT_SYS_VERSION < 6.0 ? [image stretchableImageWithLeftCapWidth:edgeInsets.left topCapHeight:edgeInsets.top] : [image resizableImageWithCapInsets:edgeInsets resizingMode:UIImageResizingModeStretch])
+/** 设置颜色RGB */
+#define cc_ColorRGB(r, g, b)                [UIColor colorWithRed:(r) / 255.f green:(g) / 255.f blue:(b) / 255.f alpha:1.f]
+#define cc_ColorRGBA(r, g, b, a)            [UIColor colorWithRed:r / 255.0 green:g / 255.0 blue:b / 255.0 alpha:a]
 
+/** RGB颜色转换（16进制->10进制）*/
+#define cc_ColorFromRGB(rgbValue) \
+[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16)) / 255.0 \
+                green:((float)((rgbValue & 0xFF00) >> 8)) / 255.0 \
+                 blue:((float)(rgbValue & 0xFF)) / 255.0\
+                alpha:1.0]
 
-//设备判断
+/** 字符串判断 */
+#define cc_SafeString(str)                   (str == nil ? @"" : str)//判断字符串
+#define cc_ServiceString(str)                ([str isKindOfClass:[NSNull class]] ? @"" : str)
+
+/** 图片调整 */
+#define cc_Stretch_Image(image, edgeInsets) \
+(CURRENT_SYS_VERSION < 6.0 ? [image stretchableImageWithLeftCapWidth:edgeInsets.left topCapHeight:edgeInsets.top] :\
+                             [image resizableImageWithCapInsets:edgeInsets resizingMode:UIImageResizingModeStretch])
+
+/*************************  注册事件  *************************/
+/** 注册通知 */
+#define cc_NoticeObserver(TARGET,SELECTOR,NAME,OBJECT) [[NSNotificationCenter defaultCenter] addObserver:TARGET selector:SELECTOR name:NAME object:OBJECT];
+/** 发送通知 */
+#define cc_NoticePost(NAME,OBJECT)    [[NSNotificationCenter defaultCenter] postNotificationName:NAME object:OBJECT];
+
+/*************************  设备  *************************/
 /** 判断是否为iPhone */
 #define isiPhone (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 
@@ -70,30 +127,52 @@
 /** 设备是否为iPhone 6 Plus 分辨率414x736，像素1242x2208，@3x */
 #define iPhone6P ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)
 
+
 /*************************  本地文档相关  *************************/
 
 /** 定义UIImage对象 */
-#define kImageNamed(_pointer) ([UIImage imageNamed:[UIUtil imageName:_pointer]])
+#define cc_ImageNamed(_pointer) ([UIImage imageNamed:[UIUtil imageName:_pointer]])
 
 /** 定义UIImage对象并从本地文件读取加载图片 */
-#define kImage(name) ([UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:nil]])
+#define cc_Image(name) ([UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:nil]])
 
 /** 读取本地图片 */
-#define kLoadImage(file,ext) ([UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:file ofType:ext]])
+#define cc_LoadImage(file,ext) ([UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:file ofType:ext]])
 
 /** 获取Documents目录 */
-#define kDocumentsPath ([NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject])
+#define cc_DocumentsPath ([NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject])
 
 /** 获得Documents下指定文件名的文件路径 */
-#define kFilePath(filename) ([[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:filename];)
+#define cc_FilePath(filename) ([[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:filename];)
 
 /** 获取Library目录 */
-#define kLibraryPath ([NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject])
+#define cc_LibraryPath ([NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject])
 
 /** 获取Caches目录 */
-#define kCachesPath ([NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject])
+#define cc_CachesPath ([NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject])
 
 /** 获取Tmp目录 */
-#define kTmpPath NSTemporaryDirectory()
+#define cc_TmpPath NSTemporaryDirectory()
+
+/** NSFileManager 实例化 */
+#define cc_FileManager [NSFileManager defaultManager]
+
+/** NSRunLoop 实例化 */
+#define cc_MainRunLoop [NSRunLoop mainRunLoop]
+
+
+/*************************  View  *************************/
+/** view 圆角 */
+#define cc_View_Radius(view, radius) \
+[view.layer setCornerRadius:(radius)]; \
+[view.layer setMasksToBounds:YES]
+
+/** view 圆角 边框 */
+#define cc_View_Border_Radius(view, radius, width, color) \
+VIEW_RADIUS(view, radius); \
+[view.layer setBorderWidth:(Width)]; \
+[View.layer setBorderColor:[color CGColor]]
+
+
 
 #endif /* CCProperty_h */
