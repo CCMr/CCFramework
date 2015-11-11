@@ -58,6 +58,6 @@
 #pragma mark -_- 汇信
 @property(nonatomic, assign) BOOL code;
 
-@property (nonatomic, copy) NSString *bodyMessage;
+@property(nonatomic, copy) id bodyMessage;
 
 @end

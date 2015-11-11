@@ -27,4 +27,26 @@
 
 @implementation CCResponseObject
 
+- (void)setBodyMessage:(id)bodyMessage
+{
+    _bodyMessage = bodyMessage;
+    if (![bodyMessage isKindOfClass:[NSDictionary class]] &&
+        ![bodyMessage isKindOfClass:[NSNull class]]) {
+        NSData *datas = bodyMessage;
+        
+        if ([datas isKindOfClass:[NSString class]])
+            datas = [bodyMessage dataUsingEncoding:NSUTF8StringEncoding];
+        
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:datas
+                                                            options:NSJSONReadingAllowFragments
+                                                              error:nil];
+        _bodyMessage = dic;
+        if (!dic) {
+            NSRange range = [bodyMessage rangeOfString:@"["];
+            if (!range.length)
+                _bodyMessage = bodyMessage;
+        }
+    }
+}
+
 @end
