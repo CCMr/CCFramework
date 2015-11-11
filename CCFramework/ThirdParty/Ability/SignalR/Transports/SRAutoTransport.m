@@ -22,7 +22,7 @@
 
 #import "SRAutoTransport.h"
 #import "SRConnectionInterface.h"
-//#import "SRLog.h"
+#import "SRLog.h"
 #import "SRLongPollingTransport.h"
 #import "SRNegotiationResponse.h"
 #import "SRServerSentEventsTransport.h"
@@ -98,7 +98,7 @@
 
         if (error) {
 //            SRLogAutoTransport(@"will switch to next transport");
-
+            
             // If that transport fails to initialize then fallback
             int next = index + 1;
             if (next < [strongSelf.transports count]) {
@@ -109,7 +109,7 @@
                 NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
                 userInfo[NSLocalizedFailureReasonErrorKey] = NSInternalInconsistencyException;
                 userInfo[NSLocalizedDescriptionKey] = [NSString stringWithFormat:NSLocalizedString(@"No transport could be initialized successfully. Try specifying a different transport or none at all for auto initialization.",@"")];
-                NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:NSLocalizedString(@"com.SignalR-ObjC.%@",@""),NSStringFromClass([strongSelf class])]
+                NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:NSLocalizedString(@"com.SignalR.SignalR-ObjC.%@",@""),NSStringFromClass([strongSelf class])]
                                                      code:0
                                                  userInfo:userInfo];
                 
@@ -119,7 +119,7 @@
             }
         } else {
 //            SRLogAutoTransport(@"did set active transport");
-
+            
             //Set the active transport
             strongSelf.transport = strongTransport;
             

@@ -47,8 +47,8 @@
 #import <CCFramework/Friend.h>
 #import <CCFramework/FriendGroup.h>
 #import <CCFramework/MBProgressHUD.h>
-#import <CCFramework/SRLog.h>
-#import <CCFramework/NSData+SRB64Additions.h>
-#import <CCFramework/NSObject+SRJSON.h>
+//#import <CCFramework/SRLog.h>
+//#import <CCFramework/NSData+SRB64Additions.h>
+//#import <CCFramework/NSObject+SRJSON.h>
 
 #endif

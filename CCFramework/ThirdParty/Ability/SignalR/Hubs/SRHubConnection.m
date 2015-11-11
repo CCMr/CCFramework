@@ -24,7 +24,7 @@
 #import "SRHubInvocation.h"
 #import "SRHubProxy.h"
 #import "SRHubRegistrationData.h"
-//#import "SRLog.h"
+#import "SRLog.h"
 #import "SRHubResult.h"
 
 #import "NSObject+SRJSON.h"
