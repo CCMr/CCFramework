@@ -231,9 +231,9 @@
         } else { //请求成功
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
             
-            CCNSLogger(@"%@", dic);
-            
             CCResponseObject *entity = [[CCResponseObject alloc] initWithDict:dic];
+             CCNSLogger(@"%@", [entity ChangedDictionary]);
+            
             blockTrack(entity,nil);
             
             blockTrack(responseObject,nil);

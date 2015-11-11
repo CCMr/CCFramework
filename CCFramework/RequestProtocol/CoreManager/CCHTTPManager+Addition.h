@@ -24,7 +24,7 @@
 //
 
 #import "CCHTTPManager.h"
-#include "CCNSLog.h"
+#import "CCNSLog.h"
 
 #define errorAnalysis(code) (code >= 300 || code <= 311) ? YES : NO
 
