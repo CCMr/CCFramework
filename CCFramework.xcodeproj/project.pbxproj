@@ -480,6 +480,7 @@
 		420DE47C1BC7942300D87D6D /* ZXMultiFormatReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 420DE2B31BC7942300D87D6D /* ZXMultiFormatReader.m */; };
 		420DE47D1BC7942300D87D6D /* ZXMultiFormatWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 420DE2B41BC7942300D87D6D /* ZXMultiFormatWriter.h */; };
 		420DE47E1BC7942300D87D6D /* ZXMultiFormatWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 420DE2B51BC7942300D87D6D /* ZXMultiFormatWriter.m */; };
+		4213943C1BF2D9F50046062B /* SRLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213943B1BF2D9F50046062B /* SRLog.h */; settings = {ASSET_TAGS = (); }; };
 		422978601BEE3A1100CECBBF /* CCResponseObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4229785E1BEE3A1100CECBBF /* CCResponseObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		422978611BEE3A1100CECBBF /* CCResponseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229785F1BEE3A1100CECBBF /* CCResponseObject.m */; };
 		422978631BEE407400CECBBF /* CCBlockTrace.h in Headers */ = {isa = PBXBuildFile; fileRef = 422978621BEE405900CECBBF /* CCBlockTrace.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -749,42 +750,41 @@
 		429C9FBB1B9EF8BF0013A44A /* FriendGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D8B1B9EF8BE0013A44A /* FriendGroup.m */; };
 		429C9FBC1B9EF8BF0013A44A /* MBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D8D1B9EF8BE0013A44A /* MBProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429C9FBD1B9EF8BF0013A44A /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D8E1B9EF8BE0013A44A /* MBProgressHUD.m */; };
-		429C9FBE1B9EF8BF0013A44A /* SRHubConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D911B9EF8BE0013A44A /* SRHubConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429C9FBE1B9EF8BF0013A44A /* SRHubConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D911B9EF8BE0013A44A /* SRHubConnection.h */; };
 		429C9FBF1B9EF8BF0013A44A /* SRHubConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D921B9EF8BE0013A44A /* SRHubConnection.m */; };
-		429C9FC01B9EF8BF0013A44A /* SRHubConnectionInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D931B9EF8BE0013A44A /* SRHubConnectionInterface.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		429C9FC11B9EF8BF0013A44A /* SRHubInvocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D941B9EF8BE0013A44A /* SRHubInvocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429C9FC01B9EF8BF0013A44A /* SRHubConnectionInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D931B9EF8BE0013A44A /* SRHubConnectionInterface.h */; };
+		429C9FC11B9EF8BF0013A44A /* SRHubInvocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D941B9EF8BE0013A44A /* SRHubInvocation.h */; };
 		429C9FC21B9EF8BF0013A44A /* SRHubInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D951B9EF8BE0013A44A /* SRHubInvocation.m */; };
-		429C9FC31B9EF8BF0013A44A /* SRHubProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D961B9EF8BE0013A44A /* SRHubProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429C9FC31B9EF8BF0013A44A /* SRHubProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D961B9EF8BE0013A44A /* SRHubProxy.h */; };
 		429C9FC41B9EF8BF0013A44A /* SRHubProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D971B9EF8BE0013A44A /* SRHubProxy.m */; };
-		429C9FC51B9EF8BF0013A44A /* SRHubProxyInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D981B9EF8BE0013A44A /* SRHubProxyInterface.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		429C9FC61B9EF8BF0013A44A /* SRHubRegistrationData.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D991B9EF8BE0013A44A /* SRHubRegistrationData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429C9FC51B9EF8BF0013A44A /* SRHubProxyInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D981B9EF8BE0013A44A /* SRHubProxyInterface.h */; };
+		429C9FC61B9EF8BF0013A44A /* SRHubRegistrationData.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D991B9EF8BE0013A44A /* SRHubRegistrationData.h */; };
 		429C9FC71B9EF8BF0013A44A /* SRHubRegistrationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D9A1B9EF8BE0013A44A /* SRHubRegistrationData.m */; };
-		429C9FC81B9EF8BF0013A44A /* SRHubResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D9B1B9EF8BE0013A44A /* SRHubResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429C9FC81B9EF8BF0013A44A /* SRHubResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D9B1B9EF8BE0013A44A /* SRHubResult.h */; };
 		429C9FC91B9EF8BF0013A44A /* SRHubResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D9C1B9EF8BE0013A44A /* SRHubResult.m */; };
-		429C9FCA1B9EF8BF0013A44A /* SRHubs.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D9D1B9EF8BE0013A44A /* SRHubs.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		429C9FCB1B9EF8BF0013A44A /* SRSubscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D9E1B9EF8BE0013A44A /* SRSubscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429C9FCA1B9EF8BF0013A44A /* SRHubs.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D9D1B9EF8BE0013A44A /* SRHubs.h */; };
+		429C9FCB1B9EF8BF0013A44A /* SRSubscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D9E1B9EF8BE0013A44A /* SRSubscription.h */; };
 		429C9FCC1B9EF8BF0013A44A /* SRSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D9F1B9EF8BE0013A44A /* SRSubscription.m */; };
-		429C9FCD1B9EF8BF0013A44A /* NSObject+SRJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DA11B9EF8BE0013A44A /* NSObject+SRJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429C9FCD1B9EF8BF0013A44A /* NSObject+SRJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DA11B9EF8BE0013A44A /* NSObject+SRJSON.h */; };
 		429C9FCE1B9EF8BF0013A44A /* NSObject+SRJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DA21B9EF8BE0013A44A /* NSObject+SRJSON.m */; };
-		429C9FCF1B9EF8BF0013A44A /* SRDeserializable.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DA31B9EF8BE0013A44A /* SRDeserializable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429C9FCF1B9EF8BF0013A44A /* SRDeserializable.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DA31B9EF8BE0013A44A /* SRDeserializable.h */; };
 		429C9FD01B9EF8BF0013A44A /* SRExceptionHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DA41B9EF8BE0013A44A /* SRExceptionHelper.h */; };
 		429C9FD11B9EF8BF0013A44A /* SRExceptionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DA51B9EF8BE0013A44A /* SRExceptionHelper.m */; };
-		429C9FD21B9EF8BF0013A44A /* SRSerializable.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DA61B9EF8BE0013A44A /* SRSerializable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429C9FD21B9EF8BF0013A44A /* SRSerializable.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DA61B9EF8BE0013A44A /* SRSerializable.h */; };
 		429C9FD31B9EF8BF0013A44A /* SRVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DA71B9EF8BE0013A44A /* SRVersion.h */; };
 		429C9FD41B9EF8BF0013A44A /* SRVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DA81B9EF8BE0013A44A /* SRVersion.m */; };
-		429C9FD51B9EF8BF0013A44A /* SignalR.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DA91B9EF8BE0013A44A /* SignalR.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		429C9FD61B9EF8BF0013A44A /* SRConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DAA1B9EF8BE0013A44A /* SRConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429C9FD51B9EF8BF0013A44A /* SignalR.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DA91B9EF8BE0013A44A /* SignalR.h */; };
+		429C9FD61B9EF8BF0013A44A /* SRConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DAA1B9EF8BE0013A44A /* SRConnection.h */; };
 		429C9FD71B9EF8BF0013A44A /* SRConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DAB1B9EF8BE0013A44A /* SRConnection.m */; };
-		429C9FD81B9EF8BF0013A44A /* SRConnectionDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DAC1B9EF8BE0013A44A /* SRConnectionDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429C9FD81B9EF8BF0013A44A /* SRConnectionDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DAC1B9EF8BE0013A44A /* SRConnectionDelegate.h */; };
 		429C9FD91B9EF8BF0013A44A /* SRConnectionExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DAD1B9EF8BE0013A44A /* SRConnectionExtensions.h */; };
 		429C9FDA1B9EF8BF0013A44A /* SRConnectionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DAE1B9EF8BE0013A44A /* SRConnectionExtensions.m */; };
-		429C9FDB1B9EF8BF0013A44A /* SRConnectionInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DAF1B9EF8BE0013A44A /* SRConnectionInterface.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		429C9FDC1B9EF8BF0013A44A /* SRConnectionState.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DB01B9EF8BE0013A44A /* SRConnectionState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429C9FDB1B9EF8BF0013A44A /* SRConnectionInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DAF1B9EF8BE0013A44A /* SRConnectionInterface.h */; };
+		429C9FDC1B9EF8BF0013A44A /* SRConnectionState.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DB01B9EF8BE0013A44A /* SRConnectionState.h */; };
 		429C9FDD1B9EF8BF0013A44A /* SRHeartbeatMonitor.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DB11B9EF8BE0013A44A /* SRHeartbeatMonitor.h */; };
 		429C9FDE1B9EF8BF0013A44A /* SRHeartbeatMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DB21B9EF8BE0013A44A /* SRHeartbeatMonitor.m */; };
 		429C9FDF1B9EF8BF0013A44A /* SRKeepAliveData.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DB31B9EF8BE0013A44A /* SRKeepAliveData.h */; };
 		429C9FE01B9EF8BF0013A44A /* SRKeepAliveData.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DB41B9EF8BE0013A44A /* SRKeepAliveData.m */; };
-		429C9FE11B9EF8BF0013A44A /* SRLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DB51B9EF8BE0013A44A /* SRLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429C9FE21B9EF8BF0013A44A /* SRNegotiationResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DB61B9EF8BE0013A44A /* SRNegotiationResponse.h */; };
 		429C9FE31B9EF8BF0013A44A /* SRNegotiationResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DB71B9EF8BE0013A44A /* SRNegotiationResponse.m */; };
 		429C9FE41B9EF8BF0013A44A /* SRChunkBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DBA1B9EF8BE0013A44A /* SRChunkBuffer.h */; };
@@ -808,7 +808,7 @@
 		429C9FF61B9EF8BF0013A44A /* SRWebSocketConnectionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DCD1B9EF8BE0013A44A /* SRWebSocketConnectionInfo.m */; };
 		429C9FF71B9EF8BF0013A44A /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DCF1B9EF8BE0013A44A /* base64.c */; };
 		429C9FF81B9EF8BF0013A44A /* base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DD01B9EF8BE0013A44A /* base64.h */; };
-		429C9FF91B9EF8BF0013A44A /* NSData+SRB64Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DD11B9EF8BE0013A44A /* NSData+SRB64Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429C9FF91B9EF8BF0013A44A /* NSData+SRB64Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DD11B9EF8BE0013A44A /* NSData+SRB64Additions.h */; };
 		429C9FFA1B9EF8BF0013A44A /* NSData+SRB64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DD21B9EF8BE0013A44A /* NSData+SRB64Additions.m */; };
 		429C9FFB1B9EF8BF0013A44A /* SRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DD31B9EF8BE0013A44A /* SRWebSocket.h */; };
 		429C9FFC1B9EF8BF0013A44A /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DD41B9EF8BE0013A44A /* SRWebSocket.m */; };
@@ -1674,6 +1674,7 @@
 		420DE2B31BC7942300D87D6D /* ZXMultiFormatReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXMultiFormatReader.m; sourceTree = "<group>"; };
 		420DE2B41BC7942300D87D6D /* ZXMultiFormatWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXMultiFormatWriter.h; sourceTree = "<group>"; };
 		420DE2B51BC7942300D87D6D /* ZXMultiFormatWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXMultiFormatWriter.m; sourceTree = "<group>"; };
+		4213943B1BF2D9F50046062B /* SRLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRLog.h; sourceTree = "<group>"; };
 		4229785E1BEE3A1100CECBBF /* CCResponseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCResponseObject.h; path = ResponseEntity/CCResponseObject.h; sourceTree = "<group>"; };
 		4229785F1BEE3A1100CECBBF /* CCResponseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCResponseObject.m; path = ResponseEntity/CCResponseObject.m; sourceTree = "<group>"; };
 		422978621BEE405900CECBBF /* CCBlockTrace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCBlockTrace.h; sourceTree = "<group>"; };
@@ -1981,7 +1982,6 @@
 		429C9DB21B9EF8BE0013A44A /* SRHeartbeatMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRHeartbeatMonitor.m; sourceTree = "<group>"; };
 		429C9DB31B9EF8BE0013A44A /* SRKeepAliveData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRKeepAliveData.h; sourceTree = "<group>"; };
 		429C9DB41B9EF8BE0013A44A /* SRKeepAliveData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRKeepAliveData.m; sourceTree = "<group>"; };
-		429C9DB51B9EF8BE0013A44A /* SRLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRLog.h; sourceTree = "<group>"; };
 		429C9DB61B9EF8BE0013A44A /* SRNegotiationResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRNegotiationResponse.h; sourceTree = "<group>"; };
 		429C9DB71B9EF8BE0013A44A /* SRNegotiationResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRNegotiationResponse.m; sourceTree = "<group>"; };
 		429C9DBA1B9EF8BE0013A44A /* SRChunkBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRChunkBuffer.h; sourceTree = "<group>"; };
@@ -3950,7 +3950,7 @@
 				429C9DB21B9EF8BE0013A44A /* SRHeartbeatMonitor.m */,
 				429C9DB31B9EF8BE0013A44A /* SRKeepAliveData.h */,
 				429C9DB41B9EF8BE0013A44A /* SRKeepAliveData.m */,
-				429C9DB51B9EF8BE0013A44A /* SRLog.h */,
+				4213943B1BF2D9F50046062B /* SRLog.h */,
 				429C9DB61B9EF8BE0013A44A /* SRNegotiationResponse.h */,
 				429C9DB71B9EF8BE0013A44A /* SRNegotiationResponse.m */,
 			);
@@ -5218,27 +5218,12 @@
 				420DE3C91BC7942300D87D6D /* ZXBitArrayBuilder.h in Headers */,
 				425477791BD2AEC20071BBC5 /* DataVerifier.h in Headers */,
 				4269794A1BA695BA00C3E93C /* UIWebView+AFNetworking.h in Headers */,
-				429C9FCA1B9EF8BF0013A44A /* SRHubs.h in Headers */,
-				429C9FC31B9EF8BF0013A44A /* SRHubProxy.h in Headers */,
-				429C9FC81B9EF8BF0013A44A /* SRHubResult.h in Headers */,
-				429C9FCB1B9EF8BF0013A44A /* SRSubscription.h in Headers */,
-				429C9FD21B9EF8BF0013A44A /* SRSerializable.h in Headers */,
-				429C9FCF1B9EF8BF0013A44A /* SRDeserializable.h in Headers */,
 				42B30DE81BBD72AD0039BB94 /* SDWebImageManager.h in Headers */,
-				429C9FC61B9EF8BF0013A44A /* SRHubRegistrationData.h in Headers */,
-				429C9FC11B9EF8BF0013A44A /* SRHubInvocation.h in Headers */,
-				429C9FC51B9EF8BF0013A44A /* SRHubProxyInterface.h in Headers */,
-				429C9FC01B9EF8BF0013A44A /* SRHubConnectionInterface.h in Headers */,
 				426476AA1BD0E3AF00EE191C /* CCUtilityButtonView.h in Headers */,
 				4254772E1BD2AEC20071BBC5 /* blowfish.h in Headers */,
-				429C9FBE1B9EF8BF0013A44A /* SRHubConnection.h in Headers */,
-				429C9FDC1B9EF8BF0013A44A /* SRConnectionState.h in Headers */,
 				4269793B1BA695BA00C3E93C /* AFNetworkActivityIndicatorManager.h in Headers */,
 				42F24C5F1BEA5091008CDEDC /* PNLineChartData.h in Headers */,
 				4254776B1BD2AEC20071BBC5 /* tls1.h in Headers */,
-				429C9FDB1B9EF8BF0013A44A /* SRConnectionInterface.h in Headers */,
-				429C9FD81B9EF8BF0013A44A /* SRConnectionDelegate.h in Headers */,
-				429C9FD61B9EF8BF0013A44A /* SRConnection.h in Headers */,
 				429C9FD51B9EF8BF0013A44A /* SignalR.h in Headers */,
 				429C9FCD1B9EF8BF0013A44A /* NSObject+SRJSON.h in Headers */,
 				425477351BD2AEC20071BBC5 /* comp.h in Headers */,
@@ -5318,6 +5303,22 @@
 				4254773B1BD2AEC20071BBC5 /* dh.h in Headers */,
 				4298C7861BDCB33D00A3581D /* CoreDataMasterSlave+Convenience.h in Headers */,
 				429CA0C71B9EF8BF0013A44A /* UIButton+CCButtonTitlePosition.h in Headers */,
+				429C9FCA1B9EF8BF0013A44A /* SRHubs.h in Headers */,
+				429C9FC31B9EF8BF0013A44A /* SRHubProxy.h in Headers */,
+				429C9FC81B9EF8BF0013A44A /* SRHubResult.h in Headers */,
+				429C9FCB1B9EF8BF0013A44A /* SRSubscription.h in Headers */,
+				429C9FD21B9EF8BF0013A44A /* SRSerializable.h in Headers */,
+				429C9FCF1B9EF8BF0013A44A /* SRDeserializable.h in Headers */,
+				429C9FC61B9EF8BF0013A44A /* SRHubRegistrationData.h in Headers */,
+				429C9FC11B9EF8BF0013A44A /* SRHubInvocation.h in Headers */,
+				429C9FC51B9EF8BF0013A44A /* SRHubProxyInterface.h in Headers */,
+				429C9FC01B9EF8BF0013A44A /* SRHubConnectionInterface.h in Headers */,
+				429C9FBE1B9EF8BF0013A44A /* SRHubConnection.h in Headers */,
+				429C9FDC1B9EF8BF0013A44A /* SRConnectionState.h in Headers */,
+				429C9FDB1B9EF8BF0013A44A /* SRConnectionInterface.h in Headers */,
+				429C9FD81B9EF8BF0013A44A /* SRConnectionDelegate.h in Headers */,
+				429C9FD61B9EF8BF0013A44A /* SRConnection.h in Headers */,
+				4213943C1BF2D9F50046062B /* SRLog.h in Headers */,
 				429CA11C1B9EF8BF0013A44A /* CCEmotionCollectionViewCell.h in Headers */,
 				429C9F561B9EF8BF0013A44A /* BaseTableViewController.h in Headers */,
 				4298C7821BDCAC3100A3581D /* CoreDataMasterSlave+Manager.h in Headers */,
@@ -5717,7 +5718,6 @@
 				4269792D1BA695BA00C3E93C /* AFHTTPRequestOperation.h in Headers */,
 				429C9FEF1B9EF8BF0013A44A /* SRLongPollingTransport.h in Headers */,
 				425477501BD2AEC20071BBC5 /* obj_mac.h in Headers */,
-				429C9FE11B9EF8BF0013A44A /* SRLog.h in Headers */,
 				429C9FDF1B9EF8BF0013A44A /* SRKeepAliveData.h in Headers */,
 				42F24C511BEA5091008CDEDC /* PNBarChart.h in Headers */,
 				42D0EDF61BBA68E10032A489 /* ResourcesPhotos.h in Headers */,
