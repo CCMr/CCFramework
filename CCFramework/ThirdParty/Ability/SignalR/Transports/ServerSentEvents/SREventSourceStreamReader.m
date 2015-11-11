@@ -22,7 +22,7 @@
 
 #import "SREventSourceStreamReader.h"
 #import "SRChunkBuffer.h"
-//#import "SRLog.h"
+#import "SRLog.h"
 #import "SRServerSentEvent.h"
 
 typedef enum {
@@ -81,7 +81,7 @@ typedef enum {
         switch (eventCode) {
             case NSStreamEventOpenCompleted: {
 //                SRLogServerSentEvents(@"Opened");
-
+                
                 _reading = processing;
                 [self onOpened];
             } case NSStreamEventHasSpaceAvailable: {
@@ -118,7 +118,7 @@ typedef enum {
                         }
                         
 //                        SRLogServerSentEvents(@"SSE READ: %@",sseEvent);
-
+                        
                         [self onMessage:sseEvent];
                     }
                 }

@@ -24,7 +24,7 @@
 #import "SRConnectionInterface.h"
 #import "SRConnectionExtensions.h"
 #import "SRExceptionHelper.h"
-//#import "SRLog.h"
+#import "SRLog.h"
 #import "SRLongPollingTransport.h"
 
  @interface SRLongPollingTransport()
@@ -99,7 +99,7 @@
     
     id parameters = @{
         @"transport" : [self name],
-        @"connectionToken" : [connection connectionToken],
+        @"connectionToken" : ([connection connectionToken]) ? [connection connectionToken] : @"",
         @"messageId" : ([connection messageId]) ? [connection messageId] : @"",
         @"groupsToken" : ([connection groupsToken]) ? [connection groupsToken] : @"",
         @"connectionData" : (connectionData) ? connectionData : @"",
@@ -110,37 +110,44 @@
         [_parameters addEntriesFromDictionary:[connection queryString]];
         parameters = _parameters;
     }
-
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
-    AFHTTPRequestOperation *requestOperation = [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:url parameters:parameters error:nil];
+    [connection prepareRequest:request]; //TODO: prepareRequest
+    [request setTimeoutInterval:240];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setResponseSerializer:[AFJSONResponseSerializer serializer]];
+    //operation.shouldUseCredentialStorage = self.shouldUseCredentialStorage;
+    //operation.credential = self.credential;
+    //operation.securityPolicy = self.securityPolicy;
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         __strong __typeof(&*weakSelf)strongSelf = weakSelf;
         __strong __typeof(&*weakConnection)strongConnection = weakConnection;
 
         BOOL shouldReconnect = NO;
         BOOL disconnectedReceived = NO;
-
+        
 //        SRLogLongPolling(@"LP Receive: %@", operation.responseString);
-
+        
         [strongSelf processResponse:strongConnection response:operation.responseString shouldReconnect:&shouldReconnect disconnected:&disconnectedReceived];
         if (block) {
             block(nil, nil);
         }
-
+        
         if ([strongSelf isConnectionReconnecting:strongConnection]) {
             // If the timeout for the reconnect hasn't fired as yet just fire the
             // event here before any incoming messages are processed
             [strongSelf connectionReconnect:strongConnection canReconnect:canReconnect];
         }
-
+        
         if (shouldReconnect) {
             // Transition into reconnecting state
             [SRConnection ensureReconnecting:strongConnection];
         }
-
+        
         if (disconnectedReceived) {
             [strongConnection disconnect];
         }
-
+        
         if (![strongSelf tryCompleteAbort]) {
             //Abort has not been called so continue polling...
             canReconnect = @(YES);
@@ -153,22 +160,22 @@
         __strong __typeof(&*weakConnection)strongConnection = weakConnection;
 
         canReconnect = @(NO);
-
+        
         // Transition into reconnecting state
         [SRConnection ensureReconnecting:strongConnection];
-
+        
         if (![strongSelf tryCompleteAbort] &&
             ![SRExceptionHelper isRequestAborted:error]) {
             [strongConnection didReceiveError:error];
-
+            
 //            SRLogLongPolling(@"will poll again in %ld seconds",(long)[_errorDelay integerValue]);
-
+            
             canReconnect = @(YES);
-
+            
             [[NSBlockOperation blockOperationWithBlock:^{
                 [strongSelf poll:strongConnection connectionData:connectionData completionHandler:nil];
             }] performSelector:@selector(start) withObject:nil afterDelay:[strongSelf.errorDelay integerValue]];
-
+            
         } else {
             [strongSelf completeAbort];
             if (block) {
@@ -176,8 +183,7 @@
             }
         }
     }];
-    requestOperation.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [self.pollingOperationQueue addOperation:requestOperation];
+    [self.pollingOperationQueue addOperation:operation];
 }
 
 - (void)delayConnectionReconnect:(id<SRConnectionInterface>)connection canReconnect:(NSNumber *)canReconnect {
