@@ -34,13 +34,14 @@ FOUNDATION_EXPORT void cc_NSLog(const char *file, const char *method, int lineNu
     
     format = ({
         format = [format stringByReplacingOccurrencesOfString:@"\\u" withString:@"\\U"];
-        format = [format stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+        format = [format stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+        format = [format stringByReplacingOccurrencesOfString:@"\\\\U" withString:@"\\U"];
         format = [[@"\"" stringByAppendingString:format] stringByAppendingString:@"\""];
         format = [NSPropertyListSerialization propertyListFromData:[format dataUsingEncoding:NSUTF8StringEncoding]
                                                   mutabilityOption:NSPropertyListImmutable
                                                             format:NULL
                                                   errorDescription:NULL];
-        
+        format = [format stringByReplacingOccurrencesOfString:@"\0" withString:@""];
         [format stringByReplacingOccurrencesOfString:@"\\r\\n" withString:@"\n"];
     });
     

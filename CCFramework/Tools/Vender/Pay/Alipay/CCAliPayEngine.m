@@ -76,7 +76,7 @@ typedef void (^ResponseCallback)(NSInteger resultStatus, NSString *result,
  *
  *  @return 返回当前对象
  */
-+ (id)manager
++ (id)sharedlnstance
 {
     static CCAliPayEngine *_sharedlnstance = nil;
     static dispatch_once_t onceToken;
