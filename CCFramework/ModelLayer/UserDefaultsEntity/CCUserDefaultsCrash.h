@@ -18,7 +18,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic) BOOL isCrash;
+@property(nonatomic) BOOL isCrash;
 
 /**
  *  @author CC, 2015-07-30
@@ -27,6 +27,6 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, copy) NSMutableDictionary *crashDic;
+@property(nonatomic, copy) NSMutableArray *crashArray;
 
 @end

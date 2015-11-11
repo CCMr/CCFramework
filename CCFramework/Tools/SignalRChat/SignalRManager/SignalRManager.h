@@ -23,18 +23,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SignalR.h"
+
 
 @interface SignalRManager : NSObject
-
-/**
- *  @author CC, 2015-08-15
- *
- *  @brief  注册监听对象
- *
- *  @since 1.0
- */
-@property(nonatomic, strong) SRHubProxy *chatProxy;
 
 /**
  *  @author CC, 2015-08-15
@@ -79,20 +70,6 @@
 - (void)addNotification;
 
 /**
- *  @author CC, 15-09-17
- *
- *  @brief  注册响应事件回调
- *
- *  @param responseEventName 响应事件名称
- *  @param eventCallback     响应事件
- *
- *  @since 1.0
- */
-- (void)registerNotice:(NSString *)responseEventName
-              Selector:(id)selectorSelf
-         ResponseEvent:(SEL)eventCallback;
-
-/**
  *  @author CC, 15-09-14
  *
  *  @brief  启动连接服务
@@ -107,6 +84,34 @@
  *  @brief  停止链接
  */
 - (void)stopLink;
+
+#pragma mark -_- 事件处理
+
+/**
+ *  @author CC, 15-09-17
+ *
+ *  @brief  注册响应事件回调
+ *
+ *  @param responseEventName 响应事件名称
+ *  @param eventCallback     响应事件
+ *
+ *  @since 1.0
+ */
+- (void)registerNotice:(NSString *)responseEventName
+              Selector:(id)selectorSelf
+         ResponseEvent:(SEL)eventCallback;
+
+/**
+ *  @author CC, 2015-11-11
+ *  
+ *  @brief  发送调用
+ *
+ *  @param eventName 事件名称
+ *  @param args      参数
+ */
+- (void)sendInvoke:(NSString *)eventName
+          withArgs:(id)args, ... NS_REQUIRES_NIL_TERMINATION;
+
 
 #pragma mark - 回调函数
 /**

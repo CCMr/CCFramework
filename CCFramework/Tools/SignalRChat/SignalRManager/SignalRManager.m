@@ -23,6 +23,7 @@
 //
 
 #import "SignalRManager.h"
+#import "SignalR.h"
 
 @interface SignalRManager () <SRConnectionDelegate>
 
@@ -35,9 +36,17 @@
  */
 @property(nonatomic, strong) SRHubConnection *hubConnection;
 
+/**
+ *  @author CC, 2015-08-15
+ *
+ *  @brief  注册监听对象
+ *
+ *  @since 1.0
+ */
+@property(nonatomic, strong) SRHubProxy *chatProxy;
+
 @end
 
-static SignalRManager *_sharedlnstance = nil;
 @implementation SignalRManager
 
 /**
@@ -51,12 +60,11 @@ static SignalRManager *_sharedlnstance = nil;
  */
 + (id)sharedInstance
 {
-    @synchronized(self)
-    {
-        if (_sharedlnstance == nil) {
-            _sharedlnstance = [[self alloc] init];
-        }
-    }
+    static SignalRManager *_sharedlnstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedlnstance = [[self alloc] init];
+    });
     return _sharedlnstance;
 }
 
@@ -74,7 +82,6 @@ static SignalRManager *_sharedlnstance = nil;
     self = [super init];
     
     if (self) {
-        [self initObject];
         [self addNotification];
     }
     
@@ -121,21 +128,60 @@ static SignalRManager *_sharedlnstance = nil;
 }
 
 /**
- *  @author CC, 2015-08-15
+ *  @author CC, 2015-11-11
+ *  
+ *  @brief  建立服务器连接
  *
- *  @brief  初始化对象属性
+ *  @return 返回连接
+ */
+- (SRHubConnection *)hubConnection
+{
+    if (!_hubConnection) {
+        _hubConnection = [SRHubConnection connectionWithURLString:[self SignalRServiceAddress]];
+        _hubConnection.delegate = self;
+    }
+    return _hubConnection;
+}
+
+/**
+ *  @author CC, 2015-11-11
+ *  
+ *  @brief  连接代理通道
+ *
+ *  @return 返回连接代理通道
+ */
+- (SRHubProxy *)chatProxy
+{
+    if (!_chatProxy) {
+        _chatProxy = [self.hubConnection createHubProxy:[self SignalRProxyPort]];
+    }
+    return _chatProxy;
+}
+
+/**
+ *  @author CC, 15-09-14
+ *
+ *  @brief  启动连接服务
  *
  *  @since 1.0
  */
-- (void)initObject
+- (void)startLink
 {
-    //建立服务长连接
-    _hubConnection = [SRHubConnection connectionWithURLString:[self SignalRServiceAddress]];
-    _hubConnection.delegate = self;
-    //设置聊天代理
-    _chatProxy = [_hubConnection createHubProxy:[self SignalRProxyPort]];
+    [self.hubConnection start];
 }
 
+/**
+ *  @author CC, 2015-11-05
+ *  
+ *  @brief  停止链接
+ */
+- (void)stopLink
+{
+    [self.hubConnection stop];
+    [self.hubConnection didClose];
+}
+
+#pragma mark -_- 事件处理
 /**
  *  @author CC, 15-09-17
  *
@@ -150,29 +196,37 @@ static SignalRManager *_sharedlnstance = nil;
               Selector:(id)selectorSelf
          ResponseEvent:(SEL)eventCallback
 {
+    [self.chatProxy on:responseEventName
+               perform:selectorSelf
+              selector:eventCallback];
 }
 
 /**
- *  @author CC, 15-09-14
- *
- *  @brief  启动连接服务
- *
- *  @since 1.0
- */
-- (void)startLink
-{
-    [_hubConnection start];
-}
-
-/**
- *  @author CC, 2015-11-05
+ *  @author CC, 2015-11-11
  *  
- *  @brief  停止链接
+ *  @brief  发送调用
+ *
+ *  @param eventName 事件名称
+ *  @param args      参数
  */
-- (void)stopLink
+- (void)sendInvoke:(NSString *)eventName
+          withArgs:(id)args, ... NS_REQUIRES_NIL_TERMINATION
 {
-    [_hubConnection stop];
-    [_hubConnection didClose];
+    
+    NSMutableArray *array = [NSMutableArray array];
+    if (args) {
+        [array addObject:args];
+        va_list arguments;
+        id eachObject;
+        va_start(arguments, args);
+        while ((eachObject = va_arg(arguments, id))) {
+            [array addObject:args];
+        }
+        va_end(arguments);
+    }
+    
+    [self.chatProxy invoke:eventName
+                  withArgs:array];
 }
 
 #pragma mark - 回调函数
