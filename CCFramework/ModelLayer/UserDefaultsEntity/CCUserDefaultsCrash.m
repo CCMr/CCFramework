@@ -28,7 +28,7 @@
 @implementation CCUserDefaultsCrash
 
 @dynamic isCrash;
-@dynamic crashDic;
+@dynamic crashArray;
 
 /**
  *  @author CC, 2015-07-30
@@ -42,8 +42,8 @@
 - (NSDictionary *)setupCCDefaults
 {
     return @{
-             @"isCrash":@NO,
-             @"crashDic":[NSMutableDictionary dictionary],
+             @"isCrash" : @NO,
+             @"crashArray" : [NSMutableArray array],
              };
 }
 
