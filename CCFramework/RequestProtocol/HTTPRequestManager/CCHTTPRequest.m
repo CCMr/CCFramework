@@ -211,22 +211,7 @@
 - (void)responseProcessEvent:(id)responseData
 {
     if (_requestBacktrack) {
-        id dic = responseData;
-        if (![dic isKindOfClass:[NSDictionary class]] &&
-            ![dic isKindOfClass:[NSNull class]]) {
-            NSData *datas = responseData;
-            if ([datas isKindOfClass:[NSString class]])
-                datas = [responseData dataUsingEncoding:NSUTF8StringEncoding];
-            dic = [NSJSONSerialization JSONObjectWithData:datas
-                                                  options:NSJSONReadingAllowFragments
-                                                    error:nil];
-            if (!dic) {
-                NSRange range = [dic rangeOfString:@"["];
-                if (!range.length)
-                    dic = responseData;
-            }
-        }
-        _requestBacktrack(dic, nil);
+        _requestBacktrack(responseData, nil);
     }
 }
 
@@ -242,7 +227,7 @@
 - (void)errorProcessEvent:(id)error
 {
     if (_requestBacktrack) {
-        NSString *errorStr = error ?:@"";
+        NSString *errorStr = error ?: @"";
         NSInteger code = 0;
         if ([error isKindOfClass:[NSError class]]) {
             code = ((NSError *)error).code;
@@ -264,7 +249,7 @@
 - (void)netFailure:(id)error
 {
     if (_requestBacktrack) {
-        NSString *errorStr = error?:@"";
+        NSString *errorStr = error ?: @"";
         NSInteger code = 0;
         if ([error isKindOfClass:[NSError class]]) {
             code = ((NSError *)error).code;
@@ -286,14 +271,7 @@
       withUserInfo:(NSDictionary *)userInfo
 {
     if (_requestCompletionBacktrack) {
-        NSDictionary *dic = completionData;
-        if (![dic isKindOfClass:[NSDictionary class]] && ![dic isKindOfClass:[NSNull class]]) {
-            NSData *datas = completionData;
-            if ([datas isKindOfClass:[NSString class]])
-                datas = [completionData dataUsingEncoding:NSUTF8StringEncoding];
-            dic = [NSJSONSerialization JSONObjectWithData:datas options:NSJSONReadingAllowFragments error:nil];
-        }
-        _requestCompletionBacktrack(dic, userInfo);
+        _requestCompletionBacktrack(completionData, userInfo);
     }
 }
 
