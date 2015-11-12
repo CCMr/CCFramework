@@ -1167,6 +1167,10 @@
 		42D8CB371BDDB1EF007CAC62 /* CCCoreData.h in Headers */ = {isa = PBXBuildFile; fileRef = 42D8CB361BDDB1EF007CAC62 /* CCCoreData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42D8CB3A1BDDC47C007CAC62 /* NSManagedObject+Additional.h in Headers */ = {isa = PBXBuildFile; fileRef = 42D8CB381BDDC47C007CAC62 /* NSManagedObject+Additional.h */; };
 		42D8CB3B1BDDC47C007CAC62 /* NSManagedObject+Additional.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D8CB391BDDC47C007CAC62 /* NSManagedObject+Additional.m */; };
+		42D9009C1BF47B3100B8B01F /* CCDelegateProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 42D9009A1BF47B3100B8B01F /* CCDelegateProxy.h */; settings = {ASSET_TAGS = (); }; };
+		42D9009D1BF47B3100B8B01F /* CCDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D9009B1BF47B3100B8B01F /* CCDelegateProxy.m */; settings = {ASSET_TAGS = (); }; };
+		42D900A21BF4817000B8B01F /* UITextView+CCSignalSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 42D900A01BF4817000B8B01F /* UITextView+CCSignalSupport.h */; settings = {ASSET_TAGS = (); }; };
+		42D900A31BF4817000B8B01F /* UITextView+CCSignalSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D900A11BF4817000B8B01F /* UITextView+CCSignalSupport.m */; settings = {ASSET_TAGS = (); }; };
 		42DBA84F1BB4D5CB00AD47C6 /* UILabel+Addition.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA84D1BB4D5CB00AD47C6 /* UILabel+Addition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42DBA8501BB4D5CB00AD47C6 /* UILabel+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBA84E1BB4D5CB00AD47C6 /* UILabel+Addition.m */; };
 		42DBA8561BB5305700AD47C6 /* CCBase64.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA8541BB5305700AD47C6 /* CCBase64.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2367,6 +2371,10 @@
 		42D8CB361BDDB1EF007CAC62 /* CCCoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCoreData.h; sourceTree = "<group>"; };
 		42D8CB381BDDC47C007CAC62 /* NSManagedObject+Additional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+Additional.h"; path = "CoreDataMasterSlave/Core/NSManagedObject+Additional.h"; sourceTree = "<group>"; };
 		42D8CB391BDDC47C007CAC62 /* NSManagedObject+Additional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+Additional.m"; path = "CoreDataMasterSlave/Core/NSManagedObject+Additional.m"; sourceTree = "<group>"; };
+		42D9009A1BF47B3100B8B01F /* CCDelegateProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDelegateProxy.h; path = Core/Reactive/DelegateProxy/CCDelegateProxy.h; sourceTree = "<group>"; };
+		42D9009B1BF47B3100B8B01F /* CCDelegateProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCDelegateProxy.m; path = Core/Reactive/DelegateProxy/CCDelegateProxy.m; sourceTree = "<group>"; };
+		42D900A01BF4817000B8B01F /* UITextView+CCSignalSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+CCSignalSupport.h"; sourceTree = "<group>"; };
+		42D900A11BF4817000B8B01F /* UITextView+CCSignalSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+CCSignalSupport.m"; sourceTree = "<group>"; };
 		42DBA84D1BB4D5CB00AD47C6 /* UILabel+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UILabel+Addition.h"; path = "UILabel/UILabel+Addition.h"; sourceTree = "<group>"; };
 		42DBA84E1BB4D5CB00AD47C6 /* UILabel+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+Addition.m"; path = "UILabel/UILabel+Addition.m"; sourceTree = "<group>"; };
 		42DBA8541BB5305700AD47C6 /* CCBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCBase64.h; path = Base64/CCBase64.h; sourceTree = "<group>"; };
@@ -4981,6 +4989,7 @@
 			isa = PBXGroup;
 			children = (
 				42B6473F1BEDA8DD00B2F6FD /* Core.h */,
+				42FC46291BF478BD00EF8D3A /* Reactive */,
 				42DC3EE81BEF49CD00F9CC38 /* CCLog */,
 				42B6473A1BEDA87E00B2F6FD /* Backtrace */,
 			);
@@ -5027,6 +5036,33 @@
 				42D404C21BC9EB6A00C62FBD /* UIAlertView+Additional.m */,
 			);
 			name = UIAlertView;
+			sourceTree = "<group>";
+		};
+		42D900991BF47AFF00B8B01F /* DelegateProxy */ = {
+			isa = PBXGroup;
+			children = (
+				42D9009A1BF47B3100B8B01F /* CCDelegateProxy.h */,
+				42D9009B1BF47B3100B8B01F /* CCDelegateProxy.m */,
+			);
+			name = DelegateProxy;
+			sourceTree = "<group>";
+		};
+		42D9009E1BF4813A00B8B01F /* SignalSupport */ = {
+			isa = PBXGroup;
+			children = (
+				42D9009F1BF4813A00B8B01F /* UITextView */,
+			);
+			name = SignalSupport;
+			path = Core/Reactive/SignalSupport;
+			sourceTree = "<group>";
+		};
+		42D9009F1BF4813A00B8B01F /* UITextView */ = {
+			isa = PBXGroup;
+			children = (
+				42D900A01BF4817000B8B01F /* UITextView+CCSignalSupport.h */,
+				42D900A11BF4817000B8B01F /* UITextView+CCSignalSupport.m */,
+			);
+			path = UITextView;
 			sourceTree = "<group>";
 		};
 		42DBA84C1BB4D5A700AD47C6 /* UILabel */ = {
@@ -5123,6 +5159,15 @@
 				42F24C781BEA5A10008CDEDC /* CCChart.m */,
 			);
 			name = CCChart;
+			sourceTree = "<group>";
+		};
+		42FC46291BF478BD00EF8D3A /* Reactive */ = {
+			isa = PBXGroup;
+			children = (
+				42D9009E1BF4813A00B8B01F /* SignalSupport */,
+				42D900991BF47AFF00B8B01F /* DelegateProxy */,
+			);
+			name = Reactive;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -5372,6 +5417,7 @@
 				425477391BD2AEC20071BBC5 /* des.h in Headers */,
 				429CA0131B9EF8BF0013A44A /* CalendarLogic.h in Headers */,
 				42F24C691BEA5091008CDEDC /* PNRadarChartDataItem.h in Headers */,
+				42D900A21BF4817000B8B01F /* UITextView+CCSignalSupport.h in Headers */,
 				425477381BD2AEC20071BBC5 /* crypto.h in Headers */,
 				429CA0931B9EF8BF0013A44A /* CCDatePicker.h in Headers */,
 				429CA0FB1B9EF8BF0013A44A /* CCMessageTableViewController.h in Headers */,
@@ -5543,6 +5589,7 @@
 				420DE31B1BC7942300D87D6D /* ZXCGImageLuminanceSource.h in Headers */,
 				420DE35D1BC7942300D87D6D /* ZXLuminanceSource.h in Headers */,
 				420DE3FE1BC7942300D87D6D /* ZXOneDimensionalCodeWriter.h in Headers */,
+				42D9009C1BF47B3100B8B01F /* CCDelegateProxy.h in Headers */,
 				420DE4001BC7942300D87D6D /* ZXOneDReader.h in Headers */,
 				420DE3411BC7942300D87D6D /* ZXGridSampler.h in Headers */,
 				420DE3231BC7942300D87D6D /* ZXWhiteRectangleDetector.h in Headers */,
@@ -6289,6 +6336,7 @@
 				420DE3461BC7942300D87D6D /* ZXIntArray.m in Sources */,
 				429C9FA11B9EF8BF0013A44A /* CCSecurityStrategy.m in Sources */,
 				420DE3B81BC7942300D87D6D /* ZXAnyAIDecoder.m in Sources */,
+				42D9009D1BF47B3100B8B01F /* CCDelegateProxy.m in Sources */,
 				429CA0301B9EF8BF0013A44A /* CCPhoto.m in Sources */,
 				420DE4011BC7942300D87D6D /* ZXOneDReader.m in Sources */,
 				420DE3531BC7942300D87D6D /* ZXDecodeHints.m in Sources */,
@@ -6306,6 +6354,7 @@
 				429C9F4B1B9EF8BF0013A44A /* BaseAppDelegate.m in Sources */,
 				426979301BA695BA00C3E93C /* AFHTTPRequestOperationManager.m in Sources */,
 				429C9F511B9EF8BF0013A44A /* NavMainViewController.m in Sources */,
+				42D900A31BF4817000B8B01F /* UITextView+CCSignalSupport.m in Sources */,
 				420DE3CA1BC7942300D87D6D /* ZXBitArrayBuilder.m in Sources */,
 				429C9FD41B9EF8BF0013A44A /* SRVersion.m in Sources */,
 				420DE2BD1BC7942300D87D6D /* ZXAztecCode.m in Sources */,
@@ -6538,7 +6587,7 @@
 				);
 				MACH_O_TYPE = staticlib;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.runzhou.TimeToEat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Byron.RemitChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -6574,7 +6623,7 @@
 				);
 				MACH_O_TYPE = staticlib;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.runzhou.TimeToEat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Byron.RemitChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
