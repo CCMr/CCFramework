@@ -24,243 +24,307 @@
 //
 
 #import "CCRefreshBaseView.h"
+#import "CCRefreshConst.h"
+#import "UIView+BUIView.h"
+#import "config.h"
+#import "Core.h"
+#import <objc/message.h>
+#import "CCLoadingView.h"
 
+@interface CCRefreshBaseView ()
 
-#define kBundleName @"CCRefresh.bundle"
-#define kSrcName(file) [kBundleName stringByAppendingPathComponent:file]
+@property(nonatomic, weak) UILabel *statusLabel;
+@property(nonatomic, weak) UIImageView *arrowImage;
+@property(nonatomic, weak) UIActivityIndicatorView *activityView;
 
-@interface  CCRefreshBaseView()
-// 合理的Y值
-- (CGFloat)validY;
-// view的类型
-- (int)viewType;
+@property(nonatomic, weak) CCLoadingView *cc_activityView;
+
 @end
 
 @implementation CCRefreshBaseView
+#pragma mark - 控件初始化
+/**
+ *  状态标签
+ */
+- (UILabel *)statusLabel
+{
+    if (!_statusLabel) {
+        UILabel *statusLabel = [[UILabel alloc] init];
+        statusLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        statusLabel.font = [UIFont boldSystemFontOfSize:13];
+        statusLabel.textColor = cc_ColorRGB(150, 150, 150);
+        statusLabel.backgroundColor = [UIColor clearColor];
+        statusLabel.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:_statusLabel = statusLabel];
+    }
+    return _statusLabel;
+}
+
+/**
+ *  箭头图片
+ */
+- (UIImageView *)arrowImage
+{
+    if (!_arrowImage) {
+        UIImageView *arrowImage = [[UIImageView alloc] initWithImage:[ResourcesPhotos arrow]];
+        arrowImage.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        [self addSubview:_arrowImage = arrowImage];
+    }
+    return _arrowImage;
+}
+
+/**
+ *  状态标签
+ */
+- (UIActivityIndicatorView *)activityView
+{
+    if (!_activityView) {
+        UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityView.bounds = self.arrowImage.bounds;
+        activityView.autoresizingMask = self.arrowImage.autoresizingMask;
+        [self addSubview:_activityView = activityView];
+    }
+    return _activityView;
+}
+
+/**
+ *  @author CC, 2015-11-12
+ *  
+ *  @brief  load图标
+ */
+- (CCLoadingView *)cc_activityView
+{
+    if (!_cc_activityView) {
+        CCLoadingView *loadingView = [[CCLoadingView alloc] initWithFrame:CGRectMake(10, 10, 40, 40)];
+        [loadingView initialize];
+        loadingView.lineCap = kCALineCapRound;
+        loadingView.clockwise = true;
+        loadingView.segmentColor = [UIColor lightGrayColor];
+        [loadingView startAnimation:CCCircleAnimationFullCircle];
+        
+        [self addSubview:_cc_activityView = loadingView];
+    }
+    return _cc_activityView;
+}
 
 #pragma mark - 初始化方法
-- (id)initWithScrollView:(UIScrollView *)scrollView
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    if (self = [super init]) {
-        self.scrollView = scrollView;
-    }
-    return self;
-}
-
-#pragma mark 初始化
-- (void)initial
-{
-    // 1.自己的属性
-    self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.backgroundColor = [UIColor clearColor];
-    
-    // 2.时间标签
-    [self addSubview:_lastUpdateTimeLabel = [self labelWithFontSize:12]];
-    
-    // 3.状态标签
-    [self addSubview:_statusLabel = [self labelWithFontSize:13]];
-    
-    // 4.箭头图片
-    UIImageView *arrowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kSrcName(@"arrow.png")]];
-    arrowImage.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-    [self addSubview:_arrowImage = arrowImage];
-    
-    // 5.指示器
-    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    activityView.bounds = arrowImage.bounds;
-    activityView.autoresizingMask = arrowImage.autoresizingMask;
-    
-    CCLoadLogoView *loadView = [[CCLoadLogoView alloc] initWithLoading:CGRectMake(0, 0, 40, 40)];
-    loadView.autoresizingMask = arrowImage.autoresizingMask;
-    [self addSubview:_activityView = loadView];
-    
-    // 6.设置默认状态
-    [self setState:RefreshStateNormal];
-    
-#ifdef NeedAudio
-    // 7.加载音频
-    _pullId = [self loadId:@"pull.wav"];
-    _normalId = [self loadId:@"normal.wav"];
-    _refreshingId = [self loadId:@"refreshing.wav"];
-    _endRefreshId = [self loadId:@"end_refreshing.wav"];
-#endif
-}
-
-#pragma mark 构造方法
-- (id)initWithFrame:(CGRect)frame {
+    frame.size.height = CCRefreshViewHeight;
     if (self = [super initWithFrame:frame]) {
-        [self initial];
+        // 1.自己的属性
+        self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        self.backgroundColor = [UIColor clearColor];
+        
+        // 2.设置默认状态
+        self.state = CCRefreshStateNormal;
     }
     return self;
 }
 
-#pragma mark 创建一个UILabel
-- (UILabel *)labelWithFontSize:(CGFloat)size
+- (void)layoutSubviews
 {
-    UILabel *label = [[UILabel alloc] init];
-    label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    label.font = [UIFont boldSystemFontOfSize:size];
-    label.textColor = [UIColor colorWithRed:150/255.0 green:150/255.0 blue:150/255.0 alpha:1.0];
-    label.backgroundColor = [UIColor clearColor];
-    label.textAlignment = NSTextAlignmentCenter;
-    return label;
+    [super layoutSubviews];
+    
+    // 1.箭头
+    CGFloat arrowX = self.width * 0.5 - 100;
+    self.arrowImage.center = CGPointMake(arrowX, self.height * 0.5);
+    
+    // 2.指示器
+    self.activityView.center = self.arrowImage.center;
+    self.cc_activityView.center = self.arrowImage.center;
 }
 
-#ifdef NeedAudio  
-#pragma mark 加载音效id
-- (SystemSoundID)loadId:(NSString *)filename
+- (void)willMoveToSuperview:(UIView *)newSuperview
 {
-    SystemSoundID ID;
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSURL *url = [bundle URLForResource:kSrcName(filename) withExtension:nil];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)(url), &ID);
-    return ID;
-}
-#endif
-
-#pragma mark 设置frame
-- (void)setFrame:(CGRect)frame
-{
-    frame.size.height = kViewHeight;
-    [super setFrame:frame];
+    [super willMoveToSuperview:newSuperview];
     
-    CGFloat statusY = 5;
-    CGFloat w = frame.size.width;
-    if (w == 0 || _statusLabel.frame.origin.y == statusY) return;
+    // 旧的父控件
+    [self.superview removeObserver:self forKeyPath:CCRefreshContentOffset context:nil];
     
-    // 1.状态标签
-    CGFloat statusX = 0;
-    CGFloat statusHeight = 20;
-    CGFloat statusWidth = w;
-    _statusLabel.frame = CGRectMake(statusX, statusY, statusWidth, statusHeight);
-    
-    // 2.时间标签
-    CGFloat lastUpdateY = statusY + statusHeight + 5;
-    _lastUpdateTimeLabel.frame = CGRectMake(statusX, lastUpdateY, statusWidth, statusHeight);
-    
-    // 3.箭头
-    CGFloat arrowX = w * 0.5 - 100;
-    _arrowImage.center = CGPointMake(arrowX, frame.size.height * 0.5);
-    
-    // 4.指示器
-    _activityView.center = _arrowImage.center;
-}
-
-- (void)removeFromSuperview
-{
-    [self.superview removeObserver:self forKeyPath:@"contentOffset" context:nil];
-    [super removeFromSuperview];
-}
-
-#pragma mark - UIScrollView相关
-#pragma mark 设置UIScrollView
-- (void)setScrollView:(UIScrollView *)scrollView
-{
-    // 移除之前的监听器
-    [_scrollView removeObserver:self forKeyPath:@"contentOffset" context:nil];
-    // 设置scrollView
-    _scrollView = scrollView;
-    [_scrollView addSubview:self];
-    // 监听contentOffset
-    [_scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
-}
-
-#pragma mark 监听UIScrollView的contentOffset属性
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{    
-    if ([@"contentOffset" isEqualToString:keyPath]) {
-        CGFloat offsetY = _scrollView.contentOffset.y * self.viewType;
-        CGFloat validY = self.validY;
-        if (!self.userInteractionEnabled || self.alpha <= 0.01 || self.hidden
-            || _state == RefreshStateRefreshing
-            || offsetY <= validY) return;
+    if (newSuperview) { // 新的父控件
+        [newSuperview addObserver:self forKeyPath:CCRefreshContentOffset options:NSKeyValueObservingOptionNew context:nil];
         
-        // 即将刷新 && 手松开
-        if (_scrollView.isDragging) {
-            CGFloat validOffsetY = validY + kViewHeight;
-            if (_state == RefreshStatePulling && offsetY <= validOffsetY) {
-                // 转为普通状态
-#ifdef NeedAudio
-                AudioServicesPlaySystemSound(_normalId);
-#endif
-                [self setState:RefreshStateNormal];
-            } else if (_state == RefreshStateNormal && offsetY > validOffsetY) {
-                // 转为即将刷新状态
-#ifdef NeedAudio
-                AudioServicesPlaySystemSound(_pullId);
-#endif
-                [self setState:RefreshStatePulling];
-            }
+        // 设置宽度
+        self.width = newSuperview.width;
+        // 设置位置
+        self.x = 0;
+        
+        // 记录UIScrollView
+        _scrollView = (UIScrollView *)newSuperview;
+        // 记录UIScrollView最开始的contentInset
+        _scrollViewOriginalInset = _scrollView.contentInset;
+    }
+}
+
+#pragma mark - 显示到屏幕上
+- (void)drawRect:(CGRect)rect
+{
+    if (self.state == CCRefreshStateWillRefreshing) {
+        self.state = CCRefreshStateRefreshing;
+    }
+}
+
+#pragma mark - 刷新相关
+#pragma mark 是否正在刷新
+- (BOOL)isRefreshing
+{
+    return CCRefreshStateRefreshing == self.state;
+}
+
+#pragma mark 开始刷新
+- (void)beginRefreshing
+{
+    if (self.state == CCRefreshStateRefreshing) {
+        // 回调
+        if ([self.beginRefreshingTaget respondsToSelector:self.beginRefreshingAction]) {
+            msgSend(msgTarget(self.beginRefreshingTaget), self.beginRefreshingAction, self);
+        }
+        
+        if (self.beginRefreshingCallback) {
+            self.beginRefreshingCallback();
+        }
+    } else {
+        if (self.window) {
+            self.state = CCRefreshStateRefreshing;
         } else {
-            if (_state == RefreshStatePulling) {
-                // 开始刷新
-#ifdef NeedAudio
-                AudioServicesPlaySystemSound(_refreshingId);
-#endif
-                [self setState:RefreshStateRefreshing];
-            }
+            _state = CCRefreshStateWillRefreshing;
+            [self setNeedsDisplay];
         }
     }
 }
 
-#pragma mark 设置状态
-- (void)setState:(RefreshState)state
-{
-    switch (state) {
-		case RefreshStateNormal:
-            _arrowImage.hidden = NO;
-			[_activityView stopAnimation];
-			break;
-            
-        case RefreshStatePulling:
-            break;
-            
-		case RefreshStateRefreshing:
-			[_activityView startAnimation];
-			_arrowImage.hidden = YES;
-            _arrowImage.transform = CGAffineTransformIdentity;
-            
-            // 通知代理
-            if ([_delegate respondsToSelector:@selector(refreshViewBeginRefreshing:)]) {
-                [_delegate refreshViewBeginRefreshing:self];
-            }
-            
-            // 回调
-            if (_beginRefreshingBlock) {
-                _beginRefreshingBlock(self);
-            }
-			break;
-	}
-}
-
-#pragma mark - 状态相关
-#pragma mark 是否正在刷新
-- (BOOL)isRefreshing
-{
-    return RefreshStateRefreshing == _state;
-}
-#pragma mark 开始刷新
-- (void)beginRefreshing
-{
-    [self setState:RefreshStateRefreshing];
-}
 #pragma mark 结束刷新
 - (void)endRefreshing
 {
-    [self setState:RefreshStateNormal];
-}
-
-// 结束使用、释放资源
-- (void)free{
+    double delayInSeconds = 0.3;
     
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    cc_gcd_dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+        self.state = CCRefreshStateNormal;
+    });
 }
 
--(CGFloat)validY{
-    return 0;
+#pragma mark - 设置状态
+- (void)setPullToRefreshText:(NSString *)pullToRefreshText
+{
+    _pullToRefreshText = [pullToRefreshText copy];
+    [self settingLabelText];
+}
+- (void)setReleaseToRefreshText:(NSString *)releaseToRefreshText
+{
+    _releaseToRefreshText = [releaseToRefreshText copy];
+    [self settingLabelText];
+}
+- (void)setRefreshingText:(NSString *)refreshingText
+{
+    _refreshingText = [refreshingText copy];
+    [self settingLabelText];
+}
+- (void)settingLabelText
+{
+    switch (self.state) {
+        case CCRefreshStateNormal:
+            // 设置文字
+            self.statusLabel.text = self.pullToRefreshText;
+            break;
+        case CCRefreshStatePulling:
+            // 设置文字
+            self.statusLabel.text = self.releaseToRefreshText;
+            break;
+        case CCRefreshStateRefreshing:
+            // 设置文字
+            self.statusLabel.text = self.refreshingText;
+            break;
+        default:
+            break;
+    }
 }
 
--(int)viewType{
-    return 0;
+- (void)setState:(CCRefreshState)state
+{
+    // 0.存储当前的contentInset
+    if (self.state != CCRefreshStateRefreshing) {
+        _scrollViewOriginalInset = self.scrollView.contentInset;
+    }
+    
+    // 1.一样的就直接返回(暂时不返回)
+    if (self.state == state) return;
+    
+    // 2.旧状态
+    CCRefreshState oldState = self.state;
+    
+    // 3.存储状态
+    _state = state;
+    
+    // 4.根据状态执行不同的操作
+    switch (state) {
+        case CCRefreshStateNormal: // 普通状态
+        {
+            if (oldState == CCRefreshStateRefreshing) {
+                [UIView animateWithDuration:CCRefreshSlowAnimationDuration * 0.6 animations:^{
+                    //                    self.activityView.alpha = 0.0;
+                    self.cc_activityView.alpha = 0.0;
+                } completion:^(BOOL finished) {
+                    // 停止转圈圈
+                    //                    [self.activityView stopAnimating];
+                    [self.cc_activityView stopAnimation];
+                    // 恢复alpha
+                    //                    self.activityView.alpha = 1.0;
+                    self.cc_activityView.alpha = 1.0;
+                }];
+                cc_gcd_dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(CCRefreshSlowAnimationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 等头部回去
+                    // 再次设置回normal
+                    //                    _state = CCRefreshStatePulling;
+                    //                    self.state = CCRefreshStateNormal;
+                    // 显示箭头
+                    self.arrowImage.hidden = NO;
+                    
+                    // 停止转圈圈
+                    //                    [self.activityView stopAnimating];
+                    [self.cc_activityView stopAnimation];
+                    
+                    // 设置文字
+                    [self settingLabelText];
+                });
+                // 直接返回
+                return;
+            } else {
+                // 显示箭头
+                self.arrowImage.hidden = NO;
+                
+                // 停止转圈圈
+                //                [self.activityView stopAnimating];
+                [self.cc_activityView stopAnimation];
+            }
+            break;
+        }
+            
+        case CCRefreshStatePulling:
+            break;
+            
+        case CCRefreshStateRefreshing: {
+            // 开始转圈圈
+            //            [self.activityView startAnimating];
+            [self.cc_activityView startAnimation:CCCircleAnimationFullCircle];
+            // 隐藏箭头
+            self.arrowImage.hidden = YES;
+            
+            // 回调
+            if ([self.beginRefreshingTaget respondsToSelector:self.beginRefreshingAction]) {
+                msgSend(msgTarget(self.beginRefreshingTaget), self.beginRefreshingAction, self);
+            }
+            
+            if (self.beginRefreshingCallback) {
+                self.beginRefreshingCallback();
+            }
+            break;
+        }
+        default:
+            break;
+    }
+    
+    // 5.设置文字
+    [self settingLabelText];
 }
-
 @end

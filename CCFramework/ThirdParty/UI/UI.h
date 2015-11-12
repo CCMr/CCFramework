@@ -57,26 +57,12 @@
 #import <CCFramework/CCPhotoBrowser.h>
 #import <CCFramework/CCBadgeView.h>
 #import <CCFramework/CCDatePicker.h>
-//#import <CCFramework/CCPhotographyHelper.h>
-//#import <CCFramework/CCPhotoLoadingView.h>
-//#import <CCFramework/CCPhotoProgressView.h>
-//#import <CCFramework/CCPhotoToolbar.h>
-//#import <CCFramework/CCPhotoView.h>
 #import <CCFramework/CCPickerViewController.h>
-//#import <CCFramework/CCPickerGroupViewController.h>
-//#import <CCFramework/CCPickerAssetsViewController.h>
-//#import <CCFramework/CCPickerCollectionViewCell.h>
-//#import <CCFramework/CCPickerCollectionView.h>
-//#import <CCFramework/CCPickerDatas.h>
-//#import <CCFramework/CCPickerGroup.h>
 #import <CCFramework/CCPopMenuView.h>
 #import <CCFramework/CCPopMenu.h>
 #import <CCFramework/CCPopMenuItem.h>
 #import <CCFramework/CCPopMenuItemView.h>
-#import <CCFramework/CCRefresh.h>
-//#import <CCFramework/CCRefreshBaseView.h>
-//#import <CCFramework/CCRefreshFooterView.h>
-//#import <CCFramework/CCRefreshHeaderView.h>
+#import <CCFramework/UIScrollView+CCRefresh.h>
 #import <CCFramework/CCTableViewCell.h>
 #import <CCFramework/CCTextViewPlaceholder.h>
 #import <CCFramework/BUILabel.h>
@@ -85,9 +71,6 @@
 #import <CCFramework/CCWaterfallsFlow.h>
 #import <CCFramework/CCWebViewController.h>
 #import <CCFramework/CCWebView.h>
-//#import <CCFramework/CCWebViewProgress.h>
-//#import <CCFramework/CCWebViewProgressView.h>
-
 #import <CCFramework/CustomIOS7AlertView.h>
 #import <CCFramework/CCDropDown.h>
 

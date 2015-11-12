@@ -1,5 +1,5 @@
 //
-//  CCRefreshTableFooterView.h
+//  CCRefreshConst.m
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -22,12 +22,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-//  上拉加载更多
 
-#import "CCRefreshBaseView.h"
+#import <UIKit/UIKit.h>
 
-@interface CCRefreshFooterView : CCRefreshBaseView
+const CGFloat CCRefreshViewHeight = 64.0;
+const CGFloat CCRefreshFastAnimationDuration = 0.25;
+const CGFloat CCRefreshSlowAnimationDuration = 0.4;
 
-+ (instancetype)footer;
+NSString *const CCRefreshFooterPullToRefresh = @"上拉可以加载更多数据";
+NSString *const CCRefreshFooterReleaseToRefresh = @"松开立即加载更多数据";
+NSString *const CCRefreshFooterRefreshing = @"正在加载数据...";
 
-@end
+NSString *const CCRefreshHeaderPullToRefresh = @"下拉可以刷新";
+NSString *const CCRefreshHeaderReleaseToRefresh = @"松开立即刷新";
+NSString *const CCRefreshHeaderRefreshing = @"正在刷新...";
+NSString *const CCRefreshHeaderTimeKey = @"CCRefreshHeaderView";
+
+NSString *const CCRefreshContentOffset = @"contentOffset";
+NSString *const CCRefreshContentSize = @"contentSize";

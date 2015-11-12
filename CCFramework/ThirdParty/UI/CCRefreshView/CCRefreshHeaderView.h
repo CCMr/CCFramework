@@ -26,7 +26,10 @@
 
 #import "CCRefreshBaseView.h"
 
-// 类
 @interface CCRefreshHeaderView : CCRefreshBaseView
-+ (id)header;
+
+@property (nonatomic, copy) NSString *dateKey;
+
++ (instancetype)header;
+
 @end

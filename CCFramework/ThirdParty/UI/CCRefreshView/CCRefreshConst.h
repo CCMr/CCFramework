@@ -1,5 +1,5 @@
 //
-//  CCRefreshTableFooterView.h
+//  CCRefreshConst.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -22,12 +22,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-//  上拉加载更多
 
-#import "CCRefreshBaseView.h"
+#import <UIKit/UIKit.h>
 
-@interface CCRefreshFooterView : CCRefreshBaseView
+// objc_msgSend
+#define msgSend(...) ((void (*)(void *, SEL, UIView *))objc_msgSend)(__VA_ARGS__)
+#define msgTarget(target) (__bridge void *)(target)
 
-+ (instancetype)footer;
+UIKIT_EXTERN const CGFloat CCRefreshViewHeight;
+UIKIT_EXTERN const CGFloat CCRefreshFastAnimationDuration;
+UIKIT_EXTERN const CGFloat CCRefreshSlowAnimationDuration;
 
-@end
+UIKIT_EXTERN NSString *const CCRefreshFooterPullToRefresh;
+UIKIT_EXTERN NSString *const CCRefreshFooterReleaseToRefresh;
+UIKIT_EXTERN NSString *const CCRefreshFooterRefreshing;
+
+UIKIT_EXTERN NSString *const CCRefreshHeaderPullToRefresh;
+UIKIT_EXTERN NSString *const CCRefreshHeaderReleaseToRefresh;
+UIKIT_EXTERN NSString *const CCRefreshHeaderRefreshing;
+UIKIT_EXTERN NSString *const CCRefreshHeaderTimeKey;
+
+UIKIT_EXTERN NSString *const CCRefreshContentOffset;
+
+extern NSString *const CCRefreshContentSize;

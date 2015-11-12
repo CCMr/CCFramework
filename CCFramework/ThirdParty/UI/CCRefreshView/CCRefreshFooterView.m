@@ -1,5 +1,5 @@
 //
-//  CCRefreshFooterView.m
+//  CCRefreshTableFooterView.m
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -25,143 +25,218 @@
 //  上拉加载更多
 
 
-
-#define kPullToRefresh @"上拉可以加载更多数据"
-#define kReleaseToRefresh @"松开立即加载更多数据"
-#define kRefreshing @"正在加载数据..."
-
 #import "CCRefreshFooterView.h"
+#import "CCRefreshConst.h"
+#import "UIView+BUIView.h"
+#import "UIScrollView+CCExtension.h"
+
+@interface CCRefreshFooterView ()
+
+@property(assign, nonatomic) NSInteger lastRefreshCount;
+
+@end
 
 @implementation CCRefreshFooterView
 
-+ (id)footer
++ (instancetype)footer
 {
     return [[CCRefreshFooterView alloc] init];
 }
 
-#pragma mark - 初始化
-- (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame: frame]) {
-        // 移除刷新时间
-		[_lastUpdateTimeLabel removeFromSuperview];
-        _lastUpdateTimeLabel = nil;
+- (id)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame]) {
+        self.pullToRefreshText = CCRefreshFooterPullToRefresh;
+        self.releaseToRefreshText = CCRefreshFooterReleaseToRefresh;
+        self.refreshingText = CCRefreshFooterRefreshing;
     }
     return self;
 }
 
-#pragma mark - UIScrollView相关
-#pragma mark 重写设置ScrollView
-- (void)setScrollView:(UIScrollView *)scrollView
+- (void)layoutSubviews
 {
-    // 1.移除以前的监听器
-    [_scrollView removeObserver:self forKeyPath:@"contentSize" context:nil];
-    // 2.监听contentSize
-    [scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+    [super layoutSubviews];
     
-    // 3.父类的方法
-    [super setScrollView:scrollView];
-    
-    // 4.重新调整frame
-    [self adjustFrame];
+    self.statusLabel.frame = self.bounds;
 }
 
-- (void)removeFromSuperview
+- (void)willMoveToSuperview:(UIView *)newSuperview
 {
-    [self.superview removeObserver:self forKeyPath:@"contentSize" context:nil];
-    [super removeFromSuperview];
+    [super willMoveToSuperview:newSuperview];
+    
+    // 旧的父控件
+    [self.superview removeObserver:self forKeyPath:CCRefreshContentSize context:nil];
+    
+    if (newSuperview) { // 新的父控件
+        // 监听
+        [newSuperview addObserver:self forKeyPath:CCRefreshContentSize options:NSKeyValueObservingOptionNew context:nil];
+        
+        // 重新调整frame
+        [self adjustFrameWithContentSize];
+    }
+}
+
+#pragma mark 重写调整frame
+- (void)adjustFrameWithContentSize
+{
+    // 内容的高度
+    CGFloat contentHeight = self.scrollView.contentSizeHeight;
+    // 表格的高度
+    CGFloat scrollHeight = self.scrollView.height - self.scrollViewOriginalInset.top - self.scrollViewOriginalInset.bottom;
+    // 设置位置和尺寸
+    self.y = MAX(contentHeight, scrollHeight);
 }
 
 #pragma mark 监听UIScrollView的属性
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    // 不能跟用户交互，直接返回
+    if (!self.userInteractionEnabled || self.alpha <= 0.01 || self.hidden) return;
     
-    if ([@"contentSize" isEqualToString:keyPath]) {
-        [self adjustFrame];
+    if ([CCRefreshContentSize isEqualToString:keyPath]) {
+        // 调整frame
+        [self adjustFrameWithContentSize];
+    } else if ([CCRefreshContentOffset isEqualToString:keyPath]) {
+        // 如果正在刷新，直接返回
+        if (self.state == CCRefreshStateRefreshing) return;
+        
+        // 调整状态
+        [self adjustStateWithContentOffset];
     }
 }
 
-#pragma mark 重写调整frame
-- (void)adjustFrame
+/**
+ *  调整状态
+ */
+- (void)adjustStateWithContentOffset
 {
-    // 内容的高度
-    CGFloat contentHeight = _scrollView.contentSize.height;
-    // 表格的高度
-    CGFloat scrollHeight = _scrollView.frame.size.height;
-    CGFloat y = MAX(contentHeight, scrollHeight);
-    // 设置边框
-    self.frame = CGRectMake(0, y, _scrollView.frame.size.width, kViewHeight);
+    // 当前的contentOffset
+    CGFloat currentOffsetY = self.scrollView.contentOffsetY;
+    // 尾部控件刚好出现的offsetY
+    CGFloat happenOffsetY = [self happenOffsetY];
     
-    // 挪动标签的位置
-    CGPoint center = _statusLabel.center;
-    center.y = _arrowImage.center.y;
-    _statusLabel.center = center;
+    // 如果是向下滚动到看不见尾部控件，直接返回
+    if (currentOffsetY <= happenOffsetY) return;
+    
+    if (self.scrollView.isDragging) {
+        // 普通 和 即将刷新 的临界点
+        CGFloat normal2pullingOffsetY = happenOffsetY + self.height;
+        
+        if (self.state == CCRefreshStateNormal && currentOffsetY > normal2pullingOffsetY) {
+            // 转为即将刷新状态
+            self.state = CCRefreshStatePulling;
+        } else if (self.state == CCRefreshStatePulling && currentOffsetY <= normal2pullingOffsetY) {
+            // 转为普通状态
+            self.state = CCRefreshStateNormal;
+        }
+    } else if (self.state == CCRefreshStatePulling) { // 即将刷新 && 手松开
+        // 开始刷新
+        self.state = CCRefreshStateRefreshing;
+    }
 }
 
 #pragma mark - 状态相关
 #pragma mark 设置状态
-- (void)setState:(RefreshState)state
+- (void)setState:(CCRefreshState)state
 {
-    if (_state == state) return;
+    // 1.一样的就直接返回
+    if (self.state == state) return;
     
+    // 2.保存旧状态
+    CCRefreshState oldState = self.state;
+    
+    // 3.调用父类方法
     [super setState:state];
     
-	switch (_state = state)
-    {
-		case RefreshStatePulling:
-        {
-            _statusLabel.text = kReleaseToRefresh;
+    // 4.根据状态来设置属性
+    switch (state) {
+        case CCRefreshStateNormal: {
+            // 刷新完毕
+            if (CCRefreshStateRefreshing == oldState) {
+                self.arrowImage.transform = CGAffineTransformMakeRotation(M_PI);
+                [UIView animateWithDuration:CCRefreshSlowAnimationDuration animations:^{
+                    self.scrollView.contentInsetBottom = self.scrollViewOriginalInset.bottom;
+                }];
+            } else {
+                // 执行动画
+                [UIView animateWithDuration:CCRefreshFastAnimationDuration animations:^{
+                    self.arrowImage.transform = CGAffineTransformMakeRotation(M_PI);
+                }];
+            }
             
-            [UIView animateWithDuration:0.2 animations:^{
-                _arrowImage.transform = CGAffineTransformIdentity;
-                UIEdgeInsets inset = _scrollView.contentInset;
-                inset.bottom = 0;
-                _scrollView.contentInset = inset;
-            }];
-			break;
+            CGFloat deltaH = [self heightForContentBreakView];
+            NSInteger currentCount = [self totalDataCountInScrollView];
+            // 刚刷新完毕
+            if (CCRefreshStateRefreshing == oldState && deltaH > 0 && currentCount != self.lastRefreshCount) {
+                self.scrollView.contentOffsetY = self.scrollView.contentOffsetY;
+            }
+            break;
         }
             
-		case RefreshStateNormal:
-        {
-			_statusLabel.text = kPullToRefresh;
-            
-            [UIView animateWithDuration:0.2 animations:^{
-                _arrowImage.transform = CGAffineTransformMakeRotation(M_PI);
-                UIEdgeInsets inset = _scrollView.contentInset;
-                inset.bottom = 0;
-                _scrollView.contentInset = inset;
+        case CCRefreshStatePulling: {
+            [UIView animateWithDuration:CCRefreshFastAnimationDuration animations:^{
+                self.arrowImage.transform = CGAffineTransformIdentity;
             }];
-			break;
+            break;
         }
             
-        case RefreshStateRefreshing:
-        {
-            _statusLabel.text = kRefreshing;
+        case CCRefreshStateRefreshing: {
+            // 记录刷新前的数量
+            self.lastRefreshCount = [self totalDataCountInScrollView];
             
-            [UIView animateWithDuration:0.2 animations:^{
-                // 1.顶部多出65的滚动范围
-                UIEdgeInsets inset = _scrollView.contentInset;
-                inset.bottom = self.frame.origin.y - _scrollView.contentSize.height +kViewHeight;
-                _scrollView.contentInset = inset;
-                
-                // 2.设置滚动位置
-                _scrollView.contentOffset = CGPointMake(0, self.validY + kViewHeight);
+            [UIView animateWithDuration:CCRefreshFastAnimationDuration animations:^{
+                CGFloat bottom = self.height + self.scrollViewOriginalInset.bottom;
+                CGFloat deltaH = [self heightForContentBreakView];
+                if (deltaH < 0) { // 如果内容高度小于view的高度
+                    bottom -= deltaH;
+                }
+                self.scrollView.contentInsetBottom = bottom;
             }];
-			break;
+            break;
         }
-	}
+            
+        default:
+            break;
+    }
+}
+
+- (NSInteger)totalDataCountInScrollView
+{
+    NSInteger totalCount = 0;
+    if ([self.scrollView isKindOfClass:[UITableView class]]) {
+        UITableView *tableView = (UITableView *)self.scrollView;
+        
+        for (NSInteger section = 0; section < tableView.numberOfSections; section++) {
+            totalCount += [tableView numberOfRowsInSection:section];
+        }
+    } else if ([self.scrollView isKindOfClass:[UICollectionView class]]) {
+        UICollectionView *collectionView = (UICollectionView *)self.scrollView;
+        
+        for (NSInteger section = 0; section < collectionView.numberOfSections; section++) {
+            totalCount += [collectionView numberOfItemsInSection:section];
+        }
+    }
+    return totalCount;
+}
+
+#pragma mark 获得scrollView的内容 超出 view 的高度
+- (CGFloat)heightForContentBreakView
+{
+    CGFloat h = self.scrollView.frame.size.height - self.scrollViewOriginalInset.bottom - self.scrollViewOriginalInset.top;
+    return self.scrollView.contentSize.height - h;
 }
 
 #pragma mark - 在父类中用得上
-// 合理的Y值
-- (CGFloat)validY
+/**
+ *  刚好看到上拉刷新控件时的contentOffset.y
+ */
+- (CGFloat)happenOffsetY
 {
-    return MAX(_scrollView.contentSize.height, _scrollView.frame.size.height) - _scrollView.frame.size.height;
-}
-
-// view的类型
-- (int)viewType
-{
-    return RefreshViewTypeFooter;
+    CGFloat deltaH = [self heightForContentBreakView];
+    if (deltaH > 0) {
+        return deltaH - self.scrollViewOriginalInset.top;
+    } else {
+        return - self.scrollViewOriginalInset.top;
+    }
 }
 @end

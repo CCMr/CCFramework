@@ -23,90 +23,73 @@
 // THE SOFTWARE.
 //
 
-
-// 如果定义了NeedAudio这个宏，说明需要音频
-// 依赖于AVFoundation.framework 和 AudioToolbox.framework
-//#define NeedAudio
-
-// view的高度
-#define kViewHeight 65.0
-
-//
 #import <UIKit/UIKit.h>
-#import <AVFoundation/AVFoundation.h>
-#import "CCLoadLogoView.h"
-
-typedef enum {
-	RefreshStatePulling = 1,
-	RefreshStateNormal = 2,
-	RefreshStateRefreshing = 3
-} RefreshState;
-
-typedef enum {
-    RefreshViewTypeHeader = -1,
-    RefreshViewTypeFooter = 1
-} RefreshViewType;
 
 @class CCRefreshBaseView;
 
-typedef void (^BeginRefreshingBlock)(CCRefreshBaseView *refreshView);
+#pragma mark - 控件的刷新状态
+typedef enum {
+	CCRefreshStatePulling = 1, // 松开就可以进行刷新的状态
+	CCRefreshStateNormal = 2, // 普通状态
+	CCRefreshStateRefreshing = 3, // 正在刷新中的状态
+    CCRefreshStateWillRefreshing = 4
+} CCRefreshState;
 
-@protocol CCRefreshBaseViewDelegate <NSObject>
-@optional
-- (void)refreshViewBeginRefreshing:(CCRefreshBaseView *)refreshView;
-@end
+#pragma mark - 控件的类型
+typedef enum {
+    CCRefreshViewTypeHeader = -1, // 头部控件
+    CCRefreshViewTypeFooter = 1 // 尾部控件
+} CCRefreshViewType;
 
+/**
+ 类的声明
+ */
 @interface CCRefreshBaseView : UIView
-{
-    // 父控件
-    __weak UIScrollView *_scrollView;
-    // 代理
-    __weak id<CCRefreshBaseViewDelegate> _delegate;
-    // 回调
-    BeginRefreshingBlock _beginRefreshingBlock;
-    
-    // 子控件
-    __weak UILabel *_lastUpdateTimeLabel;
-	__weak UILabel *_statusLabel;
-    __weak UIImageView *_arrowImage;
-	__weak CCLoadLogoView *_activityView;
-    
-    // 状态
-    RefreshState _state;
 
-#ifdef NeedAudio
-    // 音效
-    SystemSoundID _normalId;
-    SystemSoundID _pullId;
-    SystemSoundID _refreshingId;
-    SystemSoundID _endRefreshId;
-#endif
-}
+#pragma mark - 父控件
+@property (nonatomic, weak, readonly) UIScrollView *scrollView;
+@property (nonatomic, assign, readonly) UIEdgeInsets scrollViewOriginalInset;
 
-// 构造方法
-- (id)initWithScrollView:(UIScrollView *)scrollView;
-
-// 内部的控件
-@property (nonatomic, weak, readonly) UILabel *lastUpdateTimeLabel;
+#pragma mark - 内部的控件
 @property (nonatomic, weak, readonly) UILabel *statusLabel;
 @property (nonatomic, weak, readonly) UIImageView *arrowImage;
+@property (nonatomic, weak, readonly) UIActivityIndicatorView *activityView;
 
-// 回调
-@property (nonatomic, copy) BeginRefreshingBlock beginRefreshingBlock;
-// 代理
-@property (nonatomic, weak) id<CCRefreshBaseViewDelegate> delegate;
-// 设置要显示的父控件
-@property (nonatomic, weak) IBOutlet UIScrollView *scrollView;
+#pragma mark - 回调
+/**
+ *  开始进入刷新状态的监听器
+ */
+@property (weak, nonatomic) id beginRefreshingTaget;
+/**
+ *  开始进入刷新状态的监听方法
+ */
+@property (assign, nonatomic) SEL beginRefreshingAction;
+/**
+ *  开始进入刷新状态就会调用
+ */
+@property (nonatomic, copy) void (^beginRefreshingCallback)();
 
-// 是否正在刷新
+#pragma mark - 刷新相关
+/**
+ *  是否正在刷新
+ */
 @property (nonatomic, readonly, getter=isRefreshing) BOOL refreshing;
-// 开始刷新
+/**
+ *  开始刷新
+ */
 - (void)beginRefreshing;
-// 结束刷新
+/**
+ *  结束刷新
+ */
 - (void)endRefreshing;
-// 结束使用、释放资源
-- (void)free;
 
-// 交给子类去实现
-- (void)setState:(RefreshState)state;
+#pragma mark - 交给子类去实现 和 调用
+@property (assign, nonatomic) CCRefreshState state;
+
+/**
+ *  文字
+ */
+@property (copy, nonatomic) NSString *pullToRefreshText;
+@property (copy, nonatomic) NSString *releaseToRefreshText;
+@property (copy, nonatomic) NSString *refreshingText;
 @end
