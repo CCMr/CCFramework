@@ -52,6 +52,7 @@
 #import <CCFramework/UIImage+RoundedCorner.h>
 #import <CCFramework/UIImage+Utility.h>
 #import <CCFramework/UIScrollView+CCkeyboardControl.h>
+#import <CCFramework/UIScrollView+CCExtension.h>
 #import <CCFramework/UIView+BUIView.h>
 #import <CCFramework/UIView+CCRemoteImage.h>
 #import <CCFramework/UIWindow+Additions.h>
