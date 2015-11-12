@@ -28,14 +28,16 @@
 
 @interface ResourcesPhotos : NSObject
 
-+(UIImage *)assetsNO;
++ (UIImage *)assetsNO;
 
-+(UIImage *)assetsYES;
++ (UIImage *)assetsYES;
 
-+(UIImage *)retuens;
++ (UIImage *)retuens;
 
-+(UIImage *)save_icon_highlighted;
++ (UIImage *)save_icon_highlighted;
 
-+(UIImage *)save_icon;
++ (UIImage *)save_icon;
+
++ (UIImage *)arrow;
 
 @end
