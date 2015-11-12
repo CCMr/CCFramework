@@ -116,18 +116,35 @@
 + (void)cc_RemovedWithCondition: (NSString *)tableName
                       Condition: (NSString *)condition
 {
-    [self saveContext:^(NSManagedObjectContext *currentContext) {
+    [self cc_RemovedWithCondition:tableName 
+                        Condition:condition 
+                       Completion:nil];
+}
 
+/**
+ *  @author CC, 2015-10-26
+ *
+ *  @brief  条件删除数据
+ *
+ *  @param tableName 表名
+ *  @param condition 条件
+ */
++ (void)cc_RemovedWithCondition: (NSString *)tableName
+                      Condition: (NSString *)condition 
+                     Completion: (void(^)(NSError *error))completion
+{
+    [self saveContext:^(NSManagedObjectContext *currentContext) {
+        
         NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
         if (condition)
             [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
-
+        
         __block NSError *error = nil;
         NSArray *allObjects = [currentContext executeFetchRequest:fetchRequest error:&error];
         [allObjects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [currentContext deleteObject:obj];
         }];
-    }];
+    } completion:completion];
 }
 
 /**

@@ -181,6 +181,18 @@
                       Condition:(NSString *)condition;
 
 /**
+ *  @author CC, 2015-10-26
+ *
+ *  @brief  条件删除数据
+ *
+ *  @param tableName 表名
+ *  @param condition 条件
+ */
++ (void)cc_RemovedWithCondition:(NSString *)tableName
+                      Condition:(NSString *)condition
+                     Completion:(void (^)(NSError *error))completion;
+
+/**
  *  @author C C, 2015-10-25
  *
  *  @brief  删除对象

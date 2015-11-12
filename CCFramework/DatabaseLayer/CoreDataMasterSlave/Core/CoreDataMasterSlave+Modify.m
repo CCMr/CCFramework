@@ -207,8 +207,7 @@
         [fetchRequest setReturnsObjectsAsFaults:NO];
         
         NSError *error = nil;
-        NSArray *datas =
-        [currentContext executeFetchRequest:fetchRequest error:&error];
+        NSArray *datas = [currentContext executeFetchRequest:fetchRequest error:&error];
         if (!error && datas && [datas count]) {
             [datas enumerateObjectsUsingBlock:^(id entity, NSUInteger idx, BOOL *stop) {
                 NSArray *attributes = [entity allAttributeNames];
