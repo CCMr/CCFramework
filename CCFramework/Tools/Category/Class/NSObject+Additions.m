@@ -28,6 +28,31 @@
 @implementation NSObject (Additions)
 
 /**
+ *  @author C C, 2015-11-12
+ *
+ *  @brief  用于初始化
+ *
+ *  @param methodName 初始化函数名
+ *
+ *  @return 返回初始化独享
+ */
++ (id)InitDefaultMethod:(NSString *)methodName
+{
+    SEL methodSEL = NSSelectorFromString(methodName);
+    NSObject *valueObj = nil;
+    if ([self respondsToSelector:methodSEL]) {
+        NSMethodSignature *methodSignature = [self methodSignatureForSelector:methodSEL];
+        
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
+        [invocation setTarget:self];
+        [invocation setSelector:methodSEL];
+        [invocation invoke];
+        [invocation getReturnValue:&valueObj];
+    }
+    return valueObj;
+}
+
+/**
  *  @author C C, 2015-10-27
  *
  *  @brief  多参数调用
@@ -36,37 +61,38 @@
  *
  *  @return 返回函数值
  */
-- (id)performSelectors:(SEL)selector withObject:(id)aObject, ...
+- (id)performSelectors:(NSString *)methodName withObject:(id)aObject, ...
 {
-    NSMethodSignature *methodSignature = [self methodSignatureForSelector:selector];
+    SEL methodSEL = NSSelectorFromString(methodName);
     
     id anObject = nil;
-    if (methodSignature) {
+    if ([self respondsToSelector:methodSEL]) {
+        NSMethodSignature *methodSignature = [self methodSignatureForSelector:methodSEL];
         
-        NSInvocation *invo = [NSInvocation invocationWithMethodSignature:methodSignature];
-        [invo setTarget:self];
-        [invo setSelector:selector];
-        [invo setArgument:&aObject atIndex:2];
-        
-        va_list arguments;
-        id eachObject;
-        if (aObject) {
-            va_start(arguments, aObject);
+         NSInvocation *invo = [NSInvocation invocationWithMethodSignature:methodSignature];
+        if (methodSignature) {
+            [invo setTarget:self];
+            [invo setSelector:methodSEL];
+            [invo setArgument:&aObject atIndex:2];
             
-            NSInteger index = 3;
-            while ((eachObject = va_arg(arguments, id))) {
-                [invo setArgument:&eachObject atIndex:index];
-                index++;
+            va_list arguments;
+            id eachObject;
+            if (aObject) {
+                va_start(arguments, aObject);
+                
+                NSInteger index = 3;
+                while ((eachObject = va_arg(arguments, id))) {
+                    [invo setArgument:&eachObject atIndex:index];
+                    index++;
+                }
+                va_end(arguments);
             }
-            va_end(arguments);
         }
-        
         [invo invoke];
         
         if (methodSignature.methodReturnLength)
             [invo getReturnValue:&anObject];
     }
-    
     return anObject;
 }
 

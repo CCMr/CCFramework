@@ -28,6 +28,17 @@
 @interface NSObject (Additions)
 
 /**
+ *  @author C C, 2015-11-12
+ *
+ *  @brief  一般用于初始化对象
+ *
+ *  @param methodName 初始化函数名
+ *
+ *  @return 返回初始化对象
+ */
++ (id)InitDefaultMethod:(NSString *)methodName;
+
+/**
  *  @author C C, 2015-10-27
  *
  *  @brief  多参数调用
@@ -36,6 +47,6 @@
  *
  *  @return 返回函数值
  */
-- (id)performSelectors:(SEL)selector withObject:aObject, ... NS_REQUIRES_NIL_TERMINATION;
+- (id)performSelectors:(NSString *)methodName withObject:aObject, ... NS_REQUIRES_NIL_TERMINATION;
 
 @end
