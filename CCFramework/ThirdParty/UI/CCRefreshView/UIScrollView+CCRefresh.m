@@ -228,6 +228,13 @@ static char CCRefreshFooterViewKey;
     [self.footer endRefreshing];
 }
 
+
+- (void)EndRefreshing
+{
+    [self.header endRefreshing];
+    [self.footer endRefreshing];
+}
+
 /**
  *  下拉刷新头部控件的可见性
  */

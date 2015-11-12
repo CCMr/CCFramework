@@ -141,6 +141,13 @@
 - (void)footerEndRefreshing;
 
 /**
+ *  @author C C, 2015-11-12
+ *
+ *  @brief  停止上下拉刷新
+ */
+- (void)EndRefreshing;
+
+/**
  *  上拉刷新头部控件的可见性
  */
 @property(nonatomic, assign, getter=isFooterHidden) BOOL footerHidden;
