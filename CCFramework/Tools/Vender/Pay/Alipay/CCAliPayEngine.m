@@ -63,14 +63,13 @@ typedef void (^ResponseCallback)(NSInteger resultStatus, NSString *result,
  *
  *  @brief  回调函数
  */
-@property(nonatomic, copy) ResponseCallback responseCallback;
+@property(nonatomic, strong) ResponseCallback responseCallback;
 
 @end
 
 @implementation CCAliPayEngine
 
-/**
- *  @author C C, 2015-10-18
+/*  @author C C, 2015-10-18
  *
  *  @brief  单例模式
  *
@@ -78,7 +77,7 @@ typedef void (^ResponseCallback)(NSInteger resultStatus, NSString *result,
  */
 + (id)sharedlnstance
 {
-    static CCAliPayEngine *_sharedlnstance = nil;
+    static id _sharedlnstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _sharedlnstance = [[self alloc] init];
@@ -127,7 +126,7 @@ typedef void (^ResponseCallback)(NSInteger resultStatus, NSString *result,
                                         NSString *result, NSString *memo,
                                         NSError *error))block
 {
-    _responseCallback = block;
+    _responseCallback = [block copy];
     
     if (_partnerKey.length == 0 || _sellerKey.length == 0 ||
         _privateKey.length == 0 || _appScheme.length == 0) {
@@ -143,15 +142,16 @@ typedef void (^ResponseCallback)(NSInteger resultStatus, NSString *result,
     }
     
     AliOrderFormEntity *entity = [[AliOrderFormEntity alloc] init];
-    entity.partner = self.partnerKey;
-    entity.seller = self.sellerKey;
+    entity.partner = _partnerKey;
+    entity.seller = _sellerKey;
+    entity.productName = productName;
     entity.tradeNO = tradeNO;
     entity.productDescription = productDescription;
     entity.amount = amount;
     entity.notifyURL = notifyURL;
     
     NSString *orderSpec = [entity description];
-    id<DataSigner> signer = CreateRSADataSigner(self.privateKey);
+    id<DataSigner> signer = CreateRSADataSigner(_privateKey);
     NSString *signedString = [signer signString:orderSpec];
     
     if (signedString) {
@@ -159,18 +159,13 @@ typedef void (^ResponseCallback)(NSInteger resultStatus, NSString *result,
         
         if (NSClassFromString(@"AlipaySDK")) {
             Class Alipay = NSClassFromString(@"AlipaySDK");
-            id AlipaySDK = [[Alipay alloc] init];
-            
-            SEL fcSelector = NSSelectorFromString(@"payOrder:fromScheme:callback:");
+            id AlipaySDK = [Alipay InitDefaultMethod:@"defaultService"];
             
             typeof(self) __weak weakSelf = self;
-            void (^callback)(NSDictionary *resultDic) = ^(NSDictionary *resultDic) {
-                weakSelf.responseCallback(
-                                          [[resultDic objectForKey:@"resultStatus"] integerValue],
-                                          [resultDic objectForKey:@"result"],
-                                          [resultDic objectForKey:@"memo"], nil);
+            void(^CompletionBlock)(NSDictionary *resultDic) = ^(NSDictionary *resultDic) {
+                weakSelf.responseCallback([[resultDic objectForKey:@"resultStatus"] integerValue],[resultDic objectForKey:@"result"],[resultDic objectForKey:@"memo"], nil);
             };
-            [AlipaySDK performSelectors:fcSelector withObject:orderString, _appScheme, callback, nil];
+            [AlipaySDK performSelectors:@"payOrder:fromScheme:callback:" withObject:orderString, _appScheme, CompletionBlock,nil];
         }else{
             NSLog(@"请在工程中导入AlipaySDK.framework文件");
         }
