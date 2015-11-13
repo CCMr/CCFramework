@@ -28,8 +28,7 @@
 
 @class CCTableViewCell;
 
-typedef NS_ENUM(NSInteger, CCCellState)
-{
+typedef NS_ENUM(NSInteger, CCCellState) {
     kCellStateCenter,
     kCellStateLeft,
     kCellStateRight,
@@ -78,13 +77,20 @@ typedef NS_ENUM(NSInteger, CCCellState)
 
 @interface CCTableViewCell : UITableViewCell
 
-@property (nonatomic, copy) NSArray *leftUtilityButtons;
-@property (nonatomic, copy) NSArray *rightUtilityButtons;
+/**
+ *  @author CC, 2015-10-21
+ *
+ *  @brief  当前Cell数据源
+ */
+@property(nonatomic, strong) id dataSources;
 
-@property (nonatomic, weak) id <CCTableViewCellDelegate> delegate;
+@property(nonatomic, copy) NSArray *leftUtilityButtons;
+@property(nonatomic, copy) NSArray *rightUtilityButtons;
 
-- (void)setRightUtilityButtons:(NSArray *)rightUtilityButtons WithButtonWidth:(CGFloat) width;
-- (void)setLeftUtilityButtons:(NSArray *)leftUtilityButtons WithButtonWidth:(CGFloat) width;
+@property(nonatomic, weak) id<CCTableViewCellDelegate> delegate;
+
+- (void)setRightUtilityButtons:(NSArray *)rightUtilityButtons WithButtonWidth:(CGFloat)width;
+- (void)setLeftUtilityButtons:(NSArray *)leftUtilityButtons WithButtonWidth:(CGFloat)width;
 - (void)hideUtilityButtonsAnimated:(BOOL)animated;
 - (void)showLeftUtilityButtonsAnimated:(BOOL)animated;
 - (void)showRightUtilityButtonsAnimated:(BOOL)animated;
@@ -96,18 +102,18 @@ typedef NS_ENUM(NSInteger, CCCellState)
 #pragma mark - Array
 @interface NSMutableArray (CCUtilityButtons)
 
-- (void)cc_addUtilityButtonWithColor: (UIColor *)color
-                               title: (NSString *)title;
+- (void)cc_addUtilityButtonWithColor:(UIColor *)color
+                               title:(NSString *)title;
 
-- (void)cc_addUtilityButtonWithColor: (UIColor *)color
-                     attributedTitle: (NSAttributedString *)title;
+- (void)cc_addUtilityButtonWithColor:(UIColor *)color
+                     attributedTitle:(NSAttributedString *)title;
 
-- (void)cc_addUtilityButtonWithColor: (UIColor *)color
-                                icon: (UIImage *)icon;
+- (void)cc_addUtilityButtonWithColor:(UIColor *)color
+                                icon:(UIImage *)icon;
 
-- (void)cc_addUtilityButtonWithColor: (UIColor *)color
-                          normalIcon: (UIImage *)normalIcon
-                        selectedIcon: (UIImage *)selectedIcon;
+- (void)cc_addUtilityButtonWithColor:(UIColor *)color
+                          normalIcon:(UIImage *)normalIcon
+                        selectedIcon:(UIImage *)selectedIcon;
 
 @end
 

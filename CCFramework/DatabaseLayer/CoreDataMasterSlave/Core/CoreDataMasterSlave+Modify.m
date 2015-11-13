@@ -276,8 +276,7 @@
         NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
         [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
         NSError *error = nil;
-        NSArray *datas =
-        [currentContext executeFetchRequest:fetchRequest error:&error];
+        NSArray *datas = [currentContext executeFetchRequest:fetchRequest error:&error];
         if (!error && datas && [datas count]) {
             [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 [obj setValue:attributeValue forKey:attributeName];

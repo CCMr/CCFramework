@@ -197,7 +197,7 @@
                          ascending:ascending
                         fetchLimit:0
                        fetchOffset:0
-                         Condition:0];
+                         Condition:condition];
 }
 
 /**

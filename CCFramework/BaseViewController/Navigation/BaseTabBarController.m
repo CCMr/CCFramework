@@ -26,8 +26,7 @@
 #import "BaseTabBarController.h"
 #import "Config.h"
 
-@interface BaseTabBarController ()
-
+@interface BaseTabBarController () <UITabBarControllerDelegate>
 @end
 
 @implementation BaseTabBarController
@@ -36,7 +35,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    [self HideTabBar];
+    self.delegate = self;
+    //    [self HideTabBar];
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,13 +51,13 @@
  *
  *  @since 1.0
  */
--(void)HideTabBar
+- (void)HideTabBar
 {
     for (UIView *v in self.view.subviews) {
         if ([v isKindOfClass:[UITabBar class]]) {
             v.frame = CGRectMake(v.frame.origin.x, winsize.height, v.frame.size.width, v.frame.size.height);
-        }else{
-            v.frame = CGRectMake(v.frame.origin.x, v.frame.origin.y , v.frame.size.width, winsize.height);
+        } else {
+            v.frame = CGRectMake(v.frame.origin.x, v.frame.origin.y, v.frame.size.width, winsize.height);
         }
     }
 }

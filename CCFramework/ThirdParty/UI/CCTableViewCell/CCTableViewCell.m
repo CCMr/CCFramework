@@ -284,14 +284,14 @@ static NSString * const kTableViewPanState = @"state";
 
 - (void)setRightUtilityButtons:(NSArray *)rightUtilityButtons
 {
-    if (![_rightUtilityButtons cc_isEqualToButtons:rightUtilityButtons]) {
+//    if (![_rightUtilityButtons cc_isEqualToButtons:rightUtilityButtons]) {
         _rightUtilityButtons = rightUtilityButtons;
         
         self.rightUtilityButtonsView.utilityButtons = rightUtilityButtons;
 
         [self.rightUtilityButtonsView layoutIfNeeded];
         [self layoutIfNeeded];
-    }
+//    }
 }
 
 - (void)setRightUtilityButtons:(NSArray *)rightUtilityButtons WithButtonWidth:(CGFloat) width
