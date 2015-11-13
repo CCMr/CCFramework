@@ -83,17 +83,15 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     if (_isNotKeyboard) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+        cc_NoticeObserver(self, @selector(keyboardWillShow:), UIKeyboardWillShowNotification, nil);
+        cc_NoticeObserver(self, @selector(keyboardWillHide:), UIKeyboardWillHideNotification, nil);
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveLanguageChangedNotification:) name:CCNotificationLanguageChanged object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveThemeChangedNotification:) name:CCThemeDidChangeNotification object:nil];
+    cc_NoticeObserver(self, @selector(receiveLanguageChangedNotification:), CCNotificationLanguageChanged, nil);
+    cc_NoticeObserver(self, @selector(receiveLanguageChangedNotification:), CCThemeDidChangeNotification, nil);
     
     [self InitMBProgressHUD];
     [self InitNavigation];
-    //    [self InitControl];
-    //    [self InitLoadData];
 }
 
 #pragma mark - 初始化弹出层 HUD
@@ -563,9 +561,9 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:CCNotificationLanguageChanged object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:CCThemeDidChangeNotification object:nil];
+    cc_NoticeremoveObserver(self, UIKeyboardWillShowNotification, nil);
+    cc_NoticeremoveObserver(self, UIKeyboardWillHideNotification, nil);
+    cc_NoticeremoveObserver(self, CCNotificationLanguageChanged, nil);
+    cc_NoticeremoveObserver(self, CCThemeDidChangeNotification, nil);
 }
 @end
