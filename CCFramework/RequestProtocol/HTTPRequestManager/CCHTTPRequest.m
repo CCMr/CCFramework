@@ -115,6 +115,16 @@
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:postData];
     
+    [dic enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id _Nonnull obj, BOOL *_Nonnull stop) {
+        if ([obj isKindOfClass:[NSArray class]]) {
+            NSError *error = nil;
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:&error];
+            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            if (jsonString && !error)
+                [dic setObject:jsonString forKey:key];
+        }
+    }];
+    
     return dic;
 }
 
