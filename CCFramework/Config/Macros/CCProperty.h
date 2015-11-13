@@ -99,8 +99,10 @@
 /*************************  注册事件  *************************/
 /** 注册通知 */
 #define cc_NoticeObserver(TARGET,SELECTOR,NAME,OBJECT) [[NSNotificationCenter defaultCenter] addObserver:TARGET selector:SELECTOR name:NAME object:OBJECT];
+#define cc_NoticeremoveObserver(TARGET,NAME,OBJECT) [[NSNotificationCenter defaultCenter] removeObserver:TARGET name:NAME object:OBJECT];
 /** 发送通知 */
 #define cc_NoticePost(NAME,OBJECT)    [[NSNotificationCenter defaultCenter] postNotificationName:NAME object:OBJECT];
+#define cc_NoticePostInfo(NAME,OBJECT,USERINFO) [[NSNotificationCenter defaultCenter] postNotificationName:NAME object:OBJECT userInfo:USERINFO];
 
 /*************************  设备  *************************/
 /** 判断是否为iPhone */
