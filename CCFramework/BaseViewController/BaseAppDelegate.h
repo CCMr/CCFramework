@@ -27,9 +27,9 @@
 #import "CCDropzone.h"
 #import "CCSideMenu.h"
 
-@interface BaseAppDelegate : UIResponder<UIApplicationDelegate>
+@interface BaseAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property(strong, nonatomic) UIWindow *window;
 
 /**
  *  @author C C, 15-08-18
@@ -38,7 +38,7 @@
  *
  *  @since <#1.0#>
  */
-- (void)NavigationBarColor: (UIColor *)color;
+- (void)NavigationBarColor:(UIColor *)color;
 
 /**
  *  @author CC, 2015-07-30
@@ -56,9 +56,24 @@
  *
  *  @since <#1.0#>
  */
-- (void)initguidePages: (NSArray *)imageStrAry
-  EnterBackgroundImage: (NSString *)backgroundImage
-             EnterSzie: (CGSize)size;
+- (void)initguidePages:(NSArray *)imageStrAry
+  EnterBackgroundImage:(NSString *)backgroundImage
+             EnterSzie:(CGSize)size;
+
+/**
+ *  @author CC, 2015-11-13
+ *  
+ *  @brief  引导页
+ *
+ *  @param imageStrAry     引导页图片集合
+ *  @param backgroundImage 完成万纽背景图片
+ *  @param size            图片大小
+ *  @param endBack         回调事件
+ */
+- (void)initguidePages:(NSArray *)imageStrAry
+  EnterBackgroundImage:(NSString *)backgroundImage
+             EnterSzie:(CGSize)size
+               EndBack:(void (^)())endBack;
 
 /**
  *  @author CC, 15-08-21

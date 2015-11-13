@@ -47,46 +47,51 @@ static char OperationKey;
  *
  *  @since 1.0
  */
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
     //全局crash捕获
     InstallUncaughtExceptionHandler();
-
+    
     [self uploadCrashLog];
-
+    
     [self NavigationBarColor:[UIColor colorFromHexCode:@"3b3f4d"]];
-
+    
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
+- (void)applicationWillResignActive:(UIApplication *)application
+{
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     //添加模糊效果
     //    [CCSecurityStrategy addBlurEffect];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];// 设置app图标消息计数为0
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0]; // 设置app图标消息计数为0
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application {
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     //移除模糊效果
     //    [CCSecurityStrategy removeBlurEffect];
-
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application {
+- (void)applicationWillTerminate:(UIApplication *)application
+{
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
--(UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
 {
     return UIInterfaceOrientationMaskAll;
 }
@@ -95,7 +100,6 @@ static char OperationKey;
 //[application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-
 }
 
 /**
@@ -105,9 +109,30 @@ static char OperationKey;
  *
  *  @since <#1.0#>
  */
-- (void)initguidePages: (NSArray *)imageStrAry
-  EnterBackgroundImage: (NSString *)backgroundImage
-             EnterSzie: (CGSize)size
+- (void)initguidePages:(NSArray *)imageStrAry
+  EnterBackgroundImage:(NSString *)backgroundImage
+             EnterSzie:(CGSize)size
+{
+    [self initguidePages:imageStrAry
+    EnterBackgroundImage:backgroundImage
+               EnterSzie:size
+                 EndBack:nil];
+}
+
+/**
+ *  @author CC, 2015-11-13
+ *  
+ *  @brief  引导页
+ *
+ *  @param imageStrAry     引导页图片集合
+ *  @param backgroundImage 完成万纽背景图片
+ *  @param size            图片大小
+ *  @param endBack         回调事件
+ */
+- (void)initguidePages:(NSArray *)imageStrAry
+  EnterBackgroundImage:(NSString *)backgroundImage
+             EnterSzie:(CGSize)size
+               EndBack:(void (^)())endBack
 {
     BOOL canShow = [SmoothViewController canShowNewFeature];
     if (canShow) {
@@ -115,10 +140,14 @@ static char OperationKey;
         viewController.enterBackgroundImage = backgroundImage;
         viewController.enterSzie = size;
         [viewController didSelectedEnter:^(id request) {
+            
+            if (endBack)
+                endBack();
+            
             [self startViewController];
         }];
         self.window.rootViewController = viewController;
-    }else{
+    } else {
         [self startViewController];
     }
 }
@@ -130,9 +159,8 @@ static char OperationKey;
  *
  *  @since 1.0
  */
-- (void) startViewController
+- (void)startViewController
 {
-
 }
 
 /**
@@ -142,7 +170,7 @@ static char OperationKey;
  *
  *  @since <#1.0#>
  */
-- (void)NavigationBarColor: (UIColor *)color
+- (void)NavigationBarColor:(UIColor *)color
 {
     if (CURRENT_SYS_VERSION >= 7.0) {
         [[UINavigationBar appearance] setBarTintColor:color];
@@ -150,11 +178,11 @@ static char OperationKey;
     } else {
         [[UINavigationBar appearance] setTintColor:color];
     }
-
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-
-    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                           [UIColor whiteColor], NSForegroundColorAttributeName, [UIFont boldSystemFontOfSize:17], NSFontAttributeName, nil]];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                          [UIColor whiteColor], NSForegroundColorAttributeName, [UIFont boldSystemFontOfSize:17], NSFontAttributeName, nil]];
 }
 
 /**
@@ -174,11 +202,11 @@ static char OperationKey;
         } completion:^(BOOL finished) {
             [splashScreen removeFromSuperview];
         }];
-    }else{
+    } else {
         UIImageView *splashScreen = [[UIImageView alloc] initWithFrame:self.window.bounds];
         splashScreen.image = [UIImage imageNamed:@"Default-568h"];
         [self.window addSubview:splashScreen];
-
+        
         [UIView animateWithDuration:2.5 animations:^{
             splashScreen.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.0);
             splashScreen.alpha = 0.0;
@@ -195,7 +223,8 @@ static char OperationKey;
  *
  *  @since 1.0
  */
-- (void)uploadCrashLog{
+- (void)uploadCrashLog
+{
     //    BOOL isCrash = [CCUserDefaultsCrash sharedlnstance].isCrash;
     //    if (isCrash) {// 调用接口反馈错误日志
     //        [CCUserDefaultsCrash sharedlnstance].isCrash = !isCrash;
@@ -228,22 +257,22 @@ static char OperationKey;
  *  @param delay    相隔多少秒
  *  @param function 执行函数
  */
-- (void)repeatExecutionWithafterDelay: (NSTimeInterval)delay ExecutionFunction: (void (^)())function
+- (void)repeatExecutionWithafterDelay:(NSTimeInterval)delay ExecutionFunction:(void (^)())function
 {
     NSMutableDictionary *opreations = (NSMutableDictionary *)objc_getAssociatedObject(self, &OperationKey);
-    if(!opreations){
+    if (!opreations) {
         opreations = [NSMutableDictionary dictionary];
         objc_setAssociatedObject(self, &OperationKey, opreations, OBJC_ASSOCIATION_RETAIN);
         [opreations setObject:function forKey:@"RepeatExecutionWithafterDelay"];
         [opreations setObject:@(delay) forKey:@"delay"];
     }
     
-    void(^block)() = [opreations objectForKey:@"RepeatExecutionWithafterDelay"];
+    void (^block)() = [opreations objectForKey:@"RepeatExecutionWithafterDelay"];
     int delays = [[opreations objectForKey:@"delay"] intValue];
-
+    
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(repeatExecutionWithafterDelay:ExecutionFunction:) object:nil];
     block();
-    [self performSelector:@selector(repeatExecutionWithafterDelay:ExecutionFunction:) withObject:[NSArray arrayWithObjects:@(delays),function, nil] afterDelay:delays];
+    [self performSelector:@selector(repeatExecutionWithafterDelay:ExecutionFunction:) withObject:[NSArray arrayWithObjects:@(delays), function, nil] afterDelay:delays];
 }
 
 /**
@@ -258,8 +287,8 @@ static char OperationKey;
 - (void)initAPService:(NSDictionary *)launchOptions
 {
     //极光通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTagsAlias:) name:@"setTagsAlias" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTags) name:@"resetTags" object:nil];
+    cc_NoticeObserver(self, @selector(setTagsAlias:), @"setTagsAlias", nil);
+    cc_NoticeObserver(self, @selector(resetTags), @"resetTags", nil);
     //    [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil];
     //    [APService setupWithOption:launchOptions];
 }
@@ -273,25 +302,22 @@ static char OperationKey;
  *
  *  @since <#1.0#>
  */
--(void)initOwnService: (UIApplication *)application
+- (void)initOwnService:(UIApplication *)application
 {
-    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
-    { //IOS8
+    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)]) { //IOS8
         //创建UIUserNotificationSettings，并设置消息的显示类类型
-        UIUserNotificationSettings *notSettings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge | UIUserNotificationTypeAlert | UIUserNotificationTypeSound) categories:nil];
+        UIUserNotificationSettings *notSettings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge | UIUserNotificationTypeAlert | UIUserNotificationTypeSound)categories:nil];
         [application registerUserNotificationSettings:notSettings];
-    }
-    else
-    {//IOS7
+    } else { //IOS7
         [application registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge | UIUserNotificationTypeAlert | UIUserNotificationTypeSound)];
     }
 }
 
 #pragma mark - 推送
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
     //注册deviceToken
     //    [APService registerDeviceToken:deviceToken];
-
 }
 
 /**
@@ -304,12 +330,14 @@ static char OperationKey;
  *
  *  @since 1.0
  */
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
     NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
 }
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
 }
 
 // Called when your app has been activated by the user selecting an action from
@@ -317,7 +345,8 @@ static char OperationKey;
 // A nil action identifier indicates the default action.
 // You should call the completion handler as soon as you've finished handling
 // the action.
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification  completionHandler:(void (^)())completionHandler {
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void (^)())completionHandler
+{
 }
 
 // Called when your app has been activated by the user selecting an action from
@@ -325,22 +354,26 @@ static char OperationKey;
 // A nil action identifier indicates the default action.
 // You should call the completion handler as soon as you've finished handling
 // the action.
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler
+{
 }
 #endif
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
     //    [APService handleRemoteNotification:userInfo];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"PushNotifications" object:userInfo];
+    cc_NoticePost(@"PushNotifications", userInfo);
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
     //    [APService handleRemoteNotification:userInfo];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"PushNotifications" object:userInfo];
+    cc_NoticePost(@"PushNotifications", userInfo);
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
     //    [APService showLocalNotificationAtFront:notification identifierKey:nil];
 }
 
@@ -353,7 +386,8 @@ static char OperationKey;
  *
  *  @since 1.0
  */
--(void)setTagsAlias:(NSNotification *)puthDic{
+- (void)setTagsAlias:(NSNotification *)puthDic
+{
     //    NSDictionary *dic = (NSDictionary *)puthDic.object;
     __autoreleasing NSMutableSet *tags = [NSMutableSet set];
     //    [tags addObject:[NSString stringWithFormat:@"%@%@",KTSafeString(tipflag),[deviceUID stringByReplacingOccurrencesOfString:@"-" withString:@""]]];
@@ -362,9 +396,8 @@ static char OperationKey;
     //    NSString *_alias = [NSString stringWithFormat:@"%@%@",KTSafeString(tipflag),[dic objectForKey:@"tag1"]];
     //[APService setAlias:_alias callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
     //[APService setTags:tags callbackSelector:nil object:nil];
-
+    
     //    [APService setTags:tags alias:_alias callbackSelector:@selector(tagsAliasCallback:tags:alias:) target:self];
-
 }
 
 /**
@@ -374,12 +407,14 @@ static char OperationKey;
  *
  *  @since 1.0
  */
--(void)resetTags{
+- (void)resetTags
+{
     //    [APService setTags:[NSSet set] callbackSelector:nil object:nil];
     //    [APService setAlias:@"" callbackSelector:nil object:nil];
 }
 
-- (void)analyseInput:(NSString **)alias tags:(NSSet **)tags {
+- (void)analyseInput:(NSString **)alias tags:(NSSet **)tags
+{
     // alias analyse
     if (![*alias length]) {
         // ignore alias
