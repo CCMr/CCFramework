@@ -63,14 +63,16 @@
  *
  *  @since 1.0
  */
-- (id)initWithCoverImageNames:(NSArray *)bgNames {
+- (id)initWithCoverImageNames:(NSArray *)bgNames
+{
     if (self = [super init]) {
         _images = bgNames;
     }
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self initPrepare];
@@ -85,7 +87,8 @@
  *
  *  @since <#1.0#>
  */
-+ (BOOL)canShowNewFeature {
++ (BOOL)canShowNewFeature
+{
     BOOL firstStart = NO;
     if (![userDefaults objectForKey:@"firstStart"] ||
         [[userDefaults objectForKey:@"firstStart"] isEqualToString:@"YES"]) {
@@ -96,7 +99,8 @@
     return firstStart;
 }
 
-- (void)initPrepare {
+- (void)initPrepare
+{
     _scrollView = [[SmoothScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView.delegate = self;
     _scrollView.pagingEnabled = YES;
@@ -108,22 +112,27 @@
     self.pageControl.pageIndicatorTintColor = [UIColor grayColor];
     [self.view addSubview:self.pageControl];
     
-    if (!self.enterButton) {
-        self.enterButton = [UIButton new];
-        [self.enterButton setTitle:NSLocalizedString(@"Enter", nil)
-                          forState:UIControlStateNormal];
-        self.enterButton.layer.borderWidth = 0.5;
-        self.enterButton.layer.borderColor = [UIColor whiteColor].CGColor;
-    }
     
-    [_enterButton addTarget:self
-                     action:@selector(enter:)
-           forControlEvents:UIControlEventTouchUpInside];
-    _enterButton.frame = [self frameOfEnterButton];
-    _enterButton.alpha = 0;
-    [self.view addSubview:_enterButton];
+    [self.enterButton addTarget:self
+                         action:@selector(enter:)
+               forControlEvents:UIControlEventTouchUpInside];
+    self.enterButton.frame = [self frameOfEnterButton];
+    self.enterButton.alpha = 0;
+    [self.view addSubview:self.enterButton];
     
     [self reloadPages];
+}
+
+- (UIButton *)enterButton
+{
+    if (!_enterButton) {
+        _enterButton = [UIButton new];
+        [_enterButton setTitle:NSLocalizedString(@"Enter", nil)
+                      forState:UIControlStateNormal];
+        _enterButton.layer.borderWidth = 0.5;
+        _enterButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    }
+    return _enterButton;
 }
 
 /**
@@ -135,7 +144,8 @@
  *
  *  @since 1.0
  */
-- (void)setEnterBackgroundImage:(NSString *)enterBackgroundImage {
+- (void)setEnterBackgroundImage:(NSString *)enterBackgroundImage
+{
     [self.enterButton setBackgroundImage:[UIImage imageNamed:enterBackgroundImage]
                                 forState:UIControlStateNormal];
 }
@@ -149,7 +159,8 @@
  *
  *  @since 1.0
  */
-- (void)setEnterSzie:(CGSize)enterSzie {
+- (void)setEnterSzie:(CGSize)enterSzie
+{
     self.enterButton.frame =
     CGRectMake(self.view.frame.size.width / 2 - enterSzie.width / 2,
                self.pageControl.frame.origin.y - enterSzie.height,
@@ -163,7 +174,8 @@
  *
  *  @since 1.0
  */
-- (void)reloadPages {
+- (void)reloadPages
+{
     _pageControl.numberOfPages = [_images count];
     _scrollView.contentSize = [self contentSizeOfScrollView];
     
@@ -196,7 +208,8 @@
  *
  *  @since 1.0
  */
-- (void)enter:(id)sender {
+- (void)enter:(id)sender
+{
     [userDefaults setObject:@"NO" forKey:@"firstStart"];
     [userDefaults synchronize];
     
@@ -214,7 +227,8 @@
  *
  *  @since 1.0
  */
-- (CGRect)frameOfEnterButton {
+- (CGRect)frameOfEnterButton
+{
     CGSize size = self.enterButton.bounds.size;
     if (CGSizeEqualToSize(size, CGSizeZero)) {
         size = CGSizeMake(self.view.frame.size.width * 0.6, 40);
@@ -233,7 +247,8 @@
  *
  *  @since 1.0
  */
-- (CGRect)frameOfPageControl {
+- (CGRect)frameOfPageControl
+{
     return CGRectMake(0, self.view.bounds.size.height - 30,
                       self.view.bounds.size.width, 30);
 }
@@ -247,7 +262,8 @@
  *
  *  @since 1.0
  */
-- (CGSize)contentSizeOfScrollView {
+- (CGSize)contentSizeOfScrollView
+{
     return CGSizeMake(_scrollView.frame.size.width * _images.count,
                       _scrollView.frame.size.height);
 }
@@ -261,12 +277,14 @@
  *
  *  @since 1.0
  */
-- (void)didSelectedEnter:(Completion)enterBlock {
+- (void)didSelectedEnter:(Completion)enterBlock
+{
     _didSelectedEnter = enterBlock;
 }
 
 #pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
     self.pageControl.currentPage =
     scrollView.contentOffset.x /
     (scrollView.contentSize.width / [self numberOfPagesInPagingScrollView]);
@@ -274,7 +292,8 @@
     [self pagingScrollViewDidChangePages:scrollView];
 }
 
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
+{
     if ([scrollView.panGestureRecognizer translationInView:scrollView.superview]
         .x < 0) {
         if (![self hasNext:self.pageControl]) {
@@ -284,19 +303,23 @@
 }
 
 #pragma mark - UIScrollView & UIPageControl DataSource
-- (BOOL)hasNext:(UIPageControl *)pageControl {
+- (BOOL)hasNext:(UIPageControl *)pageControl
+{
     return pageControl.numberOfPages > pageControl.currentPage + 1;
 }
 
-- (BOOL)isLast:(UIPageControl *)pageControl {
+- (BOOL)isLast:(UIPageControl *)pageControl
+{
     return pageControl.numberOfPages == pageControl.currentPage + 1;
 }
 
-- (NSInteger)numberOfPagesInPagingScrollView {
+- (NSInteger)numberOfPagesInPagingScrollView
+{
     return [_images count];
 }
 
-- (void)pagingScrollViewDidChangePages:(UIScrollView *)pagingScrollView {
+- (void)pagingScrollViewDidChangePages:(UIScrollView *)pagingScrollView
+{
     if ([self isLast:self.pageControl]) {
         if (self.pageControl.alpha == 1) {
             self.enterButton.alpha = 0;
@@ -318,7 +341,8 @@
     }
 }
 
-- (BOOL)hasEnterButtonInView:(UIView *)page {
+- (BOOL)hasEnterButtonInView:(UIView *)page
+{
     __block BOOL result = NO;
     [page.subviews
      enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -329,7 +353,8 @@
     return result;
 }
 
-- (UIImageView *)scrollViewPage:(NSString *)imageName {
+- (UIImageView *)scrollViewPage:(NSString *)imageName
+{
     UIImageView *imageView =
     [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -342,21 +367,25 @@
 }
 
 #pragma mark - 转屏
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
     return UIInterfaceOrientationMaskPortrait;
 }
 
-- (BOOL)shouldAutorotate {
+- (BOOL)shouldAutorotate
+{
     return YES;
 }
 
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
     return UIInterfaceOrientationPortrait;
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection
               withTransitionCoordinator:
-(id<UIViewControllerTransitionCoordinator>)coordinator {
+(id<UIViewControllerTransitionCoordinator>)coordinator
+{
     [super willTransitionToTraitCollection:newCollection
                  withTransitionCoordinator:coordinator];
     [coordinator animateAlongsideTransition:^(id context) {
