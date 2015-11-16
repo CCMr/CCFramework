@@ -120,6 +120,42 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
  */
 - (void)didSelectedSendNotSuccessfulCallback:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
 
+#pragma mark - Menu Actions
+/**
+ *  @author CC, 2015-11-16
+ *  
+ *  @brief  转发
+ */
+- (void)didSelectedMenuTranspond:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ *  @author CC, 2015-11-16
+ *  
+ *  @brief  收藏
+ */
+- (void)didSelectedMenuFavorites:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ *  @author CC, 2015-11-16
+ *  
+ *  @brief  撤回
+ */
+- (void)didSelectedMenuWithdraw:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ *  @author CC, 2015-11-16
+ *  
+ *  @brief  删除
+ */
+- (void)didSelectedMenuDeletes:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ *  @author CC, 2015-11-16
+ *  
+ *  @brief  更多
+ */
+- (void)didSelectedMenuMore:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 @interface CCMessageTableViewCell : BaseTableViewCell
