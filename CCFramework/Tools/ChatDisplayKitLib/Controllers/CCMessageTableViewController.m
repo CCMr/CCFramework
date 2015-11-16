@@ -64,6 +64,13 @@
 @property(nonatomic, strong) UIActivityIndicatorView *loadMoreActivityIndicatorView;
 
 /**
+ *  @author CC, 2015-11-16
+ *  
+ *  @brief  底部工具条大小
+ */
+@property(nonatomic, assign) CGRect inputFrame;
+
+/**
  *  管理本机的摄像和图片库的工具对象
  */
 @property(nonatomic, strong) CCPhotographyHelper *photographyHelper;
@@ -691,8 +698,8 @@ static CGPoint delayOffset = {0.0};
     [self setBackgroundColor:[UIColor whiteColor]];
     
     // 输入工具条的frame
-    CGRect inputFrame = CGRectMake(0.0f, self.view.frame.size.height - inputViewHeight,
-                                   self.view.frame.size.width, inputViewHeight);
+    _inputFrame = CGRectMake(0.0f, self.view.frame.size.height - inputViewHeight,
+                             self.view.frame.size.width, inputViewHeight);
     
     WEAKSELF;
     if (self.allowsPanToDismissKeyboard) {
@@ -774,7 +781,7 @@ static CGPoint delayOffset = {0.0};
     };
     
     // 初始化输入工具条
-    CCMessageInputView *inputView = [[CCMessageInputView alloc] initWithFrame:inputFrame];
+    CCMessageInputView *inputView = [[CCMessageInputView alloc] initWithFrame:_inputFrame];
     inputView.allowsSendFace = self.allowsSendFace;
     inputView.allowsSendVoice = self.allowsSendVoice;
     inputView.allowsSendMultiMedia = self.allowsSendMultiMedia;
@@ -788,12 +795,25 @@ static CGPoint delayOffset = {0.0};
     self.messageTableView.messageInputBarHeight = CGRectGetHeight(_messageInputView.bounds);
 }
 
+/**
+ *  @author CC, 2015-11-16
+ *  
+ *  @brief  设置底部工具条
+ *
+ *  @param bottomToolbarView 工具视图
+ */
+- (void)setBottomToolbarView:(UIView *)bottomToolbarView
+{
+    [self.view addSubview:bottomToolbarView];
+    [self.view bringSubviewToFront:bottomToolbarView];
+    _bottomToolbarView = bottomToolbarView;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     // 设置键盘通知或者手势控制键盘消失
-    [self.messageTableView
-     setupPanGestureControlKeyboardHide:self.allowsPanToDismissKeyboard];
+    [self.messageTableView setupPanGestureControlKeyboardHide:self.allowsPanToDismissKeyboard];
     
     // KVO 检查contentSize
     [self.messageInputView.inputTextView addObserver:self
@@ -912,39 +932,37 @@ static CGPoint delayOffset = {0.0};
     }
     
     if (changeInHeight != 0.0f) {
-        [UIView animateWithDuration:0.25f
-                         animations:^{
-                             [self setTableViewInsetsWithBottomValue:self.messageTableView
-                              .contentInset.bottom +
-                              changeInHeight];
-                             
-                             [self scrollToBottomAnimated:NO];
-                             
-                             if (isShrinking) {
-                                 if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
-                                     self.previousTextViewContentHeight = MIN(contentH, maxHeight);
-                                 }
-                                 // if shrinking the view, animate text view frame BEFORE input view
-                                 // frame
-                                 [self.messageInputView adjustTextViewHeightBy:changeInHeight];
-                             }
-                             
-                             CGRect inputViewFrame = self.messageInputView.frame;
-                             self.messageInputView.frame =
-                             CGRectMake(0.0f, inputViewFrame.origin.y - changeInHeight,
-                                        inputViewFrame.size.width,
-                                        inputViewFrame.size.height + changeInHeight);
-                             if (!isShrinking) {
-                                 if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
-                                     self.previousTextViewContentHeight = MIN(contentH, maxHeight);
-                                 }
-                                 // growing the view, animate the text view frame AFTER input view
-                                 // frame
-                                 [self.messageInputView adjustTextViewHeightBy:changeInHeight];
-                             }
-                         }
-                         completion:^(BOOL finished){
-                         }];
+        [UIView animateWithDuration:0.25f animations:^{
+            [self setTableViewInsetsWithBottomValue:self.messageTableView
+             .contentInset.bottom +
+             changeInHeight];
+            
+            [self scrollToBottomAnimated:NO];
+            
+            if (isShrinking) {
+                if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+                    self.previousTextViewContentHeight = MIN(contentH, maxHeight);
+                }
+                // if shrinking the view, animate text view frame BEFORE input view
+                // frame
+                [self.messageInputView adjustTextViewHeightBy:changeInHeight];
+            }
+            
+            CGRect inputViewFrame = self.messageInputView.frame;
+            self.messageInputView.frame =
+            CGRectMake(0.0f, inputViewFrame.origin.y - changeInHeight,
+                       inputViewFrame.size.width,
+                       inputViewFrame.size.height + changeInHeight);
+            if (!isShrinking) {
+                if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+                    self.previousTextViewContentHeight = MIN(contentH, maxHeight);
+                }
+                // growing the view, animate the text view frame AFTER input view
+                // frame
+                [self.messageInputView adjustTextViewHeightBy:changeInHeight];
+            }
+        } completion:^(BOOL finished){
+        }];
         
         self.previousTextViewContentHeight = MIN(contentH, maxHeight);
     }
@@ -1150,9 +1168,7 @@ static CGPoint delayOffset = {0.0};
         
         InputViewAnimation(hide);
         
-        [self setTableViewInsetsWithBottomValue:self.view.frame.size.height -
-         self.messageInputView.frame
-         .origin.y];
+        [self setTableViewInsetsWithBottomValue:self.view.frame.size.height - self.messageInputView.frame .origin.y];
         
         [self scrollToBottomAnimated:NO];
     } completion:^(BOOL finished) {
@@ -1421,6 +1437,12 @@ static CGPoint delayOffset = {0.0};
     return self.messages.count;
 }
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView
+           editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleNone;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -1442,8 +1464,7 @@ static CGPoint delayOffset = {0.0};
     
     static NSString *cellIdentifier = @"CCMessageTableViewCell";
     
-    CCMessageTableViewCell *messageTableViewCell =
-    [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    CCMessageTableViewCell *messageTableViewCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (!messageTableViewCell) {
         messageTableViewCell = [[CCMessageTableViewCell alloc] initWithMessage:message
@@ -1479,6 +1500,16 @@ static CGPoint delayOffset = {0.0};
     
     return calculateCellHeight;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath  
+{  
+    if (tableView.isEditing) {
+        id <CCMessageModel> message = [self.dataSource messageForRowAtIndexPath:indexPath];
+        message.selected = !message.selected;
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    }
+}
+
 
 #pragma mark - Key-value Observing
 

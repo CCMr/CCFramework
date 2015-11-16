@@ -266,6 +266,13 @@ typedef NS_ENUM(NSUInteger, CCInputViewType) {
  */
 @property(nonatomic, assign) CCMessageInputViewStyle inputViewStyle;
 
+/**
+ *  @author CC, 2015-11-16
+ *  
+ *  @brief  底部工具条
+ */
+@property (nonatomic, copy)UIView *bottomToolbarView;
+
 #pragma mark - DataSource Change
 /**
  *  添加一条新的消息
