@@ -27,7 +27,7 @@
 
 @interface CCAliPayEngine : NSObject
 
-+ (id)sharedlnstance;
++ (id _Nullable)sharedlnstance;
 
 /**
  *  @author C C, 2015-10-18
@@ -39,10 +39,10 @@
  *  @param sellerKey  支付宝收款账号,手机号码或邮箱格式。
  *  @param privateKey 商家私有秘钥
  */
-- (void)setAliPaySchema:(NSString *)appScheme
-             PartnerKey:(NSString *)partnerKey
-              SellerKey:(NSString *)sellerKey
-             PrivateKey:(NSString *)privateKey;
+- (void)setAliPaySchema:(NSString * _Nullable)appScheme
+             PartnerKey:(NSString * _Nullable)partnerKey
+              SellerKey:(NSString * _Nullable)sellerKey
+             PrivateKey:(NSString * _Nullable)privateKey;
 
 /**
  *  @author C C, 2015-10-18
@@ -55,13 +55,34 @@
  *  @param amount             价格
  *  @param notifyURL          回调URL
  */
-- (void)payOrderForm:(NSString *)tradeNO
-         ProductName:(NSString *)productName
-  ProductDescription:(NSString *)productDescription
-              Amount:(NSString *)amount
-           notifyURL:(NSString *)notifyURL
+- (void)payOrderForm:(NSString * _Nullable)tradeNO
+         ProductName:(NSString * _Nullable)productName
+  ProductDescription:(NSString * _Nullable)productDescription
+              Amount:(NSString * _Nullable)amount
+           notifyURL:(NSString * _Nullable)notifyURL
             Callback:(nullable void (^)(NSInteger resultStatus,
-                                        NSString *result, NSString *memo,
-                                        NSError *error))block;
+                                        NSString * _Nullable result, NSString * _Nullable memo,
+                                        NSError * _Nullable error))block;
+
+/**
+ *  处理钱包或者独立快捷app支付跳回商户app携带的支付结果Url
+ *
+ *  @param resultUrl 支付结果url，传入后由SDK解析，统一在上面的pay方法的callback中回调
+ *  @param completionBlock 跳钱包支付结果回调，保证跳转钱包支付过程中，即使调用方app被系统kill时，能通过这个回调取到支付结果。
+ */
+-(void)processOrderWithPaymentResult:(NSURL * _Nullable)url
+                     standbyCallback:(nullable void (^)(NSInteger resultStatus,
+                                                        NSString * _Nullable result, NSString * _Nullable memo,
+                                                        NSError * _Nullable error))block;
+/**
+ *  处理授权信息Url
+ *
+ *  @param resultUrl 钱包返回的授权结果url
+ *  @param completionBlock 跳授权结果回调，保证跳转钱包授权过程中，即使调用方app被系统kill时，能通过这个回调取到支付结果。
+ */
+-(void)processAuthResult:(NSURL * _Nullable)url
+         standbyCallback:(nullable void (^)(NSInteger resultStatus,
+                                            NSString * _Nullable result, NSString * _Nullable memo,
+                                            NSError * _Nullable error))block;
 
 @end

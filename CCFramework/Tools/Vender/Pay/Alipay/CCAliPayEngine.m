@@ -65,6 +65,13 @@ typedef void (^ResponseCallback)(NSInteger resultStatus, NSString *result,
  */
 @property(nonatomic, strong) ResponseCallback responseCallback;
 
+/**
+ *  @author C C, 2015-11-16
+ *
+ *  @brief  初始化
+ */
+@property(nonatomic, strong) id AlipaySDK;
+
 @end
 
 @implementation CCAliPayEngine
@@ -159,16 +166,74 @@ typedef void (^ResponseCallback)(NSInteger resultStatus, NSString *result,
         
         if (NSClassFromString(@"AlipaySDK")) {
             Class Alipay = NSClassFromString(@"AlipaySDK");
-            id AlipaySDK = [Alipay InitDefaultMethod:@"defaultService"];
+            if (!_AlipaySDK)
+                _AlipaySDK = [Alipay InitDefaultMethod:@"defaultService"];
             
             typeof(self) __weak weakSelf = self;
             void(^CompletionBlock)(NSDictionary *resultDic) = ^(NSDictionary *resultDic) {
                 weakSelf.responseCallback([[resultDic objectForKey:@"resultStatus"] integerValue],[resultDic objectForKey:@"result"],[resultDic objectForKey:@"memo"], nil);
             };
-            [AlipaySDK performSelectors:@"payOrder:fromScheme:callback:" withObject:orderString, _appScheme, CompletionBlock,nil];
+            [_AlipaySDK performSelectors:@"payOrder:fromScheme:callback:" withObject:orderString, _appScheme, CompletionBlock,nil];
         }else{
             NSLog(@"请在工程中导入AlipaySDK.framework文件");
         }
+    }
+}
+
+/**
+ *  处理钱包或者独立快捷app支付跳回商户app携带的支付结果Url
+ *
+ *  @param resultUrl 支付结果url，传入后由SDK解析，统一在上面的pay方法的callback中回调
+ *  @param completionBlock 跳钱包支付结果回调，保证跳转钱包支付过程中，即使调用方app被系统kill时，能通过这个回调取到支付结果。
+ */
+-(void)processOrderWithPaymentResult:(NSURL *)url
+                     standbyCallback:(nullable void (^)(NSInteger resultStatus,
+                                                        NSString *result, NSString *memo,
+                                                        NSError *error))block
+{
+    if (NSClassFromString(@"AlipaySDK")) {
+        if (_AlipaySDK){
+            
+//            _responseCallback = [block copy];
+            
+            typeof(self) __weak weakSelf = self;
+            void(^CompletionBlock)(NSDictionary *resultDic) = ^(NSDictionary *resultDic) {
+                weakSelf.responseCallback([[resultDic objectForKey:@"resultStatus"] integerValue],[resultDic objectForKey:@"result"],[resultDic objectForKey:@"memo"], nil);
+            };
+            
+            [_AlipaySDK performSelectors:@"processOrderWithPaymentResult:standbyCallback:" withObject:url,CompletionBlock,nil];
+        }
+    }else{
+        NSLog(@"请在工程中导入AlipaySDK.framework文件");
+    }
+    
+}
+
+/**
+ *  处理授权信息Url
+ *
+ *  @param resultUrl 钱包返回的授权结果url
+ *  @param completionBlock 跳授权结果回调，保证跳转钱包授权过程中，即使调用方app被系统kill时，能通过这个回调取到支付结果。
+ */
+-(void)processAuthResult:(NSURL *)url
+         standbyCallback:(nullable void (^)(NSInteger resultStatus,
+                                             NSString *result, NSString *memo,
+                                             NSError *error))block
+{
+    if (NSClassFromString(@"AlipaySDK")) {
+        if (_AlipaySDK){
+            
+//            _responseCallback = [block copy];
+            
+            typeof(self) __weak weakSelf = self;
+            void(^CompletionBlock)(NSDictionary *resultDic) = ^(NSDictionary *resultDic) {
+                weakSelf.responseCallback([[resultDic objectForKey:@"resultStatus"] integerValue],[resultDic objectForKey:@"result"],[resultDic objectForKey:@"memo"], nil);
+            };
+            
+            [_AlipaySDK performSelectors:@"processAuthResult:standbyCallback:" withObject:url,CompletionBlock,nil];
+        }
+    }else{
+        NSLog(@"请在工程中导入AlipaySDK.framework文件");
     }
 }
 
