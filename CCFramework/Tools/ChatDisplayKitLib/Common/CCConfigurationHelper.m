@@ -29,14 +29,15 @@
 
 @interface CCConfigurationHelper ()
 
-@property (nonatomic, strong) NSArray *popMenuTitles;
+@property(nonatomic, strong) NSArray *popMenuTitles;
 
 @end
 
 
 @implementation CCConfigurationHelper
 
-+ (instancetype)appearance {
++ (instancetype)appearance
+{
     static CCConfigurationHelper *configurationHelper = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -45,18 +46,22 @@
     return configurationHelper;
 }
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
     if (self) {
-        self.popMenuTitles = @[CCLocalization(@"复制文本消息"),
-                               CCLocalization(@"转发"),
-                               CCLocalization(@"收藏"),
-                               CCLocalization(@"更多"),];
+        self.popMenuTitles = @[ CCLocalization(@"复制"),
+                                CCLocalization(@"转发"),
+                                CCLocalization(@"收藏"),
+                                CCLocalization(@"撤回"),
+                                CCLocalization(@"删除"),
+                                CCLocalization(@"更多") ];
     }
     return self;
 }
 
-- (void)setupPopMenuTitles:(NSArray *)popMenuTitles {
+- (void)setupPopMenuTitles:(NSArray *)popMenuTitles
+{
     self.popMenuTitles = popMenuTitles;
 }
 
