@@ -419,6 +419,9 @@
 {
     SEL setupDefaultSEL = NSSelectorFromString(@"viewWillRefresh");
     UIViewController *viewController = self.viewControllers[self.selectedIndex];
+    if ([viewController isKindOfClass:[UINavigationController class]]) {
+        viewController = ((UINavigationController *)viewController).visibleViewController;
+    }
     if ([viewController respondsToSelector:setupDefaultSEL])
         [viewController performSelector:setupDefaultSEL withObject:nil afterDelay:.1];
 }
