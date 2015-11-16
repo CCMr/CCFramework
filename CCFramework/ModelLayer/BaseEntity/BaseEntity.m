@@ -25,7 +25,6 @@
 
 #import "BaseEntity.h"
 #import <objc/runtime.h>
-#import <CoreData/CoreData.h>
 #import <UIKit/UIKit.h>
 #import "NSData+Additions.h"
 
@@ -244,8 +243,7 @@
             [properties.allKeys
              enumerateObjectsUsingBlock:^(id obj, NSUInteger idx,
                                           BOOL *stop) {
-                 if ([obj compare:key options:NSCaseInsensitiveSearch] ==
-                     NSOrderedSame)
+                 if ([obj compare:key options:NSCaseInsensitiveSearch] == NSOrderedSame)
                      key = obj;
              }];
             
