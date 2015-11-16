@@ -186,17 +186,16 @@
         NSArray *attributes = [entity allAttributeNames];
         NSArray *relationships = [entity allRelationshipNames];
         
-        [data enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL *stop) {
-            id remoteValue = obj;
+        [data.allKeys enumerateObjectsUsingBlock:^(id  _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
+            id remoteValue = [data objectForKey:key];
             if (remoteValue) {
                 if ([attributes containsObject:key]) {
-                    [entity mergeAttributeForKey:key
-                                       withValue:remoteValue];
-                    
-                }else if ([relationships containsObject:key]) {
+                    [entity mergeAttributeForKey:key withValue:remoteValue];
+                }else if ([relationships containsObject:key]){
                     [entity mergeRelationshipForKey:key
                                           withValue:remoteValue
                                               IsAdd:YES];
+                    
                 }
             }
         }];

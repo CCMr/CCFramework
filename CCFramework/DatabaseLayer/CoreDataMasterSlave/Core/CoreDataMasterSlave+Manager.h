@@ -170,6 +170,30 @@
                        completion:(void (^)(NSError *error))completion;
 
 /**
+ *  @author CC, 2015-11-16
+ *  
+ *  @brief  删除对象
+ *
+ *  @param tableName     表名
+ *  @param arrayObjectID 集合对象ObjectID
+ */
++ (void)cc_RemovedManagedObjectIds:(NSString *)tableName
+                   ManagedObjectId:(NSArray *)arrayObjectID;
+
+/**
+ *  @author CC, 2015-11-16
+ *  
+ *  @brief  删除对象
+ *
+ *  @param tableName     表名
+ *  @param arrayObjectID 集合对象ObjectID
+ *  @param completion    完成回调
+ */
++ (void)cc_RemovedManagedObjectIds:(NSString *)tableName
+                   ManagedObjectId:(NSArray *)arrayObjectID
+                        completion:(void (^)(NSError *error))completion;
+
+/**
  *  @author CC, 2015-10-26
  *
  *  @brief  条件删除数据

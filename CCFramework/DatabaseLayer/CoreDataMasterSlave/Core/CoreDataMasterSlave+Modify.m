@@ -103,7 +103,7 @@
     [self cc_updateCoreData:tableName
                ConditionKey:conditionKey
                   Condition:condition
-             ConditionValue:conditionKey
+             ConditionValue:conditionValue
               EditDataArray:editDataArray
                  completion:nil];
 }
