@@ -157,4 +157,7 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 - (BOOL)isRead;
 - (void)setIsRead:(BOOL)isRead;
 
+- (BOOL)selected;
+- (void)setSelected:(BOOL)selected;
+
 @end

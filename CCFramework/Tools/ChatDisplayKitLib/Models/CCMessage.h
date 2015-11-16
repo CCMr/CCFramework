@@ -27,6 +27,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import "CCMessageModel.h"
+#import <CoreData/CoreData.h>
 
 @interface CCMessage : NSObject<CCMessageModel,NSCoding, NSCopying>
 
@@ -56,6 +57,13 @@
 
 @property (nonatomic, strong) UIImage *avatar;
 @property (nonatomic, copy) NSString *avatarUrl;
+
+/**
+ *  @author CC, 2015-11-16
+ *  
+ *  @brief  数据存储ID
+ */
+@property (nonatomic, copy) NSManagedObjectID *objectID;
 
 /**
  *  @author CC, 15-08-17
@@ -114,6 +122,13 @@
  *  @since 1.0
  */
 @property (nonatomic) BOOL isRead;
+
+/**
+ *  @author CC, 2015-11-16
+ *  
+ *  @brief  编辑状态下选中
+ */
+@property(nonatomic) BOOL selected;
 
 
 /**
