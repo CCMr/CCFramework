@@ -35,5 +35,6 @@
 #import <CCFramework/CCAliPayEngine.h>
 #import <CCFramework/CCDisplayLocationViewController.h>
 #import <CCFramework/CCChart.h>
+#import <CCFramework/VoiceConverter.h>
 
 #endif
