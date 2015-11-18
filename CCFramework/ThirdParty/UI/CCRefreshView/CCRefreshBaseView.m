@@ -200,7 +200,7 @@
     double delayInSeconds = 0.3;
     
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    cc_gcd_dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
         self.state = CCRefreshStateNormal;
     });
 }
@@ -273,7 +273,7 @@
                     //                    self.activityView.alpha = 1.0;
                     self.cc_activityView.alpha = 1.0;
                 }];
-                cc_gcd_dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(CCRefreshSlowAnimationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 等头部回去
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(CCRefreshSlowAnimationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 等头部回去
                     // 再次设置回normal
                     //                    _state = CCRefreshStatePulling;
                     //                    self.state = CCRefreshStateNormal;

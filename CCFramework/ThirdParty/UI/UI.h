@@ -71,7 +71,7 @@
 #import <CCFramework/CCWaterfallsFlow.h>
 #import <CCFramework/CCWebViewController.h>
 #import <CCFramework/CCWebView.h>
-#import <CCFramework/CustomIOS7AlertView.h>
+#import <CCFramework/CustomIOSAlertView.h>
 #import <CCFramework/CCDropDown.h>
 
 #endif
