@@ -256,7 +256,7 @@
         id eachObject;
         va_start(arguments, sortedWithKey);
         while ((eachObject = va_arg(arguments, id))) {
-            [array addObject:[NSSortDescriptor sortDescriptorWithKey:sortedWithKey ascending:ascending]];
+            [array addObject:[NSSortDescriptor sortDescriptorWithKey:eachObject ascending:ascending]];
         }
         va_end(arguments);
     }

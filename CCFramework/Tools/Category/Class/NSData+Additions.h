@@ -24,6 +24,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface NSData (Additions)
 
@@ -55,5 +56,14 @@
  *  @return 返回加密字符串
  */
 - (NSString *)decodeBase64Data;
+
+/**
+ *  @author CC, 2015-11-17
+ *  
+ *  @brief  data转图片
+ *
+ *  @return <#return value description#>
+ */
+-(UIImage *)convertingDataToImage;
 
 @end

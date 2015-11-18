@@ -66,4 +66,16 @@
     return [[NSString alloc] initWithData:[CCBase64 decodeData:self] encoding:NSUTF8StringEncoding];
 }
 
+/**
+ *  @author CC, 2015-11-17
+ *  
+ *  @brief  data转图片
+ *
+ *  @return <#return value description#>
+ */
+-(UIImage *)convertingDataToImage
+{
+    return [UIImage imageWithData:self];
+}
+
 @end
