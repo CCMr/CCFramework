@@ -26,7 +26,8 @@ static char TAG_ACTIVITY_SHOW;
     [self sd_setImageWithURL:url placeholderImage:nil options:0 progress:nil completed:nil];
 }
 
-- (void)sd_setImageWithURLStr:(NSString *)url placeholderImage:(UIImage *)placeholder {
+- (void)sd_setImageWithURLStr:(NSString *)url placeholderImage:(UIImage *)placeholder
+{
     [self sd_setImageWithURL:[NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] placeholderImage:placeholder];
 }
 
@@ -104,7 +105,7 @@ static char TAG_ACTIVITY_SHOW;
     }
 }
 
-- (void)sd_setImageWithPreviousCachedImageWithURL:(NSURL *)url andPlaceholderImage:(UIImage *)placeholder options:(SDWebImageOptions)options progress:(SDWebImageDownloaderProgressBlock)progressBlock completed:(SDWebImageCompletionBlock)completedBlock {
+- (void)sd_setImageWithPreviousCachedImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(SDWebImageOptions)options progress:(SDWebImageDownloaderProgressBlock)progressBlock completed:(SDWebImageCompletionBlock)completedBlock {
     NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:url];
     UIImage *lastPreviousCachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
     
