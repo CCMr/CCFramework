@@ -11,7 +11,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 429C9CBE1B9EF7570013A44A /* Build configuration list for PBXAggregateTarget "CCggregate" */;
 			buildPhases = (
-				429C9CC11B9EF7670013A44A /* ShellScript */,
+				429C9CC11B9EF7670013A44A /* MultiPlatform Build */,
 			);
 			dependencies = (
 			);
@@ -481,20 +481,20 @@
 		420DE47D1BC7942300D87D6D /* ZXMultiFormatWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 420DE2B41BC7942300D87D6D /* ZXMultiFormatWriter.h */; };
 		420DE47E1BC7942300D87D6D /* ZXMultiFormatWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 420DE2B51BC7942300D87D6D /* ZXMultiFormatWriter.m */; };
 		4213943C1BF2D9F50046062B /* SRLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213943B1BF2D9F50046062B /* SRLog.h */; };
-		421558091BFC4B1600470E65 /* amrFileCodec.h in Headers */ = {isa = PBXBuildFile; fileRef = 421557FA1BFC4B1600470E65 /* amrFileCodec.h */; settings = {ASSET_TAGS = (); }; };
-		4215580A1BFC4B1600470E65 /* amrFileCodec.m in Sources */ = {isa = PBXBuildFile; fileRef = 421557FB1BFC4B1600470E65 /* amrFileCodec.m */; settings = {ASSET_TAGS = (); }; };
-		4215580B1BFC4B1600470E65 /* wav.h in Headers */ = {isa = PBXBuildFile; fileRef = 421557FC1BFC4B1600470E65 /* wav.h */; settings = {ASSET_TAGS = (); }; };
-		4215580C1BFC4B1600470E65 /* wav.mm in Sources */ = {isa = PBXBuildFile; fileRef = 421557FD1BFC4B1600470E65 /* wav.mm */; settings = {ASSET_TAGS = (); }; };
-		4215580D1BFC4B1600470E65 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 421557FF1BFC4B1600470E65 /* libopencore-amrnb.a */; settings = {ASSET_TAGS = (); }; };
-		4215580E1BFC4B1600470E65 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 421558001BFC4B1600470E65 /* libopencore-amrwb.a */; settings = {ASSET_TAGS = (); }; };
-		4215580F1BFC4B1600470E65 /* interf_dec.h in Headers */ = {isa = PBXBuildFile; fileRef = 421558021BFC4B1600470E65 /* interf_dec.h */; settings = {ASSET_TAGS = (); }; };
-		421558101BFC4B1600470E65 /* interf_enc.h in Headers */ = {isa = PBXBuildFile; fileRef = 421558031BFC4B1600470E65 /* interf_enc.h */; settings = {ASSET_TAGS = (); }; };
-		421558111BFC4B1600470E65 /* dec_if.h in Headers */ = {isa = PBXBuildFile; fileRef = 421558051BFC4B1600470E65 /* dec_if.h */; settings = {ASSET_TAGS = (); }; };
-		421558121BFC4B1600470E65 /* if_rom.h in Headers */ = {isa = PBXBuildFile; fileRef = 421558061BFC4B1600470E65 /* if_rom.h */; settings = {ASSET_TAGS = (); }; };
+		421558091BFC4B1600470E65 /* amrFileCodec.h in Headers */ = {isa = PBXBuildFile; fileRef = 421557FA1BFC4B1600470E65 /* amrFileCodec.h */; };
+		4215580A1BFC4B1600470E65 /* amrFileCodec.m in Sources */ = {isa = PBXBuildFile; fileRef = 421557FB1BFC4B1600470E65 /* amrFileCodec.m */; };
+		4215580B1BFC4B1600470E65 /* wav.h in Headers */ = {isa = PBXBuildFile; fileRef = 421557FC1BFC4B1600470E65 /* wav.h */; };
+		4215580C1BFC4B1600470E65 /* wav.mm in Sources */ = {isa = PBXBuildFile; fileRef = 421557FD1BFC4B1600470E65 /* wav.mm */; };
+		4215580D1BFC4B1600470E65 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 421557FF1BFC4B1600470E65 /* libopencore-amrnb.a */; };
+		4215580E1BFC4B1600470E65 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 421558001BFC4B1600470E65 /* libopencore-amrwb.a */; };
+		4215580F1BFC4B1600470E65 /* interf_dec.h in Headers */ = {isa = PBXBuildFile; fileRef = 421558021BFC4B1600470E65 /* interf_dec.h */; };
+		421558101BFC4B1600470E65 /* interf_enc.h in Headers */ = {isa = PBXBuildFile; fileRef = 421558031BFC4B1600470E65 /* interf_enc.h */; };
+		421558111BFC4B1600470E65 /* dec_if.h in Headers */ = {isa = PBXBuildFile; fileRef = 421558051BFC4B1600470E65 /* dec_if.h */; };
+		421558121BFC4B1600470E65 /* if_rom.h in Headers */ = {isa = PBXBuildFile; fileRef = 421558061BFC4B1600470E65 /* if_rom.h */; };
 		421558131BFC4B1600470E65 /* VoiceConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 421558071BFC4B1600470E65 /* VoiceConverter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		421558141BFC4B1600470E65 /* VoiceConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 421558081BFC4B1600470E65 /* VoiceConverter.m */; settings = {ASSET_TAGS = (); }; };
+		421558141BFC4B1600470E65 /* VoiceConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 421558081BFC4B1600470E65 /* VoiceConverter.m */; };
 		4220B6181BFAB95A006145FD /* CustomIOSAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4220B6161BFAB95A006145FD /* CustomIOSAlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4220B6191BFAB95A006145FD /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4220B6171BFAB95A006145FD /* CustomIOSAlertView.m */; settings = {ASSET_TAGS = (); }; };
+		4220B6191BFAB95A006145FD /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4220B6171BFAB95A006145FD /* CustomIOSAlertView.m */; };
 		422978601BEE3A1100CECBBF /* CCResponseObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4229785E1BEE3A1100CECBBF /* CCResponseObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		422978611BEE3A1100CECBBF /* CCResponseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229785F1BEE3A1100CECBBF /* CCResponseObject.m */; };
 		422978631BEE407400CECBBF /* CCBlockTrace.h in Headers */ = {isa = PBXBuildFile; fileRef = 422978621BEE405900CECBBF /* CCBlockTrace.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1142,7 +1142,7 @@
 		42B30DE91BBD72AD0039BB94 /* SDWebImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B30DC81BBD72AD0039BB94 /* SDWebImageManager.m */; };
 		42B30DEA1BBD72AD0039BB94 /* SDWebImagePrefetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 42B30DC91BBD72AD0039BB94 /* SDWebImagePrefetcher.h */; };
 		42B30DEB1BBD72AD0039BB94 /* SDWebImagePrefetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B30DCA1BBD72AD0039BB94 /* SDWebImagePrefetcher.m */; };
-		42B6473D1BEDA8C100B2F6FD /* CCBacktrace.h in Headers */ = {isa = PBXBuildFile; fileRef = 42B6473B1BEDA8C100B2F6FD /* CCBacktrace.h */; };
+		42B6473D1BEDA8C100B2F6FD /* CCBacktrace.h in Headers */ = {isa = PBXBuildFile; fileRef = 42B6473B1BEDA8C100B2F6FD /* CCBacktrace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42B6473E1BEDA8C100B2F6FD /* CCBacktrace.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B6473C1BEDA8C100B2F6FD /* CCBacktrace.m */; };
 		42B647401BEDA9C600B2F6FD /* CCProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 426529CB1BED95960096C0EF /* CCProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42B647411BEDA9DA00B2F6FD /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 42B6473F1BEDA8DD00B2F6FD /* Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -5986,18 +5986,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		429C9CC11B9EF7670013A44A /* ShellScript */ = {
+		429C9CC11B9EF7670013A44A /* MultiPlatform Build */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "MultiPlatform Build";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Sets the target folders and the final framework product.\n# 如果工程名称和Framework的Target名称不一样的话，要自定义FMKNAME\n# 例如: FMK_NAME = \"MyFramework\"\nFMK_NAME=${PROJECT_NAME}\n# Install dir will be the final output to the framework.\n# The following line create it in the root folder of the current project.\nINSTALL_DIR=${SRCROOT}/Products/${FMK_NAME}.framework\n# Working dir will be deleted after the framework creation.\nWRK_DIR=build\nDEVICE_DIR=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.framework\nSIMULATOR_DIR=${WRK_DIR}/Release-iphonesimulator/${FMK_NAME}.framework\n# -configuration ${CONFIGURATION}\n# Clean and Building both architectures.\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphoneos clean build\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphonesimulator clean build\n# Cleaning the oldest.\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\nmkdir -p \"${INSTALL_DIR}\"\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/\"\n# Uses the Lipo Tool to merge both binary files (i386 + armv6/armv7) into one Universal final product.\nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\nrm -r \"${WRK_DIR}\"\nopen \"${INSTALL_DIR}\"";
+			shellScript = "# Sets the target folders and the final framework product.\n# 如果工程名称和Framework的Target名称不一样的话，要自定义FMKNAME\n# 例如: FMK_NAME = \"CCFramework\"\nFMK_NAME=${PROJECT_NAME}\n# Install dir will be the final output to the framework.\n# The following line create it in the root folder of the current project.\nINSTALL_DIR=${SRCROOT}/Products/${FMK_NAME}.framework\n# Working dir will be deleted after the framework creation.\nWRK_DIR=build\nDEVICE_DIR=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.framework\nSIMULATOR_DIR=${WRK_DIR}/Release-iphonesimulator/${FMK_NAME}.framework\n# -configuration ${CONFIGURATION}\n# Clean and Building both architectures.\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphoneos clean build\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphonesimulator clean build\n# Cleaning the oldest.\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\nmkdir -p \"${INSTALL_DIR}\"\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/\"\n# Uses the Lipo Tool to merge both binary files (i386 + armv6/armv7) into one Universal final product.\nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\nrm -r \"${WRK_DIR}\"\nopen \"${INSTALL_DIR}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
