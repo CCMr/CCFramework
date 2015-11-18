@@ -67,6 +67,8 @@
             }
             case NSObjectIDAttributeType:
             case NSBinaryDataAttributeType:
+                 [self setValue:value forKey:attributeName];
+                break;
             case NSStringAttributeType:
                 [self setValue:[value description] forKey:attributeName];
                 break;
