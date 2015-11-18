@@ -116,7 +116,6 @@ typedef enum {
                         if(![SRServerSentEvent tryParseEvent:line sseEvent:&sseEvent]) {
                             continue;
                         }
-                        
 //                        SRLogServerSentEvents(@"SSE READ: %@",sseEvent);
                         
                         [self onMessage:sseEvent];
