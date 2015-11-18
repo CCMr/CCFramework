@@ -36,8 +36,8 @@
  *  @param url         请求地址
  *  @param placeholder 默认图片
  */
-- (void) setImageWithURL: (NSString *)url
-             placeholder: (UIImage *)placeholder
+- (void)setImageWithURL:(NSString *)url
+            placeholder:(UIImage *)placeholder
 {
     self.image = placeholder;
     self.contentMode = UIViewContentModeCenter;
@@ -54,6 +54,22 @@
             self.image = image;
             self.contentMode = UIViewContentModeScaleToFill;
             self.clipsToBounds = YES;
+        });
+    });
+}
+
++ (void)LoadImageWithURL:(NSString *)url 
+                Complete:(void (^)(UIImage *images))block
+{
+    NSURL *mURL = [NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError * error;
+        NSData *imgData = [NSData dataWithContentsOfURL:mURL options:NSDataReadingMappedIfSafe error:&error];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (block)
+                block([UIImage imageWithData:imgData]);
         });
     });
 }

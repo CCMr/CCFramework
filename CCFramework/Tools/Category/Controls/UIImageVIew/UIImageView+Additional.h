@@ -35,7 +35,10 @@
  *  @param url         请求地址
  *  @param placeholder 默认图片
  */
-- (void) setImageWithURL: (NSString *)url
-             placeholder: (UIImage *)placeholder;
+- (void)setImageWithURL:(NSString *)url
+            placeholder:(UIImage *)placeholder;
+
++ (void)LoadImageWithURL:(NSString *)url
+                Complete:(void (^)(UIImage *images))block;
 
 @end
