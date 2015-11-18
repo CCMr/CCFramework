@@ -26,7 +26,7 @@
 #ifndef Core_h
 #define Core_h
 
-#import <CCFramework/CCBacktrace.h>
+//#import <CCFramework/CCBacktrace.h>
 #import <CCFramework/CCNSLog.h>
 
 #endif /* Core_h */

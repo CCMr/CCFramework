@@ -318,7 +318,7 @@
         [messages replaceObjectAtIndex:index withObject:messageData];
         self.messages = messages;
         [self.messageTableView reloadData];
-        [self scrollToBottomAnimated:YES];
+        [self scrollToBottomAnimated:NO];
     }
 }
 
@@ -339,13 +339,12 @@
         [messages addObjectsFromArray:dataArray];
         
         NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:1];
-        [indexPaths
-         addObject:[NSIndexPath indexPathForRow:messages.count - 1 inSection:0]];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:messages.count - 1 inSection:0]];
         
         [weakSelf exMainQueue:^{
             weakSelf.messages = messages;
             [weakSelf.messageTableView reloadData];
-            [weakSelf scrollToBottomAnimated:YES];
+            [weakSelf scrollToBottomAnimated:NO];
         }];
     }];
 }
@@ -390,9 +389,7 @@ static CGPoint delayOffset = {0.0};
             [self.messageTableView beginUpdates];
             
             weakSelf.messages = messages;
-            [weakSelf.messageTableView
-             insertRowsAtIndexPaths:indexPaths
-             withRowAnimation:UITableViewRowAnimationNone];
+            [weakSelf.messageTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
             
             [self.messageTableView endUpdates];
             
@@ -897,7 +894,7 @@ static CGPoint delayOffset = {0.0};
     NSDate *now = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyyMMddHHmmssSSS"];
-    recorderPath = [recorderPath stringByAppendingFormat:@"%@-MySound.m4a", [dateFormatter stringFromDate:now]];
+    recorderPath = [recorderPath stringByAppendingFormat:@"%@-MySound.wav", [dateFormatter stringFromDate:now]];
     return recorderPath;
 }
 

@@ -34,12 +34,12 @@ extern void cc_dispatch_async_f(dispatch_queue_t queue, void *context, dispatch_
 extern void cc_dispatch_barrier_async_f(dispatch_queue_t queue, void *context, dispatch_function_t function);
 extern void cc_dispatch_after_f(dispatch_time_t time, dispatch_queue_t queue, void *context, dispatch_function_t function);
 
-#define cc_gcd_dispatch_async           cc_dispatch_async
-#define cc_gcd_dispatch_barrier_async   cc_dispatch_barrier_async
-#define cc_gcd_dispatch_after           cc_dispatch_after
-#define cc_gcd_dispatch_async_f         cc_dispatch_async_f
-#define cc_gcd_dispatch_barrier_async_f cc_dispatch_barrier_async_f
-#define cc_gcd_dispatch_after_f         cc_dispatch_after_f
+#define cc_dispatch_async           cc_dispatch_async
+#define cc_dispatch_barrier_async   cc_dispatch_barrier_async
+#define cc_dispatch_after           cc_dispatch_after
+#define cc_dispatch_async_f         cc_dispatch_async_f
+#define cc_dispatch_barrier_async_f cc_dispatch_barrier_async_f
+#define cc_dispatch_after_f         cc_dispatch_after_f
 
 /// Preserves backtraces across asynchronous calls.
 ///
@@ -79,11 +79,15 @@ extern void cc_dispatch_after_f(dispatch_time_t time, dispatch_queue_t queue, vo
 
 #else
 
-#define cc_gcd_dispatch_async           dispatch_async
-#define cc_gcd_dispatch_barrier_async   dispatch_barrier_async
-#define cc_gcd_dispatch_after           dispatch_after
-#define cc_gcd_dispatch_async_f         dispatch_async_f
-#define cc_gcd_dispatch_barrier_async_f dispatch_barrier_async_f
-#define cc_gcd_dispatch_after_f         dispatch_after_f
+#define cc_dispatch_async           dispatch_async
+#define cc_dispatch_barrier_async   dispatch_barrier_async
+#define cc_dispatch_after           dispatch_after
+#define cc_dispatch_async_f         dispatch_async_f
+#define cc_dispatch_barrier_async_f dispatch_barrier_async_f
+#define cc_dispatch_after_f         dispatch_after_f
 
 #endif
+
+
+
+

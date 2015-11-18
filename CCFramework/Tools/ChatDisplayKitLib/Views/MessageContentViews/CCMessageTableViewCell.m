@@ -533,11 +533,15 @@ static const CGFloat kCCUserNameLabelHeight = 20;
                 break;
         }
         
-        UIButton *avatarButton = [[UIButton alloc] initWithFrame:avatarButtonFrame];
-        [avatarButton setImage:[CCMessageAvatarFactory avatarImageNamed:[UIImage imageNamed:@"avatar"] messageAvatarType:CCMessageAvatarTypeCircle] forState:UIControlStateNormal];
-        [avatarButton addTarget:self action:@selector(avatarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:avatarButton];
-        self.avatarButton = avatarButton;
+        if (!_avatarButton) {
+            UIButton *avatarButton = [[UIButton alloc] initWithFrame:avatarButtonFrame];
+            [avatarButton setImage:[CCMessageAvatarFactory avatarImageNamed:[UIImage imageNamed:@"avatar"] messageAvatarType:CCMessageAvatarTypeCircle] forState:UIControlStateNormal];
+            [avatarButton addTarget:self action:@selector(avatarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            avatarButton.layer.masksToBounds = YES;
+            avatarButton.layer.cornerRadius = avatarButtonFrame.size.width / 2;
+            [self.contentView addSubview:avatarButton];
+            self.avatarButton = avatarButton;
+        }
         
         if (message.shouldShowUserName) {
             // 3、配置用户名
