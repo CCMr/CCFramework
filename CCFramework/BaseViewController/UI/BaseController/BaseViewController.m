@@ -30,7 +30,7 @@
 #import "UIButton+BUIButton.h"
 #import "UIView+BUIView.h"
 
-@interface BaseViewController () {
+@interface BaseViewController () <MBProgressHUDDelegate> {
     BOOL touchYES, inside;
     CGRect PopMenuFrame;
 }
@@ -42,7 +42,7 @@
  *
  *  @since 1.0
  */
-@property(nonatomic, strong) UIView *BottomPopView;
+@property(nonatomic, copy) UIView *BottomPopView;
 
 /**
  *  @author CC, 2015-07-23 10:07:03
@@ -64,9 +64,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        //        self.hidesBottomBarWhenPushed = YES;
-        
-        //mAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
             self.extendedLayoutIncludesOpaqueBars = NO;
             self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -90,12 +87,15 @@
     cc_NoticeObserver(self, @selector(receiveLanguageChangedNotification:), CCNotificationLanguageChanged, nil);
     cc_NoticeObserver(self, @selector(receiveLanguageChangedNotification:), CCThemeDidChangeNotification, nil);
     
-    [self InitMBProgressHUD];
     [self InitNavigation];
 }
 
-#pragma mark - 初始化弹出层 HUD
-- (void)InitMBProgressHUD
+/**
+ *  @author CC, 2015-11-17
+ *  
+ *  @brief  提示窗初始化
+ */
+- (MBProgressHUD *)HUD
 {
     if (!_HUD) {
         if (self.navigationController != nil) {
@@ -104,15 +104,20 @@
             _HUD.delegate = self;
         }
     }
-    
+    return _HUD;
+}
+
+- (CustomIOSAlertView *)mAlertView
+{
     if (!_mAlertView) {
-        _mAlertView = [[CustomIOS7AlertView alloc] init];
+        _mAlertView = [[CustomIOSAlertView alloc] init];
         _mAlertView.containerView.backgroundColor = [UIColor whiteColor];
         _mAlertView.parentView.backgroundColor = [UIColor whiteColor];
         _mAlertView.dialogView.backgroundColor = [UIColor whiteColor];
         [_mAlertView setButtonTitles:@[]];
         [_mAlertView setUseMotionEffects:YES];
     }
+    return _mAlertView;
 }
 
 #pragma mark - 底部弹出视图
@@ -320,6 +325,39 @@
 }
 
 /**
+ *  @author CC, 2015-11-17
+ *  
+ *  @brief  push多个新的控制器
+ *  @param newViewController 多个控制器
+ */
+- (void)pushMultipleNewViewController:(UIViewController *)newViewController, ... NS_REQUIRES_NIL_TERMINATION
+{
+    NSMutableArray *array = [NSMutableArray array];
+    if (newViewController) {
+        va_list arguments;
+        id eachObject;
+        va_start(arguments, newViewController);
+        while ((eachObject = va_arg(arguments, id))) {
+            [array addObject:eachObject];
+        }
+        va_end(arguments);
+    }
+    
+    __block UIViewController *selfViewControler = newViewController;
+    [array enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        UIViewController *objViewController = obj;
+        BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:objViewController];
+        nav.view.frame = selfViewControler.view.bounds;
+        [selfViewControler addChildViewController:nav];
+        [selfViewControler.view addSubview:nav.view];
+        [nav didMoveToParentViewController:selfViewControler];
+        
+        selfViewControler = nav;
+    }];
+    [self pushNewViewController:newViewController];
+}
+
+/**
  *  @author CC, 15-09-25
  *
  *  @brief  返回到指定页面
@@ -347,15 +385,15 @@
 - (void)hudMessages:(NSString *)LabelText
    DetailsLabelText:(NSString *)detailsLabelText
 {
-    _HUD.mode = MBProgressHUDModeText;
+    self.HUD.mode = MBProgressHUDModeText;
     //    HUD.labelFont = Font19And17(systemFontOfSize, 15);
-    _HUD.labelColor = [UIColor whiteColor];
-    _HUD.labelText = LabelText;
+    self.HUD.labelColor = [UIColor whiteColor];
+    self.HUD.labelText = LabelText;
     //    HUD.detailsLabelFont = Font19And17(systemFontOfSize, 15);
-    _HUD.detailsLabelText = detailsLabelText;
-    _HUD.detailsLabelColor = [UIColor whiteColor];
-    [_HUD show:YES];
-    [_HUD hide:YES afterDelay:1.5];
+    self.HUD.detailsLabelText = detailsLabelText;
+    self.HUD.detailsLabelColor = [UIColor whiteColor];
+    [self.HUD show:YES];
+    [self.HUD hide:YES afterDelay:1.5];
 }
 
 /**
@@ -364,12 +402,10 @@
  *  @brief  底部提示
  *
  *  @param detailsLabelText 提示内容
- *
- *  @since <#1.0#>
  */
 - (void)hudToastMessage:(NSString *)detailsLabelText
 {
-    _HUD.yOffset = (winsize.height - 64) / 2 - 20;
+    self.HUD.yOffset = (winsize.height - 64) / 2 - 20;
     [self hudMessages:nil DetailsLabelText:detailsLabelText];
 }
 
@@ -561,6 +597,8 @@
 
 - (void)dealloc
 {
+    self.HUD = nil;
+    self.mAlertView = nil;
     cc_NoticeremoveObserver(self, UIKeyboardWillShowNotification, nil);
     cc_NoticeremoveObserver(self, UIKeyboardWillHideNotification, nil);
     cc_NoticeremoveObserver(self, CCNotificationLanguageChanged, nil);

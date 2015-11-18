@@ -24,17 +24,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreMotion/CoreMotion.h>
 
-#import "CustomIOS7AlertView.h"
-#import "CCPopMenuView.h"
-//#import "CCTableViewCell.h"
+#import "CustomIOSAlertView.h"
 #import "MBProgressHUD.h"
 
 #import "CCLanguage.h"
 #import "CCThemeManager.h"
 
-@interface BaseViewController : UIViewController <MBProgressHUDDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface BaseViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 /**
  *  @author CC, 2015-10-09
@@ -54,8 +51,6 @@
  *  @author C C, 15-08-18
  *
  *  @brief  弹出层
- *
- *  @since <#1.0#>
  */
 @property(nonatomic, strong) MBProgressHUD *HUD;
 
@@ -63,10 +58,8 @@
  *  @author C C, 15-08-18
  *
  *  @brief  弹出提示层
- *
- *  @since <#1.0#>
  */
-@property(nonatomic, strong) CustomIOS7AlertView *mAlertView;
+@property(nonatomic, strong) CustomIOSAlertView *mAlertView;
 
 /**
  *  @author C C, 2015-08-02
@@ -76,15 +69,6 @@
  *  @since 1.0
  */
 @property(nonatomic, assign) BOOL isNotKeyboard;
-
-/**
- *  @author C C, 2015-06-19 09:06:24
- *
- *  @brief  展开Cell
- *
- *  @since 1.0
- */
-//@property (nonatomic, retain) CCTableViewCell *currentCell;
 
 - (void)InitNavigation;
 
@@ -132,7 +116,16 @@
  *  @param newViewController 目标新的控制器对象
  *  @param title             标题
  */
-- (void)pushNewViewControllerWithBackTitle:(UIViewController *)newViewController BackTitle:(NSString *)title;
+- (void)pushNewViewControllerWithBackTitle:(UIViewController *)newViewController
+                                 BackTitle:(NSString *)title;
+
+/**
+ *  @author CC, 2015-11-17
+ *  
+ *  @brief  push多个新的控制器
+ *  @param newViewController 多个控制器
+ */
+- (void)pushMultipleNewViewController:(UIViewController *)newViewController, ... NS_REQUIRES_NIL_TERMINATION;
 
 /**
  *  @author CC, 15-09-25
