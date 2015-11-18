@@ -101,8 +101,7 @@
                      batchSize:(NSUInteger)batchSize
                    fetchOffset:(NSUInteger)fetchOffset
 {
-    NSFetchRequest *fetchRequest =
-    [NSFetchRequest fetchRequestWithEntityName:tableName];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:tableName];
     fetchRequest.fetchLimit = limit;
     fetchRequest.fetchBatchSize = batchSize;
     fetchRequest.fetchOffset = fetchOffset;

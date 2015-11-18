@@ -37,7 +37,8 @@ cc_NSLog(__FILE__,\
         [NSString stringWithFormat:(format), ##__VA_ARGS__])
 
 #else
-#define CCNSLogger(...) NSLog(__VA_ARGS__)
+#define CCNSLogger(format,...) NSLog(__VA_ARGS__)
+#define CCExtLogger(format,...) NSLog(__VA_ARGS__)
 #endif
 
 FOUNDATION_EXPORT void cc_NSLog(const char *file, const char *method, int lineNumber, NSString *format);
