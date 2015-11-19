@@ -32,6 +32,22 @@
 #import "CCLocationHelper.h"
 #import "CCVoiceRecordHelper.h"
 #import "UIScrollView+CCkeyboardControl.h"
+#import "UIScrollView+CCExtension.h"
+
+typedef enum {
+    CCMessageRefreshStatePulling = 1,    // 松开就可以进行刷新的状态
+    CCMessageRefreshStateNormal = 2,     // 普通状态
+    CCMessageRefreshStateRefreshing = 3, // 正在刷新中的状态
+    CCMessageRefreshStateWillRefreshing = 4
+} CCMessageRefreshState;
+
+/**
+ *  @author CC, 2015-11-19
+ *  
+ *  @brief  下拉刷新高度
+ */
+const CGFloat CCMessageRefreshViewHeight = 20.0;
+
 
 @interface CCMessageTableViewController ()
 
@@ -62,6 +78,18 @@
 
 @property(nonatomic, strong) UIView *headerContainerView;
 @property(nonatomic, strong) UIActivityIndicatorView *loadMoreActivityIndicatorView;
+
+/**
+ *  @author CC, 2015-11-19
+ *  
+ *  @brief  刷新状态
+ */
+@property(assign, nonatomic) CCMessageRefreshState state;
+
+/**
+ *  是否正在加载更多旧的消息数据
+ */
+@property(nonatomic, assign) BOOL loadingMoreMessage;
 
 /**
  *  @author CC, 2015-11-16
@@ -655,8 +683,7 @@ static CGPoint delayOffset = {0.0};
 
 - (void)initilzer
 {
-    if ([self
-         respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
+    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
@@ -790,6 +817,8 @@ static CGPoint delayOffset = {0.0};
     
     // 设置手势滑动，默认添加一个bar的高度值
     self.messageTableView.messageInputBarHeight = CGRectGetHeight(_messageInputView.bounds);
+    
+    self.state = CCMessageRefreshStateNormal;
 }
 
 /**
@@ -1368,23 +1397,129 @@ static CGPoint delayOffset = {0.0};
     return nil;
 }
 
+#pragma mark - Key-value Observing
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    if (object == self.messageInputView.inputTextView && [keyPath isEqualToString:@"contentSize"]) {
+        [self layoutAndAnimateMessageInputTextView:object];
+    }
+}
+
+
+#pragma mark -_- 下拉刷新
+
+- (void)adjustStateWithContentOffset
+{
+    CGFloat currentOffsetY = self.messageTableView.contentOffset.y;
+    CGFloat happenOffsetY = self.messageTableView.contentInset.top;
+    
+    // 如果是向上滚动到看不见头部控件，直接返回
+    if (currentOffsetY >= happenOffsetY) return;
+    
+    if (self.messageTableView.isDragging) {
+        // 普通 和 即将刷新 的临界点
+        CGFloat normal2pullingOffsetY = happenOffsetY - CCMessageRefreshViewHeight;
+        
+        if (self.state == CCMessageRefreshStateNormal && currentOffsetY < normal2pullingOffsetY) {
+            // 转为即将刷新状态
+            self.state = CCMessageRefreshStatePulling;
+        } else if (self.state == CCMessageRefreshStatePulling && currentOffsetY >= normal2pullingOffsetY) {
+            // 转为普通状态
+            self.state = CCMessageRefreshStateNormal;
+        }
+    } else if (self.state == CCMessageRefreshStatePulling) { // 即将刷新 && 手松开
+        // 开始刷新
+        self.state = CCMessageRefreshStateRefreshing;
+    }
+}
+
+
+- (void)setState:(CCMessageRefreshState)state
+{
+    // 1.一样的就直接返回
+    if (self.state == state) return;
+    
+    // 2.保存旧状态
+    CCMessageRefreshState oldState = self.state;
+    
+    _state = state;
+    // 4.根据状态执行不同的操作
+    switch (state) {
+        case CCMessageRefreshStateNormal: // 下拉可以刷新
+        {
+            // 刷新完毕
+            if (CCMessageRefreshStateRefreshing == oldState) {
+                self.loadingMoreMessage = NO;
+                [UIView animateWithDuration:0.25 animations:^{
+                    self.messageTableView.contentInsetTop -= CCMessageRefreshViewHeight;
+                }];
+            } else {
+                // 执行动画
+                self.loadingMoreMessage = NO;
+            }
+            break;
+        }
+            
+        case CCMessageRefreshStatePulling: // 松开可立即刷新
+        {
+            // 执行动画
+            self.loadingMoreMessage = YES;
+            
+            break;
+        }
+            
+        case CCMessageRefreshStateRefreshing: // 正在刷新中
+        {
+            // 执行动画
+            [UIView animateWithDuration:0.25 animations:^{
+                // 1.增加滚动区域
+                self.messageTableView.contentInsetTop = CCMessageRefreshViewHeight;
+                
+                // 2.设置滚动位置
+                self.messageTableView.contentOffsetY = - CCMessageRefreshViewHeight;
+            }];
+            
+            //刷新数据
+            if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollTotop)]) {
+                [self.delegate loadMoreMessagesScrollTotop];
+            }
+            
+            break;
+        }
+            
+        default:
+            break;
+    }
+}
+
+/**
+ *  @author CC, 2015-11-19
+ *  
+ *  @brief  结束刷新
+ */
+- (void)headerEndRefreshing
+{
+    self.state = CCMessageRefreshStateNormal;
+}
+
 #pragma mark - UIScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if ([self.delegate respondsToSelector:@selector(shouldLoadMoreMessagesScrollToTop)]) {
-        BOOL shouldLoadMoreMessages = [self.delegate shouldLoadMoreMessagesScrollToTop];
-        if (shouldLoadMoreMessages) {
-            if (scrollView.contentOffset.y <= -44) {
-                if (!self.loadingMoreMessage) {
-                    self.loadingMoreMessage = YES;
-                    if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollTotop)]) {
-                        [self.delegate loadMoreMessagesScrollTotop];
-                    }
-                }
-            }
-        }
-    }
+    BOOL shouldLoadMoreMessages = NO;
+    if ([self.delegate respondsToSelector:@selector(shouldLoadMoreMessagesScrollToTop)])
+        shouldLoadMoreMessages = [self.delegate shouldLoadMoreMessagesScrollToTop];
+    
+    if (!shouldLoadMoreMessages) return;
+    
+    // 如果正在刷新，直接返回
+    if (self.state == CCMessageRefreshStateRefreshing) return;
+    
+    [self adjustStateWithContentOffset];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
@@ -1507,16 +1642,5 @@ static CGPoint delayOffset = {0.0};
     }
 }
 
-
-#pragma mark - Key-value Observing
-
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
-    if (object == self.messageInputView.inputTextView && [keyPath isEqualToString:@"contentSize"]) {
-        [self layoutAndAnimateMessageInputTextView:object];
-    }
-}
 
 @end

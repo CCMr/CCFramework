@@ -235,10 +235,6 @@ typedef NS_ENUM(NSUInteger, CCInputViewType) {
  */
 @property(nonatomic, weak, readonly) CCEmotionManagerView *emotionManagerView;
 
-/**
- *  是否正在加载更多旧的消息数据
- */
-@property(nonatomic, assign) BOOL loadingMoreMessage;
 
 #pragma mark - Message View Controller Default stup
 /**
@@ -364,6 +360,13 @@ typedef NS_ENUM(NSUInteger, CCInputViewType) {
 - (void)scrollToRowAtIndexPath:(NSIndexPath *)indexPath
               atScrollPosition:(UITableViewScrollPosition)position
                       animated:(BOOL)animated;
+
+/**
+ *  @author CC, 2015-11-19
+ *  
+ *  @brief  结束刷新
+ */
+- (void)headerEndRefreshing;
 
 #pragma mark - CCShareMenuView Delegate
 
