@@ -270,7 +270,7 @@
     
     NSFetchRequest *fetchRequest = [self cc_Request:tableName
                                          FetchLimit:pageSize
-                                          batchSize:0
+                                          batchSize:pageSize
                                         fetchOffset:currentPage];
     
     if (condition)
