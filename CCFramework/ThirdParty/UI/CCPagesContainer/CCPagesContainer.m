@@ -154,106 +154,43 @@
     NSAssert(selectedIndex < self.viewControllers.count, @"selectedIndex should belong within the range of the view controllers array");
     UIButton *previosSelectdItem = self.topBar.itemViews[self.selectedIndex];
     UIButton *nextSelectdItem = self.topBar.itemViews[selectedIndex];
-    if ((self.selectedIndex - selectedIndex) <= 1) {
-        [self.scrollView setContentOffset:CGPointMake(selectedIndex * self.scrollWidth, 0.) animated:animated];
-        if (selectedIndex == _selectedIndex) {
-            self.pageIndicatorView.center = CGPointMake([self.topBar centerForSelectedItemAtIndex:selectedIndex].x,
-                                                        [self pageIndicatorCenterY]);
-        }
-        [UIView animateWithDuration:(animated) ? 0.3 : 0. delay:0. options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-            switch (_topBarType) {
-                case CCPageContaiinerTopBarTypeText:
-                case CCPageContaiinerTopBarTypeLeftMapRightText:
-                    [previosSelectdItem setTitleColor:self.pageItemsTitleColor forState:UIControlStateNormal];
-                    [nextSelectdItem setTitleColor:self.selectedPageItemTitleColor forState:UIControlStateNormal];
-                    break;
-                case CCPageContaiinerTopBarTypeUPMapNextText:
-                {
-                    UILabel *titleLabel = (UILabel *)[previosSelectdItem viewWithTag:9999];
-                    titleLabel.textColor = self.pageItemsTitleColor;
-                    
-                    //图片替换
-                    if (_topBarSelectedImageAry.count) {
-                        UIImageView *imageView = (UIImageView *)[previosSelectdItem viewWithTag:8888];
-                        imageView.image = [UIImage imageNamed:_topBarImageAry[_selectedIndex]];
-                        
-                        
-                        imageView = (UIImageView *)[nextSelectdItem viewWithTag:8888];
-                        imageView.image = [UIImage imageNamed:_topBarSelectedImageAry[selectedIndex]];
-                    }
-                    
-                    titleLabel = (UILabel *)[nextSelectdItem viewWithTag:9999];
-                    titleLabel.textColor = self.selectedPageItemTitleColor;
-                }
-                    break;
-                default:
-                    break;
-            }
-            
-        } completion:nil];
-    } else {
-        // This means we should "jump" over at least one view controller
-        self.shouldObserveContentOffset = NO;
-        BOOL scrollingRight = (selectedIndex > self.selectedIndex);
-        UIViewController *leftViewController = self.viewControllers[MIN(self.selectedIndex, selectedIndex)];
-        UIViewController *rightViewController = self.viewControllers[MAX(self.selectedIndex, selectedIndex)];
-        leftViewController.view.frame = CGRectMake(0., 0., self.scrollWidth, self.scrollHeight);
-        rightViewController.view.frame = CGRectMake(self.scrollWidth, 0., self.scrollWidth, self.scrollHeight);
-        self.scrollView.contentSize = CGSizeMake(2 * self.scrollWidth, 0);
-        
-        CGPoint targetOffset;
-        if (scrollingRight) {
-            self.scrollView.contentOffset = CGPointZero;
-            targetOffset = CGPointMake(self.scrollWidth, 0.);
-        } else {
-            self.scrollView.contentOffset = CGPointMake(self.scrollWidth, 0.);
-            targetOffset = CGPointZero;
-        }
-        [self.scrollView setContentOffset:targetOffset animated:YES];
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-            self.pageIndicatorView.center = CGPointMake([self.topBar centerForSelectedItemAtIndex:selectedIndex].x,
-                                                        [self pageIndicatorCenterY]);
-            self.topBar.scrollView.contentOffset = [self.topBar contentOffsetForSelectedItemAtIndex:selectedIndex];
-            switch (_topBarType) {
-                case CCPageContaiinerTopBarTypeText:
-                case CCPageContaiinerTopBarTypeLeftMapRightText:
-                    [previosSelectdItem setTitleColor:self.pageItemsTitleColor forState:UIControlStateNormal];
-                    [nextSelectdItem setTitleColor:self.selectedPageItemTitleColor forState:UIControlStateNormal];
-                    break;
-                case CCPageContaiinerTopBarTypeUPMapNextText:
-                {
-                    UILabel *titleLabel = (UILabel *)[previosSelectdItem viewWithTag:9999];
-                    titleLabel.textColor = self.pageItemsTitleColor;
-                    
-                    //图片替换
-                    if (_topBarSelectedImageAry.count) {
-                        UIImageView *imageView = (UIImageView *)[previosSelectdItem viewWithTag:8888];
-                        imageView.image = [UIImage imageNamed:_topBarImageAry[_selectedIndex]];
-                        
-                        
-                        imageView = (UIImageView *)[nextSelectdItem viewWithTag:8888];
-                        imageView.image = [UIImage imageNamed:_topBarSelectedImageAry[selectedIndex]];
-                    }
-                    
-                    titleLabel = (UILabel *)[nextSelectdItem viewWithTag:9999];
-                    titleLabel.textColor = self.selectedPageItemTitleColor;
-                }
-                    break;
-                default:
-                    break;
-            }
-        } completion:^(BOOL finished) {
-            for (NSUInteger i = 0; i < self.viewControllers.count; i++) {
-                UIViewController *viewController = self.viewControllers[i];
-                viewController.view.frame = CGRectMake(i * self.scrollWidth, 0., self.scrollWidth, self.scrollHeight);
-                [self.scrollView addSubview:viewController.view];
-            }
-            self.scrollView.contentSize = CGSizeMake(self.scrollWidth * self.viewControllers.count, 0);
-            [self.scrollView setContentOffset:CGPointMake(selectedIndex * self.scrollWidth, 0.) animated:NO];
-            self.scrollView.userInteractionEnabled = YES;
-            self.shouldObserveContentOffset = YES;
-        }];
+    
+    [self.scrollView setContentOffset:CGPointMake(selectedIndex * self.scrollWidth, 0.) animated:animated];
+    if (selectedIndex == _selectedIndex) {
+        self.pageIndicatorView.center = CGPointMake([self.topBar centerForSelectedItemAtIndex:selectedIndex].x,
+                                                    [self pageIndicatorCenterY]);
     }
+    [UIView animateWithDuration:(animated) ? 0.3 : 0. delay:0. options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        switch (_topBarType) {
+            case CCPageContaiinerTopBarTypeText:
+            case CCPageContaiinerTopBarTypeLeftMapRightText:
+                [previosSelectdItem setTitleColor:self.pageItemsTitleColor forState:UIControlStateNormal];
+                [nextSelectdItem setTitleColor:self.selectedPageItemTitleColor forState:UIControlStateNormal];
+                break;
+            case CCPageContaiinerTopBarTypeUPMapNextText:
+            {
+                UILabel *titleLabel = (UILabel *)[previosSelectdItem viewWithTag:9999];
+                titleLabel.textColor = self.pageItemsTitleColor;
+                
+                //图片替换
+                if (_topBarSelectedImageAry.count) {
+                    UIImageView *imageView = (UIImageView *)[previosSelectdItem viewWithTag:8888];
+                    imageView.image = [UIImage imageNamed:_topBarImageAry[_selectedIndex]];
+                    
+                    
+                    imageView = (UIImageView *)[nextSelectdItem viewWithTag:8888];
+                    imageView.image = [UIImage imageNamed:_topBarSelectedImageAry[selectedIndex]];
+                }
+                
+                titleLabel = (UILabel *)[nextSelectdItem viewWithTag:9999];
+                titleLabel.textColor = self.selectedPageItemTitleColor;
+            }
+                break;
+            default:
+                break;
+        }
+        
+    } completion:nil];
     _selectedIndex = selectedIndex;
     [self slidingCallback];
 }

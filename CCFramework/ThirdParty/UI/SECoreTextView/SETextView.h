@@ -8,9 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreText/CoreText.h>
-#import "SELinkText.h"
 #import "SECompatibility.h"
-
 
 typedef void(^SETextAttachmentDrawingBlock)(CGRect rect, CGContextRef context);
 

@@ -21,7 +21,7 @@
 #import "SETextGeometry.h"
 #import "SEConstants.h"
 #import "SETextAttachment.h"
-
+#import "SELinkText.h"
 
 typedef NS_ENUM (NSUInteger, SETouchPhase) {
     SETouchPhaseNone       = 0,
