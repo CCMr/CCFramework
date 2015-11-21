@@ -134,10 +134,17 @@
     [super viewDidUnload];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self lifeCycleCallback:@"viewDidAppear:" Animated:animated];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self layoutSubviews];
+    [self lifeCycleCallback:@"viewWillAppear:" Animated:animated];
 }
 
 #pragma mark - Public
@@ -424,6 +431,26 @@
     }
     if ([viewController respondsToSelector:setupDefaultSEL])
         [viewController performSelector:setupDefaultSEL withObject:nil afterDelay:.1];
+}
+
+/**
+ *  @author CC, 15-11-20
+ *
+ *  @brief  生命周期回传
+ */
+- (void)lifeCycleCallback:(NSString *)lifeCycleName Animated:(BOOL)animated
+{
+    for (id view in self.viewControllers) {
+        SEL setupDefaultSEL = NSSelectorFromString(lifeCycleName);
+        
+        UIViewController *viewController = view;
+        if ([viewController isKindOfClass:[UINavigationController class]]) {
+            viewController = ((UINavigationController *)viewController).visibleViewController;
+        }
+        
+        if ([viewController respondsToSelector:setupDefaultSEL])
+            [viewController performSelector:setupDefaultSEL withObject:@(animated) afterDelay:.1];
+    }
 }
 
 - (void)layoutSubviews
