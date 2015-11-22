@@ -28,6 +28,11 @@
 
 #define Bundle                              [NSBundle mainBundle]
 
+/** 资源文件 */
+#define CCResource                          [NSBundle bundleWithURL:[Bundle URLForResource:@"CCResource" withExtension:@"bundle"]]
+/** 资源图片 */
+#define CCResourceImage(name)               [UIImage imageWithContentsOfFile:[[CCResource resourcePath] stringByAppendingPathComponent:name]]
+
 /** 版本号 */
 #define VersonNumber                        [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey]
 
@@ -98,11 +103,11 @@
 
 /*************************  注册事件  *************************/
 /** 注册通知 */
-#define cc_NoticeObserver(TARGET,SELECTOR,NAME,OBJECT) [[NSNotificationCenter defaultCenter] addObserver:TARGET selector:SELECTOR name:NAME object:OBJECT];
-#define cc_NoticeremoveObserver(TARGET,NAME,OBJECT) [[NSNotificationCenter defaultCenter] removeObserver:TARGET name:NAME object:OBJECT];
+#define cc_NoticeObserver(TARGET,SELECTOR,NAME,OBJECT)  [[NSNotificationCenter defaultCenter] addObserver:TARGET selector:SELECTOR name:NAME object:OBJECT];
+#define cc_NoticeremoveObserver(TARGET,NAME,OBJECT)     [[NSNotificationCenter defaultCenter] removeObserver:TARGET name:NAME object:OBJECT];
 /** 发送通知 */
-#define cc_NoticePost(NAME,OBJECT)    [[NSNotificationCenter defaultCenter] postNotificationName:NAME object:OBJECT];
-#define cc_NoticePostInfo(NAME,OBJECT,USERINFO) [[NSNotificationCenter defaultCenter] postNotificationName:NAME object:OBJECT userInfo:USERINFO];
+#define cc_NoticePost(NAME,OBJECT)                      [[NSNotificationCenter defaultCenter] postNotificationName:NAME object:OBJECT];
+#define cc_NoticePostInfo(NAME,OBJECT,USERINFO)         [[NSNotificationCenter defaultCenter] postNotificationName:NAME object:OBJECT userInfo:USERINFO];
 
 /*************************  设备  *************************/
 /** 判断是否为iPhone */
@@ -133,34 +138,34 @@
 /*************************  本地文档相关  *************************/
 
 /** 定义UIImage对象 */
-#define cc_ImageNamed(_pointer) ([UIImage imageNamed:[UIUtil imageName:_pointer]])
+#define cc_ImageNamed(_pointer)                 ([UIImage imageNamed:[UIUtil imageName:_pointer]])
 
 /** 定义UIImage对象并从本地文件读取加载图片 */
-#define cc_Image(name) ([UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:nil]])
+#define cc_Image(name)                          ([UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:nil]])
 
 /** 读取本地图片 */
-#define cc_LoadImage(file,ext) ([UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:file ofType:ext]])
+#define cc_LoadImage(file,ext)                  ([UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:file ofType:ext]])
 
 /** 获取Documents目录 */
-#define cc_DocumentsPath ([NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject])
+#define cc_DocumentsPath                        ([NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject])
 
 /** 获得Documents下指定文件名的文件路径 */
-#define cc_FilePath(filename) ([[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:filename];)
+#define cc_FilePath(filename)                   ([[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:filename];)
 
 /** 获取Library目录 */
-#define cc_LibraryPath ([NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject])
+#define cc_LibraryPath                          ([NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject])
 
 /** 获取Caches目录 */
-#define cc_CachesPath ([NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject])
+#define cc_CachesPath                           ([NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject])
 
 /** 获取Tmp目录 */
-#define cc_TmpPath NSTemporaryDirectory()
+#define cc_TmpPath                              NSTemporaryDirectory()
 
 /** NSFileManager 实例化 */
-#define cc_FileManager [NSFileManager defaultManager]
+#define cc_FileManager                          [NSFileManager defaultManager]
 
 /** NSRunLoop 实例化 */
-#define cc_MainRunLoop [NSRunLoop mainRunLoop]
+#define cc_MainRunLoop                          [NSRunLoop mainRunLoop]
 
 
 /*************************  View  *************************/
