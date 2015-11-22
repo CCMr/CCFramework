@@ -620,6 +620,8 @@
 		426476A91BD0E3AF00EE191C /* CCUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4264769D1BD0E3AF00EE191C /* CCUtilityButtonTapGestureRecognizer.m */; };
 		426476AA1BD0E3AF00EE191C /* CCUtilityButtonView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4264769E1BD0E3AF00EE191C /* CCUtilityButtonView.h */; };
 		426476AB1BD0E3AF00EE191C /* CCUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4264769F1BD0E3AF00EE191C /* CCUtilityButtonView.m */; };
+		42648C871C01AC960085A07D /* SEViewCaptureHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 42648C851C01AC960085A07D /* SEViewCaptureHelper.h */; };
+		42648C881C01AC960085A07D /* SEViewCaptureHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 42648C861C01AC960085A07D /* SEViewCaptureHelper.m */; };
 		4264D73E1BA2C19100E83159 /* CCPageIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4264D7381BA2C19100E83159 /* CCPageIndicatorView.h */; };
 		4264D73F1BA2C19100E83159 /* CCPageIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4264D7391BA2C19100E83159 /* CCPageIndicatorView.m */; };
 		4264D7401BA2C19100E83159 /* CCPagesContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4264D73A1BA2C19100E83159 /* CCPagesContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1832,6 +1834,8 @@
 		4264769D1BD0E3AF00EE191C /* CCUtilityButtonTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCUtilityButtonTapGestureRecognizer.m; sourceTree = "<group>"; };
 		4264769E1BD0E3AF00EE191C /* CCUtilityButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCUtilityButtonView.h; sourceTree = "<group>"; };
 		4264769F1BD0E3AF00EE191C /* CCUtilityButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCUtilityButtonView.m; sourceTree = "<group>"; };
+		42648C851C01AC960085A07D /* SEViewCaptureHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEViewCaptureHelper.h; sourceTree = "<group>"; };
+		42648C861C01AC960085A07D /* SEViewCaptureHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEViewCaptureHelper.m; sourceTree = "<group>"; };
 		4264D7381BA2C19100E83159 /* CCPageIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPageIndicatorView.h; path = CCPagesContainer/CCPageIndicatorView.h; sourceTree = "<group>"; };
 		4264D7391BA2C19100E83159 /* CCPageIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCPageIndicatorView.m; path = CCPagesContainer/CCPageIndicatorView.m; sourceTree = "<group>"; };
 		4264D73A1BA2C19100E83159 /* CCPagesContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPagesContainer.h; path = CCPagesContainer/CCPagesContainer.h; sourceTree = "<group>"; };
@@ -4560,6 +4564,8 @@
 		429C9E931B9EF8BF0013A44A /* SECoreTextView */ = {
 			isa = PBXGroup;
 			children = (
+				42648C851C01AC960085A07D /* SEViewCaptureHelper.h */,
+				42648C861C01AC960085A07D /* SEViewCaptureHelper.m */,
 				429C9E941B9EF8BF0013A44A /* SECompatibility.h */,
 				429C9E951B9EF8BF0013A44A /* SECompatibility.m */,
 				429C9E961B9EF8BF0013A44A /* SEConstants.h */,
@@ -5640,6 +5646,7 @@
 				420DE44D1BC7942300D87D6D /* ZXQRCodeDecoder.h in Headers */,
 				420DE4551BC7942300D87D6D /* ZXQRCodeMode.h in Headers */,
 				420DE4781BC7942300D87D6D /* ZXQRCodeWriter.h in Headers */,
+				42648C871C01AC960085A07D /* SEViewCaptureHelper.h in Headers */,
 				420DE44F1BC7942300D87D6D /* ZXQRCodeDecoderMetaData.h in Headers */,
 				420DE4651BC7942300D87D6D /* ZXQRCode.h in Headers */,
 				426529CA1BED93600096C0EF /* CCMetamacros.h in Headers */,
@@ -6124,6 +6131,7 @@
 				429CA0981B9EF8BF0013A44A /* SECompatibility.m in Sources */,
 				42B6474B1BEDDA8200B2F6FD /* CCHTTPManager+GET.m in Sources */,
 				426979321BA695BA00C3E93C /* AFURLConnectionOperation.m in Sources */,
+				42648C881C01AC960085A07D /* SEViewCaptureHelper.m in Sources */,
 				429CA0741B9EF8BF0013A44A /* CCPopMenuItem.m in Sources */,
 				42F24C661BEA5091008CDEDC /* PNPieChartDataItem.m in Sources */,
 				420DE2F71BC7942300D87D6D /* ZXResultParser.m in Sources */,
