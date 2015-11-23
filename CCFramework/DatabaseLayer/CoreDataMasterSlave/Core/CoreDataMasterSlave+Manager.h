@@ -459,6 +459,80 @@
                            PrimaryKeys:(NSString *)primaryKeys
                                DataAry:(NSArray *)dataAry
                             completion:(void (^)(NSError *error))completion;
+
+/**
+ *  @author CC, 2015-11-23
+ *  
+ *  @brief   更新或添加数据
+ *
+ *  @param tableName    表名
+ *  @param primaryKey   主键
+ *  @param primaryValue 主键值
+ *  @param dataAry      数据
+ *  @param completion   完成回调
+ *
+ *  @return 返回更新或创建之后的对象集合
+ */
++ (NSArray *)cc_updateORInsertCoreData:(NSString *)tableName
+                            PrimaryKey:(NSString *)primaryKey
+                          PrimaryValue:(id)primaryValue
+                               DataDic:(NSDictionary *)data;
+
+/**
+ *  @author CC, 2015-11-23
+ *  
+ *  @brief   更新或添加数据
+ *
+ *  @param tableName    表名
+ *  @param primaryKey   主键
+ *  @param primaryValue 主键值
+ *  @param dataAry      数据
+ *  @param completion   完成回调
+ *
+ *  @return 返回更新或创建之后的对象集合
+ */
++ (NSArray *)cc_updateORInsertCoreData:(NSString *)tableName
+                            PrimaryKey:(NSString *)primaryKey
+                          PrimaryValue:(id)primaryValue
+                               DataAry:(NSArray *)dataAry;
+/**
+ *  @author CC, 2015-11-23
+ *  
+ *  @brief   更新或添加数据
+ *
+ *  @param tableName    表名
+ *  @param primaryKey   主键
+ *  @param primaryValue 主键值
+ *  @param dataAry      数据
+ *  @param completion   完成回调
+ *
+ *  @return 返回更新或创建之后的对象集合
+ */
++ (NSArray *)cc_updateORInsertCoreData:(NSString *)tableName
+                            PrimaryKey:(NSString *)primaryKey
+                          PrimaryValue:(id)primaryValue
+                               DataAry:(NSArray *)dataAry
+                            completion:(void (^)(NSError *error))completion;
+
+/**
+ *  @author CC, 2015-11-23
+ *  
+ *  @brief  更新或新增数据
+ *
+ *  @param tableName    表名
+ *  @param primaryKey   主键
+ *  @param primaryValue 主键值
+ *  @param data         数据源
+ *  @param context      管理对象
+ *
+ *  @return 返回更新或创建
+ */
++ (id)objctWithData:(NSString *)tableName
+         PrimaryKey:(NSString *)primaryKey
+       PrimaryValue:(id)primaryValue
+               Data:(NSDictionary *)data
+          inContext:(NSManagedObjectContext *)context;
+
 /**
  *  @author CC, 2015-11-05
  *  
@@ -469,10 +543,27 @@
  *  @param data        数据源
  *  @param context     管理对象
  *
- *  @return 返回当前对象
+ *  @return 返回更新或创建
  */
 + (id)objctWithData:(NSString *)tableName
         PrimaryKeys:(NSString *)primaryKeys
+               Data:(NSDictionary *)data
+          inContext:(NSManagedObjectContext *)context;
+
+/**
+ *  @author CC, 2015-11-23
+ *  
+ *  @brief  更新或新增数据
+ *
+ *  @param tableName     表名
+ *  @param subPredicates 条件
+ *  @param data          数据源
+ *  @param context       管理对象
+ *
+ *  @return 返回更新或创建
+ */
++ (id)objctWithData:(NSString *)tableName
+      SubPredicates:(NSArray *)subPredicates
                Data:(NSDictionary *)data
           inContext:(NSManagedObjectContext *)context;
 

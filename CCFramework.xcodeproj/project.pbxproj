@@ -938,7 +938,7 @@
 		429CA09A1B9EF8BF0013A44A /* SEConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E971B9EF8BF0013A44A /* SEConstants.m */; };
 		429CA09B1B9EF8BF0013A44A /* SELineLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E981B9EF8BF0013A44A /* SELineLayout.h */; };
 		429CA09C1B9EF8BF0013A44A /* SELineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E991B9EF8BF0013A44A /* SELineLayout.m */; };
-		429CA09D1B9EF8BF0013A44A /* SELinkText.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E9A1B9EF8BF0013A44A /* SELinkText.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA09D1B9EF8BF0013A44A /* SELinkText.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E9A1B9EF8BF0013A44A /* SELinkText.h */; };
 		429CA09E1B9EF8BF0013A44A /* SELinkText.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E9B1B9EF8BF0013A44A /* SELinkText.m */; };
 		429CA09F1B9EF8BF0013A44A /* SESelectionGrabber.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E9C1B9EF8BF0013A44A /* SESelectionGrabber.h */; };
 		429CA0A01B9EF8BF0013A44A /* SESelectionGrabber.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E9D1B9EF8BF0013A44A /* SESelectionGrabber.m */; };
@@ -6664,7 +6664,7 @@
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Alipay/ResourceFile",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Alipay/ResourceFile";
 				INFOPLIST_FILE = CCFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -6677,7 +6677,7 @@
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Alipay/ResourceFile",
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/VoiceConvert/lib",
 				);
-				LINK_WITH_STANDARD_LIBRARIES = NO;
+				LINK_WITH_STANDARD_LIBRARIES = YES;
 				MACH_O_TYPE = staticlib;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
@@ -6685,6 +6685,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
 			};
 			name = Debug;
 		};
@@ -6705,7 +6706,7 @@
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Alipay/ResourceFile",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Alipay/ResourceFile";
 				INFOPLIST_FILE = CCFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -6718,7 +6719,7 @@
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Alipay/ResourceFile",
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/VoiceConvert/lib",
 				);
-				LINK_WITH_STANDARD_LIBRARIES = NO;
+				LINK_WITH_STANDARD_LIBRARIES = YES;
 				MACH_O_TYPE = staticlib;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
@@ -6726,6 +6727,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
 			};
 			name = Release;
 		};
@@ -6733,7 +6735,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = NO;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_STYLE = "non-global";
 			};
@@ -6743,7 +6745,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = NO;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_STYLE = "non-global";
 			};

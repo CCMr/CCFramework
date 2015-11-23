@@ -450,6 +450,121 @@
 }
 
 /**
+ *  @author CC, 2015-11-23
+ *  
+ *  @brief   更新或添加数据
+ *
+ *  @param tableName    表名
+ *  @param primaryKey   主键
+ *  @param primaryValue 主键值
+ *  @param dataAry      数据
+ *  @param completion   完成回调
+ *
+ *  @return 返回更新或创建之后的对象集合
+ */
++ (NSArray *)cc_updateORInsertCoreData:(NSString *)tableName
+                            PrimaryKey:(NSString *)primaryKey
+                          PrimaryValue:(id)primaryValue
+                               DataDic:(NSDictionary *)data
+{
+    return [self cc_updateORInsertCoreData:tableName 
+                                PrimaryKey:primaryKey 
+                              PrimaryValue:primaryValue 
+                                   DataAry:@[data] 
+                                completion:nil];
+}
+
+/**
+ *  @author CC, 2015-11-23
+ *  
+ *  @brief   更新或添加数据
+ *
+ *  @param tableName    表名
+ *  @param primaryKey   主键
+ *  @param primaryValue 主键值
+ *  @param dataAry      数据
+ *  @param completion   完成回调
+ *
+ *  @return 返回更新或创建之后的对象集合
+ */
++ (NSArray *)cc_updateORInsertCoreData:(NSString *)tableName
+                            PrimaryKey:(NSString *)primaryKey
+                          PrimaryValue:(id)primaryValue
+                               DataAry:(NSArray *)dataAry
+{
+    return [self cc_updateORInsertCoreData:tableName 
+                                PrimaryKey:primaryKey 
+                              PrimaryValue:primaryValue 
+                                   DataAry:dataAry 
+                                completion:nil];
+}
+
+/**
+ *  @author CC, 2015-11-23
+ *  
+ *  @brief   更新或添加数据
+ *
+ *  @param tableName    表名
+ *  @param primaryKey   主键
+ *  @param primaryValue 主键值
+ *  @param dataAry      数据
+ *  @param completion   完成回调
+ *
+ *  @return 返回更新或创建之后的对象集合
+ */
++ (NSArray *)cc_updateORInsertCoreData:(NSString *)tableName
+                            PrimaryKey:(NSString *)primaryKey
+                          PrimaryValue:(id)primaryValue
+                               DataAry:(NSArray *)dataAry
+                            completion:(void (^)(NSError *error))completion
+{
+    __block NSMutableArray *objs = [NSMutableArray array];
+    [dataAry enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        
+        NSManagedObject *managedObject = [self objctWithData:tableName
+                                                  PrimaryKey:primaryKey 
+                                                PrimaryValue:primaryValue 
+                                                        Data:obj 
+                                                   inContext:self.saveCurrentContext];
+        
+        [objs addObject:[managedObject changedDictionary]];
+    }];
+    
+    if (completion) {
+        completion(nil);
+    }
+    
+    return objs;
+}
+
+/**
+ *  @author CC, 2015-11-23
+ *  
+ *  @brief  更新或新增数据
+ *
+ *  @param tableName    表名
+ *  @param primaryKey   主键
+ *  @param primaryValue 主键值
+ *  @param data         数据源
+ *  @param context      管理对象
+ *
+ *  @return 返回更新或创建
+ */
++ (id)objctWithData:(NSString *)tableName
+         PrimaryKey:(NSString *)primaryKey
+       PrimaryValue:(id)primaryValue
+               Data:(NSDictionary *)data
+          inContext:(NSManagedObjectContext *)context
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", primaryKey, primaryValue];
+    
+    return [self objctWithData:tableName
+                 SubPredicates:@[ predicate ]
+                          Data:data
+                     inContext:context];
+}
+
+/**
  *  @author CC, 2015-11-05
  *  
  *  @brief  更新或新增数据
@@ -459,28 +574,49 @@
  *  @param data        数据源
  *  @param context     管理对象
  *
- *  @return 返回当前对象
+ *  @return 返回更新或创建
  */
 + (id)objctWithData:(NSString *)tableName
         PrimaryKeys:(NSString *)primaryKeys
                Data:(NSDictionary *)data
           inContext:(NSManagedObjectContext *)context
 {
+    
+    NSMutableArray *subPredicates = [NSMutableArray array];
+    NSAttributeDescription *attributeDes = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:context] attributesByName] objectForKey:primaryKeys];
+    id remoteValue = [data valueForKeyPath:primaryKeys];
+    if (attributeDes.attributeType == NSStringAttributeType) {
+        remoteValue = [remoteValue description];
+    } else {
+        remoteValue = [NSNumber numberWithLongLong:[remoteValue longLongValue]];
+    }
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", primaryKeys, remoteValue];
+    [subPredicates addObject:predicate];
+    
+    return [self objctWithData:tableName SubPredicates:subPredicates Data:data inContext:context];
+}
+
+/**
+ *  @author CC, 2015-11-23
+ *  
+ *  @brief  更新或新增数据
+ *
+ *  @param tableName     表名
+ *  @param subPredicates 条件
+ *  @param data          数据源
+ *  @param context       管理对象
+ *
+ *  @return 返回更新或创建
+ */
++ (id)objctWithData:(NSString *)tableName
+      SubPredicates:(NSArray *)subPredicates
+               Data:(NSDictionary *)data
+          inContext:(NSManagedObjectContext *)context
+{
     __block NSManagedObject *entity = nil;
     @autoreleasepool
     {
-        NSMutableArray *subPredicates = [NSMutableArray array];
-        NSAttributeDescription *attributeDes = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:context] attributesByName] objectForKey:primaryKeys];
-        id remoteValue = [data valueForKeyPath:primaryKeys];
-        if (attributeDes.attributeType == NSStringAttributeType) {
-            remoteValue = [remoteValue description];
-        } else {
-            remoteValue = [NSNumber numberWithLongLong:[remoteValue longLongValue]];
-        }
-        
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", primaryKeys, remoteValue];
-        [subPredicates addObject:predicate];
-        
         NSCompoundPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:subPredicates];
         
         NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:tableName];
