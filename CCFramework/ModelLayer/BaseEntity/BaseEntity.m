@@ -409,24 +409,21 @@ static const char *getPropertyType(objc_property_t property)
              int "i",
              long "l", unsigned "I", struct, etc.
              */
-            NSString *name =
-            [[NSString alloc] initWithBytes:attribute + 1
-                                     length:strlen(attribute) - 1
-                                   encoding:NSASCIIStringEncoding];
-            return (
-                    const char *)[name cStringUsingEncoding:NSASCIIStringEncoding];
+            NSString *name = [[NSString alloc] initWithBytes:attribute + 1
+                                                      length:strlen(attribute) - 1
+                                                    encoding:NSASCIIStringEncoding];
+            
+            return (const char *)[name cStringUsingEncoding:NSASCIIStringEncoding];
         } else if (attribute[0] == 'T' && attribute[1] == '@' &&
                    strlen(attribute) == 2) {
             // it's an ObjC id type:
             return "id";
         } else if (attribute[0] == 'T' && attribute[1] == '@') {
             // it's another ObjC object type:
-            NSString *name =
-            [[NSString alloc] initWithBytes:attribute + 3
-                                     length:strlen(attribute) - 4
-                                   encoding:NSASCIIStringEncoding];
-            return (
-                    const char *)[name cStringUsingEncoding:NSASCIIStringEncoding];
+            NSString *name = [[NSString alloc] initWithBytes:attribute + 3
+                                                      length:strlen(attribute) - 4
+                                                    encoding:NSASCIIStringEncoding];
+            return (const char *)[name cStringUsingEncoding:NSASCIIStringEncoding];
         }
     }
     return "";
@@ -447,9 +444,9 @@ static const char *getPropertyType(objc_property_t property)
           ValueDdic:(NSDictionary *)dict
                 Key:(NSString *)key
 {
+     NSString *propertyType = [properties objectForKey:key];
     id value = [dict objectForKey:key];
     if ([value isKindOfClass:[NSNull class]]) {
-        NSString *propertyType = [properties objectForKey:key];
         if ([propertyType isEqualToString:@"NSString"]) {
             value = @"";
         } else if ([propertyType isEqualToString:@"i"] ||
@@ -460,6 +457,11 @@ static const char *getPropertyType(objc_property_t property)
         }else if ([propertyType isEqualToString:@"NSArray"] || 
                   [propertyType isEqualToString:@"NSMutableArray"]){
             value = @[];
+        }
+    }else{
+         NSString *propertyType = [properties objectForKey:key];
+        if ([propertyType isEqualToString:@"c"]) {
+           value = @([[dict objectForKey:key] boolValue]); 
         }
     }
     
