@@ -32,6 +32,8 @@
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) NSArray *itemViews;
 
+@property (nonatomic, strong) UIView *line;
+
 @property (nonatomic, assign) CGFloat CCPagesContainerTopBarItemViewWidth;
 
 - (void)layoutItemViews;
@@ -49,6 +51,11 @@
         self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.scrollView.showsHorizontalScrollIndicator = NO;
         [self addSubview:self.scrollView];
+        
+        self.line = [[UIView alloc] initWithFrame:self.bounds];
+        self.line.backgroundColor = [UIColor colorWithRed:215 / 255.f green:215 / 255.f blue:215 / 255.f alpha:1.f];
+        [self addSubview:self.line];
+        
         self.font = [UIFont systemFontOfSize:14];
         self.itemTitleColor = [UIColor whiteColor];
     }
@@ -225,6 +232,10 @@
         frame.size.width = CGRectGetWidth(self.frame);
     }
     self.scrollView.frame = frame;
+    
+    frame.origin.y = CGRectGetHeight(self.bounds);
+    frame.size.height = .5;
+    self.line.frame = frame;
 }
 
 - (void)layoutSubviews
