@@ -82,7 +82,7 @@
     self = [super init];
     
     if (self) {
-        [self addNotification];
+        
     }
     
     return self;
@@ -167,6 +167,7 @@
  */
 - (void)startLink
 {
+    [self addNotification];
     [self.hubConnection start];
 }
 
