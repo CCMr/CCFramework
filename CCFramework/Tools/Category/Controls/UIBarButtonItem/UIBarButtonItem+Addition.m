@@ -29,8 +29,8 @@
 {
     UIButton * button = [ UIButton buttonWithType : UIButtonTypeCustom ];
     [button setImage:[UIImage imageNamed:backgroundImage ] forState:UIControlStateNormal];
-    [button setFrame:CGRectMake (0,0,35,35)];
-    [[button layer] setCornerRadius:17];
+    [button setFrame:CGRectMake (0,0,30,30)];
+    [[button layer] setCornerRadius:15];
     [[button layer] setMasksToBounds:YES];
     [button addTarget:target action :action forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *itme = [[UIBarButtonItem alloc] initWithCustomView:button];
