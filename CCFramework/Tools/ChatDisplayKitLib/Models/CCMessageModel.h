@@ -50,11 +50,11 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMediaType) {
  */
 typedef NS_ENUM(NSInteger, CCMessageSendType) {
     /** 发送成功 **/
-    CCMessageSendTypeSuccessful,
+    CCMessageSendTypeSuccessful = 1,
     /** 发送中 **/
-    CCMessageSendTypeRunIng,
+    CCMessageSendTypeRunIng = 2,
     /** 发送失败 **/
-    CCMessageSendTypeFailure,
+    CCMessageSendTypeFailure = 3,
 };
 
 /**

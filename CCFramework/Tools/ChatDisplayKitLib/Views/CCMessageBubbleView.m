@@ -251,15 +251,21 @@
     switch (sendType) {
         case CCMessageSendTypeFailure:
             _sendNotSuccessfulButton.hidden = NO;
+            _indicatorView.hidden = YES;
+            [_indicatorView stopAnimating];
+            
             break;
         case CCMessageSendTypeRunIng:
+            _sendNotSuccessfulButton.hidden = YES;
             _indicatorView.hidden = NO;
             [_indicatorView startAnimating];
             break;
-        default:
+        case CCMessageSendTypeSuccessful:
             _sendNotSuccessfulButton.hidden = YES;
             _indicatorView.hidden = YES;
             [_indicatorView stopAnimating];
+            break;
+        default:
             break;
     }
     
