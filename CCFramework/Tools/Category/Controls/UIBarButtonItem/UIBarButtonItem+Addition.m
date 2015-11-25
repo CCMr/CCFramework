@@ -23,16 +23,21 @@
  *
  *  @return 返回当前对象
  */
-+ (UIBarButtonItem *)filletWithAction: (NSString *)backgroundImage
-                               Target: (id)target
-                              Action: (SEL)action
++ (UIBarButtonItem *)filletWithAction:(NSString *)backgroundImage
+                     placeholderImage:(NSString *)placeholder
+                               Target:(id)target
+                               Action:(SEL)action
 {
-    UIButton * button = [ UIButton buttonWithType : UIButtonTypeCustom ];
-    [button setImage:[UIImage imageNamed:backgroundImage ] forState:UIControlStateNormal];
-    [button setFrame:CGRectMake (0,0,30,30)];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    UIImage *image = [UIImage imageNamed:backgroundImage];
+    if (!image)
+        image = [UIImage imageNamed:placeholder];
+    [button setImage:image forState:UIControlStateNormal];
+    [button setFrame:CGRectMake(0, 0, 30, 30)];
     [[button layer] setCornerRadius:15];
     [[button layer] setMasksToBounds:YES];
-    [button addTarget:target action :action forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *itme = [[UIBarButtonItem alloc] initWithCustomView:button];
     return itme;
 }
@@ -49,14 +54,14 @@
  *
  *  @return 返回当前对象
  */
-+ (UIBarButtonItem *)buttonItemWithImageTitle: (NSString *)backgroundImage
-                                         Tile: (NSString *)title
-                                       Target: (id)target
-                                       Action: (SEL)action
++ (UIBarButtonItem *)buttonItemWithImageTitle:(NSString *)backgroundImage
+                                         Tile:(NSString *)title
+                                       Target:(id)target
+                                       Action:(SEL)action
 {
     UIButton *button = [UIButton buttonWithImageTitle:backgroundImage Title:title Frame:CGRectMake(0, 0, [title calculateTextWidthHeight].width + 40, 40)];
     [button setTitleColor:[UIColor whiteColor]];
-    [button addTarget:target action :action forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *itme = [[UIBarButtonItem alloc] initWithCustomView:button];
     return itme;
 }

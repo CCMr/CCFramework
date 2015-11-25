@@ -21,9 +21,10 @@
  *
  *  @return 返回当前对象
  */
-+ (UIBarButtonItem *)filletWithAction: (NSString *)backgroundImage
-                               Target: (id)target
-                               Action: (SEL)action;
++ (UIBarButtonItem *)filletWithAction:(NSString *)backgroundImage
+                     placeholderImage:(NSString *)placeholder
+                               Target:(id)target
+                               Action:(SEL)action;
 
 /**
  *  @author C C, 2015-09-28
@@ -37,9 +38,9 @@
  *
  *  @return 返回当前对象
  */
-+ (UIBarButtonItem *)buttonItemWithImageTitle: (NSString *)backgroundImage
-                                         Tile: (NSString *)title
-                                       Target: (id)target
-                                       Action: (SEL)action;
++ (UIBarButtonItem *)buttonItemWithImageTitle:(NSString *)backgroundImage
+                                         Tile:(NSString *)title
+                                       Target:(id)target
+                                       Action:(SEL)action;
 
 @end
