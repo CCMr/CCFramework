@@ -37,6 +37,13 @@
 @property(nonatomic, strong) NSDictionary *userInfo;
 
 /**
+ *  @author CC, 2015-11-25
+ *  
+ *  @brief  超时时间间隔，以秒为单位创建的请求。默认的超时时间间隔为60秒。
+ */
+@property(nonatomic, assign) NSTimeInterval timeoutInterval;
+
+/**
  *  @author CC, 2015-07-23
  *
  *  @brief  单列模式

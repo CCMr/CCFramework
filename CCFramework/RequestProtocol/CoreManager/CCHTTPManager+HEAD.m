@@ -80,7 +80,10 @@
             completionBlock(nil, operation.userInfo);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        errorAnalysis(error.code)? failureBlock(error) : errorBlock(error);
+        if (errorAnalysis(error.code))
+            failureBlock(error);
+        else
+            errorBlock(error);
     }];
     
     if (userInfo)
