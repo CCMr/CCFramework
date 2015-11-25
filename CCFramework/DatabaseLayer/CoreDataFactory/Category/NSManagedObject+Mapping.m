@@ -193,7 +193,7 @@ NSDate *dateFromString(NSString *value)
 
 NSNumber *numberFromString(NSString *value)
 {
-    return [NSNumber numberWithDouble:[value doubleValue]];
+    return [NSNumber numberWithDouble:[value integerValue]];
 }
 
 
