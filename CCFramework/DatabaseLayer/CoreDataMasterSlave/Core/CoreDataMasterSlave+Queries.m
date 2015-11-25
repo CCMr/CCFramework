@@ -91,12 +91,12 @@
     NSInteger autoincrementID = 0;
     
     NSArray *dataAry = [self cc_selectCoreData:tableName];
-    id propertyID = [[dataAry sortedArray:NO SortedWithKey:propertyName, nil].lastObject objectForKey:propertyName];
+    id propertyID = [[dataAry sortedArray:YES SortedWithKey:propertyName, nil].lastObject objectForKey:propertyName];
     
     if (propertyID && [propertyID integerValue])
         autoincrementID = [propertyID integerValue];
-    
-    return autoincrementID + 1;
+    autoincrementID++;
+    return autoincrementID;
 }
 
 /**
