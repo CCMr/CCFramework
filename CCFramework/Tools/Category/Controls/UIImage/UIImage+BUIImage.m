@@ -49,67 +49,57 @@
     CGFloat targetWidth = targetSize.width;
     CGFloat targetHeight = targetSize.height;
     
-    if(width <= targetSize.width && height <= targetSize.height){
+    if (width <= targetSize.width && height <= targetSize.height)
         return self;
-    }
     
     //CGFloat yEdge = 0;//内存检测 暂时 删除 说不定以后可以用到
     // CGFloat xEdge = 0;
-    if(width > height)
-    {
+    if (width > height) {
         //yEdge = (1 - height/width)* targetHeight;
-        targetHeight = height/width * targetHeight;
-        
-    }else
-    {
+        targetHeight = height / width * targetHeight;
+    } else {
         // xEdge = (1 - width/height ) * targetWidth;
-        targetWidth = width/height * targetWidth;
+        targetWidth = width / height * targetWidth;
     }
     
     CGFloat scaleFactor = 0.0;
     CGFloat scaledWidth = targetWidth;
     CGFloat scaledHeight = targetHeight;
-    CGPoint thumbnailPoint = CGPointMake(0.0,0.0);
+    CGPoint thumbnailPoint = CGPointMake(0.0, 0.0);
     
-    if (CGSizeEqualToSize(imageSize, targetSize) == NO)
-    {
+    if (CGSizeEqualToSize(imageSize, targetSize) == NO) {
         CGFloat widthFactor = targetWidth / width;
         CGFloat heightFactor = targetHeight / height;
         if (widthFactor > heightFactor)
             scaleFactor = widthFactor;
         else
             scaleFactor = heightFactor;
-        scaledWidth  = width * scaleFactor;
+        scaledWidth = width * scaleFactor;
         scaledHeight = height * scaleFactor;
         // center the image
-        if (widthFactor > heightFactor)
-        {
+        if (widthFactor > heightFactor) {
             thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
+        } else if (widthFactor < heightFactor) {
+            thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
         }
-        else
-            if (widthFactor < heightFactor)
-            {
-                thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
-            }
     }
     
     UIGraphicsBeginImageContext(CGSizeMake(targetWidth, targetHeight)); // this will crop
     
     CGRect thumbnailRect = CGRectZero;
     thumbnailRect.origin = thumbnailPoint;
-    thumbnailRect.size.width  = scaledWidth;
+    thumbnailRect.size.width = scaledWidth;
     thumbnailRect.size.height = scaledHeight;
     
     [sourceImage drawInRect:thumbnailRect];
     
     newImage = UIGraphicsGetImageFromCurrentImageContext();
-    if(newImage == nil)
+    if (newImage == nil)
         NSLog(@"could not scale image");
     
     //pop the context to get back to the default
     UIGraphicsEndImageContext();
     return newImage;
-    
 }
 
 /**
@@ -196,7 +186,7 @@
                          maskImage:(UIImage *)maskImage
 {
     
-    CGRect imageRect = { CGPointZero, self.size };
+    CGRect imageRect = {CGPointZero, self.size};
     UIImage *effectImage = self;
     
     BOOL hasBlur = blurRadius > __FLT_EPSILON__;
@@ -209,17 +199,17 @@
         CGContextDrawImage(effectInContext, imageRect, self.CGImage);
         
         vImage_Buffer effectInBuffer;
-        effectInBuffer.data     = CGBitmapContextGetData(effectInContext);
-        effectInBuffer.width    = CGBitmapContextGetWidth(effectInContext);
-        effectInBuffer.height   = CGBitmapContextGetHeight(effectInContext);
+        effectInBuffer.data = CGBitmapContextGetData(effectInContext);
+        effectInBuffer.width = CGBitmapContextGetWidth(effectInContext);
+        effectInBuffer.height = CGBitmapContextGetHeight(effectInContext);
         effectInBuffer.rowBytes = CGBitmapContextGetBytesPerRow(effectInContext);
         
         UIGraphicsBeginImageContextWithOptions(self.size, NO, [[UIScreen mainScreen] scale]);
         CGContextRef effectOutContext = UIGraphicsGetCurrentContext();
         vImage_Buffer effectOutBuffer;
-        effectOutBuffer.data     = CGBitmapContextGetData(effectOutContext);
-        effectOutBuffer.width    = CGBitmapContextGetWidth(effectOutContext);
-        effectOutBuffer.height   = CGBitmapContextGetHeight(effectOutContext);
+        effectOutBuffer.data = CGBitmapContextGetData(effectOutContext);
+        effectOutBuffer.width = CGBitmapContextGetWidth(effectOutContext);
+        effectOutBuffer.height = CGBitmapContextGetHeight(effectOutContext);
         effectOutBuffer.rowBytes = CGBitmapContextGetBytesPerRow(effectOutContext);
         
         if (hasBlur) {
@@ -236,13 +226,13 @@
         if (hasSaturationChange) {
             CGFloat s = saturationDeltaFactor;
             CGFloat floatingPointSaturationMatrix[] = {
-                0.0722 + 0.9278 * s,  0.0722 - 0.0722 * s,  0.0722 - 0.0722 * s,  0,
-                0.7152 - 0.7152 * s,  0.7152 + 0.2848 * s,  0.7152 - 0.7152 * s,  0,
-                0.2126 - 0.2126 * s,  0.2126 - 0.2126 * s,  0.2126 + 0.7873 * s,  0,
-                0,                    0,                    0,  1,
+                0.0722 + 0.9278 * s, 0.0722 - 0.0722 * s, 0.0722 - 0.0722 * s, 0,
+                0.7152 - 0.7152 * s, 0.7152 + 0.2848 * s, 0.7152 - 0.7152 * s, 0,
+                0.2126 - 0.2126 * s, 0.2126 - 0.2126 * s, 0.2126 + 0.7873 * s, 0,
+                0, 0, 0, 1,
             };
             const int32_t divisor = 256;
-            NSUInteger matrixSize = sizeof(floatingPointSaturationMatrix)/sizeof(floatingPointSaturationMatrix[0]);
+            NSUInteger matrixSize = sizeof(floatingPointSaturationMatrix) / sizeof(floatingPointSaturationMatrix[0]);
             int16_t saturationMatrix[matrixSize];
             for (NSUInteger i = 0; i < matrixSize; ++i) {
                 saturationMatrix[i] = (int16_t)roundf(floatingPointSaturationMatrix[i] * divisor);
@@ -250,8 +240,7 @@
             if (hasBlur) {
                 vImageMatrixMultiply_ARGB8888(&effectOutBuffer, &effectInBuffer, saturationMatrix, divisor, NULL, NULL, kvImageNoFlags);
                 effectImageBuffersAreSwapped = YES;
-            }
-            else {
+            } else {
                 vImageMatrixMultiply_ARGB8888(&effectInBuffer, &effectOutBuffer, saturationMatrix, divisor, NULL, NULL, kvImageNoFlags);
             }
         }

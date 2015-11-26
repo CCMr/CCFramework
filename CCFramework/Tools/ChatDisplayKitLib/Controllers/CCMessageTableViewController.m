@@ -1356,13 +1356,12 @@ static CGPoint delayOffset = {0.0};
     switch (shareMenuItem.itemType) {
         case CCShareMenuItemTypePhoto: {
             _camerViewController = [[CCCameraViewController alloc] init];
-            [_camerViewController startPhotoFileWithViewController:
-             weakSelf complate:^(id request) {
-                 NSArray *photoAry = request;
-                 [photoAry enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                     [weakSelf didSendMessageWithPhoto:obj];
-                 }];
-             }];
+            [_camerViewController startPhotoFileWithViewController:weakSelf complate:^(id request) {
+                NSArray *photoAry = request;
+                [photoAry enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    [weakSelf didSendMessageWithPhoto:obj];
+                }];
+            }];
         } break;
         case CCShareMenuItemTypeVideo:
             

@@ -32,27 +32,28 @@
 #import "UIControl+BUIControl.h"
 #import "Config.h"
 
-#define HW ((winsize.width-20-30) / 4)
+#define HW ((winsize.width - 20 - 30) / 4)
 
-@interface CCPickerAssetsViewController ()<CCPhotoBrowserDelegate,CCPickerCollectionViewDelegate>{
+@interface CCPickerAssetsViewController () <CCPhotoBrowserDelegate, CCPickerCollectionViewDelegate> {
     UIView *ToolbarView;
-    UIButton *PreviewBtn,*SendBtn;
+    UIButton *PreviewBtn, *SendBtn;
     UILabel *SendCountLabel;
     BOOL IsPreview;
 }
 
-@property (nonatomic, strong) CCPickerCollectionView *collectionView;
+@property(nonatomic, strong) CCPickerCollectionView *collectionView;
 // 记录选中的assets
-@property (nonatomic, strong) NSMutableArray *selectAssets;
+@property(nonatomic, strong) NSMutableArray *selectAssets;
 
-@property (nonatomic, strong) NSMutableArray *BrowseArray;
+@property(nonatomic, strong) NSMutableArray *BrowseArray;
 
 @end
 
 @implementation CCPickerAssetsViewController
 
-- (void)setAssetsGroup:(CCPickerGroup *)assetsGroup{
-    if (!assetsGroup.groupName.length) return ;
+- (void)setAssetsGroup:(CCPickerGroup *)assetsGroup
+{
+    if (!assetsGroup.groupName.length) return;
     
     _assetsGroup = assetsGroup;
     
@@ -62,7 +63,8 @@
     [self InitLoadData];
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self InitNavigation];
@@ -70,9 +72,10 @@
 }
 
 #pragma mark - 初始化导航栏
--(void)InitNavigation{
+- (void)InitNavigation
+{
     UIButton *NavRightBtn = [UIButton buttonWith];
-    [self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc]init] initWithCustomView:NavRightBtn]];
+    [self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc] init] initWithCustomView:NavRightBtn]];
     
     [NavRightBtn setTitle:@"取消" forState:UIControlStateNormal];
     [NavRightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -82,7 +85,8 @@
 }
 
 #pragma mark - 初始化页面控件
--(void)InitControl{
+- (void)InitControl
+{
     ToolbarView = [[UIView alloc] initWithFrame:CGRectMake(0, winsize.height - 50, winsize.width, 50)];
     [self.view addSubview:ToolbarView];
     
@@ -120,7 +124,7 @@
     [ToolbarView addSubview:PreviewBtn];
     
     SendCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(winsize.width - 80, 13, 25, 25)];
-    SendCountLabel.backgroundColor =  cc_ColorRGBA(0, 204, 51, 1);
+    SendCountLabel.backgroundColor = cc_ColorRGBA(0, 204, 51, 1);
     SendCountLabel.layer.cornerRadius = 13;
     SendCountLabel.layer.masksToBounds = YES;
     SendCountLabel.textColor = [UIColor whiteColor];
@@ -141,12 +145,13 @@
 }
 
 #pragma mark - 初始化数据
--(void)InitLoadData{
+- (void)InitLoadData
+{
     if (!self.BrowseArray)
         self.BrowseArray = [NSMutableArray array];
     
-    __weak typeof (self)weakSelf = self;
-    [[CCPickerDatas defaultPicker] getGroupPhotosWithGroup:self.assetsGroup Finished:^(NSArray *assets){
+    __weak typeof(self) weakSelf = self;
+    [[CCPickerDatas defaultPicker] getGroupPhotosWithGroup:self.assetsGroup Finished:^(NSArray *assets) {
         [assets enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             CCPhoto *photo = [[CCPhoto alloc] init];
             photo.assets = obj;
@@ -166,7 +171,8 @@
  *
  *  @since <#version number#>
  */
-- (CCPickerCollectionView *)collectionView{
+- (CCPickerCollectionView *)collectionView
+{
     if (!_collectionView) {
         
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -177,7 +183,7 @@
         CCPickerCollectionView *collectionView = [[CCPickerCollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
         collectionView.translatesAutoresizingMaskIntoConstraints = NO;
         [collectionView registerClass:[CCPickerCollectionViewCell class] forCellWithReuseIdentifier:@"CCPickerCollectionViewCell"];
-        collectionView.contentInset = UIEdgeInsetsMake(5,5,5,5);
+        collectionView.contentInset = UIEdgeInsetsMake(5, 5, 5, 5);
         collectionView.collectionViewDelegate = self;
         [self.view insertSubview:_collectionView = collectionView belowSubview:ToolbarView];
         
@@ -201,7 +207,8 @@
  *
  *  @since 1.0
  */
--(void)pickerCollectionViewDidSelected:(CCPickerCollectionView *)pickerCollectionView{
+- (void)pickerCollectionViewDidSelected:(CCPickerCollectionView *)pickerCollectionView
+{
     [self Judge:pickerCollectionView.selectAsstes.count];
 }
 
@@ -214,9 +221,10 @@
  *
  *  @since 1.0
  */
--(void)Judge:(NSInteger)count{
+- (void)Judge:(NSInteger)count
+{
     SendCountLabel.hidden = !count;
-    SendCountLabel.text = [NSString stringWithFormat:@"%ld",(long)count];
+    SendCountLabel.text = [NSString stringWithFormat:@"%ld", (long)count];
     PreviewBtn.enabled = !SendCountLabel.hidden;
     PreviewBtn.alpha = PreviewBtn.enabled ? 1 : .5;
     SendBtn.enabled = !SendCountLabel.hidden;
@@ -233,7 +241,8 @@
  *
  *  @since 1.0
  */
--(void)pickerCollectionviewDidPreview:(CCPickerCollectionView *)pickerCollectionView Index:(NSInteger)index{
+- (void)pickerCollectionviewDidPreview:(CCPickerCollectionView *)pickerCollectionView Index:(NSInteger)index
+{
     [self.BrowseArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         CCPhoto *photo = obj;
         photo.srcImageView = pickerCollectionView.selectImageView;
@@ -246,7 +255,6 @@
     browser.currentPhotoIndex = index;
     browser.delegate = self;
     [browser show];
-    
 }
 
 #pragma mark - CCPhotBrowser
@@ -259,12 +267,13 @@
  *
  *  @since 1.0
  */
--(void)didSelectd:(NSUInteger)index{
+- (void)didSelectd:(NSUInteger)index
+{
     BOOL bol = [self.collectionView.selectsIndexPath containsObject:@(index)];
     if (bol) {
         [self.collectionView.selectsIndexPath removeObject:@(index)];
         [self.collectionView.selectAsstes removeObject:self.collectionView.dataArray[index]];
-    }else{
+    } else {
         [self.collectionView.selectsIndexPath addObject:@(index)];
         [self.collectionView.selectAsstes addObject:self.collectionView.dataArray[index]];
     }
@@ -281,7 +290,8 @@
  *
  *  @since 1.0
  */
--(void)didComplete:(NSUInteger)index{
+- (void)didComplete:(NSUInteger)index
+{
     if (![self.collectionView.selectsIndexPath containsObject:@(index)]) {
         [self.collectionView.selectsIndexPath addObject:@(index)];
         [self.collectionView.selectAsstes addObject:self.collectionView.dataArray[index]];
@@ -297,11 +307,13 @@
  *
  *  @since 1.0
  */
--(void)Complete{
+- (void)Complete
+{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableArray *SelectImageArray = [NSMutableArray array];
         [self.collectionView.selectAsstes enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            [SelectImageArray addObject:((CCPhoto *)obj).image];
+            CCPhoto *photo = obj;
+            [SelectImageArray addObject:photo.image];
         }];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"CC_PICKER_TAKE_DONE" object:nil userInfo:@{@"selectAssets":SelectImageArray}];
     });

@@ -41,11 +41,13 @@
 
 @implementation CCBubblePhotoImageView
 
-- (CCBubbleMessageType)getBubbleMessageType {
+- (CCBubbleMessageType)getBubbleMessageType
+{
     return self.bubbleMessageType;
 }
 
-- (UIActivityIndicatorView *)activityIndicatorView {
+- (UIActivityIndicatorView *)activityIndicatorView
+{
     if (!_activityIndicatorView) {
         _activityIndicatorView = [[UIActivityIndicatorView alloc]
                                   initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -54,7 +56,8 @@
     return _activityIndicatorView;
 }
 
-- (void)setMessagePhoto:(UIImage *)messagePhoto {
+- (void)setMessagePhoto:(UIImage *)messagePhoto
+{
     _messagePhoto = messagePhoto;
     [self setNeedsDisplay];
 }
@@ -62,7 +65,8 @@
 - (void)configureMessagePhoto:(UIImage *)messagePhoto
                  thumbnailUrl:(NSString *)thumbnailUrl
                originPhotoUrl:(NSString *)originPhotoUrl
-          onBubbleMessageType:(CCBubbleMessageType)bubbleMessageType {
+          onBubbleMessageType:(CCBubbleMessageType)bubbleMessageType
+{
     self.bubbleMessageType = bubbleMessageType;
     self.messagePhoto = messagePhoto;
     
@@ -107,7 +111,8 @@
     }
 }
 
-- (void)setFrame:(CGRect)frame {
+- (void)setFrame:(CGRect)frame
+{
     [super setFrame:frame];
     if (self.semaphore) {
         dispatch_semaphore_signal(self.semaphore);
@@ -116,7 +121,8 @@
                                                 CGRectGetWidth(self.bounds) / 2.0, CGRectGetHeight(self.bounds) / 2.0);
 }
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame
+{
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
@@ -126,7 +132,8 @@
     return self;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     _messagePhoto = nil;
     [self.activityIndicatorView stopAnimating];
     self.activityIndicatorView = nil;
@@ -134,7 +141,8 @@
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
+- (void)drawRect:(CGRect)rect
+{
     // Drawing code
     rect.origin = CGPointZero;
     [self.messagePhoto drawInRect:rect];
@@ -149,13 +157,13 @@
     CGFloat triangleSize = 8;      //三角形的边长
     CGFloat triangleMarginTop = 8; //三角形距离圆角的距离
     
-    CGFloat borderOffset = 3;                    //阴影偏移量
+    CGFloat borderOffset = 3;			 //阴影偏移量
     UIColor *borderColor = [UIColor blackColor]; //阴影的颜色
     
     // 获取CGContext，注意UIKit里用的是一个专门的函数
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetRGBStrokeColor(context, 0, 0, 0, 1); //画笔颜色
-    CGContextSetLineWidth(context, 1);               //画笔宽度
+    CGContextSetLineWidth(context, 1);		     //画笔宽度
     // 移动到初始点
     CGContextMoveToPoint(context, radius + margin, margin);
     // 绘制第1条线和第1个1/4圆弧
@@ -179,7 +187,7 @@
         float arcStartY =
         margin + radius + triangleMarginTop + triangleSize -
         (triangleSize - arcSize / margin * triangleSize) / 2; //圆弧起始Y值
-        float arcStartX = width - arcSize;                        //圆弧起始X值
+        float arcStartX = width - arcSize;			  //圆弧起始X值
         float centerOfCycleX =
         width - arcSize -
         pow(arcSize / margin * triangleSize / 2, 2) / arcSize; //圆心的X值
@@ -231,7 +239,7 @@
         float arcStartY =
         margin + radius + triangleMarginTop +
         (triangleSize - arcSize / margin * triangleSize) / 2; //圆弧起始Y值
-        float arcStartX = arcSize;                                //圆弧起始X值
+        float arcStartX = arcSize;				  //圆弧起始X值
         float centerOfCycleX =
         arcSize +
         pow(arcSize / margin * triangleSize / 2, 2) / arcSize; //圆心的X值
