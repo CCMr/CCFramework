@@ -28,12 +28,13 @@
 #import <UIKit/UIKit.h>
 
 @interface CCPhoto : NSObject
-@property (nonatomic, strong) NSURL *url;
-@property (nonatomic, strong) UIImage *image; // 完整的图片
-@property (nonatomic, strong) UIImage *thumbImage; //缩略图
-@property (nonatomic, strong) UIImageView *srcImageView; // 来源view
-@property (nonatomic, strong, readonly) UIImage *Placeholder;
-@property (nonatomic, strong, readonly) UIImage *capture;
+
+@property(nonatomic, strong) NSURL *url;
+@property(nonatomic, strong) UIImage *image;		// 完整的图片
+@property(nonatomic, strong) UIImage *thumbImage;       //缩略图
+@property(nonatomic, strong) UIImageView *srcImageView; // 来源view
+@property(nonatomic, strong, readonly) UIImage *Placeholder;
+@property(nonatomic, strong, readonly) UIImage *capture;
 
 /**
  *  @author CC, 2015-06-04 17:06:32
@@ -42,7 +43,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, strong) ALAsset *assets;
+@property(nonatomic, strong) ALAsset *assets;
 
 /**
  *  @author CC, 2015-06-04 18:06:38
@@ -51,7 +52,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, assign) NSInteger asssetIndex;
+@property(nonatomic, assign) NSInteger asssetIndex;
 
 /**
  *  @author CC, 2015-06-04 19:06:22
@@ -60,14 +61,24 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, assign) BOOL IsIndex;
+@property(nonatomic, assign) BOOL IsIndex;
 
 //是否显示
-@property (nonatomic, assign) BOOL firstShow;
+@property(nonatomic, assign) BOOL firstShow;
 //是否被选中
-@property (nonatomic, assign) BOOL selectd;
+@property(nonatomic, assign) BOOL selectd;
 
 // 是否已经保存到相册
 @property (nonatomic, assign) BOOL save;
-@property (nonatomic, assign) int index; // 索引
+@property (nonatomic, assign) int  index;// 索引
+
+/**
+ *  @author CC, 2015-11-26
+ *  
+ *  @brief  压缩图片
+ *
+ *  @param size 最大像素大小
+ */
+-(UIImage *)compressionWithMaxPixelSize:(NSUInteger)size;
+
 @end
