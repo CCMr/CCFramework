@@ -136,6 +136,37 @@
     _callBackBlock = block;
 }
 
+#pragma mark - 转屏
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
+}
+
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+    [coordinator animateAlongsideTransition:^(id context) {
+        if (newCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
+            
+        } else {
+            
+        }
+        self.view.frame = self.view.bounds;
+        [self.view setNeedsLayout];
+    } completion:nil];
+}
+
+
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
