@@ -634,6 +634,32 @@
                      Condition:(NSString *)condition;
 
 /**
+ *  @author CC, 2015-11-27
+ *  
+ *  @brief  查询数据跟对象ID
+ *
+ *  @param tableName       表名
+ *  @param managedObjectId 对象ID
+ *
+ *  @return 返回匹配结果
+ */
++ (id)cc_selectCoreData:(NSString *)tableName
+        ManagedObjectId:(NSManagedObjectID *)managedObjectId;
+
+/**
+ *  @author CC, 2015-11-27
+ *  
+ *  @brief  查询数据根据对象ID
+ *
+ *  @param tableName     表名
+ *  @param arrayObjectID 对象ID集合
+ *
+ *  @return 返回匹配结果集
+ */
++ (NSArray *)cc_selectCoreData:(NSString *)tableName
+           WithManagedObjectId:(NSArray *)arrayObjectID;
+
+/**
  *  @author CC, 2015-10-26
  *
  *  @brief  查询数据

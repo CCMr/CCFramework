@@ -42,7 +42,8 @@
  */
 + (NSUInteger)cc_count:(NSString *)tableName
 {
-    return [self cc_countWhere:tableName WhereCondition:nil];
+    return [self cc_countWhere:tableName
+                WhereCondition:nil];
 }
 
 /**
@@ -91,7 +92,8 @@
     NSInteger autoincrementID = 0;
     
     NSArray *dataAry = [self cc_selectCoreData:tableName];
-    id propertyID = [[dataAry sortedArray:YES SortedWithKey:propertyName, nil].lastObject objectForKey:propertyName];
+    id propertyID = [[dataAry sortedArray:YES
+                            SortedWithKey:propertyName, nil].lastObject objectForKey:propertyName];
     
     if (propertyID && [propertyID integerValue])
         autoincrementID = [propertyID integerValue];
@@ -110,7 +112,8 @@
  */
 + (NSArray *)cc_selectCoreData:(NSString *)tableName
 {
-    return [self cc_selectCoreData:tableName Condition:nil];
+    return [self cc_selectCoreData:tableName
+                         Condition:nil];
 }
 
 /**
@@ -134,6 +137,47 @@
 }
 
 /**
+ *  @author CC, 2015-11-27
+ *  
+ *  @brief  查询数据跟对象ID
+ *
+ *  @param tableName       表名
+ *  @param managedObjectId 对象ID
+ *
+ *  @return 返回匹配结果
+ */
++ (id)cc_selectCoreData:(NSString *)tableName
+        ManagedObjectId:(NSManagedObjectID *)managedObjectId
+{
+    return [self cc_selectCoreData:tableName
+               WithManagedObjectId:@[ managedObjectId ]].lastObject;
+}
+
+/**
+ *  @author CC, 2015-11-27
+ *  
+ *  @brief  查询数据根据对象ID
+ *
+ *  @param tableName     表名
+ *  @param arrayObjectID 对象ID集合
+ *
+ *  @return 返回匹配结果集
+ */
++ (NSArray *)cc_selectCoreData:(NSString *)tableName
+           WithManagedObjectId:(NSArray *)arrayObjectID
+{
+    NSArray *objsToAry = [self cc_selectCoreData:tableName];
+    
+    __block NSMutableArray *dataArray = [NSMutableArray array];
+    [arrayObjectID enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        id pd = [objsToAry filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"objectID = %@",obj]];
+        if (pd)
+            [dataArray addObjectsFromArray:pd];
+    }];
+    return dataArray;
+}
+
+/**
  *  @author CC, 2015-10-26
  *
  *  @brief  查询数据
@@ -151,7 +195,8 @@
     if (condition)
         [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
     
-    [self executeQueriesContext:fetchRequest Handler:handler];
+    [self executeQueriesContext:fetchRequest
+                        Handler:handler];
 }
 
 /**
