@@ -95,7 +95,7 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
  *  @param message   被操作的目标消息Model
  *  @param indexPath 该目标消息在哪个IndexPath里面
  */
-- (void)didDoubleSelectedOnTextMessage:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
+- (void)didDoubleSelectedOnTextMessage:(CCMessageTableViewCell *)tableViewCell Message:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
 
 /**
  *  点击消息发送者的头像回调方法

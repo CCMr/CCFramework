@@ -420,8 +420,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (void)doubleTapGestureRecognizerHandle:(UITapGestureRecognizer *)tapGestureRecognizer
 {
     if (tapGestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        if ([self.delegate respondsToSelector:@selector(didDoubleSelectedOnTextMessage:atIndexPath:)]) {
-            [self.delegate didDoubleSelectedOnTextMessage:self.messageBubbleView.message atIndexPath:self.indexPath];
+        if ([self.delegate respondsToSelector:@selector(didDoubleSelectedOnTextMessage:Message:atIndexPath:)]) {
+            [self.delegate didDoubleSelectedOnTextMessage:self Message:self.messageBubbleView.message atIndexPath:self.indexPath];
         }
     }
 }

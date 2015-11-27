@@ -519,7 +519,7 @@
             UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
             indicatorView.frame = CGRectMake(0, 0, kCCSendNotSuccessfulSize, kCCSendNotSuccessfulSize);
             indicatorView.hidden = YES;
-            [indicatorView startAnimating];
+            [indicatorView stopAnimating];
             [self addSubview:indicatorView];
             _indicatorView = indicatorView;
         }
@@ -627,6 +627,8 @@
             CGRect photoImageViewFrame = CGRectMake(paddingX, kCCNoneBubblePhotoMargin, needPhotoSize.width, needPhotoSize.height);
             
             self.bubblePhotoImageView.frame = photoImageViewFrame;
+            
+            self.bubbleImageView.frame = photoImageViewFrame;
             
             self.videoPlayImageView.center = CGPointMake(CGRectGetWidth(photoImageViewFrame) / 2.0, CGRectGetHeight(photoImageViewFrame) / 2.0);
             
