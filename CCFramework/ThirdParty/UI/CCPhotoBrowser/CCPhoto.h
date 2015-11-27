@@ -30,10 +30,16 @@
 @interface CCPhoto : NSObject
 
 @property(nonatomic, strong) NSURL *url;
+/**
+ *  @author CC, 2015-11-27
+ *  
+ *  @brief  保存图片图片
+ */
+@property(nonatomic, copy) NSString *savePath;
 @property(nonatomic, strong) UIImage *image;		// 完整的图片
 @property(nonatomic, strong) UIImage *thumbImage;       //缩略图
 @property(nonatomic, strong) UIImageView *srcImageView; // 来源view
-@property(nonatomic, strong, readonly) UIImage *Placeholder;
+@property(nonatomic, strong) UIImage *Placeholder;
 @property(nonatomic, strong, readonly) UIImage *capture;
 
 /**
@@ -69,8 +75,8 @@
 @property(nonatomic, assign) BOOL selectd;
 
 // 是否已经保存到相册
-@property (nonatomic, assign) BOOL save;
-@property (nonatomic, assign) int  index;// 索引
+@property(nonatomic, assign) BOOL save;
+@property(nonatomic, assign) int index; // 索引
 
 /**
  *  @author CC, 2015-11-26

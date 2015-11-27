@@ -38,8 +38,7 @@
 #define kPhotoViewTagOffset 1000
 #define kPhotoViewIndex(photoView) ([photoView tag] - kPhotoViewTagOffset)
 
-@interface CCPhotoBrowser () <CCPhotoViewDelegate,CCPhotoToolbarDelegate>
-{
+@interface CCPhotoBrowser () <CCPhotoViewDelegate, CCPhotoToolbarDelegate> {
     // 滚动的view
     UIScrollView *_photoScrollView;
     // 所有的图片view
@@ -60,21 +59,24 @@
 @implementation CCPhotoBrowser
 
 #pragma mark - Lifecycle
-- (void)loadView{
+- (void)loadView
+{
     self.view = [[UIView alloc] init];
     self.view.frame = [UIScreen mainScreen].bounds;
     self.view.backgroundColor = [UIColor blackColor];
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
--(id)initWithNavigationBar{
+- (id)initWithNavigationBar
+{
     if (self = [super init]) {
         _NavigationBarHiddenInited = YES;
     }
     return self;
 }
 
-- (void)viewDidLoad{
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     // 1.创建UIScrollView
@@ -83,23 +85,26 @@
     // 2.创建工具条
     [self createToolbar];
     
-    if (_NavigationBarHiddenInited){
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    
+    if (_NavigationBarHiddenInited)
         [self NavigationBar];
-        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-    }
 }
 
-- (BOOL)prefersStatusBarHidden {
+- (BOOL)prefersStatusBarHidden
+{
     return YES;
 }
 
--(void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     CCPhoto *photo = _photos[_currentPhotoIndex];
-    [NavRightBtn setImage:photo.selectd ? [ResourcesPhotos assetsYES] : [ResourcesPhotos assetsNO]  forState:UIControlStateNormal];
+    [NavRightBtn setImage:photo.selectd ? [ResourcesPhotos assetsYES] : [ResourcesPhotos assetsNO] forState:UIControlStateNormal];
 }
 
-- (void)show{
+- (void)show
+{
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self.view];
     [window.rootViewController addChildViewController:self];
@@ -110,7 +115,8 @@
 }
 
 #pragma mark - 创建导航栏
--(void)NavigationBar{
+- (void)NavigationBar
+{
     _NavigationBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, winsize.width, 44)];
     //    _NavigationBar.backgroundColor = Color(0, 0, 0, .5);
     _NavigationBar.backgroundColor = [UIColor clearColor];
@@ -146,7 +152,8 @@
 }
 
 #pragma mark 创建工具条
-- (void)createToolbar{
+- (void)createToolbar
+{
     CGFloat barHeight = 44;
     CGFloat barY = self.view.frame.size.height - barHeight;
     _toolbar = [[CCPhotoToolbar alloc] init];
@@ -163,7 +170,8 @@
 }
 
 #pragma mark 创建UIScrollView
-- (void)createScrollView{
+- (void)createScrollView
+{
     CGRect frame = self.view.bounds;
     frame.origin.x -= kPadding;
     frame.size.width += (2 * kPadding);
@@ -179,7 +187,8 @@
     _photoScrollView.contentOffset = CGPointMake(_currentPhotoIndex * frame.size.width, 0);
 }
 
-- (void)setPhotos:(NSArray *)photos{
+- (void)setPhotos:(NSArray *)photos
+{
     _photos = photos;
     
     if (photos.count > 1) {
@@ -187,7 +196,7 @@
         _reusablePhotoViews = [NSMutableSet set];
     }
     
-    for (int i = 0; i<_photos.count; i++) {
+    for (int i = 0; i < _photos.count; i++) {
         CCPhoto *photo = _photos[i];
         photo.index = i;
         photo.firstShow = i == _currentPhotoIndex;
@@ -195,10 +204,11 @@
 }
 
 #pragma mark 设置选中的图片
-- (void)setCurrentPhotoIndex:(NSUInteger)currentPhotoIndex{
+- (void)setCurrentPhotoIndex:(NSUInteger)currentPhotoIndex
+{
     _currentPhotoIndex = currentPhotoIndex;
     
-    for (int i = 0; i<_photos.count; i++) {
+    for (int i = 0; i < _photos.count; i++) {
         CCPhoto *photo = _photos[i];
         photo.firstShow = i == currentPhotoIndex;
     }
@@ -212,9 +222,9 @@
 }
 
 #pragma mark - CCPhotoView代理
-- (void)photoViewSingleTap:(CCPhotoView *)photoView{
-    if (_NavigationBarHiddenInited)
-        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+- (void)photoViewSingleTap:(CCPhotoView *)photoView
+{
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     self.view.backgroundColor = [UIColor clearColor];
     
     // 移除工具条
@@ -222,17 +232,20 @@
     [_NavigationBar removeFromSuperview];
 }
 
-- (void)photoViewDidEndZoom:(CCPhotoView *)photoView{
+- (void)photoViewDidEndZoom:(CCPhotoView *)photoView
+{
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
 }
 
-- (void)photoViewImageFinishLoad:(CCPhotoView *)photoView{
+- (void)photoViewImageFinishLoad:(CCPhotoView *)photoView
+{
     _toolbar.currentPhotoIndex = _currentPhotoIndex;
 }
 
 #pragma mark - CCPhotoToolbar代理
--(void)didComplete:(CCPhotoToolbar *)toolbar{
+- (void)didComplete:(CCPhotoToolbar *)toolbar
+{
     [self photoViewSingleTap:nil];
     [self photoViewDidEndZoom:nil];
     
@@ -242,7 +255,8 @@
 }
 
 #pragma mark 显示照片
-- (void)showPhotos{
+- (void)showPhotos
+{
     // 只有一张图片
     if (_photos.count == 1) {
         [self showPhotoViewAtIndex:0];
@@ -250,8 +264,8 @@
     }
     
     CGRect visibleBounds = _photoScrollView.bounds;
-    int firstIndex = (int)floorf((CGRectGetMinX(visibleBounds)+kPadding*2) / CGRectGetWidth(visibleBounds));
-    int lastIndex  = (int)floorf((CGRectGetMaxX(visibleBounds)-kPadding*2-1) / CGRectGetWidth(visibleBounds));
+    int firstIndex = (int)floorf((CGRectGetMinX(visibleBounds) + kPadding * 2) / CGRectGetWidth(visibleBounds));
+    int lastIndex = (int)floorf((CGRectGetMaxX(visibleBounds) - kPadding * 2 - 1) / CGRectGetWidth(visibleBounds));
     if (firstIndex < 0) firstIndex = 0;
     if (firstIndex >= _photos.count) firstIndex = (int)_photos.count - 1;
     if (lastIndex < 0) lastIndex = 0;
@@ -280,7 +294,8 @@
 }
 
 #pragma mark 显示一个图片view
-- (void)showPhotoViewAtIndex:(NSUInteger)index{
+- (void)showPhotoViewAtIndex:(NSUInteger)index
+{
     CCPhotoView *photoView = [self dequeueReusablePhotoView];
     if (!photoView) { // 添加新的图片view
         photoView = [[CCPhotoView alloc] init];
@@ -305,7 +320,8 @@
 }
 
 #pragma mark 加载index附近的图片
-- (void)loadImageNearIndex:(NSUInteger)index{
+- (void)loadImageNearIndex:(NSUInteger)index
+{
     if (index > 0) {
         CCPhoto *photo = _photos[index - 1];
         [SDWebImageDownloader.sharedDownloader downloadImageWithURL:photo.url options:0 progress:nil completed:nil];
@@ -318,17 +334,19 @@
 }
 
 #pragma mark index这页是否正在显示
-- (BOOL)isShowingPhotoViewAtIndex:(NSUInteger)index {
+- (BOOL)isShowingPhotoViewAtIndex:(NSUInteger)index
+{
     for (CCPhotoView *photoView in _visiblePhotoViews) {
         if (kPhotoViewIndex(photoView) == index) {
             return YES;
         }
     }
-    return  NO;
+    return NO;
 }
 
 #pragma mark 循环利用某个view
-- (CCPhotoView *)dequeueReusablePhotoView{
+- (CCPhotoView *)dequeueReusablePhotoView
+{
     CCPhotoView *photoView = [_reusablePhotoViews anyObject];
     if (photoView) {
         [_reusablePhotoViews removeObject:photoView];
@@ -337,7 +355,8 @@
 }
 
 #pragma mark 更新toolbar状态
-- (void)updateTollbarState{
+- (void)updateTollbarState
+{
     _currentPhotoIndex = _photoScrollView.contentOffset.x / _photoScrollView.frame.size.width;
     _toolbar.currentPhotoIndex = _currentPhotoIndex;
     CCPhoto *photo = _photos[_currentPhotoIndex];

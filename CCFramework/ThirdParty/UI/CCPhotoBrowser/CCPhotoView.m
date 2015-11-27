@@ -28,9 +28,9 @@
 #import "CCPhotoLoadingView.h"
 #import "UIImageView+WebCache.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIImage+Data.h"
 
-@interface CCPhotoView ()
-{
+@interface CCPhotoView () {
     BOOL _doubleTap;
     UIImageView *_imageView;
     CCPhotoLoadingView *_photoLoadingView;
@@ -73,12 +73,14 @@
     return self;
 }
 
-- (BOOL)prefersStatusBarHidden {
+- (BOOL)prefersStatusBarHidden
+{
     return YES;
 }
 
 #pragma mark - photoSetter
-- (void)setPhoto:(CCPhoto *)photo {
+- (void)setPhoto:(CCPhoto *)photo
+{
     _photo = photo;
     
     [self showImage];
@@ -99,12 +101,15 @@
                 [_imageView sd_setImageWithURL:_photo.url placeholderImage:_photo.Placeholder options:SDWebImageRetryFailed | SDWebImageLowPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     photo.image = image;
                     
+                    if (photo.savePath)
+                        [[image data] writeToFile:photo.savePath atomically:YES];
+                    
                     // 调整frame参数
                     [photoView adjustFrame];
                 }];
             }
             
-        }else{
+        } else {
             [self photoStartLoad];
         }
     } else {
@@ -118,6 +123,7 @@
 #pragma mark 开始加载图片
 - (void)photoStartLoad
 {
+    [_photoLoadingView removeFromSuperview];
     if (_photo.image) {
         self.scrollEnabled = YES;
         _imageView.image = _photo.image;
@@ -145,12 +151,17 @@
     if (image) {
         self.scrollEnabled = YES;
         _photo.image = image;
+        
+        if (_photo.savePath)
+            [[image data] writeToFile:_photo.savePath atomically:YES];
+        
         [_photoLoadingView removeFromSuperview];
         
         if ([self.photoViewDelegate respondsToSelector:@selector(photoViewImageFinishLoad:)]) {
             [self.photoViewDelegate photoViewImageFinishLoad:self];
         }
     } else {
+        _imageView.image = nil;
         [self addSubview:_photoLoadingView];
         [_photoLoadingView showFailure];
     }
@@ -196,7 +207,7 @@
         imageFrame.origin.y = 0;
     }
     
-    if (_photo.firstShow) { // 第一次显示的图片
+    if (_photo.firstShow) {    // 第一次显示的图片
         _photo.firstShow = NO; // 已经显示过了
         _imageView.frame = [_photo.srcImageView convertRect:_photo.srcImageView.bounds toView:nil];
         
@@ -213,16 +224,19 @@
 }
 
 #pragma mark - UIScrollViewDelegate
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
     return _imageView;
 }
 
 #pragma mark - 手势处理
-- (void)handleSingleTap:(UITapGestureRecognizer *)tap {
+- (void)handleSingleTap:(UITapGestureRecognizer *)tap
+{
     _doubleTap = NO;
     [self performSelector:@selector(hide) withObject:nil afterDelay:0.2];
 }
-- (void)hide{
+- (void)hide
+{
     if (_doubleTap) return;
     
     // 移除进度条
@@ -259,27 +273,30 @@
     }];
 }
 
-- (void)resets{
+- (void)resets
+{
     _imageView.image = _photo.capture;
     _imageView.contentMode = UIViewContentModeScaleToFill;
 }
 
-- (void)handleDoubleTap:(UITapGestureRecognizer *)tap {
+- (void)handleDoubleTap:(UITapGestureRecognizer *)tap
+{
     _doubleTap = YES;
     
     CGPoint touchPoint = [tap locationInView:self];
     if (self.zoomScale == self.maximumZoomScale) {
         [self setZoomScale:self.minimumZoomScale animated:YES];
     } else {
-        [self zoomToRect:CGRectMake(touchPoint.x*2.5, touchPoint.y*2.5, 1, 1) animated:YES];
+        [self zoomToRect:CGRectMake(touchPoint.x * 2.5, touchPoint.y * 2.5, 1, 1) animated:YES];
     }
 }
 
-- (void)scrollViewDidZoom:(UIScrollView *)scrollView {
-    CGFloat offsetX = (scrollView.bounds.size.width > scrollView.contentSize.width)?(scrollView.bounds.size.width - scrollView.contentSize.width)/2 : 0.0;
-    CGFloat offsetY = (scrollView.bounds.size.height > scrollView.contentSize.height)?(scrollView.bounds.size.height - scrollView.contentSize.height)/2 : 0.0;
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView
+{
+    CGFloat offsetX = (scrollView.bounds.size.width > scrollView.contentSize.width) ? (scrollView.bounds.size.width - scrollView.contentSize.width) / 2 : 0.0;
+    CGFloat offsetY = (scrollView.bounds.size.height > scrollView.contentSize.height) ? (scrollView.bounds.size.height - scrollView.contentSize.height) / 2 : 0.0;
     _imageView.center = CGPointMake(scrollView.contentSize.width/2 + offsetX,scrollView.contentSize.height/2 + offsetY);
-
+    
 }
 
 - (void)dealloc{

@@ -35,7 +35,7 @@
 {
     // 显示页码
     UILabel *_indexLabel;
-    UIButton *_saveImageBtn;
+    UIButton *saveImageBtn;
     
     UIButton *completeBtn;
     UILabel *SendCountLabel;
@@ -78,13 +78,18 @@
     
     // 保存图片按钮
     CGFloat btnWidth = self.bounds.size.height;
-    _saveImageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _saveImageBtn.frame = CGRectMake(20, 0, btnWidth, btnWidth);
-    _saveImageBtn.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    [_saveImageBtn setImage:[ResourcesPhotos save_icon] forState:UIControlStateNormal];
-    [_saveImageBtn setImage:[ResourcesPhotos save_icon_highlighted] forState:UIControlStateHighlighted];
-    [_saveImageBtn addTarget:self action:@selector(saveImage) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_saveImageBtn];
+    saveImageBtn = [UIButton buttonWith];
+    saveImageBtn.frame = CGRectMake(20, 5, btnWidth - 10, btnWidth - 10);
+    saveImageBtn.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    [saveImageBtn setImage:[ResourcesPhotos save_icon] forState:UIControlStateNormal];
+    [saveImageBtn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            CCPhoto *photo = _photos[_currentPhotoIndex];
+            UIImageWriteToSavedPhotosAlbum(photo.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        });
+    }];
+    [self addSubview:saveImageBtn];
+    
     
     SendCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width - (btnWidth + 30), (btnWidth - 20) / 2, 20, 20)];
     SendCountLabel.backgroundColor =  cc_ColorRGBA(0, 204, 51, 1);
@@ -96,7 +101,7 @@
     [self addSubview:SendCountLabel];
     
     if (_IsComlete) {
-        _saveImageBtn.hidden = YES;
+        saveImageBtn.hidden = YES;
         completeBtn = [UIButton buttonWithTitle:@"完成"];
         completeBtn.frame = CGRectMake(self.bounds.size.width - (btnWidth + 10), 0, btnWidth, btnWidth);
         completeBtn.autoresizingMask = UIViewAutoresizingFlexibleHeight;
@@ -112,20 +117,13 @@
     }
 }
 
-- (void)saveImage{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        CCPhoto *photo = _photos[_currentPhotoIndex];
-        UIImageWriteToSavedPhotosAlbum(photo.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-    });
-}
-
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
     if (error) {
         [MBProgressHUD showSuccess:@"保存失败" toView:nil];
     } else {
         CCPhoto *photo = _photos[_currentPhotoIndex];
         photo.save = YES;
-        _saveImageBtn.enabled = NO;
+        saveImageBtn.enabled = NO;
         [MBProgressHUD showSuccess:@"成功保存到相册" toView:nil];
     }
 }
@@ -138,7 +136,7 @@
     
     CCPhoto *photo = _photos[_currentPhotoIndex];
     // 按钮
-    _saveImageBtn.enabled = photo.image != nil && !photo.save;
+    saveImageBtn.enabled = photo.image != nil && !photo.save;
 }
 
 -(void)updataSelectd{
