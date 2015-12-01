@@ -67,7 +67,7 @@
             }
             case NSObjectIDAttributeType:
             case NSBinaryDataAttributeType:
-                 [self setValue:value forKey:attributeName];
+                [self setValue:value forKey:attributeName];
                 break;
             case NSStringAttributeType:
                 [self setValue:[value description] forKey:attributeName];
@@ -102,9 +102,18 @@
     if (relationshipDes.isToMany) {
         NSArray *destinationObjs;
         
-        if ([desClassName isEqualToString:@"NSManagedObject"])
-            destinationObjs = [CoreDataMasterSlave cc_insertCoreDataWithArray:relationshipDes.destinationEntity.name DataArray:value];
-        else
+        if ([desClassName isEqualToString:@"NSManagedObject"]) {
+            NSString *primaryKey = [relationshipDes.destinationEntity.userInfo objectForKey:@"PrimaryKey"];
+            if (primaryKey) {
+                destinationObjs = [CoreDataMasterSlave cc_insertOrUpdateWtihDataArray:relationshipDes.destinationEntity.name 
+                                                                           PrimaryKey:primaryKey 
+                                                                        WithDataArray:value 
+                                                                            inContext:self.managedObjectContext];
+            }else{
+                destinationObjs = [CoreDataMasterSlave cc_insertCoreDataWithArray:relationshipDes.destinationEntity.name 
+                                                                        DataArray:value];
+            }
+        } else
             destinationObjs = [NSClassFromString(desClassName) cc_NewOrUpdateWithArray:value inContext:self.managedObjectContext];
         
         if (destinationObjs != nil && destinationObjs.count > 0) {
