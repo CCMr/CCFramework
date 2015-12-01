@@ -82,7 +82,6 @@
     self = [super init];
     
     if (self) {
-        
     }
     
     return self;
@@ -167,8 +166,10 @@
  */
 - (void)startLink
 {
-    [self addNotification];
-    [self.hubConnection start];
+    if (self.hubConnection.state == disconnected){
+        [self addNotification];
+        [self.hubConnection start];
+    }
 }
 
 /**

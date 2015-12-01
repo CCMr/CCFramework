@@ -28,22 +28,23 @@
 
 @implementation VoiceConverter
 
-+ (int)amrToWav:(NSString *)_amrPath wavSavePath:(NSString *)_savePath
++ (BOOL)amrToWav:(NSString *)_amrPath
+     wavSavePath:(NSString *)_savePath
 {
-    
+    BOOL bol = YES;
     if (!DecodeAMRFileToWAVEFile([_amrPath cStringUsingEncoding:NSASCIIStringEncoding], [_savePath cStringUsingEncoding:NSASCIIStringEncoding]))
-        return 0;
+        bol = NO;
     
-    return 1;
+    return bol;
 }
 
-+ (int)wavToAmr:(NSString *)_wavPath amrSavePath:(NSString *)_savePath
++ (BOOL)wavToAmr:(NSString *)_wavPath
+     amrSavePath:(NSString *)_savePath
 {
-    
+    BOOL bol = NO;
     if (EncodeWAVEFileToAMRFile([_wavPath cStringUsingEncoding:NSASCIIStringEncoding], [_savePath cStringUsingEncoding:NSASCIIStringEncoding], 1, 16))
-        return 0;
-    
-    return 1;
+        bol = YES;
+    return bol;
 }
 
 

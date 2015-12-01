@@ -27,8 +27,10 @@
 
 @interface VoiceConverter : NSObject
 
-+ (int)amrToWav:(NSString *)_amrPath wavSavePath:(NSString *)_savePath;
++ (BOOL)amrToWav:(NSString *)_amrPath
+     wavSavePath:(NSString *)_savePath;
 
-+ (int)wavToAmr:(NSString *)_wavPath amrSavePath:(NSString *)_savePath;
++ (BOOL)wavToAmr:(NSString *)_wavPath
+     amrSavePath:(NSString *)_savePath;
 
 @end

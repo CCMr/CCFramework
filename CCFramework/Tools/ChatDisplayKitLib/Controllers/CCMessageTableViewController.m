@@ -33,6 +33,7 @@
 #import "CCVoiceRecordHelper.h"
 #import "UIScrollView+CCkeyboardControl.h"
 #import "UIScrollView+CCExtension.h"
+#import "CCVoiceCommonHelper.h"
 
 typedef enum {
     CCMessageRefreshStatePulling = 1,    // 松开就可以进行刷新的状态
@@ -151,14 +152,6 @@ const CGFloat CCMessageRefreshViewHeight = 20.0;
  *  初始化显示控件
  */
 - (void)initilzer;
-
-#pragma mark - RecorderPath Helper Method
-/**
- *  获取录音的路径
- *
- *  @return 返回录音的路径
- */
-- (NSString *)getRecorderPath;
 
 #pragma mark - UITextView Helper Method
 /**
@@ -916,15 +909,27 @@ static CGPoint delayOffset = {0.0};
 
 #pragma mark - RecorderPath Helper Method
 
-- (NSString *)getRecorderPath
+/**
+ *  @author CC, 2015-12-01
+ *  
+ *  @brief  获取音频文件名
+ */
+- (NSString *)getVoiceName
 {
-    NSString *recorderPath = nil;
-    recorderPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSDate *now = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyyMMddHHmmssSSS"];
-    recorderPath = [recorderPath stringByAppendingFormat:@"%@-MySound.wav", [dateFormatter stringFromDate:now]];
-    return recorderPath;
+    return [dateFormatter stringFromDate:now];
+}
+
+/**
+ *  @author CC, 2015-12-01
+ *  
+ *  @brief  获取音频文件路径
+ */
+- (NSString *)getRecorderPath
+{
+    return [CCVoiceCommonHelper getCacheDirectory];
 }
 
 #pragma mark - UITextView Helper Method
@@ -1208,7 +1213,7 @@ static CGPoint delayOffset = {0.0};
 
 - (void)prepareRecordWithCompletion:(CCPrepareRecorderCompletion)completion
 {
-    [self.voiceRecordHelper prepareRecordingWithPath:[self getRecorderPath]
+    [self.voiceRecordHelper prepareRecordingWithPath:[self getVoiceName]
                            prepareRecorderCompletion:completion];
 }
 

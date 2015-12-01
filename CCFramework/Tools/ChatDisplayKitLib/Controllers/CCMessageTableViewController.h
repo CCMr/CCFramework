@@ -269,6 +269,14 @@ typedef NS_ENUM(NSUInteger, CCInputViewType) {
  */
 @property (nonatomic, copy)UIView *bottomToolbarView;
 
+#pragma mark - RecorderPath Helper Method
+/**
+ *  获取录音的路径
+ *
+ *  @return 返回录音的路径
+ */
+- (NSString *)getRecorderPath;
+
 #pragma mark - DataSource Change
 /**
  *  添加一条新的消息
