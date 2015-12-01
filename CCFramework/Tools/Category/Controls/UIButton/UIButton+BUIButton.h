@@ -198,6 +198,21 @@
 +(id)buttonWithImageTitle:(NSString *)LeftImage Title:(NSString *)title Frame:(CGRect)frame;
 
 /**
+ *  @author C C, 2015-12-01
+ *
+ *  @brief  右图左文
+ *
+ *  @param rightImage 右图
+ *  @param title      标题
+ *  @param frame      尺寸
+ *
+ *  @return <#return value description#>
+ */
++ (id)buttonWithTitleImage:(NSString *)rightImage
+                     Title:(NSString *)title
+                     Frame:(CGRect)frame;
+
+/**
  *  @author CC, 2015-07-16
  *
  *  @brief  设置背景图片与位置
