@@ -253,7 +253,9 @@
         if (excludeArray && [excludeArray indexOfObject:key] != NSNotFound)
             continue;
         
-        id value = [self analysisValue:properties ValueDdic:dict Key:keys];
+        id value = [self analysisValue:properties 
+                             ValueDdic:dict 
+                                   Key:keys];
         
         NSString *propertyType = [properties objectForKey:key];
         
@@ -451,12 +453,14 @@ static const char *getPropertyType(objc_property_t property)
             value = @"";
         } else if ([propertyType isEqualToString:@"i"] ||
                    [propertyType isEqualToString:@"l"] ||
-                   [propertyType isEqualToString:@"q"] ||
+                   [propertyType isEqualToString:@"q"] || 
                    [propertyType isEqualToString:@"I"]) {
             value = @(-1);
         }else if ([propertyType isEqualToString:@"NSArray"] || 
                   [propertyType isEqualToString:@"NSMutableArray"]){
             value = @[];
+        }else if ([propertyType isEqualToString:@"B"]){
+            value =@(NO);
         }
     }else{
          NSString *propertyType = [properties objectForKey:key];
