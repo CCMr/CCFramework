@@ -110,6 +110,71 @@
                               DataArray:(NSArray *)dataArray;
 
 /**
+ *  @author CC, 2015-11-30
+ *  
+ *  @brief  新增或更新数据
+ *
+ *  @param tableName  表名
+ *  @param primaryKey 主键
+ *  @param data       数据源
+ *
+ *  @return 返回新增或更新对象
+ */
++ (id)cc_insertOrUpdateWtihData:(NSString *)tableName
+                     PrimaryKey:(NSString *)primaryKey
+                       WithData:(NSDictionary *)data;
+
+/**
+ *  @author CC, 2015-11-30
+ *  
+ *  @brief  新增或更新数据
+ *
+ *  @param tableName  表名
+ *  @param primaryKey 主键
+ *  @param data       数据源
+ *  @param context    管理对象
+ *
+ *  @return 返回新增或更新对象
+ */
++ (id)cc_insertOrUpdateWtihData:(NSString *)tableName
+                     PrimaryKey:(NSString *)primaryKey
+                       WithData:(NSDictionary *)data
+                      inContext:(NSManagedObjectContext *)context;
+
+/**
+ *  @author CC, 2015-11-30
+ *  
+ *  @brief  新增或更新数据
+ *
+ *  @param tableName  表名
+ *  @param primaryKey 主键
+ *  @param dataArray  数据集合
+ *  @param context    管理对象
+ *
+ *  @return 返回新增或更新对象集
+ */
++ (NSArray *)cc_insertOrUpdateWtihDataArray:(NSString *)tableName
+                                 PrimaryKey:(NSString *)primaryKey
+                              WithDataArray:(NSArray *)dataArray;
+
+/**
+ *  @author CC, 2015-11-30
+ *  
+ *  @brief  新增或更新数据
+ *
+ *  @param tableName  表名
+ *  @param primaryKey 主键
+ *  @param dataArray  数据集合
+ *  @param context    管理对象
+ *
+ *  @return 返回新增或更新对象集
+ */
++ (NSArray *)cc_insertOrUpdateWtihDataArray:(NSString *)tableName
+                                 PrimaryKey:(NSString *)primaryKey
+                              WithDataArray:(NSArray *)dataArray
+                                  inContext:(NSManagedObjectContext *)context;
+
+/**
  *  @author C C, 2015-10-25
  *
  *  @brief  新增对象及子对象

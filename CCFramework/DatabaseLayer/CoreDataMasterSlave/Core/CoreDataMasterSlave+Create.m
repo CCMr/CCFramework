@@ -158,10 +158,122 @@
 {
     __block NSMutableArray *objs = [NSMutableArray array];
     [dataArray enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        [objs addObject:[self objctWithData:tableName Data:obj inContext:self.saveCurrentContext]];
+        
+        [objs addObject:[self objctWithData:tableName 
+                                       Data:obj 
+                                  inContext:self.saveCurrentContext]];
     }];
     return objs;
 }
+
+/**
+ *  @author CC, 2015-11-30
+ *  
+ *  @brief  新增或更新数据
+ *
+ *  @param tableName  表名
+ *  @param primaryKey 主键
+ *  @param data       数据源
+ *
+ *  @return 返回新增或更新对象
+ */
++ (id)cc_insertOrUpdateWtihData:(NSString *)tableName
+                     PrimaryKey:(NSString *)primaryKey
+                       WithData:(NSDictionary *)data
+{
+    return [self cc_insertOrUpdateWtihData:tableName 
+                                PrimaryKey:primaryKey
+                                  WithData:data
+                                 inContext:self.saveCurrentContext];
+}
+
+/**
+ *  @author CC, 2015-11-30
+ *  
+ *  @brief  新增或更新数据
+ *
+ *  @param tableName  表名
+ *  @param primaryKey 主键
+ *  @param data       数据源
+ *  @param context    管理对象
+ *
+ *  @return 返回新增或更新对象
+ */
++ (id)cc_insertOrUpdateWtihData:(NSString *)tableName
+                     PrimaryKey:(NSString *)primaryKey
+                       WithData:(NSDictionary *)data
+                      inContext:(NSManagedObjectContext *)context
+{
+    NSMutableArray *subPredicates = [NSMutableArray array];
+    NSAttributeDescription *attributeDes = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:context] attributesByName] objectForKey:primaryKey];
+    id remoteValue = [data valueForKeyPath:primaryKey];
+    if (attributeDes.attributeType == NSStringAttributeType) {
+        remoteValue = [remoteValue description];
+    } else {
+        remoteValue = [NSNumber numberWithLongLong:[remoteValue longLongValue]];
+    }
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", primaryKey, remoteValue];
+    [subPredicates addObject:predicate];
+    
+    return [self objctWithData:tableName
+                 SubPredicates:subPredicates
+                          Data:data
+                     inContext:context];
+}
+
+/**
+ *  @author CC, 2015-11-30
+ *  
+ *  @brief  新增或更新数据
+ *
+ *  @param tableName  表名
+ *  @param primaryKey 主键
+ *  @param dataArray  数据集合
+ *  @param context    管理对象
+ *
+ *  @return 返回新增或更新对象集
+ */
++ (NSArray *)cc_insertOrUpdateWtihDataArray:(NSString *)tableName
+                                 PrimaryKey:(NSString *)primaryKey
+                              WithDataArray:(NSArray *)dataArray
+{
+    return [self cc_insertOrUpdateWtihDataArray:tableName 
+                                     PrimaryKey:primaryKey 
+                                  WithDataArray:dataArray 
+                                      inContext:self.saveCurrentContext];
+}
+
+/**
+ *  @author CC, 2015-11-30
+ *  
+ *  @brief  新增或更新数据
+ *
+ *  @param tableName  表名
+ *  @param primaryKey 主键
+ *  @param dataArray  数据集合
+ *  @param context    管理对象
+ *
+ *  @return 返回新增或更新对象集
+ */
++ (NSArray *)cc_insertOrUpdateWtihDataArray:(NSString *)tableName
+                          PrimaryKey:(NSString *)primaryKey
+                       WithDataArray:(NSArray *)dataArray
+                           inContext:(NSManagedObjectContext *)context
+{
+    __block NSMutableArray *array = [NSMutableArray array];
+    [dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        id objData = [self cc_insertOrUpdateWtihData:tableName 
+                             PrimaryKey:primaryKey 
+                               WithData:obj 
+                              inContext:context];
+        
+        [array addObject:objData];
+    }];
+    return array;
+}
+
 
 /**
  *  @author C C, 2015-10-25
@@ -186,7 +298,7 @@
         NSArray *attributes = [entity allAttributeNames];
         NSArray *relationships = [entity allRelationshipNames];
         
-        [data.allKeys enumerateObjectsUsingBlock:^(id  _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
+        [data.allKeys enumerateObjectsUsingBlock:^(id _Nonnull key, NSUInteger idx, BOOL *_Nonnull stop) {
             id remoteValue = [data objectForKey:key];
             if (remoteValue) {
                 if ([attributes containsObject:key]) {

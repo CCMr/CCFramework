@@ -481,18 +481,6 @@
 		420DE47D1BC7942300D87D6D /* ZXMultiFormatWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 420DE2B41BC7942300D87D6D /* ZXMultiFormatWriter.h */; };
 		420DE47E1BC7942300D87D6D /* ZXMultiFormatWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 420DE2B51BC7942300D87D6D /* ZXMultiFormatWriter.m */; };
 		4213943C1BF2D9F50046062B /* SRLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213943B1BF2D9F50046062B /* SRLog.h */; };
-		421558091BFC4B1600470E65 /* amrFileCodec.h in Headers */ = {isa = PBXBuildFile; fileRef = 421557FA1BFC4B1600470E65 /* amrFileCodec.h */; };
-		4215580A1BFC4B1600470E65 /* amrFileCodec.m in Sources */ = {isa = PBXBuildFile; fileRef = 421557FB1BFC4B1600470E65 /* amrFileCodec.m */; };
-		4215580B1BFC4B1600470E65 /* wav.h in Headers */ = {isa = PBXBuildFile; fileRef = 421557FC1BFC4B1600470E65 /* wav.h */; };
-		4215580C1BFC4B1600470E65 /* wav.mm in Sources */ = {isa = PBXBuildFile; fileRef = 421557FD1BFC4B1600470E65 /* wav.mm */; };
-		4215580D1BFC4B1600470E65 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 421557FF1BFC4B1600470E65 /* libopencore-amrnb.a */; };
-		4215580E1BFC4B1600470E65 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 421558001BFC4B1600470E65 /* libopencore-amrwb.a */; };
-		4215580F1BFC4B1600470E65 /* interf_dec.h in Headers */ = {isa = PBXBuildFile; fileRef = 421558021BFC4B1600470E65 /* interf_dec.h */; };
-		421558101BFC4B1600470E65 /* interf_enc.h in Headers */ = {isa = PBXBuildFile; fileRef = 421558031BFC4B1600470E65 /* interf_enc.h */; };
-		421558111BFC4B1600470E65 /* dec_if.h in Headers */ = {isa = PBXBuildFile; fileRef = 421558051BFC4B1600470E65 /* dec_if.h */; };
-		421558121BFC4B1600470E65 /* if_rom.h in Headers */ = {isa = PBXBuildFile; fileRef = 421558061BFC4B1600470E65 /* if_rom.h */; };
-		421558131BFC4B1600470E65 /* VoiceConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 421558071BFC4B1600470E65 /* VoiceConverter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		421558141BFC4B1600470E65 /* VoiceConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 421558081BFC4B1600470E65 /* VoiceConverter.m */; };
 		4220B6181BFAB95A006145FD /* CustomIOSAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4220B6161BFAB95A006145FD /* CustomIOSAlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4220B6191BFAB95A006145FD /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4220B6171BFAB95A006145FD /* CustomIOSAlertView.m */; };
 		422978601BEE3A1100CECBBF /* CCResponseObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4229785E1BEE3A1100CECBBF /* CCResponseObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -510,6 +498,18 @@
 		4238385C1BEA009C00BC2B44 /* CCDropDownMenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4238385A1BEA009C00BC2B44 /* CCDropDownMenuItemView.m */; };
 		423B25301BE9E89900DAF075 /* CCDropDown.h in Headers */ = {isa = PBXBuildFile; fileRef = 423B252E1BE9E89900DAF075 /* CCDropDown.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		423B25311BE9E89900DAF075 /* CCDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 423B252F1BE9E89900DAF075 /* CCDropDown.m */; };
+		4244928E1C0D90F500488AA2 /* amrFileCodec.h in Headers */ = {isa = PBXBuildFile; fileRef = 4244927F1C0D90F500488AA2 /* amrFileCodec.h */; };
+		4244928F1C0D90F500488AA2 /* amrFileCodec.m in Sources */ = {isa = PBXBuildFile; fileRef = 424492801C0D90F500488AA2 /* amrFileCodec.m */; };
+		424492901C0D90F500488AA2 /* wav.h in Headers */ = {isa = PBXBuildFile; fileRef = 424492811C0D90F500488AA2 /* wav.h */; };
+		424492911C0D90F500488AA2 /* wav.mm in Sources */ = {isa = PBXBuildFile; fileRef = 424492821C0D90F500488AA2 /* wav.mm */; };
+		424492921C0D90F500488AA2 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 424492841C0D90F500488AA2 /* libopencore-amrnb.a */; };
+		424492931C0D90F500488AA2 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 424492851C0D90F500488AA2 /* libopencore-amrwb.a */; };
+		424492941C0D90F500488AA2 /* interf_dec.h in Headers */ = {isa = PBXBuildFile; fileRef = 424492871C0D90F500488AA2 /* interf_dec.h */; };
+		424492951C0D90F500488AA2 /* interf_enc.h in Headers */ = {isa = PBXBuildFile; fileRef = 424492881C0D90F500488AA2 /* interf_enc.h */; };
+		424492961C0D90F500488AA2 /* dec_if.h in Headers */ = {isa = PBXBuildFile; fileRef = 4244928A1C0D90F500488AA2 /* dec_if.h */; };
+		424492971C0D90F500488AA2 /* if_rom.h in Headers */ = {isa = PBXBuildFile; fileRef = 4244928B1C0D90F500488AA2 /* if_rom.h */; };
+		424492981C0D90F500488AA2 /* VoiceConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 4244928C1C0D90F500488AA2 /* VoiceConverter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		424492991C0D90F500488AA2 /* VoiceConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4244928D1C0D90F500488AA2 /* VoiceConverter.m */; };
 		42534F1B1BEC39D200F59E40 /* UISearchBar+Addition.h in Headers */ = {isa = PBXBuildFile; fileRef = 42534F191BEC39D200F59E40 /* UISearchBar+Addition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42534F1C1BEC39D200F59E40 /* UISearchBar+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 42534F1A1BEC39D200F59E40 /* UISearchBar+Addition.m */; };
 		425476BD1BD2A9DC0071BBC5 /* CCAliPayEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 425476BB1BD2A9DC0071BBC5 /* CCAliPayEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1695,18 +1695,6 @@
 		420DE2B41BC7942300D87D6D /* ZXMultiFormatWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXMultiFormatWriter.h; sourceTree = "<group>"; };
 		420DE2B51BC7942300D87D6D /* ZXMultiFormatWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXMultiFormatWriter.m; sourceTree = "<group>"; };
 		4213943B1BF2D9F50046062B /* SRLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRLog.h; sourceTree = "<group>"; };
-		421557FA1BFC4B1600470E65 /* amrFileCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amrFileCodec.h; sourceTree = "<group>"; };
-		421557FB1BFC4B1600470E65 /* amrFileCodec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = amrFileCodec.m; sourceTree = "<group>"; };
-		421557FC1BFC4B1600470E65 /* wav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wav.h; sourceTree = "<group>"; };
-		421557FD1BFC4B1600470E65 /* wav.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = wav.mm; sourceTree = "<group>"; };
-		421557FF1BFC4B1600470E65 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
-		421558001BFC4B1600470E65 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
-		421558021BFC4B1600470E65 /* interf_dec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_dec.h; sourceTree = "<group>"; };
-		421558031BFC4B1600470E65 /* interf_enc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_enc.h; sourceTree = "<group>"; };
-		421558051BFC4B1600470E65 /* dec_if.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dec_if.h; sourceTree = "<group>"; };
-		421558061BFC4B1600470E65 /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
-		421558071BFC4B1600470E65 /* VoiceConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceConverter.h; sourceTree = "<group>"; };
-		421558081BFC4B1600470E65 /* VoiceConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceConverter.m; sourceTree = "<group>"; };
 		4220B6161BFAB95A006145FD /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
 		4220B6171BFAB95A006145FD /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
 		4229785E1BEE3A1100CECBBF /* CCResponseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCResponseObject.h; path = ResponseEntity/CCResponseObject.h; sourceTree = "<group>"; };
@@ -1724,6 +1712,18 @@
 		4238385A1BEA009C00BC2B44 /* CCDropDownMenuItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCDropDownMenuItemView.m; path = CCDorpDown/CCDropDownMenuItemView.m; sourceTree = "<group>"; };
 		423B252E1BE9E89900DAF075 /* CCDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDropDown.h; path = CCDorpDown/CCDropDown.h; sourceTree = "<group>"; };
 		423B252F1BE9E89900DAF075 /* CCDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCDropDown.m; path = CCDorpDown/CCDropDown.m; sourceTree = "<group>"; };
+		4244927F1C0D90F500488AA2 /* amrFileCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amrFileCodec.h; sourceTree = "<group>"; };
+		424492801C0D90F500488AA2 /* amrFileCodec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = amrFileCodec.m; sourceTree = "<group>"; };
+		424492811C0D90F500488AA2 /* wav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wav.h; sourceTree = "<group>"; };
+		424492821C0D90F500488AA2 /* wav.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = wav.mm; sourceTree = "<group>"; };
+		424492841C0D90F500488AA2 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
+		424492851C0D90F500488AA2 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
+		424492871C0D90F500488AA2 /* interf_dec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_dec.h; sourceTree = "<group>"; };
+		424492881C0D90F500488AA2 /* interf_enc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_enc.h; sourceTree = "<group>"; };
+		4244928A1C0D90F500488AA2 /* dec_if.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dec_if.h; sourceTree = "<group>"; };
+		4244928B1C0D90F500488AA2 /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
+		4244928C1C0D90F500488AA2 /* VoiceConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceConverter.h; sourceTree = "<group>"; };
+		4244928D1C0D90F500488AA2 /* VoiceConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceConverter.m; sourceTree = "<group>"; };
 		42534F191BEC39D200F59E40 /* UISearchBar+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UISearchBar+Addition.h"; path = "UISearchBar/UISearchBar+Addition.h"; sourceTree = "<group>"; };
 		42534F1A1BEC39D200F59E40 /* UISearchBar+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UISearchBar+Addition.m"; path = "UISearchBar/UISearchBar+Addition.m"; sourceTree = "<group>"; };
 		425476BB1BD2A9DC0071BBC5 /* CCAliPayEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCAliPayEngine.h; path = Pay/Alipay/CCAliPayEngine.h; sourceTree = "<group>"; };
@@ -2455,9 +2455,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4215580D1BFC4B1600470E65 /* libopencore-amrnb.a in Frameworks */,
-				4215580E1BFC4B1600470E65 /* libopencore-amrwb.a in Frameworks */,
 				425477271BD2AEC20071BBC5 /* libcrypto.a in Frameworks */,
+				424492921C0D90F500488AA2 /* libopencore-amrnb.a in Frameworks */,
+				424492931C0D90F500488AA2 /* libopencore-amrwb.a in Frameworks */,
 				425477281BD2AEC20071BBC5 /* libssl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3221,57 +3221,6 @@
 			name = Core;
 			sourceTree = "<group>";
 		};
-		421557F81BFC4B1600470E65 /* VoiceConvert */ = {
-			isa = PBXGroup;
-			children = (
-				421557F91BFC4B1600470E65 /* amrwapper */,
-				421557FE1BFC4B1600470E65 /* lib */,
-				421558011BFC4B1600470E65 /* opencore-amrnb */,
-				421558041BFC4B1600470E65 /* opencore-amrwb */,
-				421558071BFC4B1600470E65 /* VoiceConverter.h */,
-				421558081BFC4B1600470E65 /* VoiceConverter.m */,
-			);
-			path = VoiceConvert;
-			sourceTree = "<group>";
-		};
-		421557F91BFC4B1600470E65 /* amrwapper */ = {
-			isa = PBXGroup;
-			children = (
-				421557FA1BFC4B1600470E65 /* amrFileCodec.h */,
-				421557FB1BFC4B1600470E65 /* amrFileCodec.m */,
-				421557FC1BFC4B1600470E65 /* wav.h */,
-				421557FD1BFC4B1600470E65 /* wav.mm */,
-			);
-			path = amrwapper;
-			sourceTree = "<group>";
-		};
-		421557FE1BFC4B1600470E65 /* lib */ = {
-			isa = PBXGroup;
-			children = (
-				421557FF1BFC4B1600470E65 /* libopencore-amrnb.a */,
-				421558001BFC4B1600470E65 /* libopencore-amrwb.a */,
-			);
-			path = lib;
-			sourceTree = "<group>";
-		};
-		421558011BFC4B1600470E65 /* opencore-amrnb */ = {
-			isa = PBXGroup;
-			children = (
-				421558021BFC4B1600470E65 /* interf_dec.h */,
-				421558031BFC4B1600470E65 /* interf_enc.h */,
-			);
-			path = "opencore-amrnb";
-			sourceTree = "<group>";
-		};
-		421558041BFC4B1600470E65 /* opencore-amrwb */ = {
-			isa = PBXGroup;
-			children = (
-				421558051BFC4B1600470E65 /* dec_if.h */,
-				421558061BFC4B1600470E65 /* if_rom.h */,
-			);
-			path = "opencore-amrwb";
-			sourceTree = "<group>";
-		};
 		4229785D1BEE39E000CECBBF /* ResponseEntity */ = {
 			isa = PBXGroup;
 			children = (
@@ -3320,6 +3269,57 @@
 				4238385A1BEA009C00BC2B44 /* CCDropDownMenuItemView.m */,
 			);
 			name = CCDorpDown;
+			sourceTree = "<group>";
+		};
+		4244927D1C0D90F500488AA2 /* VoiceConvert */ = {
+			isa = PBXGroup;
+			children = (
+				4244927E1C0D90F500488AA2 /* amrwapper */,
+				424492831C0D90F500488AA2 /* lib */,
+				424492861C0D90F500488AA2 /* opencore-amrnb */,
+				424492891C0D90F500488AA2 /* opencore-amrwb */,
+				4244928C1C0D90F500488AA2 /* VoiceConverter.h */,
+				4244928D1C0D90F500488AA2 /* VoiceConverter.m */,
+			);
+			path = VoiceConvert;
+			sourceTree = "<group>";
+		};
+		4244927E1C0D90F500488AA2 /* amrwapper */ = {
+			isa = PBXGroup;
+			children = (
+				4244927F1C0D90F500488AA2 /* amrFileCodec.h */,
+				424492801C0D90F500488AA2 /* amrFileCodec.m */,
+				424492811C0D90F500488AA2 /* wav.h */,
+				424492821C0D90F500488AA2 /* wav.mm */,
+			);
+			path = amrwapper;
+			sourceTree = "<group>";
+		};
+		424492831C0D90F500488AA2 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				424492841C0D90F500488AA2 /* libopencore-amrnb.a */,
+				424492851C0D90F500488AA2 /* libopencore-amrwb.a */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		424492861C0D90F500488AA2 /* opencore-amrnb */ = {
+			isa = PBXGroup;
+			children = (
+				424492871C0D90F500488AA2 /* interf_dec.h */,
+				424492881C0D90F500488AA2 /* interf_enc.h */,
+			);
+			path = "opencore-amrnb";
+			sourceTree = "<group>";
+		};
+		424492891C0D90F500488AA2 /* opencore-amrwb */ = {
+			isa = PBXGroup;
+			children = (
+				4244928A1C0D90F500488AA2 /* dec_if.h */,
+				4244928B1C0D90F500488AA2 /* if_rom.h */,
+			);
+			path = "opencore-amrwb";
 			sourceTree = "<group>";
 		};
 		42534F181BEC39AE00F59E40 /* UISearchBar */ = {
@@ -4953,7 +4953,7 @@
 		429C9F471B9EF8BF0013A44A /* Vender */ = {
 			isa = PBXGroup;
 			children = (
-				421557F81BFC4B1600470E65 /* VoiceConvert */,
+				4244927D1C0D90F500488AA2 /* VoiceConvert */,
 				425475F71BD29C0A0071BBC5 /* Pay */,
 			);
 			path = Vender;
@@ -5274,7 +5274,6 @@
 				425477711BD2AEC20071BBC5 /* x509.h in Headers */,
 				4254773D1BD2AEC20071BBC5 /* dso.h in Headers */,
 				425477551BD2AEC20071BBC5 /* ossl_typ.h in Headers */,
-				421558131BFC4B1600470E65 /* VoiceConverter.h in Headers */,
 				425477531BD2AEC20071BBC5 /* opensslconf.h in Headers */,
 				420DE4061BC7942300D87D6D /* ZXUPCEANExtension2Support.h in Headers */,
 				420DE40A1BC7942300D87D6D /* ZXUPCEANExtensionSupport.h in Headers */,
@@ -5293,6 +5292,7 @@
 				420DE2C61BC7942300D87D6D /* ZXAztecToken.h in Headers */,
 				425477771BD2AEC20071BBC5 /* DataSigner.h in Headers */,
 				42D404C31BC9EB6A00C62FBD /* UIAlertView+Additional.h in Headers */,
+				4244928E1C0D90F500488AA2 /* amrFileCodec.h in Headers */,
 				420DE4141BC7942300D87D6D /* ZXModulusPoly.h in Headers */,
 				420DE4711BC7942300D87D6D /* ZXMultiFinderPatternFinder.h in Headers */,
 				420DE3951BC7942300D87D6D /* ZXMaxiCodeBitMatrixParser.h in Headers */,
@@ -5311,6 +5311,7 @@
 				420DE3C11BC7942300D87D6D /* ZXRSSExpandedDecodedNumeric.h in Headers */,
 				420DE3BB1BC7942300D87D6D /* ZXRSSExpandedCurrentParsingState.h in Headers */,
 				420DE3CF1BC7942300D87D6D /* ZXRSSExpandedRow.h in Headers */,
+				424492941C0D90F500488AA2 /* interf_dec.h in Headers */,
 				4254774E1BD2AEC20071BBC5 /* mdc2.h in Headers */,
 				420DE3CB1BC7942300D87D6D /* ZXRSSExpandedPair.h in Headers */,
 				420DE3C71BC7942300D87D6D /* ZXRSSExpandedGeneralAppIdDecoder.h in Headers */,
@@ -5337,7 +5338,6 @@
 				420DE38E1BC7942300D87D6D /* ZXDataMatrixX12Encoder.h in Headers */,
 				420DE36D1BC7942300D87D6D /* ZXDataMatrixDataBlock.h in Headers */,
 				420DE37B1BC7942300D87D6D /* ZXDataMatrixC40Encoder.h in Headers */,
-				421558091BFC4B1600470E65 /* amrFileCodec.h in Headers */,
 				425477421BD2AEC20071BBC5 /* ecdh.h in Headers */,
 				4254775A1BD2AEC20071BBC5 /* pqueue.h in Headers */,
 				425477311BD2AEC20071BBC5 /* camellia.h in Headers */,
@@ -5430,6 +5430,7 @@
 				429C9F6C1B9EF8BF0013A44A /* CCUserDefaultsCrash.h in Headers */,
 				429CA0641B9EF8BF0013A44A /* CCPickerViewController.h in Headers */,
 				429C9F721B9EF8BF0013A44A /* CCHTTPRequest.h in Headers */,
+				424492901C0D90F500488AA2 /* wav.h in Headers */,
 				429C9F9E1B9EF8BF0013A44A /* CCScanningView.h in Headers */,
 				425477661BD2AEC20071BBC5 /* ssl2.h in Headers */,
 				429C9F4A1B9EF8BF0013A44A /* BaseAppDelegate.h in Headers */,
@@ -5464,7 +5465,6 @@
 				42B30DE51BBD72AD0039BB94 /* SDWebImageOperation.h in Headers */,
 				42D8CB371BDDB1EF007CAC62 /* CCCoreData.h in Headers */,
 				429CA0FD1B9EF8BF0013A44A /* CCCacheManager.h in Headers */,
-				4215580F1BFC4B1600470E65 /* interf_dec.h in Headers */,
 				429CA1201B9EF8BF0013A44A /* CCEmotionManagerView.h in Headers */,
 				429C9F4C1B9EF8BF0013A44A /* BaseNavigationController.h in Headers */,
 				426979391BA695BA00C3E93C /* AFURLResponseSerialization.h in Headers */,
@@ -5642,6 +5642,7 @@
 				420DE30E1BC7942300D87D6D /* ZXVEventResultParser.h in Headers */,
 				420DE3141BC7942300D87D6D /* ZXWifiParsedResult.h in Headers */,
 				420DE3161BC7942300D87D6D /* ZXWifiResultParser.h in Headers */,
+				424492981C0D90F500488AA2 /* VoiceConverter.h in Headers */,
 				42A356371BF4399800B6F1F2 /* CCRefreshConst.h in Headers */,
 				420DE44D1BC7942300D87D6D /* ZXQRCodeDecoder.h in Headers */,
 				420DE4551BC7942300D87D6D /* ZXQRCodeMode.h in Headers */,
@@ -5726,12 +5727,14 @@
 				429C9F5A1B9EF8BF0013A44A /* BaseTableViewHeaderFooterView.h in Headers */,
 				429CA1071B9EF8BF0013A44A /* CCMessageVoiceFactory.h in Headers */,
 				429C9FA01B9EF8BF0013A44A /* CCSecurityStrategy.h in Headers */,
+				424492961C0D90F500488AA2 /* dec_if.h in Headers */,
 				42C208ED1BDE14FC00C76004 /* ChatDisplayKitLib.h in Headers */,
 				4254775B1BD2AEC20071BBC5 /* rand.h in Headers */,
 				429CA06D1B9EF8BF0013A44A /* CCPickerCollectionView.h in Headers */,
 				429C9FA41B9EF8BF0013A44A /* CCIntroductionViewController.h in Headers */,
 				425477341BD2AEC20071BBC5 /* cms.h in Headers */,
 				429CA0E71B9EF8BF0013A44A /* UIWindow+BUIWindow.h in Headers */,
+				424492971C0D90F500488AA2 /* if_rom.h in Headers */,
 				429C9F631B9EF8BF0013A44A /* EnumConfig.h in Headers */,
 				4254772C1BD2AEC20071BBC5 /* asn1t.h in Headers */,
 				429C9F701B9EF8BF0013A44A /* CCHTTPManager.h in Headers */,
@@ -5755,6 +5758,7 @@
 				425477561BD2AEC20071BBC5 /* pem.h in Headers */,
 				425477581BD2AEC20071BBC5 /* pkcs12.h in Headers */,
 				42B30DE31BBD72AD0039BB94 /* SDWebImageCompat.h in Headers */,
+				424492951C0D90F500488AA2 /* interf_enc.h in Headers */,
 				429CA0911B9EF8BF0013A44A /* CCWebViewController.h in Headers */,
 				426476A81BD0E3AF00EE191C /* CCUtilityButtonTapGestureRecognizer.h in Headers */,
 				426979331BA695BA00C3E93C /* AFNetworkReachabilityManager.h in Headers */,
@@ -5769,7 +5773,6 @@
 				429C9F501B9EF8BF0013A44A /* NavMainViewController.h in Headers */,
 				429CA0DF1B9EF8BF0013A44A /* UIView+BUIView.h in Headers */,
 				429CA0051B9EF8BF0013A44A /* CCAnimatedImage.h in Headers */,
-				421558101BFC4B1600470E65 /* interf_enc.h in Headers */,
 				429CA0601B9EF8BF0013A44A /* CCPickerAssetsViewController.h in Headers */,
 				429CA0D91B9EF8BF0013A44A /* UIImage+RoundedCorner.h in Headers */,
 				429CA0891B9EF8BF0013A44A /* CCAutoTextView.h in Headers */,
@@ -5783,7 +5786,6 @@
 				429CA0B71B9EF8BF0013A44A /* CALayer+Transition.h in Headers */,
 				429CA1261B9EF8BF0013A44A /* CCAnnotation.h in Headers */,
 				429C9FBA1B9EF8BF0013A44A /* FriendGroup.h in Headers */,
-				4215580B1BFC4B1600470E65 /* wav.h in Headers */,
 				4254776D1BD2AEC20071BBC5 /* txt_db.h in Headers */,
 				429C9F621B9EF8BF0013A44A /* Config.h in Headers */,
 				429CA1051B9EF8BF0013A44A /* CCMessageVideoConverPhotoFactory.h in Headers */,
@@ -5832,7 +5834,6 @@
 				425477291BD2AEC20071BBC5 /* aes.h in Headers */,
 				420DE45B1BC7942300D87D6D /* ZXQRCodeAlignmentPatternFinder.h in Headers */,
 				425477301BD2AEC20071BBC5 /* buffer.h in Headers */,
-				421558111BFC4B1600470E65 /* dec_if.h in Headers */,
 				426476A21BD0E3AF00EE191C /* CCCellScrollView.h in Headers */,
 				420DE4451BC7942300D87D6D /* ZXQRCodeBitMatrixParser.h in Headers */,
 				420DE44B1BC7942300D87D6D /* ZXQRCodeDecodedBitStreamParser.h in Headers */,
@@ -5842,7 +5843,6 @@
 				420DE3A71BC7942300D87D6D /* ZXAI01320xDecoder.h in Headers */,
 				425477671BD2AEC20071BBC5 /* ssl23.h in Headers */,
 				425477491BD2AEC20071BBC5 /* krb5_asn.h in Headers */,
-				421558121BFC4B1600470E65 /* if_rom.h in Headers */,
 				425477681BD2AEC20071BBC5 /* ssl3.h in Headers */,
 				425477321BD2AEC20071BBC5 /* cast.h in Headers */,
 				42A58A401BCC94320027429C /* CCQRCodeDisplayViewController.h in Headers */,
@@ -6103,7 +6103,6 @@
 				429C9FBD1B9EF8BF0013A44A /* MBProgressHUD.m in Sources */,
 				42B30DE01BBD72AD0039BB94 /* SDWebImageDownloader.m in Sources */,
 				420DE3381BC7942300D87D6D /* ZXCharacterSetECI.m in Sources */,
-				4215580A1BFC4B1600470E65 /* amrFileCodec.m in Sources */,
 				429CA0351B9EF8BF0013A44A /* CCPhotoLoadingView.m in Sources */,
 				429C9FC21B9EF8BF0013A44A /* SRHubInvocation.m in Sources */,
 				429CA0E21B9EF8BF0013A44A /* UIView+CCBadgeView.m in Sources */,
@@ -6122,7 +6121,6 @@
 				429CA0001B9EF8BF0013A44A /* CCRourRotation.m in Sources */,
 				420DE2FF1BC7942300D87D6D /* ZXSMTPResultParser.m in Sources */,
 				4265289B1BECA1AB0096C0EF /* CCLoadingView.m in Sources */,
-				4215580C1BFC4B1600470E65 /* wav.mm in Sources */,
 				420DE36C1BC7942300D87D6D /* ZXDataMatrixBitMatrixParser.m in Sources */,
 				429CA0241B9EF8BF0013A44A /* CCMessageTextView.m in Sources */,
 				4267DD0C1BDB5A7000B0C43F /* NSManagedObject+Queries.m in Sources */,
@@ -6165,6 +6163,7 @@
 				429CA0371B9EF8BF0013A44A /* CCPhotoProgressView.m in Sources */,
 				420DE3D81BC7942300D87D6D /* ZXRSSFinderPattern.m in Sources */,
 				420DE2BB1BC7942300D87D6D /* ZXAztecBinaryShiftToken.m in Sources */,
+				424492991C0D90F500488AA2 /* VoiceConverter.m in Sources */,
 				420DE4171BC7942300D87D6D /* ZXPDF417ECErrorCorrection.m in Sources */,
 				429CA0FC1B9EF8BF0013A44A /* CCMessageTableViewController.m in Sources */,
 				420DE2E21BC7942300D87D6D /* ZXEmailDoCoMoResultParser.m in Sources */,
@@ -6367,6 +6366,7 @@
 				420DE4521BC7942300D87D6D /* ZXQRCodeErrorCorrectionLevel.m in Sources */,
 				429C9F571B9EF8BF0013A44A /* BaseTableViewController.m in Sources */,
 				420DE30F1BC7942300D87D6D /* ZXVEventResultParser.m in Sources */,
+				4244928F1C0D90F500488AA2 /* amrFileCodec.m in Sources */,
 				42534F1C1BEC39D200F59E40 /* UISearchBar+Addition.m in Sources */,
 				420DE40D1BC7942300D87D6D /* ZXUPCEANReader.m in Sources */,
 				420DE40B1BC7942300D87D6D /* ZXUPCEANExtensionSupport.m in Sources */,
@@ -6390,7 +6390,6 @@
 				42D0EDF71BBA68E10032A489 /* ResourcesPhotos.m in Sources */,
 				429CA0EC1B9EF8BF0013A44A /* CCCaptureHelper.m in Sources */,
 				42E2E8211B9FB97700B2CE90 /* UITableView+Additions.m in Sources */,
-				421558141BFC4B1600470E65 /* VoiceConverter.m in Sources */,
 				429C9FAB1B9EF8BF0013A44A /* CCThemeManager.m in Sources */,
 				426979471BA695BA00C3E93C /* UIProgressView+AFNetworking.m in Sources */,
 				42B647551BEDE08F00B2F6FD /* CCHTTPManager+PUT.m in Sources */,
@@ -6512,6 +6511,7 @@
 				429C9FA91B9EF8BF0013A44A /* SmoothViewController.m in Sources */,
 				42B647521BEDE08F00B2F6FD /* CCHTTPManager+DELETE.m in Sources */,
 				420DE3661BC7942300D87D6D /* ZXResultPoint.m in Sources */,
+				424492911C0D90F500488AA2 /* wav.mm in Sources */,
 				420DE4331BC7942300D87D6D /* ZXPDF417BarcodeMatrix.m in Sources */,
 				429C9FE31B9EF8BF0013A44A /* SRNegotiationResponse.m in Sources */,
 				429C9FDA1B9EF8BF0013A44A /* SRConnectionExtensions.m in Sources */,

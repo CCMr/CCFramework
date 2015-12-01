@@ -198,7 +198,8 @@
  */
 + (NSArray *)executeQueriesContext:(NSFetchRequest *)request
 {
-    return [self executeQueriesContext:self.currentContext FetchRequest:request];
+    return [self executeQueriesContext:self.currentContext
+                          FetchRequest:request];
 }
 
 /**

@@ -278,8 +278,22 @@
         NSError *error = nil;
         NSArray *datas = [currentContext executeFetchRequest:fetchRequest error:&error];
         if (!error && datas && [datas count]) {
-            [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                [obj setValue:attributeValue forKey:attributeName];
+            [datas enumerateObjectsUsingBlock:^(id entity, NSUInteger idx, BOOL *stop) {
+                
+                NSArray *attributes = [entity allAttributeNames];
+                NSArray *relationships = [entity allRelationshipNames];
+                
+                if (attributeValue) {
+                    if ([attributes containsObject:attributeName]) {
+                        [entity mergeAttributeForKey:attributeName
+                                           withValue:attributeValue];
+                        
+                    }else if ([relationships containsObject:attributeName]) {
+                        [entity mergeRelationshipForKey:attributeName
+                                              withValue:attributeValue
+                                                  IsAdd:NO];
+                    }
+                }
             }];
         }
     } completion:completion];
@@ -438,7 +452,12 @@
 {
     __block NSMutableArray *objs = [NSMutableArray array];
     [dataAry enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        NSManagedObject *managedObject = [self objctWithData:tableName PrimaryKeys:primaryKeys Data:obj inContext:self.saveCurrentContext];
+        
+        NSManagedObject *managedObject = [self objctWithData:tableName 
+                                                 PrimaryKeys:primaryKeys 
+                                                        Data:obj 
+                                                   inContext:self.saveCurrentContext];
+        
         [objs addObject:[managedObject changedDictionary]];
     }];
     
@@ -594,7 +613,10 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", primaryKeys, remoteValue];
     [subPredicates addObject:predicate];
     
-    return [self objctWithData:tableName SubPredicates:subPredicates Data:data inContext:context];
+    return [self objctWithData:tableName 
+                 SubPredicates:subPredicates 
+                          Data:data 
+                     inContext:context];
 }
 
 /**
@@ -628,9 +650,11 @@
         BOOL IsAdd;
         if (objectID) {
             IsAdd = NO;
-            entity = [context existingObjectWithID:objectID error:nil];
+            entity = [context existingObjectWithID:objectID
+                                             error:nil];
         } else {
-            entity = [NSEntityDescription insertNewObjectForEntityForName:tableName inManagedObjectContext:context];
+            entity = [NSEntityDescription insertNewObjectForEntityForName:tableName 
+                                                   inManagedObjectContext:context];
             IsAdd = YES;
         }
         
