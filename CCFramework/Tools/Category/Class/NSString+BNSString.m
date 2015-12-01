@@ -506,9 +506,9 @@
  *
  *  @return 返回长宽
  */
-- (CGSize)calculateTextWidthHeight
+- (CGSize)calculateTextWidthHeight:(UIFont *)font
 {
-    return [self sizeWithFont:[UIFont systemFontOfSize:[UIFont systemFontSize]]
+    return [self sizeWithFont:font
             constrainedToSize:CGSizeMake(MAXFLOAT, MAXFLOAT)
                 lineBreakMode:NSLineBreakByWordWrapping];
 }

@@ -188,7 +188,7 @@
  *
  *  @return 返回长宽
  */
-- (CGSize)calculateTextWidthHeight;
+- (CGSize)calculateTextWidthHeight:(UIFont *)font;
 
 #pragma mark - 加密
 /**
