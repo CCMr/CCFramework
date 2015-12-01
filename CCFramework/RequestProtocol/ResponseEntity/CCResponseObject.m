@@ -36,6 +36,9 @@
         
         if ([datas isKindOfClass:[NSString class]])
             datas = [bodyMessage dataUsingEncoding:NSUTF8StringEncoding];
+        else if ([bodyMessage integerValue])
+            datas = [[NSString stringWithFormat:@"%@",bodyMessage] dataUsingEncoding:NSUTF8StringEncoding];
+        
         
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:datas
                                                             options:NSJSONReadingAllowFragments
