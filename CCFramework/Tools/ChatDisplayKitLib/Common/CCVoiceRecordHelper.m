@@ -23,9 +23,10 @@
 // THE SOFTWARE.
 //
 
-#import "CCVoiceRecordHelper.h"
-#import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import "CCVoiceRecordHelper.h"
+#import "CCVoiceCommonHelper.h"
 #import "Config.h"
 
 @interface CCVoiceRecordHelper () <AVAudioRecorderDelegate> {
@@ -140,11 +141,6 @@
             return;
         }
         
-        NSMutableDictionary *recordSetting = [NSMutableDictionary dictionary];
-        [recordSetting setValue:[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
-        [recordSetting setValue:[NSNumber numberWithFloat:16000.0] forKey:AVSampleRateKey];
-        [recordSetting setValue:[NSNumber numberWithInt:1] forKey:AVNumberOfChannelsKey];
-        
         if (weakSelf) {
             STRONGSELF;
             strongSelf.recordPath = path;
@@ -153,7 +149,7 @@
             if (strongSelf.recorder) {
                 [strongSelf cancelRecording];
             } else {
-                strongSelf.recorder = [[AVAudioRecorder alloc] initWithURL:[NSURL fileURLWithPath:strongSelf.recordPath] settings:recordSetting error:&error];
+                strongSelf.recorder = [[AVAudioRecorder alloc] initWithURL:[NSURL fileURLWithPath:[CCVoiceCommonHelper getPathByFileName:strongSelf.recordPath ofType:@"wav"]] settings:[CCVoiceCommonHelper getAudioRecorderSettingDict] error:&error];
                 strongSelf.recorder.delegate = strongSelf;
                 
                 [strongSelf.recorder prepareToRecord];
