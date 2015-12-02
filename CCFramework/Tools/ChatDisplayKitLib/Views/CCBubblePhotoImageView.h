@@ -34,12 +34,12 @@
 /**
  *  发送后，需要显示的图片消息的图片，或者是视频的封面
  */
-@property (nonatomic, strong) UIImage *messagePhoto;
+@property(nonatomic, strong) UIImage *messagePhoto;
 
 /**
  *  加载网络图片的时候，需要用到转圈的控件
  */
-@property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
+@property(nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
 
 /**
  *
@@ -55,7 +55,10 @@
  *  @param originPhotoUrl    目标图片原图的URL链接
  *  @param bubbleMessageType 目标消息类型
  */
-- (void)configureMessagePhoto:(UIImage *)messagePhoto thumbnailUrl:(NSString *)thumbnailUrl originPhotoUrl:(NSString *)originPhotoUrl onBubbleMessageType:(CCBubbleMessageType)bubbleMessageType;
+- (void)configureMessagePhoto:(UIImage *)messagePhoto
+                 thumbnailUrl:(NSString *)thumbnailUrl
+               originPhotoUrl:(NSString *)originPhotoUrl
+          onBubbleMessageType:(CCBubbleMessageType)bubbleMessageType;
 
 /**
  *  获取消息类型比如发送或接收

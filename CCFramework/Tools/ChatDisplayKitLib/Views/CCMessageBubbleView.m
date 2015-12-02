@@ -32,14 +32,17 @@
 #import "CCMessageBubbleFactory.h"
 #import "CCMessageVoiceFactory.h"
 
-#define kCCHaveBubbleMargin 10.0f // 距离气泡上下边的间隙
+#define kCCHaveBubbleMargin 8.0f       // 文本、视频、表情气泡上下边的间隙
+#define kCCHaveBubbleVoiceMargin 13.5f // 语音气泡上下边的间隙
+#define kCCHaveBubblePhotoMargin 6.5f  // 图片、地理位置气泡上下边的间隙
 
-#define kCCVoiceMargin 20.0f // 语音间隙
+#define kCCVoiceMargin 20.0f // 播放语音时的动画控件距离头像的间隙
 
-#define kCCArrowMarginWidth 9.0f // 箭头宽度
+#define kCCArrowMarginWidth 5.2f // 箭头宽度
 
-#define kCCLeftTextHorizontalBubblePadding 10.0f  // 文本的水平间隙
-#define kCCRightTextHorizontalBubblePadding 10.0f // 文本的水平间隙
+#define kCCTopAndBottomBubbleMargin 13.0f	 // 文本在气泡内部的上下间隙
+#define kCCLeftTextHorizontalBubblePadding 13.0f  // 文本的水平间隙
+#define kCCRightTextHorizontalBubblePadding 13.0f // 文本的水平间隙
 
 #define kCCUnReadDotSize 10.0f // 语音未读的红点大小
 
@@ -586,34 +589,40 @@
         case CCBubbleMessageMediaTypeVoice:
         case CCBubbleMessageMediaTypeEmotion: {
             // 获取实际气泡的大小
+            CGRect bubbleFrame = [self bubbleFrame];
             self.bubbleImageView.frame = bubbleFrame;
             
-            CGFloat textX = CGRectGetMinX(bubbleFrame) + kCCRightTextHorizontalBubblePadding;
-            if (self.message.bubbleMessageType == CCBubbleMessageTypeReceiving) {
-                textX = CGRectGetMinX(bubbleFrame) + kCCArrowMarginWidth + kCCLeftTextHorizontalBubblePadding;
+            if (currentType == CCBubbleMessageMediaTypeText) {
+                CGFloat textX = -(kCCArrowMarginWidth / 2.0);
+                if (self.message.bubbleMessageType == CCBubbleMessageTypeReceiving) {
+                    textX = kCCArrowMarginWidth / 2.0;
+                }
+                CGRect displayTextViewFrame = CGRectZero;
+                displayTextViewFrame.size.width = CGRectGetWidth(bubbleFrame) - kCCLeftTextHorizontalBubblePadding - kCCRightTextHorizontalBubblePadding - kCCArrowMarginWidth;
+                displayTextViewFrame.size.height = CGRectGetHeight(bubbleFrame) - kCCHaveBubbleMargin * 3;
+                self.displayTextView.frame = displayTextViewFrame;
+                self.displayTextView.center = CGPointMake(self.bubbleImageView.center.x + textX, self.bubbleImageView.center.y);
             }
             
-            CGRect textFrame = CGRectMake(textX,
-                                          CGRectGetMinY(bubbleFrame) + kCCHaveBubbleMargin,
-                                          CGRectGetWidth(bubbleFrame) - kCCLeftTextHorizontalBubblePadding - kCCRightTextHorizontalBubblePadding - kCCArrowMarginWidth,
-                                          bubbleFrame.size.height - kCCHaveBubbleMargin * 2);
-            textFrame.size.width += 10; //计算宽度有误
-            self.displayTextView.frame = CGRectIntegral(textFrame);
-            
-            CGRect animationVoiceImageViewFrame = self.animationVoiceImageView.frame;
-            CGFloat voiceImagePaddingX = CGRectGetMaxX(bubbleFrame) - kCCVoiceMargin - CGRectGetWidth(animationVoiceImageViewFrame);
-            if (self.message.bubbleMessageType == CCBubbleMessageTypeReceiving) {
-                voiceImagePaddingX = CGRectGetMinX(bubbleFrame) + kCCVoiceMargin;
+            if (currentType == CCBubbleMessageMediaTypeVoice) {
+                // 配置语音播放的位置
+                CGRect animationVoiceImageViewFrame = self.animationVoiceImageView.frame;
+                CGFloat voiceImagePaddingX = CGRectGetMaxX(bubbleFrame) - kCCVoiceMargin - CGRectGetWidth(animationVoiceImageViewFrame);
+                if (self.message.bubbleMessageType == CCBubbleMessageTypeReceiving) {
+                    voiceImagePaddingX = CGRectGetMinX(bubbleFrame) + kCCVoiceMargin;
+                }
+                animationVoiceImageViewFrame.origin = CGPointMake(voiceImagePaddingX, CGRectGetMidY(bubbleFrame) - CGRectGetHeight(animationVoiceImageViewFrame) / 2.0); // 垂直居中
+                self.animationVoiceImageView.frame = animationVoiceImageViewFrame;
+                
+                [self configureVoiceDurationLabelFrameWithBubbleFrame:bubbleFrame];
+                [self configureVoiceUnreadDotImageViewFrameWithBubbleFrame:bubbleFrame];
             }
-            animationVoiceImageViewFrame.origin = CGPointMake(voiceImagePaddingX, CGRectGetMidY(textFrame) - CGRectGetHeight(animationVoiceImageViewFrame) / 2); // 垂直居中
-            self.animationVoiceImageView.frame = animationVoiceImageViewFrame;
             
-            [self configureVoiceDurationLabelFrameWithBubbleFrame:bubbleFrame];
-            [self configureVoiceUnreadDotImageViewFrameWithBubbleFrame:bubbleFrame];
-            
-            CGRect emotionImageViewFrame = bubbleFrame;
-            emotionImageViewFrame.size = [CCMessageBubbleView neededSizeForEmotion];
-            self.emotionImageView.frame = emotionImageViewFrame;
+            if (currentType == CCBubbleMessageMediaTypeEmotion) {
+                CGRect emotionImageViewFrame = bubbleFrame;
+                emotionImageViewFrame.size = [CCMessageBubbleView neededSizeForEmotion];
+                self.emotionImageView.frame = emotionImageViewFrame;
+            }
             break;
         }
         case CCBubbleMessageMediaTypePhoto:
@@ -624,19 +633,22 @@
             if (self.message.bubbleMessageType == CCBubbleMessageTypeSending) {
                 paddingX = CGRectGetWidth(self.bounds) - needPhotoSize.width;
             }
-            CGRect photoImageViewFrame = CGRectMake(paddingX, kCCNoneBubblePhotoMargin, needPhotoSize.width, needPhotoSize.height);
+            
+            CGFloat marginY = kCCNoneBubblePhotoMargin;
+            if (currentType == CCBubbleMessageMediaTypePhoto || currentType == CCBubbleMessageMediaTypeLocalPosition) {
+                marginY = kCCHaveBubblePhotoMargin;
+            }
+            
+            CGRect photoImageViewFrame = CGRectMake(paddingX, marginY, needPhotoSize.width, needPhotoSize.height);
             
             self.bubblePhotoImageView.frame = photoImageViewFrame;
-            
-            self.bubbleImageView.frame = photoImageViewFrame;
             
             self.videoPlayImageView.center = CGPointMake(CGRectGetWidth(photoImageViewFrame) / 2.0, CGRectGetHeight(photoImageViewFrame) / 2.0);
             
             CGRect geolocationsLabelFrame = CGRectMake(11, CGRectGetHeight(photoImageViewFrame) - 47, CGRectGetWidth(photoImageViewFrame) - 20, 40);
             self.geolocationsLabel.frame = geolocationsLabelFrame;
             
-            break;
-        }
+            break;        }
         default:
             break;
     }
