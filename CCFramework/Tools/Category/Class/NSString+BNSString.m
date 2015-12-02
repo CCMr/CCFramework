@@ -387,6 +387,23 @@
 }
 
 /**
+ *  @author CC, 2015-12-02
+ *  
+ *  @brief  字符串转换日期带'T'
+ */
+- (NSDate *)convertingTStringsToDate
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    [formatter setLocale:[NSLocale currentLocale]];
+    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+    
+    NSDate *parsedDate = [formatter dateFromString:self];
+
+    return parsedDate;
+}
+
+/**
  *  @author CC, 2015-07-22
  *
  *  @brief  转换货币格式

@@ -90,7 +90,7 @@
  *
  *  @return 返回编码后的字符串
  */
-- (NSString*)decodeBase64String;
+- (NSString *)decodeBase64String;
 
 /**
  *  @author C C, 2015-07-21
@@ -104,6 +104,13 @@
  *  @since 1.0
  */
 - (NSDate *)convertingStringsToDate:(NSString *)strFormat;
+
+/**
+ *  @author CC, 2015-12-02
+ *  
+ *  @brief  字符串转换日期带'T'
+ */
+- (NSDate *)convertingTStringsToDate;
 
 /**
  *  @author C C, 2015-07-22 
@@ -137,8 +144,8 @@
  *
  *  @return 二维码图片
  */
-- (UIImage *)becomeQRCodeWithQRstring: (int)width
-                            withHight: (int)height;
+- (UIImage *)becomeQRCodeWithQRstring:(int)width
+                            withHight:(int)height;
 
 /**
  *  @author CC, 15-09-02
@@ -234,7 +241,7 @@
  *
  *  @since 1.0
  */
-+(NSString *)documentFolder;
++ (NSString *)documentFolder;
 
 /**
  *  @author CC, 15-08-21
@@ -245,7 +252,7 @@
  *
  *  @since 1.0
  */
-+(NSString *)cachesFolder;
++ (NSString *)cachesFolder;
 
 /**
  *  @author CC, 15-08-21
