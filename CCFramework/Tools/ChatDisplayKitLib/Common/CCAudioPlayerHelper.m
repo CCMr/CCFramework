@@ -135,15 +135,15 @@
  *
  *  @param ptah 请求地址
  */
-- (void)downloadManagerAudioWithFileName:(NSString *)ptah
+- (void)downloadManagerAudioWithFileName:(NSString *)path
                                 Complete:(void (^)(NSString *path))complete
 {
-    if (!ptah) return;
+    if (!path) return;
     
-    NSString *fileName = [[ptah componentsSeparatedByString:@"/"].lastObject componentsSeparatedByString:@"."].firstObject;
+    NSString *fileName = [[path componentsSeparatedByString:@"/"].lastObject componentsSeparatedByString:@"."].firstObject;
     self.dFileName = fileName;
     @weakify(self);
-    [CCHTTPManager NetRequestDownloadWithRequestURL:ptah WithRequestBacktrack:^(id responseObject, NSError *error) {
+    [CCHTTPManager NetRequestDownloadWithRequestURL:path WithRequestBacktrack:^(id responseObject, NSError *error) {
         @strongify(self);
         
         NSString *path = [self.dFileName stringByAppendingString:@"amrToWav"];

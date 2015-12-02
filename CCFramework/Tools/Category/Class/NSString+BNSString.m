@@ -393,14 +393,7 @@
  */
 - (NSDate *)convertingTStringsToDate
 {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-    [formatter setLocale:[NSLocale currentLocale]];
-    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
-    
-    NSDate *parsedDate = [formatter dateFromString:self];
-
-    return parsedDate;
+    return [self convertingStringsToDate:@"yyyy-MM-dd'T'HH:mm:ss"];
 }
 
 /**
@@ -526,7 +519,7 @@
 - (CGSize)calculateTextWidthHeight:(UIFont *)font
 {
     return [self sizeWithFont:font
-            constrainedToSize:CGSizeMake(MAXFLOAT, MAXFLOAT)
+            constrainedToSize:CGSizeMake([[UIScreen mainScreen] bounds].size.width, MAXFLOAT)
                 lineBreakMode:NSLineBreakByWordWrapping];
 }
 

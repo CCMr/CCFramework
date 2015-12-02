@@ -59,7 +59,7 @@
  *
  *  @param ptah 请求地址
  */
-- (void)downloadManagerAudioWithFileName:(NSString *)ptah
+- (void)downloadManagerAudioWithFileName:(NSString *)path
                                 Complete:(void (^)(NSString *path))complete;
 
 - (void)managerAudioWithFileName:(NSString *)amrName
