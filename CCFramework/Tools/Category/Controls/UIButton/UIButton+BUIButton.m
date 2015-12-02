@@ -30,11 +30,13 @@ static char BUTTONCARRYOBJECTS;
 
 @implementation UIButton (BUIButton)
 
--(void)setCarryObjects:(id)carryObjects{
+- (void)setCarryObjects:(id)carryObjects
+{
     objc_setAssociatedObject(self, &BUTTONCARRYOBJECTS, carryObjects, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
--(id)carryObjects{
+- (id)carryObjects
+{
     return objc_getAssociatedObject(self, &BUTTONCARRYOBJECTS);
 }
 
@@ -81,17 +83,14 @@ static char BUTTONCARRYOBJECTS;
     UILabel *title = (UILabel *)[self viewWithTag:9999];
     if ([title isKindOfClass:[UILabel class]])
         title.font = font;
-
 }
 
 /**
  *  @author C C, 2015-10-03
  *
  *  @brief  设置按钮不可用
- *
- *  @param enabled <#enabled description#>
  */
--(void)setEnabled:(BOOL)enabled
+- (void)setEnabled:(BOOL)enabled
 {
     [super setEnabled:enabled];
     UIImageView *imageView = (UIImageView *)[self viewWithTag:8888];
@@ -121,11 +120,9 @@ static char BUTTONCARRYOBJECTS;
  *
  *  @brief  创建按钮
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonWith
++ (id)buttonWith
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(0, 0, 50, 30);
@@ -146,7 +143,7 @@ static char BUTTONCARRYOBJECTS;
  *
  *  @since 1.0
  */
-+(id)buttonWithTitle:(NSString *)title
++ (id)buttonWithTitle:(NSString *)title
 {
     UIButton *button = [self buttonWith];
     
@@ -167,14 +164,14 @@ static char BUTTONCARRYOBJECTS;
  *  @param image 背景图片
  *  @param color 字体颜色
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonClickDoesNotChange:(NSString *)title BackgroundImage:(NSString *)image TitleColor:(UIColor *)color
++ (id)buttonClickDoesNotChange:(NSString *)title
+               BackgroundImage:(NSString *)image
+                    TitleColor:(UIColor *)color
 {
     UIButton *button = [self buttonWith];
-    if(![image isEqualToString:@""]){
+    if (![image isEqualToString:@""]) {
         [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
         [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateHighlighted];
     }
@@ -195,14 +192,13 @@ static char BUTTONCARRYOBJECTS;
  *  @param title 标题
  *  @param image 背景图片
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonWithTitleBackgroundImage:(NSString *)title BackgroundImage:(NSString *)image
++ (id)buttonWithTitleBackgroundImage:(NSString *)title
+                     BackgroundImage:(NSString *)image
 {
     UIButton *button = [self buttonWith];
-    if(![image isEqualToString:@""]){
+    if (![image isEqualToString:@""]) {
         [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
         [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateHighlighted];
     }
@@ -223,14 +219,13 @@ static char BUTTONCARRYOBJECTS;
  *  @param sImage 背景图片
  *  @param image 长按背景图片
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonWithFinishedSelectedImage:(NSString *)FinishedSelectedImage withFinishedUnselectedImage:(NSString *)FinishedUnselectedImage
++ (id)buttonWithFinishedSelectedImage:(NSString *)FinishedSelectedImage
+          withFinishedUnselectedImage:(NSString *)FinishedUnselectedImage
 {
     UIButton *button = [self buttonWith];
-    if(![FinishedSelectedImage isEqualToString:@""])
+    if (![FinishedSelectedImage isEqualToString:@""])
         [button setBackgroundImage:[UIImage imageNamed:FinishedSelectedImage] forState:UIControlStateNormal];
     
     if (![FinishedUnselectedImage isEqualToString:@""])
@@ -251,14 +246,12 @@ static char BUTTONCARRYOBJECTS;
  *  @param sImage 背景图片
  *  @param image 长按背景图片
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonWithImage:(NSString *)title FinishedSelectedImage:(NSString *)FinishedSelectedImage WithFinishedUnselectedImage:(NSString *)FinishedUnselectedImage
++ (id)buttonWithImage:(NSString *)title FinishedSelectedImage:(NSString *)FinishedSelectedImage WithFinishedUnselectedImage:(NSString *)FinishedUnselectedImage
 {
     UIButton *button = [self buttonWith];
-    if(![FinishedSelectedImage isEqualToString:@""])
+    if (![FinishedSelectedImage isEqualToString:@""])
         [button setBackgroundImage:[UIImage imageNamed:FinishedSelectedImage] forState:UIControlStateNormal];
     
     if (![FinishedUnselectedImage isEqualToString:@""])
@@ -283,14 +276,12 @@ static char BUTTONCARRYOBJECTS;
  *
  *  @param image 背景图片
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonWithBackgroundImage:(NSString *)image
++ (id)buttonWithBackgroundImage:(NSString *)image
 {
     UIButton *button = [self buttonWith];
-    if(![image isEqualToString:@""]){
+    if (![image isEqualToString:@""]) {
         [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
         [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateHighlighted];
     }
@@ -311,11 +302,12 @@ static char BUTTONCARRYOBJECTS;
  *
  *  @since 1.0
  */
-+(id)buttonWithBackgroundImageFrame:(NSString *)image Frame:(CGRect)frame
++ (id)buttonWithBackgroundImageFrame:(NSString *)image
+                               Frame:(CGRect)frame
 {
     UIButton *button = [self buttonWith];
     
-    if(![image isEqualToString:@""]){
+    if (![image isEqualToString:@""]) {
         [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
         [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateHighlighted];
     }
@@ -335,11 +327,11 @@ static char BUTTONCARRYOBJECTS;
  *  @param image 背景图片
  *  @param frame 按钮位置
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonWithImageTitle:(NSString *)LeftImage Title:(NSString *)title Frame:(CGRect)frame
++ (id)buttonWithImageTitle:(NSString *)LeftImage
+                     Title:(NSString *)title
+                     Frame:(CGRect)frame
 {
     UIButton *button = [self buttonWith];
     
@@ -353,7 +345,7 @@ static char BUTTONCARRYOBJECTS;
     UIImage *LeftIcon = [UIImage imageNamed:LeftImage];
     [button setImage:LeftIcon forState:UIControlStateNormal];
     [button setImage:LeftIcon forState:UIControlStateHighlighted];
-    button.imageEdgeInsets = UIEdgeInsetsMake(0, -(frame.size.width - button.imageView.frame.size.width - button.titleLabel.bounds.size.width - 20), 0,0);
+    button.imageEdgeInsets = UIEdgeInsetsMake(0, -(frame.size.width - button.imageView.frame.size.width - button.titleLabel.bounds.size.width - 20), 0, 0);
     
     return button;
 }
@@ -367,7 +359,6 @@ static char BUTTONCARRYOBJECTS;
  *  @param title      标题
  *  @param frame      尺寸
  *
- *  @return <#return value description#>
  */
 + (id)buttonWithTitleImage:(NSString *)rightImage
                      Title:(NSString *)title
@@ -387,7 +378,7 @@ static char BUTTONCARRYOBJECTS;
     UIImage *LeftIcon = [UIImage imageNamed:rightImage];
     [button setImage:LeftIcon forState:UIControlStateNormal];
     [button setImage:LeftIcon forState:UIControlStateHighlighted];
-    button.imageEdgeInsets = UIEdgeInsetsMake(0, frame.size.width - button.imageView.frame.size.width + w / 2.5, 0,0);
+    button.imageEdgeInsets = UIEdgeInsetsMake(0, frame.size.width - button.imageView.frame.size.width + w / 2.5, 0, 0);
     
     return button;
 }
@@ -400,22 +391,27 @@ static char BUTTONCARRYOBJECTS;
  *
  *  @param image 上图片
  *  @param title 标题
- *  @param frame 按钮位置
- *
- *  @return <#return value description#>
+ *  @param frame 按钮位
  *
  *  @since 1.0
  */
-+(id)buttonWithUpImageNextTilte:(NSString *)image Title:(NSString *)title Frame:(CGRect)frame
++ (id)buttonWithUpImageNextTilte:(NSString *)image
+                           Title:(NSString *)title
+                           Frame:(CGRect)frame
 {
     UIButton *button = [self buttonWith];
     button.frame = frame;
     
     UIImage *Image = [UIImage imageNamed:image];
     UIImageView *imageView = (UIImageView *)[button viewWithTag:8888];
+    
+    CGFloat titleH = 20;
+    if (!title || [title isEqualToString:@""])
+        titleH = 0;
+    
     if (!imageView) {
         CGFloat x = (frame.size.width - Image.size.width) / 2;
-        CGFloat y = (frame.size.height - Image.size.height - 20) / 2;
+        CGFloat y = (frame.size.height - Image.size.height - titleH) / 2;
         CGFloat w = Image.size.width;
         CGFloat h = Image.size.height;
         
@@ -426,7 +422,7 @@ static char BUTTONCARRYOBJECTS;
         
         if (Image.size.height > frame.size.height) {
             y = 0;
-            h = frame.size.height - 20;
+            h = frame.size.height - titleH;
         }
         
         imageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, w, h)];
@@ -436,15 +432,17 @@ static char BUTTONCARRYOBJECTS;
     }
     imageView.image = Image;
     
-    UILabel *titleLabel = (UILabel *)[button viewWithTag:9999];
-    if (!titleLabel) {
-        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, imageView.frame.origin.y + imageView.frame.size.height, frame.size.width, 20)];
-        titleLabel.font = [UIFont systemFontOfSize:14];
-        titleLabel.textAlignment = NSTextAlignmentCenter;
-        titleLabel.tag = 9999;
-        [button addSubview:titleLabel];
+    if (titleH) {
+        UILabel *titleLabel = (UILabel *)[button viewWithTag:9999];
+        if (!titleLabel) {
+            titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, imageView.frame.origin.y + imageView.frame.size.height, frame.size.width, 20)];
+            titleLabel.font = [UIFont systemFontOfSize:14];
+            titleLabel.textAlignment = NSTextAlignmentCenter;
+            titleLabel.tag = 9999;
+            [button addSubview:titleLabel];
+        }
+        titleLabel.text = title;
     }
-    titleLabel.text = title;
     
     return button;
 }
@@ -457,11 +455,10 @@ static char BUTTONCARRYOBJECTS;
  *  @param title 标题
  *  @param frame 按钮位置
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonWithFillet:(NSString *)title Frame:(CGRect)frame
++ (id)buttonWithFillet:(NSString *)title
+                 Frame:(CGRect)frame
 {
     UIButton *button = [self buttonWith];
     button.frame = frame;
@@ -484,14 +481,14 @@ static char BUTTONCARRYOBJECTS;
  *  @param title 标题
  *  @param frame 按钮位置
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonWithFillet:(NSString *)image Title:(NSString *)title Frame:(CGRect)frame
++ (id)buttonWithFillet:(NSString *)image
+                 Title:(NSString *)title
+                 Frame:(CGRect)frame
 {
     UIButton *button = [self buttonWith];
-    if(![image isEqualToString:@""]){
+    if (![image isEqualToString:@""]) {
         [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
         [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateHighlighted];
     }
@@ -515,11 +512,12 @@ static char BUTTONCARRYOBJECTS;
  *  @param color 标题字体颜色
  *  @param mode 标题显示位置
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonWithFillet:(NSString *)title Frame:(CGRect)frame TitleColor:(UIColor *)color Moode:(UIControlContentHorizontalAlignment)mode
++ (id)buttonWithFillet:(NSString *)title
+                 Frame:(CGRect)frame
+            TitleColor:(UIColor *)color
+                 Moode:(UIControlContentHorizontalAlignment)mode
 {
     UIButton *button = [self buttonWith];
     button.frame = frame;

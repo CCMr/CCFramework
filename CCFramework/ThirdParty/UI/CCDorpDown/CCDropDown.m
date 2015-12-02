@@ -208,11 +208,11 @@
 
 - (void)setup
 {
-    self.menuItemViewHeight = 36;
+    self.menuItemViewHeight = 40;
     self.menuItemTextColor = [UIColor blackColor];
     CGFloat height = self.menus.count * self.menuItemViewHeight;
     
-    self.fromTheHeight = height > 160 ?: height;
+    self.fromTheHeight = height < 160 ?: height;
     
     self.frame = [[UIScreen mainScreen] bounds];
     self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.1];
@@ -283,8 +283,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     self.indexPath = indexPath;
     [self dissMissPopMenuAnimatedOnMenuSelected:YES];
-    if (self.dropDownMenuDidSlectedCompled) {
-        self.dropDownMenuDidSlectedCompled(indexPath.row, self.menus[indexPath.row]);
+    if (self.dropDownMenuDidSelectedCompled) {
+        self.dropDownMenuDidSelectedCompled(indexPath.row, self.menus[indexPath.row]);
     }
 }
 

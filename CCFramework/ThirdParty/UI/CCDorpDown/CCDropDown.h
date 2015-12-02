@@ -40,7 +40,7 @@ typedef NS_ENUM(NSInteger, DorpDownType) {
 
 @end
 
-typedef void (^DropDownMenuDidSlectedCompledBlock)(NSInteger index, CCDropDownItem *menuItem);
+typedef void (^DropDownMenuDidSelectedCompledBlock)(NSInteger index, CCDropDownItem *menuItem);
 
 
 #pragma mark -_- CCDropDown
@@ -74,8 +74,8 @@ typedef void (^DropDownMenuDidSlectedCompledBlock)(NSInteger index, CCDropDownIt
  */
 @property(nonatomic, copy) UIColor *menuItemTextColor;
 
-@property(nonatomic, copy) DropDownMenuDidSlectedCompledBlock dropDownMenuDidSlectedCompled;
+@property(nonatomic, copy) DropDownMenuDidSelectedCompledBlock dropDownMenuDidSelectedCompled;
 
-@property(nonatomic, copy) DropDownMenuDidSlectedCompledBlock dropDownMenuDidDismissCompled;
+@property(nonatomic, copy) DropDownMenuDidSelectedCompledBlock dropDownMenuDidDismissCompled;
 
 @end

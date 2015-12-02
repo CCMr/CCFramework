@@ -62,7 +62,8 @@
  *  @param image 图片
  *  @param color 文字颜色
  */
-- (void)setButtonUpImageNextTilte:(NSString *)image TitleColor:(UIColor *)color;
+- (void)setButtonUpImageNextTilte:(NSString *)image
+                       TitleColor:(UIColor *)color;
 
 /**
  *  @author CC, 2015-07-16
@@ -71,18 +72,16 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, retain) id carryObjects;
+@property(nonatomic, retain) id carryObjects;
 
 /**
  *  @author CC, 2015-07-16
  *
  *  @brief  创建按钮
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonWith;
++ (id)buttonWith;
 
 /**
  *  @author CC, 2015-07-16
@@ -91,11 +90,9 @@
  *
  *  @param title 标题
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonWithTitle:(NSString *)title;
++ (id)buttonWithTitle:(NSString *)title;
 
 /**
  *  @author CC, 2015-07-16
@@ -106,11 +103,11 @@
  *  @param image 背景图片
  *  @param color 字体颜色
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonClickDoesNotChange:(NSString *)title BackgroundImage:(NSString *)image TitleColor:(UIColor *)color;
++ (id)buttonClickDoesNotChange:(NSString *)title
+               BackgroundImage:(NSString *)image
+                    TitleColor:(UIColor *)color;
 
 /**
  *  @author CC, 2015-07-16
@@ -120,11 +117,10 @@
  *  @param title 标题
  *  @param image 背景图片
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonWithTitleBackgroundImage:(NSString *)title BackgroundImage:(NSString *)image;
++ (id)buttonWithTitleBackgroundImage:(NSString *)title
+                     BackgroundImage:(NSString *)image;
 
 /**
  *  @author CC, 2015-07-16
@@ -134,11 +130,10 @@
  *  @param sImage 背景图片
  *  @param image 长按背景图片
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonWithFinishedSelectedImage:(NSString *)FinishedSelectedImage withFinishedUnselectedImage:(NSString *)FinishedUnselectedImage;
++ (id)buttonWithFinishedSelectedImage:(NSString *)FinishedSelectedImage
+          withFinishedUnselectedImage:(NSString *)FinishedUnselectedImage;
 
 /**
  *  @author CC, 2015-07-16
@@ -149,11 +144,9 @@
  *  @param sImage 背景图片
  *  @param image 长按背景图片
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonWithImage:(NSString *)title FinishedSelectedImage:(NSString *)FinishedSelectedImage WithFinishedUnselectedImage:(NSString *)FinishedUnselectedImage;
++ (id)buttonWithImage:(NSString *)title FinishedSelectedImage:(NSString *)FinishedSelectedImage WithFinishedUnselectedImage:(NSString *)FinishedUnselectedImage;
 
 /**
  *  @author CC, 2015-07-16
@@ -162,11 +155,9 @@
  *
  *  @param image 背景图片
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonWithBackgroundImage:(NSString *)image;
++ (id)buttonWithBackgroundImage:(NSString *)image;
 
 /**
  *  @author CC, 2015-07-16
@@ -174,13 +165,11 @@
  *  @brief  设置背景图片与位置
  *
  *  @param image 背景图片
- *  @param frame 按钮位置
- *
- *  @return <#return value description#>
- *
+ *  @param frame 按钮位置 *
  *  @since 1.0
  */
-+(id)buttonWithBackgroundImageFrame:(NSString *)image Frame:(CGRect)frame;
++ (id)buttonWithBackgroundImageFrame:(NSString *)image
+                               Frame:(CGRect)frame;
 
 /**
  *  @author CC, 2015-07-16
@@ -191,11 +180,11 @@
  *  @param image 背景图片
  *  @param frame 按钮位置
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonWithImageTitle:(NSString *)LeftImage Title:(NSString *)title Frame:(CGRect)frame;
++ (id)buttonWithImageTitle:(NSString *)LeftImage
+                     Title:(NSString *)title
+                     Frame:(CGRect)frame;
 
 /**
  *  @author C C, 2015-12-01
@@ -205,8 +194,6 @@
  *  @param rightImage 右图
  *  @param title      标题
  *  @param frame      尺寸
- *
- *  @return <#return value description#>
  */
 + (id)buttonWithTitleImage:(NSString *)rightImage
                      Title:(NSString *)title
@@ -221,11 +208,11 @@
  *  @param title 标题
  *  @param frame 按钮位置
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonWithUpImageNextTilte:(NSString *)image Title:(NSString *)title Frame:(CGRect)frame;
++ (id)buttonWithUpImageNextTilte:(NSString *)image
+                           Title:(NSString *)title
+                           Frame:(CGRect)frame;
 
 /**
  *  @author CC, 2015-07-16
@@ -235,11 +222,10 @@
  *  @param title 标题
  *  @param frame 按钮位置
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonWithFillet:(NSString *)title Frame:(CGRect)frame;
++ (id)buttonWithFillet:(NSString *)title
+                 Frame:(CGRect)frame;
 
 /**
  *  @author CC, 2015-07-16
@@ -250,11 +236,11 @@
  *  @param title 标题
  *  @param frame 按钮位置
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonWithFillet:(NSString *)image Title:(NSString *)title Frame:(CGRect)frame;
++ (id)buttonWithFillet:(NSString *)image
+                 Title:(NSString *)title
+                 Frame:(CGRect)frame;
 
 /**
  *  @author CC, 2015-07-16
@@ -266,11 +252,12 @@
  *  @param color 标题字体颜色
  *  @param mode 标题显示位置
  *
- *  @return <#return value description#>
- *
  *  @since 1.0
  */
-+(id)buttonWithFillet:(NSString *)title Frame:(CGRect)frame TitleColor:(UIColor *)color Moode:(UIControlContentHorizontalAlignment)mode;
++(id)buttonWithFillet:(NSString *)title 
+                Frame:(CGRect)frame 
+           TitleColor:(UIColor *)color 
+                Moode:(UIControlContentHorizontalAlignment)mode;
 
 
 @end
