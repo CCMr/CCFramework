@@ -30,6 +30,38 @@
 @implementation CCHTTPManager (UploadDownload)
 
 /**
+ *  @author CC, 2015-12-02
+ *  
+ *  @brief  下载文件缓存
+ *
+ *  @param requestURLString 下载路径
+ *  @param blockTrack       完成回调
+ */
++ (void)NetRequestDownloadWithRequestURL:(NSString *)requestURLString  
+                    WithRequestBacktrack:(CCRequestBacktrack)blockTrack
+{
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:requestURLString]];
+    
+    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+        
+        NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory 
+                                                                              inDomain:NSUserDomainMask 
+                                                                     appropriateForURL:nil 
+                                                                                create:NO 
+                                                                                 error:nil];
+        
+        return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
+    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+        blockTrack(filePath.path,error);
+    }];
+    [downloadTask resume];
+}
+
+
+/**
  *  @author CC, 15-08-19
  *
  *  @brief  下载文件
@@ -51,28 +83,24 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     //检查本地文件是否已存在
-    NSString *fileNamePath = [NSString
-                              stringWithFormat:@"%@/%@", @"用户名", [self filePath:fileName]];
+    NSString *fileNamePath = [self filePath:fileName];
     
     if ([fileManager fileExistsAtPath:fileNamePath]) {
         NSData *data = [NSData dataWithContentsOfFile:fileNamePath];
-        blockTrack(data,nil);
+        blockTrack(data, nil);
     } else {
         
         //获取缓存的长度
         long long cacheLength = [self cacheFileWithPath:fileNamePath];
         
         //获取请求
-        NSMutableURLRequest *request =
-        [self requestWithUrl:requestURLString Range:cacheLength];
+        NSMutableURLRequest *request = [self requestWithUrl:requestURLString Range:cacheLength];
         
-        AFHTTPRequestOperation *requestOperation =
-        [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
         requestOperation.userInfo = @{ @"filePath" : fileNamePath };
         
-        [requestOperation
-         setOutputStream:[NSOutputStream outputStreamToFileAtPath:fileNamePath append:NO]];
-						  
+        [requestOperation setOutputStream:[NSOutputStream outputStreamToFileAtPath:fileNamePath append:NO]];
+        
         //处理流
         [self readCacheToOutStreamWithPath:requestOperation Path:fileNamePath];
         [requestOperation addObserver:^(NSString *keyPath, id object, NSDictionary *change, void *context) {
@@ -80,24 +108,26 @@
             //暂停状态
             if ([keyPath isEqualToString:@"isPaused"] && [[change objectForKey:@"new"] intValue] == 1) {
                 //缓存路径
-//                NSString* cachePath = [requestOperation.userInfo objectForKey:@"filePath"];
+                //                NSString* cachePath = [requestOperation.userInfo objectForKey:@"filePath"];
                 
-//                long long cacheLength = [[self class] cacheFileWithPath:cachePath];
+                //                long long cacheLength = [[self class] cacheFileWithPath:cachePath];
                 //暂停读取data 从文件中获取到NSNumber
-//                long long cacheLength = [[requestOperation.outputStream propertyForKey:NSStreamFileCurrentOffsetKey] unsignedLongLongValue];
+                //                long long cacheLength = [[requestOperation.outputStream propertyForKey:NSStreamFileCurrentOffsetKey] unsignedLongLongValue];
                 [requestOperation setValue:@"0" forKey:@"totalBytesRead"];
                 
                 //重组进度block
                 [requestOperation setDownloadProgressBlock:progressBlock];
             }
-        } forKeyPath:@"isPaused" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+        } forKeyPath:@"isPaused"
+                              options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                              context:nil];
         
         [requestOperation setDownloadProgressBlock:progressBlock];
         
         //获取成功回调块
         [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             blockTrack(operation.responseData,nil);
-        }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             errorBlock(error);
         }];
         [requestOperation start];
@@ -217,28 +247,29 @@
 {
     AFURLSessionManager *sessionManager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     //添加请求接口
-    NSURLRequest *request =
-    [NSURLRequest requestWithURL:[NSURL URLWithString:requestURLString]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:requestURLString]];
     
     //添加上传的文件
     NSURL *postFilePath = [NSURL fileURLWithPath:filePath];
     
     //发送上传请求
-    NSURLSessionUploadTask *uploadTask = [sessionManager uploadTaskWithRequest:request fromFile:postFilePath progress:progressBlock completionHandler:^(NSURLResponse *response, id responseObject,
-                                                                                                                                                        NSError *error) {
-        if (error) { //请求失败
-            errorBlock(error);
-        } else { //请求成功
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-            
-            CCResponseObject *entity = [[CCResponseObject alloc] initWithDict:dic];
-             CCNSLogger(@"%@", [entity ChangedDictionary]);
-            
-            blockTrack(entity,nil);
-            
-            blockTrack(responseObject,nil);
-        }
-    }];
+    NSURLSessionUploadTask *uploadTask = [sessionManager uploadTaskWithRequest:request
+                                                                      fromFile:postFilePath
+                                                                      progress:progressBlock
+                                                             completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+                                                                 if (error) { //请求失败
+                                                                     errorBlock(error);
+                                                                 } else { //请求成功
+                                                                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+                                                                     
+                                                                     CCResponseObject *entity = [[CCResponseObject alloc] initWithDict:dic];
+                                                                     CCNSLogger(@"%@", [entity ChangedDictionary]);
+                                                                     
+                                                                     blockTrack(entity,nil);
+                                                                     
+                                                                     blockTrack(responseObject,nil);
+                                                                 }
+                                                             }];
     
     //开始上传
     [uploadTask resume];
@@ -257,9 +288,16 @@
  */
 + (NSString *)filePath:(NSString *)fileName
 {
-    NSArray *cachePaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cachePath = [cachePaths objectAtIndex:0];
-    return [cachePath stringByAppendingPathComponent:fileName];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *audioDir = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Download"];
+    BOOL isDir = YES;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:audioDir isDirectory:&isDir] == NO) {
+        BOOL isSuccess = [[NSFileManager defaultManager] createDirectoryAtPath:audioDir withIntermediateDirectories:YES attributes:nil error:nil];
+        if (!isSuccess) {
+            NSLog(@"创建Download目录失败T_T");
+        }
+    }
+    return [[[paths objectAtIndex:0] stringByAppendingPathComponent:@"Download"] stringByAppendingPathComponent:fileName];
 }
 
 /**

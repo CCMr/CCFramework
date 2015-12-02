@@ -316,6 +316,17 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
 @interface CCHTTPManager (UploadDownload)
 
 /**
+ *  @author CC, 2015-12-02
+ *  
+ *  @brief  下载文件缓存
+ *
+ *  @param requestURLString 下载路径
+ *  @param blockTrack       完成回调
+ */
++ (void)NetRequestDownloadWithRequestURL:(NSString *)requestURLString
+                    WithRequestBacktrack:(CCRequestBacktrack)blockTrack;
+
+/**
  *  @author CC, 15-08-19
  *
  *  @brief  下载文件
