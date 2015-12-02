@@ -24,6 +24,7 @@
 //
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import <CoreData/CoreData.h>
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, CCBubbleMessageMediaType) {
@@ -102,6 +103,14 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 
 - (UIImage *)avatar;
 - (NSString *)avatarUrl;
+
+/**
+ *  @author CC, 2015-11-16
+ *  
+ *  @brief  数据存储ID
+ */
+@property(nonatomic, copy) NSManagedObjectID *objectID;
+
 
 - (CCBubbleMessageMediaType)messageMediaType;
 

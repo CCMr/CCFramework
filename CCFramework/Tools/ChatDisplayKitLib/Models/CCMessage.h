@@ -29,41 +29,41 @@
 #import "CCMessageModel.h"
 #import <CoreData/CoreData.h>
 
-@interface CCMessage : NSObject<CCMessageModel,NSCoding, NSCopying>
+@interface CCMessage : NSObject <CCMessageModel, NSCoding, NSCopying>
 
-@property (nonatomic, copy) NSString *text;
+@property(nonatomic, copy) NSString *text;
 
 #pragma mark - 图片
-@property (nonatomic, strong) UIImage *photo;
-@property (nonatomic, copy) NSString *thumbnailUrl;
-@property (nonatomic, copy) NSString *originPhotoUrl;
+@property(nonatomic, strong) UIImage *photo;
+@property(nonatomic, copy) NSString *thumbnailUrl;
+@property(nonatomic, copy) NSString *originPhotoUrl;
 
 #pragma mark - 视频
-@property (nonatomic, strong) UIImage *videoConverPhoto;
-@property (nonatomic, copy) NSString *videoPath;
-@property (nonatomic, copy) NSString *videoUrl;
+@property(nonatomic, strong) UIImage *videoConverPhoto;
+@property(nonatomic, copy) NSString *videoPath;
+@property(nonatomic, copy) NSString *videoUrl;
 
 #pragma mark - 音频
-@property (nonatomic, copy) NSString *voicePath;
-@property (nonatomic, copy) NSString *voiceUrl;
-@property (nonatomic, copy) NSString *voiceDuration;
+@property(nonatomic, copy) NSString *voicePath;
+@property(nonatomic, copy) NSString *voiceUrl;
+@property(nonatomic, copy) NSString *voiceDuration;
 
-@property (nonatomic, copy) NSString *emotionPath;
+@property(nonatomic, copy) NSString *emotionPath;
 
 #pragma mark -  地理位置
-@property (nonatomic, strong) UIImage *localPositionPhoto;
-@property (nonatomic, copy) NSString *geolocations;
-@property (nonatomic, strong) CLLocation *location;
+@property(nonatomic, strong) UIImage *localPositionPhoto;
+@property(nonatomic, copy) NSString *geolocations;
+@property(nonatomic, strong) CLLocation *location;
 
-@property (nonatomic, strong) UIImage *avatar;
-@property (nonatomic, copy) NSString *avatarUrl;
+@property(nonatomic, strong) UIImage *avatar;
+@property(nonatomic, copy) NSString *avatarUrl;
 
 /**
  *  @author CC, 2015-11-16
  *  
  *  @brief  数据存储ID
  */
-@property (nonatomic, copy) NSManagedObjectID *objectID;
+@property(nonatomic, copy) NSManagedObjectID *objectID;
 
 /**
  *  @author CC, 15-08-17
@@ -72,7 +72,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, copy) NSString *sender;
+@property(nonatomic, copy) NSString *sender;
 
 /**
  *  @author CC, 15-08-17
@@ -81,11 +81,11 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, strong) NSDate *timestamp;
+@property(nonatomic, strong) NSDate *timestamp;
 
-@property (nonatomic, assign) BOOL shouldShowUserName;
+@property(nonatomic, assign) BOOL shouldShowUserName;
 
-@property (nonatomic, assign) BOOL sended;
+@property(nonatomic, assign) BOOL sended;
 
 /**
  *  @author CC, 15-08-17
@@ -94,7 +94,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, assign) CCBubbleMessageMediaType messageMediaType;
+@property(nonatomic, assign) CCBubbleMessageMediaType messageMediaType;
 
 /**
  *  @author CC, 15-09-15
@@ -103,7 +103,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, assign) CCMessageSendType messageSendState;
+@property(nonatomic, assign) CCMessageSendType messageSendState;
 
 /**
  *  @author CC, 15-08-17
@@ -112,7 +112,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, assign) CCBubbleMessageType bubbleMessageType;
+@property(nonatomic, assign) CCBubbleMessageType bubbleMessageType;
 
 /**
  *  @author CC, 15-08-17
@@ -121,7 +121,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic) BOOL isRead;
+@property(nonatomic) BOOL isRead;
 
 /**
  *  @author CC, 2015-11-16

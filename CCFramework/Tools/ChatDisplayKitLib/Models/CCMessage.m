@@ -120,7 +120,12 @@
                            sender:(NSString *)sender
                         timestamp:(NSDate *)timestamp {
 
-    return [self initWithVoicePath:voicePath voiceUrl:voiceUrl voiceDuration:voiceDuration sender:sender timestamp:timestamp isRead:NO];
+    return [self initWithVoicePath:voicePath 
+                          voiceUrl:voiceUrl 
+                     voiceDuration:voiceDuration 
+                            sender:sender 
+                         timestamp:timestamp 
+                            isRead:NO];
 }
 
 /**
