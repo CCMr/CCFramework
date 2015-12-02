@@ -23,11 +23,12 @@
 // THE SOFTWARE.
 //
 
-
+#import <UIKit/UIKit.h>
 #import "CCAudioPlayerHelper.h"
 #import "CCVoiceCommonHelper.h"
 #import "VoiceConverter.h"
-#import <UIKit/UIKit.h>
+#import "CCHTTPManager+Addition.h"
+#import "Config.h"
 
 @implementation CCAudioPlayerHelper
 
@@ -127,6 +128,33 @@
     }
 }
 
+/**
+ *  @author CC, 2015-12-02
+ *  
+ *  @brief  网络获取缓存播放
+ *
+ *  @param ptah 请求地址
+ */
+- (void)downloadManagerAudioWithFileName:(NSString *)ptah
+                                Complete:(void (^)(NSString *path))complete
+{
+    if (!ptah) return;
+    
+    NSString *fileName = [[ptah componentsSeparatedByString:@"/"].lastObject componentsSeparatedByString:@"."].firstObject;
+    self.dFileName = fileName;
+    @weakify(self);
+    [CCHTTPManager NetRequestDownloadWithRequestURL:ptah WithRequestBacktrack:^(id responseObject, NSError *error) {
+        @strongify(self);
+        
+        NSString *path = [self.dFileName stringByAppendingString:@"amrToWav"];
+        [VoiceConverter amrToWav:responseObject wavSavePath:[CCVoiceCommonHelper getPathByFileName:path ofType:@"wav"]];
+        
+        [self playAudioWithFileName:path];
+        
+        if (complete)
+            complete(path);
+    }];
+}
 
 #pragma mark - Getter
 

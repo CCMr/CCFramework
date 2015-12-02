@@ -41,17 +41,30 @@
 
 @property(nonatomic, copy) NSString *playingFileName;
 
+@property(nonatomic, copy) NSString *dFileName;
+
 @property(nonatomic, assign) id<CCAudioPlayerHelperDelegate> delegate;
 
-@property(nonatomic, strong)
-    NSIndexPath *playingIndexPathInFeedList; //给动态列表用
+@property(nonatomic, strong) NSIndexPath *playingIndexPathInFeedList; //给动态列表用
 
 + (id)shareInstance;
 
 - (AVAudioPlayer *)player;
 - (BOOL)isPlaying;
 
-- (void)managerAudioWithFileName:(NSString *)amrName toPlay:(BOOL)toPlay;
+/**
+ *  @author CC, 2015-12-02
+ *  
+ *  @brief  网络获取缓存播放
+ *
+ *  @param ptah 请求地址
+ */
+- (void)downloadManagerAudioWithFileName:(NSString *)ptah
+                                Complete:(void (^)(NSString *path))complete;
+
+- (void)managerAudioWithFileName:(NSString *)amrName
+                          toPlay:(BOOL)toPlay;
+
 - (void)pausePlayingAudio; //暂停
 - (void)stopAudio;         //停止
 
