@@ -27,6 +27,7 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "NSData+Additions.h"
+#import "UIImage+Data.h"
 
 @interface BaseEntity ()
 
@@ -168,8 +169,7 @@
                               stringWithUTF8String:property_getName(prop)]; //获得属性的名称
         
         const char *propType = getPropertyType(prop);
-        NSString *propertyType =
-        [NSString stringWithUTF8String:propType]; //获得属性类型
+        NSString *propertyType = [NSString stringWithUTF8String:propType]; //获得属性类型
         
         id value = [self valueForKey:propName]; // kvc读值
         if (!value) {
@@ -197,10 +197,14 @@
         [obj isKindOfClass:[NSNumber class]] ||
         [obj isKindOfClass:[NSNull class]] ||
         [obj isKindOfClass:[NSManagedObjectID class]] ||
-        [obj isKindOfClass:[UIImage class]] ||
         [obj isKindOfClass:[NSData class]] ||
         [obj isKindOfClass:[NSDate class]])
         return obj;
+    
+    if ([obj isKindOfClass:[UIImage class]]) {
+        obj = [obj data];
+        return obj;
+    }
     
     if ([obj isKindOfClass:[NSArray class]]) {
         NSArray *objarr = obj;
@@ -253,8 +257,8 @@
         if (excludeArray && [excludeArray indexOfObject:key] != NSNotFound)
             continue;
         
-        id value = [self analysisValue:properties 
-                             ValueDdic:dict 
+        id value = [self analysisValue:properties
+                             ValueDdic:dict
                                    Key:keys];
         
         NSString *propertyType = [properties objectForKey:key];
@@ -446,14 +450,14 @@ static const char *getPropertyType(objc_property_t property)
           ValueDdic:(NSDictionary *)dict
                 Key:(NSString *)key
 {
-     NSString *propertyType = [properties objectForKey:key];
+    NSString *propertyType = [properties objectForKey:key];
     id value = [dict objectForKey:key];
     if ([value isKindOfClass:[NSNull class]]) {
         if ([propertyType isEqualToString:@"NSString"]) {
             value = @"";
         } else if ([propertyType isEqualToString:@"i"] ||
                    [propertyType isEqualToString:@"l"] ||
-                   [propertyType isEqualToString:@"q"] || 
+                   [propertyType isEqualToString:@"q"] ||
                    [propertyType isEqualToString:@"I"]) {
             value = @(-1);
         }else if ([propertyType isEqualToString:@"NSArray"] || 
@@ -463,9 +467,9 @@ static const char *getPropertyType(objc_property_t property)
             value =@(NO);
         }
     }else{
-         NSString *propertyType = [properties objectForKey:key];
+        NSString *propertyType = [properties objectForKey:key];
         if ([propertyType isEqualToString:@"c"]) {
-           value = @([[dict objectForKey:key] boolValue]); 
+            value = @([[dict objectForKey:key] boolValue]); 
         }
     }
     
