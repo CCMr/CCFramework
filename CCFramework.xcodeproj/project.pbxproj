@@ -498,6 +498,8 @@
 		4238385C1BEA009C00BC2B44 /* CCDropDownMenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4238385A1BEA009C00BC2B44 /* CCDropDownMenuItemView.m */; };
 		423B25301BE9E89900DAF075 /* CCDropDown.h in Headers */ = {isa = PBXBuildFile; fileRef = 423B252E1BE9E89900DAF075 /* CCDropDown.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		423B25311BE9E89900DAF075 /* CCDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 423B252F1BE9E89900DAF075 /* CCDropDown.m */; };
+		423C12791C0ECACB009FBA17 /* CCTool.h in Headers */ = {isa = PBXBuildFile; fileRef = 423C12771C0ECACB009FBA17 /* CCTool.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		423C127A1C0ECACB009FBA17 /* CCTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 423C12781C0ECACB009FBA17 /* CCTool.m */; };
 		4244928E1C0D90F500488AA2 /* amrFileCodec.h in Headers */ = {isa = PBXBuildFile; fileRef = 4244927F1C0D90F500488AA2 /* amrFileCodec.h */; };
 		4244928F1C0D90F500488AA2 /* amrFileCodec.m in Sources */ = {isa = PBXBuildFile; fileRef = 424492801C0D90F500488AA2 /* amrFileCodec.m */; };
 		424492901C0D90F500488AA2 /* wav.h in Headers */ = {isa = PBXBuildFile; fileRef = 424492811C0D90F500488AA2 /* wav.h */; };
@@ -1712,6 +1714,8 @@
 		4238385A1BEA009C00BC2B44 /* CCDropDownMenuItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCDropDownMenuItemView.m; path = CCDorpDown/CCDropDownMenuItemView.m; sourceTree = "<group>"; };
 		423B252E1BE9E89900DAF075 /* CCDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDropDown.h; path = CCDorpDown/CCDropDown.h; sourceTree = "<group>"; };
 		423B252F1BE9E89900DAF075 /* CCDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCDropDown.m; path = CCDorpDown/CCDropDown.m; sourceTree = "<group>"; };
+		423C12771C0ECACB009FBA17 /* CCTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCTool.h; path = Core/Tool/CCTool.h; sourceTree = "<group>"; };
+		423C12781C0ECACB009FBA17 /* CCTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCTool.m; path = Core/Tool/CCTool.m; sourceTree = "<group>"; };
 		4244927F1C0D90F500488AA2 /* amrFileCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amrFileCodec.h; sourceTree = "<group>"; };
 		424492801C0D90F500488AA2 /* amrFileCodec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = amrFileCodec.m; sourceTree = "<group>"; };
 		424492811C0D90F500488AA2 /* wav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wav.h; sourceTree = "<group>"; };
@@ -3269,6 +3273,15 @@
 				4238385A1BEA009C00BC2B44 /* CCDropDownMenuItemView.m */,
 			);
 			name = CCDorpDown;
+			sourceTree = "<group>";
+		};
+		423C12761C0ECA86009FBA17 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				423C12771C0ECACB009FBA17 /* CCTool.h */,
+				423C12781C0ECACB009FBA17 /* CCTool.m */,
+			);
+			name = Tool;
 			sourceTree = "<group>";
 		};
 		4244927D1C0D90F500488AA2 /* VoiceConvert */ = {
@@ -5066,6 +5079,7 @@
 			isa = PBXGroup;
 			children = (
 				42B6473F1BEDA8DD00B2F6FD /* Core.h */,
+				423C12761C0ECA86009FBA17 /* Tool */,
 				42FC46291BF478BD00EF8D3A /* Reactive */,
 				42DC3EE81BEF49CD00F9CC38 /* CCLog */,
 				42B6473A1BEDA87E00B2F6FD /* Backtrace */,
@@ -5617,6 +5631,7 @@
 				420DE3501BC7942300D87D6D /* ZXByteMatrix.h in Headers */,
 				420DE34B1BC7942300D87D6D /* ZXBarcodeFormat.h in Headers */,
 				420DE34C1BC7942300D87D6D /* ZXBinarizer.h in Headers */,
+				423C12791C0ECACB009FBA17 /* CCTool.h in Headers */,
 				420DE39E1BC7942300D87D6D /* ZXByQuadrantReader.h in Headers */,
 				420DE3351BC7942300D87D6D /* ZXByteArray.h in Headers */,
 				420DE32D1BC7942300D87D6D /* ZXBitArray.h in Headers */,
@@ -6135,6 +6150,7 @@
 				420DE2F71BC7942300D87D6D /* ZXResultParser.m in Sources */,
 				429CA0611B9EF8BF0013A44A /* CCPickerAssetsViewController.m in Sources */,
 				429C9FF61B9EF8BF0013A44A /* SRWebSocketConnectionInfo.m in Sources */,
+				423C127A1C0ECACB009FBA17 /* CCTool.m in Sources */,
 				420DE2D21BC7942300D87D6D /* ZXAddressBookAUResultParser.m in Sources */,
 				429CA0F61B9EF8BF0013A44A /* CCPhotographyHelper.m in Sources */,
 				420DE34F1BC7942300D87D6D /* ZXBinaryBitmap.m in Sources */,

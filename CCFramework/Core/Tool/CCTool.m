@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  CCTool.m
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,11 +23,31 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import "CCTool.h"
+#import "CCVoiceCommonHelper.h"
 
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
+@implementation CCTool
 
-#endif /* Core_h */
+/**
+ *  @author CC, 2015-12-02
+ *  
+ *  @brief  获取音频时长
+ *
+ *  @param recordPath 音频名称
+ */
++ (NSString *)obtainVoiceDuration:(NSString *)recordPath
+{
+    NSString *recordDuration;
+    NSError *error = nil;
+    NSString *path = [CCVoiceCommonHelper getPathByFileName:recordPath ofType:@"wav"];
+    AVAudioPlayer *play = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:&error];
+    if (error) {
+        recordDuration = @"";
+    } else {
+        recordDuration = [NSString stringWithFormat:@"%.1f", play.duration];
+    }
+    return recordDuration;
+}
+
+
+@end

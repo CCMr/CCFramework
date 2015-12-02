@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  CCTool.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,11 +23,18 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import <Foundation/Foundation.h>
 
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
+@interface CCTool : NSObject
 
-#endif /* Core_h */
+/**
+ *  @author CC, 2015-12-02
+ *  
+ *  @brief  获取音频时长
+ *
+ *  @param recordPath 音频名称
+ */
++ (NSString *)obtainVoiceDuration:(NSString *)recordPath;
+
+
+@end
