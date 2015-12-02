@@ -127,6 +127,16 @@
 }
 
 /**
+ *  @author CC, 2015-12-02
+ *  
+ *  @brief  注册设备
+ */
+- (void)registerDevice
+{
+    
+}
+
+/**
  *  @author CC, 2015-11-11
  *  
  *  @brief  建立服务器连接
@@ -169,6 +179,8 @@
     if (self.hubConnection.state == disconnected){
         [self addNotification];
         [self.hubConnection start];
+    }else if (self.hubConnection.state == connected){
+        [self registerDevice];
     }
 }
 
@@ -232,16 +244,6 @@
 }
 
 #pragma mark - 回调函数
-/**
- *  @author CC, 15-09-18
- *
- *  @brief  注册设备
- *
- *  @since 1.0
- */
-- (void)registerDevice
-{
-}
 
 /**
  *  @author CC, 15-09-18
