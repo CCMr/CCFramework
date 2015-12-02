@@ -159,13 +159,13 @@
     switch (message.messageMediaType) {
         case CCBubbleMessageMediaTypeText: {
             CGSize needTextSize = [CCMessageBubbleView neededSizeForText:message.text];
-            bubbleSize = CGSizeMake(needTextSize.width + kCCLeftTextHorizontalBubblePadding + kCCRightTextHorizontalBubblePadding + kCCArrowMarginWidth, needTextSize.height + kCCHaveBubbleMargin * 4); //这里*4的原因是：气泡内部的文本也做了margin，而且margin的大小和气泡的margin一样大小，所以需要加上*2的间隙大小
+            bubbleSize = CGSizeMake(needTextSize.width + kCCLeftTextHorizontalBubblePadding + kCCRightTextHorizontalBubblePadding + kCCArrowMarginWidth, needTextSize.height + kCCHaveBubbleMargin * 2 + kCCTopAndBottomBubbleMargin * 2); //这里*4的原因是：气泡内部的文本也做了margin，而且margin的大小和气泡的margin一样大小，所以需要加上*2的间隙大小
             break;
         }
         case CCBubbleMessageMediaTypeVoice: {
             // 这里的宽度是不定的，高度是固定的，根据需要根据语音长短来定制啦
             CGSize needVoiceSize = [CCMessageBubbleView neededSizeForVoicePath:message.voicePath voiceDuration:message.voiceDuration];
-            bubbleSize = CGSizeMake(needVoiceSize.width, needVoiceSize.height + kCCHaveBubbleMargin * 2);
+            bubbleSize = CGSizeMake(needVoiceSize.width, needVoiceSize.height + kCCHaveBubbleVoiceMargin * 2);
             break;
         }
         case CCBubbleMessageMediaTypeEmotion: {
@@ -174,20 +174,20 @@
             bubbleSize = CGSizeMake(emotionSize.width, emotionSize.height + kCCHaveBubbleMargin * 2);
             break;
         }
-        case CCBubbleMessageMediaTypePhoto: {
-            CGSize needPhotoSize = [CCMessageBubbleView neededSizeForPhoto:message.photo];
-            bubbleSize = CGSizeMake(needPhotoSize.width, needPhotoSize.height + kCCNoneBubblePhotoMargin * 2);
-            break;
-        }
         case CCBubbleMessageMediaTypeVideo: {
             CGSize needVideoConverPhotoSize = [CCMessageBubbleView neededSizeForPhoto:message.videoConverPhoto];
             bubbleSize = CGSizeMake(needVideoConverPhotoSize.width, needVideoConverPhotoSize.height + kCCNoneBubblePhotoMargin * 2);
             break;
         }
+        case CCBubbleMessageMediaTypePhoto: {
+            CGSize needPhotoSize = [CCMessageBubbleView neededSizeForPhoto:message.photo];
+            bubbleSize = CGSizeMake(needPhotoSize.width, needPhotoSize.height + kCCHaveBubblePhotoMargin * 2);
+            break;
+        }
         case CCBubbleMessageMediaTypeLocalPosition: {
             // 固定大小，必须的
             CGSize localPostionSize = [CCMessageBubbleView neededSizeForLocalPostion];
-            bubbleSize = CGSizeMake(localPostionSize.width, localPostionSize.height + kCCNoneBubblePhotoMargin * 2);
+            bubbleSize = CGSizeMake(localPostionSize.width, localPostionSize.height + kCCHaveBubblePhotoMargin * 2);
             break;
         }
         default:
@@ -225,11 +225,32 @@
         paddingX = CGRectGetWidth(self.bounds) - bubbleSize.width;
     }
     
+    CCBubbleMessageMediaType currentMessageMediaType = self.message.messageMediaType;
+    
     // 最终减去上下边距的像素就可以得到气泡的位置以及大小
-    return CGRectIntegral(CGRectMake(paddingX,
-                                     kCCHaveBubbleMargin,
-                                     bubbleSize.width,
-                                     bubbleSize.height - kCCHaveBubbleMargin * 2));
+    CGFloat marginY = 0.0;
+    CGFloat topSumForBottom = 0.0;
+    switch (currentMessageMediaType) {
+        case CCBubbleMessageMediaTypeVoice:
+            marginY = kCCHaveBubbleVoiceMargin;
+            topSumForBottom = kCCHaveBubbleVoiceMargin * 2;
+            break;
+        case CCBubbleMessageMediaTypePhoto:
+        case CCBubbleMessageMediaTypeLocalPosition:
+            marginY = kCCHaveBubblePhotoMargin;
+            topSumForBottom = kCCHaveBubblePhotoMargin * 2;
+            break;
+        default:
+            // 文本、视频、表情
+            marginY = kCCHaveBubbleMargin;
+            topSumForBottom = kCCHaveBubbleMargin * 2;
+            break;
+    }
+    
+    return CGRectMake(paddingX,
+                      marginY,
+                      bubbleSize.width,
+                      bubbleSize.height - topSumForBottom);
 }
 
 #pragma mark - Configure Methods
@@ -648,7 +669,8 @@
             CGRect geolocationsLabelFrame = CGRectMake(11, CGRectGetHeight(photoImageViewFrame) - 47, CGRectGetWidth(photoImageViewFrame) - 20, 40);
             self.geolocationsLabel.frame = geolocationsLabelFrame;
             
-            break;        }
+            break;        
+        }
         default:
             break;
     }
