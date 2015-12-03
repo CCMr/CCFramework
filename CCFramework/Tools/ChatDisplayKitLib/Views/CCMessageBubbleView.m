@@ -663,6 +663,8 @@
             CGRect photoImageViewFrame = CGRectMake(paddingX, marginY, needPhotoSize.width, needPhotoSize.height);
             
             self.bubblePhotoImageView.frame = photoImageViewFrame;
+            self.bubbleImageView.frame = photoImageViewFrame;
+            
             
             self.videoPlayImageView.center = CGPointMake(CGRectGetWidth(photoImageViewFrame) / 2.0, CGRectGetHeight(photoImageViewFrame) / 2.0);
             

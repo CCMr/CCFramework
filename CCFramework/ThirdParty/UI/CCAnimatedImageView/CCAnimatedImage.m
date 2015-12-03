@@ -252,7 +252,7 @@ typedef NS_ENUM(NSUInteger, CCAnimatedImageFrameCacheSize) {
 
 - (id)init
 {
-    NSLog(@"Error: Use `-initWithAnimatedGIFData:` and supply the animated GIF data as an argument to initialize an object of type `FLAnimatedImage`.");
+    NSLog(@"Error: Use `-initWithAnimatedGIFData:` and supply the animated GIF data as an argument to initialize an object of type `CCAnimatedImage`.");
     return nil;
 }
 
