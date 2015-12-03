@@ -176,9 +176,9 @@
 
 /** view 圆角 边框 */
 #define cc_View_Border_Radius(view, radius, width, color) \
-VIEW_RADIUS(view, radius); \
-[view.layer setBorderWidth:(Width)]; \
-[View.layer setBorderColor:[color CGColor]]
+cc_View_Radius(view, radius); \
+[view.layer setBorderWidth:(width)]; \
+[view.layer setBorderColor:[color CGColor]]
 
 
 
