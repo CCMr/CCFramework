@@ -1108,6 +1108,13 @@ static CGPoint delayOffset = {0.0};
     }
 }
 
+- (void)didEmotionStore
+{
+    if ([self.delegate respondsToSelector:@selector(didEmotionStore)]) {
+        [self.delegate didEmotionStore];
+    }
+}
+
 - (void)didSendGeolocationsMessageWithGeolocaltions:(NSString *)geolcations
                                            location:(CLLocation *)location
 {
@@ -1368,9 +1375,15 @@ static CGPoint delayOffset = {0.0};
                 }];
             }];
         } break;
-        case CCShareMenuItemTypeVideo:
-            
-            break;
+        case CCShareMenuItemTypeVideo: {
+            _camerViewController = [[CCCameraViewController alloc] init];
+            [_camerViewController startCcameraWithViewController:weakSelf complate:^(id request) {
+                NSArray *photoAry = request;
+                [photoAry enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    [weakSelf didSendMessageWithPhoto:obj];
+                }];
+            }];
+        }  break;
         default:
             break;
     }
@@ -1382,6 +1395,11 @@ static CGPoint delayOffset = {0.0};
               atIndexPath:(NSIndexPath *)indexPath
 {
     [self didSendEmotionMessageWithEmotionPath:emotion.emotionPath];
+}
+
+-(void)didStore
+{
+    [self didEmotionStore];
 }
 
 #pragma mark - CCEmotionManagerView DataSource

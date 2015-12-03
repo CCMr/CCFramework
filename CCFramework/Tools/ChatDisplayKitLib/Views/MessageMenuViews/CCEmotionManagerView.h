@@ -40,7 +40,15 @@
  *  @param emotion   被点击的gif表情Model
  *  @param indexPath 被点击的位置
  */
-- (void)didSelecteEmotion:(CCEmotion *)emotion atIndexPath:(NSIndexPath *)indexPath;
+- (void)didSelecteEmotion:(CCEmotion *)emotion 
+              atIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ *  @author CC, 2015-12-03
+ *  
+ *  @brief  商店按钮
+ */
+- (void)didStore;
 
 @end
 
@@ -75,9 +83,9 @@
 
 @interface CCEmotionManagerView : UIView
 
-@property (nonatomic, weak) id <CCEmotionManagerViewDelegate> delegate;
+@property(nonatomic, weak) id<CCEmotionManagerViewDelegate> delegate;
 
-@property (nonatomic, weak) id <CCEmotionManagerViewDataSource> dataSource;
+@property(nonatomic, weak) id<CCEmotionManagerViewDataSource> dataSource;
 
 /**
  *  是否显示表情商店的按钮

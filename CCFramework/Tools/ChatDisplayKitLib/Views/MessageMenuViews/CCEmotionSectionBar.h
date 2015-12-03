@@ -37,6 +37,13 @@
 - (void)didSelecteEmotionManager:(CCEmotionManager *)emotionManager
                        atSection:(NSInteger)section;
 
+/**
+ *  @author CC, 2015-12-03
+ *  
+ *  @brief  商店
+ */
+- (void)didSectionBarStore;
+
 @end
 
 @interface CCEmotionSectionBar : UIView
@@ -50,6 +57,15 @@
 
 - (instancetype)initWithFrame:(CGRect)frame
        showEmotionStoreButton:(BOOL)isShowEmotionStoreButtoned;
+
+/**
+ *  @author CC, 2015-12-03
+ *  
+ *  @brief  选中下标
+ *
+ *  @param index 下标
+ */
+- (void)currentIndex:(NSInteger)index;
 
 /**
  *  根据数据源刷新UI布局和数据

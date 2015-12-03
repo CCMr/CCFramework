@@ -104,6 +104,13 @@ typedef NS_ENUM(NSUInteger, CCInputViewType) {
 - (void)didSendEmotion:(NSString *)emotionPath fromSender:(NSString *)sender onDate:(NSDate *)date;
 
 /**
+ *  @author CC, 2015-12-03
+ *  
+ *  @brief  表情包商店
+ */
+- (void)didEmotionStore;
+
+/**
  *  发送地理位置的回调方法
  *
  *  @param geoLocationsPhoto 目标显示默认图
@@ -267,7 +274,7 @@ typedef NS_ENUM(NSUInteger, CCInputViewType) {
  *  
  *  @brief  底部工具条
  */
-@property (nonatomic, copy)UIView *bottomToolbarView;
+@property(nonatomic, copy) UIView *bottomToolbarView;
 
 #pragma mark - RecorderPath Helper Method
 /**
