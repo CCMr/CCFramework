@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  CCXML.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,12 +23,24 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import <Foundation/Foundation.h>
 
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
+@interface CCXML : NSObject
 
-#endif /* Core_h */
+/**
+ *  @author C C, 2015-12-04
+ *  
+ *  @brief  开始解析
+ *
+ *  @param data 解析数据
+ */
+- (void)startParse:(NSData *)data;
+
+/**
+ *  @author C C, 2015-12-04
+ *  
+ *  @brief  转换位键值
+ */
+- (NSMutableDictionary *)changeDictionary;
+
+@end

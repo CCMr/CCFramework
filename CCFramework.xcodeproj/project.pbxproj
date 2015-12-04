@@ -612,6 +612,10 @@
 		425477841BD2AEC20071BBC5 /* RSADataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 425477241BD2AEC20071BBC5 /* RSADataVerifier.m */; };
 		425477871BD2AF6A0071BBC5 /* AliOrderFormEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 425477851BD2AF6A0071BBC5 /* AliOrderFormEntity.h */; };
 		425477881BD2AF6A0071BBC5 /* AliOrderFormEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 425477861BD2AF6A0071BBC5 /* AliOrderFormEntity.m */; };
+		425A4F381C11C466009A7E77 /* CCXML.h in Headers */ = {isa = PBXBuildFile; fileRef = 425A4F361C11C466009A7E77 /* CCXML.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		425A4F391C11C466009A7E77 /* CCXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A4F371C11C466009A7E77 /* CCXML.m */; };
+		425A4F3C1C11CA42009A7E77 /* CCWXSingleEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 425A4F3A1C11CA42009A7E77 /* CCWXSingleEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		425A4F3D1C11CA42009A7E77 /* CCWXSingleEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A4F3B1C11CA42009A7E77 /* CCWXSingleEntity.m */; };
 		426476A21BD0E3AF00EE191C /* CCCellScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 426476961BD0E3AF00EE191C /* CCCellScrollView.h */; };
 		426476A31BD0E3AF00EE191C /* CCCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 426476971BD0E3AF00EE191C /* CCCellScrollView.m */; };
 		426476A41BD0E3AF00EE191C /* CCLongPressGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 426476981BD0E3AF00EE191C /* CCLongPressGestureRecognizer.h */; };
@@ -682,6 +686,11 @@
 		426979491BA695BA00C3E93C /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 426979251BA695BA00C3E93C /* UIRefreshControl+AFNetworking.m */; };
 		4269794A1BA695BA00C3E93C /* UIWebView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 426979261BA695BA00C3E93C /* UIWebView+AFNetworking.h */; };
 		4269794B1BA695BA00C3E93C /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 426979271BA695BA00C3E93C /* UIWebView+AFNetworking.m */; };
+		427E1D3C1C107066004B257C /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 427E1D391C107066004B257C /* libWeChatSDK.a */; };
+		427E1D3D1C107066004B257C /* WXApi.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1D3A1C107066004B257C /* WXApi.h */; };
+		427E1D3E1C107066004B257C /* WXApiObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1D3B1C107066004B257C /* WXApiObject.h */; };
+		427E1D411C10709F004B257C /* CCWxPayEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1D3F1C10709F004B257C /* CCWxPayEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		427E1D421C10709F004B257C /* CCWxPayEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 427E1D401C10709F004B257C /* CCWxPayEngine.m */; };
 		428A12CC1BC8A1C6005D904D /* ContactPersonEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 428A12CA1BC8A1C6005D904D /* ContactPersonEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		428A12CD1BC8A1C6005D904D /* ContactPersonEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 428A12CB1BC8A1C6005D904D /* ContactPersonEntity.m */; };
 		428A12D01BC8A433005D904D /* ContactRead.h in Headers */ = {isa = PBXBuildFile; fileRef = 428A12CE1BC8A433005D904D /* ContactRead.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1828,6 +1837,11 @@
 		425477241BD2AEC20071BBC5 /* RSADataVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataVerifier.m; sourceTree = "<group>"; };
 		425477851BD2AF6A0071BBC5 /* AliOrderFormEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AliOrderFormEntity.h; path = CCFramework/Tools/Vender/Pay/Alipay/Model/AliOrderFormEntity.h; sourceTree = SOURCE_ROOT; };
 		425477861BD2AF6A0071BBC5 /* AliOrderFormEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AliOrderFormEntity.m; path = CCFramework/Tools/Vender/Pay/Alipay/Model/AliOrderFormEntity.m; sourceTree = SOURCE_ROOT; };
+		425A4F2F1C11B1F8009A7E77 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		425A4F361C11C466009A7E77 /* CCXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCXML.h; path = Core/CCXML/CCXML.h; sourceTree = "<group>"; };
+		425A4F371C11C466009A7E77 /* CCXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCXML.m; path = Core/CCXML/CCXML.m; sourceTree = "<group>"; };
+		425A4F3A1C11CA42009A7E77 /* CCWXSingleEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCWXSingleEntity.h; path = Pay/Wxpay/Model/CCWXSingleEntity.h; sourceTree = "<group>"; };
+		425A4F3B1C11CA42009A7E77 /* CCWXSingleEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCWXSingleEntity.m; path = Pay/Wxpay/Model/CCWXSingleEntity.m; sourceTree = "<group>"; };
 		426476961BD0E3AF00EE191C /* CCCellScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCellScrollView.h; sourceTree = "<group>"; };
 		426476971BD0E3AF00EE191C /* CCCellScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCCellScrollView.m; sourceTree = "<group>"; };
 		426476981BD0E3AF00EE191C /* CCLongPressGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLongPressGestureRecognizer.h; sourceTree = "<group>"; };
@@ -1899,6 +1913,11 @@
 		426979251BA695BA00C3E93C /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		426979261BA695BA00C3E93C /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		426979271BA695BA00C3E93C /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		427E1D391C107066004B257C /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		427E1D3A1C107066004B257C /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		427E1D3B1C107066004B257C /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		427E1D3F1C10709F004B257C /* CCWxPayEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCWxPayEngine.h; path = Pay/Wxpay/CCWxPayEngine.h; sourceTree = "<group>"; };
+		427E1D401C10709F004B257C /* CCWxPayEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCWxPayEngine.m; path = Pay/Wxpay/CCWxPayEngine.m; sourceTree = "<group>"; };
 		428A12CA1BC8A1C6005D904D /* ContactPersonEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactPersonEntity.h; path = Contacts/Models/ContactPersonEntity.h; sourceTree = "<group>"; };
 		428A12CB1BC8A1C6005D904D /* ContactPersonEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactPersonEntity.m; path = Contacts/Models/ContactPersonEntity.m; sourceTree = "<group>"; };
 		428A12CE1BC8A433005D904D /* ContactRead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactRead.h; path = Contacts/ContactRead.h; sourceTree = "<group>"; };
@@ -2463,6 +2482,7 @@
 				424492921C0D90F500488AA2 /* libopencore-amrnb.a in Frameworks */,
 				424492931C0D90F500488AA2 /* libopencore-amrwb.a in Frameworks */,
 				425477281BD2AEC20071BBC5 /* libssl.a in Frameworks */,
+				427E1D3C1C107066004B257C /* libWeChatSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3347,6 +3367,7 @@
 		425475F71BD29C0A0071BBC5 /* Pay */ = {
 			isa = PBXGroup;
 			children = (
+				427E1D371C106FA2004B257C /* Wxpay */,
 				425475F81BD29C870071BBC5 /* Alipay */,
 			);
 			name = Pay;
@@ -3491,6 +3512,24 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
+		425A4F2A1C1073B8009A7E77 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				425A4F3A1C11CA42009A7E77 /* CCWXSingleEntity.h */,
+				425A4F3B1C11CA42009A7E77 /* CCWXSingleEntity.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		425A4F351C11C444009A7E77 /* CCXML */ = {
+			isa = PBXGroup;
+			children = (
+				425A4F361C11C466009A7E77 /* CCXML.h */,
+				425A4F371C11C466009A7E77 /* CCXML.m */,
+			);
+			name = CCXML;
+			sourceTree = "<group>";
+		};
 		425A76B41BA17FE8006D18FE /* CCPagesContainer */ = {
 			isa = PBXGroup;
 			children = (
@@ -3622,6 +3661,28 @@
 			path = UIKit;
 			sourceTree = "<group>";
 		};
+		427E1D371C106FA2004B257C /* Wxpay */ = {
+			isa = PBXGroup;
+			children = (
+				425A4F2A1C1073B8009A7E77 /* Model */,
+				427E1D381C107066004B257C /* ResourceFile */,
+				427E1D3F1C10709F004B257C /* CCWxPayEngine.h */,
+				427E1D401C10709F004B257C /* CCWxPayEngine.m */,
+			);
+			name = Wxpay;
+			sourceTree = "<group>";
+		};
+		427E1D381C107066004B257C /* ResourceFile */ = {
+			isa = PBXGroup;
+			children = (
+				427E1D391C107066004B257C /* libWeChatSDK.a */,
+				427E1D3A1C107066004B257C /* WXApi.h */,
+				427E1D3B1C107066004B257C /* WXApiObject.h */,
+			);
+			name = ResourceFile;
+			path = Pay/Wxpay/ResourceFile;
+			sourceTree = "<group>";
+		};
 		428A12C81BC8A025005D904D /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
@@ -3713,6 +3774,7 @@
 		429C9CB81B9EF7060013A44A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				425A4F2F1C11B1F8009A7E77 /* libc++.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -5079,6 +5141,7 @@
 			isa = PBXGroup;
 			children = (
 				42B6473F1BEDA8DD00B2F6FD /* Core.h */,
+				425A4F351C11C444009A7E77 /* CCXML */,
 				423C12761C0ECA86009FBA17 /* Tool */,
 				42FC46291BF478BD00EF8D3A /* Reactive */,
 				42DC3EE81BEF49CD00F9CC38 /* CCLog */,
@@ -5611,6 +5674,7 @@
 				420DE3251BC7942300D87D6D /* ZXGenericGF.h in Headers */,
 				420DE3921BC7942300D87D6D /* ZXDataMatrixWriter.h in Headers */,
 				420DE3901BC7942300D87D6D /* ZXDataMatrixReader.h in Headers */,
+				427E1D3E1C107066004B257C /* WXApiObject.h in Headers */,
 				420DE3751BC7942300D87D6D /* ZXDataMatrixDetector.h in Headers */,
 				420DE37D1BC7942300D87D6D /* ZXDataMatrixDefaultPlacement.h in Headers */,
 				420DE3731BC7942300D87D6D /* ZXDataMatrixVersion.h in Headers */,
@@ -5745,6 +5809,7 @@
 				424492961C0D90F500488AA2 /* dec_if.h in Headers */,
 				42C208ED1BDE14FC00C76004 /* ChatDisplayKitLib.h in Headers */,
 				4254775B1BD2AEC20071BBC5 /* rand.h in Headers */,
+				427E1D411C10709F004B257C /* CCWxPayEngine.h in Headers */,
 				429CA06D1B9EF8BF0013A44A /* CCPickerCollectionView.h in Headers */,
 				429C9FA41B9EF8BF0013A44A /* CCIntroductionViewController.h in Headers */,
 				425477341BD2AEC20071BBC5 /* cms.h in Headers */,
@@ -5830,6 +5895,7 @@
 				4254774D1BD2AEC20071BBC5 /* md5.h in Headers */,
 				420DE3B11BC7942300D87D6D /* ZXAI01AndOtherAIs.h in Headers */,
 				420DE3AD1BC7942300D87D6D /* ZXAI013x0x1xDecoder.h in Headers */,
+				425A4F381C11C466009A7E77 /* CCXML.h in Headers */,
 				420DE3AF1BC7942300D87D6D /* ZXAI013x0xDecoder.h in Headers */,
 				420DE3A91BC7942300D87D6D /* ZXAI01392xDecoder.h in Headers */,
 				420DE3AB1BC7942300D87D6D /* ZXAI01393xDecoder.h in Headers */,
@@ -5922,8 +5988,10 @@
 				4254776E1BD2AEC20071BBC5 /* ui.h in Headers */,
 				429CA0A71B9EF8BF0013A44A /* SETextInput.h in Headers */,
 				4254772A1BD2AEC20071BBC5 /* asn1.h in Headers */,
+				427E1D3D1C107066004B257C /* WXApi.h in Headers */,
 				429C9FF81B9EF8BF0013A44A /* base64.h in Headers */,
 				42B30DCB1BBD72AD0039BB94 /* SDImageCache.h in Headers */,
+				425A4F3C1C11CA42009A7E77 /* CCWXSingleEntity.h in Headers */,
 				4264D73E1BA2C19100E83159 /* CCPageIndicatorView.h in Headers */,
 				42F24C671BEA5091008CDEDC /* PNRadarChart.h in Headers */,
 				42DC3EEB1BEF49EE00F9CC38 /* CCNSLog.h in Headers */,
@@ -6203,6 +6271,7 @@
 				429C9F591B9EF8BF0013A44A /* BaseViewController.m in Sources */,
 				42B30DE21BBD72AD0039BB94 /* SDWebImageDownloaderOperation.m in Sources */,
 				429C9FA31B9EF8BF0013A44A /* CCSignatureView.m in Sources */,
+				425A4F391C11C466009A7E77 /* CCXML.m in Sources */,
 				420DE4641BC7942300D87D6D /* ZXQRCodeFinderPatternInfo.m in Sources */,
 				42BAB91B1BC7565100C70043 /* UITabBarController+Additional.m in Sources */,
 				429C9F5D1B9EF8BF0013A44A /* CCDropzone.m in Sources */,
@@ -6439,6 +6508,7 @@
 				420DE3631BC7942300D87D6D /* ZXResult.m in Sources */,
 				420DE3461BC7942300D87D6D /* ZXIntArray.m in Sources */,
 				429C9FA11B9EF8BF0013A44A /* CCSecurityStrategy.m in Sources */,
+				425A4F3D1C11CA42009A7E77 /* CCWXSingleEntity.m in Sources */,
 				420DE3B81BC7942300D87D6D /* ZXAnyAIDecoder.m in Sources */,
 				42D9009D1BF47B3100B8B01F /* CCDelegateProxy.m in Sources */,
 				429CA0301B9EF8BF0013A44A /* CCPhoto.m in Sources */,
@@ -6528,6 +6598,7 @@
 				42B647521BEDE08F00B2F6FD /* CCHTTPManager+DELETE.m in Sources */,
 				420DE3661BC7942300D87D6D /* ZXResultPoint.m in Sources */,
 				424492911C0D90F500488AA2 /* wav.mm in Sources */,
+				427E1D421C10709F004B257C /* CCWxPayEngine.m in Sources */,
 				420DE4331BC7942300D87D6D /* ZXPDF417BarcodeMatrix.m in Sources */,
 				429C9FE31B9EF8BF0013A44A /* SRNegotiationResponse.m in Sources */,
 				429C9FDA1B9EF8BF0013A44A /* SRConnectionExtensions.m in Sources */,
@@ -6692,6 +6763,7 @@
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Alipay",
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Alipay/ResourceFile",
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/VoiceConvert/lib",
+					"$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Wxpay/ResourceFile",
 				);
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				MACH_O_TYPE = staticlib;
@@ -6734,6 +6806,7 @@
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Alipay",
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Alipay/ResourceFile",
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/VoiceConvert/lib",
+					"$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Wxpay/ResourceFile",
 				);
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				MACH_O_TYPE = staticlib;
