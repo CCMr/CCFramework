@@ -33,6 +33,8 @@
 #import <CCFramework/SignalRManager.h>
 #import <CCFramework/CCTimePicker.h>
 #import <CCFramework/CCAliPayEngine.h>
+#import <CCFramework/CCWxSingleEntity.h>
+#import <CCFramework/CCWxPayEngine.h>
 #import <CCFramework/CCDisplayLocationViewController.h>
 #import <CCFramework/CCChart.h>
 #import <CCFramework/VoiceConverter.h>
