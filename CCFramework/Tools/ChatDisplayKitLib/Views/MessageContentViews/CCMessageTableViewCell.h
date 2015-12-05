@@ -87,7 +87,9 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
  *  @param indexPath 该目标消息在哪个IndexPath里面
  *  @param messageTableViewCell 目标消息在该Cell上
  */
-- (void)multiMediaMessageDidSelectedOnMessage:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath onMessageTableViewCell:(CCMessageTableViewCell *)messageTableViewCell;
+- (void)multiMediaMessageDidSelectedOnMessage:(id<CCMessageModel>)message 
+                                  atIndexPath:(NSIndexPath *)indexPath 
+                       onMessageTableViewCell:(CCMessageTableViewCell *)messageTableViewCell;
 
 /**
  *  双击文本消息，触发这个回调
@@ -95,14 +97,17 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
  *  @param message   被操作的目标消息Model
  *  @param indexPath 该目标消息在哪个IndexPath里面
  */
-- (void)didDoubleSelectedOnTextMessage:(CCMessageTableViewCell *)tableViewCell Message:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
+- (void)didDoubleSelectedOnTextMessage:(CCMessageTableViewCell *)tableViewCell 
+                               Message:(id<CCMessageModel>)message 
+                           atIndexPath:(NSIndexPath *)indexPath;
 
 /**
  *  点击消息发送者的头像回调方法
  *
  *  @param indexPath 该目标消息在哪个IndexPath里面
  */
-- (void)didSelectedAvatarOnMessage:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
+- (void)didSelectedAvatarOnMessage:(id<CCMessageModel>)message
+                       atIndexPath:(NSIndexPath *)indexPath;
 
 /**
  *  Menu Control Selected Item
@@ -118,7 +123,8 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
  *
  *  @since 1.0
  */
-- (void)didSelectedSendNotSuccessfulCallback:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
+- (void)didSelectedSendNotSuccessfulCallback:(id<CCMessageModel>)message 
+                                 atIndexPath:(NSIndexPath *)indexPath;
 
 #pragma mark - Menu Actions
 /**
@@ -126,35 +132,40 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
  *  
  *  @brief  转发
  */
-- (void)didSelectedMenuTranspond:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
+- (void)didSelectedMenuTranspond:(id<CCMessageModel>)message 
+                     atIndexPath:(NSIndexPath *)indexPath;
 
 /**
  *  @author CC, 2015-11-16
  *  
  *  @brief  收藏
  */
-- (void)didSelectedMenuFavorites:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
+- (void)didSelectedMenuFavorites:(id<CCMessageModel>)message 
+                     atIndexPath:(NSIndexPath *)indexPath;
 
 /**
  *  @author CC, 2015-11-16
  *  
  *  @brief  撤回
  */
-- (void)didSelectedMenuWithdraw:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
+- (void)didSelectedMenuWithdraw:(id<CCMessageModel>)message 
+                    atIndexPath:(NSIndexPath *)indexPath;
 
 /**
  *  @author CC, 2015-11-16
  *  
  *  @brief  删除
  */
-- (void)didSelectedMenuDeletes:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
+- (void)didSelectedMenuDeletes:(id<CCMessageModel>)message
+                   atIndexPath:(NSIndexPath *)indexPath;
 
 /**
  *  @author CC, 2015-11-16
  *  
  *  @brief  更多
  */
-- (void)didSelectedMenuMore:(id<CCMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
+- (void)didSelectedMenuMore:(id<CCMessageModel>)message 
+                atIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

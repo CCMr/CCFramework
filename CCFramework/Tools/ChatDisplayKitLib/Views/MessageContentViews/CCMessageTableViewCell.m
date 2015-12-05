@@ -69,7 +69,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
  *
  *  @param message 需要配置的目标消息Model
  */
-- (void)configureTimestamp:(BOOL)displayTimestamp atMessage:(id<CCMessageModel>)message;
+- (void)configureTimestamp:(BOOL)displayTimestamp 
+                 atMessage:(id<CCMessageModel>)message;
 
 /**
  *  2、配置头像
@@ -132,7 +133,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (void)avatarButtonClicked:(UIButton *)sender
 {
     if ([self.delegate respondsToSelector:@selector(didSelectedAvatarOnMessage:atIndexPath:)]) {
-        [self.delegate didSelectedAvatarOnMessage:self.messageBubbleView.message atIndexPath:self.indexPath];
+        [self.delegate didSelectedAvatarOnMessage:self.messageBubbleView.message 
+                                      atIndexPath:self.indexPath];
     }
 }
 
@@ -173,7 +175,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (void)transpond:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(didSelectedMenuTranspond:atIndexPath:)])
-        [self.delegate didSelectedMenuTranspond:self.messageBubbleView.message atIndexPath:self.indexPath];
+        [self.delegate didSelectedMenuTranspond:self.messageBubbleView.message
+                                    atIndexPath:self.indexPath];
 }
 
 /**
@@ -184,7 +187,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (void)favorites:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(didSelectedMenuFavorites:atIndexPath:)])
-        [self.delegate didSelectedMenuFavorites:self.messageBubbleView.message atIndexPath:self.indexPath];
+        [self.delegate didSelectedMenuFavorites:self.messageBubbleView.message
+                                    atIndexPath:self.indexPath];
 }
 
 /**
@@ -195,7 +199,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (void)withdraw:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(didSelectedMenuWithdraw:atIndexPath:)])
-        [self.delegate didSelectedMenuWithdraw:self.messageBubbleView.message atIndexPath:self.indexPath];
+        [self.delegate didSelectedMenuWithdraw:self.messageBubbleView.message
+                                   atIndexPath:self.indexPath];
 }
 
 /**
@@ -206,7 +211,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (void)deletes:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(didSelectedMenuDeletes:atIndexPath:)])
-        [self.delegate didSelectedMenuDeletes:self.messageBubbleView.message atIndexPath:self.indexPath];
+        [self.delegate didSelectedMenuDeletes:self.messageBubbleView.message 
+                                  atIndexPath:self.indexPath];
 }
 
 /**
@@ -217,7 +223,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (void)more:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(didSelectedMenuMore:atIndexPath:)])
-        [self.delegate didSelectedMenuMore:self.messageBubbleView.message atIndexPath:self.indexPath];
+        [self.delegate didSelectedMenuMore:self.messageBubbleView.message
+                               atIndexPath:self.indexPath];
 }
 
 #pragma mark - Setters
@@ -238,7 +245,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     [self configureMessageBubbleViewWithMessage:message];
 }
 
-- (void)configureTimestamp:(BOOL)displayTimestamp atMessage:(id<CCMessageModel>)message
+- (void)configureTimestamp:(BOOL)displayTimestamp 
+                 atMessage:(id<CCMessageModel>)message
 {
     self.displayTimestamp = displayTimestamp;
     self.timestampLabel.hidden = !self.displayTimestamp;
@@ -260,7 +268,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     } else if (avatarURL) {
         [self configAvatarWithPhotoURLString:avatarURL];
     } else {
-        UIImage *avatarPhoto = [CCMessageAvatarFactory avatarImageNamed:[UIImage imageNamed:@"avatar"] messageAvatarType:CCMessageAvatarTypeSquare];
+        UIImage *avatarPhoto = [CCMessageAvatarFactory avatarImageNamed:[UIImage imageNamed:@"avatar"] 
+                                                      messageAvatarType:CCMessageAvatarTypeSquare];
         [self configAvatarWithPhoto:avatarPhoto];
     }
 }
@@ -273,7 +282,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (void)configAvatarWithPhotoURLString:(NSString *)photoURLString
 {
     self.avatarButton.messageAvatarType = CCMessageAvatarTypeSquare;
-    [self.avatarButton setImageWithURL:[NSURL URLWithString:photoURLString] placeholer:[UIImage imageNamed:@"avatar"]];
+    [self.avatarButton setImageWithURL:[NSURL URLWithString:photoURLString] 
+                            placeholer:[UIImage imageNamed:@"avatar"]];
 }
 
 - (void)configUserNameWithMessage:(id<CCMessageModel>)message
@@ -412,7 +422,9 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     if (tapGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         [self setupNormalMenuController];
         if ([self.delegate respondsToSelector:@selector(multiMediaMessageDidSelectedOnMessage:atIndexPath:onMessageTableViewCell:)]) {
-            [self.delegate multiMediaMessageDidSelectedOnMessage:self.messageBubbleView.message atIndexPath:self.indexPath onMessageTableViewCell:self];
+            [self.delegate multiMediaMessageDidSelectedOnMessage:self.messageBubbleView.message 
+                                                     atIndexPath:self.indexPath 
+                                          onMessageTableViewCell:self];
         }
     }
 }
@@ -421,7 +433,9 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 {
     if (tapGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         if ([self.delegate respondsToSelector:@selector(didDoubleSelectedOnTextMessage:Message:atIndexPath:)]) {
-            [self.delegate didDoubleSelectedOnTextMessage:self Message:self.messageBubbleView.message atIndexPath:self.indexPath];
+            [self.delegate didDoubleSelectedOnTextMessage:self 
+                                                  Message:self.messageBubbleView.message 
+                                              atIndexPath:self.indexPath];
         }
     }
 }
@@ -703,14 +717,16 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     NSIndexPath *cellIndexPath = [self.containingTableView indexPathForCell:self];
     
     if ([self.containingTableView.delegate respondsToSelector:@selector(tableView:willSelectRowAtIndexPath:)]) {
-        cellIndexPath = [self.containingTableView.delegate tableView:self.containingTableView willSelectRowAtIndexPath:cellIndexPath];
+        cellIndexPath = [self.containingTableView.delegate tableView:self.containingTableView 
+                                            willSelectRowAtIndexPath:cellIndexPath];
     }
     
     if (cellIndexPath) {
         [self.containingTableView selectRowAtIndexPath:cellIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
         
         if ([self.containingTableView.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
-            [self.containingTableView.delegate tableView:self.containingTableView didSelectRowAtIndexPath:cellIndexPath];
+            [self.containingTableView.delegate tableView:self.containingTableView 
+                                 didSelectRowAtIndexPath:cellIndexPath];
         }
     }
 }
@@ -720,7 +736,9 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     NSIndexPath *cellIndexPath = [self.containingTableView indexPathForCell:self];
     
     if ([self.containingTableView.delegate respondsToSelector:@selector(tableView:willDeselectRowAtIndexPath:)]) {
-        cellIndexPath = [self.containingTableView.delegate tableView:self.containingTableView willDeselectRowAtIndexPath:cellIndexPath];
+        cellIndexPath = [self.containingTableView.delegate 
+                         tableView:self.containingTableView 
+                         willDeselectRowAtIndexPath:cellIndexPath];
     }
     
     if (cellIndexPath) {
@@ -728,7 +746,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         
         if ([self.containingTableView.delegate respondsToSelector:@selector(tableView:didDeselectRowAtIndexPath:)])
         {
-            [self.containingTableView.delegate tableView:self.containingTableView didDeselectRowAtIndexPath:cellIndexPath];
+            [self.containingTableView.delegate tableView:self.containingTableView 
+                               didDeselectRowAtIndexPath:cellIndexPath];
         }
     }
 }
@@ -741,7 +760,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     {
         NSIndexPath *cellIndexPath = [self.containingTableView indexPathForCell:self];
         
-        shouldHighlight = [self.containingTableView.delegate tableView:self.containingTableView shouldHighlightRowAtIndexPath:cellIndexPath];
+        shouldHighlight = [self.containingTableView.delegate tableView:self.containingTableView 
+                                         shouldHighlightRowAtIndexPath:cellIndexPath];
     }
     
     return shouldHighlight;

@@ -125,7 +125,7 @@ static char BUTTONCARRYOBJECTS;
 + (id)buttonWith
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(0, 0, 50, 30);
+    button.frame = CGRectMake(0, 0, 30, 30);
     button.titleLabel.font = [UIFont systemFontOfSize:15.f];
     [button setExclusiveTouch:YES];
     

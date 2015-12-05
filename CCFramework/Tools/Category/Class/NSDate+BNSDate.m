@@ -313,8 +313,7 @@
  */
 + (NSInteger)dayNumbertoDay:(NSDate *)today beforDay:(NSDate *)beforday
 {
-    NSCalendar *calendar = [[NSCalendar alloc]
-                            initWithCalendarIdentifier:NSGregorianCalendar]; //日历控件对象
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar]; //日历控件对象
     NSDateComponents *components = [calendar components:NSDayCalendarUnit
                                                fromDate:today
                                                  toDate:beforday
@@ -336,12 +335,9 @@
  */
 - (NSInteger)weekIntValueWithDate
 {
-    NSCalendar *calendar =
-    [[NSCalendar alloc] initWithCalendarIdentifier:NSChineseCalendar];
-    NSDateComponents *comps =
-    [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit |
-                          NSDayCalendarUnit | NSWeekdayCalendarUnit)
-                fromDate:self];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSChineseCalendar];
+    NSDateComponents *comps = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit)
+                                          fromDate:self];
     return [comps weekday];
 }
 
@@ -358,16 +354,11 @@
 - (NSString *)compareIfTodayWithDate
 {
     NSDate *todate = [NSDate date]; //今天
-    NSCalendar *calendar =
-    [[NSCalendar alloc] initWithCalendarIdentifier:NSChineseCalendar];
-    NSDateComponents *comps_today =
-    [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit |
-                          NSDayCalendarUnit | NSWeekdayCalendarUnit)
-                fromDate:todate];
-    NSDateComponents *comps_other =
-    [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit |
-                          NSDayCalendarUnit | NSWeekdayCalendarUnit)
-                fromDate:self];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSChineseCalendar];
+    NSDateComponents *comps_today = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit)
+                                                fromDate:todate];
+    NSDateComponents *comps_other = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit)
+                                                fromDate:self];
     
     //获取星期对应的数字
     NSInteger weekIntValue = [self weekIntValueWithDate];
@@ -400,14 +391,13 @@
  */
 + (NSString *)getWeekStringFromInteger:(int)week
 {
-    NSArray *weekArray =
-    @[ @"周日",
-       @"周一",
-       @"周二",
-       @"周三",
-       @"周四",
-       @"周五",
-       @"周六" ];
+    NSArray *weekArray = @[ @"周日",
+                            @"周一",
+                            @"周二",
+                            @"周三",
+                            @"周四",
+                            @"周五",
+                            @"周六" ];
     return [weekArray objectAtIndex:week];
 }
 
@@ -452,16 +442,12 @@
 - (NSString *)convertingDataFormat
 {
     NSDate *todate = [NSDate date]; //今天
-    NSCalendar *calendar =
-    [[NSCalendar alloc] initWithCalendarIdentifier:NSChineseCalendar];
-    NSDateComponents *comps_today =
-    [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit |
-                          NSDayCalendarUnit | NSWeekdayCalendarUnit)
-                fromDate:todate];
-    NSDateComponents *comps_other =
-    [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit |
-                          NSDayCalendarUnit | NSWeekdayCalendarUnit)
-                fromDate:self];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSChineseCalendar];
+    
+    NSDateComponents *comps_today = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit)
+                                                fromDate:todate];
+    NSDateComponents *comps_other = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit)
+                                                fromDate:self];
     
     NSString *strDate;
     NSInteger weekIntValue =
