@@ -91,14 +91,10 @@
      */
     // NSString * PHS = @"^0(10|2[0-5789]|\\d{3})\\d{7,8}$";
     
-    NSPredicate *regextestmobile =
-    [NSPredicate predicateWithFormat:@"SELF MATCHES %@", MOBILE];
-    NSPredicate *regextestcm =
-    [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CM];
-    NSPredicate *regextestcu =
-    [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CU];
-    NSPredicate *regextestct =
-    [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CT];
+    NSPredicate *regextestmobile = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", MOBILE];
+    NSPredicate *regextestcm = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CM];
+    NSPredicate *regextestcu = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CU];
+    NSPredicate *regextestct = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CT];
     
     if (([regextestmobile evaluateWithObject:self] == YES) ||
         ([regextestcm evaluateWithObject:self] == YES) ||
@@ -129,8 +125,7 @@
 - (BOOL)validateEmailAddress
 {
     NSString *emailCheck = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,8}";
-    NSPredicate *emailMatch =
-    [NSPredicate predicateWithFormat:@"SELF MATCHES%@", emailCheck];
+    NSPredicate *emailMatch = [NSPredicate predicateWithFormat:@"SELF MATCHES%@", emailCheck];
     if (![emailMatch evaluateWithObject:self]) return NO;
     
     return YES;
@@ -147,10 +142,8 @@
  */
 - (BOOL)validateHttpURL
 {
-    NSString *regex = @"(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/"
-    @"]((\\w)*|([0-9]*)|([-|_])*))+";
-    NSPredicate *urlMatch =
-    [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    NSString *regex = @"(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+";
+    NSPredicate *urlMatch = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     if (![urlMatch evaluateWithObject:self]) return NO;
     
     return YES;
@@ -343,11 +336,9 @@
  */
 - (NSString *)encodeBase64String
 {
-    NSData *data =
-    [self dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
     data = [CCBase64 encodeData:data];
-    NSString *base64String =
-    [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSString *base64String = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     return base64String;
 }
 
@@ -360,11 +351,9 @@
  */
 - (NSString *)decodeBase64String
 {
-    NSData *data =
-    [self dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
     data = [CCBase64 decodeData:data];
-    NSString *base64String =
-    [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSString *base64String = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     return base64String;
 }
 
@@ -541,9 +530,7 @@
     unsigned char result[16];
     CC_MD5(cStr, (CC_LONG)strlen(cStr), result);
     
-    return [NSString
-            stringWithFormat:
-            @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+    return [NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
             result[0], result[1], result[2], result[3], result[4], result[5],
             result[6], result[7], result[8], result[9], result[10], result[11],
             result[12], result[13], result[14], result[15]];
@@ -643,15 +630,13 @@
  */
 - (NSString *)createSubFolder:(NSString *)subFolder
 {
-    NSString *subFolderPath =
-    [NSString stringWithFormat:@"%@/%@", self, subFolder];
+    NSString *subFolderPath = [NSString stringWithFormat:@"%@/%@", self, subFolder];
     
     BOOL isDir = NO;
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
-    BOOL existed =
-    [fileManager fileExistsAtPath:subFolderPath isDirectory:&isDir];
+    BOOL existed = [fileManager fileExistsAtPath:subFolderPath isDirectory:&isDir];
     
     if (!(isDir == YES && existed == YES)) {
         [fileManager createDirectoryAtPath:subFolderPath

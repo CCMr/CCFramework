@@ -450,8 +450,7 @@
                                                 fromDate:self];
     
     NSString *strDate;
-    NSInteger weekIntValue =
-    [self weekIntValueWithDate] - 1; //获取星期对应的数字
+    NSInteger weekIntValue = [self weekIntValueWithDate] - 1; //获取星期对应的数字
     NSInteger days = comps_today.day - comps_other.day;
     
     if (comps_today.year == comps_other.year && comps_today.month == comps_other.month && comps_today.day == comps_other.day)
