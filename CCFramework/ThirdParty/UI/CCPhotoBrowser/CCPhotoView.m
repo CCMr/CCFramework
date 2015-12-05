@@ -30,11 +30,14 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+Data.h"
 
+
 @interface CCPhotoView () {
     BOOL _doubleTap;
-    UIImageView *_imageView;
-    CCPhotoLoadingView *_photoLoadingView;
 }
+
+@property (nonatomic, copy) UIImageView *imageView;
+@property (nonatomic, copy) CCPhotoLoadingView *photoLoadingView;
+
 @end
 
 @implementation CCPhotoView
@@ -251,6 +254,10 @@
         [self performSelector:@selector(resets) withObject:nil afterDelay:duration];
     }
     
+    // 通知代理
+    if ([self.photoViewDelegate respondsToSelector:@selector(photoViewSingleTap:)])
+        [self.photoViewDelegate photoViewSingleTap:self];
+
     [UIView animateWithDuration:duration + 0.1 animations:^{
         _imageView.frame = [_photo.srcImageView convertRect:_photo.srcImageView.bounds toView:nil];
         // gif图片仅显示第0张
@@ -258,14 +265,10 @@
             _imageView.image = _imageView.image.images[0];
         }
         
-        // 通知代理
-        if ([self.photoViewDelegate respondsToSelector:@selector(photoViewSingleTap:)]) {
-            [self.photoViewDelegate photoViewSingleTap:self];
-        }
     } completion:^(BOOL finished) {
         // 设置底部的小图片
         _photo.srcImageView.image = _photo.Placeholder;
-        
+
         // 通知代理
         if ([self.photoViewDelegate respondsToSelector:@selector(photoViewDidEndZoom:)]) {
             [self.photoViewDelegate photoViewDidEndZoom:self];

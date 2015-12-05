@@ -29,6 +29,13 @@
 
 @interface CCPhoto : NSObject
 
+/**
+ *  @author CC, 2015-12-04
+ *  
+ *  @brief  用来区分选中项比较
+ */
+@property(nonatomic, strong) id fairly;
+
 @property(nonatomic, strong) NSURL *url;
 /**
  *  @author CC, 2015-11-27

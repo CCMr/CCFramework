@@ -85,7 +85,7 @@
     // 2.创建工具条
     [self createToolbar];
     
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     
     if (_NavigationBarHiddenInited)
         [self NavigationBar];
@@ -224,7 +224,7 @@
 #pragma mark - CCPhotoView代理
 - (void)photoViewSingleTap:(CCPhotoView *)photoView
 {
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
     self.view.backgroundColor = [UIColor clearColor];
     
     // 移除工具条
