@@ -63,7 +63,9 @@ typedef NS_ENUM(NSUInteger, CCInputViewType) {
  *  @param sender 发送者的名字
  *  @param date   发送时间
  */
-- (void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date;
+- (void)didSendText:(NSString *)text
+         fromSender:(NSString *)sender
+             onDate:(NSDate *)date;
 
 /**
  *  发送图片消息的回调方法
@@ -72,7 +74,9 @@ typedef NS_ENUM(NSUInteger, CCInputViewType) {
  *  @param sender 发送者的名字
  *  @param date   发送时间
  */
-- (void)didSendPhoto:(UIImage *)photo fromSender:(NSString *)sender onDate:(NSDate *)date;
+- (void)didSendPhoto:(UIImage *)photo
+          fromSender:(NSString *)sender
+              onDate:(NSDate *)date;
 
 /**
  *  发送视频消息的回调方法
@@ -82,7 +86,10 @@ typedef NS_ENUM(NSUInteger, CCInputViewType) {
  *  @param sender           发送者的名字
  *  @param date             发送时间
  */
-- (void)didSendVideoConverPhoto:(UIImage *)videoConverPhoto videoPath:(NSString *)videoPath fromSender:(NSString *)sender onDate:(NSDate *)date;
+- (void)didSendVideoConverPhoto:(UIImage *)videoConverPhoto
+                      videoPath:(NSString *)videoPath
+                     fromSender:(NSString *)sender
+                         onDate:(NSDate *)date;
 
 /**
  *  发送语音消息的回调方法
@@ -92,7 +99,10 @@ typedef NS_ENUM(NSUInteger, CCInputViewType) {
  *  @param sender           发送者的名字
  *  @param date             发送时间
  */
-- (void)didSendVoice:(NSString *)voicePath voiceDuration:(NSString *)voiceDuration fromSender:(NSString *)sender onDate:(NSDate *)date;
+- (void)didSendVoice:(NSString *)voicePath
+       voiceDuration:(NSString *)voiceDuration
+          fromSender:(NSString *)sender
+              onDate:(NSDate *)date;
 
 /**
  *  发送第三方表情消息的回调方法
@@ -101,7 +111,9 @@ typedef NS_ENUM(NSUInteger, CCInputViewType) {
  *  @param sender   发送者的名字
  *  @param date     发送时间
  */
-- (void)didSendEmotion:(NSString *)emotionPath fromSender:(NSString *)sender onDate:(NSDate *)date;
+- (void)didSendEmotion:(NSString *)emotionPath
+            fromSender:(NSString *)sender
+                onDate:(NSDate *)date;
 
 /**
  *  @author CC, 2015-12-03
@@ -119,7 +131,11 @@ typedef NS_ENUM(NSUInteger, CCInputViewType) {
  *  @param sender            发送者
  *  @param date              发送时间
  */
-- (void)didSendGeoLocationsPhoto:(UIImage *)geoLocationsPhoto geolocations:(NSString *)geolocations location:(CLLocation *)location fromSender:(NSString *)sender onDate:(NSDate *)date;
+- (void)didSendGeoLocationsPhoto:(UIImage *)geoLocationsPhoto
+                    geolocations:(NSString *)geolocations
+                        location:(CLLocation *)location
+                      fromSender:(NSString *)sender
+                          onDate:(NSDate *)date;
 
 /**
  *  是否显示时间轴Label的回调方法
@@ -128,7 +144,8 @@ typedef NS_ENUM(NSUInteger, CCInputViewType) {
  *
  *  @return 根据indexPath获取消息的Model的对象，从而判断返回YES or NO来控制是否显示时间轴Label
  */
-- (BOOL)shouldDisplayTimestampForRowAtIndexPath:(NSIndexPath *)indexPath Timestamp:(NSDate *)timestamp;
+- (BOOL)shouldDisplayTimestampForRowAtIndexPath:(NSIndexPath *)indexPath
+                                  targetMessage:(id<CCMessageModel>)message;
 
 /**
  *  配置Cell的样式或者字体
@@ -136,7 +153,8 @@ typedef NS_ENUM(NSUInteger, CCInputViewType) {
  *  @param cell      目标Cell
  *  @param indexPath 目标Cell所在位置IndexPath
  */
-- (void)configureCell:(CCMessageTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)configureCell:(CCMessageTableViewCell *)cell
+          atIndexPath:(NSIndexPath *)indexPath;
 
 /**
  *  @author CC, 15-09-16
@@ -196,15 +214,25 @@ typedef NS_ENUM(NSUInteger, CCInputViewType) {
  *
  *  @return 返回UITableViewCell或者继承于UITableViewCell的实例化对象
  */
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath targetMessage:(id<CCMessageModel>)message;
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+                 targetMessage:(id<CCMessageModel>)message;
 
 @end
+
 
 @interface CCMessageTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, CCMessageTableViewControllerDelegate, CCMessageTableViewControllerDataSource, CCMessageInputViewDelegate, CCMessageTableviewCellDelegate, CCShareMenuViewDelegate, CCEmotionManagerViewDelegate, CCEmotionManagerViewDataSource>
 
 @property(nonatomic, weak) id<CCMessageTableViewControllerDelegate> delegate;
 
 @property(nonatomic, weak) id<CCMessageTableViewControllerDataSource> dataSource;
+
+/**
+ *  @author CC, 2015-12-05
+ *  
+ *  @brief  记录上次显示时间
+ */
+@property(nonatomic, strong) NSDate *currentCreateTime;
 
 /**
  *  数据源，显示多少消息
@@ -336,7 +364,8 @@ typedef NS_ENUM(NSUInteger, CCInputViewType) {
  *  @param oldMessages 目标的旧消息数据
  *  @param completion  insert 完成回调
  */
-- (void)insertOldMessages:(NSArray *)oldMessages completion:(void (^)())completion;
+- (void)insertOldMessages:(NSArray *)oldMessages 
+               completion:(void (^)())completion;
 
 #pragma mark - Messages view controller
 /**
@@ -395,6 +424,7 @@ typedef NS_ENUM(NSUInteger, CCInputViewType) {
  *
  *  @since 1.0
  */
-- (void)didSelecteShareMenuItem: (CCShareMenuItem *)shareMenuItem atIndex: (NSInteger)index;
+- (void)didSelecteShareMenuItem: (CCShareMenuItem *)shareMenuItem 
+                        atIndex: (NSInteger)index;
 
 @end

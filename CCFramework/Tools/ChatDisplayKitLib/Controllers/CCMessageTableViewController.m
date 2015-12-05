@@ -1039,8 +1039,9 @@ static CGPoint delayOffset = {0.0};
     CGFloat cellHeight = 0;
     
     BOOL displayTimestamp = YES;
-    if ([self.delegate respondsToSelector:@selector(shouldDisplayTimestampForRowAtIndexPath:Timestamp:)]) {
-        displayTimestamp = [self.delegate shouldDisplayTimestampForRowAtIndexPath:indexPath Timestamp:message.timestamp];
+    if ([self.delegate respondsToSelector:@selector(shouldDisplayTimestampForRowAtIndexPath:targetMessage:)]) {
+        displayTimestamp = [self.delegate shouldDisplayTimestampForRowAtIndexPath:indexPath 
+                                                                    targetMessage:message];
     }
     
     cellHeight = [CCMessageTableViewCell calculateCellHeightWithMessage:message
@@ -1608,8 +1609,9 @@ static CGPoint delayOffset = {0.0};
     }
     
     BOOL displayTimestamp = YES;
-    if ([self.delegate respondsToSelector:@selector(shouldDisplayTimestampForRowAtIndexPath:Timestamp:)]) {
-        displayTimestamp = [self.delegate shouldDisplayTimestampForRowAtIndexPath:indexPath Timestamp:message.timestamp];
+    if ([self.delegate respondsToSelector:@selector(shouldDisplayTimestampForRowAtIndexPath:targetMessage:)]) {
+        displayTimestamp = [self.delegate shouldDisplayTimestampForRowAtIndexPath:indexPath
+                                                                    targetMessage:message];
     }
     
     static NSString *cellIdentifier = @"CCMessageTableViewCell";
