@@ -249,7 +249,7 @@
         NSString *requiredMediaType = ( NSString *)kUTTypeImage;
         //        NSString *requiredMediaType1 = ( NSString *)kUTTypeMovie;
         //        NSArray *arrMediaTypes=[NSArray arrayWithObjects:requiredMediaType, requiredMediaType1,nil];
-        NSArray *arrMediaTypes=[NSArray arrayWithObjects:requiredMediaType,nil];
+        NSArray *arrMediaTypes = [NSArray arrayWithObjects:requiredMediaType,nil];
         [controller setMediaTypes:arrMediaTypes];
 
         // 设置录制视频的质量
@@ -257,11 +257,11 @@
         //设置最长摄像时间
         // [controller setVideoMaximumDuration:10.f];
 
-        [controller setAllowsEditing:YES];// 设置是否可以管理已经存在的图片或者视频
+//        [controller setAllowsEditing:YES];// 设置是否可以管理已经存在的图片或者视频
         [controller setDelegate:self];// 设置代理
 
         if([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-            _currentViewController.modalPresentationStyle=UIModalPresentationOverCurrentContext;
+            _currentViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         }
 
         [_currentViewController presentViewController:controller animated:YES completion:nil];
