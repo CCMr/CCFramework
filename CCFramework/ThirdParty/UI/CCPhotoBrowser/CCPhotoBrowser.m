@@ -85,8 +85,6 @@
     // 2.创建工具条
     [self createToolbar];
     
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
-    
     if (_NavigationBarHiddenInited)
         [self NavigationBar];
 }
@@ -108,6 +106,7 @@
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self.view];
     [window.rootViewController addChildViewController:self];
+    window.windowLevel = UIWindowLevelAlert;
     
     if (_currentPhotoIndex == 0) {
         [self showPhotos];
@@ -224,7 +223,8 @@
 #pragma mark - CCPhotoView代理
 - (void)photoViewSingleTap:(CCPhotoView *)photoView
 {
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+     UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    window.windowLevel = UIWindowLevelNormal;
     self.view.backgroundColor = [UIColor clearColor];
     
     // 移除工具条

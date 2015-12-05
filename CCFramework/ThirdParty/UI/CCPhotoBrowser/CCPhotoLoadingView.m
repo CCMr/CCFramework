@@ -29,10 +29,10 @@
 #import "CCPhotoProgressView.h"
 
 @interface CCPhotoLoadingView ()
-{
-    UILabel *_failureLabel;
-    CCPhotoProgressView *_progressView;
-}
+
+@property(nonatomic, strong) UILabel *failureLabel;
+
+@property(nonatomic, strong) CCPhotoProgressView *progressView;
 
 @end
 
@@ -47,7 +47,7 @@
 {
     [_progressView removeFromSuperview];
     
-    if (_failureLabel == nil) {
+    if (!_failureLabel) {
         _failureLabel = [[UILabel alloc] init];
         _failureLabel.bounds = CGRectMake(0, 0, self.bounds.size.width, 44);
         _failureLabel.textAlignment = NSTextAlignmentCenter;
@@ -65,9 +65,9 @@
 {
     [_failureLabel removeFromSuperview];
     
-    if (_progressView == nil) {
+    if (!_progressView) {
         _progressView = [[CCPhotoProgressView alloc] init];
-        _progressView.bounds = CGRectMake( 0, 0, 60, 60);
+        _progressView.bounds = CGRectMake(0, 0, 60, 60);
         _progressView.center = self.center;
     }
     _progressView.progress = kMinProgress;
@@ -78,7 +78,10 @@
 - (void)setProgress:(float)progress
 {
     _progress = progress;
-    _progressView.progress = progress;
+    
+    if (_progressView)
+        _progressView.progress = progress;
+    
     if (progress >= 1.0) {
         [_progressView removeFromSuperview];
     }
