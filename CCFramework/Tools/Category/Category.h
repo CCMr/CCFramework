@@ -33,6 +33,7 @@
 #import <CCFramework/NSString+BNSString.h>
 #import <CCFramework/UIColor+BUIColor.h>
 #import <CCFramework/NSData+Additions.h>
+#import <CCFramework/NSDictionary+Additions.h>
 #import <CCFramework/UIImageView+Additional.h>
 #import <CCFramework/UIAlertView+Additional.h>
 #import <CCFramework/UITabBarController+Additional.h>
