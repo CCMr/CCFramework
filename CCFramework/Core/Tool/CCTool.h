@@ -36,5 +36,26 @@
  */
 + (NSString *)obtainVoiceDuration:(NSString *)recordPath;
 
+/**
+ *  @author CC, 2015-12-04
+ *  
+ *  @brief  等比尺寸
+ *
+ *  @param image 图片
+ *  @param size  大小
+ */
++ (CGRect)neededSizeForPhoto:(UIImage *)image
+                        Size:(CGSize)size;
+
+/**
+ *  @author CC, 2015-12-04
+ *  
+ *  @brief  等比修改图片
+ *
+ *  @param image 图片
+ *  @param size  等比尺寸
+ */
++ (UIImage *)scale:(UIImage *)image
+              Size:(CGSize)size;
 
 @end
