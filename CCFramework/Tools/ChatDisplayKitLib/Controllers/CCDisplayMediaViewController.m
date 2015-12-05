@@ -30,15 +30,16 @@
 
 @interface CCDisplayMediaViewController ()
 
-@property (nonatomic, strong) MPMoviePlayerController *moviePlayerController;
+@property(nonatomic, strong) MPMoviePlayerController *moviePlayerController;
 
-@property (nonatomic, weak) UIImageView *photoImageView;
+@property(nonatomic, weak) UIImageView *photoImageView;
 
 @end
 
 @implementation CCDisplayMediaViewController
 
-- (MPMoviePlayerController *)moviePlayerController {
+- (MPMoviePlayerController *)moviePlayerController
+{
     if (!_moviePlayerController) {
         _moviePlayerController = [[MPMoviePlayerController alloc] init];
         _moviePlayerController.repeatMode = MPMovieRepeatModeOne;
@@ -50,8 +51,8 @@
 }
 
 
-
-- (UIImageView *)photoImageView {
+- (UIImageView *)photoImageView
+{
     if (!_photoImageView) {
         UIImageView *photoImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
         photoImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -62,7 +63,8 @@
     return _photoImageView;
 }
 
-- (void)setMessage:(id<CCMessageModel>)message {
+- (void)setMessage:(id<CCMessageModel>)message
+{
     _message = message;
     if ([message messageMediaType] == CCBubbleMessageMediaTypeVideo) {
         self.title = CCLocalization(@"详细视频");
@@ -72,46 +74,52 @@
         self.title = CCLocalization(@"详细照片");
         self.photoImageView.image = message.photo;
         if (message.thumbnailUrl) {
-            [self.photoImageView setImageWithURL:[NSURL URLWithString:[message thumbnailUrl]] placeholer:message.photo];
+            [self.photoImageView setImageWithURL:[NSURL URLWithString:[message thumbnailUrl]]
+                                      placeholer:message.photo];
         }
     }
 }
 
 #pragma mark - Life cycle
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
     if ([self.message messageMediaType] == CCBubbleMessageMediaTypeVideo) {
         [self.moviePlayerController stop];
     }
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
 
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     [_moviePlayerController stop];
     _moviePlayerController = nil;
-
+    
     _photoImageView = nil;
 }
 
--(void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection
+              withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
-    [coordinator animateAlongsideTransition:^(id  context) {
+    [coordinator animateAlongsideTransition:^(id context) {
         if (newCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
-
+            
         } else {
-
+            
         }
         _moviePlayerController.view.frame = self.view.bounds;
         _moviePlayerController.scalingMode = MPMovieScalingModeNone;
@@ -120,7 +128,7 @@
 }
 
 
--(UIInterfaceOrientationMask)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskAll;
 }
@@ -130,7 +138,7 @@
     return YES;
 }
 
--(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
     return UIInterfaceOrientationPortrait;
 }
