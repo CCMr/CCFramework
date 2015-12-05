@@ -137,7 +137,7 @@
             emotionCollectionView.pagingEnabled = YES;
             emotionCollectionView.delegate = self;
             emotionCollectionView.dataSource = self;
-            emotionCollectionView.tag = i;
+            emotionCollectionView.tag = i + 1;
             [self.emotionScrollView addSubview:emotionCollectionView];
             
             
@@ -224,6 +224,15 @@
     //根据当前的坐标与页宽计算当前页码
     NSInteger currentPage = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     if ([scrollView isEqual:self.emotionScrollView]) {
+        if (currentPage < self.selectedIndex) {
+            UIPageControl *pageControl = (UIPageControl *)[self.emotionScrollView viewWithTag:999 + currentPage];
+            UICollectionView *emotionCollectionView = (UICollectionView *)[self.emotionScrollView viewWithTag:currentPage + 1];
+            if (pageControl.currentPage != pageControl.numberOfPages - 1) {
+                pageControl.currentPage = pageControl.numberOfPages - 1;
+                [emotionCollectionView scrollRectToVisible:CGRectMake(emotionCollectionView.frame.size.width * pageControl.currentPage, 0, emotionCollectionView.frame.size.width, emotionCollectionView.frame.size.height) 
+                                                  animated:NO];
+            }
+        }
         self.selectedIndex = currentPage;
     } else {
         UIPageControl *emotionPageControl = (UIPageControl *)[self.emotionScrollView viewWithTag:999 + self.selectedIndex];
@@ -241,7 +250,7 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section
 {
-    CCEmotionManager *emotionManager = [self.dataSource emotionManagerForColumn:collectionView.tag];
+    CCEmotionManager *emotionManager = [self.dataSource emotionManagerForColumn:collectionView.tag - 1];
     NSInteger count = emotionManager.emotions.count;
     return count;
 }
@@ -250,7 +259,7 @@
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CCEmotionCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCCEmotionCollectionViewCellIdentifier forIndexPath:indexPath];
-    CCEmotionManager *emotionManager = [self.dataSource emotionManagerForColumn:collectionView.tag];
+    CCEmotionManager *emotionManager = [self.dataSource emotionManagerForColumn:collectionView.tag - 1];
     cell.emotion = emotionManager.emotions[indexPath.row];
     
     return cell;

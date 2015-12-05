@@ -106,10 +106,9 @@
 - (id)initWithJson:(NSString *)jsonStr
 {
     if (self = [super init]) {
-        NSDictionary *dic = [NSJSONSerialization
-                             JSONObjectWithData:[jsonStr dataUsingEncoding:NSUTF8StringEncoding]
-                             options:NSJSONReadingAllowFragments
-                             error:nil];
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:[jsonStr dataUsingEncoding:NSUTF8StringEncoding]
+                                                            options:NSJSONReadingAllowFragments
+                                                              error:nil];
         [self populateObject:self fromDictionary:dic exclude:nil];
     }
     return self;

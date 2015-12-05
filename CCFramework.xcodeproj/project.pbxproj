@@ -1180,6 +1180,8 @@
 		42C208EF1BDE1D7D00C76004 /* ModelLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42C208EE1BDE1D7D00C76004 /* ModelLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42C208F11BDE1E4C00C76004 /* BaseController.h in Headers */ = {isa = PBXBuildFile; fileRef = 42C208F01BDE1E4C00C76004 /* BaseController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42C208F31BDE1EB400C76004 /* RequestProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 42C208F21BDE1EB400C76004 /* RequestProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42CF58EF1C1167AB007C84A6 /* NSDictionary+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 42CF58ED1C1167AB007C84A6 /* NSDictionary+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42CF58F01C1167AB007C84A6 /* NSDictionary+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CF58EE1C1167AB007C84A6 /* NSDictionary+Additions.m */; };
 		42D0EDF61BBA68E10032A489 /* ResourcesPhotos.h in Headers */ = {isa = PBXBuildFile; fileRef = 42D0EDF41BBA68E10032A489 /* ResourcesPhotos.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42D0EDF71BBA68E10032A489 /* ResourcesPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D0EDF51BBA68E10032A489 /* ResourcesPhotos.m */; };
 		42D404C31BC9EB6A00C62FBD /* UIAlertView+Additional.h in Headers */ = {isa = PBXBuildFile; fileRef = 42D404C11BC9EB6A00C62FBD /* UIAlertView+Additional.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2408,6 +2410,8 @@
 		42C208EE1BDE1D7D00C76004 /* ModelLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelLayer.h; sourceTree = "<group>"; };
 		42C208F01BDE1E4C00C76004 /* BaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseController.h; sourceTree = "<group>"; };
 		42C208F21BDE1EB400C76004 /* RequestProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestProtocol.h; sourceTree = "<group>"; };
+		42CF58ED1C1167AB007C84A6 /* NSDictionary+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Additions.h"; sourceTree = "<group>"; };
+		42CF58EE1C1167AB007C84A6 /* NSDictionary+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Additions.m"; sourceTree = "<group>"; };
 		42D0EDF41BBA68E10032A489 /* ResourcesPhotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourcesPhotos.h; sourceTree = "<group>"; };
 		42D0EDF51BBA68E10032A489 /* ResourcesPhotos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourcesPhotos.m; sourceTree = "<group>"; };
 		42D404C11BC9EB6A00C62FBD /* UIAlertView+Additional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIAlertView+Additional.h"; path = "UIAlertView/UIAlertView+Additional.h"; sourceTree = "<group>"; };
@@ -4737,6 +4741,8 @@
 				42B9D0E51B9FE3650086CA81 /* NSData+Additions.m */,
 				420C6A581BDFB0D200E7F956 /* NSObject+Additions.h */,
 				420C6A591BDFB0D200E7F956 /* NSObject+Additions.m */,
+				42CF58ED1C1167AB007C84A6 /* NSDictionary+Additions.h */,
+				42CF58EE1C1167AB007C84A6 /* NSDictionary+Additions.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -5534,6 +5540,7 @@
 				429C9FDB1B9EF8BF0013A44A /* SRConnectionInterface.h in Headers */,
 				429C9FD81B9EF8BF0013A44A /* SRConnectionDelegate.h in Headers */,
 				429C9FD61B9EF8BF0013A44A /* SRConnection.h in Headers */,
+				42CF58EF1C1167AB007C84A6 /* NSDictionary+Additions.h in Headers */,
 				4213943C1BF2D9F50046062B /* SRLog.h in Headers */,
 				429CA11C1B9EF8BF0013A44A /* CCEmotionCollectionViewCell.h in Headers */,
 				429C9F561B9EF8BF0013A44A /* BaseTableViewController.h in Headers */,
@@ -6446,6 +6453,7 @@
 				429CA0881B9EF8BF0013A44A /* CCLabel.m in Sources */,
 				429CA0941B9EF8BF0013A44A /* CCDatePicker.m in Sources */,
 				420DE4561BC7942300D87D6D /* ZXQRCodeMode.m in Sources */,
+				42CF58F01C1167AB007C84A6 /* NSDictionary+Additions.m in Sources */,
 				4298C78B1BDCBB0300A3581D /* CoreDataMasterSlave+Modify.m in Sources */,
 				42F24C5C1BEA5091008CDEDC /* PNGenericChart.m in Sources */,
 				420DE4521BC7942300D87D6D /* ZXQRCodeErrorCorrectionLevel.m in Sources */,

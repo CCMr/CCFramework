@@ -752,33 +752,29 @@ static CGPoint delayOffset = {0.0};
                                                  double duration,
                                                  BOOL showKeyboard) {
         if (weakSelf.textViewInputViewType == CCInputViewTypeText) {
-            [UIView
-             animateWithDuration:duration
-             delay:0.0
-             options:options
-             animations:^{
-                 CGFloat keyboardY =
-                 [weakSelf.view convertRect:keyboardRect fromView:nil]
-                 .origin.y;
-                 
-                 CGRect inputViewFrame = weakSelf.messageInputView.frame;
-                 CGFloat inputViewFrameY =
-                 keyboardY - inputViewFrame.size.height;
-                 
-                 // for ipad modal form presentations
-                 CGFloat messageViewFrameBottom =
-                 weakSelf.view.frame.size.height -
-                 inputViewFrame.size.height;
-                 if (inputViewFrameY > messageViewFrameBottom)
-                     inputViewFrameY = messageViewFrameBottom;
-                 
-                 weakSelf.messageInputView.frame = CGRectMake(inputViewFrame.origin.x, inputViewFrameY,inputViewFrame.size.width, inputViewFrame.size.height);
-                 
-                 [weakSelf setTableViewInsetsWithBottomValue: weakSelf.view.frame.size.height - weakSelf.messageInputView.frame.origin.y];
-                 if (showKeyboard)
-                     [weakSelf scrollToBottomAnimated:NO];
-             }
-             completion:nil];
+            [UIView animateWithDuration:duration
+                                  delay:0.0
+                                options:options
+                             animations:^{
+                                 CGFloat keyboardY = [weakSelf.view convertRect:keyboardRect fromView:nil].origin.y;
+                                 
+                                 CGRect inputViewFrame = weakSelf.messageInputView.frame;
+                                 CGFloat inputViewFrameY =
+                                 keyboardY - inputViewFrame.size.height;
+                                 
+                                 // for ipad modal form presentations
+                                 CGFloat messageViewFrameBottom =
+                                 weakSelf.view.frame.size.height -
+                                 inputViewFrame.size.height;
+                                 if (inputViewFrameY > messageViewFrameBottom)
+                                     inputViewFrameY = messageViewFrameBottom;
+                                 
+                                 weakSelf.messageInputView.frame = CGRectMake(inputViewFrame.origin.x, inputViewFrameY,inputViewFrame.size.width, inputViewFrame.size.height);
+                                 
+                                 [weakSelf setTableViewInsetsWithBottomValue: weakSelf.view.frame.size.height - weakSelf.messageInputView.frame.origin.y];
+                                 if (showKeyboard)
+                                     [weakSelf scrollToBottomAnimated:NO];
+                             }completion:nil];
         }
     };
     
@@ -1383,7 +1379,7 @@ static CGPoint delayOffset = {0.0};
                     [weakSelf didSendMessageWithPhoto:obj];
                 }];
             }];
-        }  break;
+        } break;
         default:
             break;
     }
@@ -1397,7 +1393,7 @@ static CGPoint delayOffset = {0.0};
     [self didSendEmotionMessageWithEmotionPath:emotion.emotionPath];
 }
 
--(void)didStore
+- (void)didStore
 {
     [self didEmotionStore];
 }
@@ -1662,6 +1658,14 @@ static CGPoint delayOffset = {0.0};
         message.selected = !message.selected;
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     }
+}
+
+#pragma mark - Table View Cell Delegate
+- (void)multiMediaMessageDidSelectedOnMessage:(id<CCMessageModel>)message
+                                  atIndexPath:(NSIndexPath *)indexPath
+                       onMessageTableViewCell:(CCMessageTableViewCell *)messageTableViewCell
+{
+    [self layoutOtherMenuViewHiden:YES];
 }
 
 

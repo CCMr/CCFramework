@@ -27,6 +27,7 @@
 #import "CCMessageBubbleHelper.h"
 #import "CCAnimatedImage.h"
 #import "Config.h"
+#import "CCTool.h"
 #import "UIButton+BUIButton.h"
 //Factorys
 #import "CCMessageBubbleFactory.h"
@@ -48,7 +49,8 @@
 
 #define kCCSendNotSuccessfulSize 25.0f //发送未成功消息按钮大小
 
-#define kCCNoneBubblePhotoMargin (kCCHaveBubbleMargin - kCCBubblePhotoMargin) // 在没有气泡的时候，也就是在图片、视频、地理位置的时候，图片内部做了Margin，所以需要减去内部的Margin
+#define kCCNoneBubblePhotoMargin (kCCHaveBubbleMargin - kCCBubblePhotoMargin)							 // 在没有气泡的时候，也就是在图片、视频、地理位置的时候，图片内部做了Margin，所以需要减去内部的Margin
+#define kCCMaxWidth CGRectGetWidth([[UIScreen mainScreen] bounds]) * (isiPad ? 0.8 : (iPhone6 ? 0.6 : (iPhone6P ? 0.62 : 0.55))) // 文本只有一行的时候，宽度可能出现很小到最大的情况，所以需要计算一行文字需要的宽度
 
 @interface CCMessageBubbleView ()
 
@@ -83,34 +85,28 @@
 // 获取文本的实际大小
 + (CGFloat)neededWidthForText:(NSString *)text
 {
-    CGSize stringSize;
-    NSRange range = [text rangeOfString:@"\n" options:0];
-    if (range.length > 0) {
-        NSArray *array = [text componentsSeparatedByString:@"\n"];
-        stringSize = CGSizeMake(0, 0);
-        CGSize temp;
-        for (int i = 0; i < array.count; i++) {
-            temp = [[array objectAtIndex:i] sizeWithFont:[[CCMessageBubbleView appearance] font] constrainedToSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-            if (temp.width > stringSize.width) {
-                stringSize = temp;
-            }
-        }
-    } else {
-        stringSize = [text sizeWithFont:[[CCMessageBubbleView appearance] font] constrainedToSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-    }
+    UIFont *systemFont = [[CCMessageBubbleView appearance] font];
+    CGSize textSize = CGSizeMake(CGFLOAT_MAX, 20); // rough accessory size
+    CGSize sizeWithFont = [text sizeWithFont:systemFont constrainedToSize:textSize lineBreakMode:NSLineBreakByWordWrapping];
     
-    return roundf(stringSize.width);
+#if defined(__LP64__) && __LP64__
+    return ceil(sizeWithFont.width);
+#else
+    return ceilf(sizeWithFont.width);
+#endif
 }
 
 // 计算文本实际的大小
 + (CGSize)neededSizeForText:(NSString *)text
 {
-    CGFloat maxWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]) * (isiPad ? 0.8 : (iPhone6 ? 0.6 : (iPhone6P ? 0.62 : 0.55)));
-    
+    // 实际处理文本的时候
     CGFloat dyWidth = [CCMessageBubbleView neededWidthForText:text];
     
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0)
+        dyWidth += 10;
+    
     CGSize textSize = [SETextView frameRectWithAttributtedString:[[CCMessageBubbleHelper sharedMessageBubbleHelper] bubbleAttributtedStringWithText:text]
-                                                  constraintSize:CGSizeMake(maxWidth, MAXFLOAT)
+                                                  constraintSize:CGSizeMake(kCCMaxWidth, MAXFLOAT)
                                                      lineSpacing:kCCTextLineSpacing
                                                             font:[[CCMessageBubbleView appearance] font]].size;
     return CGSizeMake((dyWidth > textSize.width ? textSize.width : dyWidth), textSize.height);
@@ -119,8 +115,15 @@
 // 计算图片实际大小
 + (CGSize)neededSizeForPhoto:(UIImage *)photo
 {
+    CGFloat width = 140;
+    CGFloat height = 140;
+    if (photo) {
+        CGRect frame = [CCTool neededSizeForPhoto:photo Size:CGSizeMake(width, height)];
+        width = frame.size.width > kCCMaxWidth ? kCCMaxWidth : frame.size.width;
+        height = frame.size.height > 200 ? 200 : frame.size.height;
+    }
     // 这里需要缩放后的size
-    CGSize photoSize = CGSizeMake(140, 140);
+    CGSize photoSize = CGSizeMake(width, height);
     return photoSize;
 }
 
@@ -300,7 +303,9 @@
         }
         case CCBubbleMessageMediaTypeText:
         case CCBubbleMessageMediaTypeEmotion: {
-            _bubbleImageView.image = [CCMessageBubbleFactory bubbleImageViewForType:message.bubbleMessageType style:CCBubbleImageViewStyleWeChat meidaType:message.messageMediaType];
+            _bubbleImageView.image = [CCMessageBubbleFactory bubbleImageViewForType:message.bubbleMessageType
+                                                                              style:CCBubbleImageViewStyleWeChat
+                                                                          meidaType:message.messageMediaType];
             // 只要是文本、语音、第三方表情，背景的气泡都不能隐藏
             _bubbleImageView.hidden = NO;
             
@@ -365,10 +370,16 @@
             _displayTextView.attributedText = [[CCMessageBubbleHelper sharedMessageBubbleHelper] bubbleAttributtedStringWithText:[message text]];
             break;
         case CCBubbleMessageMediaTypePhoto:
-            [_bubblePhotoImageView configureMessagePhoto:message.photo thumbnailUrl:message.thumbnailUrl originPhotoUrl:message.originPhotoUrl onBubbleMessageType:self.message.bubbleMessageType];
+            [_bubblePhotoImageView configureMessagePhoto:message.photo
+                                            thumbnailUrl:message.thumbnailUrl
+                                          originPhotoUrl:message.originPhotoUrl
+                                     onBubbleMessageType:self.message.bubbleMessageType];
             break;
         case CCBubbleMessageMediaTypeVideo:
-            [_bubblePhotoImageView configureMessagePhoto:message.videoConverPhoto thumbnailUrl:message.thumbnailUrl originPhotoUrl:message.originPhotoUrl onBubbleMessageType:self.message.bubbleMessageType];
+            [_bubblePhotoImageView configureMessagePhoto:message.videoConverPhoto
+                                            thumbnailUrl:message.thumbnailUrl
+                                          originPhotoUrl:message.originPhotoUrl
+                                     onBubbleMessageType:self.message.bubbleMessageType];
             break;
         case CCBubbleMessageMediaTypeVoice:
             break;
@@ -381,7 +392,10 @@
             }
             break;
         case CCBubbleMessageMediaTypeLocalPosition:
-            [_bubblePhotoImageView configureMessagePhoto:message.localPositionPhoto thumbnailUrl:nil originPhotoUrl:nil onBubbleMessageType:self.message.bubbleMessageType];
+            [_bubblePhotoImageView configureMessagePhoto:message.localPositionPhoto
+                                            thumbnailUrl:nil
+                                          originPhotoUrl:nil
+                                     onBubbleMessageType:self.message.bubbleMessageType];
             
             _geolocationsLabel.text = message.geolocations;
             break;
