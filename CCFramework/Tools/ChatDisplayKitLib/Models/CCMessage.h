@@ -83,6 +83,13 @@
  */
 @property(nonatomic, strong) NSDate *timestamp;
 
+/**
+ *  @author CC, 2015-12-05
+ *  
+ *  @brief  是否显示时间
+ */
+@property(nonatomic, assign) BOOL showdate;
+
 @property(nonatomic, assign) BOOL shouldShowUserName;
 
 @property(nonatomic, assign) BOOL sended;

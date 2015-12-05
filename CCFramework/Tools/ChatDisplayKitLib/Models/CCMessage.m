@@ -245,6 +245,7 @@
 
         _sender = [aDecoder decodeObjectForKey:@"sender"];
         _timestamp = [aDecoder decodeObjectForKey:@"timestamp"];
+        _showdate = [[aDecoder decodeObjectForKey:@"showdate"] boolValue];
 
         _messageMediaType = [[aDecoder decodeObjectForKey:@"messageMediaType"] integerValue];
         _messageSendState = [[aDecoder decodeObjectForKey:@"messageSendState"] integerValue];
@@ -284,6 +285,7 @@
 
     [aCoder encodeObject:self.sender forKey:@"sender"];
     [aCoder encodeObject:self.timestamp forKey:@"timestamp"];
+    [aCoder encodeObject:[NSNumber numberWithBool:self.showdate] forKey:@"showdate"];
 
     [aCoder encodeObject:[NSNumber numberWithInteger:self.messageMediaType] forKey:@"messageMediaType"];
     [aCoder encodeObject:[NSNumber numberWithInteger:self.bubbleMessageType] forKey:@"bubbleMessageType"];

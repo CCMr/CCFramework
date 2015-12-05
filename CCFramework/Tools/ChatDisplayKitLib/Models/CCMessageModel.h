@@ -157,6 +157,13 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 - (NSDate *)timestamp;
 
 /**
+ *  @author CC, 2015-12-05
+ *  
+ *  @brief  是否显示时间
+ */
+-(BOOL) showdate;
+
+/**
  *  @author CC, 15-08-17
  *
  *  @brief  是否阅读
