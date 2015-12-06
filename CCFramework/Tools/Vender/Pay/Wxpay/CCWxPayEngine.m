@@ -29,14 +29,17 @@
 #import "CCXML.h"
 #import "NSString+BNSString.h"
 
-
 //支付结果回调页面
 #define NOTIFY_URL @"http://wxpay.weixin.qq.com/pub_v2/pay/notify.v2.php"
 
 //统一提交订单地址
 #define UnifiedorderURL @"https://api.mch.weixin.qq.com/pay/unifiedorder"
 
-@interface CCWxPayEngine ()
+
+typedef void (^CompleteCallback)(NSError *error);
+
+
+@interface CCWxPayEngine () <WXApiDelegate>
 
 /**
  *  @author C C, 2015-12-04
@@ -73,6 +76,13 @@
  */
 @property(nonatomic, copy) NSString *payDataAddress;
 
+/**
+ *  @author C C, 2015-12-06
+ *  
+ *  @brief  完成回调
+ */
+@property(nonatomic, copy) CompleteCallback completeCallback;
+
 @end
 
 @implementation CCWxPayEngine
@@ -83,14 +93,14 @@
  *
  *  @return 返回当前对象
  */
-+ (id)sharedlnstance
++ (instancetype)sharedlnstance
 {
-    static id _sharedlnstance = nil;
     static dispatch_once_t onceToken;
+    static CCWxPayEngine *instance;
     dispatch_once(&onceToken, ^{
-        _sharedlnstance = [[self alloc] init];
+        instance = [[CCWxPayEngine alloc] init];
     });
-    return _sharedlnstance;
+    return instance;
 }
 
 /**
@@ -148,8 +158,14 @@
     
     //清空未设置参数值
     [sendData enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id _Nonnull obj, BOOL *_Nonnull stop) {
-        if (obj && ![obj isEqualToString:@""])
-            [packageParams setObject:obj forKey:key];
+        if (obj){
+            if ([obj isKindOfClass:[NSString class]]) {
+                if ([obj length])
+                    [packageParams setObject:obj forKey:key];
+            }else
+                [packageParams setObject:obj forKey:key];
+        }
+        
     }];
     
     [packageParams setObject:_appid forKey:@"appid"];
@@ -193,30 +209,76 @@
 }
 
 /**
- *  @author C C, 2015-12-04
+ *  @author C C, 2015-12-06
  *  
  *  @brief  支付订单
  *
- *  @param prepayid  预支付交易会话ID
- *  @param package   扩展字段
- *  @param noncestr  随机字符串
+ *  @param appid     由用户微信号和AppID组成的唯一标识
+ *  @param prepayid  商家向财付通申请的商家id
+ *  @param prepayId  预支付订单
+ *  @param package   商家根据财付通文档填写的数据和签名
+ *  @param noncestr  随机串
  *  @param timestamp 时间戳
  *  @param sign      签名
  */
-- (void)payOrderForm:(NSString *)prepayid
-             Package:(NSString *)package
-            Noncestr:(NSString *)noncestr
-           Timestamp:(NSString *)timestamp
-                Sign:(NSString *)sign
+- (void)payOrderForm:(NSString *_Nullable)appid
+           PartnerId:(NSString *_Nullable)partnerId
+            PrepayId:(NSString *_Nullable)prepayId
+             Package:(NSString *_Nullable)package
+            Noncestr:(NSString *_Nullable)noncestr
+           Timestamp:(NSString *_Nullable)timestamp
+                Sign:(NSString *_Nullable)sign
+            Complete:(void (^)(NSError *error))block
 {
+    _completeCallback = block;
+    
     PayReq *payReq = [[PayReq alloc] init];
-    payReq.partnerId = prepayid;
-    payReq.prepayId = package;
-    payReq.prepayId = noncestr;
-    payReq.prepayId = timestamp;
-    payReq.prepayId = sign;
+    payReq.openID = appid;
+    payReq.partnerId = partnerId;
+    payReq.prepayId = prepayId;
+    payReq.package = package;
+    payReq.nonceStr = noncestr;
+    payReq.timeStamp = timestamp.intValue;
+    payReq.sign = sign;
     
     [WXApi sendReq:payReq];
+}
+
+/**
+ *  @author C C, 2015-12-06
+ *  
+ *  @brief  支付回调结果
+ *
+ *  @param resp 返回对象
+ */
+- (void)onResp:(BaseResp *)resp
+{
+    if ([resp isKindOfClass:[PayResp class]]) {
+        //支付返回结果，实际支付结果需要去微信服务器端查询
+        switch (resp.errCode) {
+            case WXSuccess:
+                if (_completeCallback)
+                    _completeCallback(nil);
+                break;
+                
+            default:
+                if (_completeCallback)
+                    _completeCallback([[NSError alloc] initWithDomain:[NSString stringWithFormat:@"支付结果：失败！ errcode : %@", resp.errStr] code:resp.errCode userInfo:nil]);
+                break;
+        }
+    }
+}
+
+/**
+ *  @author C C, 2015-12-06
+ *  
+ *  @brief  设置回调
+ *
+ *  @param url url description
+ */
+- (BOOL)handleOpenURL:(NSURL *_Nullable)url
+{
+    return [WXApi handleOpenURL:url delegate:self];
 }
 
 #pragma mark :. 生成预支付订单
@@ -252,8 +314,8 @@
     NSString *result_code = [resParams objectForKey:@"result_code"];
     if ([return_code isEqualToString:@"SUCCESS"]) {
         //生成返回数据的签名
-        NSString *sign = [self createMd5Sign:resParams];
-        NSString *send_sign = [resParams objectForKey:@"sign"];
+        NSString *sign = [[self createMd5Sign:resParams] lowercaseString];
+        NSString *send_sign = [[resParams objectForKey:@"sign"] lowercaseString];
         
         //验证签名正确性
         if ([sign isEqualToString:send_sign]) { //获取预支付交易标示成功！
@@ -353,7 +415,7 @@
     
     //拼接字符串
     for (NSString *categoryId in sortedArray) {
-        if (![[dict objectForKey:categoryId] isEqualToString:@""] && ![categoryId isEqualToString:@"sign"] && ![categoryId isEqualToString:@"key"])
+        if (![categoryId isEqualToString:@"sign"] && ![categoryId isEqualToString:@"key"])
             [contentString appendFormat:@"%@=%@&", categoryId, [dict objectForKey:categoryId]];
     }
     //添加key字段

@@ -27,13 +27,14 @@
 
 @interface CCWxPayEngine : NSObject
 
+
 /*  @author C C, 2015-12-03
  *
  *  @brief  单例模式
  *
  *  @return 返回当前对象
  */
-+ (id _Nullable)sharedlnstance;
++ (instancetype _Nullable)sharedlnstance;
 
 /**
  *  @author C C, 2015-12-04
@@ -74,20 +75,34 @@
             Complete:(void (^_Nullable)(NSDictionary *_Nullable requestDic, NSError *_Nullable error))block;
 
 /**
- *  @author C C, 2015-12-04
+ *  @author C C, 2015-12-06
  *  
  *  @brief  支付订单
  *
- *  @param prepayid  预支付交易会话ID
- *  @param package   扩展字段
- *  @param noncestr  随机字符串
+ *  @param appid     由用户微信号和AppID组成的唯一标识
+ *  @param prepayid  商家向财付通申请的商家id
+ *  @param prepayId  预支付订单
+ *  @param package   商家根据财付通文档填写的数据和签名
+ *  @param noncestr  随机串
  *  @param timestamp 时间戳
  *  @param sign      签名
  */
-- (void)payOrderForm:(NSString *_Nullable)prepayid
+- (void)payOrderForm:(NSString *_Nullable)appid
+           PartnerId:(NSString *_Nullable)partnerId
+            PrepayId:(NSString *_Nullable)prepayId
              Package:(NSString *_Nullable)package
             Noncestr:(NSString *_Nullable)noncestr
            Timestamp:(NSString *_Nullable)timestamp
-                Sign:(NSString *_Nullable)sign;
+                Sign:(NSString *_Nullable)sign
+            Complete:(void (^)(NSError *error))block;
+
+/**
+ *  @author C C, 2015-12-06
+ *  
+ *  @brief  设置回调
+ *
+ *  @param url url description
+ */
+-(BOOL)handleOpenURL:(NSURL *_Nullable)url;
 
 @end
