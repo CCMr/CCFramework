@@ -481,6 +481,10 @@
 		420DE47D1BC7942300D87D6D /* ZXMultiFormatWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 420DE2B41BC7942300D87D6D /* ZXMultiFormatWriter.h */; };
 		420DE47E1BC7942300D87D6D /* ZXMultiFormatWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 420DE2B51BC7942300D87D6D /* ZXMultiFormatWriter.m */; };
 		4213943C1BF2D9F50046062B /* SRLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213943B1BF2D9F50046062B /* SRLog.h */; };
+		4213FAF81C13D086006918AC /* APService.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213FAF61C13D086006918AC /* APService.h */; };
+		4213FAF91C13D086006918AC /* libPushSDK-1.8.8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4213FAF71C13D086006918AC /* libPushSDK-1.8.8.a */; };
+		4213FAFC1C13D860006918AC /* CCJPsuh.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213FAFA1C13D860006918AC /* CCJPsuh.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4213FAFD1C13D860006918AC /* CCJPsuh.m in Sources */ = {isa = PBXBuildFile; fileRef = 4213FAFB1C13D860006918AC /* CCJPsuh.m */; };
 		4220B6181BFAB95A006145FD /* CustomIOSAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4220B6161BFAB95A006145FD /* CustomIOSAlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4220B6191BFAB95A006145FD /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4220B6171BFAB95A006145FD /* CustomIOSAlertView.m */; };
 		422978601BEE3A1100CECBBF /* CCResponseObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4229785E1BEE3A1100CECBBF /* CCResponseObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1708,6 +1712,10 @@
 		420DE2B41BC7942300D87D6D /* ZXMultiFormatWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXMultiFormatWriter.h; sourceTree = "<group>"; };
 		420DE2B51BC7942300D87D6D /* ZXMultiFormatWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXMultiFormatWriter.m; sourceTree = "<group>"; };
 		4213943B1BF2D9F50046062B /* SRLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRLog.h; sourceTree = "<group>"; };
+		4213FAF61C13D086006918AC /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
+		4213FAF71C13D086006918AC /* libPushSDK-1.8.8.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPushSDK-1.8.8.a"; sourceTree = "<group>"; };
+		4213FAFA1C13D860006918AC /* CCJPsuh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCJPsuh.h; sourceTree = "<group>"; };
+		4213FAFB1C13D860006918AC /* CCJPsuh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCJPsuh.m; sourceTree = "<group>"; };
 		4220B6161BFAB95A006145FD /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
 		4220B6171BFAB95A006145FD /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
 		4229785E1BEE3A1100CECBBF /* CCResponseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCResponseObject.h; path = ResponseEntity/CCResponseObject.h; sourceTree = "<group>"; };
@@ -2486,6 +2494,7 @@
 				424492921C0D90F500488AA2 /* libopencore-amrnb.a in Frameworks */,
 				424492931C0D90F500488AA2 /* libopencore-amrwb.a in Frameworks */,
 				425477281BD2AEC20071BBC5 /* libssl.a in Frameworks */,
+				4213FAF91C13D086006918AC /* libPushSDK-1.8.8.a in Frameworks */,
 				427E1D3C1C107066004B257C /* libWeChatSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3247,6 +3256,25 @@
 				4267DD071BDB5A7000B0C43F /* NSManagedObject+Removed.m */,
 			);
 			name = Core;
+			sourceTree = "<group>";
+		};
+		4213FAF41C13D086006918AC /* PushNotifications */ = {
+			isa = PBXGroup;
+			children = (
+				4213FAF51C13D086006918AC /* JPush */,
+			);
+			path = PushNotifications;
+			sourceTree = "<group>";
+		};
+		4213FAF51C13D086006918AC /* JPush */ = {
+			isa = PBXGroup;
+			children = (
+				4213FAF61C13D086006918AC /* APService.h */,
+				4213FAF71C13D086006918AC /* libPushSDK-1.8.8.a */,
+				4213FAFA1C13D860006918AC /* CCJPsuh.h */,
+				4213FAFB1C13D860006918AC /* CCJPsuh.m */,
+			);
+			path = JPush;
 			sourceTree = "<group>";
 		};
 		4229785D1BEE39E000CECBBF /* ResponseEntity */ = {
@@ -5034,6 +5062,7 @@
 		429C9F471B9EF8BF0013A44A /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				4213FAF41C13D086006918AC /* PushNotifications */,
 				4244927D1C0D90F500488AA2 /* VoiceConvert */,
 				425475F71BD29C0A0071BBC5 /* Pay */,
 			);
@@ -5360,6 +5389,7 @@
 				425477531BD2AEC20071BBC5 /* opensslconf.h in Headers */,
 				420DE4061BC7942300D87D6D /* ZXUPCEANExtension2Support.h in Headers */,
 				420DE40A1BC7942300D87D6D /* ZXUPCEANExtensionSupport.h in Headers */,
+				4213FAFC1C13D860006918AC /* CCJPsuh.h in Headers */,
 				42AA96401BCE80A100DE1123 /* UIImageView+Additional.h in Headers */,
 				420DE4081BC7942300D87D6D /* ZXUPCEANExtension5Support.h in Headers */,
 				42F945871BC8ED5D008882AE /* CCDisplayMediaViewController.h in Headers */,
@@ -5742,6 +5772,7 @@
 				420DE4511BC7942300D87D6D /* ZXQRCodeErrorCorrectionLevel.h in Headers */,
 				420DE45F1BC7942300D87D6D /* ZXQRCodeFinderPattern.h in Headers */,
 				420DE4571BC7942300D87D6D /* ZXQRCodeVersion.h in Headers */,
+				4213FAF81C13D086006918AC /* APService.h in Headers */,
 				420DE4691BC7942300D87D6D /* ZXQRCodeEncoder.h in Headers */,
 				420DE4631BC7942300D87D6D /* ZXQRCodeFinderPatternInfo.h in Headers */,
 				420DE4731BC7942300D87D6D /* ZXQRCodeMultiReader.h in Headers */,
@@ -6604,6 +6635,7 @@
 				42F24C751BEA5236008CDEDC /* CCCountingLabel.m in Sources */,
 				429C9FA91B9EF8BF0013A44A /* SmoothViewController.m in Sources */,
 				42B647521BEDE08F00B2F6FD /* CCHTTPManager+DELETE.m in Sources */,
+				4213FAFD1C13D860006918AC /* CCJPsuh.m in Sources */,
 				420DE3661BC7942300D87D6D /* ZXResultPoint.m in Sources */,
 				424492911C0D90F500488AA2 /* wav.mm in Sources */,
 				427E1D421C10709F004B257C /* CCWxPayEngine.m in Sources */,
@@ -6772,6 +6804,7 @@
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Alipay/ResourceFile",
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/VoiceConvert/lib",
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Wxpay/ResourceFile",
+					"$(PROJECT_DIR)/CCFramework/Tools/Vender/PushNotifications/JPush",
 				);
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				MACH_O_TYPE = staticlib;
@@ -6815,6 +6848,7 @@
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Alipay/ResourceFile",
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/VoiceConvert/lib",
 					"$(PROJECT_DIR)/CCFramework/Tools/Vender/Pay/Wxpay/ResourceFile",
+					"$(PROJECT_DIR)/CCFramework/Tools/Vender/PushNotifications/JPush",
 				);
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				MACH_O_TYPE = staticlib;

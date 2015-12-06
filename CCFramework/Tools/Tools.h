@@ -36,6 +36,7 @@
 #import <CCFramework/CCWxSingleEntity.h>
 #import <CCFramework/CCWxPayEngine.h>
 #import <CCFramework/CCDisplayLocationViewController.h>
+#import <CCFramework/CCJPsuh.h>
 #import <CCFramework/CCChart.h>
 #import <CCFramework/VoiceConverter.h>
 

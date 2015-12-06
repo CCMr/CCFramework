@@ -30,24 +30,37 @@
 #import "CCUserDefaultsCrash.h"
 #import "UIColor+BUIColor.h"
 #import <objc/runtime.h>
+#import "APService.h"
 
 static char OperationKey;
+
+@interface BaseAppDelegate ()
+
+/**
+ *  @author C C, 2015-12-06
+ *  
+ *  @brief  是否启动极光推送
+ */
+@property(nonatomic, assign) BOOL isJPush;
+
+@end
 
 @implementation BaseAppDelegate
 
 /**
- *  @author C C, 2015-05-30 17:05:31
+ *  @author C C, 2015-05-30
  *
  *  @brief  程序启动事件
  *
- *  @param application   <#application description#>
- *  @param launchOptions <#launchOptions description#>
+ *  @param application   应用
+ *  @param launchOptions 完成启动使用选项
  *
  *  @return <#return value description#>
  *
  *  @since 1.0
  */
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+- (BOOL)application:(UIApplication *)application 
+        didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //全局crash捕获
     InstallUncaughtExceptionHandler();
@@ -77,6 +90,8 @@ static char OperationKey;
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [application setApplicationIconBadgeNumber:0];
+    [application cancelAllLocalNotifications];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -91,14 +106,16 @@ static char OperationKey;
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+- (UIInterfaceOrientationMask)application:(UIApplication *)application
+  supportedInterfaceOrientationsForWindow:(UIWindow *)window
 {
     return UIInterfaceOrientationMaskAll;
 }
 
 //首先在 application:didFinishLaunchingWithOptions: 中设置 minimun background fetch interval 类型为 UIApplicationBackgroundFetchIntervalMinimum（默认为 UIApplicationBackgroundFetchIntervalNever），然后实现代理方法 application:performFetchWithCompletionHandler: 中实现数据请求。
 //[application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+- (void)application:(UIApplication *)application 
+        performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
 }
 
@@ -106,8 +123,6 @@ static char OperationKey;
  *  @author CC, 15-08-21
  *
  *  @brief  引导页
- *
- *  @since <#1.0#>
  */
 - (void)initguidePages:(NSArray *)imageStrAry
   EnterBackgroundImage:(NSString *)backgroundImage
@@ -257,7 +272,8 @@ static char OperationKey;
  *  @param delay    相隔多少秒
  *  @param function 执行函数
  */
-- (void)repeatExecutionWithafterDelay:(NSTimeInterval)delay ExecutionFunction:(void (^)())function
+- (void)repeatExecutionWithafterDelay:(NSTimeInterval)delay
+                    ExecutionFunction:(void (^)())function
 {
     NSMutableDictionary *opreations = (NSMutableDictionary *)objc_getAssociatedObject(self, &OperationKey);
     if (!opreations) {
@@ -278,19 +294,16 @@ static char OperationKey;
 /**
  *  @author C C, 2015-07-30
  *
- *  @brief  初始化极光推送
+ *  @brief  初始化极光推送(初始化程序使用)
  *
- *  @param launchOptions <#launchOptions description#>
+ *  @param launchOptions 完成启动使用选项
  *
  *  @since 1.0
  */
 - (void)initAPService:(NSDictionary *)launchOptions
 {
-    //极光通知
-    cc_NoticeObserver(self, @selector(setTagsAlias:), @"setTagsAlias", nil);
-    cc_NoticeObserver(self, @selector(resetTags), @"resetTags", nil);
-    //    [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil];
-    //    [APService setupWithOption:launchOptions];
+    _isJPush = YES;
+    [APService setupWithOption:launchOptions];
 }
 
 /**
@@ -299,8 +312,6 @@ static char OperationKey;
  *  @brief  使用系统自带推送
  *
  *  @param application <#application description#>
- *
- *  @since <#1.0#>
  */
 - (void)initOwnService:(UIApplication *)application
 {
@@ -314,10 +325,12 @@ static char OperationKey;
 }
 
 #pragma mark - 推送
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+- (void)application:(UIApplication *)application 
+        didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    //注册deviceToken
-    //    [APService registerDeviceToken:deviceToken];
+    if (_isJPush) { //注册deviceToken
+        [APService registerDeviceToken:deviceToken];
+    }
 }
 
 /**
@@ -325,18 +338,20 @@ static char OperationKey;
  *
  *  @brief  通知错误日志
  *
- *  @param application <#application description#>
- *  @param error       <#error description#>
+ *  @param application 应用
+ *  @param error       错误日志
  *
  *  @since 1.0
  */
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+- (void)application:(UIApplication *)application 
+        didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
     NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
 }
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+- (void)application:(UIApplication *)application 
+        didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
 }
 
@@ -345,7 +360,10 @@ static char OperationKey;
 // A nil action identifier indicates the default action.
 // You should call the completion handler as soon as you've finished handling
 // the action.
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void (^)())completionHandler
+- (void)application:(UIApplication *)application
+        handleActionWithIdentifier:(NSString *)identifier 
+        forLocalNotification:(UILocalNotification *)notification 
+        completionHandler:(void (^)())completionHandler
 {
 }
 
@@ -354,89 +372,38 @@ static char OperationKey;
 // A nil action identifier indicates the default action.
 // You should call the completion handler as soon as you've finished handling
 // the action.
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler
+- (void)application:(UIApplication *)application
+        handleActionWithIdentifier:(NSString *)identifier 
+        forRemoteNotification:(NSDictionary *)userInfo 
+        completionHandler:(void (^)())completionHandler
 {
 }
 #endif
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+- (void)application:(UIApplication *)application
+        didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    //    [APService handleRemoteNotification:userInfo];
-    cc_NoticePost(@"PushNotifications", userInfo);
+    if (_isJPush) {
+        [APService handleRemoteNotification:userInfo];
+        cc_NoticePost(@"PushNotifications", userInfo);
+    }
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+- (void)application:(UIApplication *)application
+        didReceiveRemoteNotification:(NSDictionary *)userInfo 
+        fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-    //    [APService handleRemoteNotification:userInfo];
-    cc_NoticePost(@"PushNotifications", userInfo);
+    if (_isJPush) {
+        [APService handleRemoteNotification:userInfo];
+        cc_NoticePost(@"PushNotifications", userInfo);
+    }
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+- (void)application:(UIApplication *)application
+        didReceiveLocalNotification:(UILocalNotification *)notification
 {
-    //    [APService showLocalNotificationAtFront:notification identifierKey:nil];
+    if (_isJPush)
+        [APService showLocalNotificationAtFront:notification identifierKey:nil];
 }
-
-/**
- *  @author C C, 2015-07-30
- *
- *  @brief  设置极光别名与标签
- *
- *  @param puthDic <#puthDic description#>
- *
- *  @since 1.0
- */
-- (void)setTagsAlias:(NSNotification *)puthDic
-{
-    //    NSDictionary *dic = (NSDictionary *)puthDic.object;
-    __autoreleasing NSMutableSet *tags = [NSMutableSet set];
-    //    [tags addObject:[NSString stringWithFormat:@"%@%@",KTSafeString(tipflag),[deviceUID stringByReplacingOccurrencesOfString:@"-" withString:@""]]];
-    __autoreleasing NSString *alias = @"1";
-    [self analyseInput:&alias tags:&tags];
-    //    NSString *_alias = [NSString stringWithFormat:@"%@%@",KTSafeString(tipflag),[dic objectForKey:@"tag1"]];
-    //[APService setAlias:_alias callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
-    //[APService setTags:tags callbackSelector:nil object:nil];
-    
-    //    [APService setTags:tags alias:_alias callbackSelector:@selector(tagsAliasCallback:tags:alias:) target:self];
-}
-
-/**
- *  @author C C, 2015-07-30
- *
- *  @brief  注销极光的别名与标签
- *
- *  @since 1.0
- */
-- (void)resetTags
-{
-    //    [APService setTags:[NSSet set] callbackSelector:nil object:nil];
-    //    [APService setAlias:@"" callbackSelector:nil object:nil];
-}
-
-- (void)analyseInput:(NSString **)alias tags:(NSSet **)tags
-{
-    // alias analyse
-    if (![*alias length]) {
-        // ignore alias
-        *alias = nil;
-    }
-    // tags analyse
-    if (![*tags count]) {
-        *tags = nil;
-    } else {
-        __block int emptyStringCount = 0;
-        [*tags enumerateObjectsUsingBlock:^(NSString *tag, BOOL *stop) {
-            if ([tag isEqualToString:@""]) {
-                emptyStringCount++;
-            } else {
-                emptyStringCount = 0;
-                *stop = YES;
-            }
-        }];
-        if (emptyStringCount == [*tags count]) {
-            *tags = nil;
-        }
-    }
-}
-
 @end
