@@ -113,7 +113,7 @@
  *  @brief  总金额
  *          订单总金额，单位为分，详见支付金额
  */
-@property(nonatomic, assign) NSInteger *total_fee;
+@property(nonatomic, assign) NSInteger total_fee;
 
 /**
  *  @author C C, 2015-12-03
