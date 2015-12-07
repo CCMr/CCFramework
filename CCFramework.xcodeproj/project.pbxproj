@@ -482,7 +482,6 @@
 		420DE47E1BC7942300D87D6D /* ZXMultiFormatWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 420DE2B51BC7942300D87D6D /* ZXMultiFormatWriter.m */; };
 		4213943C1BF2D9F50046062B /* SRLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213943B1BF2D9F50046062B /* SRLog.h */; };
 		4213FAF81C13D086006918AC /* APService.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213FAF61C13D086006918AC /* APService.h */; };
-		4213FAF91C13D086006918AC /* libPushSDK-1.8.8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4213FAF71C13D086006918AC /* libPushSDK-1.8.8.a */; };
 		4213FAFC1C13D860006918AC /* CCJPsuh.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213FAFA1C13D860006918AC /* CCJPsuh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4213FAFD1C13D860006918AC /* CCJPsuh.m in Sources */ = {isa = PBXBuildFile; fileRef = 4213FAFB1C13D860006918AC /* CCJPsuh.m */; };
 		4220B6181BFAB95A006145FD /* CustomIOSAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4220B6161BFAB95A006145FD /* CustomIOSAlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1713,7 +1712,6 @@
 		420DE2B51BC7942300D87D6D /* ZXMultiFormatWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXMultiFormatWriter.m; sourceTree = "<group>"; };
 		4213943B1BF2D9F50046062B /* SRLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRLog.h; sourceTree = "<group>"; };
 		4213FAF61C13D086006918AC /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
-		4213FAF71C13D086006918AC /* libPushSDK-1.8.8.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPushSDK-1.8.8.a"; sourceTree = "<group>"; };
 		4213FAFA1C13D860006918AC /* CCJPsuh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCJPsuh.h; sourceTree = "<group>"; };
 		4213FAFB1C13D860006918AC /* CCJPsuh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCJPsuh.m; sourceTree = "<group>"; };
 		4220B6161BFAB95A006145FD /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
@@ -2494,7 +2492,6 @@
 				424492921C0D90F500488AA2 /* libopencore-amrnb.a in Frameworks */,
 				424492931C0D90F500488AA2 /* libopencore-amrwb.a in Frameworks */,
 				425477281BD2AEC20071BBC5 /* libssl.a in Frameworks */,
-				4213FAF91C13D086006918AC /* libPushSDK-1.8.8.a in Frameworks */,
 				427E1D3C1C107066004B257C /* libWeChatSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3270,7 +3267,6 @@
 			isa = PBXGroup;
 			children = (
 				4213FAF61C13D086006918AC /* APService.h */,
-				4213FAF71C13D086006918AC /* libPushSDK-1.8.8.a */,
 				4213FAFA1C13D860006918AC /* CCJPsuh.h */,
 				4213FAFB1C13D860006918AC /* CCJPsuh.m */,
 			);
