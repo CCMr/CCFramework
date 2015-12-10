@@ -25,6 +25,7 @@
 
 #import "UIButton+BUIButton.h"
 #import <objc/runtime.h>
+#import "UIImageView+WebCache.h"
 
 static char BUTTONCARRYOBJECTS;
 
@@ -100,6 +101,27 @@ static char BUTTONCARRYOBJECTS;
 }
 
 /**
+ *  @author CC, 2015-12-09
+ *  
+ *  @brief  设置按钮图片
+ *
+ *  @param imagePath 图片路径
+ */
+- (void)setImage:(NSString *)imagePath
+{
+    [self setBackgroundImage:[UIImage imageNamed:imagePath] forState:UIControlStateNormal];
+    [self setBackgroundImage:[UIImage imageNamed:imagePath] forState:UIControlStateHighlighted];
+    
+    if ([imagePath rangeOfString:@"http://"].location != NSNotFound) {
+        UIImageView *imageView = (UIImageView *)[self viewWithTag:8888];
+        if (!imageView)
+            imageView = self.imageView;
+        
+        [imageView sd_setImageWithURLStr:imagePath];
+    }
+}
+
+/**
  *  @author C C, 2015-10-03
  *
  *  @brief  设置上图下文的图片与颜色
@@ -171,10 +193,8 @@ static char BUTTONCARRYOBJECTS;
                     TitleColor:(UIColor *)color
 {
     UIButton *button = [self buttonWith];
-    if (![image isEqualToString:@""]) {
-        [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
-        [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateHighlighted];
-    }
+    if (![image isEqualToString:@""])
+        [button setImage:image];
     
     [button setTitle:title forState:UIControlStateNormal];
     [button setTitle:title forState:UIControlStateHighlighted];
@@ -198,10 +218,8 @@ static char BUTTONCARRYOBJECTS;
                      BackgroundImage:(NSString *)image
 {
     UIButton *button = [self buttonWith];
-    if (![image isEqualToString:@""]) {
-        [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
-        [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateHighlighted];
-    }
+    if (![image isEqualToString:@""])
+        [button setImage:image];
     
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
@@ -281,10 +299,9 @@ static char BUTTONCARRYOBJECTS;
 + (id)buttonWithBackgroundImage:(NSString *)image
 {
     UIButton *button = [self buttonWith];
-    if (![image isEqualToString:@""]) {
-        [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
-        [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateHighlighted];
-    }
+    if (![image isEqualToString:@""])
+        [button setImage:image];
+    
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     return button;
@@ -307,10 +324,9 @@ static char BUTTONCARRYOBJECTS;
 {
     UIButton *button = [self buttonWith];
     
-    if (![image isEqualToString:@""]) {
-        [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
-        [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateHighlighted];
-    }
+    if (![image isEqualToString:@""])
+        [button setImage:image];
+    
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     button.frame = frame;
@@ -488,10 +504,9 @@ static char BUTTONCARRYOBJECTS;
                  Frame:(CGRect)frame
 {
     UIButton *button = [self buttonWith];
-    if (![image isEqualToString:@""]) {
-        [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
-        [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateHighlighted];
-    }
+    if (![image isEqualToString:@""])
+        [button setImage:image];
+    
     button.frame = frame;
     [button setTitle:title forState:UIControlStateNormal];
     [button setTitle:title forState:UIControlStateHighlighted];

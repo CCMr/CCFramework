@@ -66,6 +66,15 @@
                        TitleColor:(UIColor *)color;
 
 /**
+ *  @author CC, 2015-12-09
+ *  
+ *  @brief  设置按钮图片
+ *
+ *  @param imagePath 图片路径
+ */
+- (void)setImage:(NSString *)imagePath;
+
+/**
  *  @author CC, 2015-07-16
  *
  *  @brief  扩展属性
