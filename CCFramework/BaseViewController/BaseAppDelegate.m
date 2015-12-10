@@ -29,8 +29,8 @@
 #import "SmoothViewController.h"
 #import "CCUserDefaultsCrash.h"
 #import "UIColor+BUIColor.h"
+#import "NSObject+Additions.h"
 #import <objc/runtime.h>
-#import "APService.h"
 
 static char OperationKey;
 
@@ -42,6 +42,8 @@ static char OperationKey;
  *  @brief  是否启动极光推送
  */
 @property(nonatomic, assign) BOOL isJPush;
+
+@property(nonatomic, copy) Class APService;
 
 @end
 
@@ -59,8 +61,8 @@ static char OperationKey;
  *
  *  @since 1.0
  */
-- (BOOL)application:(UIApplication *)application 
-        didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+- (BOOL)application:(UIApplication *)application
+didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //全局crash捕获
     InstallUncaughtExceptionHandler();
@@ -114,8 +116,8 @@ static char OperationKey;
 
 //首先在 application:didFinishLaunchingWithOptions: 中设置 minimun background fetch interval 类型为 UIApplicationBackgroundFetchIntervalMinimum（默认为 UIApplicationBackgroundFetchIntervalNever），然后实现代理方法 application:performFetchWithCompletionHandler: 中实现数据请求。
 //[application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-- (void)application:(UIApplication *)application 
-        performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+- (void)application:(UIApplication *)application
+performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
 }
 
@@ -304,30 +306,46 @@ static char OperationKey;
 {
     _isJPush = YES;
     
-    // Required
-#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
-    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
-        //可以添加自定义categories
-        [APService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
-                                                       UIUserNotificationTypeSound |
-                                                       UIUserNotificationTypeAlert)
-                                           categories:nil];
+    if (NSClassFromString(@"APService")) {
+        _APService = NSClassFromString(@"APService");
+        
     } else {
-        //categories 必须为nil
-        [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-                                                       UIRemoteNotificationTypeSound |
-                                                       UIRemoteNotificationTypeAlert)
-                                           categories:nil];
+        NSLog(@"请在工程中导入APService.a文件");
     }
-#else
-    //categories 必须为nil
-    [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-                                                   UIRemoteNotificationTypeSound |
-                                                   UIRemoteNotificationTypeAlert)
-                                       categories:nil];
-#endif
     
-    [APService setupWithOption:launchOptions];
+    if (_APService) {
+        // Required
+#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
+        if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+            //可以添加自定义categories
+            
+            [_APService performSelectors:@"registerForRemoteNotificationTypes:categories:"
+                              withObject:@(UIUserNotificationTypeBadge |
+             UIUserNotificationTypeSound |
+             UIUserNotificationTypeAlert),
+             nil, nil];
+        } else {
+            //categories 必须为nil
+            
+            [_APService performSelectors:@"registerForRemoteNotificationTypes:categories:"
+                              withObject:@(UIRemoteNotificationTypeBadge |
+             UIRemoteNotificationTypeSound |
+             UIRemoteNotificationTypeAlert),
+             nil, nil];
+        }
+#else
+        //categories 必须为nil
+        
+        [APService performSelectors:@"registerForRemoteNotificationTypes:categories:"
+                         withObject:@(UIRemoteNotificationTypeBadge |
+         UIRemoteNotificationTypeSound |
+         UIRemoteNotificationTypeAlert),
+         nil, nil];
+#endif
+        
+        [_APService performSelectors:@"setupWithOption:"
+                          withObject:launchOptions, nil];
+    }
 }
 
 /**
@@ -349,11 +367,12 @@ static char OperationKey;
 }
 
 #pragma mark - 推送
-- (void)application:(UIApplication *)application 
-        didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+- (void)application:(UIApplication *)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     if (_isJPush) { //注册deviceToken
-        [APService registerDeviceToken:deviceToken];
+        [_APService performSelectors:@"registerDeviceToken:"
+                          withObject:deviceToken, nil];
     }
 }
 
@@ -367,15 +386,15 @@ static char OperationKey;
  *
  *  @since 1.0
  */
-- (void)application:(UIApplication *)application 
-        didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+- (void)application:(UIApplication *)application
+didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
     NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
 }
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
-- (void)application:(UIApplication *)application 
-        didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+- (void)application:(UIApplication *)application
+didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
 }
 
@@ -385,9 +404,9 @@ static char OperationKey;
 // You should call the completion handler as soon as you've finished handling
 // the action.
 - (void)application:(UIApplication *)application
-        handleActionWithIdentifier:(NSString *)identifier 
-        forLocalNotification:(UILocalNotification *)notification 
-        completionHandler:(void (^)())completionHandler
+handleActionWithIdentifier:(NSString *)identifier
+forLocalNotification:(UILocalNotification *)notification
+  completionHandler:(void (^)())completionHandler
 {
 }
 
@@ -397,37 +416,40 @@ static char OperationKey;
 // You should call the completion handler as soon as you've finished handling
 // the action.
 - (void)application:(UIApplication *)application
-        handleActionWithIdentifier:(NSString *)identifier 
-        forRemoteNotification:(NSDictionary *)userInfo 
-        completionHandler:(void (^)())completionHandler
+handleActionWithIdentifier:(NSString *)identifier
+forRemoteNotification:(NSDictionary *)userInfo
+  completionHandler:(void (^)())completionHandler
 {
 }
 #endif
 
 - (void)application:(UIApplication *)application
-        didReceiveRemoteNotification:(NSDictionary *)userInfo
+didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     if (_isJPush) {
-        [APService handleRemoteNotification:userInfo];
+        [_APService performSelectors:@"handleRemoteNotification:"
+                          withObject:userInfo, nil];
         cc_NoticePost(@"PushNotifications", userInfo);
     }
 }
 
 - (void)application:(UIApplication *)application
-        didReceiveRemoteNotification:(NSDictionary *)userInfo 
-        fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+didReceiveRemoteNotification:(NSDictionary *)userInfo
+fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     if (_isJPush) {
-        [APService handleRemoteNotification:userInfo];
+        [_APService performSelectors:@"handleRemoteNotification:"
+                          withObject:userInfo, nil];
         cc_NoticePost(@"PushNotifications", userInfo);
     }
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
 - (void)application:(UIApplication *)application
-        didReceiveLocalNotification:(UILocalNotification *)notification
+didReceiveLocalNotification:(UILocalNotification *)notification
 {
     if (_isJPush)
-        [APService showLocalNotificationAtFront:notification identifierKey:nil];
+        [_APService performSelectors:@"showLocalNotificationAtFront:identifierKey:"
+                          withObject:notification,nil, nil];
 }
 @end

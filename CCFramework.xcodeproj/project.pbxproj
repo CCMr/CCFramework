@@ -481,7 +481,6 @@
 		420DE47D1BC7942300D87D6D /* ZXMultiFormatWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 420DE2B41BC7942300D87D6D /* ZXMultiFormatWriter.h */; };
 		420DE47E1BC7942300D87D6D /* ZXMultiFormatWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 420DE2B51BC7942300D87D6D /* ZXMultiFormatWriter.m */; };
 		4213943C1BF2D9F50046062B /* SRLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213943B1BF2D9F50046062B /* SRLog.h */; };
-		4213FAF81C13D086006918AC /* APService.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213FAF61C13D086006918AC /* APService.h */; };
 		4213FAFC1C13D860006918AC /* CCJPsuh.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213FAFA1C13D860006918AC /* CCJPsuh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4213FAFD1C13D860006918AC /* CCJPsuh.m in Sources */ = {isa = PBXBuildFile; fileRef = 4213FAFB1C13D860006918AC /* CCJPsuh.m */; };
 		4220B6181BFAB95A006145FD /* CustomIOSAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4220B6161BFAB95A006145FD /* CustomIOSAlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -515,6 +514,7 @@
 		424492971C0D90F500488AA2 /* if_rom.h in Headers */ = {isa = PBXBuildFile; fileRef = 4244928B1C0D90F500488AA2 /* if_rom.h */; };
 		424492981C0D90F500488AA2 /* VoiceConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 4244928C1C0D90F500488AA2 /* VoiceConverter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		424492991C0D90F500488AA2 /* VoiceConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4244928D1C0D90F500488AA2 /* VoiceConverter.m */; };
+		425233931C1919730096A5ED /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 425233921C1919730096A5ED /* libWeChatSDK.a */; };
 		42534F1B1BEC39D200F59E40 /* UISearchBar+Addition.h in Headers */ = {isa = PBXBuildFile; fileRef = 42534F191BEC39D200F59E40 /* UISearchBar+Addition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42534F1C1BEC39D200F59E40 /* UISearchBar+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 42534F1A1BEC39D200F59E40 /* UISearchBar+Addition.m */; };
 		425476BD1BD2A9DC0071BBC5 /* CCAliPayEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 425476BB1BD2A9DC0071BBC5 /* CCAliPayEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -689,7 +689,6 @@
 		426979491BA695BA00C3E93C /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 426979251BA695BA00C3E93C /* UIRefreshControl+AFNetworking.m */; };
 		4269794A1BA695BA00C3E93C /* UIWebView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 426979261BA695BA00C3E93C /* UIWebView+AFNetworking.h */; };
 		4269794B1BA695BA00C3E93C /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 426979271BA695BA00C3E93C /* UIWebView+AFNetworking.m */; };
-		427E1D3C1C107066004B257C /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 427E1D391C107066004B257C /* libWeChatSDK.a */; };
 		427E1D3D1C107066004B257C /* WXApi.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1D3A1C107066004B257C /* WXApi.h */; };
 		427E1D3E1C107066004B257C /* WXApiObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1D3B1C107066004B257C /* WXApiObject.h */; };
 		427E1D411C10709F004B257C /* CCWxPayEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1D3F1C10709F004B257C /* CCWxPayEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1709,7 +1708,6 @@
 		420DE2B41BC7942300D87D6D /* ZXMultiFormatWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXMultiFormatWriter.h; sourceTree = "<group>"; };
 		420DE2B51BC7942300D87D6D /* ZXMultiFormatWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXMultiFormatWriter.m; sourceTree = "<group>"; };
 		4213943B1BF2D9F50046062B /* SRLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRLog.h; sourceTree = "<group>"; };
-		4213FAF61C13D086006918AC /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
 		4213FAFA1C13D860006918AC /* CCJPsuh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCJPsuh.h; sourceTree = "<group>"; };
 		4213FAFB1C13D860006918AC /* CCJPsuh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCJPsuh.m; sourceTree = "<group>"; };
 		4220B6161BFAB95A006145FD /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
@@ -1743,6 +1741,7 @@
 		4244928B1C0D90F500488AA2 /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
 		4244928C1C0D90F500488AA2 /* VoiceConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceConverter.h; sourceTree = "<group>"; };
 		4244928D1C0D90F500488AA2 /* VoiceConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceConverter.m; sourceTree = "<group>"; };
+		425233921C1919730096A5ED /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		42534F191BEC39D200F59E40 /* UISearchBar+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UISearchBar+Addition.h"; path = "UISearchBar/UISearchBar+Addition.h"; sourceTree = "<group>"; };
 		42534F1A1BEC39D200F59E40 /* UISearchBar+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UISearchBar+Addition.m"; path = "UISearchBar/UISearchBar+Addition.m"; sourceTree = "<group>"; };
 		425476BB1BD2A9DC0071BBC5 /* CCAliPayEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCAliPayEngine.h; path = Pay/Alipay/CCAliPayEngine.h; sourceTree = "<group>"; };
@@ -1843,7 +1842,6 @@
 		425477241BD2AEC20071BBC5 /* RSADataVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataVerifier.m; sourceTree = "<group>"; };
 		425477851BD2AF6A0071BBC5 /* AliOrderFormEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AliOrderFormEntity.h; path = CCFramework/Tools/Vender/Pay/Alipay/Model/AliOrderFormEntity.h; sourceTree = SOURCE_ROOT; };
 		425477861BD2AF6A0071BBC5 /* AliOrderFormEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AliOrderFormEntity.m; path = CCFramework/Tools/Vender/Pay/Alipay/Model/AliOrderFormEntity.m; sourceTree = SOURCE_ROOT; };
-		425A4F2F1C11B1F8009A7E77 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		425A4F361C11C466009A7E77 /* CCXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCXML.h; path = Core/CCXML/CCXML.h; sourceTree = "<group>"; };
 		425A4F371C11C466009A7E77 /* CCXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCXML.m; path = Core/CCXML/CCXML.m; sourceTree = "<group>"; };
 		425A4F3A1C11CA42009A7E77 /* CCWXSingleEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCWXSingleEntity.h; path = Pay/Wxpay/Model/CCWXSingleEntity.h; sourceTree = "<group>"; };
@@ -1919,7 +1917,6 @@
 		426979251BA695BA00C3E93C /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		426979261BA695BA00C3E93C /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		426979271BA695BA00C3E93C /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
-		427E1D391C107066004B257C /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		427E1D3A1C107066004B257C /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		427E1D3B1C107066004B257C /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		427E1D3F1C10709F004B257C /* CCWxPayEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCWxPayEngine.h; path = Pay/Wxpay/CCWxPayEngine.h; sourceTree = "<group>"; };
@@ -2488,7 +2485,7 @@
 				424492921C0D90F500488AA2 /* libopencore-amrnb.a in Frameworks */,
 				424492931C0D90F500488AA2 /* libopencore-amrwb.a in Frameworks */,
 				425477281BD2AEC20071BBC5 /* libssl.a in Frameworks */,
-				427E1D3C1C107066004B257C /* libWeChatSDK.a in Frameworks */,
+				425233931C1919730096A5ED /* libWeChatSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3262,7 +3259,6 @@
 		4213FAF51C13D086006918AC /* JPush */ = {
 			isa = PBXGroup;
 			children = (
-				4213FAF61C13D086006918AC /* APService.h */,
 				4213FAFA1C13D860006918AC /* CCJPsuh.h */,
 				4213FAFB1C13D860006918AC /* CCJPsuh.m */,
 			);
@@ -3699,7 +3695,7 @@
 		427E1D381C107066004B257C /* ResourceFile */ = {
 			isa = PBXGroup;
 			children = (
-				427E1D391C107066004B257C /* libWeChatSDK.a */,
+				425233921C1919730096A5ED /* libWeChatSDK.a */,
 				427E1D3A1C107066004B257C /* WXApi.h */,
 				427E1D3B1C107066004B257C /* WXApiObject.h */,
 			);
@@ -3798,7 +3794,6 @@
 		429C9CB81B9EF7060013A44A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				425A4F2F1C11B1F8009A7E77 /* libc++.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -5762,7 +5757,6 @@
 				420DE4511BC7942300D87D6D /* ZXQRCodeErrorCorrectionLevel.h in Headers */,
 				420DE45F1BC7942300D87D6D /* ZXQRCodeFinderPattern.h in Headers */,
 				420DE4571BC7942300D87D6D /* ZXQRCodeVersion.h in Headers */,
-				4213FAF81C13D086006918AC /* APService.h in Headers */,
 				420DE4691BC7942300D87D6D /* ZXQRCodeEncoder.h in Headers */,
 				420DE4631BC7942300D87D6D /* ZXQRCodeFinderPatternInfo.h in Headers */,
 				420DE4731BC7942300D87D6D /* ZXQRCodeMultiReader.h in Headers */,

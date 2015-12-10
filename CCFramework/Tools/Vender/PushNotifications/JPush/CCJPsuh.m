@@ -23,8 +23,10 @@
 // THE SOFTWARE.
 //
 
+@class UILocalNotification;
+
 #import "CCJPsuh.h"
-#import "APService.h"
+#import "NSObject+Additions.h"
 
 typedef void (^Callback)(NSDictionary *requestDic);
 
@@ -106,9 +108,14 @@ typedef void (^Callback)(NSDictionary *requestDic);
  */
 - (void)resetTags
 {
-    [APService setTags:[NSSet set]
-      callbackSelector:nil
-                object:nil];
+    if (NSClassFromString(@"APService")) {
+        Class APService = NSClassFromString(@"APService");
+        
+        [APService performSelectors:@"setTags:callbackSelector:object:"
+                         withObject:[NSSet set], nil, nil, nil];
+    } else {
+        NSLog(@"请在工程中导入APService.a文件");
+    }
 }
 
 /**
@@ -118,9 +125,14 @@ typedef void (^Callback)(NSDictionary *requestDic);
  */
 - (void)resetAlias
 {
-    [APService setAlias:@""
-       callbackSelector:nil
-                 object:nil];
+    if (NSClassFromString(@"APService")) {
+        Class APService = NSClassFromString(@"APService");
+        
+        [APService performSelectors:@"setAlias:callbackSelector:object:"
+                         withObject:@"", nil, nil, nil];
+    } else {
+        NSLog(@"请在工程中导入APService.a文件");
+    }
 }
 
 /**
@@ -139,10 +151,14 @@ typedef void (^Callback)(NSDictionary *requestDic);
     if (!alias && !alias.length)
         alias = nil;
     
-    [APService setTags:tags
-                 alias:alias
-      callbackSelector:@selector(tagsAliasCallback:tags:alias:)
-                target:self];
+    if (NSClassFromString(@"APService")) {
+        Class APService = NSClassFromString(@"APService");
+        
+        [APService performSelectors:@"setTags:alias:callbackSelector:target"
+                         withObject:tags, alias, @selector(tagsAliasCallback:tags:alias:), self, nil];
+    } else {
+        NSLog(@"请在工程中导入APService.a文件");
+    }
 }
 
 /**
@@ -191,13 +207,15 @@ typedef void (^Callback)(NSDictionary *requestDic);
                     userInfo:(NSDictionary *)userInfo
                    soundName:(NSString *)soundName
 {
-    _notification = [APService setLocalNotification:fireDate
-                                          alertBody:alertBody
-                                              badge:badge
-                                        alertAction:alertAction
-                                      identifierKey:notificationKey
-                                           userInfo:userInfo
-                                          soundName:soundName];
+    
+    if (NSClassFromString(@"APService")) {
+        Class APService = NSClassFromString(@"APService");
+        
+        _notification = [APService performSelectors:@"setLocalNotification:alertBody:badge:alertAction:identifierKey:userInfo:soundName:"
+                                         withObject:fireDate, alertBody, badge, alertAction, notificationKey, userInfo, soundName, nil];
+    } else {
+        NSLog(@"请在工程中导入APService.a文件");
+    }
     
     BOOL bol = YES;
     if (!_notification)
@@ -234,16 +252,16 @@ typedef void (^Callback)(NSDictionary *requestDic);
           regionTriggersOnce:(BOOL)regionTriggersOnce
                     category:(NSString *)category NS_AVAILABLE_IOS(8_0)
 {
-    _notification = [APService setLocalNotification:fireDate
-                                          alertBody:alertBody
-                                              badge:badge
-                                        alertAction:alertAction
-                                      identifierKey:notificationKey
-                                           userInfo:userInfo
-                                          soundName:soundName
-                                             region:region
-                                 regionTriggersOnce:regionTriggersOnce
-                                           category:category];
+    
+    if (NSClassFromString(@"APService")) {
+        Class APService = NSClassFromString(@"APService");
+        
+        _notification = [APService performSelectors:@"setLocalNotification:alertBody:badge:alertAction:identifierKey:userInfo:soundName:region:regionTriggersOnce:category:"
+                                         withObject:fireDate, alertBody, badge, alertAction, notificationKey, userInfo, soundName, region, regionTriggersOnce, category, nil];
+    } else {
+        NSLog(@"请在工程中导入APService.a文件");
+    }
+    
     BOOL bol = YES;
     if (!_notification)
         bol = NO;
@@ -257,7 +275,14 @@ typedef void (^Callback)(NSDictionary *requestDic);
  */
 - (void)clearLastNotification
 {
-    [APService deleteLocalNotification:_notification];
+    if (NSClassFromString(@"APService")) {
+        Class APService = NSClassFromString(@"APService");
+        
+        [APService performSelectors:@"deleteLocalNotification:"
+                         withObject:_notification, nil];
+    } else {
+        NSLog(@"请在工程中导入APService.a文件");
+    }
 }
 
 /**
@@ -265,9 +290,16 @@ typedef void (^Callback)(NSDictionary *requestDic);
  *  
  *  @brief  清理所有通知
  */
--(void)clearAllNotification
+- (void)clearAllNotification
 {
-    [APService clearAllLocalNotifications];
+    if (NSClassFromString(@"APService")) {
+        Class APService = NSClassFromString(@"APService");
+        
+        [APService performSelectors:@"clearAllLocalNotifications" 
+                         withObject:nil]; 
+    } else {
+        NSLog(@"请在工程中导入APService.a文件");
+    }
 }
 
 #pragma - mark :. 设置Badge
@@ -278,7 +310,15 @@ typedef void (^Callback)(NSDictionary *requestDic);
  */
 - (BOOL)setBadge:(NSInteger)value
 {
-    return [APService setBadge:value];
+    if (NSClassFromString(@"APService")) {
+        Class APService = NSClassFromString(@"APService");
+        
+        return [[APService performSelectors:@"setBadge:" 
+                                 withObject:@(value),nil] boolValue]; 
+    } else {
+        NSLog(@"请在工程中导入APService.a文件");
+    }
+    return NO;
 }
 
 @end
