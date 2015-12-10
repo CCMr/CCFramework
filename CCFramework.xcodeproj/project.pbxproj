@@ -1080,10 +1080,6 @@
 		429CA1191B9EF8BF0013A44A /* CCMessageTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F2B1B9EF8BF0013A44A /* CCMessageTableView.m */; };
 		429CA11A1B9EF8BF0013A44A /* CCMessageTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F2C1B9EF8BF0013A44A /* CCMessageTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA11B1B9EF8BF0013A44A /* CCMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F2D1B9EF8BF0013A44A /* CCMessageTableViewCell.m */; };
-		429CA11C1B9EF8BF0013A44A /* CCEmotionCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F2F1B9EF8BF0013A44A /* CCEmotionCollectionViewCell.h */; };
-		429CA11D1B9EF8BF0013A44A /* CCEmotionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F301B9EF8BF0013A44A /* CCEmotionCollectionViewCell.m */; };
-		429CA11E1B9EF8BF0013A44A /* CCEmotionCollectionViewFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F311B9EF8BF0013A44A /* CCEmotionCollectionViewFlowLayout.h */; };
-		429CA11F1B9EF8BF0013A44A /* CCEmotionCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F321B9EF8BF0013A44A /* CCEmotionCollectionViewFlowLayout.m */; };
 		429CA1201B9EF8BF0013A44A /* CCEmotionManagerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F331B9EF8BF0013A44A /* CCEmotionManagerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA1211B9EF8BF0013A44A /* CCEmotionManagerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9F341B9EF8BF0013A44A /* CCEmotionManagerView.m */; };
 		429CA1221B9EF8BF0013A44A /* CCEmotionSectionBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9F351B9EF8BF0013A44A /* CCEmotionSectionBar.h */; };
@@ -1171,6 +1167,8 @@
 		42B647541BEDE08F00B2F6FD /* CCHTTPManager+PATCH.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B647501BEDE08F00B2F6FD /* CCHTTPManager+PATCH.m */; };
 		42B647551BEDE08F00B2F6FD /* CCHTTPManager+PUT.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B647511BEDE08F00B2F6FD /* CCHTTPManager+PUT.m */; };
 		42B647571BEDE57300B2F6FD /* CCHTTPManager+UploadDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B647561BEDE57300B2F6FD /* CCHTTPManager+UploadDownload.m */; };
+		42B73E841C17D40D001A1D0F /* CCEmotionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42B73E821C17D40D001A1D0F /* CCEmotionView.h */; };
+		42B73E851C17D40D001A1D0F /* CCEmotionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B73E831C17D40D001A1D0F /* CCEmotionView.m */; };
 		42B9D0E61B9FE3650086CA81 /* NSData+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 42B9D0E41B9FE3650086CA81 /* NSData+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42B9D0E71B9FE3650086CA81 /* NSData+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B9D0E51B9FE3650086CA81 /* NSData+Additions.m */; };
 		42BAB91A1BC7565100C70043 /* UITabBarController+Additional.h in Headers */ = {isa = PBXBuildFile; fileRef = 42BAB9181BC7565100C70043 /* UITabBarController+Additional.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2315,10 +2313,6 @@
 		429C9F2B1B9EF8BF0013A44A /* CCMessageTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCMessageTableView.m; sourceTree = "<group>"; };
 		429C9F2C1B9EF8BF0013A44A /* CCMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMessageTableViewCell.h; sourceTree = "<group>"; };
 		429C9F2D1B9EF8BF0013A44A /* CCMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCMessageTableViewCell.m; sourceTree = "<group>"; };
-		429C9F2F1B9EF8BF0013A44A /* CCEmotionCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEmotionCollectionViewCell.h; sourceTree = "<group>"; };
-		429C9F301B9EF8BF0013A44A /* CCEmotionCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCEmotionCollectionViewCell.m; sourceTree = "<group>"; };
-		429C9F311B9EF8BF0013A44A /* CCEmotionCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEmotionCollectionViewFlowLayout.h; sourceTree = "<group>"; };
-		429C9F321B9EF8BF0013A44A /* CCEmotionCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCEmotionCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		429C9F331B9EF8BF0013A44A /* CCEmotionManagerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEmotionManagerView.h; sourceTree = "<group>"; };
 		429C9F341B9EF8BF0013A44A /* CCEmotionManagerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCEmotionManagerView.m; sourceTree = "<group>"; };
 		429C9F351B9EF8BF0013A44A /* CCEmotionSectionBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEmotionSectionBar.h; sourceTree = "<group>"; };
@@ -2405,6 +2399,8 @@
 		42B647501BEDE08F00B2F6FD /* CCHTTPManager+PATCH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CCHTTPManager+PATCH.m"; path = "CoreManager/CCHTTPManager+PATCH.m"; sourceTree = "<group>"; };
 		42B647511BEDE08F00B2F6FD /* CCHTTPManager+PUT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CCHTTPManager+PUT.m"; path = "CoreManager/CCHTTPManager+PUT.m"; sourceTree = "<group>"; };
 		42B647561BEDE57300B2F6FD /* CCHTTPManager+UploadDownload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CCHTTPManager+UploadDownload.m"; path = "CoreManager/CCHTTPManager+UploadDownload.m"; sourceTree = "<group>"; };
+		42B73E821C17D40D001A1D0F /* CCEmotionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEmotionView.h; sourceTree = "<group>"; };
+		42B73E831C17D40D001A1D0F /* CCEmotionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCEmotionView.m; sourceTree = "<group>"; };
 		42B9D0E41B9FE3650086CA81 /* NSData+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Additions.h"; sourceTree = "<group>"; };
 		42B9D0E51B9FE3650086CA81 /* NSData+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Additions.m"; sourceTree = "<group>"; };
 		42BAB9181BC7565100C70043 /* UITabBarController+Additional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITabBarController+Additional.h"; path = "UITabBarController/UITabBarController+Additional.h"; sourceTree = "<group>"; };
@@ -5006,16 +5002,14 @@
 		429C9F2E1B9EF8BF0013A44A /* MessageMenuViews */ = {
 			isa = PBXGroup;
 			children = (
-				429C9F2F1B9EF8BF0013A44A /* CCEmotionCollectionViewCell.h */,
-				429C9F301B9EF8BF0013A44A /* CCEmotionCollectionViewCell.m */,
-				429C9F311B9EF8BF0013A44A /* CCEmotionCollectionViewFlowLayout.h */,
-				429C9F321B9EF8BF0013A44A /* CCEmotionCollectionViewFlowLayout.m */,
 				429C9F331B9EF8BF0013A44A /* CCEmotionManagerView.h */,
 				429C9F341B9EF8BF0013A44A /* CCEmotionManagerView.m */,
 				429C9F351B9EF8BF0013A44A /* CCEmotionSectionBar.h */,
 				429C9F361B9EF8BF0013A44A /* CCEmotionSectionBar.m */,
 				429C9F371B9EF8BF0013A44A /* CCShareMenuView.h */,
 				429C9F381B9EF8BF0013A44A /* CCShareMenuView.m */,
+				42B73E821C17D40D001A1D0F /* CCEmotionView.h */,
+				42B73E831C17D40D001A1D0F /* CCEmotionView.m */,
 			);
 			path = MessageMenuViews;
 			sourceTree = "<group>";
@@ -5572,7 +5566,6 @@
 				429C9FD61B9EF8BF0013A44A /* SRConnection.h in Headers */,
 				42CF58EF1C1167AB007C84A6 /* NSDictionary+Additions.h in Headers */,
 				4213943C1BF2D9F50046062B /* SRLog.h in Headers */,
-				429CA11C1B9EF8BF0013A44A /* CCEmotionCollectionViewCell.h in Headers */,
 				429C9F561B9EF8BF0013A44A /* BaseTableViewController.h in Headers */,
 				4298C7821BDCAC3100A3581D /* CoreDataMasterSlave+Manager.h in Headers */,
 				429CA12E1B9EF8BF0013A44A /* CCTimePicker.h in Headers */,
@@ -5711,6 +5704,7 @@
 				420DE3251BC7942300D87D6D /* ZXGenericGF.h in Headers */,
 				420DE3921BC7942300D87D6D /* ZXDataMatrixWriter.h in Headers */,
 				420DE3901BC7942300D87D6D /* ZXDataMatrixReader.h in Headers */,
+				42B73E841C17D40D001A1D0F /* CCEmotionView.h in Headers */,
 				427E1D3E1C107066004B257C /* WXApiObject.h in Headers */,
 				420DE3751BC7942300D87D6D /* ZXDataMatrixDetector.h in Headers */,
 				420DE37D1BC7942300D87D6D /* ZXDataMatrixDefaultPlacement.h in Headers */,
@@ -5918,7 +5912,6 @@
 				429C9FFD1B9EF8BF0013A44A /* CCSlideShadowAnimation.h in Headers */,
 				429C9F5E1B9EF8BF0013A44A /* CCDropzoneViewController.h in Headers */,
 				429C9F541B9EF8BF0013A44A /* BaseSearchTableViewController.h in Headers */,
-				429CA11E1B9EF8BF0013A44A /* CCEmotionCollectionViewFlowLayout.h in Headers */,
 				42F24C4F1BEA5091008CDEDC /* PNBar.h in Headers */,
 				429CA10D1B9EF8BF0013A44A /* CCEmotionManager.h in Headers */,
 				426979411BA695BA00C3E93C /* UIButton+AFNetworking.h in Headers */,
@@ -6241,6 +6234,7 @@
 				4298C78C1BDCBB0300A3581D /* CoreDataMasterSlave+Queries.m in Sources */,
 				429CA0001B9EF8BF0013A44A /* CCRourRotation.m in Sources */,
 				420DE2FF1BC7942300D87D6D /* ZXSMTPResultParser.m in Sources */,
+				42B73E851C17D40D001A1D0F /* CCEmotionView.m in Sources */,
 				4265289B1BECA1AB0096C0EF /* CCLoadingView.m in Sources */,
 				420DE36C1BC7942300D87D6D /* ZXDataMatrixBitMatrixParser.m in Sources */,
 				429CA0241B9EF8BF0013A44A /* CCMessageTextView.m in Sources */,
@@ -6557,7 +6551,6 @@
 				429C9F5B1B9EF8BF0013A44A /* BaseTableViewHeaderFooterView.m in Sources */,
 				4254777C1BD2AEC20071BBC5 /* MD5DataSigner.m in Sources */,
 				4230E1971BBB8F7C0001E68F /* CCRadarScanViewController.m in Sources */,
-				429CA11F1B9EF8BF0013A44A /* CCEmotionCollectionViewFlowLayout.m in Sources */,
 				429CA0A01B9EF8BF0013A44A /* SESelectionGrabber.m in Sources */,
 				42F24C561BEA5091008CDEDC /* PNChartLabel.m in Sources */,
 				420DE4131BC7942300D87D6D /* ZXModulusGF.m in Sources */,
@@ -6612,7 +6605,6 @@
 				429CA09E1B9EF8BF0013A44A /* SELinkText.m in Sources */,
 				420DE30D1BC7942300D87D6D /* ZXVCardResultParser.m in Sources */,
 				429CA11B1B9EF8BF0013A44A /* CCMessageTableViewCell.m in Sources */,
-				429CA11D1B9EF8BF0013A44A /* CCEmotionCollectionViewCell.m in Sources */,
 				42B30DCC1BBD72AD0039BB94 /* SDImageCache.m in Sources */,
 				420DE3A11BC7942300D87D6D /* ZXGenericMultipleBarcodeReader.m in Sources */,
 				429C9FFA1B9EF8BF0013A44A /* NSData+SRB64Additions.m in Sources */,

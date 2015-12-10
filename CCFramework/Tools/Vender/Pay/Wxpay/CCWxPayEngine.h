@@ -94,7 +94,7 @@
             Noncestr:(NSString *_Nullable)noncestr
            Timestamp:(NSString *_Nullable)timestamp
                 Sign:(NSString *_Nullable)sign
-            Complete:(void (^)(NSError *error))block;
+            Complete:(void (^_Nullable)(NSError *_Nullable error))block;
 
 /**
  *  @author C C, 2015-12-06

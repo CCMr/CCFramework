@@ -399,8 +399,11 @@ static CGPoint delayOffset = {0.0};
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:idx inSection:0];
             [indexPaths addObject:indexPath];
             
-            delayOffset.y += [weakSelf calculateCellHeightWithMessage:[messages objectAtIndex:idx]
-                                                          atIndexPath:indexPath];
+            if (messages.count) {
+                delayOffset.y += [weakSelf calculateCellHeightWithMessage:[messages objectAtIndex:idx]
+                                                              atIndexPath:indexPath];
+            }
+            
             [indexSets addIndex:idx];
         }];
         [messages insertObjects:oldMessages atIndexes:indexSets];
@@ -1667,7 +1670,7 @@ static CGPoint delayOffset = {0.0};
                                   atIndexPath:(NSIndexPath *)indexPath
                        onMessageTableViewCell:(CCMessageTableViewCell *)messageTableViewCell
 {
-    [self layoutOtherMenuViewHiden:YES];
+    [self.messageInputView.inputTextView resignFirstResponder];
 }
 
 

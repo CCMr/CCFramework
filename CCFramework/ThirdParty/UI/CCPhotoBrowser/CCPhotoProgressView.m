@@ -25,7 +25,7 @@
 
 #import "CCPhotoProgressView.h"
 
-#define kDegreeToRadian(x) (M_PI/180.0 * (x))
+#define kDegreeToRadian(x) (M_PI / 180.0 * (x))
 
 @implementation CCPhotoProgressView
 
@@ -38,19 +38,18 @@
 }
 
 - (void)drawRect:(CGRect)rect
-{    
+{
     CGRect allRect = self.bounds;
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    if (_type == ProgressTypeAnnular)
-    {
+    if (_type == ProgressTypeAnnular) {
         CGFloat lineWidth = 5.f;
         UIBezierPath *processBackgroundPath = [UIBezierPath bezierPath];
         processBackgroundPath.lineWidth = lineWidth;
         processBackgroundPath.lineCapStyle = kCGLineCapRound;
-        CGPoint center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
-        CGFloat radius = (self.bounds.size.width - lineWidth)/2;
-        CGFloat startAngle = - ((float)M_PI / 2);
+        CGPoint center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
+        CGFloat radius = (self.bounds.size.width - lineWidth) / 2;
+        CGFloat startAngle = -((float)M_PI / 2);
         CGFloat endAngle = (2 * (float)M_PI) + startAngle;
         [processBackgroundPath addArcWithCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:YES];
         [processBackgroundPath stroke];
@@ -60,21 +59,20 @@
         processPath.lineWidth = lineWidth;
         endAngle = (self.progress * 2 * (float)M_PI) + startAngle;
         [processPath addArcWithCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:YES];
+        [[UIColor whiteColor] set];
         [processPath stroke];
         
         if (_showPercentage)
             [self drawTextInContext:context];
-    }
-    else if (_type == ProgressTypeCircle)
-    {
+    } else if (_type == ProgressTypeCircle) {
         UIColor *colorBackAlpha = (UIColor *)CFBridgingRelease(CGColorCreateCopyWithAlpha(_trackTintColor.CGColor, 0.05f));
-        UIColor *colorProgressAlpha = (UIColor *)CFBridgingRelease(CGColorCreateCopyWithAlpha(_progressTintColor. CGColor, 0.2f));
+        UIColor *colorProgressAlpha = (UIColor *)CFBridgingRelease(CGColorCreateCopyWithAlpha(_progressTintColor.CGColor, 0.2f));
         
         CGRect allRect = rect;
         CGRect circleRect = CGRectMake(allRect.origin.x + 2, allRect.origin.y + 2, allRect.size.width - 4, allRect.size.height - 4);
         float x = allRect.origin.x + (allRect.size.width / 2);
         float y = allRect.origin.y + (allRect.size.height / 2);
-        float angle = (_progress) * 360.0f;
+        float angle = (_progress)*360.0f;
         
         CGContextSaveGState(context);
         CGContextSetStrokeColorWithColor(context, colorProgressAlpha.CGColor);
@@ -97,9 +95,7 @@
         
         if (_showPercentage)
             [self drawTextInContext:context];
-    }
-    else
-    {
+    } else {
         CGRect circleRect = CGRectInset(allRect, 2.0f, 2.0f);
         
         CGColorRef colorBackAlpha = CGColorCreateCopyWithAlpha(_trackTintColor.CGColor, 0.1f);
@@ -112,7 +108,7 @@
         
         CGPoint center = CGPointMake(allRect.size.width / 2, allRect.size.height / 2);
         CGFloat radius = (allRect.size.width - 4) / 2 - 3;
-        CGFloat startAngle = - ((float)M_PI / 2);
+        CGFloat startAngle = -((float)M_PI / 2);
         CGFloat endAngle = (self.progress * 2 * (float)M_PI) + startAngle;
         CGContextMoveToPoint(context, center.x, center.y);
         CGContextAddArc(context, center.x, center.y, radius, startAngle, endAngle, 0);
@@ -122,7 +118,8 @@
 }
 
 
-- (void)drawTextInContext:(CGContextRef)context{
+- (void)drawTextInContext:(CGContextRef)context
+{
     CGRect allRect = self.bounds;
     
     UIFont *font = [UIFont systemFontOfSize:13];
@@ -133,7 +130,7 @@
     float x = floorf(allRect.size.width / 2) + 3 + allRect.origin.x;
     float y = floorf(allRect.size.height / 2) - 6 + allRect.origin.y;
     
-    CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
+    CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
     [text drawAtPoint:CGPointMake(x - textSize.width / 2.0, y) withFont:font];
 }
 
@@ -142,8 +139,7 @@
 
 - (UIColor *)trackTintColor
 {
-    if (!_trackTintColor)
-    {
+    if (!_trackTintColor) {
         _trackTintColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.7f];
     }
     return _trackTintColor;
@@ -151,8 +147,7 @@
 
 - (UIColor *)progressTintColor
 {
-    if (!_progressTintColor)
-    {
+    if (!_progressTintColor) {
         _progressTintColor = [UIColor whiteColor];
     }
     return _progressTintColor;

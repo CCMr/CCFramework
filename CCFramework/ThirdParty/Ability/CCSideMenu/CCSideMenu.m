@@ -251,6 +251,7 @@
         imageView.image = self.backgroundImage;
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        imageView.hidden = YES;
         imageView;
     });
     self.contentButton = ({
@@ -339,6 +340,7 @@
     if (!self.leftMenuViewController) {
         return;
     }
+    
     [self.leftMenuViewController beginAppearanceTransition:YES animated:YES];
     self.leftMenuViewController.view.hidden = NO;
     self.rightMenuViewController.view.hidden = YES;
@@ -391,6 +393,7 @@
     if (!self.rightMenuViewController) {
         return;
     }
+    
     [self.rightMenuViewController beginAppearanceTransition:YES animated:YES];
     self.leftMenuViewController.view.hidden = YES;
     self.rightMenuViewController.view.hidden = NO;
@@ -480,6 +483,7 @@
         if (!strongSelf) {
             return;
         }
+        
         [visibleMenuViewController endAppearanceTransition];
         if (!strongSelf.visible && [strongSelf.delegate conformsToProtocol:@protocol(CCSideMenuDelegate)] && [strongSelf.delegate respondsToSelector:@selector(sideMenu:didHideMenuViewController:)]) {
             [strongSelf.delegate sideMenu:strongSelf didHideMenuViewController:rightMenuVisible ? strongSelf.rightMenuViewController : strongSelf.leftMenuViewController];
@@ -594,6 +598,11 @@
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
     [self detectingIsSideslip];
+    
+    self.backgroundImageView.hidden = YES;
+    if (self.panGestureEnabled)
+        self.backgroundImageView.hidden = NO;
+    
     IF_IOS7_OR_GREATER(
                        if (self.interactivePopGestureRecognizerEnabled && [self.contentViewController isKindOfClass:[UINavigationController class]]) {
                            UINavigationController *navigationController = (UINavigationController *)self.contentViewController;
@@ -610,6 +619,7 @@
             return NO;
         }
     }
+    
     
     return YES;
 }

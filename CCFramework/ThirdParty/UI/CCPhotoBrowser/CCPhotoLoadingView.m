@@ -69,6 +69,7 @@
         _progressView = [[CCPhotoProgressView alloc] init];
         _progressView.bounds = CGRectMake(0, 0, 60, 60);
         _progressView.center = self.center;
+        _progressView.showPercentage = YES;
     }
     _progressView.progress = kMinProgress;
     [self addSubview:_progressView];
@@ -79,11 +80,11 @@
 {
     _progress = progress;
     
-    if (_progressView)
-        _progressView.progress = progress;
+    if (self.progressView)
+        self.progressView.progress = progress;
     
     if (progress >= 1.0) {
-        [_progressView removeFromSuperview];
+        [self.progressView removeFromSuperview];
     }
 }
 @end

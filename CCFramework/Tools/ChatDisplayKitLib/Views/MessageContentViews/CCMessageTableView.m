@@ -31,6 +31,7 @@
   self = [super initWithFrame:frame];
   if (self) {
     // Initialization code
+     self.separatorStyle = NO;
   }
   return self;
 }
