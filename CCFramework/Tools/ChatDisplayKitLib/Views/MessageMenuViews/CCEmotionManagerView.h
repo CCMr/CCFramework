@@ -27,8 +27,8 @@
 #import <UIKit/UIKit.h>
 #import "CCEmotionManager.h"
 
-#define kCCEmotionPerRowItemCount (isiPad ? 10 : 4)
-#define kCCEmotionPageControlHeight 38
+#define kCCEmotionPerRowItemCount 10
+#define kCCEmotionPageControlHeight 20
 #define kCCEmotionSectionBarHeight 36
 
 @protocol CCEmotionManagerViewDelegate <NSObject>

@@ -1,5 +1,5 @@
 //
-//  CCEmotionManager.h
+//  CCEmotionView.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -24,29 +24,27 @@
 //
 
 
-#import <Foundation/Foundation.h>
-#import "CCEmotion.h"
+#import <UIKit/UIKit.h>
 
-@interface CCEmotionManager : NSObject
+@class CCEmotionView;
+@class CCEmotion;
 
-@property(nonatomic, copy) NSString *emotionName;
-/**
- *  某一类表情的数据源
- */
-@property(nonatomic, strong) NSMutableArray *emotions;
+@protocol CCEmotionViewDelegate <NSObject>
 
-/**
- *  @author CC, 2015-12-08
- *  
- *  @brief  列
- */
-@property(nonatomic, assign) NSInteger section;
+@optional
 
-/**
- *  @author CC, 2015-12-08
- *  
- *  @brief  行
- */
-@property(nonatomic, assign) NSInteger row;
+- (void)didSelected:(CCEmotionView *)emotionView Emotion:(CCEmotion *)emotion;
+
+@end
+
+
+@interface CCEmotionView : UIView
+
+@property(nonatomic, weak) id<CCEmotionViewDelegate> delegate;
+
+- (instancetype)initWithFrame:(CGRect)frame
+                      Section:(NSInteger)section
+                          Row:(NSInteger)row
+                   dataSource:(NSArray *)data;
 
 @end

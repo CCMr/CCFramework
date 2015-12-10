@@ -35,11 +35,18 @@
 /**
  *  gif表情的封面图
  */
-@property (nonatomic, strong) UIImage *emotionConverPhoto;
+@property(nonatomic, copy) NSString *emotionConverPhoto;
 
 /**
  *  gif表情的路径
  */
-@property (nonatomic, copy) NSString *emotionPath;
+@property(nonatomic, copy) NSString *emotionPath;
+
+/**
+ *  @author CC, 2015-12-08
+ *  
+ *  @brief  表情名
+ */
+@property(nonatomic, copy) NSString *emotionTitle;
 
 @end

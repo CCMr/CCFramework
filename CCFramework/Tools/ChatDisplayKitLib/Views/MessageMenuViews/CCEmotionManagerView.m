@@ -26,16 +26,11 @@
 
 #import "CCEmotionManagerView.h"
 #import "CCEmotionSectionBar.h"
-#import "CCEmotionCollectionViewCell.h"
-#import "CCEmotionCollectionViewFlowLayout.h"
+#import "CCEmotionView.h"
 #import "Config.h"
 
-@interface CCEmotionManagerView () <UICollectionViewDelegate, UICollectionViewDataSource, CCEmotionSectionBarDelegate>
+@interface CCEmotionManagerView () <UIScrollViewDelegate, CCEmotionSectionBarDelegate, CCEmotionViewDelegate>
 
-/**
- *  显示表情的collectView控件
- */
-@property(nonatomic, weak) UICollectionView *emotionCollectionView;
 
 /**
  *  显示页码的控件
@@ -59,6 +54,9 @@
  */
 - (void)setup;
 
+@property(nonatomic, strong) NSMutableArray *indexs;
+
+
 @end
 
 
@@ -73,9 +71,17 @@
  */
 - (void)setSelectedIndex:(NSInteger)selectedIndex
 {
+    if (selectedIndex < 0) return;
+    
     _selectedIndex = selectedIndex;
+    self.emotionPageControl.numberOfPages = [[self.indexs objectAtIndex:selectedIndex] integerValue];
+    
+    self.emotionPageControl.hidden = NO;
+    if (!self.emotionPageControl.numberOfPages)
+        self.emotionPageControl.hidden = YES;
+    
+    
     [self.emotionSectionBar currentIndex:_selectedIndex];
-    [self.emotionScrollView scrollRectToVisible:CGRectMake(CGRectGetWidth(self.bounds) * _selectedIndex, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - kCCEmotionSectionBarHeight) animated:NO];
 }
 
 - (void)reloadData
@@ -102,7 +108,7 @@
     self.isShowEmotionStoreButton = YES;
     
     if (!_emotionScrollView) {
-        UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - kCCEmotionSectionBarHeight)];
+        UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - kCCEmotionSectionBarHeight - kCCEmotionPageControlHeight)];
         scrollView.delegate = self;
         scrollView.showsHorizontalScrollIndicator = NO;
         scrollView.showsVerticalScrollIndicator = NO;
@@ -112,8 +118,19 @@
         self.emotionScrollView = scrollView;
     }
     
+    if (!_emotionPageControl) {
+        UIPageControl *emotionPageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.emotionScrollView.frame), CGRectGetWidth(self.bounds), kCCEmotionPageControlHeight)];
+        emotionPageControl.currentPageIndicatorTintColor = [UIColor colorWithWhite:0.471 alpha:1.000];
+        emotionPageControl.pageIndicatorTintColor = [UIColor colorWithWhite:0.678 alpha:1.000];
+        emotionPageControl.backgroundColor = self.backgroundColor;
+        emotionPageControl.hidesForSinglePage = YES;
+        emotionPageControl.defersCurrentPageDisplay = YES;
+        [self addSubview:emotionPageControl];
+        self.emotionPageControl = emotionPageControl;
+    }
+    
     if (!_emotionSectionBar) {
-        CCEmotionSectionBar *emotionSectionBar = [[CCEmotionSectionBar alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.emotionScrollView.frame), CGRectGetWidth(self.bounds), kCCEmotionSectionBarHeight) showEmotionStoreButton:self.isShowEmotionStoreButton];
+        CCEmotionSectionBar *emotionSectionBar = [[CCEmotionSectionBar alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.emotionPageControl.frame), CGRectGetWidth(self.bounds), kCCEmotionSectionBarHeight) showEmotionStoreButton:self.isShowEmotionStoreButton];
         emotionSectionBar.delegate = self;
         emotionSectionBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         emotionSectionBar.backgroundColor = [UIColor colorWithWhite:0.886 alpha:1.000];
@@ -126,38 +143,43 @@
 - (void)initEmotionCollectionView:(NSInteger)index
 {
     if (self.emotionScrollView) {
-        CGFloat x = 0;
+        self.indexs = [NSMutableArray array];
+        CGRect frame = CGRectMake(0, 0, self.emotionScrollView.frame.size.width, self.emotionScrollView.frame.size.height);
         for (int i = 0; i < index; i++) {
-            UICollectionView *emotionCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(x, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.emotionScrollView.bounds) - kCCEmotionPageControlHeight) collectionViewLayout:[[CCEmotionCollectionViewFlowLayout alloc] init]];
-            emotionCollectionView.backgroundColor = self.backgroundColor;
-            [emotionCollectionView registerClass:[CCEmotionCollectionViewCell class] forCellWithReuseIdentifier:kCCEmotionCollectionViewCellIdentifier];
-            emotionCollectionView.showsHorizontalScrollIndicator = NO;
-            emotionCollectionView.showsVerticalScrollIndicator = NO;
-            [emotionCollectionView setScrollsToTop:NO];
-            emotionCollectionView.pagingEnabled = YES;
-            emotionCollectionView.delegate = self;
-            emotionCollectionView.dataSource = self;
-            emotionCollectionView.tag = i + 1;
-            [self.emotionScrollView addSubview:emotionCollectionView];
-            
-            
-            UIPageControl *emotionPageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(x, CGRectGetMaxY(emotionCollectionView.frame), CGRectGetWidth(self.bounds), kCCEmotionPageControlHeight)];
-            emotionPageControl.currentPageIndicatorTintColor = [UIColor colorWithWhite:0.471 alpha:1.000];
-            emotionPageControl.pageIndicatorTintColor = [UIColor colorWithWhite:0.678 alpha:1.000];
-            emotionPageControl.backgroundColor = self.backgroundColor;
-            emotionPageControl.hidesForSinglePage = YES;
-            emotionPageControl.defersCurrentPageDisplay = YES;
-            emotionPageControl.tag = 999 + i;
-            [self.emotionScrollView addSubview:emotionPageControl];
-            x += CGRectGetWidth(self.bounds);
-            
             
             CCEmotionManager *emotionManager = [self.dataSource emotionManagerForColumn:i];
             NSInteger numberOfEmotions = emotionManager.emotions.count;
-            numberOfEmotions = (numberOfEmotions / (kCCEmotionPerRowItemCount * 2) + (numberOfEmotions % (kCCEmotionPerRowItemCount * 2) ? 0 : 1));
-            emotionPageControl.numberOfPages = numberOfEmotions;
+            NSInteger section = 2;
+            NSInteger row = 4;
+            if (emotionManager.section != 0 && emotionManager.row != 0) {
+                section = emotionManager.section;
+                row = emotionManager.row;
+            }
+            numberOfEmotions = (numberOfEmotions / (section * row) + (numberOfEmotions % (section * row) == 0 ? 0 : 1));
+            
+            if (i == 0) {
+                self.emotionPageControl.numberOfPages = numberOfEmotions;
+                self.emotionPageControl.currentPage = 0;
+            }
+            
+            [self.indexs addObject:@(numberOfEmotions)];
+            
+            
+            NSInteger max = section * row;
+            for (int j = 0; j < numberOfEmotions; j++) {
+                
+                NSArray *data = [emotionManager.emotions subarrayWithRange:NSMakeRange(j * max, j == numberOfEmotions - 1 ? (emotionManager.emotions.count - j * max) % (max + 1) : max)];
+                
+                CCEmotionView *emotionView = [[CCEmotionView alloc] initWithFrame:frame
+                                                                          Section:section
+                                                                              Row:row
+                                                                       dataSource:data];
+                emotionView.delegate = self;
+                [self.emotionScrollView addSubview:emotionView];
+                frame.origin.x += frame.size.width;
+            }
         }
-        self.emotionScrollView.contentSize = CGSizeMake(CGRectGetWidth(self.bounds) * [self.dataSource emotionManagersAtManager].count, self.emotionScrollView.frame.size.height);
+        self.emotionScrollView.contentSize = CGSizeMake(frame.origin.x, self.emotionScrollView.frame.size.height);
     }
 }
 
@@ -180,15 +202,21 @@
 {
     self.emotionPageControl = nil;
     self.emotionSectionBar = nil;
-    self.emotionCollectionView.delegate = nil;
-    self.emotionCollectionView.dataSource = nil;
-    self.emotionCollectionView = nil;
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
     if (newSuperview) {
         [self reloadData];
+    }
+}
+
+
+- (void)didSelected:(CCEmotionView *)emotionView
+            Emotion:(CCEmotion *)emotion
+{
+    if ([self.delegate respondsToSelector:@selector(didSelecteEmotion:atIndexPath:)]) {
+        [self.delegate didSelecteEmotion:emotion atIndexPath:nil];
     }
 }
 
@@ -199,13 +227,15 @@
 {
     if (self.selectedIndex == section) return;
     
+    self.emotionPageControl.currentPage = 0;
     self.selectedIndex = section;
-    [self.emotionScrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        if ([obj isKindOfClass:[UIPageControl class]]) {
-            UIPageControl *pageControl = obj;
-            pageControl.currentPage = 0;
-        }
-    }];
+    
+    NSInteger index = 0;
+    for (int i = 0; i <= self.selectedIndex; i++)
+        index += [[self.indexs objectAtIndex:i] integerValue];
+    
+    [self.emotionScrollView scrollRectToVisible:CGRectMake(CGRectGetWidth(self.bounds) * (index - self.emotionPageControl.numberOfPages), 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - kCCEmotionSectionBarHeight) animated:NO];
+    
     [self reloadData];
 }
 
@@ -224,56 +254,21 @@
     //根据当前的坐标与页宽计算当前页码
     NSInteger currentPage = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     if ([scrollView isEqual:self.emotionScrollView]) {
-        if (currentPage < self.selectedIndex) {
-            UIPageControl *pageControl = (UIPageControl *)[self.emotionScrollView viewWithTag:999 + currentPage];
-            UICollectionView *emotionCollectionView = (UICollectionView *)[self.emotionScrollView viewWithTag:currentPage + 1];
-            if (pageControl.currentPage != pageControl.numberOfPages - 1) {
-                pageControl.currentPage = pageControl.numberOfPages - 1;
-                [emotionCollectionView scrollRectToVisible:CGRectMake(emotionCollectionView.frame.size.width * pageControl.currentPage, 0, emotionCollectionView.frame.size.width, emotionCollectionView.frame.size.height) 
-                                                  animated:NO];
-            }
+        
+        NSInteger index = 0;
+        for (int i = 0; i <= _selectedIndex; i++)
+            index += [[self.indexs objectAtIndex:i] integerValue];
+        
+        if (currentPage > index - 1) {
+            self.selectedIndex++;
+            currentPage = 0;
+        } else {
+            NSInteger ix = _selectedIndex == 0 ?: _selectedIndex - 1;
+            if (currentPage < [[self.indexs objectAtIndex:ix] integerValue])
+                self.selectedIndex--;
         }
-        self.selectedIndex = currentPage;
-    } else {
-        UIPageControl *emotionPageControl = (UIPageControl *)[self.emotionScrollView viewWithTag:999 + self.selectedIndex];
-        [emotionPageControl setCurrentPage:currentPage];
+        self.emotionPageControl.currentPage = currentPage;
     }
 }
-
-#pragma UICollectionView DataSource
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 1;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView
-     numberOfItemsInSection:(NSInteger)section
-{
-    CCEmotionManager *emotionManager = [self.dataSource emotionManagerForColumn:collectionView.tag - 1];
-    NSInteger count = emotionManager.emotions.count;
-    return count;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
-                  cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    CCEmotionCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCCEmotionCollectionViewCellIdentifier forIndexPath:indexPath];
-    CCEmotionManager *emotionManager = [self.dataSource emotionManagerForColumn:collectionView.tag - 1];
-    cell.emotion = emotionManager.emotions[indexPath.row];
-    
-    return cell;
-}
-
-#pragma mark - UICollectionView delegate
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([self.delegate respondsToSelector:@selector(didSelecteEmotion:atIndexPath:)]) {
-        CCEmotionManager *emotionManager = [self.dataSource emotionManagerForColumn:indexPath.section];
-        [self.delegate didSelecteEmotion:emotionManager.emotions[indexPath.row] atIndexPath:indexPath];
-    }
-}
-
 
 @end
