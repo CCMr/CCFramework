@@ -170,13 +170,14 @@
  *
  *  @return 返回Message model 对象
  */
-- (instancetype)initWithEmotionPath:(NSString *)emotionPath
+- (instancetype)initWithEmotionPath:(NSString *)emotionPath 
+                         EmotionUrl:(NSString *)emotionUrl
                              sender:(NSString *)sender
                           timestamp:(NSDate *)timestamp {
     self = [super init];
     if (self) {
         self.emotionPath = emotionPath;
-
+        self.emotionUrl = emotionUrl;
         self.sender = sender;
         self.timestamp = timestamp;
 
@@ -235,6 +236,7 @@
         _voiceDuration = [aDecoder decodeObjectForKey:@"voiceDuration"];
 
         _emotionPath = [aDecoder decodeObjectForKey:@"emotionPath"];
+        _emotionUrl = [aDecoder decodeObjectForKey:@"emotionUrl"];
 
         _localPositionPhoto = [aDecoder decodeObjectForKey:@"localPositionPhoto"];
         _geolocations = [aDecoder decodeObjectForKey:@"geolocations"];
@@ -274,6 +276,7 @@
     [aCoder encodeObject:self.voiceDuration forKey:@"voiceDuration"];
 
     [aCoder encodeObject:self.emotionPath forKey:@"emotionPath"];
+    [aCoder encodeObject:self.emotionUrl forKey:@"emotionUrl"];
 
     [aCoder encodeObject:self.localPositionPhoto forKey:@"localPositionPhoto"];
     [aCoder encodeObject:self.geolocations forKey:@"geolocations"];
@@ -321,7 +324,8 @@
                                                                  sender:[self.sender copy]
                                                               timestamp:[self.timestamp copy]];
         case CCBubbleMessageMediaTypeEmotion:
-            return [[[self class] allocWithZone:zone] initWithEmotionPath:[self.emotionPath copy]
+            return [[[self class] allocWithZone:zone] initWithEmotionPath:[self.emotionPath copy] 
+                                                               EmotionUrl:self.emotionUrl
                                                                    sender:[self.sender copy]
                                                                 timestamp:[self.timestamp copy]];
         case CCBubbleMessageMediaTypeLocalPosition:
@@ -353,6 +357,7 @@
     _voiceDuration = nil;
 
     _emotionPath = nil;
+    _emotionUrl = nil;
 
     _localPositionPhoto = nil;
     _geolocations = nil;

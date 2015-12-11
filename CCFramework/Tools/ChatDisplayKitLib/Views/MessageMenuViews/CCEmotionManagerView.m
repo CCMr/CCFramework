@@ -174,6 +174,7 @@
                                                                           Section:section
                                                                               Row:row
                                                                        dataSource:data];
+                emotionView.emotionType = emotionManager.emotionType;
                 emotionView.delegate = self;
                 [self.emotionScrollView addSubview:emotionView];
                 frame.origin.x += frame.size.width;
@@ -211,12 +212,29 @@
     }
 }
 
-
+/**
+ *  @author CC, 2015-12-11
+ *  
+ *  @brief  表情视图回调
+ *
+ *  @param emotionView 表情视图
+ *  @param emotion     表情对象
+ *  @param emotionType 表情类型
+ */
 - (void)didSelected:(CCEmotionView *)emotionView
             Emotion:(CCEmotion *)emotion
+        EmotionType:(NSInteger)emotionType
 {
-    if ([self.delegate respondsToSelector:@selector(didSelecteEmotion:atIndexPath:)]) {
-        [self.delegate didSelecteEmotion:emotion atIndexPath:nil];
+    if (emotionType == CCEmotionTypedefault) {
+        if ([self.delegate respondsToSelector:@selector(didSelecteEmotion:atIndexPath:)]) {
+            [self.delegate didSelecteEmotion:emotion
+                                 atIndexPath:nil];
+        }
+    } else if (emotionType == CCEmotionTypeSmall) {
+        if ([self.delegate respondsToSelector:@selector(didSelecteSmallEmotion:atIndexPath:)]) {
+            [self.delegate didSelecteSmallEmotion:emotion
+                                      atIndexPath:nil];
+        }
     }
 }
 

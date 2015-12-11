@@ -107,13 +107,30 @@ typedef NS_ENUM(NSUInteger, CCInputViewType) {
 /**
  *  发送第三方表情消息的回调方法
  *
- *  @param facePath 目标第三方表情的本地路径
- *  @param sender   发送者的名字
- *  @param date     发送时间
+ *  @param emotionPath 目标第三方表情的本地路径
+ *  @param emotionUrl  目标第三方表情的网络路径
+ *  @param sender      目标第三方表情的本地路径
+ *  @param date        发送时间
  */
 - (void)didSendEmotion:(NSString *)emotionPath
+            EmotionUrl:(NSString *)emotionUrl
             fromSender:(NSString *)sender
                 onDate:(NSDate *)date;
+
+/**
+ *  @author CC, 2015-12-11
+ *  
+ *  @brief  发送第三方表情消息的回调方法(小图)
+ *
+ *  @param emotionPath 目标第三方表情的本地路径
+ *  @param emotionUrl  目标第三方表情的网络路径
+ *  @param sender      目标第三方表情的本地路径
+ *  @param date        发送时间
+ */
+- (void)didSendSmallEmotion:(NSString *)emotionPath
+                 EmotionUrl:(NSString *)emotionUrl
+                 fromSender:(NSString *)sender
+                     onDate:(NSDate *)date;
 
 /**
  *  @author CC, 2015-12-03

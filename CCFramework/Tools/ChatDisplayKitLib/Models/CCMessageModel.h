@@ -38,8 +38,10 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMediaType) {
     CCBubbleMessageMediaTypeVoice = 3,
     /** 媒体留言表情类型 **/
     CCBubbleMessageMediaTypeEmotion = 4,
+    /** 媒体留言小表情类型 **/
+    CCBubbleMessageMediaTypeSmallEmotion = 5,
     /** 媒体留言地理位置类型 **/
-    CCBubbleMessageMediaTypeLocalPosition = 5,
+    CCBubbleMessageMediaTypeLocalPosition = 6,
 };
 
 /**
@@ -99,7 +101,9 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 - (NSString *)geolocations;
 - (CLLocation *)location;
 
+#pragma mark - 表情
 - (NSString *)emotionPath;
+- (NSString *)emotionUrl;
 
 - (UIImage *)avatar;
 - (NSString *)avatarUrl;

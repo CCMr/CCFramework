@@ -48,7 +48,9 @@
 @property(nonatomic, copy) NSString *voiceUrl;
 @property(nonatomic, copy) NSString *voiceDuration;
 
+#pragma mark - 表情
 @property(nonatomic, copy) NSString *emotionPath;
+@property(nonatomic, copy) NSString *emotionUrl;
 
 #pragma mark -  地理位置
 @property(nonatomic, strong) UIImage *localPositionPhoto;
@@ -231,6 +233,7 @@
  *  @return 返回Message model 对象
  */
 - (instancetype)initWithEmotionPath:(NSString *)emotionPath
+                         EmotionUrl:(NSString *)emotionUrl
                              sender:(NSString *)sender
                           timestamp:(NSDate *)timestamp;
 

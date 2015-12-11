@@ -27,9 +27,24 @@
 #import <Foundation/Foundation.h>
 #import "CCEmotion.h"
 
+typedef NS_ENUM(NSInteger, CCEmotionType) {
+    /** 默认表情 */
+    CCEmotionTypedefault = 0,
+    /** 小表情 */
+    CCEmotionTypeSmall = 1,
+};
+
 @interface CCEmotionManager : NSObject
 
+@property(nonatomic, assign) CCEmotionType emotionType;
+
+/**
+ *  @author CC, 2015-12-11
+ *  
+ *  @brief  表情名称
+ */
 @property(nonatomic, copy) NSString *emotionName;
+
 /**
  *  某一类表情的数据源
  */

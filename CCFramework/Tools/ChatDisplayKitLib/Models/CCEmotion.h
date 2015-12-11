@@ -38,6 +38,13 @@
 @property(nonatomic, copy) NSString *emotionConverPhoto;
 
 /**
+ *  @author CC, 2015-12-10
+ *  
+ *  @brief  网络封面
+ */
+@property(nonatomic, copy) NSString *emotionConverPhotoUrl;
+
+/**
  *  gif表情的路径
  */
 @property(nonatomic, copy) NSString *emotionPath;

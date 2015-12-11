@@ -28,6 +28,7 @@
 #import "CCEmotion.h"
 #import "UIButton+BUIButton.h"
 #import "UIImageView+WebCache.h"
+#import "UIImage+MultiFormat.h"
 
 @implementation CCEmotionView
 
@@ -67,9 +68,14 @@
                     images.contentMode = UIViewContentModeScaleAspectFit;
                     [button addSubview:images];
                     
-                    images.image = [UIImage imageNamed:emotion.emotionConverPhoto];
+                    NSData *data = [NSData dataWithContentsOfFile:emotion.emotionConverPhoto];
+                    images.image = [UIImage sd_imageWithData:data];
                     if ([emotion.emotionConverPhoto rangeOfString:@"http://"].location != NSNotFound)
                         [images sd_setImageWithURLStr:emotion.emotionConverPhoto];
+                    else if (!images.image) {
+                        if (emotion.emotionConverPhotoUrl)
+                            [images sd_setImageWithURLStr:emotion.emotionConverPhotoUrl];
+                    }
                     
                     frames.origin.x += frames.size.width;
                 }
@@ -84,9 +90,10 @@
 
 - (void)didButtonClick:(UIButton *)sender
 {
-    if ([self.delegate respondsToSelector:@selector(didSelected:Emotion:)]) {
+    if ([self.delegate respondsToSelector:@selector(didSelected:Emotion:EmotionType:)]) {
         [self.delegate didSelected:self
-                           Emotion:sender.carryObjects];
+                           Emotion:sender.carryObjects
+                       EmotionType:self.emotionType];
     }
 }
 

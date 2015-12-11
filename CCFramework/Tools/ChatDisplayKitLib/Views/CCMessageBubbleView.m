@@ -29,6 +29,7 @@
 #import "Config.h"
 #import "CCTool.h"
 #import "UIButton+BUIButton.h"
+#import "UIImageView+WebCache.h"
 //Factorys
 #import "CCMessageBubbleFactory.h"
 #import "CCMessageVoiceFactory.h"
@@ -118,9 +119,14 @@
     CGFloat width = 140;
     CGFloat height = 140;
     if (photo) {
-        CGRect frame = [CCTool neededSizeForPhoto:photo Size:CGSizeMake(width, height)];
-        width = frame.size.width > kCCMaxWidth ? kCCMaxWidth : frame.size.width;
-        height = frame.size.height > 200 ? 200 : frame.size.height;
+        if (photo.size.width > width && photo.size.height > height) {
+            CGRect frame = [CCTool neededSizeForPhoto:photo Size:CGSizeMake(width, height)];
+            width = frame.size.width > kCCMaxWidth ? kCCMaxWidth : frame.size.width;
+            height = frame.size.height > 200 ? 200 : frame.size.height;
+        } else {
+            width = photo.size.width < 30 ? 30 : photo.size.width;
+            height = photo.size.height < 30 ? 30 : photo.size.height;
+        }
     }
     // 这里需要缩放后的size
     CGSize photoSize = CGSizeMake(width, height);
@@ -140,6 +146,12 @@
 + (CGSize)neededSizeForEmotion
 {
     return CGSizeMake(100, 100);
+}
+
+// 算SmallEmotion的高度
++ (CGSize)neededSizeForSmallEmotion
+{
+    return CGSizeMake(30, 30);
 }
 
 // 计算LocalPostion的高度
@@ -175,6 +187,11 @@
             // 是否固定大小呢？
             CGSize emotionSize = [CCMessageBubbleView neededSizeForEmotion];
             bubbleSize = CGSizeMake(emotionSize.width, emotionSize.height + kCCHaveBubbleMargin * 2);
+            break;
+        }
+        case CCBubbleMessageMediaTypeSmallEmotion: {
+            CGSize smallEmotionSize = [CCMessageBubbleView neededSizeForSmallEmotion];
+            bubbleSize = CGSizeMake(smallEmotionSize.width + kCCLeftTextHorizontalBubblePadding + kCCRightTextHorizontalBubblePadding + kCCArrowMarginWidth, smallEmotionSize.height + kCCHaveBubbleMargin * 2 + kCCTopAndBottomBubbleMargin * 2);
             break;
         }
         case CCBubbleMessageMediaTypeVideo: {
@@ -274,27 +291,34 @@
     _voiceDurationLabel.hidden = YES;
     _voiceUnreadDotImageView.hidden = YES;
     
-    CCMessageSendType sendType = message.messageSendState;
-    switch (sendType) {
-        case CCMessageSendTypeFailure:
-            _sendNotSuccessfulButton.hidden = NO;
-            _indicatorView.hidden = YES;
-            [_indicatorView stopAnimating];
-            
-            break;
-        case CCMessageSendTypeRunIng:
-            _sendNotSuccessfulButton.hidden = YES;
-            _indicatorView.hidden = NO;
-            [_indicatorView startAnimating];
-            break;
-        case CCMessageSendTypeSuccessful:
-            _sendNotSuccessfulButton.hidden = YES;
-            _indicatorView.hidden = YES;
-            [_indicatorView stopAnimating];
-            break;
-        default:
-            break;
+    _sendNotSuccessfulButton.hidden = YES;
+    _indicatorView.hidden = YES;
+    [_indicatorView stopAnimating];
+    if (message.bubbleMessageType == CCBubbleMessageTypeSending) {
+        
+        CCMessageSendType sendStatusType = message.messageSendState;
+        switch (sendStatusType) {
+            case CCMessageSendTypeFailure:
+                _sendNotSuccessfulButton.hidden = NO;
+                _indicatorView.hidden = YES;
+                [_indicatorView stopAnimating];
+                
+                break;
+            case CCMessageSendTypeRunIng:
+                _sendNotSuccessfulButton.hidden = YES;
+                _indicatorView.hidden = NO;
+                [_indicatorView startAnimating];
+                break;
+            case CCMessageSendTypeSuccessful:
+                _sendNotSuccessfulButton.hidden = YES;
+                _indicatorView.hidden = YES;
+                [_indicatorView stopAnimating];
+                break;
+            default:
+                break;
+        }
     }
+    
     
     switch (currentType) {
         case CCBubbleMessageMediaTypeVoice: {
@@ -302,7 +326,8 @@
             _voiceUnreadDotImageView.hidden = message.isRead;
         }
         case CCBubbleMessageMediaTypeText:
-        case CCBubbleMessageMediaTypeEmotion: {
+        case CCBubbleMessageMediaTypeEmotion:
+        case CCBubbleMessageMediaTypeSmallEmotion: {
             _bubbleImageView.image = [CCMessageBubbleFactory bubbleImageViewForType:message.bubbleMessageType
                                                                               style:CCBubbleImageViewStyleWeChat
                                                                           meidaType:message.messageMediaType];
@@ -332,6 +357,9 @@
                     [self addSubview:animationVoiceImageView];
                     _animationVoiceImageView = animationVoiceImageView;
                     _animationVoiceImageView.hidden = NO;
+                } else if (currentType == CCBubbleMessageMediaTypeSmallEmotion) { //小表情
+                    _animationVoiceImageView.hidden = YES;
+                    _emotionImageView.hidden = NO;
                 } else {
                     _emotionImageView.hidden = NO;
                     
@@ -384,11 +412,16 @@
         case CCBubbleMessageMediaTypeVoice:
             break;
         case CCBubbleMessageMediaTypeEmotion:
+        case CCBubbleMessageMediaTypeSmallEmotion:
             // 直接设置GIF
             if (message.emotionPath) {
                 NSData *animatedData = [NSData dataWithContentsOfFile:message.emotionPath];
-                CCAnimatedImage *animatedImage = [[CCAnimatedImage alloc] initWithAnimatedGIFData:animatedData];
-                _emotionImageView.animatedImage = animatedImage;
+                if (animatedData) {
+                    CCAnimatedImage *animatedImage = [[CCAnimatedImage alloc] initWithAnimatedGIFData:animatedData];
+                    _emotionImageView.animatedImage = animatedImage;
+                } else {
+                    [_emotionImageView sd_setImageWithURLStr:message.emotionPath];
+                }
             }
             break;
         case CCBubbleMessageMediaTypeLocalPosition:
@@ -622,22 +655,11 @@
     switch (currentType) {
         case CCBubbleMessageMediaTypeText:
         case CCBubbleMessageMediaTypeVoice:
-        case CCBubbleMessageMediaTypeEmotion: {
+        case CCBubbleMessageMediaTypeEmotion:
+        case CCBubbleMessageMediaTypeSmallEmotion: {
             // 获取实际气泡的大小
             CGRect bubbleFrame = [self bubbleFrame];
             self.bubbleImageView.frame = bubbleFrame;
-            
-            if (currentType == CCBubbleMessageMediaTypeText) {
-                CGFloat textX = -(kCCArrowMarginWidth / 2.0);
-                if (self.message.bubbleMessageType == CCBubbleMessageTypeReceiving) {
-                    textX = kCCArrowMarginWidth / 2.0;
-                }
-                CGRect displayTextViewFrame = CGRectZero;
-                displayTextViewFrame.size.width = CGRectGetWidth(bubbleFrame) - kCCLeftTextHorizontalBubblePadding - kCCRightTextHorizontalBubblePadding - kCCArrowMarginWidth;
-                displayTextViewFrame.size.height = CGRectGetHeight(bubbleFrame) - kCCHaveBubbleMargin * 3;
-                self.displayTextView.frame = displayTextViewFrame;
-                self.displayTextView.center = CGPointMake(self.bubbleImageView.center.x + textX, self.bubbleImageView.center.y);
-            }
             
             if (currentType == CCBubbleMessageMediaTypeVoice) {
                 // 配置语音播放的位置
@@ -651,13 +673,32 @@
                 
                 [self configureVoiceDurationLabelFrameWithBubbleFrame:bubbleFrame];
                 [self configureVoiceUnreadDotImageViewFrameWithBubbleFrame:bubbleFrame];
-            }
-            
-            if (currentType == CCBubbleMessageMediaTypeEmotion) {
+            } else if (currentType == CCBubbleMessageMediaTypeEmotion) {
                 CGRect emotionImageViewFrame = bubbleFrame;
                 emotionImageViewFrame.size = [CCMessageBubbleView neededSizeForEmotion];
                 self.emotionImageView.frame = emotionImageViewFrame;
+            } else {
+                //小表情与文字消息时设置气泡框
+                
+                CGFloat textX = -(kCCArrowMarginWidth / 2.0);
+                if (self.message.bubbleMessageType == CCBubbleMessageTypeReceiving) {
+                    textX = kCCArrowMarginWidth / 2.0;
+                }
+                CGRect viewFrame = CGRectZero;
+                viewFrame.size.width = CGRectGetWidth(bubbleFrame) - kCCLeftTextHorizontalBubblePadding - kCCRightTextHorizontalBubblePadding - kCCArrowMarginWidth;
+                viewFrame.size.height = CGRectGetHeight(bubbleFrame) - kCCHaveBubbleMargin * 3;
+                
+                if (currentType == CCBubbleMessageMediaTypeText) {
+                    self.displayTextView.frame = viewFrame;
+                    self.displayTextView.center = CGPointMake(self.bubbleImageView.center.x + textX, self.bubbleImageView.center.y);
+                }
+                
+                if (currentType == CCBubbleMessageMediaTypeSmallEmotion) {
+                    self.emotionImageView.frame = viewFrame;
+                    self.emotionImageView.center = CGPointMake(self.bubbleImageView.center.x + textX, self.bubbleImageView.center.y);
+                }
             }
+            
             break;
         }
         case CCBubbleMessageMediaTypePhoto:

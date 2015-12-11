@@ -33,7 +33,18 @@
 
 @optional
 
-- (void)didSelected:(CCEmotionView *)emotionView Emotion:(CCEmotion *)emotion;
+/**
+ *  @author CC, 2015-12-11
+ *  
+ *  @brief  选中表情
+ *
+ *  @param emotionView 表情视图
+ *  @param emotion     表情对象
+ *  @param emotionType 表情类型
+ */
+- (void)didSelected:(CCEmotionView *)emotionView
+            Emotion:(CCEmotion *)emotion
+        EmotionType:(NSInteger)emotionType;
 
 @end
 
@@ -41,6 +52,13 @@
 @interface CCEmotionView : UIView
 
 @property(nonatomic, weak) id<CCEmotionViewDelegate> delegate;
+
+/**
+ *  @author CC, 2015-12-11
+ *  
+ *  @brief  表情类型
+ */
+@property(nonatomic, assign) NSInteger emotionType;
 
 - (instancetype)initWithFrame:(CGRect)frame
                       Section:(NSInteger)section

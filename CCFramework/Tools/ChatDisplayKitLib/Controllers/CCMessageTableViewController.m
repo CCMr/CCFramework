@@ -1043,7 +1043,7 @@ static CGPoint delayOffset = {0.0};
     
     BOOL displayTimestamp = YES;
     if ([self.delegate respondsToSelector:@selector(shouldDisplayTimestampForRowAtIndexPath:targetMessage:)]) {
-        displayTimestamp = [self.delegate shouldDisplayTimestampForRowAtIndexPath:indexPath 
+        displayTimestamp = [self.delegate shouldDisplayTimestampForRowAtIndexPath:indexPath
                                                                     targetMessage:message];
     }
     
@@ -1099,12 +1099,40 @@ static CGPoint delayOffset = {0.0};
     }
 }
 
+/**
+ *  @author CC, 2015-12-11
+ *  
+ *  @brief  发送第三方表情(大)
+ *
+ *  @param emotionPath 表情路径
+ *  @param emotionPath 表情网络路径
+ */
 - (void)didSendEmotionMessageWithEmotionPath:(NSString *)emotionPath
+                                  EmotionUrl:(NSString *)emotionUrl
 {
-    if ([self.delegate respondsToSelector:@selector(didSendEmotion:fromSender:onDate:)]) {
+    if ([self.delegate respondsToSelector:@selector(didSendEmotion:EmotionUrl:fromSender:onDate:)]) {
         [self.delegate didSendEmotion:emotionPath
+                           EmotionUrl:emotionUrl
                            fromSender:self.messageSender
                                onDate:[NSDate date]];
+    }
+}
+
+/**
+ *  @author CC, 2015-12-11
+ *  
+ *  @brief  发送第三方表情(小)
+ *
+ *  @param emotionPath 表情路径
+ */
+- (void)didSendSmallEmotionMessageWithEmotionPath:(NSString *)emotionPath
+                                       EmotionUrl:(NSString *)emotionUrl
+{
+    if ([self.delegate respondsToSelector:@selector(didSendSmallEmotion:EmotionUrl:fromSender:onDate:)]) {
+        [self.delegate didSendSmallEmotion:emotionPath
+                                EmotionUrl:emotionUrl
+                                fromSender:self.messageSender
+                                    onDate:[NSDate date]];
     }
 }
 
@@ -1151,19 +1179,14 @@ static CGPoint delayOffset = {0.0};
         void (^EmotionManagerViewAnimation)(BOOL hide) = ^(BOOL hide) {
             otherMenuViewFrame = self.emotionManagerView.frame;
             otherMenuViewFrame.origin.y =
-            (hide ? CGRectGetHeight(self.view.frame)
-             : (CGRectGetHeight(self.view.frame) -
-                CGRectGetHeight(otherMenuViewFrame)));
+            (hide ? CGRectGetHeight(self.view.frame) : (CGRectGetHeight(self.view.frame) - CGRectGetHeight(otherMenuViewFrame)));
             self.emotionManagerView.alpha = !hide;
             self.emotionManagerView.frame = otherMenuViewFrame;
         };
         
         void (^ShareMenuViewAnimation)(BOOL hide) = ^(BOOL hide) {
             otherMenuViewFrame = self.shareMenuView.frame;
-            otherMenuViewFrame.origin.y =
-            (hide ? CGRectGetHeight(self.view.frame)
-             : (CGRectGetHeight(self.view.frame) -
-                CGRectGetHeight(otherMenuViewFrame)));
+            otherMenuViewFrame.origin.y = (hide ? CGRectGetHeight(self.view.frame) : (CGRectGetHeight(self.view.frame) - CGRectGetHeight(otherMenuViewFrame)));
             self.shareMenuView.alpha = !hide;
             self.shareMenuView.frame = otherMenuViewFrame;
         };
@@ -1391,11 +1414,36 @@ static CGPoint delayOffset = {0.0};
 
 #pragma mark - CCEmotionManagerView Delegate
 
+/**
+ *  @author CC, 2015-12-11
+ *  
+ *  @brief  发送大表情
+ *
+ *  @param emotion   表情对象
+ *  @param indexPath 被点击的位置
+ */
 - (void)didSelecteEmotion:(CCEmotion *)emotion
               atIndexPath:(NSIndexPath *)indexPath
 {
-    [self didSendEmotionMessageWithEmotionPath:emotion.emotionPath];
+    [self didSendEmotionMessageWithEmotionPath:emotion.emotionConverPhoto
+                                    EmotionUrl:emotion.emotionPath];
 }
+
+/**
+ *  @author CC, 2015-12-11
+ *  
+ *  @brief  发送小表情
+ *
+ *  @param emotion   表情对象
+ *  @param indexPath 被点击的位置
+ */
+- (void)didSelecteSmallEmotion:(CCEmotion *)emotion
+                   atIndexPath:(NSIndexPath *)indexPath
+{
+    [self didSendSmallEmotionMessageWithEmotionPath:emotion.emotionConverPhoto
+                                         EmotionUrl:emotion.emotionPath];
+}
+
 
 - (void)didStore
 {

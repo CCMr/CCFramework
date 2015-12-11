@@ -40,8 +40,19 @@
  *  @param emotion   被点击的gif表情Model
  *  @param indexPath 被点击的位置
  */
-- (void)didSelecteEmotion:(CCEmotion *)emotion 
+- (void)didSelecteEmotion:(CCEmotion *)emotion
               atIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ *  @author CC, 2015-12-11
+ *  
+ *  @brief  第三方(小)gif表情被点击的回调事件
+ *
+ *  @param emotion   被点击的gif表情Model
+ *  @param indexPath 被点击的位置
+ */
+- (void)didSelecteSmallEmotion:(CCEmotion *)emotion
+                   atIndexPath:(NSIndexPath *)indexPath;
 
 /**
  *  @author CC, 2015-12-03
