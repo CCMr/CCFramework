@@ -32,7 +32,7 @@
 #import "UIView+CCRemoteImage.h"
 #import "ResourcesPhotos.h"
 
-static const CGFloat kCCLabelPadding = 5.0f;
+static const CGFloat kCCLabelPadding = 3.0f;
 static const CGFloat kCCTimeStampLabelHeight = 20.0f;
 
 static const CGFloat kCCAvatarPaddingX = 8.0;
@@ -620,13 +620,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     CGFloat layoutOriginY = kCCAvatarPaddingY + (self.displayTimestamp ? kCCTimeStampLabelHeight : 0);
     CGRect avatarButtonFrame = self.avatarButton.frame;
     avatarButtonFrame.origin.y = layoutOriginY;
-    avatarButtonFrame.origin.x = kCCAvatarPaddingX;
-    if (![self bubbleMessageType] == CCBubbleMessageTypeReceiving) {
-        CGFloat x = (CGRectGetWidth(self.bounds) - kCCAvatarPaddingX - kCCAvatarImageSize);
-        if (self.editing)
-            x -= kCCAvatarImageSize;
-        avatarButtonFrame.origin.x = x;
-    }
+    avatarButtonFrame.origin.x = ([self bubbleMessageType] == CCBubbleMessageTypeReceiving) ? kCCAvatarPaddingX : ((CGRectGetWidth(self.bounds) - kCCAvatarPaddingX - kCCAvatarImageSize));
     self.avatarButton.frame = avatarButtonFrame;
     
     if (self.messageBubbleView.message.shouldShowUserName) {
@@ -649,6 +643,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
                                                CGRectGetWidth(self.contentView.bounds) - bubbleX - offsetX,
                                                CGRectGetHeight(self.contentView.bounds) - timeStampLabelNeedHeight);
     self.messageBubbleView.frame = bubbleMessageViewFrame;
+
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationBeginsFromCurrentState:YES];

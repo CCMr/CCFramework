@@ -441,23 +441,24 @@
  */
 - (NSString *)convertingDataFormat
 {
-    NSDate *todate = [NSDate date]; //今天
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSChineseCalendar];
+    NSDate *currentDate = [NSDate date];
+
+    NSCalendar *currentCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     
-    NSDateComponents *comps_today = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit)
-                                                fromDate:todate];
-    NSDateComponents *comps_other = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit)
-                                                fromDate:self];
+    NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    
+    NSDateComponents *currentComps = [currentCalendar components:unitFlags fromDate:currentDate];
+    NSDateComponents *otherComps = [currentCalendar components:unitFlags fromDate:self];
     
     NSString *strDate;
     NSInteger weekIntValue = [self weekIntValueWithDate] - 1; //获取星期对应的数字
-    NSInteger days = comps_today.day - comps_other.day;
+    NSInteger days = currentComps.day - otherComps.day;
     
-    if (comps_today.year == comps_other.year && comps_today.month == comps_other.month && comps_today.day == comps_other.day)
+    if (currentComps.year == otherComps.year && currentComps.month == otherComps.month && currentComps.day == otherComps.day)
         strDate = [NSString stringWithFormat:@"今天 %@", [self timeFormat:@"HH:mm"]];
-    else if (comps_today.year == comps_other.year && comps_today.month == comps_other.month && days == 1)
+    else if (currentComps.year == otherComps.year && currentComps.month == otherComps.month && days == 1)
         strDate = [NSString stringWithFormat:@"昨天 %@", [self timeFormat:@"HH:mm"]];
-    else if (comps_today.year == comps_other.year && comps_today.month == comps_other.month && days < 7)
+    else if (currentComps.year == otherComps.year && currentComps.month == otherComps.month && days < 7)
         strDate = [NSString stringWithFormat:@"%@ %@", [NSDate getWeekStringFromInteger:(int)weekIntValue], [self timeFormat:@"HH:mm"]];
     else
         strDate = [self timeFormat:@"yyyy年MM月dd HH:mm"];

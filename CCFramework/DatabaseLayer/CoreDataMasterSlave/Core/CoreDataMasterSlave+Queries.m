@@ -65,8 +65,7 @@
     if (condition) {
         va_list arguments;
         va_start(arguments, condition);
-        NSPredicate *predicate =
-        [NSPredicate predicateWithFormat:condition arguments:arguments];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:condition arguments:arguments];
         va_end(arguments);
         [fetchRequest setPredicate:predicate];
         fetchRequest.predicate = predicate;

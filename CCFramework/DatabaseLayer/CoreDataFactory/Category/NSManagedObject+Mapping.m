@@ -105,12 +105,12 @@
         if ([desClassName isEqualToString:@"NSManagedObject"]) {
             NSString *primaryKey = [relationshipDes.destinationEntity.userInfo objectForKey:@"PrimaryKey"];
             if (primaryKey) {
-                destinationObjs = [CoreDataMasterSlave cc_insertOrUpdateWtihDataArray:relationshipDes.destinationEntity.name 
-                                                                           PrimaryKey:primaryKey 
-                                                                        WithDataArray:value 
+                destinationObjs = [CoreDataMasterSlave cc_insertOrUpdateWtihDataArray:relationshipDes.destinationEntity.name
+                                                                           PrimaryKey:primaryKey
+                                                                        WithDataArray:value
                                                                             inContext:self.managedObjectContext];
-            }else{
-                destinationObjs = [CoreDataMasterSlave cc_insertCoreDataWithArray:relationshipDes.destinationEntity.name 
+            } else {
+                destinationObjs = [CoreDataMasterSlave cc_insertCoreDataWithArray:relationshipDes.destinationEntity.name
                                                                         DataArray:value];
             }
         } else
@@ -191,9 +191,9 @@
 NSDate *dateFromString(NSString *value)
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-    [formatter setLocale:[NSLocale currentLocale]];
-    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssz"];
+//    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+//    [formatter setLocale:[NSLocale currentLocale]];
+    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
     
     NSDate *parsedDate = [formatter dateFromString:value];
     
