@@ -29,6 +29,20 @@
 @interface NSString (BNSString)
 
 /**
+ *  @author CC, 2015-12-11
+ *  
+ *  @brief  生成唯一ID
+ */
++ (NSString *)uniqueUUID;
+
+/**
+ *  @author CC, 2015-12-11
+ *  
+ *  @brief  根据值生成唯一ID
+ */
+- (NSString *)pathForTemporaryFileWithPrefix;
+
+/**
  *  @author CC, 15-09-02
  *
  *  @brief  去除所有空格

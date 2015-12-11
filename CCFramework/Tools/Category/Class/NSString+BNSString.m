@@ -31,6 +31,48 @@
 
 @implementation NSString (BNSString)
 
+
+/**
+ *  @author CC, 2015-12-11
+ *  
+ *  @brief  根据值生成唯一ID
+ */
+- (NSString *)pathForTemporaryFileWithPrefix
+{
+    NSString *result;
+    CFUUIDRef uuid;
+    CFStringRef uuidStr;
+    
+    uuid = CFUUIDCreate(NULL);
+    assert(uuid != NULL);
+    
+    uuidStr = CFUUIDCreateString(NULL, uuid);
+    assert(uuidStr != NULL);
+    
+    result = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@-%@", self, uuidStr]];
+    assert(result != nil);
+    
+    CFRelease(uuidStr);
+    CFRelease(uuid);
+    
+    return result;
+}
+
+/**
+ *  @author CC, 2015-12-11
+ *  
+ *  @brief  生成唯一ID
+ */
++ (NSString *)uniqueUUID
+{
+    CFUUIDRef puuid = CFUUIDCreate(nil);
+    CFStringRef uuidString = CFUUIDCreateString(nil, puuid);
+    NSString *result = (NSString *)CFBridgingRelease(CFStringCreateCopy(NULL, uuidString));
+    CFRelease(puuid);
+    CFRelease(uuidString);
+    return result;
+}
+
 /**
  *  @author CC, 15-09-02
  *
@@ -382,7 +424,10 @@
  */
 - (NSDate *)convertingTStringsToDate
 {
-    return [self convertingStringsToDate:@"yyyy-MM-dd'T'HH:mm:ss"];
+    NSDateFormatter *mDateFormatter = [[NSDateFormatter alloc] init];
+    [mDateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+    return [mDateFormatter dateFromString:self];
+    ;
 }
 
 /**
@@ -666,13 +711,14 @@
     if (self)
         mutableString = [NSMutableString stringWithString:self];
     
-    va_list args;
-    va_start(args, format);
-    
-    for (NSString *str = format; str != nil; str = va_arg(args, NSString *))
-        [mutableString appendFormat:@"%@",str];
-    
-    va_end(args);
+    if (format) {
+        va_list arguments;
+        va_start(arguments, format);
+        NSString *apS = [[NSString alloc] initWithFormat:format arguments:arguments];
+        va_end(arguments);
+        
+        [mutableString appendString:apS];
+    }
     
     return mutableString;
 }
