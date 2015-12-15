@@ -26,8 +26,16 @@
 #import "CCNSLog.h"
 #import "NSObject+Additions.h"
 
-FOUNDATION_EXPORT void cc_NSLog(const char *file, const char *method, int lineNumber, NSString *format)
+FOUNDATION_EXPORT void cc_NSLog(const char *file, const char *method, int lineNumber, NSString *format,...)
 {
+    if (format) {
+        va_list arguments;
+        va_start(arguments, format);
+        NSString *apS = [[NSString alloc] initWithFormat:format arguments:arguments];
+        va_end(arguments);
+        format = apS;
+    }
+    
     if (![format hasSuffix:@"\n"])
         format = [format stringByAppendingString:@"\n"];
     
