@@ -291,6 +291,7 @@
     _voiceDurationLabel.hidden = YES;
     _voiceUnreadDotImageView.hidden = YES;
     
+    [_sendNotSuccessfulButton setImage:@""];
     _sendNotSuccessfulButton.hidden = YES;
     _indicatorView.hidden = YES;
     [_indicatorView stopAnimating];
@@ -299,6 +300,7 @@
         CCMessageSendType sendStatusType = message.messageSendState;
         switch (sendStatusType) {
             case CCMessageSendTypeFailure:
+                [_sendNotSuccessfulButton setImage:@"caveat"];
                 _sendNotSuccessfulButton.hidden = NO;
                 _indicatorView.hidden = YES;
                 [_indicatorView stopAnimating];
@@ -549,7 +551,7 @@
         
         // 4、初始化显示语音时长的label
         if (!_voiceDurationLabel) {
-            UILabel *voiceDurationLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 15, 30, 30)];
+            UILabel *voiceDurationLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 90, 30)];
             voiceDurationLabel.textColor = [UIColor colorWithWhite:0.579 alpha:1.000];
             voiceDurationLabel.backgroundColor = [UIColor clearColor];
             voiceDurationLabel.font = [UIFont systemFontOfSize:13.f];
@@ -577,7 +579,7 @@
         
         // 7. 初始化消息未发送成功时显示重新发送按钮
         if (!_sendNotSuccessfulButton) {
-            UIButton *sendNotSuccessfulButton = [UIButton buttonWithBackgroundImage:@"caveat"];
+            UIButton *sendNotSuccessfulButton = [UIButton buttonWithBackgroundImage:@""];
             sendNotSuccessfulButton.frame = CGRectMake(0, 0, kCCSendNotSuccessfulSize, kCCSendNotSuccessfulSize);
             sendNotSuccessfulButton.hidden = YES;
             [sendNotSuccessfulButton addTarget:self action:@selector(sendNotSuccessful:) forControlEvents:UIControlEventTouchUpInside];

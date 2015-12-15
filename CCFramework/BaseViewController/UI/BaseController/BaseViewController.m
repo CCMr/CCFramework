@@ -107,17 +107,17 @@
     return _HUD;
 }
 
-- (CustomIOSAlertView *)mAlertView
+- (CustomIOSAlertView *)alertView
 {
-    if (!_mAlertView) {
-        _mAlertView = [[CustomIOSAlertView alloc] init];
-        _mAlertView.containerView.backgroundColor = [UIColor whiteColor];
-        _mAlertView.parentView.backgroundColor = [UIColor whiteColor];
-        _mAlertView.dialogView.backgroundColor = [UIColor whiteColor];
-        [_mAlertView setButtonTitles:@[]];
-        [_mAlertView setUseMotionEffects:YES];
+    if (!_alertView) {
+        _alertView = [[CustomIOSAlertView alloc] init];
+        _alertView.containerView.backgroundColor = [UIColor whiteColor];
+        _alertView.parentView.backgroundColor = [UIColor whiteColor];
+        _alertView.dialogView.backgroundColor = [UIColor whiteColor];
+        [_alertView setButtonTitles:@[]];
+        [_alertView setUseMotionEffects:YES];
     }
-    return _mAlertView;
+    return _alertView;
 }
 
 #pragma mark - 底部弹出视图
@@ -598,7 +598,7 @@
 - (void)dealloc
 {
     self.HUD = nil;
-    self.mAlertView = nil;
+    self.alertView = nil;
     cc_NoticeremoveObserver(self, UIKeyboardWillShowNotification, nil);
     cc_NoticeremoveObserver(self, UIKeyboardWillHideNotification, nil);
     cc_NoticeremoveObserver(self, CCNotificationLanguageChanged, nil);

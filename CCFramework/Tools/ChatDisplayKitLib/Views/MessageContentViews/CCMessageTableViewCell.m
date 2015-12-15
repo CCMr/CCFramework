@@ -69,7 +69,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
  *
  *  @param message 需要配置的目标消息Model
  */
-- (void)configureTimestamp:(BOOL)displayTimestamp 
+- (void)configureTimestamp:(BOOL)displayTimestamp
                  atMessage:(id<CCMessageModel>)message;
 
 /**
@@ -133,7 +133,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (void)avatarButtonClicked:(UIButton *)sender
 {
     if ([self.delegate respondsToSelector:@selector(didSelectedAvatarOnMessage:atIndexPath:)]) {
-        [self.delegate didSelectedAvatarOnMessage:self.messageBubbleView.message 
+        [self.delegate didSelectedAvatarOnMessage:self.messageBubbleView.message
                                       atIndexPath:self.indexPath];
     }
 }
@@ -211,7 +211,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (void)deletes:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(didSelectedMenuDeletes:atIndexPath:)])
-        [self.delegate didSelectedMenuDeletes:self.messageBubbleView.message 
+        [self.delegate didSelectedMenuDeletes:self.messageBubbleView.message
                                   atIndexPath:self.indexPath];
 }
 
@@ -245,7 +245,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     [self configureMessageBubbleViewWithMessage:message];
 }
 
-- (void)configureTimestamp:(BOOL)displayTimestamp 
+- (void)configureTimestamp:(BOOL)displayTimestamp
                  atMessage:(id<CCMessageModel>)message
 {
     self.displayTimestamp = displayTimestamp;
@@ -268,7 +268,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     } else if (avatarURL) {
         [self configAvatarWithPhotoURLString:avatarURL];
     } else {
-        UIImage *avatarPhoto = [CCMessageAvatarFactory avatarImageNamed:[UIImage imageNamed:@"avatar"] 
+        UIImage *avatarPhoto = [CCMessageAvatarFactory avatarImageNamed:[UIImage imageNamed:@"avatar"]
                                                       messageAvatarType:CCMessageAvatarTypeSquare];
         [self configAvatarWithPhoto:avatarPhoto];
     }
@@ -282,7 +282,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (void)configAvatarWithPhotoURLString:(NSString *)photoURLString
 {
     self.avatarButton.messageAvatarType = CCMessageAvatarTypeSquare;
-    [self.avatarButton setImageWithURL:[NSURL URLWithString:photoURLString] 
+    [self.avatarButton setImageWithURL:[NSURL URLWithString:photoURLString]
                             placeholer:[UIImage imageNamed:@"avatar"]];
 }
 
@@ -422,8 +422,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     if (tapGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         [self setupNormalMenuController];
         if ([self.delegate respondsToSelector:@selector(multiMediaMessageDidSelectedOnMessage:atIndexPath:onMessageTableViewCell:)]) {
-            [self.delegate multiMediaMessageDidSelectedOnMessage:self.messageBubbleView.message 
-                                                     atIndexPath:self.indexPath 
+            [self.delegate multiMediaMessageDidSelectedOnMessage:self.messageBubbleView.message
+                                                     atIndexPath:self.indexPath
                                           onMessageTableViewCell:self];
         }
     }
@@ -433,8 +433,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 {
     if (tapGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         if ([self.delegate respondsToSelector:@selector(didDoubleSelectedOnTextMessage:Message:atIndexPath:)]) {
-            [self.delegate didDoubleSelectedOnTextMessage:self 
-                                                  Message:self.messageBubbleView.message 
+            [self.delegate didDoubleSelectedOnTextMessage:self
+                                                  Message:self.messageBubbleView.message
                                               atIndexPath:self.indexPath];
         }
     }
@@ -620,7 +620,14 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     CGFloat layoutOriginY = kCCAvatarPaddingY + (self.displayTimestamp ? kCCTimeStampLabelHeight : 0);
     CGRect avatarButtonFrame = self.avatarButton.frame;
     avatarButtonFrame.origin.y = layoutOriginY;
-    avatarButtonFrame.origin.x = ([self bubbleMessageType] == CCBubbleMessageTypeReceiving) ? kCCAvatarPaddingX : ((CGRectGetWidth(self.bounds) - kCCAvatarPaddingX - kCCAvatarImageSize));
+    avatarButtonFrame.origin.x = kCCAvatarPaddingX;
+    if (![self bubbleMessageType] == CCBubbleMessageTypeReceiving) {
+        CGFloat x = (CGRectGetWidth(self.bounds) - kCCAvatarPaddingX - kCCAvatarImageSize);
+        if (self.editing)
+            x -= kCCAvatarImageSize;
+        avatarButtonFrame.origin.x = x;
+    }
+    
     self.avatarButton.frame = avatarButtonFrame;
     
     if (self.messageBubbleView.message.shouldShowUserName) {
@@ -643,7 +650,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
                                                CGRectGetWidth(self.contentView.bounds) - bubbleX - offsetX,
                                                CGRectGetHeight(self.contentView.bounds) - timeStampLabelNeedHeight);
     self.messageBubbleView.frame = bubbleMessageViewFrame;
-
+    
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationBeginsFromCurrentState:YES];
@@ -712,7 +719,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     NSIndexPath *cellIndexPath = [self.containingTableView indexPathForCell:self];
     
     if ([self.containingTableView.delegate respondsToSelector:@selector(tableView:willSelectRowAtIndexPath:)]) {
-        cellIndexPath = [self.containingTableView.delegate tableView:self.containingTableView 
+        cellIndexPath = [self.containingTableView.delegate tableView:self.containingTableView
                                             willSelectRowAtIndexPath:cellIndexPath];
     }
     
@@ -720,7 +727,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         [self.containingTableView selectRowAtIndexPath:cellIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
         
         if ([self.containingTableView.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
-            [self.containingTableView.delegate tableView:self.containingTableView 
+            [self.containingTableView.delegate tableView:self.containingTableView
                                  didSelectRowAtIndexPath:cellIndexPath];
         }
     }
@@ -731,8 +738,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     NSIndexPath *cellIndexPath = [self.containingTableView indexPathForCell:self];
     
     if ([self.containingTableView.delegate respondsToSelector:@selector(tableView:willDeselectRowAtIndexPath:)]) {
-        cellIndexPath = [self.containingTableView.delegate 
-                         tableView:self.containingTableView 
+        cellIndexPath = [self.containingTableView.delegate
+                         tableView:self.containingTableView
                          willDeselectRowAtIndexPath:cellIndexPath];
     }
     

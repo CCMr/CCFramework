@@ -28,19 +28,19 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, CCBubbleMessageMediaType) {
-    /** 媒体留言文本类型 **/
+    /** 媒体留言文本类型 */
     CCBubbleMessageMediaTypeText = 0,
-    /** 媒体留言图片类型 **/
+    /** 媒体留言图片类型 */
     CCBubbleMessageMediaTypePhoto = 1,
-    /** 媒体留言视频类型 **/
+    /** 媒体留言视频类型 */
     CCBubbleMessageMediaTypeVideo = 2,
-    /** 媒体留言类型 **/
+    /** 媒体留言类型 */
     CCBubbleMessageMediaTypeVoice = 3,
-    /** 媒体留言表情类型 **/
+    /** 媒体留言表情类型 */
     CCBubbleMessageMediaTypeEmotion = 4,
-    /** 媒体留言小表情类型 **/
+    /** 媒体留言小表情类型 */
     CCBubbleMessageMediaTypeSmallEmotion = 5,
-    /** 媒体留言地理位置类型 **/
+    /** 媒体留言地理位置类型 */
     CCBubbleMessageMediaTypeLocalPosition = 6,
 };
 

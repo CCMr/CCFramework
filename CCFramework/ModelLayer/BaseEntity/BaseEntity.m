@@ -159,13 +159,11 @@
 {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     unsigned int propsCount;
-    objc_property_t *props =
-    class_copyPropertyList([self class], &propsCount); //获得属性列表
+    objc_property_t *props = class_copyPropertyList([self class], &propsCount); //获得属性列表
     
     for (int i = 0; i < propsCount; i++) {
         objc_property_t prop = props[i];
-        NSString *propName = [NSString
-                              stringWithUTF8String:property_getName(prop)]; //获得属性的名称
+        NSString *propName = [NSString stringWithUTF8String:property_getName(prop)]; //获得属性的名称
         
         const char *propType = getPropertyType(prop);
         NSString *propertyType = [NSString stringWithUTF8String:propType]; //获得属性类型
@@ -177,7 +175,7 @@
             else if ([propertyType isEqualToString:@"int"])
                 value = 0;
             else if ([propertyType isEqualToString:@"NSManagedObjectID"])
-                value = [NSManagedObjectID new];
+                value = @""; //[NSManagedObjectID new];
             else if ([propertyType isEqualToString:@"NSMutableArray"] ||
                      [propertyType isEqualToString:@"NSArray"])
                 value = [NSMutableArray array];
@@ -208,15 +206,13 @@
     if ([obj isKindOfClass:[NSArray class]]) {
         NSArray *objarr = obj;
         NSMutableArray *arr = [NSMutableArray arrayWithCapacity:objarr.count];
-        [objarr
-         enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-             [arr setObject:[self ObjectInternal:obj] atIndexedSubscript:idx];
-         }];
+        [objarr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [arr setObject:[self ObjectInternal:obj] atIndexedSubscript:idx];
+        }];
         return arr;
     } else if ([obj isKindOfClass:[NSDictionary class]]) {
         NSDictionary *objdic = obj;
-        NSMutableDictionary *dic =
-        [NSMutableDictionary dictionaryWithCapacity:[objdic count]];
+        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:[objdic count]];
         for (NSString *key in objdic.allKeys)
             [dic setObject:[self ObjectInternal:[objdic objectForKey:key]]
                     forKey:key];

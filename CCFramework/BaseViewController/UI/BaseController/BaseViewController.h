@@ -59,7 +59,7 @@
  *
  *  @brief  弹出提示层
  */
-@property(nonatomic, strong) CustomIOSAlertView *mAlertView;
+@property(nonatomic, strong) CustomIOSAlertView *alertView;
 
 /**
  *  @author C C, 2015-08-02
