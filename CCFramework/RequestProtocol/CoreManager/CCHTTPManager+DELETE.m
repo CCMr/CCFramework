@@ -56,6 +56,34 @@
 }
 
 /**
+ *  @author CC, 2015-12-15
+ *  
+ *  @brief  DELETE请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param userInfo         字典接收
+ *  @param block            完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ */
++ (void)NetRequestDELETEWithRequestURL:(NSString *)requestURLString
+                         WithParameter:(NSDictionary *)parameter
+                          WithUserInfo:(NSDictionary *)userInfo
+                  WithReturnValeuBlock:(RequestBacktrack)blockTrack
+                    WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                      WithFailureBlock:(FailureBlock)failureBlock
+{
+    [self NetRequestDELETEWithRequestURL:requestURLString
+                           WithParameter:parameter
+                            WithUserInfo:userInfo
+                    WithReturnValeuBlock:blockTrack
+                      WithErrorCodeBlock:errorBlock
+                        WithFailureBlock:failureBlock
+                          WithCompletion:nil];
+}
+
+/**
  *  @author CC, 2015-10-22
  *
  *  @brief  DELETE请求方式
@@ -76,11 +104,12 @@
                       WithFailureBlock:(FailureBlock)failureBlock
                         WithCompletion:(RequestCompletionBacktrack)completionBlock
 {
-    AFHTTPRequestOperation *requestOperation =
-    [[AFHTTPRequestOperationManager manager] DELETE:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperationManager manager] DELETE:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-
+        
         CCResponseObject *entity = [[CCResponseObject alloc] initWithDict:dic];
+        if (operation.userInfo)
+            entity.userInfo = operation.userInfo;
         CCNSLogger(@"%@", [entity ChangedDictionary]);
         
         blockTrack(entity,nil);

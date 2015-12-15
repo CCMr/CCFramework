@@ -26,6 +26,7 @@
 #import "AFNetworking.h"
 #import "NSDate+BNSDate.h"
 #import "CCResponseObject.h"
+#import "NSString+BNSString.h"
 
 @implementation CCHTTPManager (UploadDownload)
 
@@ -37,12 +38,12 @@
  *  @param requestURLString 下载路径
  *  @param blockTrack       完成回调
  */
-+ (void)NetRequestDownloadWithRequestURL:(NSString *)requestURLString  
++ (void)NetRequestDownloadWithRequestURL:(NSString *)requestURLString
                     WithRequestBacktrack:(CCRequestBacktrack)blockTrack
 {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-
+    
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:requestURLString]];
     
     NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
@@ -53,7 +54,10 @@
                                                                                 create:NO 
                                                                                  error:nil];
         
-        return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
+        NSString *expand = [[response suggestedFilename] componentsSeparatedByString:@"."].lastObject;
+        NSURL *downloadURL = [documentsDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@",[NSString uniqueUUID],expand]];
+        
+        return downloadURL;
     } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
         blockTrack(filePath.path,error);
     }];

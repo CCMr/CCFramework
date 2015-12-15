@@ -28,6 +28,13 @@
 @interface CCResponseObject : BaseEntity
 
 /**
+ *  @author CC, 2015-12-15
+ *  
+ *  @brief  传递键值
+ */
+@property(nonatomic, copy) NSDictionary *userInfo;
+
+/**
  *  @author C C, 2015-11-07
  *
  *  @brief  响应消息

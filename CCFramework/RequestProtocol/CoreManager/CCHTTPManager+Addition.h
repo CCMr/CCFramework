@@ -70,6 +70,25 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
                    WithFailureBlock:(FailureBlock)failureBlock;
 
 /**
+ *  @author CC, 2015-12-15
+ *  
+ *  @brief  GET请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param userInfo         字典接收
+ *  @param block            完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ */
++ (void)NetRequestGETWithRequestURL:(NSString *)requestURLString
+                      WithParameter:(NSDictionary *)parameter 
+                       WithUserInfo:(NSDictionary *)userInfo
+               WithReturnValeuBlock:(RequestBacktrack)blockTrack
+                 WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                   WithFailureBlock:(FailureBlock)failureBlock;
+
+/**
  *  @author CC, 2015-10-22
  *
  *  @brief  GET请求方式
@@ -115,6 +134,25 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
                     WithFailureBlock:(FailureBlock)failureBlock;
 
 /**
+ *  @author CC, 2015-12-15
+ *  
+ *  @brief  POST请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param userInfo         字典接收
+ *  @param blockTrack       完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ */
++ (void)NetRequestPOSTWithRequestURL:(NSString *)requestURLString
+                       WithParameter:(NSDictionary *)parameter
+                        WithUserInfo:(NSDictionary *)userInfo
+                WithReturnValeuBlock:(RequestBacktrack)blockTrack
+                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                    WithFailureBlock:(FailureBlock)failureBlock;
+
+/**
  *  @author CC, 2015-10-22
  *
  *  @brief  POST请求方式
@@ -153,6 +191,25 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  */
 + (void)NetRequestDELETEWithRequestURL:(NSString *)requestURLString
                          WithParameter:(NSDictionary *)parameter
+                  WithReturnValeuBlock:(RequestBacktrack)blockTrack
+                    WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                      WithFailureBlock:(FailureBlock)failureBlock;
+
+/**
+ *  @author CC, 2015-12-15
+ *  
+ *  @brief  DELETE请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param userInfo         字典接收
+ *  @param block            完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ */
++ (void)NetRequestDELETEWithRequestURL:(NSString *)requestURLString
+                         WithParameter:(NSDictionary *)parameter 
+                          WithUserInfo:(NSDictionary *)userInfo
                   WithReturnValeuBlock:(RequestBacktrack)blockTrack
                     WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                       WithFailureBlock:(FailureBlock)failureBlock;
@@ -202,6 +259,25 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
                     WithFailureBlock:(FailureBlock)failureBlock;
 
 /**
+ *  @author CC, 2015-12-15
+ *  
+ *  @brief  HEAD请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param userInfo         字典接收
+ *  @param block            完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ */
++ (void)NetRequestHEADWithRequestURL:(NSString *)requestURLString
+                       WithParameter:(NSDictionary *)parameter
+                        WithUserInfo:(NSDictionary *)userInfo
+                WithReturnValeuBlock:(RequestBacktrack)blockTrack
+                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                    WithFailureBlock:(FailureBlock)failureBlock;
+
+/**
  *  @author CC, 2015-10-22
  *
  *  @brief  HEAD请求方式
@@ -246,6 +322,25 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
                    WithFailureBlock:(FailureBlock)failureBlock;
 
 /**
+ *  @author CC, 2015-12-15
+ *  
+ *  @brief  PUT请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param userInfo         字典接收
+ *  @param block            完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ */
++ (void)NetRequestPUTWithRequestURL:(NSString *)requestURLString
+                      WithParameter:(NSDictionary *)parameter 
+                       WithUserInfo:(NSDictionary *)userInfo
+               WithReturnValeuBlock:(RequestBacktrack)blockTrack
+                 WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                   WithFailureBlock:(FailureBlock)failureBlock;
+
+/**
  *  @author CC, 2015-10-22
  *
  *  @brief  PUT请求方式
@@ -284,6 +379,25 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  */
 + (void)NetRequestPATCHWithRequestURL:(NSString *)requestURLString
                         WithParameter:(NSDictionary *)parameter
+                 WithReturnValeuBlock:(RequestBacktrack)blockTrack
+                   WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                     WithFailureBlock:(FailureBlock)failureBlock;
+
+/**
+ *  @author CC, 2015-12-15
+ *  
+ *  @brief  PATCH请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param userInfo         字典接收
+ *  @param block            完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ */
++ (void)NetRequestPATCHWithRequestURL:(NSString *)requestURLString
+                        WithParameter:(NSDictionary *)parameter
+                         WithUserInfo:(NSDictionary *)userInfo
                  WithReturnValeuBlock:(RequestBacktrack)blockTrack
                    WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                      WithFailureBlock:(FailureBlock)failureBlock;

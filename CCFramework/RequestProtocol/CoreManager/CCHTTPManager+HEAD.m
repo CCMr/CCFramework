@@ -55,6 +55,34 @@
 }
 
 /**
+ *  @author CC, 2015-12-15
+ *  
+ *  @brief  HEAD请求方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param userInfo         字典接收
+ *  @param block            完成回调
+ *  @param errorBlock       请求失败回调
+ *  @param failureBlock     网络错误回调
+ */
++ (void)NetRequestHEADWithRequestURL:(NSString *)requestURLString
+                       WithParameter:(NSDictionary *)parameter
+                        WithUserInfo:(NSDictionary *)userInfo
+                WithReturnValeuBlock:(RequestBacktrack)blockTrack
+                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
+                    WithFailureBlock:(FailureBlock)failureBlock
+{
+    [self NetRequestHEADWithRequestURL:requestURLString
+                         WithParameter:parameter
+                          WithUserInfo:userInfo
+                  WithReturnValeuBlock:blockTrack
+                    WithErrorCodeBlock:errorBlock
+                      WithFailureBlock:failureBlock
+                        WithCompletion:nil];
+}
+
+/**
  *  @author CC, 2015-10-22
  *
  *  @brief  HEAD请求方式
@@ -76,6 +104,14 @@
                       WithCompletion:(RequestCompletionBacktrack)completionBlock
 {
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperationManager manager] HEAD:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *operation) {
+        
+        CCResponseObject *entity = [[CCResponseObject alloc] init];
+        if (operation.userInfo)
+            entity.userInfo = operation.userInfo;
+        CCNSLogger(@"%@", [entity ChangedDictionary]);
+        
+        blockTrack(entity,nil);
+
         if (operation.userInfo && completionBlock)
             completionBlock(nil, operation.userInfo);
         
