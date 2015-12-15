@@ -64,6 +64,11 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
         NSLog(@"应用继续使用");
 }
 
+- (void)setDismissed
+{
+    dismissed = NO;
+}
+
 
 - (void)validateAndSaveCriticalApplicationData
 {
@@ -74,7 +79,7 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
     [self validateAndSaveCriticalApplicationData];
     //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"抱歉，程序出现了异常", nil) message:[NSString stringWithFormat:NSLocalizedString( @"如果点击继续，程序有可能会出现其他的问题，建议您还是点击退出按钮并重新打开\n\n" @"异常原因如下:\n%@\n%@", nil), [exception reason], [[exception userInfo] objectForKey:UncaughtExceptionHandlerAddressesKey]] delegate:self cancelButtonTitle:NSLocalizedString(@"退出", nil) otherButtonTitles:NSLocalizedString(@"继续", nil), nil];
     //    [alert show];
-//        dismissed = NO;
+//            dismissed = YES;
     
     NSMutableString *errorStr = [NSMutableString string];
     [errorStr appendFormat:@"Name of the device owner: %@ \n", [[UIDevice currentDevice] name]];
@@ -120,6 +125,8 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
         kill(getpid(), [[[exception userInfo] objectForKey:UncaughtExceptionHandlerSignalKey] intValue]);
     else
         [exception raise];
+    
+    [self performSelector:@selector(setDismissed) withObject:nil afterDelay:2];
 }
 
 @end
