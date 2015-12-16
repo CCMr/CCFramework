@@ -115,15 +115,15 @@
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:postData];
     
-//    [dic enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id _Nonnull obj, BOOL *_Nonnull stop) {
-//        if ([obj isKindOfClass:[NSArray class]]) {
-//            NSError *error = nil;
-//            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:&error];
-//            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-//            if (jsonString && !error)
-//                [dic setObject:jsonString forKey:key];
-//        }
-//    }];
+    //    [dic enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id _Nonnull obj, BOOL *_Nonnull stop) {
+    //        if ([obj isKindOfClass:[NSArray class]]) {
+    //            NSError *error = nil;
+    //            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:&error];
+    //            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    //            if (jsonString && !error)
+    //                [dic setObject:jsonString forKey:key];
+    //        }
+    //    }];
     
     return dic;
 }
@@ -139,8 +139,12 @@
  */
 - (NSString *)appendingServerURLWithString:(NSString *)MethodName
 {
-    //    return [[NSString stringWithFormat:@"%@%@",ServiceAddress,MethodName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    return @"";
+    MethodName = (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                                                       (__bridge CFStringRef)MethodName,
+                                                                                       NULL,
+                                                                                       CFSTR("!*'();@&+$,%#[]"),
+                                                                                       CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+    return MethodName;
 }
 
 /**
@@ -154,7 +158,12 @@
  */
 - (NSString *)appendingExpandServerURLWithString:(NSString *)MethodName
 {
-    return @"";
+    MethodName = (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                                                       (__bridge CFStringRef)MethodName,
+                                                                                       NULL,
+                                                                                       CFSTR("!*'();@&+$,%#[]"),
+                                                                                       CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+    return MethodName;
 }
 
 /**
