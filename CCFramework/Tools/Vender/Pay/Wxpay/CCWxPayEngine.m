@@ -135,6 +135,7 @@ typedef void (^CompleteCallback)(NSError *error);
  *  @author C C, 2015-12-04
  *  
  *  @brief  设置获取服务器端支付数据地址（商户自定义）
+ *          http://wxpay.weixin.qq.com/pub_v2/app/app_pay.php
  *
  *  @param url 自定义服务器地址
  */
