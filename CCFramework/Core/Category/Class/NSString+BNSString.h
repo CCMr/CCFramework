@@ -158,8 +158,7 @@
  *
  *  @return 二维码图片
  */
-- (UIImage *)becomeQRCodeWithQRstring:(int)width
-                            withHight:(int)height;
+- (UIImage *)becomeQRCodeWithQRstring:(CGFloat)size;
 
 /**
  *  @author CC, 15-09-02

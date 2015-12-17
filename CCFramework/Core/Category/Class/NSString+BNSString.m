@@ -26,8 +26,7 @@
 #import "NSString+BNSString.h"
 #import <CommonCrypto/CommonCrypto.h>
 #import "CCBase64.h"
-#import "ZXMultiFormatWriter.H"
-#import "ZXImage.h"
+#import "QRCodeGenerator.h"
 
 @implementation NSString (BNSString)
 
@@ -472,20 +471,9 @@
  *
  *  @return 二维码图片
  */
-- (UIImage *)becomeQRCodeWithQRstring:(int)width withHight:(int)height
+- (UIImage *)becomeQRCodeWithQRstring:(CGFloat)size
 {
-    
-    ZXMultiFormatWriter *writer = [ZXMultiFormatWriter writer];
-    ZXBitMatrix *result = [writer encode:self
-                                  format:kBarcodeFormatQRCode
-                                   width:width
-                                  height:height
-                                   error:nil];
-    
-    CGImageRef image = [[ZXImage imageWithMatrix:result] cgimage];
-    UIImage *qrImage = [UIImage imageWithCGImage:image];
-    
-    return qrImage;
+    return [QRCodeGenerator qrImageForString:self imageSize:size];;
 }
 
 /**

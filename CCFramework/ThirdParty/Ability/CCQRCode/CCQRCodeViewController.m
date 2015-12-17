@@ -30,16 +30,13 @@
 #import "CCFoundationCommon.h"
 #import "UIButton+CCButtonTitlePosition.h"
 #import "CCCameraViewController.h"
-#import "QRCode.h"
 #import "CCQRCodeDisplayViewController.h"
 
 #define kCCScanningButtonPadding 36
 
 typedef void (^Outcomeblock)(NSString *outcome);
 
-@interface CCQRCodeViewController () <UIImagePickerControllerDelegate,
-UINavigationControllerDelegate,
-CCCaptureHelperDelegate>
+@interface CCQRCodeViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, CCCaptureHelperDelegate>
 
 @property(nonatomic, strong) UIView *preview;
 
@@ -63,7 +60,8 @@ CCCaptureHelperDelegate>
 
 #pragma mark - Action
 
-- (void)scanButtonClicked:(UIButton *)sender {
+- (void)scanButtonClicked:(UIButton *)sender
+{
     self.scanQRCodeButton.selected = (sender == self.scanQRCodeButton);
     self.scanBookButton.selected = (sender == self.scanBookButton);
     self.scanStreetButton.selected = (sender == self.scanStreetButton);
@@ -74,7 +72,8 @@ CCCaptureHelperDelegate>
 
 #pragma mark - Propertys
 
-- (UIButton *)createButton {
+- (UIButton *)createButton
+{
     UIButton *button = [[UIButton alloc] init];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:12];
@@ -84,30 +83,28 @@ CCCaptureHelperDelegate>
     return button;
 }
 
-- (UIView *)preview {
+- (UIView *)preview
+{
     if (!_preview) {
         _preview = [[UIView alloc] initWithFrame:self.view.bounds];
     }
     return _preview;
 }
 
-- (CCScanningView *)scanningView {
+- (CCScanningView *)scanningView
+{
     if (!_scanningView) {
-        _scanningView = [[CCScanningView alloc]
-                         initWithFrame:CGRectMake(0, (CURRENT_SYS_VERSION >= 7.0 ? 0 : 0),
-                                                  CGRectGetWidth(self.view.bounds),
-                                                  CGRectGetHeight(self.view.bounds) -
-                                                  (CURRENT_SYS_VERSION >= 7.0 ? 0 : 44))];
+        _scanningView = [[CCScanningView alloc] initWithFrame:CGRectMake(0, (CURRENT_SYS_VERSION >= 7.0 ? 0 : 0),
+                                                                         CGRectGetWidth(self.view.bounds),
+                                                                         CGRectGetHeight(self.view.bounds) - (CURRENT_SYS_VERSION >= 7.0 ? 0 : 44))];
     }
     return _scanningView;
 }
 
-- (UIView *)buttonContainerView {
+- (UIView *)buttonContainerView
+{
     if (!_buttonContainerView) {
-        _buttonContainerView = [[UIView alloc]
-                                initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 120 -
-                                                         [CCFoundationCommon getAdapterHeight],
-                                                         CGRectGetWidth(self.view.bounds), 62)];
+        _buttonContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 120 - [CCFoundationCommon getAdapterHeight], CGRectGetWidth(self.view.bounds), 62)];
         _buttonContainerView.backgroundColor =
         [UIColor colorWithWhite:0.000 alpha:0.700];
         
@@ -118,13 +115,11 @@ CCCaptureHelperDelegate>
     }
     return _buttonContainerView;
 }
-- (UIButton *)scanQRCodeButton {
+- (UIButton *)scanQRCodeButton
+{
     if (!_scanQRCodeButton) {
         _scanQRCodeButton = [self createButton];
-        _scanQRCodeButton.frame = CGRectMake(
-                                             CGRectGetMidX(self.view.bounds) - kCCScanningButtonPadding * 1.5 -
-                                             35 * 2,
-                                             8, 35, CGRectGetHeight(self.buttonContainerView.bounds) - 16);
+        _scanQRCodeButton.frame = CGRectMake(CGRectGetMidX(self.view.bounds) - kCCScanningButtonPadding * 1.5 - 35 * 2, 8, 35, CGRectGetHeight(self.buttonContainerView.bounds) - 16);
         _scanQRCodeButton.tag = 0;
         [_scanQRCodeButton setImage:[UIImage imageNamed:@"ScanQRCode"]
                            forState:UIControlStateNormal];
@@ -136,12 +131,12 @@ CCCaptureHelperDelegate>
     }
     return _scanQRCodeButton;
 }
-- (UIButton *)scanBookButton {
+- (UIButton *)scanBookButton
+{
     if (!_scanBookButton) {
         _scanBookButton = [self createButton];
         CGRect scanBookButtonFrame = self.scanQRCodeButton.frame;
-        scanBookButtonFrame.origin.x +=
-        kCCScanningButtonPadding + CGRectGetWidth(self.scanQRCodeButton.bounds);
+        scanBookButtonFrame.origin.x += kCCScanningButtonPadding + CGRectGetWidth(self.scanQRCodeButton.bounds);
         _scanBookButton.frame = scanBookButtonFrame;
         _scanBookButton.tag = 1;
         [_scanBookButton setImage:[UIImage imageNamed:@"ScanBook"]
@@ -153,12 +148,12 @@ CCCaptureHelperDelegate>
     }
     return _scanBookButton;
 }
-- (UIButton *)scanStreetButton {
+- (UIButton *)scanStreetButton
+{
     if (!_scanStreetButton) {
         _scanStreetButton = [self createButton];
         CGRect scanBookButtonFrame = self.scanBookButton.frame;
-        scanBookButtonFrame.origin.x +=
-        kCCScanningButtonPadding + CGRectGetWidth(self.scanQRCodeButton.bounds);
+        scanBookButtonFrame.origin.x += kCCScanningButtonPadding + CGRectGetWidth(self.scanQRCodeButton.bounds);
         _scanStreetButton.frame = scanBookButtonFrame;
         _scanStreetButton.tag = 2;
         [_scanStreetButton setImage:[UIImage imageNamed:@"ScanStreet"]
@@ -170,12 +165,12 @@ CCCaptureHelperDelegate>
     }
     return _scanStreetButton;
 }
-- (UIButton *)scanWordButton {
+- (UIButton *)scanWordButton
+{
     if (!_scanWordButton) {
         _scanWordButton = [self createButton];
         CGRect scanBookButtonFrame = self.scanStreetButton.frame;
-        scanBookButtonFrame.origin.x +=
-        kCCScanningButtonPadding + CGRectGetWidth(self.scanQRCodeButton.bounds);
+        scanBookButtonFrame.origin.x += kCCScanningButtonPadding + CGRectGetWidth(self.scanQRCodeButton.bounds);
         _scanWordButton.frame = scanBookButtonFrame;
         _scanWordButton.tag = 3;
         [_scanWordButton setImage:[UIImage imageNamed:@"ScanWord"]
@@ -188,7 +183,8 @@ CCCaptureHelperDelegate>
     return _scanWordButton;
 }
 
-- (CCCaptureHelper *)captureHelper {
+- (CCCaptureHelper *)captureHelper
+{
     if (!_captureHelper) {
         _captureHelper = [[CCCaptureHelper alloc] init];
         _captureHelper.delegate = self;
@@ -206,7 +202,8 @@ CCCaptureHelperDelegate>
  *  @param result  扫描之后的结果
  */
 - (void)DidOutputSampleBufferBlock:(CCCaptureHelper *)capture
-                        ScanResult:(NSString *)result {
+                        ScanResult:(NSString *)result
+{
     [self.captureHelper stopRunning];
     [self scanDealWithResult:result];
 }
@@ -220,9 +217,9 @@ CCCaptureHelperDelegate>
  *  @param sampleBuffer 扫描结果对象
  */
 - (void)DidOutputSampleBufferBlock:(CCCaptureHelper *)capture
-                 CMSampleBufferRef:(CMSampleBufferRef)sampleBuffer {
-    [self analysisQRCode:[CCVideoOutputSampleBufferFactory
-                          imageFromSampleBuffer:sampleBuffer]];
+                 CMSampleBufferRef:(CMSampleBufferRef)sampleBuffer
+{
+    [self analysisQRCode:[CCVideoOutputSampleBufferFactory imageFromSampleBuffer:sampleBuffer]];
 }
 
 /**
@@ -232,24 +229,20 @@ CCCaptureHelperDelegate>
  *
  *  @param qrCode 二维码图片
  */
-- (void)analysisQRCode:(UIImage *)qrCode {
-    CGImageRef imageToDecode = qrCode.CGImage;
+- (void)analysisQRCode:(UIImage *)qrCode
+{
+    //检测器
+    CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{CIDetectorAccuracy : CIDetectorAccuracyHigh}];
     
-    ZXLuminanceSource *source =
-    [[ZXCGImageLuminanceSource alloc] initWithCGImage:imageToDecode];
-    ZXBinaryBitmap *bitmap = [ZXBinaryBitmap
-                              binaryBitmapWithBinarizer:[ZXHybridBinarizer binarizerWithSource:source]];
+    //监测到的结果数组
+    NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:qrCode.CGImage]];
     
-    NSError *error = nil;
-    
-    ZXDecodeHints *hints = [ZXDecodeHints hints];
-    
-    ZXMultiFormatReader *reader = [ZXMultiFormatReader reader];
-    ZXResult *result = [reader decode:bitmap hints:hints error:&error];
-    
-    if (result)
-        [self scanDealWithResult:result.text];
-    else
+    if (features.count >= 1) {
+        /**结果对象 */
+        CIQRCodeFeature *feature = [features objectAtIndex:0];
+        NSString *scannedResult = feature.messageString;
+        [self scanDealWithResult:scannedResult];
+    } else
         [self.captureHelper startRunning];
 }
 
@@ -260,7 +253,8 @@ CCCaptureHelperDelegate>
  *
  *  @param resultAddress 扫描结果地址
  */
-- (void)scanDealWithResult:(NSString *)resultAddress {
+- (void)scanDealWithResult:(NSString *)resultAddress
+{
     if (_scanDealWithResult) { //系统处理
         MainThread(^() {
             CCQRCodeDisplayViewController *viewController = [[CCQRCodeDisplayViewController alloc] init];
@@ -280,28 +274,29 @@ CCCaptureHelperDelegate>
  *
  *  @param block 返回结果回调函数
  */
-- (void)diAnalysisOutcome:(void (^)(NSString *))block {
+- (void)diAnalysisOutcome:(void (^)(NSString *))block
+{
     _outcomeblock = block;
 }
 
 #pragma mark - Life Cycle
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     [self.captureHelper showCaptureOnView:self.preview];
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = NSLocalizedStringFromTable(
-                                            @"Scanning", @"MessageDisplayKitString", @"扫一扫");
+    self.title = NSLocalizedStringFromTable(@"Scanning", @"MessageDisplayKitString", @"扫一扫");
     
-    self.navigationItem.rightBarButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:@"相册"
-                                     style:UIBarButtonItemStyleBordered
-                                    target:self
-                                    action:@selector(showPhotoLibray)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"相册"
+                                                                              style:UIBarButtonItemStyleBordered
+                                                                             target:self
+                                                                             action:@selector(showPhotoLibray)];
     
     self.view.backgroundColor = [UIColor grayColor];
     
@@ -313,29 +308,32 @@ CCCaptureHelperDelegate>
     _scanDealWithResult = YES;
 }
 
-- (void)showPhotoLibray {
+- (void)showPhotoLibray
+{
     [self.captureHelper stopRunning];
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.allowsEditing = YES;
-    picker.delegate = self;
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    [self presentViewController:picker
-                       animated:YES
-                     completion:^{
-                     }];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+        UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+        controller.delegate = self;
+        controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+        [self presentViewController:controller
+                           animated:YES
+                         completion:nil];
+    }
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker
-didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    UIImage *image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
-    WEAKSELF;
-    [self dismissViewControllerAnimated:YES
-                             completion:^{
-                                 [weakSelf analysisQRCode:image];
-                             }];
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    @weakify(self);
+    [self dismissViewControllerAnimated:YES completion:^{
+        @strongify(self);
+        [self analysisQRCode:image];
+    }];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
