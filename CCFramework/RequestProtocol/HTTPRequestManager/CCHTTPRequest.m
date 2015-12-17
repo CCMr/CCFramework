@@ -141,8 +141,8 @@
 {
     MethodName = (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
                                                                                        (__bridge CFStringRef)MethodName,
-                                                                                       NULL,
                                                                                        CFSTR("!*'();@&+$,%#[]"),
+                                                                                       NULL,
                                                                                        CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
     return MethodName;
 }
