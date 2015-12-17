@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  UITabBarController+Additional.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,13 +23,21 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import <UIKit/UIKit.h>
 
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
+@interface UITabBarController (Additional)
 
-#endif /* Core_h */
+/**
+ *  @author CC, 2015-10-09
+ *
+ *  @brief  设置切换选项卡并跳转页面
+ *
+ *  @param selectedIndex  选项卡下标
+ *  @param viewController 跳转的页面
+ *  @param animated       是否动画效果
+ */
+- (void)setSelectedIndex: (NSUInteger)selectedIndex
+      PushViewController: (UIViewController *)viewController
+                animated: (BOOL)animated;
+
+@end

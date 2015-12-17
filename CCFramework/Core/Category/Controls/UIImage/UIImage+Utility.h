@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  UIImage+Utility.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,13 +23,11 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import <UIKit/UIKit.h>
 
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
+@interface UIImage (Utility)
 
-#endif /* Core_h */
++ (UIImage *)fastImageWithData:(NSData *)data;
++ (UIImage *)fastImageWithContentsOfFile:(NSString *)path;
+
+@end

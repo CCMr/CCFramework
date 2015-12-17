@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  UIImage+Operations.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,13 +23,41 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import <UIKit/UIKit.h>
 
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
+/**
+ *  @author CC, 15-09-02
+ *
+ *  @brief  图片特效
+ *
+ *  @since 1.0
+ */
+@interface UIImage (Operations)
 
-#endif /* Core_h */
+// Convolution Oprations
+- (UIImage *)gaussianBlur;
+- (UIImage *)edgeDetection;
+- (UIImage *)emboss;
+- (UIImage *)sharpen;
+- (UIImage *)unsharpen;
+
+// Geometric Operations
+- (UIImage *)rotateInRadians:(float)radians;
+
+// Morphological Operations
+- (UIImage *)dilate;
+- (UIImage *)erode;
+- (UIImage *)dilateWithIterations:(int)iterations;
+- (UIImage *)erodeWithIterations:(int)iterations;
+- (UIImage *)gradientWithIterations:(int)iterations;
+- (UIImage *)tophatWithIterations:(int)iterations;
+- (UIImage *)blackhatWithIterations:(int)iterations;
+
+// Histogram Operations
+- (UIImage *)equalization;
+
+- (UIImage *)imageBlendedWithImage: (UIImage *)overlayImage
+                         blendMode: (CGBlendMode)blendMode
+                             alpha:(CGFloat)alpha;
+
+@end

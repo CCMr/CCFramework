@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  UIImage+Data.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,13 +23,58 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import <UIKit/UIKit.h>
 
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
+@interface UIImage (Data)
 
-#endif /* Core_h */
+/**
+ *  @author CC, 15-08-27
+ *
+ *  @brief  Image转data
+ *
+ *  @return 返回ImageData
+ *
+ *  @since 1.0
+ */
+- (NSData *)data;
+
+/**
+ *  @author CC, 15-08-27
+ *
+ *  @brief  Image转base64位字符串
+ *
+ *  @return 返回Image字符串
+ *
+ *  @since <#1.0#>
+ */
+- (NSString *)base64;
+
+/**
+ *  @author CC, 15-08-27
+ *
+ *  @brief  Image压缩转base64位字符串
+ *
+ *  @param targetSize 压缩图片大小
+ *
+ *  @return 返回Image字符串
+ *
+ *  @since 1.0
+ */
+- (NSString *)base64: (CGSize)targetSize;
+
+/**
+ *  @author CC, 15-08-27
+ *
+ *  @brief  Image压缩转base64位字符串
+ *
+ *  @param size    压缩图片大小
+ *  @param percent 压缩比例
+ *
+ *  @return 返回Image字符串
+ *
+ *  @since 1.0
+ */
+- (NSString *)baset64:(CGSize)size
+              Percent:(float)percent;
+
+@end

@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  NSDictionary+Additions.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -22,14 +22,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+#import <Foundation/Foundation.h>
 
-#ifndef Core_h
-#define Core_h
+@interface NSDictionary (Additions)
 
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
+/**
+ *  @author CC, 2015-12-04
+ *  
+ *  @brief  转换字符串
+ */
+- (NSString *)changedJson;
 
-#endif /* Core_h */
+@end

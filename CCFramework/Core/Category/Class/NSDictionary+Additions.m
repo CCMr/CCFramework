@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  NSDictionary+Additions.m
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,13 +23,23 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import "NSDictionary+Additions.h"
 
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
+@implementation NSDictionary (Additions)
 
-#endif /* Core_h */
+/**
+ *  @author CC, 2015-12-04
+ *  
+ *  @brief  转换字符串
+ */
+- (NSString *)changedJson
+{
+    NSError *parseError = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self 
+                                                       options:NSJSONWritingPrettyPrinted 
+                                                         error:&parseError];
+    
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+}
+
+@end

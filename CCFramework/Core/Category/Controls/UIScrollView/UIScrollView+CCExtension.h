@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  UIScrollView+CCExtension.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,13 +23,19 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import <UIKit/UIKit.h>
 
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
+@interface UIScrollView (CCExtension)
 
-#endif /* Core_h */
+@property(nonatomic, assign) CGFloat contentInsetTop;
+@property(nonatomic, assign) CGFloat contentInsetBottom;
+@property(nonatomic, assign) CGFloat contentInsetLeft;
+@property(nonatomic, assign) CGFloat contentInsetRight;
+
+@property(nonatomic, assign) CGFloat contentOffsetX;
+@property(nonatomic, assign) CGFloat contentOffsetY;
+
+@property(nonatomic, assign) CGFloat contentSizeWidth;
+@property(nonatomic, assign) CGFloat contentSizeHeight;
+
+@end

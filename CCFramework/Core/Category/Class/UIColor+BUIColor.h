@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  UIColor+BUIColor.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,13 +23,35 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import <UIKit/UIKit.h>
 
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
+@interface UIColor (BUIColor)
 
-#endif /* Core_h */
+/**
+ *  @author CC, 2015-07-23 10:07:57
+ *
+ *  @brief  十六进制颜色字符串
+ *
+ *  @param color <#color description#>
+ *
+ *  @return <#return value description#>
+ *
+ *  @since <#version number#>
+ */
++ (UIColor *)colorWithHexString:(NSString *)color;
+
+/**
+ *  @author CC, 2015-07-23 10:07:38
+ *
+ *  @brief  十六进制颜色
+ *
+ *  @param hexString <#hexString description#>
+ *
+ *  @return <#return value description#>
+ *
+ *  @since 1.0
+ */
++ (UIColor *)colorFromHexCode:(NSString *)hexString;
+
+
+@end

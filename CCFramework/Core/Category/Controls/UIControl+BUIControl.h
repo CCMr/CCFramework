@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  UIControl+BUIControl.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,13 +23,35 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import <UIKit/UIKit.h>
 
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
+@interface UIControl (BUIControl)
 
-#endif /* Core_h */
+/**
+ *  @author CC, 2015-07-16
+ *
+ *  @brief  Block按钮事件
+ *
+ *  @param event 事件类型
+ *  @param block 委托Block
+ *
+ *  @return <#return value description#>
+ *
+ *  @since 1.0
+ */
+- (void)handleControlEvent:(UIControlEvents)event withBlock:(void(^)(id sender))block;
+
+/**
+ *  @author CC, 2015-07-16
+ *
+ *  @brief  删除Block
+ *
+ *  @param event 事件类型
+ *
+ *  @return <#return value description#>
+ *
+ *  @since 1.0
+ */
+- (void)removeHandlerForEvent:(UIControlEvents)event;
+
+@end

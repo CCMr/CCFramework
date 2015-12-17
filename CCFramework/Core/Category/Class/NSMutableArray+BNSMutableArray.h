@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  NSMutableArray+BNSMutableArray.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,13 +23,19 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import <Foundation/Foundation.h>
 
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
+@interface NSMutableArray (BNSMutableArray)
 
-#endif /* Core_h */
+/**
+ *  @author CC, 2015-07-22 15:07:52
+ *
+ *  @brief  去除重复数据
+ *
+ *  @param PropertyName <#PropertyName description#>
+ *
+ *  @since 1.0
+ */
+- (void)deduplication:(NSArray *)PropertyName;
+
+@end

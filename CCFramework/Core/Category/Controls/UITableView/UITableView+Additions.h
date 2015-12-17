@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  UITableView+Additions.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,13 +23,17 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import <UIKit/UIKit.h>
 
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
+@interface UITableView (Additions)
 
-#endif /* Core_h */
+/**
+ *  @author CC, 2015-07-23
+ *
+ *  @brief  隐藏TableView多余线
+ *
+ *  @since 1.0
+ */
+- (void)extraCellLineHidden;
+
+@end

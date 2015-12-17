@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  UIButton+CCButtonTitlePosition.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,13 +23,22 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import <UIKit/UIKit.h>
 
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
+/**
+ *  @author C C, 15-08-18
+ *
+ *  @brief  按钮标题类型
+ *
+ *  @since <#1.0#>
+ */
+typedef NS_ENUM(NSInteger, CCButtonTitlePostionType) {
+    /** 底部 **/
+    CCButtonTitlePostionTypeBottom = 0,
+};
 
-#endif /* Core_h */
+@interface UIButton (CCButtonTitlePosition)
+
+- (void)setTitlePositionWithType:(CCButtonTitlePostionType)type;
+
+@end

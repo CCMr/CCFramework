@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  NSObject+Additions.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,13 +23,30 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import <Foundation/Foundation.h>
 
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
+@interface NSObject (Additions)
 
-#endif /* Core_h */
+/**
+ *  @author C C, 2015-11-12
+ *
+ *  @brief  一般用于初始化对象
+ *
+ *  @param methodName 初始化函数名
+ *
+ *  @return 返回初始化对象
+ */
++ (id)InitDefaultMethod:(NSString *)methodName;
+
+/**
+ *  @author C C, 2015-10-27
+ *
+ *  @brief  多参数调用
+ *
+ *  @param selector 函数名
+ *
+ *  @return 返回函数值
+ */
+- (id)performSelectors:(NSString *)methodName withObject:aObject, ... NS_REQUIRES_NIL_TERMINATION;
+
+@end

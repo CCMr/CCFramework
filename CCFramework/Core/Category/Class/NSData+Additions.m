@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  NSData+Additions.m
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,13 +23,59 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import "NSData+Additions.h"
+#import "CCBase64.h"
 
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
+@implementation NSData (Additions)
 
-#endif /* Core_h */
+/**
+ *  @author CC, 15-09-09
+ *
+ *  @brief  data转换字符串
+ *
+ *  @return 返回转换字符串
+ *
+ *  @since 1.0
+ */
+- (NSString *)ChangedString
+{
+    return [[NSString alloc] initWithData:self encoding:NSUTF8StringEncoding];
+}
+
+/**
+ *  @author CC, 15-09-25
+ *
+ *  @brief  base64编码
+ *
+ *  @return 返回编码之后的字符串
+ */
+- (NSString *)encodeBase64Data
+{
+    return [[NSString alloc] initWithData:[CCBase64 encodeData:self] encoding:NSUTF8StringEncoding];
+}
+
+/**
+ *  @author CC, 15-09-25
+ *
+ *  @brief  base64解码
+ *
+ *  @return 返回加密字符串
+ */
+- (NSString *)decodeBase64Data
+{
+    return [[NSString alloc] initWithData:[CCBase64 decodeData:self] encoding:NSUTF8StringEncoding];
+}
+
+/**
+ *  @author CC, 2015-11-17
+ *  
+ *  @brief  data转图片
+ *
+ *  @return <#return value description#>
+ */
+-(UIImage *)convertingDataToImage
+{
+    return [UIImage imageWithData:self];
+}
+
+@end

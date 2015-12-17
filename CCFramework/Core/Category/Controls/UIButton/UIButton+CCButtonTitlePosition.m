@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  UIButton+CCButtonTitlePosition.m
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,13 +23,30 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import "UIButton+CCButtonTitlePosition.h"
 
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
+@implementation UIButton (CCButtonTitlePosition)
 
-#endif /* Core_h */
+- (void)setTitlePositionWithType:(CCButtonTitlePostionType)type {
+    switch (type) {
+        case CCButtonTitlePostionTypeBottom: {
+            // the space between the image and text
+            CGFloat spacing = 2.0;
+
+            // lower the text and push it left so it appears centered
+            //  below the image
+            CGSize imageSize = self.imageView.frame.size;
+            self.titleEdgeInsets = UIEdgeInsetsMake(0.0, - imageSize.width, - (imageSize.height + spacing), 0.0);
+
+            // raise the image and push it right so it appears centered
+            //  above the text
+            CGSize titleSize = self.titleLabel.frame.size;
+            self.imageEdgeInsets = UIEdgeInsetsMake(-(titleSize.height + spacing), 0.0, 0.0, - titleSize.width);
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+@end

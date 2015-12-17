@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  UISearchBar+Addition.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,13 +23,28 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import <UIKit/UIKit.h>
 
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
+@interface UISearchBar (Addition)
 
-#endif /* Core_h */
+/**
+ *  @author CC, 2015-11-06
+ *  
+ *  @brief  设置取消按钮标题
+ *
+ *  @param title 标题
+ */
+- (void)setCancelTitle:(NSString *)title;
+
+/**
+ *  @author CC, 2015-11-06
+ *  
+ *  @brief  设置取消按钮文字与颜色
+ *
+ *  @param title 标题
+ *  @param color 颜色
+ */
+- (void)setCancelTitleWithColor:(NSString *)title
+                          Color:(UIColor *)color;
+
+@end

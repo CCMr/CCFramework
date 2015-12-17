@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  UILabel+Addition.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,13 +23,19 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
 
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
+#import <UIKit/UIKit.h>
+#import <CoreText/CoreText.h>
 
-#endif /* Core_h */
+@interface UILabel (Addition)
+
+/**
+ *  @author CC, 15-09-25
+ *
+ *  @brief  设置CellLabel背景颜色
+ *
+ *  @param color 颜色值
+ */
+- (void)cellLabelSetColor: (UIColor *)color;
+
+@end
