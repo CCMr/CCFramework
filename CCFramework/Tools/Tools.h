@@ -27,7 +27,6 @@
 #define CCFramework_Tools_h
 
 #import <CCFramework/ChatDisplayKitLib.h>
-#import <CCFramework/Category.h>
 #import <CCFramework/CCCameraViewController.h>
 #import <CCFramework/CCLocationManager.h>
 #import <CCFramework/SignalRManager.h>
