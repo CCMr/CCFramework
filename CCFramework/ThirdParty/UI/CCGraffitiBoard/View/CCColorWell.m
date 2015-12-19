@@ -24,6 +24,8 @@
 //
 
 #import "CCColorWell.h"
+#import "CCColor.h"
+#import "CCUtilities.h"
 
 const float kCCColorWellShadowOpacity = 0.8f;
 
@@ -63,7 +65,7 @@ const float kCCColorWellShadowOpacity = 0.8f;
     layer.shadowPath = [self shape].CGPath;
 }
 
-- (void)setColor:(UIColor *)inColor
+- (void)setColor:(CCColor *)inColor
 {
     _color = inColor;
     [self setNeedsDisplay];
@@ -71,33 +73,13 @@ const float kCCColorWellShadowOpacity = 0.8f;
 
 - (void)drawRect:(CGRect)rect
 {
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextSaveGState(ctx);
-    [self.shape addClip];
-    float minX = CGRectGetMinX(self.shape.bounds);
-    float maxX = CGRectGetMaxX(self.shape.bounds);
-    float minY = CGRectGetMinY(self.shape.bounds);
-    float maxY = CGRectGetMaxY(self.shape.bounds);
-    
-    // preserve the existing color
-    CGContextSaveGState(ctx);
-    [[UIColor whiteColor] set];
-    CGContextFillRect(ctx, self.shape.bounds);
-    
-    CGMutablePathRef path = CGPathCreateMutable();
-    CGPathMoveToPoint(path, NULL, minX, minY);
-    CGPathAddLineToPoint(path, NULL, maxX, minY);
-    CGPathAddLineToPoint(path, NULL, minX, maxY);
-    CGPathCloseSubpath(path);
-    
-    [[UIColor blackColor] set];
-    CGContextAddPath(ctx, path);
-    CGContextFillPath(ctx);
-    CGContextRestoreGState(ctx);
-    
-    CGPathRelease(path);
-    
-    CGContextRestoreGState(ctx);
+    if (_color.alpha < 1.0) {
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        CGContextSaveGState(ctx);
+        [self.shape addClip];
+        CCDrawTransparencyDiamondInRect(ctx, self.shape.bounds);
+        CGContextRestoreGState(ctx);
+    }
     
     [self.color set];
     [self.shape fill];

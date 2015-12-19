@@ -25,6 +25,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CCGraffitiBoardView : UIView
+@interface CCGraffitiBoardView : UIViewController
+
+- (void)show;
 
 @end

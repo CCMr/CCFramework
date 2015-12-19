@@ -29,6 +29,7 @@
 #import <CCFramework/MKAnnotationView+WebCache.h>
 #import <CCFramework/NSData+ImageContentType.h>
 #import <CCFramework/UIButton+WebCache.h>
+#import <CCFramework/CCBarSlider.h>
 #import <CCFramework/UIImage+GIF.h>
 #import <CCFramework/UIImage+MultiFormat.h>
 #import <CCFramework/UIImage+WebP.h>
@@ -73,5 +74,6 @@
 #import <CCFramework/CCWebView.h>
 #import <CCFramework/CustomIOSAlertView.h>
 #import <CCFramework/CCDropDown.h>
+#import <CCFramework/CCColorPickerController.h>
 
 #endif

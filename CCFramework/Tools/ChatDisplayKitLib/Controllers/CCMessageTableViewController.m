@@ -234,7 +234,7 @@ const CGFloat CCMessageRefreshViewHeight = 20.0;
  *
  *  @param emotionPath 目标gif表情路径
  */
-- (void)didSendEmotionMessageWithEmotionPath:(NSString *)emotionPath 
+- (void)didSendEmotionMessageWithEmotionPath:(NSString *)emotionPath
                                   EmotionUrl:(NSString *)emotionUrl;
 /**
  *  根据地理位置信息和地理经纬度开始发送地理位置消息

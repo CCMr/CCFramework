@@ -693,6 +693,42 @@
 		42DBA8591BB5309300AD47C6 /* CCDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DBA8581BB5309300AD47C6 /* CCDefines.h */; };
 		42DC3EEB1BEF49EE00F9CC38 /* CCNSLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DC3EE91BEF49EE00F9CC38 /* CCNSLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42DC3EEC1BEF49EE00F9CC38 /* CCNSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DC3EEA1BEF49EE00F9CC38 /* CCNSLog.m */; };
+		42DEB2921C25495000734E09 /* CCColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2731C25495000734E09 /* CCColor.h */; };
+		42DEB2931C25495000734E09 /* CCColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2741C25495000734E09 /* CCColor.m */; };
+		42DEB2941C25495000734E09 /* CCColorSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2751C25495000734E09 /* CCColorSlider.h */; };
+		42DEB2951C25495000734E09 /* CCColorSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2761C25495000734E09 /* CCColorSlider.m */; };
+		42DEB2961C25495000734E09 /* CCColorSquare.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2771C25495000734E09 /* CCColorSquare.h */; };
+		42DEB2971C25495000734E09 /* CCColorSquare.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2781C25495000734E09 /* CCColorSquare.m */; };
+		42DEB2981C25495000734E09 /* CCColorWheel.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2791C25495000734E09 /* CCColorWheel.h */; };
+		42DEB2991C25495000734E09 /* CCColorWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB27A1C25495000734E09 /* CCColorWheel.m */; };
+		42DEB29A1C25495000734E09 /* CCShader.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB27C1C25495000734E09 /* CCShader.h */; };
+		42DEB29B1C25495000734E09 /* CCShader.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB27D1C25495000734E09 /* CCShader.m */; };
+		42DEB29C1C25495000734E09 /* gl_matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB27F1C25495000734E09 /* gl_matrix.c */; };
+		42DEB29D1C25495000734E09 /* gl_matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2801C25495000734E09 /* gl_matrix.h */; };
+		42DEB29E1C25495000734E09 /* Shaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2811C25495000734E09 /* Shaders.h */; };
+		42DEB29F1C25495000734E09 /* Shaders.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2821C25495000734E09 /* Shaders.m */; };
+		42DEB2A01C25495000734E09 /* CCColorComparator.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2841C25495000734E09 /* CCColorComparator.h */; };
+		42DEB2A11C25495000734E09 /* CCColorComparator.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2851C25495000734E09 /* CCColorComparator.m */; };
+		42DEB2A21C25495000734E09 /* CCColorIndicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2861C25495000734E09 /* CCColorIndicator.h */; };
+		42DEB2A31C25495000734E09 /* CCColorIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2871C25495000734E09 /* CCColorIndicator.m */; };
+		42DEB2A41C25495000734E09 /* CCColorSourceView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2881C25495000734E09 /* CCColorSourceView.h */; };
+		42DEB2A51C25495000734E09 /* CCColorSourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2891C25495000734E09 /* CCColorSourceView.m */; };
+		42DEB2A61C25495000734E09 /* CCDragChip.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB28A1C25495000734E09 /* CCDragChip.h */; };
+		42DEB2A71C25495000734E09 /* CCDragChip.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB28B1C25495000734E09 /* CCDragChip.m */; };
+		42DEB2A81C25495000734E09 /* CCInsetView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB28C1C25495000734E09 /* CCInsetView.h */; };
+		42DEB2A91C25495000734E09 /* CCInsetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB28D1C25495000734E09 /* CCInsetView.m */; };
+		42DEB2AA1C25495000734E09 /* CCMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB28E1C25495000734E09 /* CCMatrix.h */; };
+		42DEB2AB1C25495000734E09 /* CCMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB28F1C25495000734E09 /* CCMatrix.m */; };
+		42DEB2AC1C25495000734E09 /* CCSwatches.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2901C25495000734E09 /* CCSwatches.h */; };
+		42DEB2AD1C25495000734E09 /* CCSwatches.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2911C25495000734E09 /* CCSwatches.m */; };
+		42DEB2B11C25496C00734E09 /* CCUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2AF1C25496C00734E09 /* CCUtilities.h */; };
+		42DEB2B21C25496C00734E09 /* CCUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2B01C25496C00734E09 /* CCUtilities.m */; };
+		42DEB2B61C254A2100734E09 /* CCBarSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2B41C254A2100734E09 /* CCBarSlider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42DEB2B71C254A2100734E09 /* CCBarSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2B51C254A2100734E09 /* CCBarSlider.m */; };
+		42DEB2BA1C254A6800734E09 /* CCColorPickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2B81C254A6800734E09 /* CCColorPickerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42DEB2BB1C254A6800734E09 /* CCColorPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2B91C254A6800734E09 /* CCColorPickerController.m */; };
+		42DEB2BF1C254ABC00734E09 /* CCBrushView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2BD1C254ABC00734E09 /* CCBrushView.h */; };
+		42DEB2C01C254ABC00734E09 /* CCBrushView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2BE1C254ABC00734E09 /* CCBrushView.m */; };
 		42F24C4F1BEA5091008CDEDC /* PNBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F24C2D1BEA5091008CDEDC /* PNBar.h */; };
 		42F24C501BEA5091008CDEDC /* PNBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F24C2E1BEA5091008CDEDC /* PNBar.m */; };
 		42F24C511BEA5091008CDEDC /* PNBarChart.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F24C2F1BEA5091008CDEDC /* PNBarChart.h */; };
@@ -731,8 +767,6 @@
 		42F24C751BEA5236008CDEDC /* CCCountingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F24C731BEA5236008CDEDC /* CCCountingLabel.m */; };
 		42F24C791BEA5A10008CDEDC /* CCChart.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F24C771BEA5A10008CDEDC /* CCChart.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42F24C7A1BEA5A10008CDEDC /* CCChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F24C781BEA5A10008CDEDC /* CCChart.m */; };
-		42F4112E1C214C5400814E7B /* CCColorAdjuster.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F410E81C214C5400814E7B /* CCColorAdjuster.h */; };
-		42F4112F1C214C5400814E7B /* CCColorAdjuster.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F410E91C214C5400814E7B /* CCColorAdjuster.m */; };
 		42F411301C214C5400814E7B /* CCImageManger.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F410EA1C214C5400814E7B /* CCImageManger.h */; };
 		42F411311C214C5400814E7B /* CCImageManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F410EB1C214C5400814E7B /* CCImageManger.m */; };
 		42F411321C214C5400814E7B /* CCImagePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F410EC1C214C5400814E7B /* CCImagePicker.h */; };
@@ -758,40 +792,6 @@
 		42F411461C214C5400814E7B /* CCRectangleBrush.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F411041C214C5400814E7B /* CCRectangleBrush.m */; };
 		42F411471C214C5400814E7B /* CCSquareBrush.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F411051C214C5400814E7B /* CCSquareBrush.h */; };
 		42F411481C214C5400814E7B /* CCSquareBrush.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F411061C214C5400814E7B /* CCSquareBrush.m */; };
-		42F411491C214C5400814E7B /* ANImageBitmapRep.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F411091C214C5400814E7B /* ANImageBitmapRep.h */; };
-		42F4114A1C214C5400814E7B /* ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F4110A1C214C5400814E7B /* ANImageBitmapRep.m */; };
-		42F4114B1C214C5400814E7B /* BitmapContextRep.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F4110B1C214C5400814E7B /* BitmapContextRep.h */; };
-		42F4114C1C214C5400814E7B /* BitmapContextRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F4110C1C214C5400814E7B /* BitmapContextRep.m */; };
-		42F4114D1C214C5400814E7B /* OSCommonImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F4110E1C214C5400814E7B /* OSCommonImage.h */; };
-		42F4114E1C214C5400814E7B /* OSCommonImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F4110F1C214C5400814E7B /* OSCommonImage.m */; };
-		42F4114F1C214C5400814E7B /* UIImage+ANImageBitmapRep.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F411101C214C5400814E7B /* UIImage+ANImageBitmapRep.h */; };
-		42F411501C214C5400814E7B /* UIImage+ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F411111C214C5400814E7B /* UIImage+ANImageBitmapRep.m */; };
-		42F411511C214C5400814E7B /* CGContextCreator.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F411131C214C5400814E7B /* CGContextCreator.h */; };
-		42F411521C214C5400814E7B /* CGContextCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F411141C214C5400814E7B /* CGContextCreator.m */; };
-		42F411531C214C5400814E7B /* CGImageContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F411151C214C5400814E7B /* CGImageContainer.h */; };
-		42F411541C214C5400814E7B /* CGImageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F411161C214C5400814E7B /* CGImageContainer.m */; };
-		42F411551C214C5400814E7B /* BitmapContextManipulator.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F411181C214C5400814E7B /* BitmapContextManipulator.h */; };
-		42F411561C214C5400814E7B /* BitmapContextManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F411191C214C5400814E7B /* BitmapContextManipulator.m */; };
-		42F411571C214C5400814E7B /* BitmapCropManipulator.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F4111A1C214C5400814E7B /* BitmapCropManipulator.h */; };
-		42F411581C214C5400814E7B /* BitmapCropManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F4111B1C214C5400814E7B /* BitmapCropManipulator.m */; };
-		42F411591C214C5400814E7B /* BitmapDrawManipulator.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F4111C1C214C5400814E7B /* BitmapDrawManipulator.h */; };
-		42F4115A1C214C5400814E7B /* BitmapDrawManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F4111D1C214C5400814E7B /* BitmapDrawManipulator.m */; };
-		42F4115B1C214C5400814E7B /* BitmapRotationManipulator.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F4111E1C214C5400814E7B /* BitmapRotationManipulator.h */; };
-		42F4115C1C214C5400814E7B /* BitmapRotationManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F4111F1C214C5400814E7B /* BitmapRotationManipulator.m */; };
-		42F4115D1C214C5400814E7B /* BitmapScaleManipulator.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F411201C214C5400814E7B /* BitmapScaleManipulator.h */; };
-		42F4115E1C214C5400814E7B /* BitmapScaleManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F411211C214C5400814E7B /* BitmapScaleManipulator.m */; };
-		42F4115F1C214C5400814E7B /* BGRSLoupeLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F411221C214C5400814E7B /* BGRSLoupeLayer.h */; };
-		42F411601C214C5400814E7B /* BGRSLoupeLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F411231C214C5400814E7B /* BGRSLoupeLayer.m */; };
-		42F411611C214C5400814E7B /* RSColorFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F411241C214C5400814E7B /* RSColorFunctions.h */; };
-		42F411621C214C5400814E7B /* RSColorFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F411251C214C5400814E7B /* RSColorFunctions.m */; };
-		42F411631C214C5400814E7B /* RSColorPickerState.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F411261C214C5400814E7B /* RSColorPickerState.h */; };
-		42F411641C214C5400814E7B /* RSColorPickerState.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F411271C214C5400814E7B /* RSColorPickerState.m */; };
-		42F411651C214C5400814E7B /* RSColorPickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F411281C214C5400814E7B /* RSColorPickerView.h */; };
-		42F411661C214C5400814E7B /* RSColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F411291C214C5400814E7B /* RSColorPickerView.m */; };
-		42F411671C214C5400814E7B /* RSGenerateOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F4112A1C214C5400814E7B /* RSGenerateOperation.h */; };
-		42F411681C214C5400814E7B /* RSGenerateOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F4112B1C214C5400814E7B /* RSGenerateOperation.m */; };
-		42F411691C214C5400814E7B /* RSSelectionLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F4112C1C214C5400814E7B /* RSSelectionLayer.h */; };
-		42F4116A1C214C5400814E7B /* RSSelectionLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F4112D1C214C5400814E7B /* RSSelectionLayer.m */; };
 		42F411C51C2150E500814E7B /* CALayer+Transition.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F4116D1C2150E500814E7B /* CALayer+Transition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42F411C61C2150E500814E7B /* CALayer+Transition.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F4116E1C2150E500814E7B /* CALayer+Transition.m */; };
 		42F411C71C2150E500814E7B /* Category.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F4116F1C2150E500814E7B /* Category.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1550,6 +1550,42 @@
 		42DBA8581BB5309300AD47C6 /* CCDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDefines.h; path = Base64/CCDefines.h; sourceTree = "<group>"; };
 		42DC3EE91BEF49EE00F9CC38 /* CCNSLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCNSLog.h; path = Core/CCLog/CCNSLog.h; sourceTree = "<group>"; };
 		42DC3EEA1BEF49EE00F9CC38 /* CCNSLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCNSLog.m; path = Core/CCLog/CCNSLog.m; sourceTree = "<group>"; };
+		42DEB2731C25495000734E09 /* CCColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCColor.h; sourceTree = "<group>"; };
+		42DEB2741C25495000734E09 /* CCColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCColor.m; sourceTree = "<group>"; };
+		42DEB2751C25495000734E09 /* CCColorSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCColorSlider.h; sourceTree = "<group>"; };
+		42DEB2761C25495000734E09 /* CCColorSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCColorSlider.m; sourceTree = "<group>"; };
+		42DEB2771C25495000734E09 /* CCColorSquare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCColorSquare.h; sourceTree = "<group>"; };
+		42DEB2781C25495000734E09 /* CCColorSquare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCColorSquare.m; sourceTree = "<group>"; };
+		42DEB2791C25495000734E09 /* CCColorWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCColorWheel.h; sourceTree = "<group>"; };
+		42DEB27A1C25495000734E09 /* CCColorWheel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCColorWheel.m; sourceTree = "<group>"; };
+		42DEB27C1C25495000734E09 /* CCShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCShader.h; sourceTree = "<group>"; };
+		42DEB27D1C25495000734E09 /* CCShader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCShader.m; sourceTree = "<group>"; };
+		42DEB27F1C25495000734E09 /* gl_matrix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gl_matrix.c; sourceTree = "<group>"; };
+		42DEB2801C25495000734E09 /* gl_matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gl_matrix.h; sourceTree = "<group>"; };
+		42DEB2811C25495000734E09 /* Shaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shaders.h; sourceTree = "<group>"; };
+		42DEB2821C25495000734E09 /* Shaders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shaders.m; sourceTree = "<group>"; };
+		42DEB2841C25495000734E09 /* CCColorComparator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCColorComparator.h; sourceTree = "<group>"; };
+		42DEB2851C25495000734E09 /* CCColorComparator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCColorComparator.m; sourceTree = "<group>"; };
+		42DEB2861C25495000734E09 /* CCColorIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCColorIndicator.h; sourceTree = "<group>"; };
+		42DEB2871C25495000734E09 /* CCColorIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCColorIndicator.m; sourceTree = "<group>"; };
+		42DEB2881C25495000734E09 /* CCColorSourceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCColorSourceView.h; sourceTree = "<group>"; };
+		42DEB2891C25495000734E09 /* CCColorSourceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCColorSourceView.m; sourceTree = "<group>"; };
+		42DEB28A1C25495000734E09 /* CCDragChip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDragChip.h; sourceTree = "<group>"; };
+		42DEB28B1C25495000734E09 /* CCDragChip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDragChip.m; sourceTree = "<group>"; };
+		42DEB28C1C25495000734E09 /* CCInsetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCInsetView.h; sourceTree = "<group>"; };
+		42DEB28D1C25495000734E09 /* CCInsetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCInsetView.m; sourceTree = "<group>"; };
+		42DEB28E1C25495000734E09 /* CCMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMatrix.h; sourceTree = "<group>"; };
+		42DEB28F1C25495000734E09 /* CCMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCMatrix.m; sourceTree = "<group>"; };
+		42DEB2901C25495000734E09 /* CCSwatches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSwatches.h; sourceTree = "<group>"; };
+		42DEB2911C25495000734E09 /* CCSwatches.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCSwatches.m; sourceTree = "<group>"; };
+		42DEB2AF1C25496C00734E09 /* CCUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCUtilities.h; sourceTree = "<group>"; };
+		42DEB2B01C25496C00734E09 /* CCUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCUtilities.m; sourceTree = "<group>"; };
+		42DEB2B41C254A2100734E09 /* CCBarSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCBarSlider.h; sourceTree = "<group>"; };
+		42DEB2B51C254A2100734E09 /* CCBarSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCBarSlider.m; sourceTree = "<group>"; };
+		42DEB2B81C254A6800734E09 /* CCColorPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCColorPickerController.h; path = CCGraffitiBoard/CCColorPickerController.h; sourceTree = "<group>"; };
+		42DEB2B91C254A6800734E09 /* CCColorPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCColorPickerController.m; path = CCGraffitiBoard/CCColorPickerController.m; sourceTree = "<group>"; };
+		42DEB2BD1C254ABC00734E09 /* CCBrushView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCBrushView.h; sourceTree = "<group>"; };
+		42DEB2BE1C254ABC00734E09 /* CCBrushView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCBrushView.m; sourceTree = "<group>"; };
 		42F24C2D1BEA5091008CDEDC /* PNBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNBar.h; sourceTree = "<group>"; };
 		42F24C2E1BEA5091008CDEDC /* PNBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNBar.m; sourceTree = "<group>"; };
 		42F24C2F1BEA5091008CDEDC /* PNBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNBarChart.h; sourceTree = "<group>"; };
@@ -1588,8 +1624,6 @@
 		42F24C731BEA5236008CDEDC /* CCCountingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCCountingLabel.m; sourceTree = "<group>"; };
 		42F24C771BEA5A10008CDEDC /* CCChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCChart.h; path = CCChart/CCChart.h; sourceTree = "<group>"; };
 		42F24C781BEA5A10008CDEDC /* CCChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCChart.m; path = CCChart/CCChart.m; sourceTree = "<group>"; };
-		42F410E81C214C5400814E7B /* CCColorAdjuster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCColorAdjuster.h; sourceTree = "<group>"; };
-		42F410E91C214C5400814E7B /* CCColorAdjuster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCColorAdjuster.m; sourceTree = "<group>"; };
 		42F410EA1C214C5400814E7B /* CCImageManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCImageManger.h; sourceTree = "<group>"; };
 		42F410EB1C214C5400814E7B /* CCImageManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCImageManger.m; sourceTree = "<group>"; };
 		42F410EC1C214C5400814E7B /* CCImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCImagePicker.h; sourceTree = "<group>"; };
@@ -1615,40 +1649,6 @@
 		42F411041C214C5400814E7B /* CCRectangleBrush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCRectangleBrush.m; sourceTree = "<group>"; };
 		42F411051C214C5400814E7B /* CCSquareBrush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSquareBrush.h; sourceTree = "<group>"; };
 		42F411061C214C5400814E7B /* CCSquareBrush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCSquareBrush.m; sourceTree = "<group>"; };
-		42F411091C214C5400814E7B /* ANImageBitmapRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANImageBitmapRep.h; sourceTree = "<group>"; };
-		42F4110A1C214C5400814E7B /* ANImageBitmapRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANImageBitmapRep.m; sourceTree = "<group>"; };
-		42F4110B1C214C5400814E7B /* BitmapContextRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapContextRep.h; sourceTree = "<group>"; };
-		42F4110C1C214C5400814E7B /* BitmapContextRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapContextRep.m; sourceTree = "<group>"; };
-		42F4110E1C214C5400814E7B /* OSCommonImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSCommonImage.h; sourceTree = "<group>"; };
-		42F4110F1C214C5400814E7B /* OSCommonImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSCommonImage.m; sourceTree = "<group>"; };
-		42F411101C214C5400814E7B /* UIImage+ANImageBitmapRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ANImageBitmapRep.h"; sourceTree = "<group>"; };
-		42F411111C214C5400814E7B /* UIImage+ANImageBitmapRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ANImageBitmapRep.m"; sourceTree = "<group>"; };
-		42F411131C214C5400814E7B /* CGContextCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGContextCreator.h; sourceTree = "<group>"; };
-		42F411141C214C5400814E7B /* CGContextCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGContextCreator.m; sourceTree = "<group>"; };
-		42F411151C214C5400814E7B /* CGImageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGImageContainer.h; sourceTree = "<group>"; };
-		42F411161C214C5400814E7B /* CGImageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGImageContainer.m; sourceTree = "<group>"; };
-		42F411181C214C5400814E7B /* BitmapContextManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapContextManipulator.h; sourceTree = "<group>"; };
-		42F411191C214C5400814E7B /* BitmapContextManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapContextManipulator.m; sourceTree = "<group>"; };
-		42F4111A1C214C5400814E7B /* BitmapCropManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapCropManipulator.h; sourceTree = "<group>"; };
-		42F4111B1C214C5400814E7B /* BitmapCropManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapCropManipulator.m; sourceTree = "<group>"; };
-		42F4111C1C214C5400814E7B /* BitmapDrawManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapDrawManipulator.h; sourceTree = "<group>"; };
-		42F4111D1C214C5400814E7B /* BitmapDrawManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapDrawManipulator.m; sourceTree = "<group>"; };
-		42F4111E1C214C5400814E7B /* BitmapRotationManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapRotationManipulator.h; sourceTree = "<group>"; };
-		42F4111F1C214C5400814E7B /* BitmapRotationManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapRotationManipulator.m; sourceTree = "<group>"; };
-		42F411201C214C5400814E7B /* BitmapScaleManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapScaleManipulator.h; sourceTree = "<group>"; };
-		42F411211C214C5400814E7B /* BitmapScaleManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapScaleManipulator.m; sourceTree = "<group>"; };
-		42F411221C214C5400814E7B /* BGRSLoupeLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGRSLoupeLayer.h; sourceTree = "<group>"; };
-		42F411231C214C5400814E7B /* BGRSLoupeLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGRSLoupeLayer.m; sourceTree = "<group>"; };
-		42F411241C214C5400814E7B /* RSColorFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSColorFunctions.h; sourceTree = "<group>"; };
-		42F411251C214C5400814E7B /* RSColorFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSColorFunctions.m; sourceTree = "<group>"; };
-		42F411261C214C5400814E7B /* RSColorPickerState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSColorPickerState.h; sourceTree = "<group>"; };
-		42F411271C214C5400814E7B /* RSColorPickerState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSColorPickerState.m; sourceTree = "<group>"; };
-		42F411281C214C5400814E7B /* RSColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSColorPickerView.h; sourceTree = "<group>"; };
-		42F411291C214C5400814E7B /* RSColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSColorPickerView.m; sourceTree = "<group>"; };
-		42F4112A1C214C5400814E7B /* RSGenerateOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSGenerateOperation.h; sourceTree = "<group>"; };
-		42F4112B1C214C5400814E7B /* RSGenerateOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSGenerateOperation.m; sourceTree = "<group>"; };
-		42F4112C1C214C5400814E7B /* RSSelectionLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSelectionLayer.h; sourceTree = "<group>"; };
-		42F4112D1C214C5400814E7B /* RSSelectionLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSelectionLayer.m; sourceTree = "<group>"; };
 		42F4116D1C2150E500814E7B /* CALayer+Transition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+Transition.h"; sourceTree = "<group>"; };
 		42F4116E1C2150E500814E7B /* CALayer+Transition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+Transition.m"; sourceTree = "<group>"; };
 		42F4116F1C2150E500814E7B /* Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Category.h; sourceTree = "<group>"; };
@@ -2817,6 +2817,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E51BDE025300C76004 /* UI.h */,
+				42DEB2B31C254A2100734E09 /* CCBarSlider */,
 				42F410E61C2147DC00814E7B /* CCGraffitiBoard */,
 				42F24C711BEA5236008CDEDC /* CCCountingLabel */,
 				42F24C2C1BEA5091008CDEDC /* PNChart */,
@@ -3549,6 +3550,7 @@
 			isa = PBXGroup;
 			children = (
 				42B6473F1BEDA8DD00B2F6FD /* Core.h */,
+				42DEB2AE1C25496C00734E09 /* CCUtilities */,
 				42F4116B1C2150E500814E7B /* Category */,
 				425A4F351C11C444009A7E77 /* CCXML */,
 				423C12761C0ECA86009FBA17 /* Tool */,
@@ -3629,6 +3631,103 @@
 			name = CCLog;
 			sourceTree = "<group>";
 		};
+		42DEB2711C25495000734E09 /* CCColorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				42DEB2721C25495000734E09 /* Control */,
+				42DEB27B1C25495000734E09 /* Model */,
+				42DEB27E1C25495000734E09 /* ShaderUtils */,
+				42DEB2831C25495000734E09 /* View */,
+			);
+			name = CCColorPicker;
+			path = CCGraffitiBoard/CCColorPicker;
+			sourceTree = "<group>";
+		};
+		42DEB2721C25495000734E09 /* Control */ = {
+			isa = PBXGroup;
+			children = (
+				42DEB2731C25495000734E09 /* CCColor.h */,
+				42DEB2741C25495000734E09 /* CCColor.m */,
+				42DEB2751C25495000734E09 /* CCColorSlider.h */,
+				42DEB2761C25495000734E09 /* CCColorSlider.m */,
+				42DEB2771C25495000734E09 /* CCColorSquare.h */,
+				42DEB2781C25495000734E09 /* CCColorSquare.m */,
+				42DEB2791C25495000734E09 /* CCColorWheel.h */,
+				42DEB27A1C25495000734E09 /* CCColorWheel.m */,
+			);
+			path = Control;
+			sourceTree = "<group>";
+		};
+		42DEB27B1C25495000734E09 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				42DEB27C1C25495000734E09 /* CCShader.h */,
+				42DEB27D1C25495000734E09 /* CCShader.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		42DEB27E1C25495000734E09 /* ShaderUtils */ = {
+			isa = PBXGroup;
+			children = (
+				42DEB27F1C25495000734E09 /* gl_matrix.c */,
+				42DEB2801C25495000734E09 /* gl_matrix.h */,
+				42DEB2811C25495000734E09 /* Shaders.h */,
+				42DEB2821C25495000734E09 /* Shaders.m */,
+			);
+			path = ShaderUtils;
+			sourceTree = "<group>";
+		};
+		42DEB2831C25495000734E09 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				42DEB2841C25495000734E09 /* CCColorComparator.h */,
+				42DEB2851C25495000734E09 /* CCColorComparator.m */,
+				42DEB2861C25495000734E09 /* CCColorIndicator.h */,
+				42DEB2871C25495000734E09 /* CCColorIndicator.m */,
+				42DEB2881C25495000734E09 /* CCColorSourceView.h */,
+				42DEB2891C25495000734E09 /* CCColorSourceView.m */,
+				42DEB28A1C25495000734E09 /* CCDragChip.h */,
+				42DEB28B1C25495000734E09 /* CCDragChip.m */,
+				42DEB28C1C25495000734E09 /* CCInsetView.h */,
+				42DEB28D1C25495000734E09 /* CCInsetView.m */,
+				42DEB28E1C25495000734E09 /* CCMatrix.h */,
+				42DEB28F1C25495000734E09 /* CCMatrix.m */,
+				42DEB2901C25495000734E09 /* CCSwatches.h */,
+				42DEB2911C25495000734E09 /* CCSwatches.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		42DEB2AE1C25496C00734E09 /* CCUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				42DEB2AF1C25496C00734E09 /* CCUtilities.h */,
+				42DEB2B01C25496C00734E09 /* CCUtilities.m */,
+			);
+			name = CCUtilities;
+			path = Core/CCUtilities;
+			sourceTree = "<group>";
+		};
+		42DEB2B31C254A2100734E09 /* CCBarSlider */ = {
+			isa = PBXGroup;
+			children = (
+				42DEB2B41C254A2100734E09 /* CCBarSlider.h */,
+				42DEB2B51C254A2100734E09 /* CCBarSlider.m */,
+			);
+			path = CCBarSlider;
+			sourceTree = "<group>";
+		};
+		42DEB2BC1C254ABC00734E09 /* BrushView */ = {
+			isa = PBXGroup;
+			children = (
+				42DEB2BD1C254ABC00734E09 /* CCBrushView.h */,
+				42DEB2BE1C254ABC00734E09 /* CCBrushView.m */,
+			);
+			name = BrushView;
+			path = CCGraffitiBoard/View/BrushView;
+			sourceTree = "<group>";
+		};
 		42F24C2C1BEA5091008CDEDC /* PNChart */ = {
 			isa = PBXGroup;
 			children = (
@@ -3691,10 +3790,12 @@
 		42F410E61C2147DC00814E7B /* CCGraffitiBoard */ = {
 			isa = PBXGroup;
 			children = (
+				42DEB2B81C254A6800734E09 /* CCColorPickerController.h */,
+				42DEB2B91C254A6800734E09 /* CCColorPickerController.m */,
+				42DEB2711C25495000734E09 /* CCColorPicker */,
 				42F412171C21638400814E7B /* View */,
 				42F410E71C214C5400814E7B /* Behavior */,
 				42F410EE1C214C5400814E7B /* Brush */,
-				42F411071C214C5400814E7B /* RSColorPicker */,
 			);
 			name = CCGraffitiBoard;
 			sourceTree = "<group>";
@@ -3702,8 +3803,6 @@
 		42F410E71C214C5400814E7B /* Behavior */ = {
 			isa = PBXGroup;
 			children = (
-				42F410E81C214C5400814E7B /* CCColorAdjuster.h */,
-				42F410E91C214C5400814E7B /* CCColorAdjuster.m */,
 				42F410EA1C214C5400814E7B /* CCImageManger.h */,
 				42F410EB1C214C5400814E7B /* CCImageManger.m */,
 				42F410EC1C214C5400814E7B /* CCImagePicker.h */,
@@ -3764,80 +3863,6 @@
 				42F411061C214C5400814E7B /* CCSquareBrush.m */,
 			);
 			path = RectBrush;
-			sourceTree = "<group>";
-		};
-		42F411071C214C5400814E7B /* RSColorPicker */ = {
-			isa = PBXGroup;
-			children = (
-				42F411081C214C5400814E7B /* ANImageBitmapRep */,
-				42F411221C214C5400814E7B /* BGRSLoupeLayer.h */,
-				42F411231C214C5400814E7B /* BGRSLoupeLayer.m */,
-				42F411241C214C5400814E7B /* RSColorFunctions.h */,
-				42F411251C214C5400814E7B /* RSColorFunctions.m */,
-				42F411261C214C5400814E7B /* RSColorPickerState.h */,
-				42F411271C214C5400814E7B /* RSColorPickerState.m */,
-				42F411281C214C5400814E7B /* RSColorPickerView.h */,
-				42F411291C214C5400814E7B /* RSColorPickerView.m */,
-				42F4112A1C214C5400814E7B /* RSGenerateOperation.h */,
-				42F4112B1C214C5400814E7B /* RSGenerateOperation.m */,
-				42F4112C1C214C5400814E7B /* RSSelectionLayer.h */,
-				42F4112D1C214C5400814E7B /* RSSelectionLayer.m */,
-			);
-			name = RSColorPicker;
-			path = CCGraffitiBoard/RSColorPicker;
-			sourceTree = "<group>";
-		};
-		42F411081C214C5400814E7B /* ANImageBitmapRep */ = {
-			isa = PBXGroup;
-			children = (
-				42F411091C214C5400814E7B /* ANImageBitmapRep.h */,
-				42F4110A1C214C5400814E7B /* ANImageBitmapRep.m */,
-				42F4110B1C214C5400814E7B /* BitmapContextRep.h */,
-				42F4110C1C214C5400814E7B /* BitmapContextRep.m */,
-				42F4110D1C214C5400814E7B /* Compatibility */,
-				42F411121C214C5400814E7B /* CoreGraphics */,
-				42F411171C214C5400814E7B /* Manipulators */,
-			);
-			path = ANImageBitmapRep;
-			sourceTree = "<group>";
-		};
-		42F4110D1C214C5400814E7B /* Compatibility */ = {
-			isa = PBXGroup;
-			children = (
-				42F4110E1C214C5400814E7B /* OSCommonImage.h */,
-				42F4110F1C214C5400814E7B /* OSCommonImage.m */,
-				42F411101C214C5400814E7B /* UIImage+ANImageBitmapRep.h */,
-				42F411111C214C5400814E7B /* UIImage+ANImageBitmapRep.m */,
-			);
-			path = Compatibility;
-			sourceTree = "<group>";
-		};
-		42F411121C214C5400814E7B /* CoreGraphics */ = {
-			isa = PBXGroup;
-			children = (
-				42F411131C214C5400814E7B /* CGContextCreator.h */,
-				42F411141C214C5400814E7B /* CGContextCreator.m */,
-				42F411151C214C5400814E7B /* CGImageContainer.h */,
-				42F411161C214C5400814E7B /* CGImageContainer.m */,
-			);
-			path = CoreGraphics;
-			sourceTree = "<group>";
-		};
-		42F411171C214C5400814E7B /* Manipulators */ = {
-			isa = PBXGroup;
-			children = (
-				42F411181C214C5400814E7B /* BitmapContextManipulator.h */,
-				42F411191C214C5400814E7B /* BitmapContextManipulator.m */,
-				42F4111A1C214C5400814E7B /* BitmapCropManipulator.h */,
-				42F4111B1C214C5400814E7B /* BitmapCropManipulator.m */,
-				42F4111C1C214C5400814E7B /* BitmapDrawManipulator.h */,
-				42F4111D1C214C5400814E7B /* BitmapDrawManipulator.m */,
-				42F4111E1C214C5400814E7B /* BitmapRotationManipulator.h */,
-				42F4111F1C214C5400814E7B /* BitmapRotationManipulator.m */,
-				42F411201C214C5400814E7B /* BitmapScaleManipulator.h */,
-				42F411211C214C5400814E7B /* BitmapScaleManipulator.m */,
-			);
-			path = Manipulators;
 			sourceTree = "<group>";
 		};
 		42F4116B1C2150E500814E7B /* Category */ = {
@@ -4061,6 +4086,7 @@
 		42F412171C21638400814E7B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				42DEB2BC1C254ABC00734E09 /* BrushView */,
 				42F412181C21639B00814E7B /* CCPaintingView.h */,
 				42F412191C21639B00814E7B /* CCPaintingView.m */,
 				42F4121C1C21648300814E7B /* CCPaintingLayer.h */,
@@ -4090,20 +4116,18 @@
 				422978631BEE407400CECBBF /* CCBlockTrace.h in Headers */,
 				42B647411BEDA9DA00B2F6FD /* Core.h in Headers */,
 				42F411F01C2150E500814E7B /* UIImage+Resize.h in Headers */,
-				42F411651C214C5400814E7B /* RSColorPickerView.h in Headers */,
 				42B647401BEDA9C600B2F6FD /* CCProperty.h in Headers */,
 				42F411FE1C2150E500814E7B /* UISearchBar+Addition.h in Headers */,
 				425477831BD2AEC20071BBC5 /* RSADataVerifier.h in Headers */,
-				42F411691C214C5400814E7B /* RSSelectionLayer.h in Headers */,
 				428B5C321C22609C001B8584 /* QRCodeGenerator.h in Headers */,
 				428B5C3D1C22609C001B8584 /* split.h in Headers */,
 				425477621BD2AEC20071BBC5 /* sha.h in Headers */,
 				42F411D61C2150E500814E7B /* UIColor+BUIColor.h in Headers */,
+				42DEB2A41C25495000734E09 /* CCColorSourceView.h in Headers */,
 				425477711BD2AEC20071BBC5 /* x509.h in Headers */,
 				4254773D1BD2AEC20071BBC5 /* dso.h in Headers */,
 				425477551BD2AEC20071BBC5 /* ossl_typ.h in Headers */,
 				425477531BD2AEC20071BBC5 /* opensslconf.h in Headers */,
-				42F411491C214C5400814E7B /* ANImageBitmapRep.h in Headers */,
 				4213FAFC1C13D860006918AC /* CCJPsuh.h in Headers */,
 				42F945871BC8ED5D008882AE /* CCDisplayMediaViewController.h in Headers */,
 				42F411F41C2150E500814E7B /* UIImage+Utility.h in Headers */,
@@ -4142,7 +4166,6 @@
 				425477611BD2AEC20071BBC5 /* seed.h in Headers */,
 				425477371BD2AEC20071BBC5 /* conf_api.h in Headers */,
 				428A12CC1BC8A1C6005D904D /* ContactPersonEntity.h in Headers */,
-				42F411611C214C5400814E7B /* RSColorFunctions.h in Headers */,
 				4267DD001BDB584000B0C43F /* NSManagedObject+Mapping.h in Headers */,
 				4254772F1BD2AEC20071BBC5 /* bn.h in Headers */,
 				42F411C71C2150E500814E7B /* Category.h in Headers */,
@@ -4162,6 +4185,7 @@
 				429C9FCD1B9EF8BF0013A44A /* NSObject+SRJSON.h in Headers */,
 				425477351BD2AEC20071BBC5 /* comp.h in Headers */,
 				429CA0971B9EF8BF0013A44A /* SECompatibility.h in Headers */,
+				42DEB2A21C25495000734E09 /* CCColorIndicator.h in Headers */,
 				429CA0A11B9EF8BF0013A44A /* SETextAttachment.h in Headers */,
 				429CA09D1B9EF8BF0013A44A /* SELinkText.h in Headers */,
 				425477331BD2AEC20071BBC5 /* cmac.h in Headers */,
@@ -4208,6 +4232,7 @@
 				42B30DDF1BBD72AD0039BB94 /* SDWebImageDownloader.h in Headers */,
 				42B30DD91BBD72AD0039BB94 /* UIImageView+HighlightedWebCache.h in Headers */,
 				429CA1241B9EF8BF0013A44A /* CCShareMenuView.h in Headers */,
+				42DEB2B11C25496C00734E09 /* CCUtilities.h in Headers */,
 				42F411EC1C2150E500814E7B /* UIImage+Data.h in Headers */,
 				429CA1111B9EF8BF0013A44A /* CCMessageModel.h in Headers */,
 				429CA0151B9EF8BF0013A44A /* CalendarViewController.h in Headers */,
@@ -4218,6 +4243,7 @@
 				425477411BD2AEC20071BBC5 /* ec.h in Headers */,
 				429CA0EB1B9EF8BF0013A44A /* CCCaptureHelper.h in Headers */,
 				429CA0851B9EF8BF0013A44A /* BUILabel.h in Headers */,
+				42DEB2A61C25495000734E09 /* CCDragChip.h in Headers */,
 				425477571BD2AEC20071BBC5 /* pem2.h in Headers */,
 				429CA0771B9EF8BF0013A44A /* CCPopMenuView.h in Headers */,
 				4298C7791BDCA5D700A3581D /* CCTableViewFetchResultController.h in Headers */,
@@ -4245,8 +4271,9 @@
 				429C9FC81B9EF8BF0013A44A /* SRHubResult.h in Headers */,
 				429C9FCB1B9EF8BF0013A44A /* SRSubscription.h in Headers */,
 				429C9FD21B9EF8BF0013A44A /* SRSerializable.h in Headers */,
-				42F4115D1C214C5400814E7B /* BitmapScaleManipulator.h in Headers */,
 				429C9FCF1B9EF8BF0013A44A /* SRDeserializable.h in Headers */,
+				42DEB2AC1C25495000734E09 /* CCSwatches.h in Headers */,
+				42DEB2AA1C25495000734E09 /* CCMatrix.h in Headers */,
 				429C9FC61B9EF8BF0013A44A /* SRHubRegistrationData.h in Headers */,
 				429C9FC11B9EF8BF0013A44A /* SRHubInvocation.h in Headers */,
 				429C9FC51B9EF8BF0013A44A /* SRHubProxyInterface.h in Headers */,
@@ -4273,12 +4300,11 @@
 				4238385B1BEA009C00BC2B44 /* CCDropDownMenuItemView.h in Headers */,
 				429CA0341B9EF8BF0013A44A /* CCPhotoLoadingView.h in Headers */,
 				423B25301BE9E89900DAF075 /* CCDropDown.h in Headers */,
+				42DEB29E1C25495000734E09 /* Shaders.h in Headers */,
 				429C9FB81B9EF8BF0013A44A /* Friend.h in Headers */,
 				426979371BA695BA00C3E93C /* AFURLRequestSerialization.h in Headers */,
 				42B30DD51BBD72AD0039BB94 /* UIImage+MultiFormat.h in Headers */,
 				429CA1011B9EF8BF0013A44A /* CCMessageAvatarFactory.h in Headers */,
-				42F411671C214C5400814E7B /* RSGenerateOperation.h in Headers */,
-				42F4112E1C214C5400814E7B /* CCColorAdjuster.h in Headers */,
 				42C208F31BDE1EB400C76004 /* RequestProtocol.h in Headers */,
 				429CA0031B9EF8BF0013A44A /* CCActionSheetViewController.h in Headers */,
 				4254774B1BD2AEC20071BBC5 /* lhash.h in Headers */,
@@ -4303,14 +4329,14 @@
 				42F411371C214C5400814E7B /* CCEraserBrush.h in Headers */,
 				429CA0B51B9EF8BF0013A44A /* CCCameraViewController.h in Headers */,
 				429CA0091B9EF8BF0013A44A /* CCBadgeView.h in Headers */,
+				42DEB29A1C25495000734E09 /* CCShader.h in Headers */,
 				42B30DE11BBD72AD0039BB94 /* SDWebImageDownloaderOperation.h in Headers */,
 				425477401BD2AEC20071BBC5 /* ebcdic.h in Headers */,
 				4269792F1BA695BA00C3E93C /* AFHTTPRequestOperationManager.h in Headers */,
+				42DEB2961C25495000734E09 /* CCColorSquare.h in Headers */,
 				42DBA8561BB5305700AD47C6 /* CCBase64.h in Headers */,
 				42A58A811BCDFE4F0027429C /* CCCommonFunctions.h in Headers */,
 				42F411CC1C2150E500814E7B /* NSDate+BNSDate.h in Headers */,
-				42F411511C214C5400814E7B /* CGContextCreator.h in Headers */,
-				42F411631C214C5400814E7B /* RSColorPickerState.h in Headers */,
 				42F411431C214C5400814E7B /* CCEllipseBrush.h in Headers */,
 				42F411301C214C5400814E7B /* CCImageManger.h in Headers */,
 				428B5C351C22609C001B8584 /* qrencode.h in Headers */,
@@ -4321,18 +4347,19 @@
 				427E1D3E1C107066004B257C /* WXApiObject.h in Headers */,
 				42F24C651BEA5091008CDEDC /* PNPieChartDataItem.h in Headers */,
 				42F411F61C2150E500814E7B /* UIImageView+Additional.h in Headers */,
+				42DEB29D1C25495000734E09 /* gl_matrix.h in Headers */,
 				423C12791C0ECACB009FBA17 /* CCTool.h in Headers */,
-				42F411551C214C5400814E7B /* BitmapContextManipulator.h in Headers */,
 				42F4113F1C214C5400814E7B /* CCLineBrush.h in Headers */,
 				42F411341C214C5400814E7B /* CCBaseBrush.h in Headers */,
+				42DEB2BA1C254A6800734E09 /* CCColorPickerController.h in Headers */,
 				42F411CA1C2150E500814E7B /* NSData+Additions.h in Headers */,
 				42F24C791BEA5A10008CDEDC /* CCChart.h in Headers */,
 				42F411361C214C5400814E7B /* CCPaintBrush.h in Headers */,
 				424492981C0D90F500488AA2 /* VoiceConverter.h in Headers */,
 				42A356371BF4399800B6F1F2 /* CCRefreshConst.h in Headers */,
-				42F4115F1C214C5400814E7B /* BGRSLoupeLayer.h in Headers */,
 				42F411E81C2150E500814E7B /* UIImage+BUIImage.h in Headers */,
 				42648C871C01AC960085A07D /* SEViewCaptureHelper.h in Headers */,
+				42DEB2BF1C254ABC00734E09 /* CCBrushView.h in Headers */,
 				42F411EE1C2150E500814E7B /* UIImage+Operations.h in Headers */,
 				426529CA1BED93600096C0EF /* CCMetamacros.h in Headers */,
 				42F412021C2150E500814E7B /* UITableView+Additions.h in Headers */,
@@ -4393,8 +4420,8 @@
 				429C9C9D1B9EF66A0013A44A /* CCFramework.h in Headers */,
 				42B30DEA1BBD72AD0039BB94 /* SDWebImagePrefetcher.h in Headers */,
 				429C9F521B9EF8BF0013A44A /* BaseTableViewCell.h in Headers */,
-				42F4114F1C214C5400814E7B /* UIImage+ANImageBitmapRep.h in Headers */,
 				425477731BD2AEC20071BBC5 /* x509v3.h in Headers */,
+				42DEB2981C25495000734E09 /* CCColorWheel.h in Headers */,
 				428B5C311C22609C001B8584 /* mask.h in Headers */,
 				42B30DDD1BBD72AD0039BB94 /* UIView+WebCacheOperation.h in Headers */,
 				429C9F981B9EF8BF0013A44A /* CCUncaughtExceptionHandler.h in Headers */,
@@ -4416,12 +4443,10 @@
 				426979291BA695BA00C3E93C /* AFHTTPSessionManager.h in Headers */,
 				4264D7421BA2C19100E83159 /* CCPagesContainerTopBar.h in Headers */,
 				4264D7401BA2C19100E83159 /* CCPagesContainer.h in Headers */,
-				42F4114D1C214C5400814E7B /* OSCommonImage.h in Headers */,
 				429C9F501B9EF8BF0013A44A /* NavMainViewController.h in Headers */,
 				429CA0051B9EF8BF0013A44A /* CCAnimatedImage.h in Headers */,
 				429CA0601B9EF8BF0013A44A /* CCPickerAssetsViewController.h in Headers */,
 				429CA0891B9EF8BF0013A44A /* CCAutoTextView.h in Headers */,
-				42F4115B1C214C5400814E7B /* BitmapRotationManipulator.h in Headers */,
 				4230E18D1BBB83CE0001E68F /* CCRadarPointView.h in Headers */,
 				429CA08B1B9EF8BF0013A44A /* CCWaterfallsFlow.h in Headers */,
 				426979311BA695BA00C3E93C /* AFURLConnectionOperation.h in Headers */,
@@ -4431,17 +4456,19 @@
 				429CA1261B9EF8BF0013A44A /* CCAnnotation.h in Headers */,
 				42F412041C2150E500814E7B /* UIView+BUIView.h in Headers */,
 				429C9FBA1B9EF8BF0013A44A /* FriendGroup.h in Headers */,
+				42DEB2B61C254A2100734E09 /* CCBarSlider.h in Headers */,
 				4254776D1BD2AEC20071BBC5 /* txt_db.h in Headers */,
 				42F411E41C2150E500814E7B /* UIImage+Additions.h in Headers */,
 				429C9F621B9EF8BF0013A44A /* Config.h in Headers */,
 				429CA1051B9EF8BF0013A44A /* CCMessageVideoConverPhotoFactory.h in Headers */,
-				42F4114B1C214C5400814E7B /* BitmapContextRep.h in Headers */,
+				42DEB2A01C25495000734E09 /* CCColorComparator.h in Headers */,
 				429CA0011B9EF8BF0013A44A /* CCActionSheet.h in Headers */,
 				42F411CE1C2150E500814E7B /* NSDictionary+Additions.h in Headers */,
 				42F412061C2150E500814E7B /* UIView+CCBadgeView.h in Headers */,
 				42F411F81C2150E500814E7B /* UILabel+Addition.h in Headers */,
 				429C9FFF1B9EF8BF0013A44A /* CCRourRotation.h in Headers */,
 				429CA06F1B9EF8BF0013A44A /* CCPickerCollectionViewCell.h in Headers */,
+				42DEB2921C25495000734E09 /* CCColor.h in Headers */,
 				422978601BEE3A1100CECBBF /* CCResponseObject.h in Headers */,
 				429CA08F1B9EF8BF0013A44A /* CCWebViewProgressView.h in Headers */,
 				42D850F91BDB248D00CB194E /* NSManagedObject+CCManagedObject.h in Headers */,
@@ -4465,6 +4492,7 @@
 				429CA03A1B9EF8BF0013A44A /* CCPhotoView.h in Headers */,
 				4254774D1BD2AEC20071BBC5 /* md5.h in Headers */,
 				425A4F381C11C466009A7E77 /* CCXML.h in Headers */,
+				42DEB2941C25495000734E09 /* CCColorSlider.h in Headers */,
 				4267DD1E1BDB5C5900B0C43F /* CoreDataManager.h in Headers */,
 				42A58A851BCDFE4F0027429C /* UIViewController+CCSideMenu.h in Headers */,
 				425477461BD2AEC20071BBC5 /* evp.h in Headers */,
@@ -4473,11 +4501,10 @@
 				42F411391C214C5400814E7B /* CCPencilBrush.h in Headers */,
 				4254774A1BD2AEC20071BBC5 /* kssl.h in Headers */,
 				425477291BD2AEC20071BBC5 /* aes.h in Headers */,
+				42DEB2A81C25495000734E09 /* CCInsetView.h in Headers */,
 				425477301BD2AEC20071BBC5 /* buffer.h in Headers */,
 				426476A21BD0E3AF00EE191C /* CCCellScrollView.h in Headers */,
 				4267DD1C1BDB5C5900B0C43F /* BaseManagedObject.h in Headers */,
-				42F411571C214C5400814E7B /* BitmapCropManipulator.h in Headers */,
-				42F411591C214C5400814E7B /* BitmapDrawManipulator.h in Headers */,
 				425477671BD2AEC20071BBC5 /* ssl23.h in Headers */,
 				42F411D01C2150E500814E7B /* NSMutableArray+BNSMutableArray.h in Headers */,
 				425477491BD2AEC20071BBC5 /* krb5_asn.h in Headers */,
@@ -4536,7 +4563,6 @@
 				429CA0A91B9EF8BF0013A44A /* SETextLayout.h in Headers */,
 				42F411D81C2150E500814E7B /* UIActionSheet+BUIActionSheet.h in Headers */,
 				429CA0AB1B9EF8BF0013A44A /* SETextMagnifierCaret.h in Headers */,
-				42F411531C214C5400814E7B /* CGImageContainer.h in Headers */,
 				426979351BA695BA00C3E93C /* AFSecurityPolicy.h in Headers */,
 				429CA0B11B9EF8BF0013A44A /* SETextSelectionView.h in Headers */,
 				429CA0AD1B9EF8BF0013A44A /* SETextMagnifierRanged.h in Headers */,
@@ -4676,14 +4702,15 @@
 				426476A51BD0E3AF00EE191C /* CCLongPressGestureRecognizer.m in Sources */,
 				42F411D31C2150E500814E7B /* NSObject+Additions.m in Sources */,
 				42A3563C1BF4399800B6F1F2 /* CCRefreshHeaderView.m in Sources */,
-				42F411601C214C5400814E7B /* BGRSLoupeLayer.m in Sources */,
 				429CA0B41B9EF8BF0013A44A /* SETextView.m in Sources */,
 				426476A71BD0E3AF00EE191C /* CCTableViewCell.m in Sources */,
 				42F4120B1C2150E500814E7B /* UIWindow+Additions.m in Sources */,
 				42F411D11C2150E500814E7B /* NSMutableArray+BNSMutableArray.m in Sources */,
 				429CA0AC1B9EF8BF0013A44A /* SETextMagnifierCaret.m in Sources */,
 				42F24C501BEA5091008CDEDC /* PNBar.m in Sources */,
+				42DEB2C01C254ABC00734E09 /* CCBrushView.m in Sources */,
 				42DC3EEC1BEF49EE00F9CC38 /* CCNSLog.m in Sources */,
+				42DEB2AB1C25495000734E09 /* CCMatrix.m in Sources */,
 				429CA0A41B9EF8BF0013A44A /* SETextEditingCaret.m in Sources */,
 				42F411CD1C2150E500814E7B /* NSDate+BNSDate.m in Sources */,
 				42F24C581BEA5091008CDEDC /* PNCircleChart.m in Sources */,
@@ -4712,7 +4739,6 @@
 				429C9F551B9EF8BF0013A44A /* BaseSearchTableViewController.m in Sources */,
 				426979381BA695BA00C3E93C /* AFURLRequestSerialization.m in Sources */,
 				429CA03B1B9EF8BF0013A44A /* CCPhotoView.m in Sources */,
-				42F411541C214C5400814E7B /* CGImageContainer.m in Sources */,
 				429CA08E1B9EF8BF0013A44A /* CCWebViewProgress.m in Sources */,
 				429CA00E1B9EF8BF0013A44A /* CalendarDay.m in Sources */,
 				429CA0101B9EF8BF0013A44A /* CalendarFlowLayout.m in Sources */,
@@ -4727,6 +4753,7 @@
 				4298C77E1BDCAB3D00A3581D /* CoreDataMasterSlave.m in Sources */,
 				429CA08A1B9EF8BF0013A44A /* CCAutoTextView.m in Sources */,
 				428B5C331C22609C001B8584 /* QRCodeGenerator.m in Sources */,
+				42DEB2A71C25495000734E09 /* CCDragChip.m in Sources */,
 				4298C78C1BDCBB0300A3581D /* CoreDataMasterSlave+Queries.m in Sources */,
 				429CA0001B9EF8BF0013A44A /* CCRourRotation.m in Sources */,
 				42B73E851C17D40D001A1D0F /* CCEmotionView.m in Sources */,
@@ -4744,7 +4771,6 @@
 				42F24C661BEA5091008CDEDC /* PNPieChartDataItem.m in Sources */,
 				429CA0611B9EF8BF0013A44A /* CCPickerAssetsViewController.m in Sources */,
 				429C9FF61B9EF8BF0013A44A /* SRWebSocketConnectionInfo.m in Sources */,
-				42F411621C214C5400814E7B /* RSColorFunctions.m in Sources */,
 				42F411311C214C5400814E7B /* CCImageManger.m in Sources */,
 				423C127A1C0ECACB009FBA17 /* CCTool.m in Sources */,
 				429CA0F61B9EF8BF0013A44A /* CCPhotographyHelper.m in Sources */,
@@ -4772,12 +4798,14 @@
 				429CA1211B9EF8BF0013A44A /* CCEmotionManagerView.m in Sources */,
 				429C9FE01B9EF8BF0013A44A /* SRKeepAliveData.m in Sources */,
 				429CA0FA1B9EF8BF0013A44A /* CCVoiceRecordHelper.m in Sources */,
+				42DEB2B21C25496C00734E09 /* CCUtilities.m in Sources */,
 				429CA0761B9EF8BF0013A44A /* CCPopMenuItemView.m in Sources */,
 				429CA1101B9EF8BF0013A44A /* CCMessage.m in Sources */,
 				429CA1131B9EF8BF0013A44A /* CCShareMenuItem.m in Sources */,
 				429C9F711B9EF8BF0013A44A /* CCHTTPManager.m in Sources */,
-				42F411581C214C5400814E7B /* BitmapCropManipulator.m in Sources */,
+				42DEB2A51C25495000734E09 /* CCColorSourceView.m in Sources */,
 				42D850FA1BDB248D00CB194E /* NSManagedObject+CCManagedObject.m in Sources */,
+				42DEB2951C25495000734E09 /* CCColorSlider.m in Sources */,
 				429C9F591B9EF8BF0013A44A /* BaseViewController.m in Sources */,
 				42F411EB1C2150E500814E7B /* UIImage+CCRounded.m in Sources */,
 				42B30DE21BBD72AD0039BB94 /* SDWebImageDownloaderOperation.m in Sources */,
@@ -4801,6 +4829,7 @@
 				429C9F731B9EF8BF0013A44A /* CCHTTPRequest.m in Sources */,
 				426979421BA695BA00C3E93C /* UIButton+AFNetworking.m in Sources */,
 				429C9FC41B9EF8BF0013A44A /* SRHubProxy.m in Sources */,
+				42DEB2AD1C25495000734E09 /* CCSwatches.m in Sources */,
 				429CA0081B9EF8BF0013A44A /* CCAnimatedImageView.m in Sources */,
 				4230E1861BBB83000001E68F /* CCRadarIndicatorView.m in Sources */,
 				42F411E91C2150E500814E7B /* UIImage+BUIImage.m in Sources */,
@@ -4823,9 +4852,7 @@
 				429C9F531B9EF8BF0013A44A /* BaseTableViewCell.m in Sources */,
 				42B30DE91BBD72AD0039BB94 /* SDWebImageManager.m in Sources */,
 				429C9FF01B9EF8BF0013A44A /* SRLongPollingTransport.m in Sources */,
-				42F4112F1C214C5400814E7B /* CCColorAdjuster.m in Sources */,
 				429C9FD71B9EF8BF0013A44A /* SRConnection.m in Sources */,
-				42F411681C214C5400814E7B /* RSGenerateOperation.m in Sources */,
 				42B30DD81BBD72AD0039BB94 /* UIImage+WebP.m in Sources */,
 				429CA0061B9EF8BF0013A44A /* CCAnimatedImage.m in Sources */,
 				429CA0221B9EF8BF0013A44A /* CCMessageInputView.m in Sources */,
@@ -4834,8 +4861,8 @@
 				4298C77A1BDCA5D700A3581D /* CCTableViewFetchResultController.m in Sources */,
 				42A356361BF4399800B6F1F2 /* CCRefreshBaseView.m in Sources */,
 				42F411FB1C2150E500814E7B /* UIScrollView+CCExtension.m in Sources */,
-				42F411561C214C5400814E7B /* BitmapContextManipulator.m in Sources */,
 				425477841BD2AEC20071BBC5 /* RSADataVerifier.m in Sources */,
+				42DEB2971C25495000734E09 /* CCColorSquare.m in Sources */,
 				423B25311BE9E89900DAF075 /* CCDropDown.m in Sources */,
 				42F4113A1C214C5400814E7B /* CCPencilBrush.m in Sources */,
 				429C9FEB1B9EF8BF0013A44A /* SRAutoTransport.m in Sources */,
@@ -4847,6 +4874,7 @@
 				429CA1191B9EF8BF0013A44A /* CCMessageTableView.m in Sources */,
 				428B5C301C22609C001B8584 /* mask.c in Sources */,
 				42B30DE71BBD72AD0039BB94 /* SDWebImageDecoder.m in Sources */,
+				42DEB2BB1C254A6800734E09 /* CCColorPickerController.m in Sources */,
 				429CA0721B9EF8BF0013A44A /* CCPopMenu.m in Sources */,
 				428B5C2E1C22609C001B8584 /* bitstream.c in Sources */,
 				42A58A411BCC94320027429C /* CCQRCodeDisplayViewController.m in Sources */,
@@ -4859,12 +4887,14 @@
 				42F4120D1C2150E500814E7B /* UIWindow+BUIWindow.m in Sources */,
 				429CA12B1B9EF8BF0013A44A /* CCLocationManager.m in Sources */,
 				426476A31BD0E3AF00EE191C /* CCCellScrollView.m in Sources */,
+				42DEB2991C25495000734E09 /* CCColorWheel.m in Sources */,
 				429CA0EE1B9EF8BF0013A44A /* CCConfigurationHelper.m in Sources */,
 				42F411DB1C2150E500814E7B /* UIAlertView+Additional.m in Sources */,
 				4298C7761BDCA4C100A3581D /* CCCollectionViewFetchResultController.m in Sources */,
 				4230E1921BBB83E40001E68F /* CCRadarView.m in Sources */,
 				429CA0F41B9EF8BF0013A44A /* CCMessageBubbleHelper.m in Sources */,
 				429C9FC71B9EF8BF0013A44A /* SRHubRegistrationData.m in Sources */,
+				42DEB2A91C25495000734E09 /* CCInsetView.m in Sources */,
 				429CA0861B9EF8BF0013A44A /* BUILabel.m in Sources */,
 				429C9F4D1B9EF8BF0013A44A /* BaseNavigationController.m in Sources */,
 				429CA1001B9EF8BF0013A44A /* CCFileAttribute.m in Sources */,
@@ -4891,7 +4921,6 @@
 				42F24C5C1BEA5091008CDEDC /* PNGenericChart.m in Sources */,
 				429C9F571B9EF8BF0013A44A /* BaseTableViewController.m in Sources */,
 				4244928F1C0D90F500488AA2 /* amrFileCodec.m in Sources */,
-				42F4115C1C214C5400814E7B /* BitmapRotationManipulator.m in Sources */,
 				42F411F51C2150E500814E7B /* UIImage+Utility.m in Sources */,
 				429CA0691B9EF8BF0013A44A /* CCPickerGroup.m in Sources */,
 				429CA1251B9EF8BF0013A44A /* CCShareMenuView.m in Sources */,
@@ -4909,6 +4938,7 @@
 				429CA0EC1B9EF8BF0013A44A /* CCCaptureHelper.m in Sources */,
 				429C9FAB1B9EF8BF0013A44A /* CCThemeManager.m in Sources */,
 				426979471BA695BA00C3E93C /* UIProgressView+AFNetworking.m in Sources */,
+				42DEB29B1C25495000734E09 /* CCShader.m in Sources */,
 				42B647551BEDE08F00B2F6FD /* CCHTTPManager+PUT.m in Sources */,
 				429C9F991B9EF8BF0013A44A /* CCUncaughtExceptionHandler.m in Sources */,
 				429C9FE51B9EF8BF0013A44A /* SRChunkBuffer.m in Sources */,
@@ -4921,7 +4951,6 @@
 				4267DD1F1BDB5C5900B0C43F /* CoreDataManager.m in Sources */,
 				42F411CF1C2150E500814E7B /* NSDictionary+Additions.m in Sources */,
 				429CA00C1B9EF8BF0013A44A /* CalendarCollectionViewCell.m in Sources */,
-				42F4116A1C214C5400814E7B /* RSSelectionLayer.m in Sources */,
 				429C9F6D1B9EF8BF0013A44A /* CCUserDefaultsCrash.m in Sources */,
 				42F411421C214C5400814E7B /* CCCircleBrush.m in Sources */,
 				42F411F91C2150E500814E7B /* UILabel+Addition.m in Sources */,
@@ -4931,8 +4960,8 @@
 				425A4F3D1C11CA42009A7E77 /* CCWXSingleEntity.m in Sources */,
 				42D9009D1BF47B3100B8B01F /* CCDelegateProxy.m in Sources */,
 				429CA0301B9EF8BF0013A44A /* CCPhoto.m in Sources */,
+				42DEB2A11C25495000734E09 /* CCColorComparator.m in Sources */,
 				42F411DF1C2150E500814E7B /* UIButton+BUIButton.m in Sources */,
-				42F4114C1C214C5400814E7B /* BitmapContextRep.m in Sources */,
 				429C9F5B1B9EF8BF0013A44A /* BaseTableViewHeaderFooterView.m in Sources */,
 				4254777C1BD2AEC20071BBC5 /* MD5DataSigner.m in Sources */,
 				4230E1971BBB8F7C0001E68F /* CCRadarScanViewController.m in Sources */,
@@ -4942,8 +4971,9 @@
 				42B30DCE1BBD72AD0039BB94 /* MKAnnotationView+WebCache.m in Sources */,
 				429C9F4B1B9EF8BF0013A44A /* BaseAppDelegate.m in Sources */,
 				426979301BA695BA00C3E93C /* AFHTTPRequestOperationManager.m in Sources */,
+				42DEB2B71C254A2100734E09 /* CCBarSlider.m in Sources */,
 				429C9F511B9EF8BF0013A44A /* NavMainViewController.m in Sources */,
-				42F4114E1C214C5400814E7B /* OSCommonImage.m in Sources */,
+				42DEB2A31C25495000734E09 /* CCColorIndicator.m in Sources */,
 				428B5C3A1C22609C001B8584 /* rscode.c in Sources */,
 				42F411EF1C2150E500814E7B /* UIImage+Operations.m in Sources */,
 				42D900A31BF4817000B8B01F /* UITextView+CCSignalSupport.m in Sources */,
@@ -4952,30 +4982,27 @@
 				429CA06E1B9EF8BF0013A44A /* CCPickerCollectionView.m in Sources */,
 				425477801BD2AEC20071BBC5 /* openssl_wrapper.m in Sources */,
 				425477751BD2AEC20071BBC5 /* base64.m in Sources */,
-				42F4114A1C214C5400814E7B /* ANImageBitmapRep.m in Sources */,
 				42F411ED1C2150E500814E7B /* UIImage+Data.m in Sources */,
 				429CA1151B9EF8BF0013A44A /* CCBubblePhotoImageView.m in Sources */,
 				42F411CB1C2150E500814E7B /* NSData+Additions.m in Sources */,
 				42B30DDA1BBD72AD0039BB94 /* UIImageView+HighlightedWebCache.m in Sources */,
-				42F411661C214C5400814E7B /* RSColorPickerView.m in Sources */,
 				42B30DDE1BBD72AD0039BB94 /* UIView+WebCacheOperation.m in Sources */,
+				42DEB29C1C25495000734E09 /* gl_matrix.c in Sources */,
 				4264D7431BA2C19100E83159 /* CCPagesContainerTopBar.m in Sources */,
 				42B647571BEDE57300B2F6FD /* CCHTTPManager+UploadDownload.m in Sources */,
 				4269792A1BA695BA00C3E93C /* AFHTTPSessionManager.m in Sources */,
 				42F24C7A1BEA5A10008CDEDC /* CCChart.m in Sources */,
-				42F411501C214C5400814E7B /* UIImage+ANImageBitmapRep.m in Sources */,
 				429CA0701B9EF8BF0013A44A /* CCPickerCollectionViewCell.m in Sources */,
+				42DEB2931C25495000734E09 /* CCColor.m in Sources */,
 				429CA1041B9EF8BF0013A44A /* CCMessageBubbleFactory.m in Sources */,
 				428A12D11BC8A433005D904D /* ContactRead.m in Sources */,
 				428B5C3C1C22609C001B8584 /* split.c in Sources */,
 				42F411DD1C2150E500814E7B /* UIBarButtonItem+Addition.m in Sources */,
 				429CA0671B9EF8BF0013A44A /* CCPickerDatas.m in Sources */,
 				429CA1171B9EF8BF0013A44A /* CCMessageBubbleView.m in Sources */,
-				42F4115A1C214C5400814E7B /* BitmapDrawManipulator.m in Sources */,
 				42F411F71C2150E500814E7B /* UIImageView+Additional.m in Sources */,
 				42F411E71C2150E500814E7B /* UIImage+Alpha.m in Sources */,
 				42B647531BEDE08F00B2F6FD /* CCHTTPManager+HEAD.m in Sources */,
-				42F4115E1C214C5400814E7B /* BitmapScaleManipulator.m in Sources */,
 				429C9FA51B9EF8BF0013A44A /* CCIntroductionViewController.m in Sources */,
 				429CA09E1B9EF8BF0013A44A /* SELinkText.m in Sources */,
 				429CA11B1B9EF8BF0013A44A /* CCMessageTableViewCell.m in Sources */,
@@ -4986,7 +5013,6 @@
 				429CA0F81B9EF8BF0013A44A /* CCVoiceCommonHelper.m in Sources */,
 				429CA1271B9EF8BF0013A44A /* CCAnnotation.m in Sources */,
 				42A3563A1BF4399800B6F1F2 /* CCRefreshFooterView.m in Sources */,
-				42F411641C214C5400814E7B /* RSColorPickerState.m in Sources */,
 				42F411E31C2150E500814E7B /* UIControl+BUIControl.m in Sources */,
 				4269792C1BA695BA00C3E93C /* AFURLSessionManager.m in Sources */,
 				42F411E51C2150E500814E7B /* UIImage+Additions.m in Sources */,
@@ -5007,7 +5033,6 @@
 				4254777A1BD2AEC20071BBC5 /* DataVerifier.m in Sources */,
 				429CA1061B9EF8BF0013A44A /* CCMessageVideoConverPhotoFactory.m in Sources */,
 				42F24C6C1BEA5091008CDEDC /* PNScatterChart.m in Sources */,
-				42F411521C214C5400814E7B /* CGContextCreator.m in Sources */,
 				429C9FFE1B9EF8BF0013A44A /* CCSlideShadowAnimation.m in Sources */,
 				429CA0841B9EF8BF0013A44A /* CCTextViewPlaceholder.m in Sources */,
 				4267DD0D1BDB5A7000B0C43F /* NSManagedObject+Removed.m in Sources */,
@@ -5022,6 +5047,7 @@
 				4269793A1BA695BA00C3E93C /* AFURLResponseSerialization.m in Sources */,
 				429CA1081B9EF8BF0013A44A /* CCMessageVoiceFactory.m in Sources */,
 				42F24C701BEA5091008CDEDC /* PNScatterChartDataItem.m in Sources */,
+				42DEB29F1C25495000734E09 /* Shaders.m in Sources */,
 				428B5C341C22609C001B8584 /* qrencode.c in Sources */,
 				4269793C1BA695BA00C3E93C /* AFNetworkActivityIndicatorManager.m in Sources */,
 				42F411461C214C5400814E7B /* CCRectangleBrush.m in Sources */,

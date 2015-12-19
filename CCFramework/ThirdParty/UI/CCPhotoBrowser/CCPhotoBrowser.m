@@ -223,7 +223,7 @@
 #pragma mark - CCPhotoView代理
 - (void)photoViewSingleTap:(CCPhotoView *)photoView
 {
-     UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
     window.windowLevel = UIWindowLevelNormal;
     self.view.backgroundColor = [UIColor clearColor];
     

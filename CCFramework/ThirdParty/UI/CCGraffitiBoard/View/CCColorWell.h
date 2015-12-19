@@ -25,10 +25,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class CCColor;
+
 @interface CCColorWell : UIControl
 
-@property (nonatomic, weak) UIColor *color;
-@property (nonatomic, weak) UIBezierPath *shape;
+@property (nonatomic, copy) CCColor *color;
+@property (nonatomic, copy) UIBezierPath *shape;
 @property (nonatomic, assign) BOOL phoneLandscapeMode;
 
 @end
