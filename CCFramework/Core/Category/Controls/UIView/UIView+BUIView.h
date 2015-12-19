@@ -27,13 +27,20 @@
 
 @interface UIView (BUIView)
 
-@property (nonatomic, assign) CGFloat x;
-@property (nonatomic, assign) CGFloat y;
-@property (nonatomic, assign) CGFloat centerX;
-@property (nonatomic, assign) CGFloat centerY;
-@property (nonatomic, assign) CGFloat width;
-@property (nonatomic, assign) CGFloat height;
-@property (nonatomic, assign) CGSize size;
+@property(nonatomic, assign) CGFloat x;
+@property(nonatomic, assign) CGFloat y;
+@property(nonatomic, assign) CGFloat centerX;
+@property(nonatomic, assign) CGFloat centerY;
+@property(nonatomic, assign) CGFloat width;
+@property(nonatomic, assign) CGFloat height;
+@property(nonatomic, assign) CGSize size;
+
+@property(nonatomic, assign) CGPoint sharpCenter;
+
+
+- (UIImage *)imageForViewWithScale:(float)scale;
+
+- (void)setFramePreservingHeight:(CGRect)frame;
 
 /**
  *  @author CC, 2015-07-16

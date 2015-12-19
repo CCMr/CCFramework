@@ -24,6 +24,7 @@
 //
 
 #import "UIView+BUIView.h"
+#import "CCUtilities.h"
 
 @implementation UIView (BUIView)
 
@@ -34,7 +35,8 @@
  *
  *  @since 1.0
  */
-- (void)removeAllSubviews{
+- (void)removeAllSubviews
+{
     while (self.subviews.count) {
         [self.subviews.lastObject removeFromSuperview];
     }
@@ -122,6 +124,44 @@
 - (CGSize)size
 {
     return self.frame.size;
+}
+
+- (void)setSharpCenter:(CGPoint)center
+{
+    CGRect frame = self.frame;
+    
+    frame.origin = CCSubtractPoints(center, CGPointMake(CGRectGetWidth(frame) / 2, CGRectGetHeight(frame) / 2));
+    frame.origin = CCRoundPoint(frame.origin);
+    
+    self.center = CCCenterOfRect(frame);
+}
+
+- (CGPoint)sharpCenter
+{
+    return self.center;
+}
+
+- (UIImage *)imageForViewWithScale:(float)scale
+{
+    //CCBeginTiming();
+    
+    UIGraphicsBeginImageContextWithOptions(self.frame.size, YES, scale);
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(ctx, -self.bounds.origin.x, -self.bounds.origin.y);
+    [self.layer renderInContext:ctx];
+    UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    //CCEndTiming(@"imageForView");
+    
+    return result;
+}
+
+- (void)setFramePreservingHeight:(CGRect)frame
+{
+    float height = CGRectGetHeight(self.frame);
+    frame.size.height = height;
+    self.frame = frame;
 }
 
 
