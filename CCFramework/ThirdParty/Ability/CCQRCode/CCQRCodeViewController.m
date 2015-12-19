@@ -36,7 +36,7 @@
 
 typedef void (^Outcomeblock)(NSString *outcome);
 
-@interface CCQRCodeViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, CCCaptureHelperDelegate>
+@interface CCQRCodeViewController () <UIImagePickerControllerDelegate,UINavigationControllerDelegate,CCCaptureHelperDelegate>
 
 @property(nonatomic, strong) UIView *preview;
 
@@ -94,9 +94,7 @@ typedef void (^Outcomeblock)(NSString *outcome);
 - (CCScanningView *)scanningView
 {
     if (!_scanningView) {
-        _scanningView = [[CCScanningView alloc] initWithFrame:CGRectMake(0, (CURRENT_SYS_VERSION >= 7.0 ? 0 : 0),
-                                                                         CGRectGetWidth(self.view.bounds),
-                                                                         CGRectGetHeight(self.view.bounds) - (CURRENT_SYS_VERSION >= 7.0 ? 0 : 44))];
+        _scanningView = [[CCScanningView alloc] initWithFrame:CGRectMake(0, (CURRENT_SYS_VERSION >= 7.0 ? 0 : 0), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - (CURRENT_SYS_VERSION >= 7.0 ? 0 : 44))];
     }
     return _scanningView;
 }
@@ -105,8 +103,7 @@ typedef void (^Outcomeblock)(NSString *outcome);
 {
     if (!_buttonContainerView) {
         _buttonContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 120 - [CCFoundationCommon getAdapterHeight], CGRectGetWidth(self.view.bounds), 62)];
-        _buttonContainerView.backgroundColor =
-        [UIColor colorWithWhite:0.000 alpha:0.700];
+        _buttonContainerView.backgroundColor = [UIColor colorWithWhite:0.000 alpha:0.700];
         
         [_buttonContainerView addSubview:self.scanQRCodeButton];
         [_buttonContainerView addSubview:self.scanBookButton];
@@ -219,7 +216,8 @@ typedef void (^Outcomeblock)(NSString *outcome);
 - (void)DidOutputSampleBufferBlock:(CCCaptureHelper *)capture
                  CMSampleBufferRef:(CMSampleBufferRef)sampleBuffer
 {
-    [self analysisQRCode:[CCVideoOutputSampleBufferFactory imageFromSampleBuffer:sampleBuffer]];
+    [self analysisQRCode:[CCVideoOutputSampleBufferFactory
+                          imageFromSampleBuffer:sampleBuffer]];
 }
 
 /**
@@ -311,29 +309,23 @@ typedef void (^Outcomeblock)(NSString *outcome);
 - (void)showPhotoLibray
 {
     [self.captureHelper stopRunning];
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-        UIImagePickerController *controller = [[UIImagePickerController alloc] init];
-        controller.delegate = self;
-        controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-        [self presentViewController:controller
-                           animated:YES
-                         completion:nil];
-    }
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.allowsEditing = YES;
+    picker.delegate = self;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:picker animated:YES completion:nil];
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+- (void)imagePickerController:(UIImagePickerController *)picke didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    @weakify(self);
+    UIImage *image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    WEAKSELF;
     [self dismissViewControllerAnimated:YES completion:^{
-        @strongify(self);
-        [self analysisQRCode:image];
+        [weakSelf analysisQRCode:image];
     }];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

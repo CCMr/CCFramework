@@ -51,41 +51,46 @@
 
 @end
 
-
 @implementation CCBaseBrush
+
 @synthesize lineWidth = _lineWidth, lineColor = _lineColor;
 
 + (id<CCPaintBrush>)brushWithType:(CCBrushType)brushType
 {
+    id<CCPaintBrush> brush;
     switch (brushType) {
         case CCBrushTypePencil:
-            return [CCPencilBrush new];
-            
+            brush = [CCPencilBrush new];
+            break;
         case CCBrushTypeEraser:
-            return [CCEraserBrush new];
-            
+            brush = [CCEraserBrush new];
+            break;
         case CCBrushTypeLine:
-            return [CCLineBrush new];
-            
+            brush = [CCLineBrush new];
+            break;
         case CCBrushTypeDashLine:
-            return [CCDashLineBrush new];
-            
+            brush = [CCDashLineBrush new];
+            break;
         case CCBrushTypeRectangle:
-            return [CCRectangleBrush new];
-            
+            brush = [CCRectangleBrush new];
+            break;
         case CCBrushTypeSquare:
-            return [CCSquareBrush new];
-            
+            brush = [CCSquareBrush new];
+            break;
         case CCBrushTypeEllipse:
-            return [CCEllipseBrush new];
-            
+            brush = [CCEllipseBrush new];
+            break;
         case CCBrushTypeCircle:
-            return [CCCircleBrush new];
-            
+            brush = [CCCircleBrush new];
+            break;
         case CCBrushTypeArrow:
-            return [CCArrowBrush new];
+            brush = [CCArrowBrush new];
+            break;
     }
-    return nil;
+    
+    brush.currentType = brushType;
+    
+    return brush;
 }
 
 #pragma mark - CCPaintBrush 协议方法

@@ -25,6 +25,27 @@
 
 @import UIKit;
 
+/** 涂鸦工具. */
+typedef NS_ENUM(NSUInteger, CCBrushType) {
+    /** 画笔. */
+    CCBrushTypePencil,
+    /** 橡皮. */
+    CCBrushTypeEraser,
+    /** 直线. */
+    CCBrushTypeLine,
+    /** 虚线. */
+    CCBrushTypeDashLine,
+    /** 矩形. */
+    CCBrushTypeRectangle,
+    /** 方形. */
+    CCBrushTypeSquare,
+    /** 椭圆. */
+    CCBrushTypeEllipse,
+    /** 正圆. */
+    CCBrushTypeCircle,
+    /** 箭头. */
+    CCBrushTypeArrow,
+};
 
 @protocol CCPaintBrush <NSObject>
 
@@ -40,6 +61,12 @@
 /** 是否需要绘制. */
 @property(nonatomic, readonly) BOOL needsDraw;
 
+/**
+ *  @author CC, 2015-12-19
+ *  
+ *  @brief  当前画笔类型
+ */
+@property(nonatomic, assign) CCBrushType currentType;
 
 /** 绘制图案到上下文. */
 - (void)drawInContext:(CGContextRef)context;

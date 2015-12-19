@@ -27,29 +27,6 @@
 
 #import "CCPaintBrush.h"
 
-/** 涂鸦工具. */
-typedef NS_ENUM(NSUInteger, CCBrushType) {
-    /** 画笔. */
-    CCBrushTypePencil,
-    /** 橡皮. */
-    CCBrushTypeEraser,
-    /** 直线. */
-    CCBrushTypeLine,
-    /** 虚线. */
-    CCBrushTypeDashLine,
-    /** 矩形. */
-    CCBrushTypeRectangle,
-    /** 方形. */
-    CCBrushTypeSquare,
-    /** 椭圆. */
-    CCBrushTypeEllipse,
-    /** 正圆. */
-    CCBrushTypeCircle,
-    /** 箭头. */
-    CCBrushTypeArrow,
-};
-
-
 @interface CCBaseBrush : NSObject <CCPaintBrush>
 
 /** 初始点. */
@@ -61,6 +38,12 @@ typedef NS_ENUM(NSUInteger, CCBrushType) {
 /** 当前点. */
 @property(nonatomic, readonly) CGPoint currentPoint;
 
+/**
+ *  @author CC, 2015-12-19
+ *  
+ *  @brief  当前画笔类型
+ */
+@property(nonatomic, assign) CCBrushType currentType;
 
 /** 配置上下文. */
 - (void)configureContext:(CGContextRef)context;
