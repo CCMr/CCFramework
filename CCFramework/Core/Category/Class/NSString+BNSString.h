@@ -153,12 +153,11 @@
  *
  *  @brief  生成二维码图像
  *
- *  @param width  图像宽
- *  @param height 图像高
+ *  @param size  图像大小
  *
  *  @return 二维码图片
  */
-- (UIImage *)becomeQRCodeWithQRstring:(CGFloat)size;
+- (UIImage *)becomeQRCodeWithQRstring:(float)size;
 
 /**
  *  @author CC, 15-09-02

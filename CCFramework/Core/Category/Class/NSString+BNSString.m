@@ -471,9 +471,10 @@
  *
  *  @return 二维码图片
  */
-- (UIImage *)becomeQRCodeWithQRstring:(CGFloat)size
+- (UIImage *)becomeQRCodeWithQRstring:(float)size
 {
-    return [QRCodeGenerator qrImageForString:self imageSize:size];;
+    return [QRCodeGenerator qrImageForString:self
+                                   imageSize:size];
 }
 
 /**
