@@ -29,9 +29,13 @@
 #import "config.h"
 #import "CCPaintingView.h"
 #import "CCBaseBrush.h"
+#import "CCColorWell.h"
+#import "CCBrushView.h"
+#import "CCColorPickerController.h"
+#import "CCColor.h"
 
 
-#define BottomNavigationBarHeigth 50
+#define BottomNavigationBarHeigth 44
 
 @interface CCGraffitiBoardView ()
 
@@ -42,24 +46,142 @@
  */
 @property(nonatomic, weak) UIScrollView *bottomNavigationBarScrollView;
 
+/**
+ *  @author CC, 2015-12-17
+ *  
+ *  @brief  颜色
+ */
+@property(nonatomic, strong) CCColorWell *colorWell;
+
 /** 涂鸦板. */
-@property(nonatomic, strong) IBOutlet CCPaintingView *paintingView;
+@property(nonatomic, strong) CCPaintingView *paintingView;
+
+/**
+ *  @author CC, 2015-12-17
+ *  
+ *  @brief  画笔
+ */
+@property(nonatomic, strong) UIButton *brushStyleButton;
+
+/**
+ *  @author CC, 2015-12-17
+ *  
+ *  @brief  撤销
+ */
+@property(nonatomic, strong) UIButton *undoButton;
+
+/**
+ *  @author CC, 2015-12-17
+ *  
+ *  @brief  重做
+ */
+@property(nonatomic, strong) UIButton *redoButton;
+
+/**
+ *  @author CC, 2015-12-17
+ *  
+ *  @brief  笔画大小
+ */
+@property(nonatomic, assign) NSInteger lineWidthSlider;
+
+/**
+ *  @author CC, 2015-12-19
+ *  
+ *  @brief  画笔
+ */
+@property(nonatomic, strong) id<CCPaintBrush> paintingPen;
 
 @end
 
 @implementation CCGraffitiBoardView
 
-- (instancetype)init
+- (void)viewDidLoad
 {
-    if (self = [super init]) {
-    }
-    return self;
+    [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
+    [self InitControl];
+}
+
+- (void)show
+{
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    window.windowLevel = UIWindowLevelAlert;
+    [window addSubview:self.view];
+    [window.rootViewController addChildViewController:self];
 }
 
 - (void)InitControl
 {
-   
+    [self IntiPaintBrush];
+    [self InitBarItems];
+    [self.view addSubview:self.bottomNavigationBarScrollView];
 }
+
+- (CCPaintingView *)paintingView
+{
+    if (!_paintingView) {
+        CCPaintingView *paintingView = [[CCPaintingView alloc] initWithFrame:CGRectMake(0, 44, winsize.width, winsize.height - 88)];
+        paintingView.backgroundColor = [UIColor whiteColor];
+        [self.view addSubview:paintingView];
+        _paintingView = paintingView;
+    }
+    return _paintingView;
+}
+
+/**
+ *  @author CC, 2015-12-17
+ *  
+ *  @brief  初始化画板
+ */
+- (void)IntiPaintBrush
+{
+    // 创建并设置画刷.
+    _paintingPen = [CCBaseBrush brushWithType:CCBrushTypePencil];
+    _paintingPen.lineWidth = 10;
+    _paintingPen.lineColor = [UIColor blackColor];
+    self.paintingView.paintBrush = _paintingPen;
+    
+    // 注册 KVO 方便更新按钮状态.
+    [self.paintingView addObserver:self
+                        forKeyPath:@"canUndo"
+                           options:(NSKeyValueObservingOptions)kNilOptions
+                           context:NULL];
+    [self.paintingView addObserver:self
+                        forKeyPath:@"canRedo"
+                           options:(NSKeyValueObservingOptions)kNilOptions
+                           context:NULL];
+}
+
+
+#pragma mark - KVO
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    if ([keyPath isEqualToString:@"canUndo"]) {
+        self.undoButton.enabled = self.paintingView.canUndo;
+    } else if ([keyPath isEqualToString:@"canRedo"]) {
+        self.redoButton.enabled = self.paintingView.canRedo;
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+#pragma mark :. 预览画笔
+- (void)previewBrush
+{
+    CALayer *previewLayer = self.brushStyleButton.layer.sublayers.lastObject;
+    if (!previewLayer) {
+        previewLayer = [CALayer layer];
+        previewLayer.position = (CGPoint){CGRectGetMidX(self.brushStyleButton.bounds), CGRectGetMidY(self.brushStyleButton.bounds)};
+        [self.brushStyleButton.layer addSublayer:previewLayer];
+    }
+    previewLayer.bounds = (CGRect){.size = {_lineWidthSlider, _lineWidthSlider}};
+    previewLayer.cornerRadius = CGRectGetWidth(previewLayer.bounds) / 2;
+    previewLayer.backgroundColor = [self.colorWell.color CGColor];
+}
+
 #pragma mark :. 属性
 /**
  *  @author CC, 2015-12-16
@@ -69,13 +191,174 @@
 - (UIScrollView *)bottomNavigationBarScrollView
 {
     if (!_bottomNavigationBarScrollView) {
-        UIScrollView *bottomNavigationBarScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.bounds) - BottomNavigationBarHeigth, CGRectGetWidth(self.bounds), BottomNavigationBarHeigth)];
+        UIScrollView *bottomNavigationBarScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - BottomNavigationBarHeigth, CGRectGetWidth(self.view.bounds), BottomNavigationBarHeigth)];
+        bottomNavigationBarScrollView.backgroundColor = [UIColor colorWithWhite:0.667f alpha:0.667f];
         bottomNavigationBarScrollView.showsHorizontalScrollIndicator = NO;
         bottomNavigationBarScrollView.showsVerticalScrollIndicator = NO;
+        [self.view addSubview:bottomNavigationBarScrollView];
         _bottomNavigationBarScrollView = bottomNavigationBarScrollView;
     }
     return _bottomNavigationBarScrollView;
 }
 
+
+/**
+ *  @author CC, 2015-12-17
+ *  
+ *  @brief  初始化菜单
+ */
+- (void)InitBarItems
+{
+    //画笔
+    UIButton *brushButton = [UIButton buttonWithBackgroundImageFrame:@"" Frame:CGRectMake(winsize.width - 108, 0, 44, 44)];
+    brushButton.backgroundColor = [UIColor redColor];
+    [brushButton addTarget:self action:@selector(didSelectBrush:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:brushButton];
+    
+    //橡皮擦
+    UIButton *eraserButton = [UIButton buttonWithBackgroundImageFrame:@"" Frame:CGRectMake(winsize.width - 54, 0, 44, 44)];
+    eraserButton.backgroundColor = [UIColor blueColor];
+    [eraserButton addTarget:self action:@selector(didEraser:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:eraserButton];
+    
+    //颜色
+    _colorWell = [[CCColorWell alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    [_colorWell addTarget:self action:@selector(showColorPicker:) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomNavigationBarScrollView addSubview:_colorWell];
+    
+    //画笔
+    _brushStyleButton = [UIButton buttonWith];
+    _brushStyleButton.frame = CGRectMake(44, 0, 44, 44);
+    [_brushStyleButton addTarget:self action:@selector(showBrushPanel:) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomNavigationBarScrollView addSubview:_brushStyleButton];
+    
+    //清除
+    UIButton *clearButton = [UIButton buttonWithTitle:@"♻️"];
+    clearButton.frame = CGRectMake(88, 0, 44, 44);
+    [clearButton addTarget:self action:@selector(clearAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomNavigationBarScrollView addSubview:clearButton];
+    
+    //撤销
+    _undoButton = [UIButton buttonWithTitle:@"撤销"];
+    _undoButton.frame = CGRectMake(132, 0, 44, 44);
+    [_undoButton addTarget:self action:@selector(undoAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomNavigationBarScrollView addSubview:_undoButton];
+    
+    //重做
+    _redoButton = [UIButton buttonWithTitle:@"重做"];
+    _redoButton.frame = CGRectMake(176, 0, 44, 44);
+    [_redoButton addTarget:self action:@selector(redoAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomNavigationBarScrollView addSubview:_redoButton];
+}
+
+/**
+ *  @author CC, 2015-12-18
+ *  
+ *  @brief  选择画笔
+ */
+- (void)didSelectBrush:(id)sender
+{
+    self.paintingView.paintBrush = _paintingPen;
+}
+
+/**
+ *  @author CC, 2015-12-19
+ *  
+ *  @brief  橡皮擦
+ */
+- (void)didEraser:(id)sender
+{
+    id<CCPaintBrush> paintBrush = [CCBaseBrush brushWithType:CCBrushTypeEraser];
+    paintBrush.lineWidth = _paintingPen.lineWidth;
+    paintBrush.lineColor = _paintingPen.lineColor;
+    self.paintingView.paintBrush = paintBrush;
+}
+
+/**
+ *  @author CC, 2015-12-17
+ *  
+ *  @brief  设置颜色
+ *
+ *  @param sender 按钮
+ */
+- (void)showColorPicker:(id)sender
+{
+    CCColorPickerController *viewController = [[CCColorPickerController alloc] init];
+    viewController.paintColor = self.colorWell.color;
+    @weakify(self);
+    [viewController didSelectedColor:^(CCColor *color) {
+        @strongify(self);
+        self.paintingPen.lineColor = color.UIColor;
+        self.colorWell.color = color;
+    }];
+    
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    window.windowLevel = UIWindowLevelAlert;
+    [window addSubview:viewController.view];
+    [window.rootViewController addChildViewController:viewController];
+}
+
+/**
+ *  @author CC, 2015-12-17
+ *  
+ *  @brief  设置画笔
+ *
+ *  @param sender 按钮
+ */
+- (void)showBrushPanel:(id)sender
+{
+    CCBrushView *brushView = [[CCBrushView alloc] initWithFrame:self.view.bounds];
+    brushView.currentValue = self.paintingPen.lineWidth;
+    @weakify(self);
+    [brushView didSelectBrush:^(float lineSize, CCBrushType type) {
+        @strongify(self);
+        
+        id<CCPaintBrush> paintBrush = self.paintingPen;
+        if (self.paintingView.paintBrush.currentType != type) {
+            paintBrush = [CCBaseBrush brushWithType:type];
+            paintBrush.lineColor = self.paintingPen.lineColor;
+        }
+        paintBrush.lineWidth = lineSize;
+        
+        self.paintingView.paintBrush = paintBrush;
+    }];
+    [brushView show];
+}
+
+/**
+ *  @author CC, 2015-12-17
+ *  
+ *  @brief  撤销
+ *
+ *  @param sender 按钮
+ */
+- (void)undoAction:(id)sender
+{
+    [self.paintingView undo];
+}
+
+/**
+ *  @author CC, 2015-12-17
+ *  
+ *  @brief  清除
+ *
+ *  @param sender 按钮
+ */
+- (void)clearAction:(id)sender
+{
+    [self.paintingView clear];
+}
+
+/**
+ *  @author CC, 2015-12-17
+ *  
+ *  @brief  重做
+ *
+ *  @param sender 按钮
+ */
+- (void)redoAction:(id)sender
+{
+    [self.paintingView redo];   
+}
 
 @end
