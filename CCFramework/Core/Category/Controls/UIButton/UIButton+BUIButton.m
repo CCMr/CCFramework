@@ -361,7 +361,7 @@ static char BUTTONCARRYOBJECTS;
     UIImage *LeftIcon = [UIImage imageNamed:LeftImage];
     [button setImage:LeftIcon forState:UIControlStateNormal];
     [button setImage:LeftIcon forState:UIControlStateHighlighted];
-    button.imageEdgeInsets = UIEdgeInsetsMake(0, -(frame.size.width - button.imageView.frame.size.width - button.titleLabel.bounds.size.width - 20), 0, 0);
+    button.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
     
     return button;
 }

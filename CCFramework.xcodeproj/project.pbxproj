@@ -55,7 +55,6 @@
 		424492971C0D90F500488AA2 /* if_rom.h in Headers */ = {isa = PBXBuildFile; fileRef = 4244928B1C0D90F500488AA2 /* if_rom.h */; };
 		424492981C0D90F500488AA2 /* VoiceConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 4244928C1C0D90F500488AA2 /* VoiceConverter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		424492991C0D90F500488AA2 /* VoiceConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4244928D1C0D90F500488AA2 /* VoiceConverter.m */; };
-		425233931C1919730096A5ED /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 425233921C1919730096A5ED /* libWeChatSDK.a */; };
 		425476BD1BD2A9DC0071BBC5 /* CCAliPayEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 425476BB1BD2A9DC0071BBC5 /* CCAliPayEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		425476BE1BD2A9DC0071BBC5 /* CCAliPayEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 425476BC1BD2A9DC0071BBC5 /* CCAliPayEngine.m */; };
 		425477271BD2AEC20071BBC5 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 425476C51BD2AEC20071BBC5 /* libcrypto.a */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -910,7 +909,6 @@
 		4244928B1C0D90F500488AA2 /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
 		4244928C1C0D90F500488AA2 /* VoiceConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceConverter.h; sourceTree = "<group>"; };
 		4244928D1C0D90F500488AA2 /* VoiceConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceConverter.m; sourceTree = "<group>"; };
-		425233921C1919730096A5ED /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		425476BB1BD2A9DC0071BBC5 /* CCAliPayEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCAliPayEngine.h; path = Pay/Alipay/CCAliPayEngine.h; sourceTree = "<group>"; };
 		425476BC1BD2A9DC0071BBC5 /* CCAliPayEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCAliPayEngine.m; path = Pay/Alipay/CCAliPayEngine.m; sourceTree = "<group>"; };
 		425476C51BD2AEC20071BBC5 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
@@ -1741,13 +1739,19 @@
 				424492921C0D90F500488AA2 /* libopencore-amrnb.a in Frameworks */,
 				424492931C0D90F500488AA2 /* libopencore-amrwb.a in Frameworks */,
 				425477281BD2AEC20071BBC5 /* libssl.a in Frameworks */,
-				425233931C1919730096A5ED /* libWeChatSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		420E74D41C2634F20084DA24 /* CCMInfoBanner */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = CCMInfoBanner;
+			sourceTree = "<group>";
+		};
 		42105D131BDB1791003EE23E /* CoreDataFactory */ = {
 			isa = PBXGroup;
 			children = (
@@ -2222,7 +2226,6 @@
 		427E1D381C107066004B257C /* ResourceFile */ = {
 			isa = PBXGroup;
 			children = (
-				425233921C1919730096A5ED /* libWeChatSDK.a */,
 				427E1D3A1C107066004B257C /* WXApi.h */,
 				427E1D3B1C107066004B257C /* WXApiObject.h */,
 			);
@@ -2817,6 +2820,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E51BDE025300C76004 /* UI.h */,
+				420E74D41C2634F20084DA24 /* CCMInfoBanner */,
 				42DEB2B31C254A2100734E09 /* CCBarSlider */,
 				42F410E61C2147DC00814E7B /* CCGraffitiBoard */,
 				42F24C711BEA5236008CDEDC /* CCCountingLabel */,
@@ -5182,7 +5186,7 @@
 				MACH_O_TYPE = staticlib;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Byron.RemitChat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.runzhou.TimeToEat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -5226,7 +5230,7 @@
 				MACH_O_TYPE = staticlib;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Byron.RemitChat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.runzhou.TimeToEat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
