@@ -34,10 +34,6 @@
  *  @brief  算压缩比例
  *
  *  @param targetSize 压缩比例
- *
- *  @return <#return value description#>
- *
- *  @since 1.0
  */
 - (UIImage *)compression:(CGSize)targetSize
 {

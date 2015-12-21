@@ -1,6 +1,6 @@
 //
 //  CCPickerAssetsViewController.m
-//  CC
+//  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
 //
@@ -34,12 +34,14 @@
 
 #define HW ((winsize.width - 20 - 30) / 4)
 
-@interface CCPickerAssetsViewController () <CCPhotoBrowserDelegate, CCPickerCollectionViewDelegate> {
-    UIView *ToolbarView;
-    UIButton *PreviewBtn, *SendBtn;
-    UILabel *SendCountLabel;
-    BOOL IsPreview;
-}
+@interface CCPickerAssetsViewController () <CCPhotoBrowserDelegate, CCPickerCollectionViewDelegate>
+
+@property(nonatomic, strong) UIView *toolbarView;
+@property(nonatomic, strong) UIButton *previewBtn;
+@property(nonatomic, strong) UIButton *sendBtn;
+@property(nonatomic, strong) UILabel *sendCountLabel;
+
+@property(nonatomic, assign) BOOL IsPreview;
 
 @property(nonatomic, strong) CCPickerCollectionView *collectionView;
 // 记录选中的assets
@@ -57,7 +59,13 @@
     
     _assetsGroup = assetsGroup;
     
-    self.title = assetsGroup.groupName;
+    NSString *GroupName = assetsGroup.groupName;
+    if ([GroupName isEqualToString:@"Saved Photos"])
+        GroupName = @"存储的照片";
+    else if ([GroupName isEqualToString:@"Camera Roll"])
+        GroupName = @"相机胶卷";
+    self.title = GroupName;
+    
     self.view.backgroundColor = [UIColor whiteColor];
     // 获取Assets
     [self InitLoadData];
@@ -79,7 +87,9 @@
     
     [NavRightBtn setTitle:@"取消" forState:UIControlStateNormal];
     [NavRightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    @weakify(self);
     [NavRightBtn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
+        @strongify(self);
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
 }
@@ -87,24 +97,26 @@
 #pragma mark - 初始化页面控件
 - (void)InitControl
 {
-    ToolbarView = [[UIView alloc] initWithFrame:CGRectMake(0, winsize.height - 50, winsize.width, 50)];
-    [self.view addSubview:ToolbarView];
+    _toolbarView = [[UIView alloc] initWithFrame:CGRectMake(0, winsize.height - 54, winsize.width, 50)];
+    [self.view addSubview:_toolbarView];
     
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, winsize.width, .5)];
     line.backgroundColor = [UIColor lightGrayColor];
-    [ToolbarView addSubview:line];
+    [_toolbarView addSubview:line];
     
     
-    PreviewBtn = [UIButton buttonWithTitle:@"预览"];
-    [PreviewBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [PreviewBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-    PreviewBtn.enabled = NO;
-    PreviewBtn.alpha = .5;
-    PreviewBtn.frame = CGRectMake(10, 5, 50, 40);
+    _previewBtn = [UIButton buttonWithTitle:@"预览"];
+    [_previewBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_previewBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    _previewBtn.enabled = NO;
+    _previewBtn.alpha = .5;
+    _previewBtn.frame = CGRectMake(10, 5, 50, 40);
     UIImageView *images = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 40)];
-    [PreviewBtn addSubview:images];
-    [PreviewBtn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
-        IsPreview = YES;
+    [_previewBtn addSubview:images];
+    @weakify(self);
+    [_previewBtn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
+        @strongify(self);
+        _IsPreview = YES;
         NSMutableArray *array = [NSMutableArray array];
         [self.collectionView.selectAsstes enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             CCPhoto *photo = obj;
@@ -121,27 +133,28 @@
         browser.delegate = self;
         [browser show];
     }];
-    [ToolbarView addSubview:PreviewBtn];
+    [_toolbarView addSubview:_previewBtn];
     
-    SendCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(winsize.width - 80, 13, 25, 25)];
-    SendCountLabel.backgroundColor = cc_ColorRGBA(0, 204, 51, 1);
-    SendCountLabel.layer.cornerRadius = 13;
-    SendCountLabel.layer.masksToBounds = YES;
-    SendCountLabel.textColor = [UIColor whiteColor];
-    SendCountLabel.textAlignment = NSTextAlignmentCenter;
-    SendCountLabel.hidden = YES;
-    [ToolbarView addSubview:SendCountLabel];
+    _sendCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(winsize.width - 80, 13, 25, 25)];
+    _sendCountLabel.backgroundColor = cc_ColorRGBA(0, 204, 51, 1);
+    _sendCountLabel.layer.cornerRadius = 13;
+    _sendCountLabel.layer.masksToBounds = YES;
+    _sendCountLabel.textColor = [UIColor whiteColor];
+    _sendCountLabel.textAlignment = NSTextAlignmentCenter;
+    _sendCountLabel.hidden = YES;
+    [_toolbarView addSubview:_sendCountLabel];
     
-    SendBtn = [UIButton buttonWithTitle:@"确定"];
-    [SendBtn setTitleColor:cc_ColorRGBA(0, 204, 51, 1) forState:UIControlStateNormal];
-    [SendBtn setTitleColor:cc_ColorRGBA(0, 204, 51, 1) forState:UIControlStateHighlighted];
-    SendBtn.frame = CGRectMake(winsize.width - 60, 5, 50, 40);
-    SendBtn.enabled = NO;
-    SendBtn.alpha = .5;
-    [SendBtn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
+    _sendBtn = [UIButton buttonWithTitle:@"确定"];
+    [_sendBtn setTitleColor:cc_ColorRGBA(0, 204, 51, 1) forState:UIControlStateNormal];
+    [_sendBtn setTitleColor:cc_ColorRGBA(0, 204, 51, 1) forState:UIControlStateHighlighted];
+    _sendBtn.frame = CGRectMake(winsize.width - 60, 5, 50, 40);
+    _sendBtn.enabled = NO;
+    _sendBtn.alpha = .5;
+    [_sendBtn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
+        @strongify(self);
         [self Complete];
     }];
-    [ToolbarView addSubview:SendBtn];
+    [_toolbarView addSubview:_sendBtn];
 }
 
 #pragma mark - 初始化数据
@@ -166,10 +179,6 @@
  *  @author CC, 2015-06-04 20:06:36
  *
  *  @brief  初始化显示页面
- *
- *  @return <#return value description#>
- *
- *  @since <#version number#>
  */
 - (CCPickerCollectionView *)collectionView
 {
@@ -185,7 +194,7 @@
         [collectionView registerClass:[CCPickerCollectionViewCell class] forCellWithReuseIdentifier:@"CCPickerCollectionViewCell"];
         collectionView.contentInset = UIEdgeInsetsMake(5, 5, 5, 5);
         collectionView.collectionViewDelegate = self;
-        [self.view insertSubview:_collectionView = collectionView belowSubview:ToolbarView];
+        [self.view insertSubview:_collectionView = collectionView belowSubview:_toolbarView];
         
         NSDictionary *views = NSDictionaryOfVariableBindings(collectionView);
         
@@ -202,10 +211,6 @@
  *  @author CC, 2015-06-04 19:06:52
  *
  *  @brief  图片选中记录
- *
- *  @param pickerCollectionView <#pickerCollectionView description#>
- *
- *  @since 1.0
  */
 - (void)pickerCollectionViewDidSelected:(CCPickerCollectionView *)pickerCollectionView
 {
@@ -223,12 +228,12 @@
  */
 - (void)Judge:(NSInteger)count
 {
-    SendCountLabel.hidden = !count;
-    SendCountLabel.text = [NSString stringWithFormat:@"%ld", (long)count];
-    PreviewBtn.enabled = !SendCountLabel.hidden;
-    PreviewBtn.alpha = PreviewBtn.enabled ? 1 : .5;
-    SendBtn.enabled = !SendCountLabel.hidden;
-    SendBtn.alpha = SendBtn.enabled ? 1 : .5;
+    _sendCountLabel.hidden = !count;
+    _sendCountLabel.text = [NSString stringWithFormat:@"%ld", (long)count];
+    _previewBtn.enabled = !_sendCountLabel.hidden;
+    _previewBtn.alpha = _previewBtn.enabled ? 1 : .5;
+    _sendBtn.enabled = !_sendCountLabel.hidden;
+    _sendBtn.alpha = _sendBtn.enabled ? 1 : .5;
 }
 
 /**
@@ -241,7 +246,8 @@
  *
  *  @since 1.0
  */
-- (void)pickerCollectionviewDidPreview:(CCPickerCollectionView *)pickerCollectionView Index:(NSInteger)index
+- (void)pickerCollectionviewDidPreview:(CCPickerCollectionView *)pickerCollectionView
+                                 Index:(NSInteger)index
 {
     [self.BrowseArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         CCPhoto *photo = obj;
@@ -309,14 +315,12 @@
  */
 - (void)Complete
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSMutableArray *SelectImageArray = [NSMutableArray array];
-        [self.collectionView.selectAsstes enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            CCPhoto *photo = obj;
-            [SelectImageArray addObject:photo.image];
-        }];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"CC_PICKER_TAKE_DONE" object:nil userInfo:@{@"selectAssets":SelectImageArray}];
-    });
+    NSMutableArray *SelectImageArray = [NSMutableArray array];
+    [self.collectionView.selectAsstes enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        CCPhoto *photo = obj;
+        [SelectImageArray addObject:photo.image];
+    }];
+    cc_NoticePost(@"CC_PICKER_TAKE_DONE", SelectImageArray);
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

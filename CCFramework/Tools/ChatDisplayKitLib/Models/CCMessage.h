@@ -92,6 +92,11 @@
  */
 @property(nonatomic, assign) BOOL showdate;
 
+/**
+ *  @author CC, 2015-12-21
+ *  
+ *  @brief  是否显示名称
+ */
 @property(nonatomic, assign) BOOL shouldShowUserName;
 
 @property(nonatomic, assign) BOOL sended;

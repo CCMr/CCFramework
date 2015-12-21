@@ -35,8 +35,8 @@
     BOOL _doubleTap;
 }
 
-@property (nonatomic, copy) UIImageView *imageView;
-@property (nonatomic, copy) CCPhotoLoadingView *photoLoadingView;
+@property(nonatomic, copy) UIImageView *imageView;
+@property(nonatomic, copy) CCPhotoLoadingView *photoLoadingView;
 
 @end
 
@@ -101,15 +101,18 @@
             if (![_photo.url.absoluteString hasSuffix:@"gif"]) {
                 __unsafe_unretained CCPhotoView *photoView = self;
                 __unsafe_unretained CCPhoto *photo = _photo;
-                [_imageView sd_setImageWithURL:_photo.url placeholderImage:_photo.Placeholder options:SDWebImageRetryFailed | SDWebImageLowPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                    photo.image = image;
-                    
-                    if (photo.savePath)
-                        [[image data] writeToFile:photo.savePath atomically:YES];
-                    
-                    // 调整frame参数
-                    [photoView adjustFrame];
-                }];
+                [_imageView sd_setImageWithURL:_photo.url
+                              placeholderImage:_photo.Placeholder
+                                       options:SDWebImageRetryFailed | SDWebImageLowPriority
+                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                         photo.image = image;
+                                         
+                                         if (photo.savePath)
+                                             [[image data] writeToFile:photo.savePath atomically:YES];
+                                         
+                                         // 调整frame参数
+                                         [photoView adjustFrame];
+                                     }];
             }
             
         } else {
@@ -138,13 +141,17 @@
         
         __block CCPhotoView *photoView = self;
         __block CCPhotoLoadingView *loading = _photoLoadingView;
-        [_imageView sd_setImageWithURL:_photo.url placeholderImage:_photo.srcImageView.image options:SDWebImageRetryFailed | SDWebImageLowPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-            if (receivedSize > kMinProgress) {
-                loading.progress = (float)receivedSize/expectedSize;
-            }
-        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            [photoView photoDidFinishLoadWithImage:image];
-        }];
+        [_imageView sd_setImageWithURL:_photo.url
+                      placeholderImage:_photo.srcImageView.image
+                               options:SDWebImageRetryFailed | SDWebImageLowPriority
+                              progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                                  if (receivedSize > kMinProgress) {
+                                      loading.progress = (float)receivedSize/expectedSize;
+                                  }
+                              }
+                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                 [photoView photoDidFinishLoadWithImage:image];
+                             }];
     }
 }
 
@@ -257,7 +264,7 @@
     // 通知代理
     if ([self.photoViewDelegate respondsToSelector:@selector(photoViewSingleTap:)])
         [self.photoViewDelegate photoViewSingleTap:self];
-
+    
     [UIView animateWithDuration:duration + 0.1 animations:^{
         _imageView.frame = [_photo.srcImageView convertRect:_photo.srcImageView.bounds toView:nil];
         // gif图片仅显示第0张
@@ -268,7 +275,7 @@
     } completion:^(BOOL finished) {
         // 设置底部的小图片
         _photo.srcImageView.image = _photo.Placeholder;
-
+        
         // 通知代理
         if ([self.photoViewDelegate respondsToSelector:@selector(photoViewDidEndZoom:)]) {
             [self.photoViewDelegate photoViewDidEndZoom:self];
@@ -298,7 +305,7 @@
 {
     CGFloat offsetX = (scrollView.bounds.size.width > scrollView.contentSize.width) ? (scrollView.bounds.size.width - scrollView.contentSize.width) / 2 : 0.0;
     CGFloat offsetY = (scrollView.bounds.size.height > scrollView.contentSize.height) ? (scrollView.bounds.size.height - scrollView.contentSize.height) / 2 : 0.0;
-    _imageView.center = CGPointMake(scrollView.contentSize.width/2 + offsetX,scrollView.contentSize.height/2 + offsetY);
+    _imageView.center = CGPointMake(scrollView.contentSize.width / 2 + offsetX, scrollView.contentSize.height / 2 + offsetY);
     
 }
 

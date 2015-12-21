@@ -42,13 +42,11 @@
 + (void)cc_batchUpdataCoredData:(NSString *)tableName
                  ColumnKeyValue:(NSDictionary *)columnDic
 {
-    NSEntityDescription *entityDescription =
-    [NSEntityDescription entityForName:tableName
-                inManagedObjectContext:self.currentContext];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:tableName
+                                                         inManagedObjectContext:self.currentContext];
     
     // Initialize Batch Update Request
-    NSBatchUpdateRequest *batchUpdateRequest =
-    [[NSBatchUpdateRequest alloc] initWithEntity:entityDescription];
+    NSBatchUpdateRequest *batchUpdateRequest = [[NSBatchUpdateRequest alloc] initWithEntity:entityDescription];
     
     // Configure Batch Update Request
     [batchUpdateRequest setResultType:NSUpdatedObjectIDsResultType];
@@ -61,8 +59,7 @@
                                   error:&batchUpdateRequestError];
     
     if (batchUpdateRequestError) {
-        NSLog(@"%@, %@", batchUpdateRequestError,
-              batchUpdateRequestError.localizedDescription);
+        NSLog(@"%@, %@", batchUpdateRequestError, batchUpdateRequestError.localizedDescription);
     } else {
         // Extract Object IDs
         NSArray *objectIDs = batchUpdateResult.result;
@@ -486,10 +483,10 @@
                           PrimaryValue:(id)primaryValue
                                DataDic:(NSDictionary *)data
 {
-    return [self cc_updateORInsertCoreData:tableName 
-                                PrimaryKey:primaryKey 
-                              PrimaryValue:primaryValue 
-                                   DataAry:@[data] 
+    return [self cc_updateORInsertCoreData:tableName
+                                PrimaryKey:primaryKey
+                              PrimaryValue:primaryValue
+                                   DataAry:@[ data ]
                                 completion:nil];
 }
 
@@ -511,10 +508,10 @@
                           PrimaryValue:(id)primaryValue
                                DataAry:(NSArray *)dataAry
 {
-    return [self cc_updateORInsertCoreData:tableName 
-                                PrimaryKey:primaryKey 
-                              PrimaryValue:primaryValue 
-                                   DataAry:dataAry 
+    return [self cc_updateORInsertCoreData:tableName
+                                PrimaryKey:primaryKey
+                              PrimaryValue:primaryValue
+                                   DataAry:dataAry
                                 completion:nil];
 }
 
@@ -613,9 +610,9 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", primaryKeys, remoteValue];
     [subPredicates addObject:predicate];
     
-    return [self objctWithData:tableName 
-                 SubPredicates:subPredicates 
-                          Data:data 
+    return [self objctWithData:tableName
+                 SubPredicates:subPredicates
+                          Data:data
                      inContext:context];
 }
 

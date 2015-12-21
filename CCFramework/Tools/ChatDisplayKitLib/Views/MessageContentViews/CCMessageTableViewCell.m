@@ -36,7 +36,7 @@ static const CGFloat kCCLabelPadding = 3.0f;
 static const CGFloat kCCTimeStampLabelHeight = 20.0f;
 
 static const CGFloat kCCAvatarPaddingX = 8.0;
-static const CGFloat kCCAvatarPaddingY = 15;
+static const CGFloat kCCAvatarPaddingY = 5;
 
 static const CGFloat kCCUserNameLabelHeight = 20;
 

@@ -721,7 +721,7 @@
 		42DEB2AB1C25495000734E09 /* CCMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB28F1C25495000734E09 /* CCMatrix.m */; };
 		42DEB2AC1C25495000734E09 /* CCSwatches.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2901C25495000734E09 /* CCSwatches.h */; };
 		42DEB2AD1C25495000734E09 /* CCSwatches.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2911C25495000734E09 /* CCSwatches.m */; };
-		42DEB2B11C25496C00734E09 /* CCUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2AF1C25496C00734E09 /* CCUtilities.h */; };
+		42DEB2B11C25496C00734E09 /* CCUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2AF1C25496C00734E09 /* CCUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42DEB2B21C25496C00734E09 /* CCUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2B01C25496C00734E09 /* CCUtilities.m */; };
 		42DEB2B61C254A2100734E09 /* CCBarSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2B41C254A2100734E09 /* CCBarSlider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42DEB2B71C254A2100734E09 /* CCBarSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2B51C254A2100734E09 /* CCBarSlider.m */; };
@@ -865,7 +865,7 @@
 		42F4120B1C2150E500814E7B /* UIWindow+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F411C21C2150E500814E7B /* UIWindow+Additions.m */; };
 		42F4120C1C2150E500814E7B /* UIWindow+BUIWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F411C31C2150E500814E7B /* UIWindow+BUIWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42F4120D1C2150E500814E7B /* UIWindow+BUIWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F411C41C2150E500814E7B /* UIWindow+BUIWindow.m */; };
-		42F412151C215BC400814E7B /* CCGraffitiBoardView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F412131C215BC400814E7B /* CCGraffitiBoardView.h */; };
+		42F412151C215BC400814E7B /* CCGraffitiBoardView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F412131C215BC400814E7B /* CCGraffitiBoardView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42F412161C215BC400814E7B /* CCGraffitiBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F412141C215BC400814E7B /* CCGraffitiBoardView.m */; };
 		42F4121A1C21639B00814E7B /* CCPaintingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F412181C21639B00814E7B /* CCPaintingView.h */; };
 		42F4121B1C21639B00814E7B /* CCPaintingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F412191C21639B00814E7B /* CCPaintingView.m */; };
