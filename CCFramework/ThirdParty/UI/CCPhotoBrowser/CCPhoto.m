@@ -33,15 +33,11 @@
  *  @author CC, 2015-06-04 18:06:15
  *
  *  @brief  用于查看相册时使用
- *
- *  @return <#return value description#>
- *
- *  @since 1.0
  */
 - (UIImage *)image
 {
     if (_assets)
-        return [UIImage imageWithCGImage:[[_assets defaultRepresentation] fullScreenImage] scale:1.0f orientation:UIImageOrientationUp];
+        return [self compressionWithMaxPixelSize:0];
     return _image;
 }
 
@@ -84,10 +80,10 @@
  *
  *  @param size 最大像素大小
  */
--(UIImage *)compressionWithMaxPixelSize:(NSUInteger)size
+- (UIImage *)compressionWithMaxPixelSize:(NSUInteger)size
 {
-     return [self thumbnailForAsset:_assets 
-                       maxPixelSize:size];
+    return [self thumbnailForAsset:_assets
+                      maxPixelSize:size];
 }
 
 // Helper methods for thumbnailForAsset:maxPixelSize:
@@ -113,15 +109,29 @@ static void releaseAssetCallback(void *info)
     CFRelease(info);
 }
 
+- (NSInteger)sourceSize:(CGImageSourceRef)source
+{
+    CGSize imageSize = CGSizeZero;
+    NSDictionary *options = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:(NSString *)kCGImageSourceShouldCache];
+    NSDictionary *properties = (__bridge_transfer NSDictionary *)CGImageSourceCopyPropertiesAtIndex(source, 0, (__bridge CFDictionaryRef)options);
+    if (properties) {
+        NSNumber *width = [properties objectForKey:(NSString *)kCGImagePropertyPixelWidth];
+        NSNumber *height = [properties objectForKey:(NSString *)kCGImagePropertyPixelHeight];
+        if ((width != nil) && (height != nil))
+            imageSize = CGSizeMake(width.floatValue, height.floatValue);
+    }
+    return MAX(imageSize.width, imageSize.height) / 1.5;
+}
+
 // Returns a UIImage for the given asset, with size length at most the passed size.
 // The resulting UIImage will be already rotated to UIImageOrientationUp, so its CGImageRef
 // can be used directly without additional rotation handling.
 // This is done synchronously, so you should call this method on a background queue/thread.
-- (UIImage *)thumbnailForAsset:(ALAsset *)asset 
+- (UIImage *)thumbnailForAsset:(ALAsset *)asset
                   maxPixelSize:(NSUInteger)size
 {
     NSParameterAssert(asset != nil);
-    NSParameterAssert(size > 0);
+//    NSParameterAssert(size > 0);
     
     ALAssetRepresentation *rep = [asset defaultRepresentation];
     
@@ -136,10 +146,15 @@ static void releaseAssetCallback(void *info)
     CGDataProviderRef provider = CGDataProviderCreateDirect((void *)CFBridgingRetain(rep), [rep size], &callbacks);
     CGImageSourceRef source = CGImageSourceCreateWithDataProvider(provider, NULL);
     
+    if (!size)
+        size = [self sourceSize:source];
+    
     CGImageRef imageRef = CGImageSourceCreateThumbnailAtIndex(source, 0, (__bridge CFDictionaryRef) @{
                                                                                                       (NSString *)kCGImageSourceCreateThumbnailFromImageAlways : @YES,
-                                                                                                      (NSString *)kCGImageSourceThumbnailMaxPixelSize : @(size),
-                                                                                                      (NSString *)kCGImageSourceCreateThumbnailWithTransform : @YES,
+                                                                                                      (NSString *)
+                                                                                                      kCGImageSourceThumbnailMaxPixelSize : @(size),
+                                                                                                      (NSString *)
+                                                                                                      kCGImageSourceCreateThumbnailWithTransform : @YES,
                                                                                                       });
     CFRelease(source);
     CFRelease(provider);

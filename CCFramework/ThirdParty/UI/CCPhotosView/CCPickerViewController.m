@@ -29,15 +29,16 @@
 
 @interface CCPickerViewController ()
 
-@property (nonatomic , weak) CCPickerGroupViewController *groupVc;
+@property(nonatomic, weak) CCPickerGroupViewController *groupVc;
 
-@property (nonatomic, copy) Completion callBackBlock;
+@property(nonatomic, copy) Completion callBackBlock;
 
 @end
 
 @implementation CCPickerViewController
 
--(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         [self createNavigationController];
     }
@@ -52,7 +53,8 @@
  *
  *  @since 1.0
  */
-- (void)createNavigationController{
+- (void)createNavigationController
+{
     CCPickerGroupViewController *groupVc = [[CCPickerGroupViewController alloc] init];
     groupVc.IsPush = YES;
     groupVc.minCount = 9;
@@ -61,7 +63,6 @@
     [self addChildViewController:nav];
     [self.view addSubview:nav.view];
     self.groupVc = groupVc;
-    
 }
 
 #pragma mark - 展示控制器
@@ -72,15 +73,17 @@
  *
  *  @since 1.0
  */
-- (void)show{
+- (void)show
+{
     [[[[UIApplication sharedApplication].windows firstObject] rootViewController] presentViewController:self animated:YES completion:nil];
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-      [self addNotification];
+    [self addNotification];
 }
 
 /**
@@ -90,10 +93,9 @@
  *
  *  @since 1.0
  */
-- (void)addNotification{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(done:) name:@"CC_PICKER_TAKE_DONE" object:nil];
-    });
+- (void)addNotification
+{
+    cc_NoticeObserver(self, @selector(done:), @"CC_PICKER_TAKE_DONE", nil);
 }
 
 /**
@@ -105,20 +107,20 @@
  *
  *  @since 1.0
  */
-- (void)done:(NSNotification *)note{
-    NSArray *selectArray =  note.userInfo[@"selectAssets"];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
+- (void)done:(NSNotification *)note
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    NSArray *selectArray = note.object;
+    MainThread(^{
         if ([self.delegate respondsToSelector:@selector(pickerViewControllerCompleteImage:)])
             [self.delegate pickerViewControllerCompleteImage:selectArray];
         else if (_callBackBlock)
             _callBackBlock(selectArray);
-        
-        [self dismissViewControllerAnimated:YES completion:nil];
     });
 }
 
-- (void)setDelegate:(id<CCPickerDelegate>)delegate{
+- (void)setDelegate:(id<CCPickerDelegate>)delegate
+{
     _delegate = delegate;
     self.groupVc.delegate = delegate;
 }
@@ -132,7 +134,8 @@
  *
  *  @since 1.0
  */
--(void)CompleteImage:(Completion)block{
+- (void)CompleteImage:(Completion)block
+{
     _callBackBlock = block;
 }
 
@@ -167,11 +170,13 @@
 }
 
 
-- (void)dealloc{
+- (void)dealloc
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
