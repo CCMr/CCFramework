@@ -266,14 +266,45 @@ static char BUTTONCARRYOBJECTS;
  *
  *  @since 1.0
  */
-+ (id)buttonWithImage:(NSString *)title FinishedSelectedImage:(NSString *)FinishedSelectedImage WithFinishedUnselectedImage:(NSString *)FinishedUnselectedImage
++ (id)buttonWithImageStr:(NSString *)title
+           FinishedImage:(NSString *)FinishedImage
+     WithFinishedUnImage:(NSString *)FinishedUnImage
+{
+    UIImage *shedImage = nil;
+    if (![FinishedImage isEqualToString:@""])
+        shedImage = [UIImage imageNamed:FinishedImage];
+    
+    UIImage *shedUnImage = nil;
+    if (![FinishedUnImage isEqualToString:@""])
+        shedUnImage = [UIImage imageNamed:FinishedUnImage];
+    
+    
+    return [self buttonWithImage:title
+                   FinishedImage:shedImage
+             WithFinishedUnImage:shedUnImage];
+}
+
+/**
+ *  @author CC, 2015-12-22
+ *  
+ *  @brief  设置标题与背景
+ *
+ *  @param title           标题
+ *  @param FinishedImage   背景图片
+ *  @param FinishedUnImage 长按背景图片
+ *
+ *  @return 返回按钮
+ */
++ (id)buttonWithImage:(NSString *)title
+        FinishedImage:(UIImage *)FinishedImage
+  WithFinishedUnImage:(UIImage *)FinishedUnImage
 {
     UIButton *button = [self buttonWith];
-    if (![FinishedSelectedImage isEqualToString:@""])
-        [button setBackgroundImage:[UIImage imageNamed:FinishedSelectedImage] forState:UIControlStateNormal];
+    if (!FinishedImage)
+        [button setBackgroundImage:FinishedImage forState:UIControlStateNormal];
     
-    if (![FinishedUnselectedImage isEqualToString:@""])
-        [button setBackgroundImage:[UIImage imageNamed:FinishedUnselectedImage] forState:UIControlStateHighlighted];
+    if (!FinishedUnImage)
+        [button setBackgroundImage:FinishedUnImage forState:UIControlStateHighlighted];
     
     [button setTitle:title forState:UIControlStateNormal];
     [button setTitle:title forState:UIControlStateHighlighted];
