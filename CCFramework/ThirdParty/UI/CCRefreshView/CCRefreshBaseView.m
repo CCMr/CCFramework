@@ -66,7 +66,7 @@
 - (UIImageView *)arrowImage
 {
     if (!_arrowImage) {
-        UIImageView *arrowImage = [[UIImageView alloc] initWithImage:[ResourcesPhotos arrow]];
+        UIImageView *arrowImage = [[UIImageView alloc] initWithImage:CCResourceImage(@"arrow")];
         arrowImage.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         [self addSubview:_arrowImage = arrowImage];
     }

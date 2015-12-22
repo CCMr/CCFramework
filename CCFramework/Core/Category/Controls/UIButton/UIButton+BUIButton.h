@@ -155,7 +155,24 @@
  *
  *  @since 1.0
  */
-+ (id)buttonWithImage:(NSString *)title FinishedSelectedImage:(NSString *)FinishedSelectedImage WithFinishedUnselectedImage:(NSString *)FinishedUnselectedImage;
++ (id)buttonWithImageStr:(NSString *)title
+           FinishedImage:(NSString *)FinishedImage
+     WithFinishedUnImage:(NSString *)FinishedUnImage;
+
+/**
+ *  @author CC, 2015-12-22
+ *  
+ *  @brief  设置标题与背景
+ *
+ *  @param title           标题
+ *  @param FinishedImage   背景图片
+ *  @param FinishedUnImage 长按背景图片
+ *
+ *  @return 返回按钮
+ */
++ (id)buttonWithImage:(NSString *)title
+        FinishedImage:(UIImage *)FinishedImage
+  WithFinishedUnImage:(UIImage *)FinishedUnImage;
 
 /**
  *  @author CC, 2015-07-16

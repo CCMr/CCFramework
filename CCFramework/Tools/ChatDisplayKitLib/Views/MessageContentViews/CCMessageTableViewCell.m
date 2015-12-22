@@ -30,7 +30,6 @@
 #import "CCConfigurationHelper.h"
 #import "CCMessageAvatarFactory.h"
 #import "UIView+CCRemoteImage.h"
-#import "ResourcesPhotos.h"
 
 static const CGFloat kCCLabelPadding = 3.0f;
 static const CGFloat kCCTimeStampLabelHeight = 20.0f;
@@ -656,9 +655,9 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     [UIView setAnimationBeginsFromCurrentState:YES];
     
     if (self.messageBubbleView.message.selected)
-        [self.selectedIndicator setImage:[ResourcesPhotos assetsYES]];
+        [self.selectedIndicator setImage:CCResourceImage(@"AssetsYES")];
     else
-        [self.selectedIndicator setImage:[ResourcesPhotos assetsNO]];
+        [self.selectedIndicator setImage:CCResourceImage(@"AssetsNO")];
     [UIView commitAnimations];
 }
 

@@ -32,7 +32,6 @@
 #import "UIControl+BUIControl.h"
 #import "NSDate+BNSDate.h"
 #import "Config.h"
-#import "ResourcesPhotos.h"
 
 static NSString *CellIdentifier = @"CalendarCell";
 static NSString *CellHeaderIdentifier = @"CalendarHeader";
@@ -87,7 +86,7 @@ static NSString *CellHeaderIdentifier = @"CalendarHeader";
 -(void)InitNavigation
 {
     UIButton *NavLeftBtn = [UIButton buttonWith];
-    [NavLeftBtn setImage:[ResourcesPhotos retuens] forState:UIControlStateNormal];
+    [NavLeftBtn setImage:CCResourceImage(@"returns") forState:UIControlStateNormal];
     NavLeftBtn.frame = CGRectMake(0, 0, 15, 20);
     __weak typeof (self)weakSelf = self;
     [NavLeftBtn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {

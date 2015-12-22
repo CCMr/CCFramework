@@ -31,7 +31,6 @@
 #import "Config.h"
 #import "UIControl+BUIControl.h"
 #import "UIButton+BUIButton.h"
-#import "ResourcesPhotos.h"
 #import "SDWebImageDownloader.h"
 
 #define kPadding 10
@@ -98,7 +97,8 @@
 {
     [super viewWillAppear:animated];
     CCPhoto *photo = _photos[_currentPhotoIndex];
-    [NavRightBtn setImage:photo.selectd ? [ResourcesPhotos assetsYES] : [ResourcesPhotos assetsNO] forState:UIControlStateNormal];
+    
+    [NavRightBtn setImage:CCResourceImage(photo.selectd ? @"AssetsYES" : @"AssetsNO") forState:UIControlStateNormal];
 }
 
 - (void)show
@@ -123,7 +123,7 @@
     
     UIButton *NavLeftBtn = [UIButton buttonWith];
     NavLeftBtn.frame = CGRectMake(10, 10, 15, 25);
-    [NavLeftBtn setImage:[ResourcesPhotos retuens] forState:UIControlStateNormal];
+    [NavLeftBtn setImage:CCResourceImage(@"returns") forState:UIControlStateNormal];
     [NavLeftBtn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
         [self photoViewSingleTap:nil];
         [self photoViewDidEndZoom:nil];
@@ -133,12 +133,12 @@
     
     NavRightBtn = [UIButton buttonWith];
     NavRightBtn.frame = CGRectMake(winsize.width - 50, 5, 35, 35);
-    [NavRightBtn setImage:[ResourcesPhotos assetsNO] forState:UIControlStateNormal];
+    [NavRightBtn setImage:CCResourceImage(@"AssetsNO") forState:UIControlStateNormal];
     [NavRightBtn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
         if (self.delegate != nil && [self.delegate  respondsToSelector:@selector(didSelectd:)]){
             CCPhoto *photo = _photos[_currentPhotoIndex];
             photo.selectd = !photo.selectd;
-            [NavRightBtn setImage:photo.selectd ? [ResourcesPhotos assetsYES] : [ResourcesPhotos assetsNO] forState:UIControlStateNormal];
+            [NavRightBtn setImage:CCResourceImage(photo.selectd ? @"AssetsYES" : @"AssetsNO") forState:UIControlStateNormal];
             [_toolbar updataSelectd];
             
             NSUInteger indexs = _currentPhotoIndex;
@@ -360,7 +360,7 @@
     _currentPhotoIndex = _photoScrollView.contentOffset.x / _photoScrollView.frame.size.width;
     _toolbar.currentPhotoIndex = _currentPhotoIndex;
     CCPhoto *photo = _photos[_currentPhotoIndex];
-    [NavRightBtn setImage:photo.selectd ? [ResourcesPhotos assetsYES] : [ResourcesPhotos assetsNO] forState:UIControlStateNormal];
+    [NavRightBtn setImage:CCResourceImage(photo.selectd ? @"AssetsYES" : @"AssetsNO") forState:UIControlStateNormal];
 }
 
 #pragma mark - UIScrollView Delegate

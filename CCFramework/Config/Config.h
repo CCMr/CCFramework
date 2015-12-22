@@ -27,7 +27,6 @@
 #define CCFramework__Config_h
 
 #import <CCFramework/EnumConfig.h>
-#import <CCFramework/ResourcesPhotos.h>
 #import <CCFramework/CCProperty.h>
 #import <CCFramework/CCExtScope.h>
 #import <CCFramework/CCMetamacros.h>

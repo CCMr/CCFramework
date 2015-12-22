@@ -28,6 +28,7 @@
 #import "CCColorIndicator.h"
 #import "CCUtilities.h"
 #import "UIView+BUIView.h"
+#import "config.h"
 
 #define wheelWidth 35
 
@@ -92,7 +93,7 @@
     CGContextAddEllipseInRect(ctx, bounds);
     CGContextAddEllipseInRect(ctx, CGRectInset(bounds, wheelWidth, wheelWidth));
     CGContextEOClip(ctx);
-    CGContextDrawImage(ctx, self.bounds, [UIImage imageNamed:@"color_wheel"].CGImage);
+    CGContextDrawImage(ctx, self.bounds, CCResourceImage(@"color_wheel").CGImage);
     
     CGContextSetShadow(ctx, CGSizeMake(0, 4), 8);
     CGContextAddRect(ctx, CGRectInset(bounds, -20, -20));

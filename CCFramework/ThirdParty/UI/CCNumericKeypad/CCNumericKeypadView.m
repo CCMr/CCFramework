@@ -32,7 +32,8 @@
 
 @synthesize containerView;
 
--(instancetype)init{
+- (instancetype)init
+{
     if (self = [super init]) {
         _EnterCount = 9;
         [self InitControl];
@@ -40,7 +41,8 @@
     return self;
 }
 
--(id)initWithContainerView:(UIView *)ainerView{
+- (id)initWithContainerView:(UIView *)ainerView
+{
     if (self = [super init]) {
         _EnterCount = 9;
         containerView = ainerView;
@@ -49,7 +51,8 @@
     return self;
 }
 
--(instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame
+{
     if (self = [super initWithFrame:frame]) {
         _EnterCount = 9;
         [self InitControl];
@@ -57,10 +60,11 @@
     return self;
 }
 
--(void)InitControl{
-    float h = 246,y = 30;
+- (void)InitControl
+{
+    float h = 246, y = 30;
     self.frame = CGRectMake(0, 0, winsize.width, h);
-    UIImageView *keyboardBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"KeyboardNumericBg"]];
+    UIImageView *keyboardBackground = [[UIImageView alloc] initWithImage:CCResourceImage(@"KeyboardNumericBg")];
     keyboardBackground.frame = CGRectMake(0, 0, winsize.width, 246);
     [self addSubview:keyboardBackground];
     
@@ -74,7 +78,6 @@
     UIImageView *logoImage = [[UIImageView alloc] initWithFrame:CGRectMake(Title.frame.origin.x - 30, 5, 25, 20)];
     logoImage.image = [UIImage imageNamed:@"logo"];
     [self addSubview:logoImage];
-    
     
     
     UIView *VerticalLine1 = [[UIView alloc] initWithFrame:CGRectMake(KeyboardNumericKeyWidth, y, 1, h)];
@@ -93,40 +96,44 @@
     horizontalLine0.backgroundColor = cc_ColorRGBA(143, 143, 143, 1);
     [self addSubview:horizontalLine0];
     
-    [self addSubview:[self addNumericKeyWithTitle:@"1" BottomTitle:@"" frame:CGRectMake(0, y+1, KeyboardNumericKeyWidth, KeyboardNumericKeyHeight-1)]];
-    [self addSubview:[self addNumericKeyWithTitle:@"2" BottomTitle:@"" frame:CGRectMake(KeyboardNumericKeyWidth+1, y+1, KeyboardNumericKeyWidth - 1, KeyboardNumericKeyHeight-1)]];
-    [self addSubview:[self addNumericKeyWithTitle:@"3" BottomTitle:@"" frame:CGRectMake(KeyboardNumericKeyWidth * 2 + 1, y+1, KeyboardNumericKeyWidth-1, KeyboardNumericKeyHeight-1)]];
+    [self addSubview:[self addNumericKeyWithTitle:@"1" BottomTitle:@"" frame:CGRectMake(0, y + 1, KeyboardNumericKeyWidth, KeyboardNumericKeyHeight - 1)]];
+    [self addSubview:[self addNumericKeyWithTitle:@"2" BottomTitle:@"" frame:CGRectMake(KeyboardNumericKeyWidth + 1, y + 1, KeyboardNumericKeyWidth - 1, KeyboardNumericKeyHeight - 1)]];
+    [self addSubview:[self addNumericKeyWithTitle:@"3" BottomTitle:@"" frame:CGRectMake(KeyboardNumericKeyWidth * 2 + 1, y + 1, KeyboardNumericKeyWidth - 1, KeyboardNumericKeyHeight - 1)]];
     
-    UIView *horizontalLine1 = [[UIView alloc] initWithFrame:CGRectMake(0, KeyboardNumericKeyHeight+ y, winsize.width - 80, 1)];
+    UIView *horizontalLine1 = [[UIView alloc] initWithFrame:CGRectMake(0, KeyboardNumericKeyHeight + y, winsize.width - 80, 1)];
     horizontalLine1.backgroundColor = cc_ColorRGBA(143, 143, 143, 1);
     [self addSubview:horizontalLine1];
     
-    [self addSubview:[self addNumericKeyWithTitle:@"4" BottomTitle:@"" frame:CGRectMake(0, KeyboardNumericKeyHeight +y+1, KeyboardNumericKeyWidth, KeyboardNumericKeyHeight-1)]];
-    [self addSubview:[self addNumericKeyWithTitle:@"5" BottomTitle:@"" frame:CGRectMake(KeyboardNumericKeyWidth+1, KeyboardNumericKeyHeight + y+1, KeyboardNumericKeyWidth-1, KeyboardNumericKeyHeight-1)]];
-    [self addSubview:[self addNumericKeyWithTitle:@"6" BottomTitle:@"" frame:CGRectMake(KeyboardNumericKeyWidth * 2 + 1, KeyboardNumericKeyHeight + y+1, KeyboardNumericKeyWidth-1, KeyboardNumericKeyHeight-1)]];
+    [self addSubview:[self addNumericKeyWithTitle:@"4" BottomTitle:@"" frame:CGRectMake(0, KeyboardNumericKeyHeight + y + 1, KeyboardNumericKeyWidth, KeyboardNumericKeyHeight - 1)]];
+    [self addSubview:[self addNumericKeyWithTitle:@"5" BottomTitle:@"" frame:CGRectMake(KeyboardNumericKeyWidth + 1, KeyboardNumericKeyHeight + y + 1, KeyboardNumericKeyWidth - 1, KeyboardNumericKeyHeight - 1)]];
+    [self addSubview:[self addNumericKeyWithTitle:@"6" BottomTitle:@"" frame:CGRectMake(KeyboardNumericKeyWidth * 2 + 1, KeyboardNumericKeyHeight + y + 1, KeyboardNumericKeyWidth - 1, KeyboardNumericKeyHeight - 1)]];
     
     UIView *horizontalLine2 = [[UIView alloc] initWithFrame:CGRectMake(0, KeyboardNumericKeyHeight * 2 + y, winsize.width - 80, 1)];
     horizontalLine2.backgroundColor = cc_ColorRGBA(143, 143, 143, 1);
     [self addSubview:horizontalLine2];
     
-    [self addSubview:[self addNumericKeyWithTitle:@"7" BottomTitle:@"" frame:CGRectMake(0, KeyboardNumericKeyHeight * 2 + y +1, KeyboardNumericKeyWidth-1, KeyboardNumericKeyHeight)]];
-    [self addSubview:[self addNumericKeyWithTitle:@"8" BottomTitle:@"" frame:CGRectMake(KeyboardNumericKeyWidth +1, KeyboardNumericKeyHeight * 2 + y+1, KeyboardNumericKeyWidth - 1, KeyboardNumericKeyHeight - 1)]];
-    [self addSubview:[self addNumericKeyWithTitle:@"9" BottomTitle:@"" frame:CGRectMake(KeyboardNumericKeyWidth * 2 +1, KeyboardNumericKeyHeight * 2 + y+1, KeyboardNumericKeyWidth - 1, KeyboardNumericKeyHeight - 1)]];
+    [self addSubview:[self addNumericKeyWithTitle:@"7" BottomTitle:@"" frame:CGRectMake(0, KeyboardNumericKeyHeight * 2 + y + 1, KeyboardNumericKeyWidth - 1, KeyboardNumericKeyHeight)]];
+    [self addSubview:[self addNumericKeyWithTitle:@"8" BottomTitle:@"" frame:CGRectMake(KeyboardNumericKeyWidth + 1, KeyboardNumericKeyHeight * 2 + y + 1, KeyboardNumericKeyWidth - 1, KeyboardNumericKeyHeight - 1)]];
+    [self addSubview:[self addNumericKeyWithTitle:@"9" BottomTitle:@"" frame:CGRectMake(KeyboardNumericKeyWidth * 2 + 1, KeyboardNumericKeyHeight * 2 + y + 1, KeyboardNumericKeyWidth - 1, KeyboardNumericKeyHeight - 1)]];
     
     UIView *horizontalLine3 = [[UIView alloc] initWithFrame:CGRectMake(0, KeyboardNumericKeyHeight * 3 + y, winsize.width - 80, 1)];
     horizontalLine3.backgroundColor = cc_ColorRGBA(143, 143, 143, 1);
     [self addSubview:horizontalLine3];
     
-    [self addSubview:[self addNumericKeyWithTitle:@"." BottomTitle:@"" frame:CGRectMake(0, KeyboardNumericKeyHeight * 3 + y+1, KeyboardNumericKeyWidth, KeyboardNumericKeyHeight - 1)]];
-    [self addSubview:[self addNumericKeyWithTitle:@"0" BottomTitle:@"" frame:CGRectMake(KeyboardNumericKeyWidth +1, KeyboardNumericKeyHeight * 3 + y+1, KeyboardNumericKeyWidth-1, KeyboardNumericKeyHeight - 1)]];
-    [self addSubview:[self addKeyboardWithFrame:CGRectMake(KeyboardNumericKeyWidth * 2 + 1, KeyboardNumericKeyHeight * 3 + y+1, KeyboardNumericKeyWidth-1, KeyboardNumericKeyHeight - 1)]];
+    [self addSubview:[self addNumericKeyWithTitle:@"." BottomTitle:@"" frame:CGRectMake(0, KeyboardNumericKeyHeight * 3 + y + 1, KeyboardNumericKeyWidth, KeyboardNumericKeyHeight - 1)]];
+    [self addSubview:[self addNumericKeyWithTitle:@"0" BottomTitle:@"" frame:CGRectMake(KeyboardNumericKeyWidth + 1, KeyboardNumericKeyHeight * 3 + y + 1, KeyboardNumericKeyWidth - 1, KeyboardNumericKeyHeight - 1)]];
+    [self addSubview:[self addKeyboardWithFrame:CGRectMake(KeyboardNumericKeyWidth * 2 + 1, KeyboardNumericKeyHeight * 3 + y + 1, KeyboardNumericKeyWidth - 1, KeyboardNumericKeyHeight - 1)]];
     
-    [self addSubview:[self addBackspaceKeyWithFrame:CGRectMake(winsize.width - 80,y,80,KeyboardNumericKeyHeight*2)]];
-    [self addSubview:[self addNumericKeyWithTitle:@"完成" BottomTitle:@"" frame:CGRectMake(winsize.width - 80,KeyboardNumericKeyHeight * 3 - y+6,80,KeyboardNumericKeyHeight * 2)]];
+    [self addSubview:[self addBackspaceKeyWithFrame:CGRectMake(winsize.width - 80, y, 80, KeyboardNumericKeyHeight * 2)]];
+    [self addSubview:[self addNumericKeyWithTitle:@"完成" BottomTitle:@"" frame:CGRectMake(winsize.width - 80, KeyboardNumericKeyHeight * 3 - y + 6, 80, KeyboardNumericKeyHeight * 2)]];
 }
 
--(UIButton *)addKeyboardWithFrame:(CGRect)frame{
-    UIButton *button = [UIButton buttonWithImage:@"" FinishedSelectedImage:@"" WithFinishedUnselectedImage:@"WithFinishedUnselecte"];
+- (UIButton *)addKeyboardWithFrame:(CGRect)frame
+{
+    UIButton *button = [UIButton buttonWithImage:@""
+                                   FinishedImage:nil
+                             WithFinishedUnImage:CCResourceImage(@"WithFinishedUnselecte")];
+    
     button.frame = frame;
     
     UIImage *image = [UIImage imageNamed:@"jp"];
@@ -145,14 +152,17 @@
     [button addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(ButtonLong:)]];
     
     return button;
-    
 }
 
 
-- (UIButton *)addNumericKeyWithTitle:(NSString *)title BottomTitle:(NSString *)botomTitle frame:(CGRect)frame{
-    UIButton *button = [UIButton buttonWithImage:title FinishedSelectedImage:[title isEqualToString:@"完成"] ? @"Back" : @"" WithFinishedUnselectedImage:@"WithFinishedUnselecte"];
+- (UIButton *)addNumericKeyWithTitle:(NSString *)title BottomTitle:(NSString *)botomTitle frame:(CGRect)frame
+{
+    UIButton *button = [UIButton buttonWithImage:title
+                                   FinishedImage:[title isEqualToString:@"完成"] ? CCResourceImage(@"Back") : nil
+                             WithFinishedUnImage:CCResourceImage(@"WithFinishedUnselecte")];
+    
     button.frame = frame;
-    if ([title isEqualToString:@"完成"]){
+    if ([title isEqualToString:@"完成"]) {
         button.titleLabel.font = [UIFont systemFontOfSize:20];
     }
     if (![botomTitle isEqualToString:@""])
@@ -217,11 +227,14 @@
 }
 
 
-- (UIButton *)addBackspaceKeyWithFrame:(CGRect)frame {
-    UIButton *button = [UIButton buttonWithImage:@"" FinishedSelectedImage:@"" WithFinishedUnselectedImage:@"WithFinishedUnselecte"];
+- (UIButton *)addBackspaceKeyWithFrame:(CGRect)frame
+{
+    UIButton *button = [UIButton buttonWithImage:@""
+                                   FinishedImage:nil
+                             WithFinishedUnImage:CCResourceImage(@"WithFinishedUnselecte")];
     button.frame = frame;
     
-    UIImage *image = [UIImage imageNamed:@"KeyboardNumericEntryKeyBackspaceGlyphTextured"];
+    UIImage *image = CCResourceImage(@"KeyboardNumericEntryKeyBackspaceGlyphTextured");
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake((frame.size.width - image.size.width) / 2, (frame.size.height - image.size.height) / 2, image.size.width, image.size.height)];
     imgView.image = image;
     [button addSubview:imgView];
@@ -256,11 +269,12 @@
 }
 
 //长按删除
--(void)ButtonLong:(UILongPressGestureRecognizer *)gestureRecognizer{
+- (void)ButtonLong:(UILongPressGestureRecognizer *)gestureRecognizer
+{
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
         if (containerView) {
-            [((UITextField *)containerView) setText:nil];
-            if(blck)
+            [((UITextField *)containerView)setText:nil];
+            if (blck)
                 blck(nil);
         }
         
@@ -269,11 +283,13 @@
     }
 }
 
--(void)didTextFieldCompletion:(TextFieldCompletion)TextFileblck{
+- (void)didTextFieldCompletion:(TextFieldCompletion)TextFileblck
+{
     blck = TextFileblck;
 }
 
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
     if ([textField.text isEqualToString:@""]) {
         return YES;
     }
@@ -282,7 +298,8 @@
     return YES;
 }
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
     if ([textField.text isEqualToString:@""]) {
         return YES;
     }
@@ -290,13 +307,15 @@
     return YES;
 }
 
--(NSString *)NumberFormatter:(NSString *)num{
+- (NSString *)NumberFormatter:(NSString *)num
+{
     NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
     [nf setPositiveFormat:@"###,##0.00;"];
     return [nf stringFromNumber:[NSNumber numberWithDouble:[num doubleValue]]];
 }
 
-- (NSString *)number:(NSString *)num{
+- (NSString *)number:(NSString *)num
+{
     NSArray *numStrings = [num componentsSeparatedByString:@","];
     NSMutableString *mutableNum = [NSMutableString string];
     for (NSString *subNumString in numStrings) {
