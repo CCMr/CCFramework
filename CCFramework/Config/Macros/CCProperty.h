@@ -32,7 +32,7 @@
 #define cc_Resource(bundleName,Extaension)   [NSBundle bundleWithURL:[Bundle URLForResource:bundleName withExtension:Extaension]]
 
 /** 资源图片 */
-#define CCResourceImage(name)               [UIImage imageWithContentsOfFile:[[cc_Resource(@"CCResource",@"bundle") resourcePath] stringByAppendingPathComponent:name]]
+#define CCResourceImage(name)               [UIImage imageWithContentsOfFile:[[cc_Resource(@"CCFramework",@"bundle") resourcePath] stringByAppendingPathComponent:name]]
 
 /** 版本号 */
 #define VersonNumber                        [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey]
