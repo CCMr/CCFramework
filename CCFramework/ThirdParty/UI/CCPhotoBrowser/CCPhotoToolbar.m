@@ -29,7 +29,6 @@
 #import "UIControl+BUIControl.h"
 #import "Config.h"
 #import "UIButton+BUIButton.h"
-#import "ResourcesPhotos.h"
 
 @interface CCPhotoToolbar()
 {
@@ -81,7 +80,7 @@
     saveImageBtn = [UIButton buttonWith];
     saveImageBtn.frame = CGRectMake(20, 5, btnWidth - 10, btnWidth - 10);
     saveImageBtn.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    [saveImageBtn setImage:[ResourcesPhotos save_icon] forState:UIControlStateNormal];
+    [saveImageBtn setImage:CCResourceImage(@"save_icon") forState:UIControlStateNormal];
     [saveImageBtn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             CCPhoto *photo = _photos[_currentPhotoIndex];

@@ -26,7 +26,7 @@
 #import "CCPickerCollectionViewCell.h"
 #import "UIButton+BUIButton.h"
 #import "UIControl+BUIControl.h"
-#import "ResourcesPhotos.h"
+#import "config.h"
 
 @implementation CCPickerCollectionViewCell{
     UIImageView *imageView,*overImageView;
@@ -55,7 +55,7 @@
     
     imageView.image = asset.thumbImage;
     
-    overImageView.image  = isOver ? [ResourcesPhotos assetsYES] : [ResourcesPhotos assetsNO];
+    overImageView.image  = CCResourceImage( isOver ? @"AssetsYES" : @"AssetsNO");
     
     [CheckBtn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
         callBlock(overImageView);
