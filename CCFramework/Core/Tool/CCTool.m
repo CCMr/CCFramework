@@ -105,7 +105,7 @@
     UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
     
     // 使当前的context出堆栈
-    UIGraphicsEndImageContext();  
+    UIGraphicsEndImageContext();
     
     // 返回新的改变大小后的图片
     return scaledImage;
