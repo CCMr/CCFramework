@@ -37,8 +37,8 @@
  */
 - (UIImage *)image
 {
-    if (_assets)
-        return [UIImage imageWithCGImage:[[self.assets defaultRepresentation] fullScreenImage]];
+    if (_assets && !_image)
+        _image = [UIImage imageWithCGImage:[[self.assets defaultRepresentation] fullScreenImage]];
     return _image;
 }
 
@@ -132,7 +132,7 @@ static void releaseAssetCallback(void *info)
                   maxPixelSize:(NSUInteger)size
 {
     NSParameterAssert(asset != nil);
-//    NSParameterAssert(size > 0);
+    //    NSParameterAssert(size > 0);
     
     ALAssetRepresentation *rep = [asset defaultRepresentation];
     
