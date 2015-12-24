@@ -48,6 +48,8 @@
 		422978601BEE3A1100CECBBF /* CCResponseObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4229785E1BEE3A1100CECBBF /* CCResponseObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		422978611BEE3A1100CECBBF /* CCResponseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229785F1BEE3A1100CECBBF /* CCResponseObject.m */; };
 		422978631BEE407400CECBBF /* CCBlockTrace.h in Headers */ = {isa = PBXBuildFile; fileRef = 422978621BEE405900CECBBF /* CCBlockTrace.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42300C6C1C2A466800D03641 /* brush@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42300C6A1C2A466800D03641 /* brush@2x.png */; };
+		42300C6D1C2A466800D03641 /* eraser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42300C6B1C2A466800D03641 /* eraser@2x.png */; };
 		4230E1851BBB83000001E68F /* CCRadarIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4230E1831BBB83000001E68F /* CCRadarIndicatorView.h */; };
 		4230E1861BBB83000001E68F /* CCRadarIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E1841BBB83000001E68F /* CCRadarIndicatorView.m */; };
 		4230E18D1BBB83CE0001E68F /* CCRadarPointView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4230E18B1BBB83CE0001E68F /* CCRadarPointView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -735,6 +737,14 @@
 		42DEB2BB1C254A6800734E09 /* CCColorPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2B91C254A6800734E09 /* CCColorPickerController.m */; };
 		42DEB2BF1C254ABC00734E09 /* CCBrushView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2BD1C254ABC00734E09 /* CCBrushView.h */; };
 		42DEB2C01C254ABC00734E09 /* CCBrushView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2BE1C254ABC00734E09 /* CCBrushView.m */; };
+		42F164011C2A38BD00F17928 /* bar_minus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F163FB1C2A38BD00F17928 /* bar_minus@2x.png */; };
+		42F164021C2A38BD00F17928 /* bar_plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F163FC1C2A38BD00F17928 /* bar_plus@2x.png */; };
+		42F164031C2A38BD00F17928 /* dismiss@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F163FD1C2A38BD00F17928 /* dismiss@2x.png */; };
+		42F164041C2A38BD00F17928 /* redo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F163FE1C2A38BD00F17928 /* redo@2x.png */; };
+		42F164051C2A38BD00F17928 /* style@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F163FF1C2A38BD00F17928 /* style@2x.png */; };
+		42F164061C2A38BD00F17928 /* undo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F164001C2A38BD00F17928 /* undo@2x.png */; };
+		42F164091C2A401E00F17928 /* CCToolButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F164071C2A401E00F17928 /* CCToolButton.h */; };
+		42F1640A1C2A401E00F17928 /* CCToolButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F164081C2A401E00F17928 /* CCToolButton.m */; };
 		42F24C4F1BEA5091008CDEDC /* PNBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F24C2D1BEA5091008CDEDC /* PNBar.h */; };
 		42F24C501BEA5091008CDEDC /* PNBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F24C2E1BEA5091008CDEDC /* PNBar.m */; };
 		42F24C511BEA5091008CDEDC /* PNBarChart.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F24C2F1BEA5091008CDEDC /* PNBarChart.h */; };
@@ -919,6 +929,8 @@
 		4229785E1BEE3A1100CECBBF /* CCResponseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCResponseObject.h; path = ResponseEntity/CCResponseObject.h; sourceTree = "<group>"; };
 		4229785F1BEE3A1100CECBBF /* CCResponseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCResponseObject.m; path = ResponseEntity/CCResponseObject.m; sourceTree = "<group>"; };
 		422978621BEE405900CECBBF /* CCBlockTrace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCBlockTrace.h; sourceTree = "<group>"; };
+		42300C6A1C2A466800D03641 /* brush@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "brush@2x.png"; path = "GraffitiBoard/brush@2x.png"; sourceTree = "<group>"; };
+		42300C6B1C2A466800D03641 /* eraser@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "eraser@2x.png"; path = "GraffitiBoard/eraser@2x.png"; sourceTree = "<group>"; };
 		4230E1831BBB83000001E68F /* CCRadarIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRadarIndicatorView.h; path = Radar/Scanning/CCRadarIndicatorView.h; sourceTree = "<group>"; };
 		4230E1841BBB83000001E68F /* CCRadarIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRadarIndicatorView.m; path = Radar/Scanning/CCRadarIndicatorView.m; sourceTree = "<group>"; };
 		4230E18B1BBB83CE0001E68F /* CCRadarPointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRadarPointView.h; path = Radar/Scanning/CCRadarPointView.h; sourceTree = "<group>"; };
@@ -1610,6 +1622,14 @@
 		42DEB2B91C254A6800734E09 /* CCColorPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCColorPickerController.m; path = CCGraffitiBoard/CCColorPickerController.m; sourceTree = "<group>"; };
 		42DEB2BD1C254ABC00734E09 /* CCBrushView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCBrushView.h; sourceTree = "<group>"; };
 		42DEB2BE1C254ABC00734E09 /* CCBrushView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCBrushView.m; sourceTree = "<group>"; };
+		42F163FB1C2A38BD00F17928 /* bar_minus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bar_minus@2x.png"; path = "GraffitiBoard/bar_minus@2x.png"; sourceTree = "<group>"; };
+		42F163FC1C2A38BD00F17928 /* bar_plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bar_plus@2x.png"; path = "GraffitiBoard/bar_plus@2x.png"; sourceTree = "<group>"; };
+		42F163FD1C2A38BD00F17928 /* dismiss@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dismiss@2x.png"; path = "GraffitiBoard/dismiss@2x.png"; sourceTree = "<group>"; };
+		42F163FE1C2A38BD00F17928 /* redo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "redo@2x.png"; path = "GraffitiBoard/redo@2x.png"; sourceTree = "<group>"; };
+		42F163FF1C2A38BD00F17928 /* style@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "style@2x.png"; path = "GraffitiBoard/style@2x.png"; sourceTree = "<group>"; };
+		42F164001C2A38BD00F17928 /* undo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "undo@2x.png"; path = "GraffitiBoard/undo@2x.png"; sourceTree = "<group>"; };
+		42F164071C2A401E00F17928 /* CCToolButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCToolButton.h; path = CCGraffitiBoard/View/CCToolButton.h; sourceTree = "<group>"; };
+		42F164081C2A401E00F17928 /* CCToolButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCToolButton.m; path = CCGraffitiBoard/View/CCToolButton.m; sourceTree = "<group>"; };
 		42F24C2D1BEA5091008CDEDC /* PNBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNBar.h; sourceTree = "<group>"; };
 		42F24C2E1BEA5091008CDEDC /* PNBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNBar.m; sourceTree = "<group>"; };
 		42F24C2F1BEA5091008CDEDC /* PNBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNBarChart.h; sourceTree = "<group>"; };
@@ -1842,6 +1862,14 @@
 		422754511C2932640099B653 /* GraffitiBoard */ = {
 			isa = PBXGroup;
 			children = (
+				42300C6A1C2A466800D03641 /* brush@2x.png */,
+				42300C6B1C2A466800D03641 /* eraser@2x.png */,
+				42F163FB1C2A38BD00F17928 /* bar_minus@2x.png */,
+				42F163FC1C2A38BD00F17928 /* bar_plus@2x.png */,
+				42F163FD1C2A38BD00F17928 /* dismiss@2x.png */,
+				42F163FE1C2A38BD00F17928 /* redo@2x.png */,
+				42F163FF1C2A38BD00F17928 /* style@2x.png */,
+				42F164001C2A38BD00F17928 /* undo@2x.png */,
 				422754521C29329C0099B653 /* color_wheel@2x.png */,
 				422754531C29329C0099B653 /* slider_border@2x.png */,
 			);
@@ -2444,9 +2472,9 @@
 		429C9CF61B9EF8BE0013A44A /* BaseViewController */ = {
 			isa = PBXGroup;
 			children = (
-				42C208F01BDE1E4C00C76004 /* BaseController.h */,
 				429C9CF91B9EF8BE0013A44A /* Navigation */,
 				429C9D001B9EF8BE0013A44A /* UI */,
+				42C208F01BDE1E4C00C76004 /* BaseController.h */,
 				429C9CF71B9EF8BE0013A44A /* BaseAppDelegate.h */,
 				429C9CF81B9EF8BE0013A44A /* BaseAppDelegate.m */,
 			);
@@ -2507,8 +2535,8 @@
 			isa = PBXGroup;
 			children = (
 				429C9D141B9EF8BE0013A44A /* Config.h */,
-				426529C61BED93600096C0EF /* Macros */,
 				429C9D151B9EF8BE0013A44A /* EnumConfig.h */,
+				426529C61BED93600096C0EF /* Macros */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -3658,8 +3686,8 @@
 				422754611C29371F0099B653 /* MBProgressHUD */,
 				422754661C29371F0099B653 /* PhotosViewImage */,
 				422754511C2932640099B653 /* GraffitiBoard */,
-				42BEC0031C28FCB000316AE4 /* Info.plist */,
 				4227547A1C2938E30099B653 /* arrow@2x.png */,
+				42F163FA1C294C9800F17928 /* Supporting Files */,
 			);
 			path = CCResource;
 			sourceTree = "<group>";
@@ -3805,6 +3833,14 @@
 			);
 			name = BrushView;
 			path = CCGraffitiBoard/View/BrushView;
+			sourceTree = "<group>";
+		};
+		42F163FA1C294C9800F17928 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				42BEC0031C28FCB000316AE4 /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		42F24C2C1BEA5091008CDEDC /* PNChart */ = {
@@ -4172,6 +4208,8 @@
 				42F4121D1C21648300814E7B /* CCPaintingLayer.m */,
 				4263DEE41C225A54002E1071 /* CCColorWell.h */,
 				4263DEE51C225A54002E1071 /* CCColorWell.m */,
+				42F164071C2A401E00F17928 /* CCToolButton.h */,
+				42F164081C2A401E00F17928 /* CCToolButton.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -4583,6 +4621,7 @@
 				42DEB2A81C25495000734E09 /* CCInsetView.h in Headers */,
 				425477301BD2AEC20071BBC5 /* buffer.h in Headers */,
 				426476A21BD0E3AF00EE191C /* CCCellScrollView.h in Headers */,
+				42F164091C2A401E00F17928 /* CCToolButton.h in Headers */,
 				4267DD1C1BDB5C5900B0C43F /* BaseManagedObject.h in Headers */,
 				425477671BD2AEC20071BBC5 /* ssl23.h in Headers */,
 				42F411D01C2150E500814E7B /* NSMutableArray+BNSMutableArray.h in Headers */,
@@ -4762,18 +4801,26 @@
 				422754731C29371F0099B653 /* error.png in Resources */,
 				422754781C29371F0099B653 /* AssetsYES@2x.png in Resources */,
 				4227546E1C29371F0099B653 /* WithFinishedUnselecte@2x.png in Resources */,
+				42F164041C2A38BD00F17928 /* redo@2x.png in Resources */,
 				4227546A1C29371F0099B653 /* Back@2x.png in Resources */,
 				4227546B1C29371F0099B653 /* KeyboardNumericBg@2x.png in Resources */,
+				42F164051C2A38BD00F17928 /* style@2x.png in Resources */,
+				42F164011C2A38BD00F17928 /* bar_minus@2x.png in Resources */,
 				422754701C29371F0099B653 /* save_icon@2x.png in Resources */,
 				4227546C1C29371F0099B653 /* KeyboardNumericEntryKeyBackspaceGlyphTextured.png in Resources */,
 				422754711C29371F0099B653 /* save_icon_highlighted.png in Resources */,
 				422754791C29371F0099B653 /* returns@2x.png in Resources */,
 				422754551C29329C0099B653 /* slider_border@2x.png in Resources */,
+				42F164061C2A38BD00F17928 /* undo@2x.png in Resources */,
 				4227547B1C2938E30099B653 /* arrow@2x.png in Resources */,
 				422754771C29371F0099B653 /* AssetsNO@2x.png in Resources */,
+				42300C6D1C2A466800D03641 /* eraser@2x.png in Resources */,
 				4227546F1C29371F0099B653 /* save_icon.png in Resources */,
+				42300C6C1C2A466800D03641 /* brush@2x.png in Resources */,
 				422754721C29371F0099B653 /* save_icon_highlighted@2x.png in Resources */,
+				42F164021C2A38BD00F17928 /* bar_plus@2x.png in Resources */,
 				422754741C29371F0099B653 /* error@2x.png in Resources */,
+				42F164031C2A38BD00F17928 /* dismiss@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4893,6 +4940,7 @@
 				429CA0201B9EF8BF0013A44A /* CCLoadLogoView.m in Sources */,
 				429C9F691B9EF8BF0013A44A /* BaseEntity.m in Sources */,
 				429CA0391B9EF8BF0013A44A /* CCPhotoToolbar.m in Sources */,
+				42F1640A1C2A401E00F17928 /* CCToolButton.m in Sources */,
 				4267DD1D1BDB5C5900B0C43F /* BaseManagedObject.m in Sources */,
 				425477781BD2AEC20071BBC5 /* DataSigner.m in Sources */,
 				42F24C521BEA5091008CDEDC /* PNBarChart.m in Sources */,
