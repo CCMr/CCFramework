@@ -26,12 +26,42 @@
 #import <UIKit/UIKit.h>
 #import "CCPhoto.h"
 
-typedef void(^callBackBlock)(id obj);
+typedef void (^callBackBlock)(id obj);
 
-@class UICollectionView;
+@class CCPickerCollectionViewCell;
+
+@protocol CCPickerCollectionViewCellDelegate <NSObject>
+
+/**
+ *  @author CC, 2015-12-23
+ *  
+ *  @brief  选中事件
+ *
+ *  @param pickerCollectionView 当前视图
+ *  @param indexPath            下标
+ */
+- (void)didCollectionViewDidSelected:(CCPickerCollectionViewCell *)pickerCollectionView
+                           IndexPath:(NSIndexPath *)indexPath;
+
+@end
 
 @interface CCPickerCollectionViewCell : UICollectionViewCell
 
--(void)setData:(CCPhoto *)asset IsOver:(BOOL)isOver CallBlock:(callBackBlock)callBlock;
+@property(nonatomic, weak) id<CCPickerCollectionViewCellDelegate> delegate;
+
+@property(nonatomic, strong) UIImageView *overImageView;
+
+/**
+ *  @author CC, 2015-12-23
+ *  
+ *  @brief  设置数据
+ *
+ *  @param asset     显示对象
+ *  @param isOver    是否选中
+ *  @param indexPath 数据下标
+ */
+- (void)setData:(CCPhoto *)asset
+         IsOver:(BOOL)isOver
+      IndexPath:(NSIndexPath *)indexPath;
 
 @end

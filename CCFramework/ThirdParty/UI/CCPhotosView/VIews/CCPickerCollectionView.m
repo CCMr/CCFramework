@@ -32,10 +32,10 @@
 
 static NSString *const _cellIdentifier = @"CCPickerCollectionViewCell";
 
-@interface CCPickerCollectionView () <UICollectionViewDataSource,UICollectionViewDelegate>
+@interface CCPickerCollectionView () <UICollectionViewDataSource, UICollectionViewDelegate, CCPickerCollectionViewCellDelegate>
 
 // 判断是否是第一次加载
-@property (nonatomic , assign , getter=isFirstLoadding) BOOL firstLoadding;
+@property(nonatomic, assign, getter=isFirstLoadding) BOOL firstLoadding;
 
 @end
 
@@ -43,7 +43,8 @@ static NSString *const _cellIdentifier = @"CCPickerCollectionViewCell";
 @implementation CCPickerCollectionView
 
 #pragma mark -getter
-- (NSMutableArray *)selectsIndexPath{
+- (NSMutableArray *)selectsIndexPath
+{
     if (!_selectsIndexPath) {
         _selectsIndexPath = [NSMutableArray array];
     }
@@ -51,13 +52,15 @@ static NSString *const _cellIdentifier = @"CCPickerCollectionViewCell";
 }
 
 #pragma mark -setter
-- (void)setDataArray:(NSArray *)dataArray{
+- (void)setDataArray:(NSArray *)dataArray
+{
     _dataArray = dataArray;
     
     [self reloadData];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout{
+- (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout
+{
     if (self = [super initWithFrame:frame collectionViewLayout:layout]) {
         self.backgroundColor = [UIColor clearColor];
         self.dataSource = self;
@@ -68,55 +71,74 @@ static NSString *const _cellIdentifier = @"CCPickerCollectionViewCell";
 }
 
 #pragma mark -<UICollectionViewDataSource>
-- (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
     return 1;
 }
 
-- (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     return self.dataArray.count;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     CCPickerCollectionViewCell *Cell = [collectionView dequeueReusableCellWithReuseIdentifier:_cellIdentifier forIndexPath:indexPath];
-     CCPhoto *photo = self.dataArray[indexPath.row];
+    Cell.delegate = self;
     
-    [Cell setData:photo IsOver:([self.selectsIndexPath containsObject:@(indexPath.row)]) CallBlock:^(id obj) {
-        BOOL bol = [self.selectsIndexPath containsObject:@(indexPath.row)];
-        if (bol) {
-            [self.selectsIndexPath removeObject:@(indexPath.row)];
-            [self.selectAsstes removeObject:photo];
-        }else{
-            NSUInteger minCount = (self.minCount > MAX_COUNT || self.minCount < 1) ? MAX_COUNT :  self.minCount;
-            
-            if (self.selectsIndexPath.count >= minCount) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提醒" message:[NSString stringWithFormat:@"最多只能选择%zd张图片",minCount] delegate:self cancelButtonTitle:nil otherButtonTitles:@"好的", nil];
-                [alertView show];
-                return ;
-            }
-            
-            [self.selectsIndexPath addObject:@(indexPath.row)];
-            [self.selectAsstes addObject:photo];
-        }
-        ((UIImageView *)obj).image  = [self.selectsIndexPath containsObject:@(indexPath.row)] ? CCResourceImage(@"AssetsYES") : CCResourceImage(@"AssetsNO");
-        
-        
-        if ([self.collectionViewDelegate respondsToSelector:@selector(pickerCollectionViewDidSelected:)])
-            [self.collectionViewDelegate pickerCollectionViewDidSelected:self];
-    }];
+    [Cell setData:self.dataArray[indexPath.row]
+           IsOver:([self.selectsIndexPath containsObject:@(indexPath.row)])
+        IndexPath:indexPath];
     
     return Cell;
 }
 
+- (void)didCollectionViewDidSelected:(CCPickerCollectionViewCell *)pickerCollectionView IndexPath:(NSIndexPath *)indexPath
+{
+    CCPhoto *photo = self.dataArray[indexPath.row];
+    BOOL bol = [self.selectsIndexPath containsObject:@(indexPath.row)];
+    if (bol) {
+        [self.selectsIndexPath removeObject:@(indexPath.row)];
+        [self.selectAsstes removeObject:photo];
+    } else {
+        NSUInteger minCount = (self.minCount > MAX_COUNT || self.minCount < 1) ? MAX_COUNT : self.minCount;
+        
+        if (self.selectsIndexPath.count >= minCount) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提醒" message:[NSString stringWithFormat:@"最多只能选择%zd张图片", minCount] delegate:self cancelButtonTitle:nil otherButtonTitles:@"好的", nil];
+            [alertView show];
+            return;
+        }
+        
+        [self.selectsIndexPath addObject:@(indexPath.row)];
+        [self.selectAsstes addObject:photo];
+    }
+    pickerCollectionView.overImageView.image = [self.selectsIndexPath containsObject:@(indexPath.row)] ? CCResourceImage(@"AssetsYES") : CCResourceImage(@"AssetsNO");
+    
+    CAKeyframeAnimation *scaoleAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+    scaoleAnimation.duration = 0.25;
+    scaoleAnimation.autoreverses = YES;
+    scaoleAnimation.values = @[ [NSNumber numberWithFloat:1.0], [NSNumber numberWithFloat:1.2], [NSNumber numberWithFloat:1.0] ];
+    scaoleAnimation.fillMode = kCAFillModeForwards;
+    
+    [pickerCollectionView.overImageView.layer removeAllAnimations];
+    [pickerCollectionView.overImageView.layer addAnimation:scaoleAnimation forKey:@"transform.rotate"];
+    
+    if ([self.collectionViewDelegate respondsToSelector:@selector(pickerCollectionViewDidSelected:)])
+        [self.collectionViewDelegate pickerCollectionViewDidSelected:self];
+}
+
 #pragma mark - <UICollectionViewDelegate>
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-      CCPickerCollectionViewCell *cell = (CCPickerCollectionViewCell *) [collectionView cellForItemAtIndexPath:indexPath];
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CCPickerCollectionViewCell *cell = (CCPickerCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     self.selectImageView = (UIImageView *)[cell viewWithTag:9999];
     if ([self.collectionViewDelegate respondsToSelector:@selector(pickerCollectionviewDidPreview:Index:)]) {
         [self.collectionViewDelegate pickerCollectionviewDidPreview:self Index:indexPath.row];
     }
 }
 
-- (void)layoutSubviews{
+- (void)layoutSubviews
+{
     
     [super layoutSubviews];
     

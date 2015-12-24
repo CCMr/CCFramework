@@ -26,6 +26,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CCPhoto.h"
 #import <ImageIO/ImageIO.h>
+#import "UIImage+BUIImage.h"
 
 @implementation CCPhoto
 
@@ -37,7 +38,7 @@
 - (UIImage *)image
 {
     if (_assets)
-        return [self compressionWithMaxPixelSize:0];
+        return [UIImage imageWithCGImage:[[self.assets defaultRepresentation] fullScreenImage]];
     return _image;
 }
 

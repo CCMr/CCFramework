@@ -25,8 +25,11 @@
 
 #import <UIKit/UIKit.h>
 #import "CCPickerGroup.h"
+#import "CCPickerViewController.h"
 
 @interface CCPickerAssetsViewController : UIViewController
+
+@property(nonatomic, weak) id<CCPickerDelegate> delegate;
 
 @property (nonatomic , strong) CCPickerGroup *assetsGroup;
 @property (nonatomic , assign) NSInteger minCount;
