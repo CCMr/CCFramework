@@ -29,13 +29,11 @@
 @protocol CCPickerDelegate <NSObject>
 
 /**
- *  @author CC, 2015-06-01 16:06:19
+ *  @author CC, 2015-12-24
+ *  
+ *  @brief  选中图片委托
  *
- *  @brief  返回所有的Asstes对象
- *
- *  @param assets <#assets description#>
- *
- *  @since 1.0
+ *  @param imageArray 选中照片集合
  */
 - (void)pickerViewControllerCompleteImage:(NSArray *)imageArray;
 
@@ -43,7 +41,7 @@
 
 @interface CCPickerViewController : UIViewController
 
-@property (nonatomic , weak) id<CCPickerDelegate> delegate;
+@property(nonatomic, weak) id<CCPickerDelegate> delegate;
 
 /**
  *  @author CC, 2015-06-01 16:06:46
@@ -52,7 +50,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic , assign) NSInteger minCount;
+@property(nonatomic, assign) NSInteger minCount;
 
 /**
  *  @author CC, 2015-06-01 15:06:01

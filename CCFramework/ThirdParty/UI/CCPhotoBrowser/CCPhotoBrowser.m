@@ -134,20 +134,33 @@
     NavRightBtn = [UIButton buttonWith];
     NavRightBtn.frame = CGRectMake(winsize.width - 50, 5, 35, 35);
     [NavRightBtn setImage:CCResourceImage(@"AssetsNO") forState:UIControlStateNormal];
-    [NavRightBtn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
-        if (self.delegate != nil && [self.delegate  respondsToSelector:@selector(didSelectd:)]){
-            CCPhoto *photo = _photos[_currentPhotoIndex];
-            photo.selectd = !photo.selectd;
-            [NavRightBtn setImage:CCResourceImage(photo.selectd ? @"AssetsYES" : @"AssetsNO") forState:UIControlStateNormal];
-            [_toolbar updataSelectd];
-            
-            NSUInteger indexs = _currentPhotoIndex;
-            if (photo.IsIndex)
-                indexs = photo.asssetIndex;
-            [self.delegate didSelectd:indexs];
-        }
-    }];
+    [NavRightBtn addTarget:self action:@selector(didNavRightSelected:) forControlEvents:UIControlEventTouchUpInside];
     [_NavigationBar addSubview:NavRightBtn];
+}
+
+- (void)didNavRightSelected:(UIButton *)sender
+{
+    if (self.delegate != nil && [self.delegate  respondsToSelector:@selector(didSelectd:)]){
+        CCPhoto *photo = _photos[_currentPhotoIndex];
+        photo.selectd = !photo.selectd;
+        [NavRightBtn setImage:CCResourceImage(photo.selectd ? @"AssetsYES" : @"AssetsNO") forState:UIControlStateNormal];
+        
+        CAKeyframeAnimation *scaoleAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+        scaoleAnimation.duration = 0.25;
+        scaoleAnimation.autoreverses = YES;
+        scaoleAnimation.values = @[[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.2],[NSNumber numberWithFloat:1.0]];
+        scaoleAnimation.fillMode = kCAFillModeForwards;
+        
+        [NavRightBtn.layer removeAllAnimations];
+        [NavRightBtn.layer addAnimation:scaoleAnimation forKey:@"transform.rotate"];
+        
+        [_toolbar updataSelectd];
+        
+        NSUInteger indexs = _currentPhotoIndex;
+        if (photo.IsIndex)
+            indexs = photo.asssetIndex;
+        [self.delegate didSelectd:indexs];
+    } 
 }
 
 #pragma mark 创建工具条

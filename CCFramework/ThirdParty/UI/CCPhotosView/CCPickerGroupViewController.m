@@ -29,16 +29,19 @@
 #import "UIControl+BUIControl.h"
 #import "UIButton+BUIButton.h"
 
-@interface CCPickerGroupViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface CCPickerGroupViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, weak) UITableView *pickrTableView;
-@property (nonatomic, strong) NSArray *Groups;
+@property(nonatomic, strong) CCPickerAssetsViewController *assetsVc;
+
+@property(nonatomic, weak) UITableView *pickrTableView;
+@property(nonatomic, strong) NSArray *Groups;
 
 @end
 
 @implementation CCPickerGroupViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self InitNavigation];
@@ -46,29 +49,33 @@
     [self InitLoadData];
 }
 
--(void)InitNavigation{
+- (void)InitNavigation
+{
     self.title = @"照片";
     UIButton *NavRightBtn = [UIButton buttonWith];
-    [self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc]init] initWithCustomView:NavRightBtn]];
+    [self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc] init] initWithCustomView:NavRightBtn]];
     
     [NavRightBtn setTitle:@"取消" forState:UIControlStateNormal];
     [NavRightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [NavRightBtn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
         [self dismissViewControllerAnimated:YES completion:nil];
-    }];}
+    }];
+}
 
--(void)InitControl{
+- (void)InitControl
+{
     UITableView *pickrTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 5, winsize.width, winsize.height - 70) style:UITableViewStylePlain];
     pickrTableView.delegate = self;
-//    pickrTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    //    pickrTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:pickrTableView];
     [self setExtraCellLineHidden:pickrTableView];
     self.pickrTableView = pickrTableView;
 }
 
--(void)InitLoadData{
+- (void)InitLoadData
+{
     CCPickerDatas *datas = [CCPickerDatas defaultPicker];
-    __weak typeof (self)weakSelf = self;
+    __weak typeof(self) weakSelf = self;
     [datas getAllGroupWithPhotos:^(NSArray *groups) {
         self.Groups = groups;
         if (self.IsPush)
@@ -78,8 +85,17 @@
     }];
 }
 
+- (CCPickerAssetsViewController *)assetsVc
+{
+    if (!_assetsVc) {
+        _assetsVc = [[CCPickerAssetsViewController alloc] init];
+    }
+    return _assetsVc;
+}
+
 #pragma mark 跳转到控制器里面的内容
-- (void) jump2StatusVc{
+- (void)jump2StatusVc
+{
     // 如果是相册
     CCPickerGroup *gp = nil;
     for (CCPickerGroup *group in self.Groups) {
@@ -89,34 +105,44 @@
         }
     }
     
-    if (!gp) return ;
+    if (!gp) return;
     
-    CCPickerAssetsViewController *assetsVc = [[CCPickerAssetsViewController alloc] init];
-    assetsVc.assetsGroup = gp;
-    assetsVc.minCount = self.minCount;
-    [self.navigationController pushViewController:assetsVc animated:NO];
+    self.assetsVc.assetsGroup = gp;
+    self.assetsVc.minCount = self.minCount;
+    [self.navigationController pushViewController:self.assetsVc animated:NO];
 }
 
--(void)setExtraCellLineHidden:(UITableView *)tableView{
+- (void)setDelegate:(id<CCPickerDelegate>)delegate
+{
+    _delegate = delegate;
+    self.assetsVc.delegate = delegate;
+}
+
+- (void)setExtraCellLineHidden:(UITableView *)tableView
+{
     UIView *v = [[UIView alloc] initWithFrame:CGRectZero];
     v.backgroundColor = [UIColor clearColor];
     [tableView setTableFooterView:v];
 }
 
 #pragma mark - TableViewDelegate
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 1;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return self.Groups.count;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return 50;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     CCPickerGroup *group = self.Groups[indexPath.row];
     CCPickerAssetsViewController *viewController = [[CCPickerAssetsViewController alloc] init];
     viewController.assetsGroup = group;
@@ -124,10 +150,11 @@
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *CellIdentifier = @"PhotosCell";
     UITableViewCell *Cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if(!Cell){
+    if (!Cell) {
         Cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         Cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         Cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -141,12 +168,13 @@
     else if ([GroupName isEqualToString:@"Camera Roll"])
         GroupName = @"相机胶卷";
     Cell.textLabel.text = GroupName;
-    Cell.detailTextLabel.text = [NSString stringWithFormat:@"(%ld)",(long)agroup.assetsCount];
+    Cell.detailTextLabel.text = [NSString stringWithFormat:@"(%ld)", (long)agroup.assetsCount];
     Cell.detailTextLabel.textColor = [UIColor lightGrayColor];
     return Cell;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

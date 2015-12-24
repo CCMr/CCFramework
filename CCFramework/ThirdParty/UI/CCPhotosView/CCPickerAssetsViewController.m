@@ -150,10 +150,7 @@
     _sendBtn.frame = CGRectMake(winsize.width - 60, 5, 50, 40);
     _sendBtn.enabled = NO;
     _sendBtn.alpha = .5;
-    [_sendBtn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
-        @strongify(self);
-        [self Complete];
-    }];
+    [_sendBtn addTarget:self action:@selector(Complete) forControlEvents:UIControlEventTouchUpInside];
     [_toolbarView addSubview:_sendBtn];
 }
 
@@ -208,7 +205,7 @@
 }
 
 /**
- *  @author CC, 2015-06-04 19:06:52
+ *  @author CC, 2015-06-04
  *
  *  @brief  图片选中记录
  */
@@ -218,11 +215,11 @@
 }
 
 /**
- *  @author CC, 2015-06-04 19:06:22
+ *  @author CC, 2015-06-04
  *
  *  @brief  改变页面记录
  *
- *  @param count <#count description#>
+ *  @param count 选中数量
  *
  *  @since 1.0
  */
@@ -237,12 +234,12 @@
 }
 
 /**
- *  @author CC, 2015-06-04 19:06:41
+ *  @author CC, 2015-06-04 
  *
  *  @brief  图片预览委托
  *
- *  @param pickerCollectionView <#pickerCollectionView description#>
- *  @param index                <#index description#>
+ *  @param pickerCollectionView 当前视图
+ *  @param index                下标
  *
  *  @since 1.0
  */
@@ -265,11 +262,11 @@
 
 #pragma mark - CCPhotBrowser
 /**
- *  @author CC, 2015-06-04 19:06:02
+ *  @author CC, 2015-06-04 
  *
  *  @brief  预览页面选中与取消委托
  *
- *  @param index <#index description#>
+ *  @param index 下标
  *
  *  @since 1.0
  */
@@ -288,13 +285,11 @@
 }
 
 /**
- *  @author CC, 2015-06-04 19:06:29
+ *  @author CC, 2015-06-04
  *
  *  @brief  预览页面完成委托
  *
- *  @param index <#index description#>
- *
- *  @since 1.0
+ *  @param index 下标
  */
 - (void)didComplete:(NSUInteger)index
 {
@@ -320,7 +315,10 @@
         CCPhoto *photo = obj;
         [SelectImageArray addObject:photo.image];
     }];
-    cc_NoticePost(@"CC_PICKER_TAKE_DONE", SelectImageArray);
+    
+    if ([self.delegate respondsToSelector:@selector(pickerViewControllerCompleteImage:)])
+        [self.delegate pickerViewControllerCompleteImage:SelectImageArray];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

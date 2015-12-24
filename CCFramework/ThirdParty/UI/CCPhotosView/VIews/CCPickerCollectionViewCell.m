@@ -28,38 +28,65 @@
 #import "UIControl+BUIControl.h"
 #import "config.h"
 
-@implementation CCPickerCollectionViewCell{
-    UIImageView *imageView,*overImageView;
-    UIButton *CheckBtn;
-}
+@interface CCPickerCollectionViewCell ()
 
--(instancetype)initWithFrame:(CGRect)frame{
+@property(nonatomic, strong) UIImageView *imageView;
+
+
+@property(nonatomic, strong) UIButton *checkBtn;
+
+@property(nonatomic, strong) NSIndexPath *indexPath;
+
+@end
+
+@implementation CCPickerCollectionViewCell
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
     if (self = [super initWithFrame:frame]) {
-        imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-        imageView.contentMode = UIViewContentModeScaleAspectFill;
-        imageView.clipsToBounds = YES;
-        imageView.tag = 9999;
-        [self addSubview:imageView];
+        _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        _imageView.contentMode = UIViewContentModeScaleAspectFill;
+        _imageView.clipsToBounds = YES;
+        _imageView.tag = 9999;
+        [self addSubview:_imageView];
         
-        CheckBtn = [UIButton buttonWith];
-        CheckBtn.frame = CGRectMake(imageView.frame.size.width - 40, 0, 40, 40);
-        [self addSubview:CheckBtn];
+        _checkBtn = [UIButton buttonWith];
+        _checkBtn.frame = CGRectMake(_imageView.frame.size.width - 40, 0, 40, 40);
+        [_checkBtn addTarget:self action:@selector(didCheckButton:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_checkBtn];
         
-        overImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 4, 20, 20)];
-        [CheckBtn addSubview:overImageView];
+        _overImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 4, 20, 20)];
+        [_checkBtn addSubview:_overImageView];
     }
     return self;
 }
 
--(void)setData:(CCPhoto *)asset IsOver:(BOOL)isOver CallBlock:(callBackBlock)callBlock{
+
+/**
+ *  @author CC, 2015-12-23
+ *  
+ *  @brief  设置数据
+ *
+ *  @param asset     显示对象
+ *  @param isOver    是否选中
+ *  @param indexPath 数据下标
+ */
+- (void)setData:(CCPhoto *)asset
+         IsOver:(BOOL)isOver
+      IndexPath:(NSIndexPath *)indexPath
+{
+    self.indexPath = indexPath;
     
-    imageView.image = asset.thumbImage;
+    _imageView.image = asset.thumbImage;
     
-    overImageView.image  = CCResourceImage( isOver ? @"AssetsYES" : @"AssetsNO");
-    
-    [CheckBtn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
-        callBlock(overImageView);
-    }];
+    _overImageView.image = CCResourceImage(isOver ? @"AssetsYES" : @"AssetsNO");
+}
+
+- (void)didCheckButton:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(didCollectionViewDidSelected:IndexPath:)]) {
+        [self.delegate didCollectionViewDidSelected:self IndexPath:self.indexPath];
+    }
 }
 
 @end

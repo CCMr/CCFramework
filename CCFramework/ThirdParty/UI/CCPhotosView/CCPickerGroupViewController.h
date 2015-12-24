@@ -28,8 +28,9 @@
 
 @interface CCPickerGroupViewController : UIViewController
 
-@property (nonatomic , weak) id<CCPickerDelegate> delegate;
-@property (nonatomic, assign) BOOL IsPush;
-@property (nonatomic, assign) NSInteger minCount;
+@property(nonatomic, weak) id<CCPickerDelegate> delegate;
+
+@property(nonatomic, assign) BOOL IsPush;
+@property(nonatomic, assign) NSInteger minCount;
 
 @end

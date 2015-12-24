@@ -27,7 +27,7 @@
 #import "CCPickerGroupViewController.h"
 #import "BaseNavigationController.h"
 
-@interface CCPickerViewController ()
+@interface CCPickerViewController () <CCPickerDelegate>
 
 @property(nonatomic, weak) CCPickerGroupViewController *groupVc;
 
@@ -58,6 +58,7 @@
     CCPickerGroupViewController *groupVc = [[CCPickerGroupViewController alloc] init];
     groupVc.IsPush = YES;
     groupVc.minCount = 9;
+    groupVc.delegate = self;
     BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:groupVc];
     nav.view.frame = self.view.bounds;
     [self addChildViewController:nav];
@@ -83,54 +84,29 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    [self addNotification];
 }
 
 /**
- *  @author CC, 2015-06-04 20:06:19
- *
- *  @brief  监听异步done通知
- *
- *  @since 1.0
- */
-- (void)addNotification
-{
-    cc_NoticeObserver(self, @selector(done:), @"CC_PICKER_TAKE_DONE", nil);
-}
-
-/**
- *  @author CC, 2015-06-04 20:06:49
- *
+ *  @author CC, 2015-12-24
+ *  
  *  @brief  完成选择触发委托或Block
  *
- *  @param note <#note description#>
- *
- *  @since 1.0
+ *  @param imageArray 照片集合
  */
-- (void)done:(NSNotification *)note
+- (void)pickerViewControllerCompleteImage:(NSArray *)imageArray
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    NSArray *selectArray = note.object;
-    MainThread(^{
-        if ([self.delegate respondsToSelector:@selector(pickerViewControllerCompleteImage:)])
-            [self.delegate pickerViewControllerCompleteImage:selectArray];
-        else if (_callBackBlock)
-            _callBackBlock(selectArray);
-    });
-}
-
-- (void)setDelegate:(id<CCPickerDelegate>)delegate
-{
-    _delegate = delegate;
-    self.groupVc.delegate = delegate;
+    if ([self.delegate respondsToSelector:@selector(pickerViewControllerCompleteImage:)])
+        [self.delegate pickerViewControllerCompleteImage:imageArray];
+    else if (_callBackBlock)
+        self.callBackBlock(imageArray);
 }
 
 /**
- *  @author CC, 2015-06-04 20:06:14
+ *  @author CC, 2015-06-04
  *
- *  @brief  Block回调函数
+ *  @brief  完成回调
  *
- *  @param block <#block description#>
+ *  @param block 回调函数
  *
  *  @since 1.0
  */
