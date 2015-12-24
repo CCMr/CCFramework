@@ -24,8 +24,25 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, ConnectionStatus) {
+    /** 连接中 */
+    ConnectionStatusConnecting,
+    /** 已连接 */
+    ConnectionStatusConnected,
+    /** 重新链接 */
+    ConnectionStatusReconnecting,
+    /** 已断开 */
+    ConnectionStatusDisconnected
+};
 
 @interface SignalRManager : NSObject
+
+/**
+ *  @author CC, 2015-12-23
+ *  
+ *  @brief  链接状态
+ */
+@property(nonatomic, assign) ConnectionStatus state;
 
 /**
  *  @author CC, 2015-08-15

@@ -50,6 +50,32 @@
 @implementation SignalRManager
 
 /**
+ *  @author CC, 2015-12-23
+ *  
+ *  @brief  链接状态
+ */
+- (ConnectionStatus)state
+{
+    switch (self.hubConnection.state) {
+        case connected:
+            _state = ConnectionStatusConnected;
+            break;
+        case connecting:
+            _state = ConnectionStatusConnecting;
+            break;
+        case reconnecting:
+            _state = ConnectionStatusReconnecting;
+            break;
+        case disconnected:
+            _state = ConnectionStatusDisconnected;
+            break;
+        default:
+            break;
+    }
+    return _state;
+}
+
+/**
  *  @author CC, 2015-08-15
  *
  *  @brief  单例实例
@@ -133,7 +159,6 @@
  */
 - (void)registerDevice
 {
-    
 }
 
 /**
@@ -176,10 +201,10 @@
  */
 - (void)startLink
 {
-    if (self.hubConnection.state == disconnected){
+    if (self.hubConnection.state == disconnected) {
         [self addNotification];
         [self.hubConnection start];
-    }else if (self.hubConnection.state == connected){
+    } else if (self.hubConnection.state == connected) {
         [self registerDevice];
     }
 }
