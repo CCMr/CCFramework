@@ -33,12 +33,20 @@
  *  @brief  算压缩比例
  *
  *  @param targetSize 压缩比例
- *
- *  @return <#return value description#>
- *
- *  @since 1.0
  */
-- (UIImage *)compression: (CGSize)targetSize;
+- (UIImage *)compression:(CGSize)targetSize;
+
+
+/**
+ *  @author CC, 2015-12-22
+ *  
+ *  @brief  动态图片压缩
+ *
+ *  @param sourceImage 原图片
+ *
+ *  @return 返回图片
+ */
+- (UIImage *)resetSizeOfImage;
 
 /**
  *  @author CC, 2015-07-22 16:07:55
@@ -47,13 +55,21 @@
  *
  *  @param size    压缩图片大小
  *  @param percent 压缩比例
- *
- *  @return <#return value description#>
- *
- *  @since 1.0
  */
-- (UIImage *)compressionData: (CGSize)size
-                     Percent: (float)percent;
+- (UIImage *)compressionData:(CGSize)size
+                     Percent:(float)percent;
+
+/**
+ *  @author CC, 2015-12-23
+ *  
+ *  @brief  动态图片压缩
+ *
+ *  @param sourceImage 原图
+ *  @param maxSize     限定图片大小
+ *
+ *  @return 返回data数据
+ */
+- (NSData *)resetSizeOfImageDataWithMaxSize:(NSInteger)maxSize;
 
 #pragma mark - 毛玻璃效果
 /**
