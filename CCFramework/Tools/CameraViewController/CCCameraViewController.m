@@ -29,11 +29,11 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface CCCameraViewController ()<UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+@interface CCCameraViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, CCPickerDelegate>
 
-@property (strong, nonatomic) UIViewController *currentViewController;
+@property(strong, nonatomic) UIViewController *currentViewController;
 
-@property (nonatomic, copy) Completion callBackBlock;
+@property(nonatomic, copy) Completion callBackBlock;
 
 @end
 
@@ -51,17 +51,17 @@
                                         complate:(Completion)complate
 {
     _currentViewController = viewController;
-
+    
     CCActionSheet *actionSheet = [[CCActionSheet alloc] initWithTitle:@""];
     [actionSheet addButtonWithTitle:@"拍照获取" image:nil type:CCActionSheetButtonTypeTextAlignmentCenter handler:^(CCActionSheet *actionSheet) {
         [self cameras];
     }];
-
+    
     [actionSheet addButtonWithTitle:@"从相册选择" image:nil type:CCActionSheetButtonTypeTextAlignmentCenter handler:^(CCActionSheet *actionSheet) {
         [self LocalPhoto];
     }];
     [actionSheet show];
-
+    
     _callBackBlock = complate;
 }
 
@@ -108,10 +108,21 @@
 {
     CCPickerViewController *pickerViewcontroller = [[CCPickerViewController alloc] init];
     pickerViewcontroller.minCount = 9;
-    [pickerViewcontroller CompleteImage:^(id obj) {
-        _callBackBlock(obj);
-    }];
+    pickerViewcontroller.delegate = self;
     [pickerViewcontroller show];
+}
+
+/**
+ *  @author CC, 2015-12-24
+ *  
+ *  @brief  选择照片回调
+ *
+ *  @param imageArray 照片集合
+ */
+- (void)pickerViewControllerCompleteImage:(NSArray *)imageArray
+{
+    if (self.callBackBlock)
+        self.callBackBlock(imageArray);
 }
 
 #pragma mark - 照相机
@@ -123,7 +134,8 @@
  *
  *  @return 返回判断设备是否有摄像头
  */
-- (BOOL) isCameraAvailable{
+- (BOOL)isCameraAvailable
+{
     return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
 }
 
@@ -134,7 +146,8 @@
  *
  *  @return 返回前面的摄像头是否可用
  */
-- (BOOL) isFrontCameraAvailable{
+- (BOOL)isFrontCameraAvailable
+{
     return [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront];
 }
 
@@ -145,7 +158,8 @@
  *
  *  @return 返回后面的摄像头是否可用
  */
-- (BOOL) isRearCameraAvailable{
+- (BOOL)isRearCameraAvailable
+{
     return [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear];
 }
 
@@ -156,8 +170,9 @@
  *
  *  @return 返回检查摄像头是否支持录像
  */
-- (BOOL) doesCameraSupportShootingVideos{
-    return [self cameraSupportsMedia:(NSString*)kUTTypeMovie sourceType:UIImagePickerControllerSourceTypeCamera];
+- (BOOL)doesCameraSupportShootingVideos
+{
+    return [self cameraSupportsMedia:(NSString *)kUTTypeMovie sourceType:UIImagePickerControllerSourceTypeCamera];
 }
 
 /**
@@ -167,8 +182,9 @@
  *
  *  @return 返回检查摄像头是否支持拍照
  */
-- (BOOL) doesCameraSupportTakingPhotos{
-    return [self cameraSupportsMedia:( NSString *)kUTTypeImage sourceType:UIImagePickerControllerSourceTypeCamera];
+- (BOOL)doesCameraSupportTakingPhotos
+{
+    return [self cameraSupportsMedia:(NSString *)kUTTypeImage sourceType:UIImagePickerControllerSourceTypeCamera];
 }
 
 /**
@@ -181,14 +197,15 @@
  *
  *  @return 返回是否支持某种多媒体类型：拍照，视频
  */
-- (BOOL) cameraSupportsMedia:(NSString *)paramMediaType sourceType:(UIImagePickerControllerSourceType)paramSourceType{
+- (BOOL)cameraSupportsMedia:(NSString *)paramMediaType sourceType:(UIImagePickerControllerSourceType)paramSourceType
+{
     __block BOOL result = NO;
-    if ([paramMediaType length] == 0){
+    if ([paramMediaType length] == 0) {
         NSLog(@"Media type is empty.");
         return NO;
     }
-    NSArray *availableMediaTypes =[UIImagePickerController availableMediaTypesForSourceType:paramSourceType];
-    [availableMediaTypes enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL*stop) {
+    NSArray *availableMediaTypes = [UIImagePickerController availableMediaTypesForSourceType:paramSourceType];
+    [availableMediaTypes enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSString *mediaType = (NSString *)obj;
         if ([mediaType isEqualToString:paramMediaType]){
             result = YES;
@@ -206,8 +223,9 @@
  *
  *  @return 返回相册是否可用
  */
-- (BOOL) isPhotoLibraryAvailable{
-    return [UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypePhotoLibrary];
+- (BOOL)isPhotoLibraryAvailable
+{
+    return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary];
 }
 
 /**
@@ -217,8 +235,9 @@
  *
  *  @return 返回是否可以在相册中选择视频
  */
-- (BOOL) canUserPickVideosFromPhotoLibrary{
-    return [self cameraSupportsMedia:( NSString *)kUTTypeMovie sourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+- (BOOL)canUserPickVideosFromPhotoLibrary
+{
+    return [self cameraSupportsMedia:(NSString *)kUTTypeMovie sourceType:UIImagePickerControllerSourceTypePhotoLibrary];
 }
 
 /**
@@ -228,8 +247,9 @@
  *
  *  @return 返回是否可以在相册中选择视频
  */
-- (BOOL) canUserPickPhotosFromPhotoLibrary{
-    return [self cameraSupportsMedia:( NSString *)kUTTypeImage sourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+- (BOOL)canUserPickPhotosFromPhotoLibrary
+{
+    return [self cameraSupportsMedia:(NSString *)kUTTypeImage sourceType:UIImagePickerControllerSourceTypePhotoLibrary];
 }
 
 /**
@@ -239,31 +259,31 @@
  *
  *  @since 1.0
  */
--(void)cameras
+- (void)cameras
 {
     if ([self isCameraAvailable] && [self doesCameraSupportTakingPhotos]) {
         UIImagePickerController *controller = [[UIImagePickerController alloc] init]; //初始化图片选择控制器
-        [controller setSourceType:UIImagePickerControllerSourceTypeCamera];// 设置类型
-
+        [controller setSourceType:UIImagePickerControllerSourceTypeCamera];	   // 设置类型
+        
         // 设置所支持的类型，设置只能拍照，或则只能录像，或者两者都可以
-        NSString *requiredMediaType = ( NSString *)kUTTypeImage;
+        NSString *requiredMediaType = (NSString *)kUTTypeImage;
         //        NSString *requiredMediaType1 = ( NSString *)kUTTypeMovie;
         //        NSArray *arrMediaTypes=[NSArray arrayWithObjects:requiredMediaType, requiredMediaType1,nil];
-        NSArray *arrMediaTypes = [NSArray arrayWithObjects:requiredMediaType,nil];
+        NSArray *arrMediaTypes = [NSArray arrayWithObjects:requiredMediaType, nil];
         [controller setMediaTypes:arrMediaTypes];
-
+        
         // 设置录制视频的质量
         // [controller setVideoQuality:UIImagePickerControllerQualityTypeHigh];
         //设置最长摄像时间
         // [controller setVideoMaximumDuration:10.f];
-
-//        [controller setAllowsEditing:YES];// 设置是否可以管理已经存在的图片或者视频
-        [controller setDelegate:self];// 设置代理
-
-        if([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+        
+        //        [controller setAllowsEditing:YES];// 设置是否可以管理已经存在的图片或者视频
+        [controller setDelegate:self]; // 设置代理
+        
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
             _currentViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         }
-
+        
         [_currentViewController presentViewController:controller animated:YES completion:nil];
     }
 }
@@ -278,34 +298,34 @@
  *
  *  @since 1.0
  */
-- (void) imagePickerController: (UIImagePickerController *)picker
- didFinishPickingMediaWithInfo: (NSDictionary *)info
+- (void)imagePickerController:(UIImagePickerController *)picker
+didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
     // 判断获取类型：图片
-    if ([mediaType isEqualToString:( NSString *)kUTTypeImage]){
+    if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
         UIImage *theImage = nil;
-        if ([picker allowsEditing]) //判断，图片是否允许修改
+        if ([picker allowsEditing])					       //判断，图片是否允许修改
             theImage = [info objectForKey:UIImagePickerControllerEditedImage]; //获取用户编辑之后的图像
         else
             theImage = [info objectForKey:UIImagePickerControllerOriginalImage]; // 照片的元数据参数
-
+        
         // 保存图片到相册中
         SEL selectorToCall = @selector(imageWasSavedSuccessfully:didFinishSavingWithError:contextInfo:);
-        UIImageWriteToSavedPhotosAlbum(theImage, self,selectorToCall, NULL);
-
+        UIImageWriteToSavedPhotosAlbum(theImage, self, selectorToCall, NULL);
+        
         NSMutableArray *SelectImageArray = [NSMutableArray array];
         [SelectImageArray addObject:theImage];
-
+        
         _callBackBlock(SelectImageArray);
-
-    }else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]){
+        
+    } else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
         // 判断获取类型：视频 => 获取视频文件的url
-        NSURL* mediaURL = [info objectForKey:UIImagePickerControllerMediaURL];
+        NSURL *mediaURL = [info objectForKey:UIImagePickerControllerMediaURL];
         //创建ALAssetsLibrary对象并将视频保存到媒体库 => Assets Library 框架包是提供了在应用程序中操作图片和视频的相关功能。相当于一个桥梁，链接了应用程序和多媒体文件。
         ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
-
-        [assetsLibrary writeVideoAtPathToSavedPhotosAlbum:mediaURL completionBlock:^(NSURL *assetURL, NSError *error) {  // 将视频保存到相册中
+        
+        [assetsLibrary writeVideoAtPathToSavedPhotosAlbum:mediaURL completionBlock:^(NSURL *assetURL, NSError *error) { // 将视频保存到相册中
             if (!error) {
                 NSLog(@"captured video saved with no error.");
             }else{
@@ -313,9 +333,9 @@
             }
         }];
     }
-
+    
     [picker dismissViewControllerAnimated:YES completion:nil];
-
+    
 }
 
 /**
