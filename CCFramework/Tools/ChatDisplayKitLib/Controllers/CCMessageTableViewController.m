@@ -355,20 +355,15 @@ const CGFloat CCMessageRefreshViewHeight = 20.0;
  */
 - (void)alterDataSource:(NSArray *)dataArray
 {
-    WEAKSELF;
-    [self exChangeMessageDataSourceQueue:^{
-        NSMutableArray *messages = [NSMutableArray arrayWithArray:weakSelf.messages];
-        [messages addObjectsFromArray:dataArray];
-        
-        NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:1];
-        [indexPaths addObject:[NSIndexPath indexPathForRow:messages.count - 1 inSection:0]];
-        
-        [weakSelf exMainQueue:^{
-            weakSelf.messages = messages;
-            [weakSelf.messageTableView reloadData];
-            [weakSelf scrollToBottomAnimated:NO];
-        }];
-    }];
+    NSMutableArray *messages = [NSMutableArray arrayWithArray:self.messages];
+    [messages addObjectsFromArray:dataArray];
+    
+    NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:1];
+    [indexPaths addObject:[NSIndexPath indexPathForRow:messages.count - 1 inSection:0]];
+    
+    self.messages = messages;
+    [self.messageTableView reloadData];
+    [self scrollToBottomAnimated:NO];
 }
 
 - (void)removeMessageAtIndexPath:(NSIndexPath *)indexPath
