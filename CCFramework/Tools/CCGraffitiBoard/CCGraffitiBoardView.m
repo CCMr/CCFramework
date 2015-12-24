@@ -33,7 +33,7 @@
 #import "CCBrushView.h"
 #import "CCColorPickerController.h"
 #import "CCColor.h"
-
+#import "CCToolButton.h"
 
 #define BottomNavigationBarHeigth 44
 
@@ -108,6 +108,14 @@
     window.windowLevel = UIWindowLevelAlert;
     [window addSubview:self.view];
     [window.rootViewController addChildViewController:self];
+}
+
+- (void)hide
+{
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    window.windowLevel = UIWindowLevelNormal;
+    self.view.backgroundColor = [UIColor clearColor];
+    [self.view removeFromSuperview];
 }
 
 - (void)InitControl
@@ -209,17 +217,34 @@
  */
 - (void)InitBarItems
 {
+    
+    UIView *topToolView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
+    topToolView.backgroundColor = [UIColor colorWithWhite:0.667f alpha:0.667f];
+    [self.view addSubview:topToolView];
+    
+    UIButton *backButton = [UIButton buttonWith];
+    backButton.frame = CGRectMake(0, 0, 44, 44);
+    [backButton setImage:CCResourceImage(@"returns") forState:UIControlStateNormal];
+    [backButton setImage:CCResourceImage(@"returns") forState:UIControlStateHighlighted];
+    [backButton addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchUpInside];
+    [topToolView addSubview:backButton];
+    
     //画笔
-    UIButton *brushButton = [UIButton buttonWithBackgroundImageFrame:@"" Frame:CGRectMake(winsize.width - 108, 0, 44, 44)];
-    brushButton.backgroundColor = [UIColor redColor];
+    UIButton *brushButton = [CCToolButton buttonWithType:UIButtonTypeCustom];
+    brushButton.frame = CGRectMake(winsize.width - 108, 0, 44, 44);
+    [brushButton setImage:CCResourceImage(@"brush") forState:UIControlStateNormal];
+    [brushButton setImage:CCResourceImage(@"brush") forState:UIControlStateHighlighted];
+    brushButton.selected = YES;
     [brushButton addTarget:self action:@selector(didSelectBrush:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:brushButton];
+    [topToolView addSubview:brushButton];
     
     //橡皮擦
-    UIButton *eraserButton = [UIButton buttonWithBackgroundImageFrame:@"" Frame:CGRectMake(winsize.width - 54, 0, 44, 44)];
-    eraserButton.backgroundColor = [UIColor blueColor];
+    UIButton *eraserButton = [CCToolButton buttonWithType:UIButtonTypeCustom];
+    eraserButton.frame = CGRectMake(winsize.width - 54, 0, 44, 44);
+    [eraserButton setImage:CCResourceImage(@"eraser") forState:UIControlStateNormal];
+    [eraserButton setImage:CCResourceImage(@"eraser") forState:UIControlStateHighlighted];
     [eraserButton addTarget:self action:@selector(didEraser:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:eraserButton];
+    [topToolView addSubview:eraserButton];
     
     //颜色
     _colorWell = [[CCColorWell alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
@@ -228,6 +253,8 @@
     
     //画笔
     _brushStyleButton = [UIButton buttonWith];
+    [_brushStyleButton setImage:CCResourceImage(@"style") forState:UIControlStateNormal];
+    [_brushStyleButton setImage:CCResourceImage(@"style") forState:UIControlStateHighlighted];
     _brushStyleButton.frame = CGRectMake(44, 0, 44, 44);
     [_brushStyleButton addTarget:self action:@selector(showBrushPanel:) forControlEvents:UIControlEventTouchUpInside];
     [self.bottomNavigationBarScrollView addSubview:_brushStyleButton];
@@ -239,16 +266,22 @@
     [self.bottomNavigationBarScrollView addSubview:clearButton];
     
     //撤销
-    _undoButton = [UIButton buttonWithTitle:@"撤销"];
-    _undoButton.frame = CGRectMake(132, 0, 44, 44);
-    [_undoButton addTarget:self action:@selector(undoAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.bottomNavigationBarScrollView addSubview:_undoButton];
+    UIButton *undoButton = [UIButton buttonWith];
+    undoButton.frame = CGRectMake(132, 0, 44, 44);
+    [undoButton setImage:CCResourceImage(@"undo") forState:UIControlStateNormal];
+    [undoButton setImage:CCResourceImage(@"undo") forState:UIControlStateHighlighted];
+    undoButton.enabled = NO;
+    [undoButton addTarget:self action:@selector(undoAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomNavigationBarScrollView addSubview:self.undoButton = undoButton];
     
     //重做
-    _redoButton = [UIButton buttonWithTitle:@"重做"];
-    _redoButton.frame = CGRectMake(176, 0, 44, 44);
-    [_redoButton addTarget:self action:@selector(redoAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.bottomNavigationBarScrollView addSubview:_redoButton];
+    UIButton *redoButton = [UIButton buttonWith];
+    redoButton.frame = CGRectMake(176, 0, 44, 44);
+    [redoButton setImage:CCResourceImage(@"redo") forState:UIControlStateNormal];
+    [redoButton setImage:CCResourceImage(@"redo") forState:UIControlStateHighlighted];
+    redoButton.enabled = NO;
+    [redoButton addTarget:self action:@selector(redoAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomNavigationBarScrollView addSubview:self.redoButton = redoButton];
 }
 
 /**
@@ -259,6 +292,7 @@
 - (void)didSelectBrush:(id)sender
 {
     self.paintingView.paintBrush = _paintingPen;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"CCActiveToolDidChange" object:nil userInfo:nil];
 }
 
 /**
@@ -272,6 +306,7 @@
     paintBrush.lineWidth = _paintingPen.lineWidth;
     paintBrush.lineColor = _paintingPen.lineColor;
     self.paintingView.paintBrush = paintBrush;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"CCActiveToolDidChange" object:nil userInfo:nil];
 }
 
 /**
