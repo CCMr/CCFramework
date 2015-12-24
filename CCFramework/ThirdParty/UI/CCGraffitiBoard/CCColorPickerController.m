@@ -36,7 +36,7 @@
 
 #define bottomToolHeight 44
 #define alphaSliderHeight 30
-#define viewHeigth (CGRectGetHeight(self.view.bounds) - bottomToolHeight - 40) / 2
+#define viewHeigth (CGRectGetHeight(self.view.bounds) - bottomToolHeight - 80) / 2
 
 typedef void (^Complete)(CCColor *color);
 
@@ -103,11 +103,16 @@ typedef void (^Complete)(CCColor *color);
     [self.secondCell addSubview:self.colorSquare];
     [self.secondCell addSubview:self.alphaSlider];
     
+    UIView *buttomToolView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - bottomToolHeight, CGRectGetWidth(self.view.bounds), bottomToolHeight)];
+    buttomToolView.backgroundColor = [UIColor colorWithWhite:0.667f alpha:0.667f];
+    [self.view addSubview:buttomToolView];
+    
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(CGRectGetWidth(self.view.bounds) - 50, CGRectGetHeight(self.view.bounds) - bottomToolHeight, bottomToolHeight, bottomToolHeight);
-    button.backgroundColor = [UIColor redColor];
+    [button setImage:CCResourceImage(@"dismiss") forState:UIControlStateNormal];
+    [button setImage:CCResourceImage(@"dismiss") forState:UIControlStateHighlighted];
+    button.frame = CGRectMake(buttomToolView.width - (bottomToolHeight + 10), 0, bottomToolHeight, bottomToolHeight);
     [button addTarget:self action:@selector(doubleTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button];
+    [buttomToolView addSubview:button];
 }
 
 #pragma mark :.  初始化属性
