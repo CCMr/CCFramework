@@ -95,7 +95,34 @@
     
     //pop the context to get back to the default
     UIGraphicsEndImageContext();
+    
     return newImage;
+}
+
+/**
+ *  @author CC, 2015-12-22
+ *  
+ *  @brief  动态图片压缩
+ *
+ *  @param sourceImage 原图片
+ *
+ *  @return 返回图片
+ */
+- (UIImage *)resetSizeOfImage
+{
+    //先调整分辨率
+    CGSize newSize = CGSizeMake(self.size.width, self.size.height);
+    
+    CGFloat tempHeight = newSize.height / 1024;
+    CGFloat tempWidth = newSize.width / 1024;
+    
+    if (tempWidth > 1.0 && tempWidth > tempHeight) {
+        newSize = CGSizeMake(self.size.width / tempWidth, self.size.height / tempWidth);
+    } else if (tempHeight > 1.0 && tempWidth < tempHeight) {
+        newSize = CGSizeMake(self.size.width / tempHeight, self.size.height / tempHeight);
+    }
+    
+    return [self compression:CGSizeMake(newSize.width, newSize.height)];
 }
 
 /**
@@ -105,10 +132,6 @@
  *
  *  @param size    压缩图片大小
  *  @param percent 压缩比例
- *
- *  @return <#return value description#>
- *
- *  @since 1.0
  */
 - (UIImage *)compressionData:(CGSize)size
                      Percent:(float)percent
@@ -121,7 +144,33 @@
     NSData *ImageData = UIImagePNGRepresentation(thumbImage);
     if (percent > 0)
         ImageData = UIImageJPEGRepresentation(thumbImage, percent);
+    
     return [UIImage imageWithData:ImageData];
+}
+
+/**
+ *  @author CC, 2015-12-23
+ *  
+ *  @brief  动态图片压缩
+ *
+ *  @param sourceImage 原图
+ *  @param maxSize     限定图片大小
+ *
+ *  @return 返回data数据
+ */
+- (NSData *)resetSizeOfImageDataWithMaxSize:(NSInteger)maxSize
+{
+    UIImage *newImage = [self resetSizeOfImage];
+    
+    //调整大小
+    NSData *imageData = UIImageJPEGRepresentation(newImage, 1.0);
+    NSUInteger sizeOrigin = [imageData length];
+    NSUInteger sizeOriginKB = sizeOrigin / 1024;
+    
+    if (sizeOriginKB > maxSize)
+        imageData = UIImageJPEGRepresentation(newImage,0.50);
+    
+    return imageData;
 }
 
 #pragma mark - 模糊效果
@@ -136,7 +185,9 @@
  */
 - (UIImage *)imageWithBlur
 {
-    return [self imageWithLightAlpha:0.1 radius:15 colorSaturationFactor:1];
+    return [self imageWithLightAlpha:0.1 
+                              radius:15 
+               colorSaturationFactor:1];
 }
 
 /**
@@ -158,7 +209,11 @@
            colorSaturationFactor:(CGFloat)colorSaturationFactor
 {
     UIColor *tintColor = [UIColor colorWithWhite:1.0 alpha:alpha];
-    return [self imageBluredWithRadius:radius tintColor:tintColor saturationDeltaFactor:colorSaturationFactor maskImage:nil];
+    
+    return [self imageBluredWithRadius:radius 
+                             tintColor:tintColor 
+                 saturationDeltaFactor:colorSaturationFactor 
+                             maskImage:nil];
 }
 
 /**
