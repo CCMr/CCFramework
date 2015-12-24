@@ -110,7 +110,10 @@ typedef void (^CompleteSelectedType)(float lineSize, CCBrushType type);
     
     @weakify(self);
     
-    UIButton *barMinusButton = [UIButton buttonWithBackgroundImageFrame:@"" Frame:CGRectMake(0, 0, 44, bottomView.height)];
+    UIButton *barMinusButton = [UIButton buttonWith];
+    [barMinusButton setImage:CCResourceImage(@"bar_minus") forState:UIControlStateNormal];
+    [barMinusButton setImage:CCResourceImage(@"bar_minus") forState:UIControlStateHighlighted];
+    barMinusButton.frame = CGRectMake(0, 0, 44, bottomView.height);
     [barMinusButton handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
         @strongify(self);
         self.brushSlider.currentValue = self.brushSlider.currentValue - 1;
@@ -125,15 +128,20 @@ typedef void (^CompleteSelectedType)(float lineSize, CCBrushType type);
     }];
     [bottomView addSubview:self.brushSlider = brushSlider];
     
-    UIButton *barPlusButton = [UIButton buttonWithBackgroundImageFrame:@"" Frame:CGRectMake(brushSlider.x + brushSlider.width, 0, 44, bottomView.height)];
+    UIButton *barPlusButton = [UIButton buttonWith];
+    [barPlusButton setImage:CCResourceImage(@"bar_plus") forState:UIControlStateNormal];
+    [barPlusButton setImage:CCResourceImage(@"bar_plus") forState:UIControlStateHighlighted];
+    barPlusButton.frame = CGRectMake(brushSlider.x + brushSlider.width, 0, 44, bottomView.height);
     [barPlusButton handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
         @strongify(self);
         self.brushSlider.currentValue = self.brushSlider.currentValue + 1;
     }];
     [bottomView addSubview:barPlusButton];
     
-    UIButton *dismissButton = [UIButton buttonWithBackgroundImageFrame:@"" Frame:CGRectMake(bottomView.width - 44, 0, 44, 44)];
-    dismissButton.backgroundColor = [UIColor redColor];
+    UIButton *dismissButton = [UIButton buttonWith];
+    [dismissButton setImage:CCResourceImage(@"dismiss") forState:UIControlStateNormal];
+    [dismissButton setImage:CCResourceImage(@"dismiss") forState:UIControlStateHighlighted];
+    dismissButton.frame = CGRectMake(bottomView.width - 44, 0, 44, 44);
     [dismissButton handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
         @strongify(self);
         
@@ -181,7 +189,7 @@ typedef void (^CompleteSelectedType)(float lineSize, CCBrushType type);
     return 50;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"123");
 }
