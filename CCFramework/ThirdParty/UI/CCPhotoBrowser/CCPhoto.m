@@ -46,10 +46,6 @@
  *  @author CC, 2015-06-04 18:06:03
  *
  *  @brief  缩略图
- *
- *  @return <#return value description#>
- *
- *  @since 1.0
  */
 - (UIImage *)thumbImage
 {
