@@ -42,6 +42,8 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMediaType) {
     CCBubbleMessageMediaTypeSmallEmotion = 5,
     /** 媒体留言地理位置类型 */
     CCBubbleMessageMediaTypeLocalPosition = 6,
+    /** 媒体留言图文类型 */
+    CCBubbleMessageMediaTypeTeletext = 7,
 };
 
 /**
@@ -79,7 +81,15 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 @protocol CCMessageModel <NSObject>
 
 @required
+#pragma mark - 文本
 - (NSString *)text;
+
+/**
+ *  @author CC, 2015-12-25
+ *  
+ *  @brief  图文对应路径(键值存放)
+ */
+- (NSArray *)teletextPath;
 
 #pragma mark - 图片
 - (UIImage *)photo;

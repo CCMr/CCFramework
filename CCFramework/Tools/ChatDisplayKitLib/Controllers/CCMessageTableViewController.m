@@ -34,6 +34,7 @@
 #import "UIScrollView+CCkeyboardControl.h"
 #import "UIScrollView+CCExtension.h"
 #import "CCVoiceCommonHelper.h"
+#import "CCEmotionTextAttachment.h"
 
 typedef enum {
     CCMessageRefreshStatePulling = 1,    // 松开就可以进行刷新的状态
@@ -48,6 +49,7 @@ typedef enum {
  *  @brief  下拉刷新高度
  */
 const CGFloat CCMessageRefreshViewHeight = 20.0;
+
 
 
 @interface CCMessageTableViewController ()
@@ -79,6 +81,13 @@ const CGFloat CCMessageRefreshViewHeight = 20.0;
 
 @property(nonatomic, strong) UIView *headerContainerView;
 @property(nonatomic, strong) UIActivityIndicatorView *loadMoreActivityIndicatorView;
+
+/**
+ *  @author CC, 2015-12-25
+ *  
+ *  @brief  图文路径
+ */
+@property(nonatomic, copy) NSArray *teletextPath;
 
 /**
  *  @author CC, 2015-11-19
@@ -304,6 +313,7 @@ const CGFloat CCMessageRefreshViewHeight = 20.0;
 - (void)addMessage:(CCMessage *)addedMessage
 {
     [self alterDataSource:[NSArray arrayWithObject:addedMessage]];
+    [self finishSendMessageWithBubbleMessageType:addedMessage.messageMediaType];
 }
 
 /**
@@ -558,13 +568,13 @@ static CGPoint delayOffset = {0.0};
 - (void)finishSendMessageWithBubbleMessageType:(CCBubbleMessageMediaType)mediaType
 {
     switch (mediaType) {
-        case CCBubbleMessageMediaTypeText: {
+        case CCBubbleMessageMediaTypeText: 
+        case CCBubbleMessageMediaTypeTeletext: {
             [self.messageInputView.inputTextView setText:nil];
             if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
                 self.messageInputView.inputTextView.enablesReturnKeyAutomatically = NO;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    self.messageInputView.inputTextView.enablesReturnKeyAutomatically =
-                    YES;
+                    self.messageInputView.inputTextView.enablesReturnKeyAutomatically = YES;
                     [self.messageInputView.inputTextView reloadInputViews];
                 });
             }
@@ -1070,10 +1080,7 @@ static CGPoint delayOffset = {0.0};
 - (void)didSendMessageWithVideoConverPhoto:(UIImage *)videoConverPhoto
                                  videoPath:(NSString *)videoPath
 {
-    if ([self.delegate respondsToSelector:@selector(didSendVideoConverPhoto:
-                                                    videoPath:
-                                                    fromSender:
-                                                    onDate:)]) {
+    if ([self.delegate respondsToSelector:@selector(didSendVideoConverPhoto:videoPath:fromSender:onDate:)]) {
         [self.delegate didSendVideoConverPhoto:videoConverPhoto
                                      videoPath:videoPath
                                     fromSender:self.messageSender
@@ -1084,10 +1091,7 @@ static CGPoint delayOffset = {0.0};
 - (void)didSendMessageWithVoice:(NSString *)voicePath
                   voiceDuration:(NSString *)voiceDuration
 {
-    if ([self.delegate respondsToSelector:@selector(didSendVoice:
-                                                    voiceDuration:
-                                                    fromSender:
-                                                    onDate:)]) {
+    if ([self.delegate respondsToSelector:@selector(didSendVoice:voiceDuration:fromSender:onDate:)]) {
         [self.delegate didSendVoice:voicePath
                       voiceDuration:voiceDuration
                          fromSender:self.messageSender
@@ -1124,12 +1128,58 @@ static CGPoint delayOffset = {0.0};
 - (void)didSendSmallEmotionMessageWithEmotionPath:(NSString *)emotionPath
                                        EmotionUrl:(NSString *)emotionUrl
 {
-    if ([self.delegate respondsToSelector:@selector(didSendSmallEmotion:EmotionUrl:fromSender:onDate:)]) {
-        [self.delegate didSendSmallEmotion:emotionPath
-                                EmotionUrl:emotionUrl
-                                fromSender:self.messageSender
-                                    onDate:[NSDate date]];
-    }
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.teletextPath];
+    
+    NSMutableDictionary *teletextDic = [NSMutableDictionary dictionary];
+    [teletextDic setObject:emotionPath forKey:@"path"];
+    [teletextDic setObject:emotionUrl forKey:@"url"];
+    
+    [array addObject:teletextDic];
+    
+    self.teletextPath = array;
+    
+    [self insertEmotion:emotionPath];
+}
+
+/**
+ *  @author CC, 2015-12-24
+ *  
+ *  @brief  插入小表情
+ *
+ *  @param emotionPath 表情地址
+ */
+- (void)insertEmotion:(NSString *)emotionPath
+{
+    CCEmotionTextAttachment *emojiTextAttachment = [CCEmotionTextAttachment new];
+    emojiTextAttachment.emotionPath = emotionPath;
+    emojiTextAttachment.emotionSize = CGSizeMake(24, 24);
+    
+    //Insert emoji image
+    [self.messageInputView.inputTextView.textStorage insertAttributedString:[NSAttributedString attributedStringWithAttachment:emojiTextAttachment]
+                                                                    atIndex:self.messageInputView.inputTextView.selectedRange.location];
+    
+    //Move selection location
+    self.messageInputView.inputTextView.selectedRange = NSMakeRange(self.messageInputView.inputTextView.selectedRange.location + 1, self.messageInputView.inputTextView.selectedRange.length);
+    
+    NSRange wholeRange = NSMakeRange(0, self.messageInputView.inputTextView.textStorage.length);
+    
+    [self.messageInputView.inputTextView.textStorage removeAttribute:NSFontAttributeName range:wholeRange];
+    
+    [self.messageInputView.inputTextView.textStorage addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18.0f] range:wholeRange];
+}
+
+/**
+ *  @author CC, 2015-12-25
+ *  
+ *  @brief  删除表情记录
+ */
+- (void)didTextDeleteBackward
+{
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.teletextPath];
+    if (array.count)
+        [array removeObject:array.lastObject];
+    
+    self.teletextPath = array;
 }
 
 - (void)didEmotionStore
@@ -1165,10 +1215,7 @@ static CGPoint delayOffset = {0.0};
         __block CGRect otherMenuViewFrame;
         
         void (^InputViewAnimation)(BOOL hide) = ^(BOOL hide) {
-            inputViewFrame.origin.y = (hide ? (CGRectGetHeight(self.view.bounds) -
-                                               CGRectGetHeight(inputViewFrame))
-                                       : (CGRectGetMinY(otherMenuViewFrame) -
-                                          CGRectGetHeight(inputViewFrame)));
+            inputViewFrame.origin.y = (hide ? (CGRectGetHeight(self.view.bounds) - CGRectGetHeight(inputViewFrame)) : (CGRectGetMinY(otherMenuViewFrame) - CGRectGetHeight(inputViewFrame)));
             self.messageInputView.frame = inputViewFrame;
         };
         
@@ -1285,8 +1332,7 @@ static CGPoint delayOffset = {0.0};
 
 #pragma mark - CCMessageInputView Delegate
 
-- (void)inputTextViewWillBeginEditing:
-(CCMessageTextView *)messageInputTextView
+- (void)inputTextViewWillBeginEditing:(CCMessageTextView *)messageInputTextView
 {
     self.textViewInputViewType = CCInputViewTypeText;
 }
@@ -1294,8 +1340,7 @@ static CGPoint delayOffset = {0.0};
 - (void)inputTextViewDidBeginEditing:(CCMessageTextView *)messageInputTextView
 {
     if (!self.previousTextViewContentHeight)
-        self.previousTextViewContentHeight =
-        [self getTextViewContentH:messageInputTextView];
+        self.previousTextViewContentHeight = [self getTextViewContentH:messageInputTextView];
 }
 
 - (void)didChangeSendVoiceAction:(BOOL)changed
@@ -1308,13 +1353,28 @@ static CGPoint delayOffset = {0.0};
     }
 }
 
+/**
+ *  @author CC, 2015-12-25
+ *  
+ *  @brief  发送文本消息响应事件
+ *
+ *  @param text 文本信息
+ */
 - (void)didSendTextAction:(NSString *)text
 {
-    if ([self.delegate
-         respondsToSelector:@selector(didSendText:fromSender:onDate:)]) {
-        [self.delegate didSendText:text
-                        fromSender:self.messageSender
-                            onDate:[NSDate date]];
+    if ([text rangeOfString:OBJECT_REPLACEMENT_CHARACTER].location != NSNotFound) { //图文消息
+        if ([self.delegate respondsToSelector:@selector(didSendTeletext:TeletextPath:fromSender:onDate:)]) {
+            [self.delegate didSendTeletext:text
+                              TeletextPath:self.teletextPath
+                                fromSender:self.messageSender
+                                    onDate:[NSDate date]];
+        }
+    } else { //文本消息
+        if ([self.delegate respondsToSelector:@selector(didSendText:fromSender:onDate:)]) {
+            [self.delegate didSendText:text
+                            fromSender:self.messageSender
+                                onDate:[NSDate date]];
+        }
     }
 }
 

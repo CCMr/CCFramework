@@ -30,15 +30,43 @@
 
 - (instancetype)initWithText:(NSString *)text
                       sender:(NSString *)sender
-                   timestamp:(NSDate *)timestamp {
+                   timestamp:(NSDate *)timestamp
+{
     self = [super init];
     if (self) {
         self.text = text;
-
+        
         self.sender = sender;
         self.timestamp = timestamp;
-
+        
         self.messageMediaType = CCBubbleMessageMediaTypeText;
+    }
+    return self;
+}
+
+/**
+ *  @author CC, 2015-12-25
+ *  
+ *  @brief  初始化图文消息
+ *
+ *  @param text       发送的目标文本
+ *  @param telextPath 发送目标的图片路径
+ *  @param sender     发送者的名称
+ *  @param timestamp  发送的时间
+ *
+ *  @return 返回Message model 对象
+ */
+- (instancetype)initWithTeletext:(NSString *)text
+                      TelextPath:(NSArray *)telextPath
+                          sender:(NSString *)sender
+                       timestamp:(NSDate *)timestamp
+{
+    if (self = [super init]) {
+        self.text = text;
+        self.teletextPath = telextPath;
+        self.sender = sender;
+        self.timestamp = timestamp;
+        self.messageMediaType = CCBubbleMessageMediaTypeTeletext;
     }
     return self;
 }
@@ -58,16 +86,17 @@
                  thumbnailUrl:(NSString *)thumbnailUrl
                originPhotoUrl:(NSString *)originPhotoUrl
                        sender:(NSString *)sender
-                    timestamp:(NSDate *)timestamp {
+                    timestamp:(NSDate *)timestamp
+{
     self = [super init];
     if (self) {
         self.photo = photo;
         self.thumbnailUrl = thumbnailUrl;
         self.originPhotoUrl = originPhotoUrl;
-
+        
         self.sender = sender;
         self.timestamp = timestamp;
-
+        
         self.messageMediaType = CCBubbleMessageMediaTypePhoto;
     }
     return self;
@@ -88,16 +117,17 @@
                                videoPath:(NSString *)videoPath
                                 videoUrl:(NSString *)videoUrl
                                   sender:(NSString *)sender
-                               timestamp:(NSDate *)timestamp {
+                               timestamp:(NSDate *)timestamp
+{
     self = [super init];
     if (self) {
         self.videoConverPhoto = videoConverPhoto;
         self.videoPath = videoPath;
         self.videoUrl = videoUrl;
-
+        
         self.sender = sender;
         self.timestamp = timestamp;
-
+        
         self.messageMediaType = CCBubbleMessageMediaTypeVideo;
     }
     return self;
@@ -118,13 +148,14 @@
                          voiceUrl:(NSString *)voiceUrl
                     voiceDuration:(NSString *)voiceDuration
                            sender:(NSString *)sender
-                        timestamp:(NSDate *)timestamp {
-
-    return [self initWithVoicePath:voicePath 
-                          voiceUrl:voiceUrl 
-                     voiceDuration:voiceDuration 
-                            sender:sender 
-                         timestamp:timestamp 
+                        timestamp:(NSDate *)timestamp
+{
+    
+    return [self initWithVoicePath:voicePath
+                          voiceUrl:voiceUrl
+                     voiceDuration:voiceDuration
+                            sender:sender
+                         timestamp:timestamp
                             isRead:NO];
 }
 
@@ -145,17 +176,18 @@
                     voiceDuration:(NSString *)voiceDuration
                            sender:(NSString *)sender
                         timestamp:(NSDate *)timestamp
-                           isRead:(BOOL)isRead {
+                           isRead:(BOOL)isRead
+{
     self = [super init];
     if (self) {
         self.voicePath = voicePath;
         self.voiceUrl = voiceUrl;
         self.voiceDuration = voiceDuration;
-
+        
         self.sender = sender;
         self.timestamp = timestamp;
         self.isRead = isRead;
-
+        
         self.messageMediaType = CCBubbleMessageMediaTypeVoice;
     }
     return self;
@@ -170,17 +202,18 @@
  *
  *  @return 返回Message model 对象
  */
-- (instancetype)initWithEmotionPath:(NSString *)emotionPath 
+- (instancetype)initWithEmotionPath:(NSString *)emotionPath
                          EmotionUrl:(NSString *)emotionUrl
                              sender:(NSString *)sender
-                          timestamp:(NSDate *)timestamp {
+                          timestamp:(NSDate *)timestamp
+{
     self = [super init];
     if (self) {
         self.emotionPath = emotionPath;
         self.emotionUrl = emotionUrl;
         self.sender = sender;
         self.timestamp = timestamp;
-
+        
         self.messageMediaType = CCBubbleMessageMediaTypeEmotion;
     }
     return self;
@@ -201,16 +234,17 @@
                               geolocations:(NSString *)geolocations
                                   location:(CLLocation *)location
                                     sender:(NSString *)sender
-                                 timestamp:(NSDate *)timestamp {
+                                 timestamp:(NSDate *)timestamp
+{
     self = [super init];
     if (self) {
         self.localPositionPhoto = localPositionPhoto;
         self.geolocations = geolocations;
         self.location = location;
-
+        
         self.sender = sender;
         self.timestamp = timestamp;
-
+        
         self.messageMediaType = CCBubbleMessageMediaTypeLocalPosition;
     }
     return self;
@@ -222,39 +256,38 @@
     self = [super init];
     if (self) {
         _text = [aDecoder decodeObjectForKey:@"text"];
-
+        _teletextPath = [aDecoder decodeObjectForKey:@"teletextPath"];
+        
         _photo = [aDecoder decodeObjectForKey:@"photo"];
         _thumbnailUrl = [aDecoder decodeObjectForKey:@"thumbnailUrl"];
         _originPhotoUrl = [aDecoder decodeObjectForKey:@"originPhotoUrl"];
-
+        
         _videoConverPhoto = [aDecoder decodeObjectForKey:@"videoConverPhoto"];
         _videoPath = [aDecoder decodeObjectForKey:@"videoPath"];
         _videoUrl = [aDecoder decodeObjectForKey:@"videoUrl"];
-
+        
         _voicePath = [aDecoder decodeObjectForKey:@"voicePath"];
         _voiceUrl = [aDecoder decodeObjectForKey:@"voiceUrl"];
         _voiceDuration = [aDecoder decodeObjectForKey:@"voiceDuration"];
-
+        
         _emotionPath = [aDecoder decodeObjectForKey:@"emotionPath"];
         _emotionUrl = [aDecoder decodeObjectForKey:@"emotionUrl"];
-
+        
         _localPositionPhoto = [aDecoder decodeObjectForKey:@"localPositionPhoto"];
         _geolocations = [aDecoder decodeObjectForKey:@"geolocations"];
         _location = [aDecoder decodeObjectForKey:@"location"];
-
+        
         _avatar = [aDecoder decodeObjectForKey:@"avatar"];
         _avatarUrl = [aDecoder decodeObjectForKey:@"avatarUrl"];
-
+        
         _sender = [aDecoder decodeObjectForKey:@"sender"];
         _timestamp = [aDecoder decodeObjectForKey:@"timestamp"];
         _showdate = [[aDecoder decodeObjectForKey:@"showdate"] boolValue];
-
+        
         _messageMediaType = [[aDecoder decodeObjectForKey:@"messageMediaType"] integerValue];
         _messageSendState = [[aDecoder decodeObjectForKey:@"messageSendState"] integerValue];
         _bubbleMessageType = [[aDecoder decodeObjectForKey:@"bubbleMessageType"] integerValue];
         _isRead = [[aDecoder decodeObjectForKey:@"isRead"] boolValue];
-
-
     }
     return self;
 }
@@ -262,34 +295,35 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:self.text forKey:@"text"];
-
+    [aCoder encodeObject:self.teletextPath forKey:@"teletextPath"];
+    
     [aCoder encodeObject:self.photo forKey:@"photo"];
     [aCoder encodeObject:self.thumbnailUrl forKey:@"thumbnailUrl"];
     [aCoder encodeObject:self.originPhotoUrl forKey:@"originPhotoUrl"];
-
+    
     [aCoder encodeObject:self.videoConverPhoto forKey:@"videoConverPhoto"];
     [aCoder encodeObject:self.videoPath forKey:@"videoPath"];
     [aCoder encodeObject:self.videoUrl forKey:@"videoUrl"];
-
+    
     [aCoder encodeObject:self.voicePath forKey:@"voicePath"];
     [aCoder encodeObject:self.voiceUrl forKey:@"voiceUrl"];
     [aCoder encodeObject:self.voiceDuration forKey:@"voiceDuration"];
-
+    
     [aCoder encodeObject:self.emotionPath forKey:@"emotionPath"];
     [aCoder encodeObject:self.emotionUrl forKey:@"emotionUrl"];
-
+    
     [aCoder encodeObject:self.localPositionPhoto forKey:@"localPositionPhoto"];
     [aCoder encodeObject:self.geolocations forKey:@"geolocations"];
     [aCoder encodeObject:self.location forKey:@"location"];
-
+    
     [aCoder encodeObject:self.avatar forKey:@"avatar"];
     [aCoder encodeObject:self.avatarUrl forKey:@"avatarUrl"];
-
-
+    
+    
     [aCoder encodeObject:self.sender forKey:@"sender"];
     [aCoder encodeObject:self.timestamp forKey:@"timestamp"];
     [aCoder encodeObject:[NSNumber numberWithBool:self.showdate] forKey:@"showdate"];
-
+    
     [aCoder encodeObject:[NSNumber numberWithInteger:self.messageMediaType] forKey:@"messageMediaType"];
     [aCoder encodeObject:[NSNumber numberWithInteger:self.bubbleMessageType] forKey:@"bubbleMessageType"];
     [aCoder encodeObject:[NSNumber numberWithInteger:self.messageSendState] forKey:@"messageSendState"];
@@ -324,7 +358,7 @@
                                                                  sender:[self.sender copy]
                                                               timestamp:[self.timestamp copy]];
         case CCBubbleMessageMediaTypeEmotion:
-            return [[[self class] allocWithZone:zone] initWithEmotionPath:[self.emotionPath copy] 
+            return [[[self class] allocWithZone:zone] initWithEmotionPath:[self.emotionPath copy]
                                                                EmotionUrl:self.emotionUrl
                                                                    sender:[self.sender copy]
                                                                 timestamp:[self.timestamp copy]];
@@ -334,6 +368,11 @@
                                                                         location:[self.location copy]
                                                                           sender:[self.sender copy]
                                                                        timestamp:[self.timestamp copy]];
+        case CCBubbleMessageMediaTypeTeletext:
+            return [[[self class] allocWithZone:zone] initWithTeletext:[self.text copy]
+                                                            TelextPath:[self.teletextPath copy]
+                                                                sender:[self.sender copy]
+                                                             timestamp:[self.timestamp copy]];
         default:
             return nil;
     }
@@ -341,33 +380,34 @@
 
 - (void)dealloc
 {
-
+    
     _text = nil;
-
+    _teletextPath = nil;
+    
     _photo = nil;
     _thumbnailUrl = nil;
     _originPhotoUrl = nil;
-
+    
     _videoConverPhoto = nil;
     _videoPath = nil;
     _videoUrl = nil;
-
+    
     _voicePath = nil;
     _voiceUrl = nil;
     _voiceDuration = nil;
-
+    
     _emotionPath = nil;
     _emotionUrl = nil;
-
+    
     _localPositionPhoto = nil;
     _geolocations = nil;
     _location = nil;
-
+    
     _avatar = nil;
     _avatarUrl = nil;
-
+    
     _sender = nil;
-
+    
     _timestamp = nil;
 }
 

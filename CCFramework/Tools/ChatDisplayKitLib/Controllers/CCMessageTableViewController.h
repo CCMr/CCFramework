@@ -52,6 +52,8 @@ typedef NS_ENUM(NSUInteger, CCInputViewType) {
     CCInputViewTypeShareMenu,
 };
 
+//文本中的表情
+static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 
 @protocol CCMessageTableViewControllerDelegate <NSObject>
 
@@ -66,6 +68,21 @@ typedef NS_ENUM(NSUInteger, CCInputViewType) {
 - (void)didSendText:(NSString *)text
          fromSender:(NSString *)sender
              onDate:(NSDate *)date;
+
+/**
+ *  @author CC, 2015-12-25
+ *  
+ *  @brief  发送图文消息的回调方法
+ *
+ *  @param text         目标文本字符串
+ *  @param teletextPath 目标图案路径
+ *  @param sender       发送者的名字
+ *  @param date         发送时间
+ */
+- (void)didSendTeletext:(NSString *)text
+           TeletextPath:(NSArray *)teletextPath
+             fromSender:(NSString *)sender
+                 onDate:(NSDate *)date;
 
 /**
  *  发送图片消息的回调方法

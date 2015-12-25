@@ -33,6 +33,13 @@
 
 @property(nonatomic, copy) NSString *text;
 
+/**
+ *  @author CC, 2015-12-25
+ *  
+ *  @brief  图文对应路径(键值存放)
+ */
+@property(nonatomic, copy) NSArray *teletextPath;
+
 #pragma mark - 图片
 @property(nonatomic, strong) UIImage *photo;
 @property(nonatomic, copy) NSString *thumbnailUrl;
@@ -157,6 +164,23 @@
 - (instancetype)initWithText:(NSString *)text
                       sender:(NSString *)sender
                    timestamp:(NSDate *)timestamp;
+
+/**
+ *  @author CC, 2015-12-25
+ *  
+ *  @brief  初始化图文消息
+ *
+ *  @param text       发送的目标文本
+ *  @param telextPath 发送目标的图片路径
+ *  @param sender     发送者的名称
+ *  @param timestamp  发送的时间
+ *
+ *  @return 返回Message model 对象
+ */
+- (instancetype)initWithTeletext:(NSString *)text
+                      TelextPath:(NSArray *)telextPath
+                          sender:(NSString *)sender
+                       timestamp:(NSDate *)timestamp;
 
 /**
  *  初始化图片类型的消息

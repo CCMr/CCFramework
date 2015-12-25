@@ -172,7 +172,8 @@
 {
     CGSize bubbleSize;
     switch (message.messageMediaType) {
-        case CCBubbleMessageMediaTypeText: {
+        case CCBubbleMessageMediaTypeText:       //文本
+        case CCBubbleMessageMediaTypeTeletext: { //图文
             CGSize needTextSize = [CCMessageBubbleView neededSizeForText:message.text];
             bubbleSize = CGSizeMake(needTextSize.width + kCCLeftTextHorizontalBubblePadding + kCCRightTextHorizontalBubblePadding + kCCArrowMarginWidth, needTextSize.height + kCCHaveBubbleMargin * 2 + kCCTopAndBottomBubbleMargin * 2); //这里*4的原因是：气泡内部的文本也做了margin，而且margin的大小和气泡的margin一样大小，所以需要加上*2的间隙大小
             break;
