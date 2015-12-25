@@ -50,6 +50,8 @@
 		422978631BEE407400CECBBF /* CCBlockTrace.h in Headers */ = {isa = PBXBuildFile; fileRef = 422978621BEE405900CECBBF /* CCBlockTrace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42300C6C1C2A466800D03641 /* brush@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42300C6A1C2A466800D03641 /* brush@2x.png */; };
 		42300C6D1C2A466800D03641 /* eraser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42300C6B1C2A466800D03641 /* eraser@2x.png */; };
+		42300C771C2BDD7200D03641 /* CCEmotionTextAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = 42300C751C2BDD7200D03641 /* CCEmotionTextAttachment.h */; };
+		42300C781C2BDD7200D03641 /* CCEmotionTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 42300C761C2BDD7200D03641 /* CCEmotionTextAttachment.m */; };
 		4230E1851BBB83000001E68F /* CCRadarIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4230E1831BBB83000001E68F /* CCRadarIndicatorView.h */; };
 		4230E1861BBB83000001E68F /* CCRadarIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E1841BBB83000001E68F /* CCRadarIndicatorView.m */; };
 		4230E18D1BBB83CE0001E68F /* CCRadarPointView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4230E18B1BBB83CE0001E68F /* CCRadarPointView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -931,6 +933,8 @@
 		422978621BEE405900CECBBF /* CCBlockTrace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCBlockTrace.h; sourceTree = "<group>"; };
 		42300C6A1C2A466800D03641 /* brush@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "brush@2x.png"; path = "GraffitiBoard/brush@2x.png"; sourceTree = "<group>"; };
 		42300C6B1C2A466800D03641 /* eraser@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "eraser@2x.png"; path = "GraffitiBoard/eraser@2x.png"; sourceTree = "<group>"; };
+		42300C751C2BDD7200D03641 /* CCEmotionTextAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEmotionTextAttachment.h; sourceTree = "<group>"; };
+		42300C761C2BDD7200D03641 /* CCEmotionTextAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCEmotionTextAttachment.m; sourceTree = "<group>"; };
 		4230E1831BBB83000001E68F /* CCRadarIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRadarIndicatorView.h; path = Radar/Scanning/CCRadarIndicatorView.h; sourceTree = "<group>"; };
 		4230E1841BBB83000001E68F /* CCRadarIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRadarIndicatorView.m; path = Radar/Scanning/CCRadarIndicatorView.m; sourceTree = "<group>"; };
 		4230E18B1BBB83CE0001E68F /* CCRadarPointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRadarPointView.h; path = Radar/Scanning/CCRadarPointView.h; sourceTree = "<group>"; };
@@ -3417,6 +3421,8 @@
 		429C9F091B9EF8BF0013A44A /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				42300C751C2BDD7200D03641 /* CCEmotionTextAttachment.h */,
+				42300C761C2BDD7200D03641 /* CCEmotionTextAttachment.m */,
 				429C9F0A1B9EF8BF0013A44A /* Cache */,
 			);
 			path = Core;
@@ -4268,6 +4274,7 @@
 				42F411C51C2150E500814E7B /* CALayer+Transition.h in Headers */,
 				42F411DA1C2150E500814E7B /* UIAlertView+Additional.h in Headers */,
 				424492941C0D90F500488AA2 /* interf_dec.h in Headers */,
+				42300C771C2BDD7200D03641 /* CCEmotionTextAttachment.h in Headers */,
 				42F411FC1C2150E500814E7B /* UIScrollView+CCkeyboardControl.h in Headers */,
 				4254774E1BD2AEC20071BBC5 /* mdc2.h in Headers */,
 				4254775F1BD2AEC20071BBC5 /* rsa.h in Headers */,
@@ -5179,6 +5186,7 @@
 				4269792C1BA695BA00C3E93C /* AFURLSessionManager.m in Sources */,
 				42F411E51C2150E500814E7B /* UIImage+Additions.m in Sources */,
 				42F24C751BEA5236008CDEDC /* CCCountingLabel.m in Sources */,
+				42300C781C2BDD7200D03641 /* CCEmotionTextAttachment.m in Sources */,
 				429C9FA91B9EF8BF0013A44A /* SmoothViewController.m in Sources */,
 				42B647521BEDE08F00B2F6FD /* CCHTTPManager+DELETE.m in Sources */,
 				4213FAFD1C13D860006918AC /* CCJPsuh.m in Sources */,
