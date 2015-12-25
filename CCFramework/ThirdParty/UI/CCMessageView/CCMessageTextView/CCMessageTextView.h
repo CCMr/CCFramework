@@ -25,7 +25,22 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol CCMessageTextViewDelegate <UITextViewDelegate>
+
+@optional
+
+/**
+ *  @author CC, 2015-12-25
+ *  
+ *  @brief  删除表情
+ */
+- (void)didDeleteBackward;
+
+@end
+
 @interface CCMessageTextView : UITextView
+
+@property(nonatomic,weak) id<CCMessageTextViewDelegate> cc_delegate;
 
 /**
  *  @author CC, 2015-08-13
@@ -34,7 +49,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, copy) NSString *placeholder;
+@property(nonatomic, copy) NSString *placeholder;
 
 /**
  *  @author CC, 2015-08-13
@@ -43,7 +58,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, strong) UIColor *placeholderTextColor;
+@property(nonatomic, strong) UIColor *placeholderTextColor;
 
 /**
  *  @author CC, 2015-08-13

@@ -25,6 +25,7 @@
 
 #import "CCMessageTextView.h"
 
+
 @implementation CCMessageTextView
 
 #pragma mark - setters
@@ -71,40 +72,47 @@
 
 #pragma mark - Text view overrides
 
-- (void)setText:(NSString *)text {
+- (void)setText:(NSString *)text
+{
     [super setText:text];
     [self setNeedsDisplay];
 }
 
-- (void)setAttributedText:(NSAttributedString *)attributedText {
+- (void)setAttributedText:(NSAttributedString *)attributedText
+{
     [super setAttributedText:attributedText];
     [self setNeedsDisplay];
 }
 
-- (void)setContentInset:(UIEdgeInsets)contentInset {
-    [super setContentInset:contentInset];
+- (void)setContentInset:(UIEdgeInsets)contentInset
+{
+    //    [super setContentInset:contentInset];
     [self setNeedsDisplay];
 }
 
-- (void)setFont:(UIFont *)font {
+- (void)setFont:(UIFont *)font
+{
     [super setFont:font];
     [self setNeedsDisplay];
 }
 
-- (void)setTextAlignment:(NSTextAlignment)textAlignment {
+- (void)setTextAlignment:(NSTextAlignment)textAlignment
+{
     [super setTextAlignment:textAlignment];
     [self setNeedsDisplay];
 }
 
 #pragma mark - Notifications
 
-- (void)didReceiveTextDidChangeNotification:(NSNotification *)notification {
+- (void)didReceiveTextDidChangeNotification:(NSNotification *)notification
+{
     [self setNeedsDisplay];
 }
 
 #pragma mark - Life cycle
 
-- (void)setup {
+- (void)setup
+{
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveTextDidChangeNotification:)
                                                  name:UITextViewTextDidChangeNotification
@@ -127,7 +135,8 @@
     self.textAlignment = NSTextAlignmentLeft;
 }
 
-- (id)initWithFrame:(CGRect)frame {
+- (id)initWithFrame:(CGRect)frame
+{
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
@@ -136,10 +145,24 @@
     return self;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     _placeholder = nil;
     _placeholderTextColor = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextViewTextDidChangeNotification object:self];
+}
+
+- (void)deleteBackward
+{
+    NSInteger stringLength = self.text.length;
+    if (stringLength) {
+        if ([@"\uFFFC" isEqualToString:[self.text substringFromIndex:stringLength - 1]]) {
+            if ([self.cc_delegate respondsToSelector:@selector(didDeleteBackward)])
+                [self.cc_delegate didDeleteBackward];
+        }
+    }
+    
+    [super deleteBackward];
 }
 
 #pragma mark - Drawing
@@ -148,25 +171,21 @@
 {
     [super drawRect:rect];
     
-    if([self.text length] == 0 && self.placeholder) {
-        CGRect placeHolderRect = CGRectMake(10.0f,
-                                            7.0f,
-                                            rect.size.width,
-                                            rect.size.height);
+    if ([self.text length] == 0 && self.placeholder) {
+        CGRect placeHolderRect = CGRectMake(10.0f, 7.0f, rect.size.width, rect.size.height);
         
         [self.placeholderTextColor set];
         
-        if ([[[UIDevice currentDevice]systemVersion]floatValue] >= 7.0) {
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
             paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
             paragraphStyle.alignment = self.textAlignment;
             
             [self.placeholder drawInRect:placeHolderRect
-                          withAttributes:@{ NSFontAttributeName : self.font,
-                                            NSForegroundColorAttributeName : self.placeholderTextColor,
-                                            NSParagraphStyleAttributeName : paragraphStyle }];
-        }
-        else {
+                          withAttributes:@{NSFontAttributeName : self.font,
+                                           NSForegroundColorAttributeName : self.placeholderTextColor,
+                                           NSParagraphStyleAttributeName : paragraphStyle}];
+        } else {
             [self.placeholder drawInRect:placeHolderRect
                                 withFont:self.font
                            lineBreakMode:NSLineBreakByTruncatingTail
