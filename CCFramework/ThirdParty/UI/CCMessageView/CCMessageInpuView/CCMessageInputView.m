@@ -28,7 +28,7 @@
 #import "Config.h"
 #import "NSString+BNSString.h"
 
-@interface CCMessageInputView () <UITextViewDelegate>
+@interface CCMessageInputView () <CCMessageTextViewDelegate>
 
 @property(nonatomic, weak, readwrite) CCMessageTextView *inputTextView;
 
@@ -368,9 +368,7 @@
 - (UIButton *)createButtonWithImage:(UIImage *)image
                             HLImage:(UIImage *)hlImage
 {
-    UIButton *button = [[UIButton alloc]
-                        initWithFrame:CGRectMake(0, 0, [CCMessageInputView textViewLineHeight],
-                                                 [CCMessageInputView textViewLineHeight])];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, [CCMessageInputView textViewLineHeight], [CCMessageInputView textViewLineHeight])];
     if (image)
         [button setBackgroundImage:image forState:UIControlStateNormal];
     if (hlImage)
@@ -486,6 +484,7 @@
     
     textView.placeholder = @"";
     textView.delegate = self;
+    textView.cc_delegate = self;
     
     [self addSubview:textView];
     _inputTextView = textView;
@@ -636,15 +635,18 @@
     }
 }
 
-+ (CGFloat)textViewLineHeight {
++ (CGFloat)textViewLineHeight
+{
     return 36.0f; // for fontSize 16.0f
 }
 
-+ (CGFloat)maxLines {
++ (CGFloat)maxLines
+{
     return ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ? 3.0f : 8.0f;
 }
 
-+ (CGFloat)maxHeight {
++ (CGFloat)maxHeight
+{
     return ([CCMessageInputView maxLines] + 1.0f) * [CCMessageInputView textViewLineHeight];
 }
 
@@ -677,7 +679,20 @@
         }
         return NO;
     }
+    
     return YES;
+}
+
+/**
+ *  @author CC, 2015-12-25
+ *  
+ *  @brief  删除表情
+ */
+-(void)didDeleteBackward
+{
+    if ([self.delegate respondsToSelector:@selector(didTextDeleteBackward)]) {
+        [self.delegate didTextDeleteBackward];
+    }
 }
 
 @end

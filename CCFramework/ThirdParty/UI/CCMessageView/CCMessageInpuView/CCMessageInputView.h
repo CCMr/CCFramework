@@ -26,8 +26,7 @@
 #import <UIKit/UIKit.h>
 #import "CCMessageTextView.h"
 
-typedef NS_ENUM(NSInteger, CCMessageInputViewStyle)
-{
+typedef NS_ENUM(NSInteger, CCMessageInputViewStyle) {
     // 分两种,一种是iOS6样式的，一种是iOS7样式的
     CCMessageInputViewStyleQuasiphysical,
     CCMessageInputViewStyleFlat
@@ -60,6 +59,13 @@ typedef NS_ENUM(NSInteger, CCMessageInputViewStyle)
 - (void)inputTextViewWillBeginEditing:(CCMessageTextView *)messageInputTextView;
 
 @optional
+
+/**
+ *  @author CC, 2015-12-25
+ *  
+ *  @brief  输入文本删除回调
+ */
+- (void)didTextDeleteBackward;
 
 /**
  *  @author CC, 2015-08-13
@@ -163,7 +169,7 @@ typedef NS_ENUM(NSInteger, CCMessageInputViewStyle)
 
 @interface CCMessageInputView : UIImageView
 
-@property (nonatomic, weak) id <CCMessageInputViewDelegate> delegate;
+@property(nonatomic, weak) id<CCMessageInputViewDelegate> delegate;
 
 /**
  *  @author CC, 2015-08-13
@@ -172,7 +178,7 @@ typedef NS_ENUM(NSInteger, CCMessageInputViewStyle)
  *
  *  @since 1.0
  */
-@property (nonatomic, weak, readonly) CCMessageTextView *inputTextView;
+@property(nonatomic, weak, readonly) CCMessageTextView *inputTextView;
 
 /**
  *  @author CC, 2015-08-13
@@ -181,7 +187,7 @@ typedef NS_ENUM(NSInteger, CCMessageInputViewStyle)
  *
  *  @since 1.0
  */
-@property (nonatomic, assign) CCMessageInputViewStyle messageInputViewStyle;  // default is CCMessageInputViewStyleFlat
+@property(nonatomic, assign) CCMessageInputViewStyle messageInputViewStyle; // default is CCMessageInputViewStyleFlat
 
 /**
  *  @author CC, 2015-08-13
@@ -190,7 +196,7 @@ typedef NS_ENUM(NSInteger, CCMessageInputViewStyle)
  *
  *  @since 1.0
  */
-@property (nonatomic, assign) BOOL allowsSendVoice; // default is YES
+@property(nonatomic, assign) BOOL allowsSendVoice; // default is YES
 
 /**
  *  @author CC, 2015-08-13
@@ -199,7 +205,7 @@ typedef NS_ENUM(NSInteger, CCMessageInputViewStyle)
  *
  *  @since 1.0
  */
-@property (nonatomic, assign) BOOL allowsSendMultiMedia; // default is YES
+@property(nonatomic, assign) BOOL allowsSendMultiMedia; // default is YES
 
 /**
  *  @author CC, 2015-08-13
@@ -208,7 +214,7 @@ typedef NS_ENUM(NSInteger, CCMessageInputViewStyle)
  *
  *  @since 1.0
  */
-@property (nonatomic, assign) BOOL allowsSendFace; // default is YES
+@property(nonatomic, assign) BOOL allowsSendFace; // default is YES
 
 /**
  *  @author CC, 2015-08-13
@@ -217,7 +223,7 @@ typedef NS_ENUM(NSInteger, CCMessageInputViewStyle)
  *
  *  @since 1.0
  */
-@property (nonatomic, weak, readonly) UIButton *voiceChangeButton;
+@property(nonatomic, weak, readonly) UIButton *voiceChangeButton;
 
 /**
  *  @author CC, 2015-08-13
@@ -226,7 +232,7 @@ typedef NS_ENUM(NSInteger, CCMessageInputViewStyle)
  *
  *  @since 1.0
  */
-@property (nonatomic, weak, readonly) UIButton *multiMediaSendButton;
+@property(nonatomic, weak, readonly) UIButton *multiMediaSendButton;
 
 /**
  *  @author CC, 2015-08-13
@@ -235,7 +241,7 @@ typedef NS_ENUM(NSInteger, CCMessageInputViewStyle)
  *
  *  @since 1.0
  */
-@property (nonatomic, weak, readonly) UIButton *faceSendButton;
+@property(nonatomic, weak, readonly) UIButton *faceSendButton;
 
 /**
  *  @author CC, 2015-08-13
@@ -244,7 +250,7 @@ typedef NS_ENUM(NSInteger, CCMessageInputViewStyle)
  *
  *  @since 1.0
  */
-@property (nonatomic, weak, readonly) UIButton *holdDownButton;
+@property(nonatomic, weak, readonly) UIButton *holdDownButton;
 
 #pragma mark - Message input view
 
