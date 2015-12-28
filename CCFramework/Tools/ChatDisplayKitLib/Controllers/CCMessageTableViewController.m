@@ -51,7 +51,6 @@ typedef enum {
 const CGFloat CCMessageRefreshViewHeight = 20.0;
 
 
-
 @interface CCMessageTableViewController ()
 
 /**
@@ -568,7 +567,7 @@ static CGPoint delayOffset = {0.0};
 - (void)finishSendMessageWithBubbleMessageType:(CCBubbleMessageMediaType)mediaType
 {
     switch (mediaType) {
-        case CCBubbleMessageMediaTypeText: 
+        case CCBubbleMessageMediaTypeText:
         case CCBubbleMessageMediaTypeTeletext: {
             [self.messageInputView.inputTextView setText:nil];
             if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
@@ -724,8 +723,7 @@ static CGPoint delayOffset = {0.0};
     [self setBackgroundColor:[UIColor whiteColor]];
     
     // 输入工具条的frame
-    _inputFrame = CGRectMake(0.0f, self.view.frame.size.height - inputViewHeight,
-                             self.view.frame.size.width, inputViewHeight);
+    _inputFrame = CGRectMake(0.0f, self.view.frame.size.height - inputViewHeight, self.view.frame.size.width, inputViewHeight);
     
     WEAKSELF;
     if (self.allowsPanToDismissKeyboard) {
@@ -756,10 +754,7 @@ static CGPoint delayOffset = {0.0};
     }
     
     // block回调键盘通知
-    self.messageTableView.keyboardWillChange = ^(CGRect keyboardRect,
-                                                 UIViewAnimationOptions options,
-                                                 double duration,
-                                                 BOOL showKeyboard) {
+    self.messageTableView.keyboardWillChange = ^(CGRect keyboardRect, UIViewAnimationOptions options, double duration, BOOL showKeyboard) {
         if (weakSelf.textViewInputViewType == CCInputViewTypeText) {
             [UIView animateWithDuration:duration
                                   delay:0.0
@@ -959,8 +954,7 @@ static CGPoint delayOffset = {0.0};
     BOOL isShrinking = contentH < self.previousTextViewContentHeight;
     CGFloat changeInHeight = contentH - _previousTextViewContentHeight;
     
-    if (!isShrinking && (self.previousTextViewContentHeight == maxHeight ||
-                         textView.text.length == 0)) {
+    if (!isShrinking && (self.previousTextViewContentHeight == maxHeight || textView.text.length == 0)) {
         changeInHeight = 0;
     } else {
         changeInHeight =
@@ -969,9 +963,7 @@ static CGPoint delayOffset = {0.0};
     
     if (changeInHeight != 0.0f) {
         [UIView animateWithDuration:0.25f animations:^{
-            [self setTableViewInsetsWithBottomValue:self.messageTableView
-             .contentInset.bottom +
-             changeInHeight];
+            [self setTableViewInsetsWithBottomValue:self.messageTableView.contentInset.bottom + changeInHeight];
             
             [self scrollToBottomAnimated:NO];
             
@@ -985,10 +977,7 @@ static CGPoint delayOffset = {0.0};
             }
             
             CGRect inputViewFrame = self.messageInputView.frame;
-            self.messageInputView.frame =
-            CGRectMake(0.0f, inputViewFrame.origin.y - changeInHeight,
-                       inputViewFrame.size.width,
-                       inputViewFrame.size.height + changeInHeight);
+            self.messageInputView.frame =  CGRectMake(0.0f, inputViewFrame.origin.y - changeInHeight, inputViewFrame.size.width, inputViewFrame.size.height + changeInHeight);
             if (!isShrinking) {
                 if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
                     self.previousTextViewContentHeight = MIN(contentH, maxHeight);
@@ -1192,11 +1181,7 @@ static CGPoint delayOffset = {0.0};
 - (void)didSendGeolocationsMessageWithGeolocaltions:(NSString *)geolcations
                                            location:(CLLocation *)location
 {
-    if ([self.delegate respondsToSelector:@selector(didSendGeoLocationsPhoto:
-                                                    geolocations:
-                                                    location:
-                                                    fromSender:
-                                                    onDate:)]) {
+    if ([self.delegate respondsToSelector:@selector(didSendGeoLocationsPhoto:geolocations:location:fromSender:onDate:)]) {
         [self.delegate didSendGeoLocationsPhoto:[UIImage imageNamed:@"Fav_Cell_Loc"]
                                    geolocations:geolcations
                                        location:location
@@ -1368,6 +1353,7 @@ static CGPoint delayOffset = {0.0};
                               TeletextPath:self.teletextPath
                                 fromSender:self.messageSender
                                     onDate:[NSDate date]];
+            self.teletextPath = nil;
         }
     } else { //文本消息
         if ([self.delegate respondsToSelector:@selector(didSendText:fromSender:onDate:)]) {

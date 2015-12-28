@@ -66,6 +66,9 @@
 		423B25311BE9E89900DAF075 /* CCDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 423B252F1BE9E89900DAF075 /* CCDropDown.m */; };
 		423C12791C0ECACB009FBA17 /* CCTool.h in Headers */ = {isa = PBXBuildFile; fileRef = 423C12771C0ECACB009FBA17 /* CCTool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		423C127A1C0ECACB009FBA17 /* CCTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 423C12781C0ECACB009FBA17 /* CCTool.m */; };
+		424255141C310CCA00D94E04 /* CCMessagePhotoImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 424255121C310CCA00D94E04 /* CCMessagePhotoImageView.h */; };
+		424255151C310CCA00D94E04 /* CCMessagePhotoImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 424255131C310CCA00D94E04 /* CCMessagePhotoImageView.m */; };
+		424255171C31255E00D94E04 /* placeholderImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 424255161C31255E00D94E04 /* placeholderImage@2x.png */; };
 		4244928E1C0D90F500488AA2 /* amrFileCodec.h in Headers */ = {isa = PBXBuildFile; fileRef = 4244927F1C0D90F500488AA2 /* amrFileCodec.h */; };
 		4244928F1C0D90F500488AA2 /* amrFileCodec.m in Sources */ = {isa = PBXBuildFile; fileRef = 424492801C0D90F500488AA2 /* amrFileCodec.m */; };
 		424492901C0D90F500488AA2 /* wav.h in Headers */ = {isa = PBXBuildFile; fileRef = 424492811C0D90F500488AA2 /* wav.h */; };
@@ -949,6 +952,9 @@
 		423B252F1BE9E89900DAF075 /* CCDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCDropDown.m; path = CCDorpDown/CCDropDown.m; sourceTree = "<group>"; };
 		423C12771C0ECACB009FBA17 /* CCTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCTool.h; path = Core/Tool/CCTool.h; sourceTree = "<group>"; };
 		423C12781C0ECACB009FBA17 /* CCTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCTool.m; path = Core/Tool/CCTool.m; sourceTree = "<group>"; };
+		424255121C310CCA00D94E04 /* CCMessagePhotoImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMessagePhotoImageView.h; sourceTree = "<group>"; };
+		424255131C310CCA00D94E04 /* CCMessagePhotoImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCMessagePhotoImageView.m; sourceTree = "<group>"; };
+		424255161C31255E00D94E04 /* placeholderImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholderImage@2x.png"; sourceTree = "<group>"; };
 		4244927F1C0D90F500488AA2 /* amrFileCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amrFileCodec.h; sourceTree = "<group>"; };
 		424492801C0D90F500488AA2 /* amrFileCodec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = amrFileCodec.m; sourceTree = "<group>"; };
 		424492811C0D90F500488AA2 /* wav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wav.h; sourceTree = "<group>"; };
@@ -3481,6 +3487,8 @@
 				429C9F261B9EF8BF0013A44A /* CCBubblePhotoImageView.m */,
 				429C9F271B9EF8BF0013A44A /* CCMessageBubbleView.h */,
 				429C9F281B9EF8BF0013A44A /* CCMessageBubbleView.m */,
+				424255121C310CCA00D94E04 /* CCMessagePhotoImageView.h */,
+				424255131C310CCA00D94E04 /* CCMessagePhotoImageView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3693,6 +3701,7 @@
 				422754661C29371F0099B653 /* PhotosViewImage */,
 				422754511C2932640099B653 /* GraffitiBoard */,
 				4227547A1C2938E30099B653 /* arrow@2x.png */,
+				424255161C31255E00D94E04 /* placeholderImage@2x.png */,
 				42F163FA1C294C9800F17928 /* Supporting Files */,
 			);
 			path = CCResource;
@@ -4305,6 +4314,7 @@
 				4269793B1BA695BA00C3E93C /* AFNetworkActivityIndicatorManager.h in Headers */,
 				42F24C5F1BEA5091008CDEDC /* PNLineChartData.h in Headers */,
 				4254776B1BD2AEC20071BBC5 /* tls1.h in Headers */,
+				424255141C310CCA00D94E04 /* CCMessagePhotoImageView.h in Headers */,
 				429C9FD51B9EF8BF0013A44A /* SignalR.h in Headers */,
 				429C9FCD1B9EF8BF0013A44A /* NSObject+SRJSON.h in Headers */,
 				425477351BD2AEC20071BBC5 /* comp.h in Headers */,
@@ -4823,6 +4833,7 @@
 				422754771C29371F0099B653 /* AssetsNO@2x.png in Resources */,
 				42300C6D1C2A466800D03641 /* eraser@2x.png in Resources */,
 				4227546F1C29371F0099B653 /* save_icon.png in Resources */,
+				424255171C31255E00D94E04 /* placeholderImage@2x.png in Resources */,
 				42300C6C1C2A466800D03641 /* brush@2x.png in Resources */,
 				422754721C29371F0099B653 /* save_icon_highlighted@2x.png in Resources */,
 				42F164021C2A38BD00F17928 /* bar_plus@2x.png in Resources */,
@@ -4989,6 +5000,7 @@
 				42B30DDC1BBD72AD0039BB94 /* UIImageView+WebCache.m in Sources */,
 				42B30DEB1BBD72AD0039BB94 /* SDWebImagePrefetcher.m in Sources */,
 				4269793E1BA695BA00C3E93C /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				424255151C310CCA00D94E04 /* CCMessagePhotoImageView.m in Sources */,
 				429C9FDE1B9EF8BF0013A44A /* SRHeartbeatMonitor.m in Sources */,
 				4264D73F1BA2C19100E83159 /* CCPageIndicatorView.m in Sources */,
 				426979341BA695BA00C3E93C /* AFNetworkReachabilityManager.m in Sources */,

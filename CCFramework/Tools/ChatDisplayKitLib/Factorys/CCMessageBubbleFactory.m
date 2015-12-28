@@ -64,6 +64,7 @@
         case CCBubbleMessageMediaTypeText:
         case CCBubbleMessageMediaTypeVoice:
         case CCBubbleMessageMediaTypeSmallEmotion:
+            case CCBubbleMessageMediaTypeTeletext:
             messageTypeString = [messageTypeString stringByAppendingString:@"_Solid"];
             break;
         default:

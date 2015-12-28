@@ -92,10 +92,6 @@
         return [_attributedStringCache objectForKey:text];
     }
     
-    if ([text isEqualToString:@"\uFFFC"]) {
-        NSLog(@"123");
-    }
-    
     NSDictionary *textAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:0.185 green:0.583 blue:1.000 alpha:1.000]};
     
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
