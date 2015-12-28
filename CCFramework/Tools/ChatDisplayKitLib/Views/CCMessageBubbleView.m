@@ -30,6 +30,7 @@
 #import "CCTool.h"
 #import "UIButton+BUIButton.h"
 #import "UIImageView+WebCache.h"
+#import "CCMessagePhotoImageView.h"
 //Factorys
 #import "CCMessageBubbleFactory.h"
 #import "CCMessageVoiceFactory.h"
@@ -52,6 +53,10 @@
 
 #define kCCNoneBubblePhotoMargin (kCCHaveBubbleMargin - kCCBubblePhotoMargin)							 // 在没有气泡的时候，也就是在图片、视频、地理位置的时候，图片内部做了Margin，所以需要减去内部的Margin
 #define kCCMaxWidth CGRectGetWidth([[UIScreen mainScreen] bounds]) * (isiPad ? 0.8 : (iPhone6 ? 0.6 : (iPhone6P ? 0.62 : 0.55))) // 文本只有一行的时候，宽度可能出现很小到最大的情况，所以需要计算一行文字需要的宽度
+
+//文本中的表情
+static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
+
 
 @interface CCMessageBubbleView ()
 
@@ -113,6 +118,41 @@
     return CGSizeMake((dyWidth > textSize.width ? textSize.width : dyWidth), textSize.height);
 }
 
+//计算图文最大的大小
++ (CGSize)neededSizeForTeletext:(NSArray *)teletextPath
+                           Text:(NSString *)text
+{
+    CGSize size = [CCMessageBubbleView neededSizeForText:text];
+    BOOL isWrap = NO;
+    for (NSDictionary *d in teletextPath) {
+        NSString *path = [d objectForKey:@"path"];
+        
+        UIImage *image = [UIImage imageWithContentsOfFile:path];
+        if (image) {
+            if (image.size.height > size.height)
+                size = CGSizeMake(size.width, image.size.height);
+            
+            size = CGSizeMake(image.size.width + size.width, size.height);
+        } else if ([path rangeOfString:@"http://"].location != NSNotFound) { //网络加载图片时
+            size = CGSizeMake(100 + size.width, 100 + size.height);
+        }
+        
+        CGFloat w = size.width;
+        if (w > kCCMaxWidth) { //超过显示最大宽度
+            isWrap = YES;
+            w = image.size.width;
+            size.height += size.height;
+        }
+        
+        size = CGSizeMake(w, size.height);
+    }
+    
+    if (isWrap)
+        size = CGSizeMake(kCCMaxWidth, size.height);
+    
+    return size;
+}
+
 // 计算图片实际大小
 + (CGSize)neededSizeForPhoto:(UIImage *)photo
 {
@@ -172,10 +212,18 @@
 {
     CGSize bubbleSize;
     switch (message.messageMediaType) {
-        case CCBubbleMessageMediaTypeText:       //文本
-        case CCBubbleMessageMediaTypeTeletext: { //图文
+        case CCBubbleMessageMediaTypeText: { //文本
             CGSize needTextSize = [CCMessageBubbleView neededSizeForText:message.text];
             bubbleSize = CGSizeMake(needTextSize.width + kCCLeftTextHorizontalBubblePadding + kCCRightTextHorizontalBubblePadding + kCCArrowMarginWidth, needTextSize.height + kCCHaveBubbleMargin * 2 + kCCTopAndBottomBubbleMargin * 2); //这里*4的原因是：气泡内部的文本也做了margin，而且margin的大小和气泡的margin一样大小，所以需要加上*2的间隙大小
+            break;
+        }
+        case CCBubbleMessageMediaTypeTeletext: { //图文
+            NSString *text = [message.text stringByReplacingOccurrencesOfString:message.teletextReplaceStr withString:@""];
+            text = [text stringByReplacingOccurrencesOfString:OBJECT_REPLACEMENT_CHARACTER withString:@""];
+            CGSize needTextSize = [CCMessageBubbleView neededSizeForTeletext:message.teletextPath
+                                                                        Text:text];
+								    
+            bubbleSize = CGSizeMake(needTextSize.width + kCCLeftTextHorizontalBubblePadding + kCCRightTextHorizontalBubblePadding + kCCArrowMarginWidth, needTextSize.height + kCCHaveBubbleMargin * 2 + kCCTopAndBottomBubbleMargin * 2);
             break;
         }
         case CCBubbleMessageMediaTypeVoice: {
@@ -330,7 +378,8 @@
         }
         case CCBubbleMessageMediaTypeText:
         case CCBubbleMessageMediaTypeEmotion:
-        case CCBubbleMessageMediaTypeSmallEmotion: {
+        case CCBubbleMessageMediaTypeSmallEmotion:
+        case CCBubbleMessageMediaTypeTeletext: {
             _bubbleImageView.image = [CCMessageBubbleFactory bubbleImageViewForType:message.bubbleMessageType
                                                                               style:CCBubbleImageViewStyleWeChat
                                                                           meidaType:message.messageMediaType];
@@ -341,7 +390,7 @@
             _bubblePhotoImageView.hidden = YES;
             
             
-            if (currentType == CCBubbleMessageMediaTypeText) {
+            if (currentType == CCBubbleMessageMediaTypeText || currentType == CCBubbleMessageMediaTypeTeletext) {
                 // 如果是文本消息，那文本消息的控件需要显示
                 _displayTextView.hidden = NO;
                 // 那语言的gif动画imageView就需要隐藏了
@@ -400,6 +449,37 @@
         case CCBubbleMessageMediaTypeText:
             _displayTextView.attributedText = [[CCMessageBubbleHelper sharedMessageBubbleHelper] bubbleAttributtedStringWithText:[message text]];
             break;
+        case CCBubbleMessageMediaTypeTeletext: {
+            
+            NSString *text = [[message text] stringByReplacingOccurrencesOfString:message.teletextReplaceStr withString:OBJECT_REPLACEMENT_CHARACTER];
+            
+            NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"\uFFFC" options:NSRegularExpressionCaseInsensitive error:nil];
+            NSArray *resultArray = [re matchesInString:text options:0 range:NSMakeRange(0, text.length)];
+            
+            for (int i = 0; i < resultArray.count; i++) {
+                
+                NSTextCheckingResult *match = [resultArray objectAtIndex:i];
+                
+                NSString *path = [[message.teletextPath objectAtIndex:i] objectForKey:@"path"];
+                
+                CGSize size = CGSizeMake(20, 20);
+                UIImage *Images = [UIImage imageWithContentsOfFile:path];
+                if (Images)
+                    size = CGSizeMake(Images.size.width < 100 ? Images.size.width : 100, Images.size.height < 100 ? Images.size.height : 100);
+                else if ([path rangeOfString:@"http://"].location != NSNotFound) { //网络加载图片时
+                    size = CGSizeMake(100, 100);
+                }
+                
+                CCMessagePhotoImageView *messagePhotoImageView = [[CCMessagePhotoImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+                messagePhotoImageView.imageFilePath = path;
+                
+                [_displayTextView addObject:messagePhotoImageView size:size replaceRange:[match range]];
+            }
+            
+            _displayTextView.attributedText = [[CCMessageBubbleHelper sharedMessageBubbleHelper] bubbleAttributtedStringWithText:text];
+            
+            break;
+        }
         case CCBubbleMessageMediaTypePhoto:
             [_bubblePhotoImageView configureMessagePhoto:message.photo
                                             thumbnailUrl:message.thumbnailUrl
@@ -659,7 +739,8 @@
         case CCBubbleMessageMediaTypeText:
         case CCBubbleMessageMediaTypeVoice:
         case CCBubbleMessageMediaTypeEmotion:
-        case CCBubbleMessageMediaTypeSmallEmotion: {
+        case CCBubbleMessageMediaTypeSmallEmotion:
+        case CCBubbleMessageMediaTypeTeletext: {
             // 获取实际气泡的大小
             CGRect bubbleFrame = [self bubbleFrame];
             self.bubbleImageView.frame = bubbleFrame;
@@ -691,7 +772,7 @@
                 viewFrame.size.width = CGRectGetWidth(bubbleFrame) - kCCLeftTextHorizontalBubblePadding - kCCRightTextHorizontalBubblePadding - kCCArrowMarginWidth;
                 viewFrame.size.height = CGRectGetHeight(bubbleFrame) - kCCHaveBubbleMargin * 3;
                 
-                if (currentType == CCBubbleMessageMediaTypeText) {
+                if (currentType == CCBubbleMessageMediaTypeText || currentType == CCBubbleMessageMediaTypeTeletext) {
                     self.displayTextView.frame = viewFrame;
                     self.displayTextView.center = CGPointMake(self.bubbleImageView.center.x + textX, self.bubbleImageView.center.y);
                 }

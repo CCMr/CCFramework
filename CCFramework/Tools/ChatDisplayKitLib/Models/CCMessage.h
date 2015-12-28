@@ -40,6 +40,13 @@
  */
 @property(nonatomic, copy) NSArray *teletextPath;
 
+/**
+ *  @author CC, 2016-12-28
+ *  
+ *  @brief  图文标示符，用于替换图片标示
+ */
+@property(nonatomic, copy) NSString *teletextReplaceStr;
+
 #pragma mark - 图片
 @property(nonatomic, strong) UIImage *photo;
 @property(nonatomic, copy) NSString *thumbnailUrl;
@@ -178,7 +185,8 @@
  *  @return 返回Message model 对象
  */
 - (instancetype)initWithTeletext:(NSString *)text
-                      TelextPath:(NSArray *)telextPath
+                      TelextPath:(NSArray *)telextPath 
+              TeletextReplaceStr:(NSString *)teletextReplaceStr
                           sender:(NSString *)sender
                        timestamp:(NSDate *)timestamp;
 

@@ -91,6 +91,13 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
  */
 - (NSArray *)teletextPath;
 
+/**
+ *  @author CC, 2016-12-28
+ *  
+ *  @brief  图文标示符，用于替换图片标示
+ */
+- (NSString *)teletextReplaceStr;
+
 #pragma mark - 图片
 - (UIImage *)photo;
 - (NSString *)thumbnailUrl;

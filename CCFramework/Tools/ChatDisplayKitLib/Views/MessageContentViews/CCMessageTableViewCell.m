@@ -302,9 +302,14 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     switch (currentMediaType) {
         case CCBubbleMessageMediaTypePhoto:
         case CCBubbleMessageMediaTypeVideo:
-        case CCBubbleMessageMediaTypeLocalPosition: {
-            UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTapGestureRecognizerHandle:)];
+        case CCBubbleMessageMediaTypeLocalPosition:{
+             UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTapGestureRecognizerHandle:)];
             [self.messageBubbleView.bubblePhotoImageView addGestureRecognizer:tapGestureRecognizer];
+            break;
+        }
+        case CCBubbleMessageMediaTypeTeletext:{
+            UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTapGestureRecognizerHandle:)];
+            [self.messageBubbleView.bubbleImageView addGestureRecognizer:tapGestureRecognizer];
             break;
         }
         case CCBubbleMessageMediaTypeText:

@@ -50,8 +50,7 @@
 - (UIActivityIndicatorView *)activityIndicatorView
 {
     if (!_activityIndicatorView) {
-        _activityIndicatorView = [[UIActivityIndicatorView alloc]
-                                  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         _activityIndicatorView.hidesWhenStopped = YES;
     }
     return _activityIndicatorView;
@@ -78,48 +77,47 @@
         self.messagePhoto = [UIImage imageNamed:@"placeholder"];
         [self setImageWithURL:[NSURL URLWithString:thumbnailUrl]
                    placeholer:nil
-    showActivityIndicatorView:
-         NO completionBlock:^(UIImage *image, NSURL *url, NSError *error) {
-             if ([url.absoluteString isEqualToString:thumbnailUrl]) {
-                 
-                 if (CGRectEqualToRect(weakSelf.bounds, CGRectZero)) {
-                     if (weakSelf) {
-                         weakSelf.semaphore = dispatch_semaphore_create(0);
-                         dispatch_semaphore_wait(weakSelf.semaphore,
-                                                 DISPATCH_TIME_FOREVER);
-                         weakSelf.semaphore = nil;
-                     }
-                 }
-                 
-                 // if image not nil
-                 if (image) {
-                     // scale image
-                     image = [image thumbnailImage:CGRectGetWidth(weakSelf.bounds) * 2
-                                 transparentBorder:0
-                                      cornerRadius:0
-                              interpolationQuality:1.0];
-                     dispatch_async(dispatch_get_main_queue(), ^{
-                         // if image not nil
-                         if (image) {
-                             // show image
-                             weakSelf.messagePhoto = image;
-                             [weakSelf.activityIndicatorView stopAnimating];
-                         }
-                     });
-                 }
-             }
-         }];
+    showActivityIndicatorView:NO
+              completionBlock:^(UIImage *image, NSURL *url, NSError *error) {
+                  if ([url.absoluteString isEqualToString:thumbnailUrl]) {
+                      
+                      if (CGRectEqualToRect(weakSelf.bounds, CGRectZero)) {
+                          if (weakSelf) {
+                              weakSelf.semaphore = dispatch_semaphore_create(0);
+                              dispatch_semaphore_wait(weakSelf.semaphore,
+                                                      DISPATCH_TIME_FOREVER);
+                              weakSelf.semaphore = nil;
+                          }
+                      }
+                      
+                      // if image not nil
+                      if (image) {
+                          // scale image
+                          image = [image thumbnailImage:CGRectGetWidth(weakSelf.bounds) * 2
+                                      transparentBorder:0
+                                           cornerRadius:0
+                                   interpolationQuality:1.0];
+                          dispatch_async(dispatch_get_main_queue(), ^{
+                              // if image not nil
+                              if (image) {
+                                  // show image
+                                  weakSelf.messagePhoto = image;
+                                  [weakSelf.activityIndicatorView stopAnimating];
+                              }
+                          });
+                      }
+                  }
+              }];
     }
 }
 
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
-    if (self.semaphore) {
+    if (self.semaphore)
         dispatch_semaphore_signal(self.semaphore);
-    }
-    _activityIndicatorView.center = CGPointMake(
-                                                CGRectGetWidth(self.bounds) / 2.0, CGRectGetHeight(self.bounds) / 2.0);
+    
+    _activityIndicatorView.center = CGPointMake(CGRectGetWidth(self.bounds) / 2.0, CGRectGetHeight(self.bounds) / 2.0);
 }
 
 - (instancetype)initWithFrame:(CGRect)frame

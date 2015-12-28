@@ -58,12 +58,14 @@
  */
 - (instancetype)initWithTeletext:(NSString *)text
                       TelextPath:(NSArray *)telextPath
+              TeletextReplaceStr:(NSString *)teletextReplaceStr
                           sender:(NSString *)sender
                        timestamp:(NSDate *)timestamp
 {
     if (self = [super init]) {
         self.text = text;
         self.teletextPath = telextPath;
+        self.teletextReplaceStr = teletextReplaceStr;
         self.sender = sender;
         self.timestamp = timestamp;
         self.messageMediaType = CCBubbleMessageMediaTypeTeletext;
@@ -257,6 +259,7 @@
     if (self) {
         _text = [aDecoder decodeObjectForKey:@"text"];
         _teletextPath = [aDecoder decodeObjectForKey:@"teletextPath"];
+        _teletextReplaceStr = [aDecoder decodeObjectForKey:@"teletextReplaceStr"];
         
         _photo = [aDecoder decodeObjectForKey:@"photo"];
         _thumbnailUrl = [aDecoder decodeObjectForKey:@"thumbnailUrl"];
@@ -296,6 +299,7 @@
 {
     [aCoder encodeObject:self.text forKey:@"text"];
     [aCoder encodeObject:self.teletextPath forKey:@"teletextPath"];
+    [aCoder encodeObject:self.teletextReplaceStr forKey:@"teletextReplaceStr"];
     
     [aCoder encodeObject:self.photo forKey:@"photo"];
     [aCoder encodeObject:self.thumbnailUrl forKey:@"thumbnailUrl"];
@@ -371,6 +375,7 @@
         case CCBubbleMessageMediaTypeTeletext:
             return [[[self class] allocWithZone:zone] initWithTeletext:[self.text copy]
                                                             TelextPath:[self.teletextPath copy]
+                                                    TeletextReplaceStr:[self.teletextReplaceStr copy]
                                                                 sender:[self.sender copy]
                                                              timestamp:[self.timestamp copy]];
         default:
@@ -383,6 +388,7 @@
     
     _text = nil;
     _teletextPath = nil;
+    _teletextReplaceStr = nil;
     
     _photo = nil;
     _thumbnailUrl = nil;
