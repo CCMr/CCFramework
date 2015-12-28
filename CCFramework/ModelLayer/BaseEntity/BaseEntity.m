@@ -53,6 +53,11 @@
     return [self.class new];
 }
 
+- (id)copyWithZone:(NSZone *)zone
+{
+    return [self.class new];
+}
+
 /**
  *  @author CC, 15-09-09
  *

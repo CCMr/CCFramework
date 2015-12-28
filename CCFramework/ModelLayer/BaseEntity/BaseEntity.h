@@ -26,7 +26,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@interface BaseEntity : NSObject
+@interface BaseEntity : NSObject <NSCopying>
 
 // must override
 + (id)dataWithJavaJsonDictonary:(NSDictionary *)jsonDic error:(NSError **)error;
