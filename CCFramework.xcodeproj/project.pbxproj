@@ -1813,13 +1813,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		420E74D41C2634F20084DA24 /* CCMInfoBanner */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = CCMInfoBanner;
-			sourceTree = "<group>";
-		};
 		42105D131BDB1791003EE23E /* CoreDataFactory */ = {
 			isa = PBXGroup;
 			children = (
@@ -1871,6 +1864,13 @@
 				4213FAFB1C13D860006918AC /* CCJPsuh.m */,
 			);
 			path = JPush;
+			sourceTree = "<group>";
+		};
+		4226FC3E1C327B65003EAEFE /* CCInfoBanner */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = CCInfoBanner;
 			sourceTree = "<group>";
 		};
 		422754511C2932640099B653 /* GraffitiBoard */ = {
@@ -2649,6 +2649,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E31BDE021900C76004 /* Ability.h */,
+				4226FC3E1C327B65003EAEFE /* CCInfoBanner */,
 				42A58A7A1BCDFE4F0027429C /* CCSideMenu */,
 				428A12C81BC8A025005D904D /* Contacts */,
 				42DBA8531BB5301C00AD47C6 /* Base64 */,
@@ -2959,7 +2960,6 @@
 			isa = PBXGroup;
 			children = (
 				42C208E51BDE025300C76004 /* UI.h */,
-				420E74D41C2634F20084DA24 /* CCMInfoBanner */,
 				42DEB2B31C254A2100734E09 /* CCBarSlider */,
 				42F410E61C2147DC00814E7B /* CCGraffitiBoard */,
 				42F24C711BEA5236008CDEDC /* CCCountingLabel */,

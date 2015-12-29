@@ -70,12 +70,12 @@ static void longLongSetter(CCUserDefaults *self, SEL _cmd, long long value) {
     [self.userDefault setObject:object forKey:key];
 }
 
-static bool boolGetter(CCUserDefaults *self, SEL _cmd) {
+static BOOL boolGetter(CCUserDefaults *self, SEL _cmd) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
     return [self.userDefault boolForKey:key];
 }
 
-static void boolSetter(CCUserDefaults *self, SEL _cmd, bool value) {
+static void boolSetter(CCUserDefaults *self, SEL _cmd, BOOL value) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
     [self.userDefault setBool:value forKey:key];
 }
@@ -127,7 +127,7 @@ static void objectSetter(CCUserDefaults *self, SEL _cmd, id object) {
 
 #pragma mark - Begin
 
-+ (instancetype)sharedlnstance {
++ (instancetype)manager {
     NSString *key = [NSString stringWithUTF8String:object_getClassName(self)];
     static NSMutableDictionary *sharedInstanceDic = nil;
     if (!sharedInstanceDic)

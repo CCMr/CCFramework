@@ -20,6 +20,6 @@
  *
  *  @since 1.0
  */
-+(instancetype)sharedlnstance;
++ (instancetype)manager;
 
 @end
