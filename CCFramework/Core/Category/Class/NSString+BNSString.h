@@ -53,6 +53,13 @@
  */
 - (NSString *)deleteSpace;
 
+/**
+ *  @author CC, 2016-12-29
+ *  
+ *  @brief  字符串字节长度
+ */
+- (NSInteger)byteLength;
+
 #pragma mark - 校验
 /**
  *  @author C C, 2015-07-21

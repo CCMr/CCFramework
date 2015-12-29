@@ -91,6 +91,27 @@
     return strM;
 }
 
+/**
+ *  @author CC, 2016-12-29
+ *  
+ *  @brief  字符串字节长度
+ */
+- (NSInteger)byteLength
+{
+    NSInteger strlength = 0;
+    char *p = (char *)[self cStringUsingEncoding:NSUnicodeStringEncoding];
+    for (int i = 0; i < [self lengthOfBytesUsingEncoding:NSUnicodeStringEncoding]; i++) {
+        if (*p) {
+            p++;
+            strlength++;
+        } else {
+            p++;
+        }
+    }
+    
+    return (strlength + 1) / 2;
+}
+
 #pragma mark - 校验
 /**
  *  @author CC, 2015-07-21
