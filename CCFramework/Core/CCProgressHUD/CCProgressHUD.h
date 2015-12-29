@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  CCProgressHUD.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,15 +23,57 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import <Foundation/Foundation.h>
 
-#import <CCFramework/CCUtilities.h>
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
-#import <CCFramework/CCProgressHUD.h>
+@interface CCProgressHUD : NSObject
 
-#endif /* Core_h */
+/**
+ *  @author CC, 2016-12-29
+ *  
+ *  @brief  显弹窗
+ *
+ *  @param animated 动画
+ */
++ (void)show:(BOOL)animated;
+
+/**
+ *  @author CC, 2016-12-29
+ *  
+ *  @brief  隐藏弹窗
+ *
+ *  @param animated 动画
+ */
++ (void)hide:(BOOL)animated;
+
+/**
+ *  @author CC, 2016-12-29
+ *  
+ *  @brief  隐藏弹窗
+ *
+ *  @param animated 动画
+ *  @param delay    时长
+ */
++ (void)hide:(BOOL)animated
+  afterDelay:(NSTimeInterval)delay;
+
+/**
+ *  @author CC, 2016-12-29
+ *  
+ *  @brief  提示消息
+ *
+ *  @param LabelText        标题内容
+ *  @param detailsLabelText 详细内容
+ */
++ (void)hudMessages:(NSString *)LabelText
+   DetailsLabelText:(NSString *)detailsLabelText;
+
+/**
+ *  @author CC, 2016-12-29
+ *  
+ *  @brief  底部提示
+ *
+ *  @param detailsLabelText 提示内容
+ */
++ (void)hudToastMessage:(NSString *)detailsLabelText;
+
+@end
