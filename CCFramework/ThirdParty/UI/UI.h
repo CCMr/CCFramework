@@ -50,7 +50,6 @@
 #import <CCFramework/CCCycleScroll.h>
 #import <CCFramework/CCLoadLogoView.h>
 #import <CCFramework/CCVoiceRecordHUD.h>
-#import <CCFramework/MBProgressHUD+Add.h>
 #import <CCFramework/CCMessageTextView.h>
 #import <CCFramework/CCMessageInputView.h>
 #import <CCFramework/CCNumericKeypadView.h>

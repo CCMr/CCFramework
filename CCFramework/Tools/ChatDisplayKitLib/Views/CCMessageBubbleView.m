@@ -130,7 +130,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         UIImage *image = [UIImage imageWithContentsOfFile:path];
         if (image) {
             if (image.size.height > size.height)
-                size = CGSizeMake(size.width, image.size.height);
+                size = CGSizeMake(size.width, size.height + (image.size.height - size.height));
             
             size = CGSizeMake(image.size.width + size.width, size.height);
         } else if ([path rangeOfString:@"http://"].location != NSNotFound) { //网络加载图片时
@@ -141,7 +141,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         if (w > kCCMaxWidth) { //超过显示最大宽度
             isWrap = YES;
             w = image.size.width;
-            size.height += size.height;
+            size.height += image.size.height;
         }
         
         size = CGSizeMake(w, size.height);

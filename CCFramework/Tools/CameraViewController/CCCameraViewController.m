@@ -264,6 +264,7 @@
     if ([self isCameraAvailable] && [self doesCameraSupportTakingPhotos]) {
         UIImagePickerController *controller = [[UIImagePickerController alloc] init]; //初始化图片选择控制器
         [controller setSourceType:UIImagePickerControllerSourceTypeCamera];	   // 设置类型
+         controller.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;//设置闪光灯模式
         
         // 设置所支持的类型，设置只能拍照，或则只能录像，或者两者都可以
         NSString *requiredMediaType = (NSString *)kUTTypeImage;
@@ -271,6 +272,7 @@
         //        NSArray *arrMediaTypes=[NSArray arrayWithObjects:requiredMediaType, requiredMediaType1,nil];
         NSArray *arrMediaTypes = [NSArray arrayWithObjects:requiredMediaType, nil];
         [controller setMediaTypes:arrMediaTypes];
+        
         
         // 设置录制视频的质量
         // [controller setVideoQuality:UIImagePickerControllerQualityTypeHigh];

@@ -25,7 +25,7 @@
 
 #import "BaseNavigationController.h"
 
-@interface BaseNavigationController() <UIGestureRecognizerDelegate>
+@interface BaseNavigationController () <UIGestureRecognizerDelegate>
 
 @end
 
@@ -39,14 +39,18 @@
     return self;
 }
 
--(id)initWithRootViewController:(UIViewController *)rootViewController title:(NSString *)rootTitle SelImage:(UIImage *) SelecteImage Image:(UIImage *)image{
-    self =  [super initWithRootViewController:rootViewController];
+- (id)initWithRootViewController:(UIViewController *)rootViewController
+                           title:(NSString *)rootTitle
+                        SelImage:(UIImage *)SelecteImage
+                           Image:(UIImage *)image
+{
+    self = [super initWithRootViewController:rootViewController];
     if (self) {
         [rootViewController setTitle:rootTitle];
         SelecteImage = [SelecteImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         [self.tabBarItem setFinishedSelectedImage:SelecteImage withFinishedUnselectedImage:image];
-//        [self.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blueColor]} forState:UIControlStateSelected];
+        //        [self.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blueColor]} forState:UIControlStateSelected];
     }
     return self;
 }
@@ -55,26 +59,28 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     /* UINavigationControllerDelegate */
     self.delegate = self;
     
-    __weak typeof (self)weakSelf = self;
+    __weak typeof(self) weakSelf = self;
     if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
         self.interactivePopGestureRecognizer.delegate = weakSelf;
 }
 
--(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
     if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
         self.interactivePopGestureRecognizer.enabled = NO;
-
+    
     if (self.viewControllers.count)
         viewController.hidesBottomBarWhenPushed = YES;
-
+    
     [super pushViewController:viewController animated:animated];
 }
 
--(void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
     if ([navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         navigationController.interactivePopGestureRecognizer.enabled = YES;
     }
@@ -85,21 +91,22 @@
     }
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
     return UIStatusBarStyleLightContent;
 }
 
--(BOOL)shouldAutorotate
+- (BOOL)shouldAutorotate
 {
     return [self.viewControllers.lastObject shouldAutorotate];
 }
 
--(UIInterfaceOrientationMask)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return [self.viewControllers.lastObject supportedInterfaceOrientations];
 }
 
--(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
     return [self.viewControllers.lastObject preferredInterfaceOrientationForPresentation];
 }

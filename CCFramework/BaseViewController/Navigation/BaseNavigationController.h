@@ -28,6 +28,9 @@
 
 @interface BaseNavigationController : UINavigationController <UINavigationControllerDelegate>
 
-- (id)initWithRootViewController:(UIViewController *)rootViewController title:(NSString *)rootTitle SelImage:(UIImage *)SelecteImage Image:(UIImage *)image;
+- (id)initWithRootViewController:(UIViewController *)rootViewController 
+                           title:(NSString *)rootTitle 
+                        SelImage:(UIImage *)SelecteImage
+                           Image:(UIImage *)image;
 
 @end

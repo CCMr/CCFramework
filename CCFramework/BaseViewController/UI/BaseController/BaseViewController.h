@@ -24,9 +24,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "CustomIOSAlertView.h"
-#import "MBProgressHUD.h"
 
 #import "CCLanguage.h"
 #import "CCThemeManager.h"
@@ -46,13 +44,6 @@
  *  @brief  扩展递归该对象
  */
 @property(nonatomic, strong) UITabBarController *extendTabBarController;
-
-/**
- *  @author C C, 15-08-18
- *
- *  @brief  弹出层
- */
-@property(nonatomic, strong) MBProgressHUD *HUD;
 
 /**
  *  @author C C, 15-08-18
@@ -135,30 +126,6 @@
  *  @param viewControllerClass 指定页面
  */
 - (void)popToViewController:(Class)viewControllerClass;
-
-/**
- *  @author C C, 2015-07-23
- *
- *  @brief  弹出消息
- *
- *  @param LabelText        <#LabelText description#>
- *  @param detailsLabelText <#detailsLabelText description#>
- *
- *  @since 1.0
- */
-- (void)hudMessages:(NSString *)LabelText
-   DetailsLabelText:(NSString *)detailsLabelText;
-
-/**
- *  @author C C, 15-08-18
- *
- *  @brief  底部提示
- *
- *  @param detailsLabelText 提示内容
- *
- *  @since <#1.0#>
- */
-- (void)hudToastMessage:(NSString *)detailsLabelText;
 
 /**
  *  @author C C, 2015-08-02

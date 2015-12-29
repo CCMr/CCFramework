@@ -30,7 +30,7 @@
 #import "UIButton+BUIButton.h"
 #import "UIView+BUIView.h"
 
-@interface BaseViewController () <MBProgressHUDDelegate> {
+@interface BaseViewController () {
     BOOL touchYES, inside;
     CGRect PopMenuFrame;
 }
@@ -88,23 +88,6 @@
     cc_NoticeObserver(self, @selector(receiveLanguageChangedNotification:), CCThemeDidChangeNotification, nil);
     
     [self InitNavigation];
-}
-
-/**
- *  @author CC, 2015-11-17
- *  
- *  @brief  提示窗初始化
- */
-- (MBProgressHUD *)HUD
-{
-    if (!_HUD) {
-        if (self.navigationController != nil) {
-            _HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-            [self.navigationController.view addSubview:_HUD];
-            _HUD.delegate = self;
-        }
-    }
-    return _HUD;
 }
 
 - (CustomIOSAlertView *)alertView
@@ -372,43 +355,6 @@
     }];
 }
 
-/**
- *  @author CC, 15-08-18
- *
- *  @brief  提示消息
- *
- *  @param LabelText        标题
- *  @param detailsLabelText 详细
- *
- *  @since <#1.0#>
- */
-- (void)hudMessages:(NSString *)LabelText
-   DetailsLabelText:(NSString *)detailsLabelText
-{
-    self.HUD.mode = MBProgressHUDModeText;
-    //    HUD.labelFont = Font19And17(systemFontOfSize, 15);
-    self.HUD.labelColor = [UIColor whiteColor];
-    self.HUD.labelText = LabelText;
-    //    HUD.detailsLabelFont = Font19And17(systemFontOfSize, 15);
-    self.HUD.detailsLabelText = detailsLabelText;
-    self.HUD.detailsLabelColor = [UIColor whiteColor];
-    [self.HUD show:YES];
-    [self.HUD hide:YES afterDelay:1.5];
-}
-
-/**
- *  @author CC, 15-08-18
- *
- *  @brief  底部提示
- *
- *  @param detailsLabelText 提示内容
- */
-- (void)hudToastMessage:(NSString *)detailsLabelText
-{
-    self.HUD.yOffset = (winsize.height - 64) / 2 - 20;
-    [self hudMessages:nil DetailsLabelText:detailsLabelText];
-}
-
 #pragma mark - 页面加载完成事件
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -597,7 +543,6 @@
 
 - (void)dealloc
 {
-    self.HUD = nil;
     self.alertView = nil;
     cc_NoticeremoveObserver(self, UIKeyboardWillShowNotification, nil);
     cc_NoticeremoveObserver(self, UIKeyboardWillHideNotification, nil);

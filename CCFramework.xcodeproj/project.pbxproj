@@ -293,6 +293,8 @@
 		4298C78B1BDCBB0300A3581D /* CoreDataMasterSlave+Modify.m in Sources */ = {isa = PBXBuildFile; fileRef = 4298C7881BDCBB0300A3581D /* CoreDataMasterSlave+Modify.m */; };
 		4298C78C1BDCBB0300A3581D /* CoreDataMasterSlave+Queries.m in Sources */ = {isa = PBXBuildFile; fileRef = 4298C7891BDCBB0300A3581D /* CoreDataMasterSlave+Queries.m */; };
 		4298C78D1BDCBB0300A3581D /* CoreDataMasterSlave+Removed.m in Sources */ = {isa = PBXBuildFile; fileRef = 4298C78A1BDCBB0300A3581D /* CoreDataMasterSlave+Removed.m */; };
+		429B9BAB1C322DCB00ACB250 /* CCProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 429B9BA91C322DCB00ACB250 /* CCProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429B9BAC1C322DCB00ACB250 /* CCProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 429B9BAA1C322DCB00ACB250 /* CCProgressHUD.m */; };
 		429C9C9D1B9EF66A0013A44A /* CCFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9C9C1B9EF66A0013A44A /* CCFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429C9F4A1B9EF8BF0013A44A /* BaseAppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9CF71B9EF8BE0013A44A /* BaseAppDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429C9F4B1B9EF8BF0013A44A /* BaseAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9CF81B9EF8BE0013A44A /* BaseAppDelegate.m */; };
@@ -354,7 +356,7 @@
 		429C9FB91B9EF8BF0013A44A /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D891B9EF8BE0013A44A /* Friend.m */; };
 		429C9FBA1B9EF8BF0013A44A /* FriendGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D8A1B9EF8BE0013A44A /* FriendGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429C9FBB1B9EF8BF0013A44A /* FriendGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D8B1B9EF8BE0013A44A /* FriendGroup.m */; };
-		429C9FBC1B9EF8BF0013A44A /* MBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D8D1B9EF8BE0013A44A /* MBProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429C9FBC1B9EF8BF0013A44A /* MBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D8D1B9EF8BE0013A44A /* MBProgressHUD.h */; };
 		429C9FBD1B9EF8BF0013A44A /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D8E1B9EF8BE0013A44A /* MBProgressHUD.m */; };
 		429C9FBE1B9EF8BF0013A44A /* SRHubConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9D911B9EF8BE0013A44A /* SRHubConnection.h */; };
 		429C9FBF1B9EF8BF0013A44A /* SRHubConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9D921B9EF8BE0013A44A /* SRHubConnection.m */; };
@@ -474,7 +476,7 @@
 		429CA0391B9EF8BF0013A44A /* CCPhotoToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E231B9EF8BF0013A44A /* CCPhotoToolbar.m */; };
 		429CA03A1B9EF8BF0013A44A /* CCPhotoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E241B9EF8BF0013A44A /* CCPhotoView.h */; };
 		429CA03B1B9EF8BF0013A44A /* CCPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E251B9EF8BF0013A44A /* CCPhotoView.m */; };
-		429CA03C1B9EF8BF0013A44A /* MBProgressHUD+Add.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E271B9EF8BF0013A44A /* MBProgressHUD+Add.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429CA03C1B9EF8BF0013A44A /* MBProgressHUD+Add.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E271B9EF8BF0013A44A /* MBProgressHUD+Add.h */; };
 		429CA03D1B9EF8BF0013A44A /* MBProgressHUD+Add.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E281B9EF8BF0013A44A /* MBProgressHUD+Add.m */; };
 		429CA0601B9EF8BF0013A44A /* CCPickerAssetsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E4D1B9EF8BF0013A44A /* CCPickerAssetsViewController.h */; };
 		429CA0611B9EF8BF0013A44A /* CCPickerAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E4E1B9EF8BF0013A44A /* CCPickerAssetsViewController.m */; };
@@ -1180,6 +1182,8 @@
 		4298C7881BDCBB0300A3581D /* CoreDataMasterSlave+Modify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CoreDataMasterSlave+Modify.m"; path = "CoreDataMasterSlave/Core/CoreDataMasterSlave+Modify.m"; sourceTree = "<group>"; };
 		4298C7891BDCBB0300A3581D /* CoreDataMasterSlave+Queries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CoreDataMasterSlave+Queries.m"; path = "CoreDataMasterSlave/Core/CoreDataMasterSlave+Queries.m"; sourceTree = "<group>"; };
 		4298C78A1BDCBB0300A3581D /* CoreDataMasterSlave+Removed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CoreDataMasterSlave+Removed.m"; path = "CoreDataMasterSlave/Core/CoreDataMasterSlave+Removed.m"; sourceTree = "<group>"; };
+		429B9BA91C322DCB00ACB250 /* CCProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCProgressHUD.h; path = Core/CCProgressHUD/CCProgressHUD.h; sourceTree = "<group>"; };
+		429B9BAA1C322DCB00ACB250 /* CCProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCProgressHUD.m; path = Core/CCProgressHUD/CCProgressHUD.m; sourceTree = "<group>"; };
 		429C9C971B9EF66A0013A44A /* CCFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CCFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		429C9C9B1B9EF66A0013A44A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		429C9C9C1B9EF66A0013A44A /* CCFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCFramework.h; sourceTree = "<group>"; };
@@ -2428,6 +2432,15 @@
 			name = Core;
 			sourceTree = "<group>";
 		};
+		429B9BA81C322DB000ACB250 /* CCProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				429B9BA91C322DCB00ACB250 /* CCProgressHUD.h */,
+				429B9BAA1C322DCB00ACB250 /* CCProgressHUD.m */,
+			);
+			name = CCProgressHUD;
+			sourceTree = "<group>";
+		};
 		429C9C8D1B9EF66A0013A44A = {
 			isa = PBXGroup;
 			children = (
@@ -3657,6 +3670,7 @@
 			isa = PBXGroup;
 			children = (
 				42B6473F1BEDA8DD00B2F6FD /* Core.h */,
+				429B9BA81C322DB000ACB250 /* CCProgressHUD */,
 				42DEB2AE1C25496C00734E09 /* CCUtilities */,
 				42F4116B1C2150E500814E7B /* Category */,
 				425A4F351C11C444009A7E77 /* CCXML */,
@@ -4606,6 +4620,7 @@
 				422978601BEE3A1100CECBBF /* CCResponseObject.h in Headers */,
 				429CA08F1B9EF8BF0013A44A /* CCWebViewProgressView.h in Headers */,
 				42D850F91BDB248D00CB194E /* NSManagedObject+CCManagedObject.h in Headers */,
+				429B9BAB1C322DCB00ACB250 /* CCProgressHUD.h in Headers */,
 				429CA10B1B9EF8BF0013A44A /* CCEmotion.h in Headers */,
 				429C9F4E1B9EF8BF0013A44A /* BaseTabBarController.h in Headers */,
 				429C9FFD1B9EF8BF0013A44A /* CCSlideShadowAnimation.h in Headers */,
@@ -4984,6 +4999,7 @@
 				429CA1101B9EF8BF0013A44A /* CCMessage.m in Sources */,
 				429CA1131B9EF8BF0013A44A /* CCShareMenuItem.m in Sources */,
 				429C9F711B9EF8BF0013A44A /* CCHTTPManager.m in Sources */,
+				429B9BAC1C322DCB00ACB250 /* CCProgressHUD.m in Sources */,
 				42DEB2A51C25495000734E09 /* CCColorSourceView.m in Sources */,
 				42D850FA1BDB248D00CB194E /* NSManagedObject+CCManagedObject.m in Sources */,
 				42DEB2951C25495000734E09 /* CCColorSlider.m in Sources */,
