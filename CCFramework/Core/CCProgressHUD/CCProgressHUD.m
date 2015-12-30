@@ -51,45 +51,6 @@
 /**
  *  @author CC, 2016-12-29
  *  
- *  @brief  显弹窗
- *
- *  @param animated 动画
- */
-+ (void)show:(BOOL)animated
-{
-    [[self initialization] show:animated];
-}
-
-/**
- *  @author CC, 2016-12-29
- *  
- *  @brief  隐藏弹窗
- *
- *  @param animated 动画
- */
-+ (void)hide:(BOOL)animated
-{
-    [[self initialization] hide:animated];
-}
-
-/**
- *  @author CC, 2016-12-29
- *  
- *  @brief  隐藏弹窗
- *
- *  @param animated 动画
- *  @param delay    时长
- */
-+ (void)hide:(BOOL)animated
-  afterDelay:(NSTimeInterval)delay
-{
-    [[self initialization] hide:animated
-                     afterDelay:delay];
-}
-
-/**
- *  @author CC, 2016-12-29
- *  
  *  @brief  初始化弹窗消息类型
  */
 + (MBProgressHUD *)initializationMessages
@@ -136,6 +97,101 @@
     hud.detailsLabelText = detailsLabelText;
     [hud show:YES];
     [hud hide:YES afterDelay:1.5];
+}
+
+/**
+ *  @author CC, 2016-12-30
+ *  
+ *  @brief  提示
+ *
+ *  @param LabelText 标题
+ *  @param animated  是否动画
+ *  @param block     执行函数
+ */
++ (void)showMessage:(NSString *)LabelText
+           Animated:(BOOL)animated
+whileExecutingBlock:(dispatch_block_t)block
+{
+    [self showMessage:LabelText
+     DetailsLabelText:nil
+             Animated:animated
+  whileExecutingBlock:block];
+}
+
+/**
+ *  @author CC, 2016-12-30
+ *  
+ *  @brief  提示
+ *
+ *  @param LabelText        标题
+ *  @param detailsLabelText 详细内容
+ *  @param animated         是否动画
+ *  @param block            执行函数
+ */
++ (void)showMessage:(NSString *)LabelText
+   DetailsLabelText:(NSString *)detailsLabelText
+           Animated:(BOOL)animated
+whileExecutingBlock:(dispatch_block_t)block
+{
+    [self showMessage:LabelText
+     DetailsLabelText:detailsLabelText
+             Animated:animated
+  whileExecutingBlock:block
+      completionBlock:nil];
+}
+
+/**
+ *  @author CC, 2016-12-30
+ *  
+ *  @brief  提示
+ *
+ *  @param LabelText        标题
+ *  @param detailsLabelText 详细内容
+ *  @param animated         是否动画
+ *  @param block            执行函数
+ *  @param completion       完成函数
+ */
++ (void)showMessage:(NSString *)LabelText
+   DetailsLabelText:(NSString *)detailsLabelText
+           Animated:(BOOL)animated
+whileExecutingBlock:(dispatch_block_t)block
+    completionBlock:(void (^)())completion
+{
+    MBProgressHUD *hud = [self initializationMessages];
+    hud.labelText = LabelText;
+    hud.detailsLabelText = detailsLabelText;
+    
+    [hud showAnimated:animated
+  whileExecutingBlock:block
+      completionBlock:completion];
+}
+
+
+#pragma mark :. Show & hide
+/**
+ *  @author CC, 2016-12-29
+ *  
+ *  @brief  显弹窗
+ *
+ *  @param animated 动画
+ */
++
+(void)
+show:(BOOL)animated
+{
+    [[self initialization] show:animated];
+}
+
+/**
+ *  @author CC, 2016-12-29
+ *  
+ *  @brief  隐藏弹窗
+ *
+ *  @param animated 动画
+ */
++ (void)hide:(BOOL)animated
+{
+    [[self initialization] hide:animated];
 }
 
 @end

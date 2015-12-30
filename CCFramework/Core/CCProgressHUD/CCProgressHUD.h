@@ -30,6 +30,72 @@
 /**
  *  @author CC, 2016-12-29
  *  
+ *  @brief  提示消息
+ *
+ *  @param LabelText        标题内容
+ *  @param detailsLabelText 详细内容
+ */
++ (void)hudMessages:(NSString *)LabelText
+   DetailsLabelText:(NSString *)detailsLabelText;
+
+/**
+ *  @author CC, 2016-12-29
+ *  
+ *  @brief  底部提示
+ *
+ *  @param detailsLabelText 提示内容
+ */
++ (void)hudToastMessage:(NSString *)detailsLabelText;
+
+/**
+ *  @author CC, 2016-12-30
+ *  
+ *  @brief  提示
+ *
+ *  @param LabelText 标题
+ *  @param animated  是否动画
+ *  @param block     执行函数
+ */
++ (void)showMessage:(NSString *)LabelText
+           Animated:(BOOL)animated
+whileExecutingBlock:(dispatch_block_t)block;
+
+/**
+ *  @author CC, 2016-12-30
+ *  
+ *  @brief  提示
+ *
+ *  @param LabelText        标题
+ *  @param detailsLabelText 详细内容
+ *  @param animated         是否动画
+ *  @param block            执行函数
+ */
++ (void)showMessage:(NSString *)LabelText
+   DetailsLabelText:(NSString *)detailsLabelText
+           Animated:(BOOL)animated
+whileExecutingBlock:(dispatch_block_t)block;
+
+/**
+ *  @author CC, 2016-12-30
+ *  
+ *  @brief  提示
+ *
+ *  @param LabelText        标题
+ *  @param detailsLabelText 详细内容
+ *  @param animated         是否动画
+ *  @param block            执行函数
+ *  @param completion       完成函数
+ */
++ (void)showMessage:(NSString *)LabelText
+   DetailsLabelText:(NSString *)detailsLabelText
+           Animated:(BOOL)animated
+whileExecutingBlock:(dispatch_block_t)block
+    completionBlock:(void (^)())completion;
+
+#pragma mark :. Show & hide
+/**
+ *  @author CC, 2016-12-29
+ *  
  *  @brief  显弹窗
  *
  *  @param animated 动画
@@ -56,24 +122,5 @@
 + (void)hide:(BOOL)animated
   afterDelay:(NSTimeInterval)delay;
 
-/**
- *  @author CC, 2016-12-29
- *  
- *  @brief  提示消息
- *
- *  @param LabelText        标题内容
- *  @param detailsLabelText 详细内容
- */
-+ (void)hudMessages:(NSString *)LabelText
-   DetailsLabelText:(NSString *)detailsLabelText;
-
-/**
- *  @author CC, 2016-12-29
- *  
- *  @brief  底部提示
- *
- *  @param detailsLabelText 提示内容
- */
-+ (void)hudToastMessage:(NSString *)detailsLabelText;
 
 @end
