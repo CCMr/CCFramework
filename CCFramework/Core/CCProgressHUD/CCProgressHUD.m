@@ -175,9 +175,7 @@ whileExecutingBlock:(dispatch_block_t)block
  *
  *  @param animated 动画
  */
-+
-(void)
-show:(BOOL)animated
++ (void)show:(BOOL)animated
 {
     [[self initialization] show:animated];
 }
@@ -192,6 +190,27 @@ show:(BOOL)animated
 + (void)hide:(BOOL)animated
 {
     [[self initialization] hide:animated];
+}
+
+/**
+ *  @author CC, 2016-12-29
+ *  
+ *  @brief  隐藏弹窗
+ *
+ *  @param animated 动画
+ *  @param delay    时长
+ */
++ (void)hide:(BOOL)animated
+  afterDelay:(NSTimeInterval)delay
+{
+    [self performSelector:@selector(hideDelayed:)
+               withObject:[NSNumber numberWithBool:animated]
+               afterDelay:delay];
+}
+
++ (void)hideDelayed:(NSNumber *)animated
+{
+    [self hide:[animated boolValue]];
 }
 
 @end

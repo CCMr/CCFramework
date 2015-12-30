@@ -460,7 +460,9 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 
                 NSTextCheckingResult *match = [resultArray objectAtIndex:i];
                 
-                NSString *path = [[message.teletextPath objectAtIndex:i] objectForKey:@"path"];
+                NSString *path = @"";
+                if (message.teletextPath.count)
+                     path = [[message.teletextPath objectAtIndex:i] objectForKey:@"path"];
                 
                 CGSize size = CGSizeMake(20, 20);
                 UIImage *Images = [UIImage imageWithContentsOfFile:path];
