@@ -11,6 +11,15 @@
 @interface UIBarButtonItem (Addition)
 
 /**
+ *  @author CC, 2016-12-30
+ *  
+ *  @brief  设置背景图片
+ *
+ *  @param backgroundImage 图片路径
+ */
+- (void)setItemImage:(NSString *)backgroundImage;
+
+/**
  *  @author CC, 15-09-28
  *
  *  @brief  图片按钮

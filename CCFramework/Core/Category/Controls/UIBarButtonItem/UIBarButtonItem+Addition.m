@@ -13,6 +13,24 @@
 @implementation UIBarButtonItem (Addition)
 
 /**
+ *  @author CC, 2016-12-30
+ *  
+ *  @brief  设置背景图片
+ *
+ *  @param backgroundImage 图片路径
+ */
+- (void)setItemImage:(NSString *)backgroundImage
+{
+    UIButton *button = self.customView;
+    if (button) {
+        UIImage *image = [UIImage imageNamed:backgroundImage];
+        if (image)
+            [button setImage:backgroundImage];
+    }
+}
+
+
+/**
  *  @author CC, 15-09-28
  *
  *  @brief  图片按钮
@@ -33,7 +51,7 @@
     UIImage *image = [UIImage imageNamed:backgroundImage];
     if (!image)
         image = [UIImage imageNamed:placeholder];
-    [button setImage:image forState:UIControlStateNormal];
+    [button setBackgroundImage:image forState:UIControlStateNormal];
     [button setFrame:CGRectMake(0, 0, 30, 30)];
     [[button layer] setCornerRadius:15];
     [[button layer] setMasksToBounds:YES];
@@ -59,8 +77,8 @@
                                        Target:(id)target
                                        Action:(SEL)action
 {
-    UIButton *button = [UIButton buttonWithImageTitle:backgroundImage 
-                                                Title:title 
+    UIButton *button = [UIButton buttonWithImageTitle:backgroundImage
+                                                Title:title
                                                 Frame:CGRectMake(0, 0, [title calculateTextWidthHeight:[UIFont systemFontOfSize:[UIFont systemFontSize]]].width + 40, 40)];
     [button setTitleColor:[UIColor whiteColor]];
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
