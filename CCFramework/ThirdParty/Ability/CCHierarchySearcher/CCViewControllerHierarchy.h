@@ -1,5 +1,5 @@
 //
-//  Ability.h
+//  ViewControllerHierarchy.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,28 +23,15 @@
 // THE SOFTWARE.
 //
 
-#ifndef CCFramework_Ability_h
-#define CCFramework_Ability_h
+#import <Foundation/Foundation.h>
 
-#import <CCFramework/CCRadarPointView.h>
-#import <CCFramework/CCUncaughtExceptionHandler.h>
-#import <CCFramework/CCSideMenu.h>
-#import <CCFramework/UIViewController+CCSideMenu.h>
-#import <CCFramework/ContactPersonEntity.h>
-#import <CCFramework/ContactRead.h>
-#import <CCFramework/CCBase64.h>
-#import <CCFramework/CCLanguage.h>
-#import <CCFramework/CCQRCodeViewController.h>
-#import <CCFramework/CCQRCodeDisplayViewController.h>
-#import <CCFramework/CCScanningView.h>
-#import <CCFramework/CCSecurityStrategy.h>
-#import <CCFramework/CCSignatureView.h>
-#import <CCFramework/CCIntroductionViewController.h>
-#import <CCFramework/SmoothViewController.h>
-#import <CCFramework/CCThemeManager.h>
-#import <CCFramework/CCUserDefaults.h>
-#import <CCFramework/Friend.h>
-#import <CCFramework/FriendGroup.h>
-#import <CCFramework/CCInfoBanner.h>
+@class UIViewController;
+@class UINavigationController;
 
-#endif
+@protocol CCViewControllerHierarchy <NSObject>
+
+@property(nonatomic, readonly) UIViewController *topmostViewController;
+@property(nonatomic, readonly) UIViewController *topmostNonModalViewController;
+@property(nonatomic, readonly) UINavigationController *topmostNavigationController;
+
+@end
