@@ -26,6 +26,11 @@
 		4213FAFD1C13D860006918AC /* CCJPsuh.m in Sources */ = {isa = PBXBuildFile; fileRef = 4213FAFB1C13D860006918AC /* CCJPsuh.m */; };
 		4220B6181BFAB95A006145FD /* CustomIOSAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4220B6161BFAB95A006145FD /* CustomIOSAlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4220B6191BFAB95A006145FD /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4220B6171BFAB95A006145FD /* CustomIOSAlertView.m */; };
+		4226FC411C327BE0003EAEFE /* CCInfoBanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 4226FC3F1C327BE0003EAEFE /* CCInfoBanner.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4226FC421C327BE0003EAEFE /* CCInfoBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4226FC401C327BE0003EAEFE /* CCInfoBanner.m */; };
+		4226FC471C3286F2003EAEFE /* CCHierarchySearcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 4226FC441C3286F2003EAEFE /* CCHierarchySearcher.h */; };
+		4226FC481C3286F2003EAEFE /* CCHierarchySearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4226FC451C3286F2003EAEFE /* CCHierarchySearcher.m */; };
+		4226FC491C3286F2003EAEFE /* CCViewControllerHierarchy.h in Headers */ = {isa = PBXBuildFile; fileRef = 4226FC461C3286F2003EAEFE /* CCViewControllerHierarchy.h */; };
 		422754541C29329C0099B653 /* color_wheel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422754521C29329C0099B653 /* color_wheel@2x.png */; };
 		422754551C29329C0099B653 /* slider_border@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422754531C29329C0099B653 /* slider_border@2x.png */; };
 		4227546A1C29371F0099B653 /* Back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422754571C29371F0099B653 /* Back@2x.png */; };
@@ -914,6 +919,11 @@
 		4213FAFB1C13D860006918AC /* CCJPsuh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCJPsuh.m; sourceTree = "<group>"; };
 		4220B6161BFAB95A006145FD /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
 		4220B6171BFAB95A006145FD /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
+		4226FC3F1C327BE0003EAEFE /* CCInfoBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCInfoBanner.h; path = CCInfoBanner/CCInfoBanner.h; sourceTree = "<group>"; };
+		4226FC401C327BE0003EAEFE /* CCInfoBanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCInfoBanner.m; path = CCInfoBanner/CCInfoBanner.m; sourceTree = "<group>"; };
+		4226FC441C3286F2003EAEFE /* CCHierarchySearcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCHierarchySearcher.h; path = CCHierarchySearcher/CCHierarchySearcher.h; sourceTree = "<group>"; };
+		4226FC451C3286F2003EAEFE /* CCHierarchySearcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCHierarchySearcher.m; path = CCHierarchySearcher/CCHierarchySearcher.m; sourceTree = "<group>"; };
+		4226FC461C3286F2003EAEFE /* CCViewControllerHierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCViewControllerHierarchy.h; path = CCHierarchySearcher/CCViewControllerHierarchy.h; sourceTree = "<group>"; };
 		422754521C29329C0099B653 /* color_wheel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "color_wheel@2x.png"; path = "GraffitiBoard/color_wheel@2x.png"; sourceTree = "<group>"; };
 		422754531C29329C0099B653 /* slider_border@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "slider_border@2x.png"; path = "GraffitiBoard/slider_border@2x.png"; sourceTree = "<group>"; };
 		422754571C29371F0099B653 /* Back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back@2x.png"; sourceTree = "<group>"; };
@@ -1869,8 +1879,20 @@
 		4226FC3E1C327B65003EAEFE /* CCInfoBanner */ = {
 			isa = PBXGroup;
 			children = (
+				4226FC3F1C327BE0003EAEFE /* CCInfoBanner.h */,
+				4226FC401C327BE0003EAEFE /* CCInfoBanner.m */,
 			);
 			name = CCInfoBanner;
+			sourceTree = "<group>";
+		};
+		4226FC431C3286BD003EAEFE /* CCHierarchySearcher */ = {
+			isa = PBXGroup;
+			children = (
+				4226FC441C3286F2003EAEFE /* CCHierarchySearcher.h */,
+				4226FC451C3286F2003EAEFE /* CCHierarchySearcher.m */,
+				4226FC461C3286F2003EAEFE /* CCViewControllerHierarchy.h */,
+			);
+			name = CCHierarchySearcher;
 			sourceTree = "<group>";
 		};
 		422754511C2932640099B653 /* GraffitiBoard */ = {
@@ -2649,6 +2671,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E31BDE021900C76004 /* Ability.h */,
+				4226FC431C3286BD003EAEFE /* CCHierarchySearcher */,
 				4226FC3E1C327B65003EAEFE /* CCInfoBanner */,
 				42A58A7A1BCDFE4F0027429C /* CCSideMenu */,
 				428A12C81BC8A025005D904D /* Contacts */,
@@ -4468,6 +4491,7 @@
 				425477601BD2AEC20071BBC5 /* safestack.h in Headers */,
 				425477391BD2AEC20071BBC5 /* des.h in Headers */,
 				429CA0131B9EF8BF0013A44A /* CalendarLogic.h in Headers */,
+				4226FC471C3286F2003EAEFE /* CCHierarchySearcher.h in Headers */,
 				42F24C691BEA5091008CDEDC /* PNRadarChartDataItem.h in Headers */,
 				42D900A21BF4817000B8B01F /* UITextView+CCSignalSupport.h in Headers */,
 				425477381BD2AEC20071BBC5 /* crypto.h in Headers */,
@@ -4618,6 +4642,7 @@
 				429CA06F1B9EF8BF0013A44A /* CCPickerCollectionViewCell.h in Headers */,
 				42DEB2921C25495000734E09 /* CCColor.h in Headers */,
 				422978601BEE3A1100CECBBF /* CCResponseObject.h in Headers */,
+				4226FC411C327BE0003EAEFE /* CCInfoBanner.h in Headers */,
 				429CA08F1B9EF8BF0013A44A /* CCWebViewProgressView.h in Headers */,
 				42D850F91BDB248D00CB194E /* NSManagedObject+CCManagedObject.h in Headers */,
 				429B9BAB1C322DCB00ACB250 /* CCProgressHUD.h in Headers */,
@@ -4709,6 +4734,7 @@
 				42F411DC1C2150E500814E7B /* UIBarButtonItem+Addition.h in Headers */,
 				4265289A1BECA1AB0096C0EF /* CCLoadingView.h in Headers */,
 				429CA0991B9EF8BF0013A44A /* SEConstants.h in Headers */,
+				4226FC491C3286F2003EAEFE /* CCViewControllerHierarchy.h in Headers */,
 				429CA0A91B9EF8BF0013A44A /* SETextLayout.h in Headers */,
 				42F411D81C2150E500814E7B /* UIActionSheet+BUIActionSheet.h in Headers */,
 				429CA0AB1B9EF8BF0013A44A /* SETextMagnifierCaret.h in Headers */,
@@ -4993,6 +5019,7 @@
 				429CA0FC1B9EF8BF0013A44A /* CCMessageTableViewController.m in Sources */,
 				429CA1211B9EF8BF0013A44A /* CCEmotionManagerView.m in Sources */,
 				429C9FE01B9EF8BF0013A44A /* SRKeepAliveData.m in Sources */,
+				4226FC421C327BE0003EAEFE /* CCInfoBanner.m in Sources */,
 				429CA0FA1B9EF8BF0013A44A /* CCVoiceRecordHelper.m in Sources */,
 				42DEB2B21C25496C00734E09 /* CCUtilities.m in Sources */,
 				429CA0761B9EF8BF0013A44A /* CCPopMenuItemView.m in Sources */,
@@ -5234,6 +5261,7 @@
 				429C9FFE1B9EF8BF0013A44A /* CCSlideShadowAnimation.m in Sources */,
 				429CA0841B9EF8BF0013A44A /* CCTextViewPlaceholder.m in Sources */,
 				4267DD0D1BDB5A7000B0C43F /* NSManagedObject+Removed.m in Sources */,
+				4226FC481C3286F2003EAEFE /* CCHierarchySearcher.m in Sources */,
 				429CA00A1B9EF8BF0013A44A /* CCBadgeView.m in Sources */,
 				4264D7411BA2C19100E83159 /* CCPagesContainer.m in Sources */,
 				429CA01E1B9EF8BF0013A44A /* CCCycleScroll.m in Sources */,
