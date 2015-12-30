@@ -42,6 +42,13 @@ static const NSTimeInterval kAnimationDuration = 0.3;
 @property(nonatomic, strong) UIImageView *iconImageView;
 
 /**
+ *  @author CC, 2016-12-30
+ *  
+ *  @brief  加载视图
+ */
+@property(nonatomic, strong) UIActivityIndicatorView *indicatorView;
+
+/**
  *  @author CC, 2016-12-29
  *  
  *  @brief  标题
@@ -114,6 +121,21 @@ static const NSTimeInterval kAnimationDuration = 0.3;
     self.backgroundColor = cc_ColorRGBA(23, 23, 23, .6);
 }
 
+/**
+ *  @author CC, 2016-12-30
+ *  
+ *  @brief  加载控件
+ */
+- (UIActivityIndicatorView *)indicatorView
+{
+    if (!_indicatorView) {
+        _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        _indicatorView.hidesWhenStopped = YES;
+        [self addSubview:_indicatorView];
+    }
+    return _indicatorView;
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -137,6 +159,13 @@ static const NSTimeInterval kAnimationDuration = 0.3;
         self.iconImageView.frame = frame;
         
         x += frame.size.width + 10;
+    } else if (self.indicatorView) {
+        x = (self.bounds.size.width - (self.indicatorView.width + w)) / 2;
+        x = x < 0 ?: x;
+        CGFloat indicatorCenterY = self.frame.size.height * 0.5;
+        self.indicatorView.center = CGPointMake(x + 10, indicatorCenterY);
+        
+        x += self.indicatorView.width + 10;
     }
     
     frame = self.titleLabel.frame;
@@ -280,6 +309,66 @@ static const NSTimeInterval kAnimationDuration = 0.3;
     [banner hide:YES afterDelay:3];
 }
 
+/**
+ *  @author CC, 2016-12-30
+ *  
+ *  @brief  提示加载
+ *
+ *  @param title           标题
+ *  @param executingBlock  执行函数
+ */
++ (void)showWithExecutingBlock:(NSString *)title
+           whileExecutingBlock:(dispatch_block_t)executingBlock
+{
+    [self showWithExecutingBlock:title
+             whileExecutingBlock:executingBlock
+            whileCompletionBlock:nil];
+}
+
+
+/**
+ *  @author CC, 2016-12-30
+ *  
+ *  @brief  提示加载
+ *
+ *  @param title           标题
+ *  @param executingBlock  执行函数
+ *  @param completionBlock 完成函数
+ */
++ (void)showWithExecutingBlock:(NSString *)title
+           whileExecutingBlock:(dispatch_block_t)executingBlock
+          whileCompletionBlock:(dispatch_block_t)completionBlock
+{
+    [self showWithExecutingBlock:title
+                     DetailsText:nil
+             whileExecutingBlock:executingBlock
+            whileCompletionBlock:completionBlock];
+}
+
+/**
+ *  @author CC, 2016-12-30
+ *  
+ *  @brief  提示加载
+ *
+ *  @param title           标题
+ *  @param detailsText     详细
+ *  @param executingBlock  执行函数
+ *  @param completionBlock 完成回调函数
+ */
++ (void)showWithExecutingBlock:(NSString *)title
+                   DetailsText:(NSString *)detailsText
+           whileExecutingBlock:(dispatch_block_t)executingBlock
+          whileCompletionBlock:(dispatch_block_t)completionBlock
+{
+    CCInfoBanner *banner = [self initializationShow];
+    banner.titleLabel.text = title;
+    banner.detailsLabel.text = detailsText;
+    
+    [banner showAnimated:YES
+     whileExecutingBlock:executingBlock
+         completionBlock:completionBlock];
+}
+
 #pragma mark :. Show & hide
 - (void)show
 {
@@ -288,7 +377,6 @@ static const NSTimeInterval kAnimationDuration = 0.3;
 
 - (void)show:(BOOL)animated
 {
-    //    [self applyStyle];
     [self setupViewsAndFrames];
     
     // In previously indicated, send subview to be below another view.
@@ -300,18 +388,14 @@ static const NSTimeInterval kAnimationDuration = 0.3;
     
     [self setHidden:NO];
     
+    self.frame = CGRectMake(0, self.additionalTopSpacing, CGRectGetWidth(self.targetView.frame), 40);
+    [self layoutSubviews];
     if (animated) {
-        // First pass calculates the height correctly with existing constraints.
-        // Self-only doesn't calculate height on iOS 6, so pass through a superview
-        self.frame = CGRectMake(0, self.additionalTopSpacing, CGRectGetWidth(self.targetView.frame), 40);
-        [self layoutSubviews];
         [self.superview layoutIfNeeded];
         
         [UIView animateWithDuration:kAnimationDuration animations:^{
             [self.superview layoutIfNeeded];
         }];
-    } else {
-        //        self.topSpacingConstraint.constant += self.frame.size.height;
     }
 }
 
@@ -364,6 +448,52 @@ static const NSTimeInterval kAnimationDuration = 0.3;
 - (void)hideDelayed:(NSNumber *)animated
 {
     [self hide:[animated boolValue]];
+}
+
+- (void)showAnimated:(BOOL)animated
+ whileExecutingBlock:(dispatch_block_t)block
+{
+    [self showAnimated:animated
+   whileExecutingBlock:block
+       completionBlock:NULL];
+}
+
+- (void)showAnimated:(BOOL)animated
+ whileExecutingBlock:(dispatch_block_t)block
+     completionBlock:(void (^)())completion
+{
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    [self showAnimated:animated
+   whileExecutingBlock:block
+               onQueue:queue
+       completionBlock:completion];
+}
+
+- (void)showAnimated:(BOOL)animated
+ whileExecutingBlock:(dispatch_block_t)block
+             onQueue:(dispatch_queue_t)queue
+{
+    [self showAnimated:animated
+   whileExecutingBlock:block
+               onQueue:queue
+       completionBlock:NULL];
+}
+
+- (void)showAnimated:(BOOL)animated
+ whileExecutingBlock:(dispatch_block_t)block
+             onQueue:(dispatch_queue_t)queue
+     completionBlock:(void (^)())completion
+{
+    [self.indicatorView startAnimating];
+    dispatch_async(queue, ^(void) {
+        block();
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
+            [self hide:animated];
+            if (completion)
+                completion();
+        });
+    });
+    [self show:animated];
 }
 
 @end

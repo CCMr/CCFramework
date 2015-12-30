@@ -95,6 +95,45 @@
                   Title:(NSString *)title
             DetailsText:(NSString *)detailsText;
 
+/**
+ *  @author CC, 2016-12-30
+ *  
+ *  @brief  提示加载
+ *
+ *  @param title           标题
+ *  @param executingBlock  执行函数
+ */
++ (void)showWithExecutingBlock:(NSString *)title
+           whileExecutingBlock:(dispatch_block_t)executingBlock;
+
+/**
+ *  @author CC, 2016-12-30
+ *  
+ *  @brief  提示加载
+ *
+ *  @param title           标题
+ *  @param executingBlock  执行函数
+ *  @param completionBlock 完成函数
+ */
++ (void)showWithExecutingBlock:(NSString *)title
+           whileExecutingBlock:(dispatch_block_t)executingBlock
+          whileCompletionBlock:(dispatch_block_t)completionBlock;
+
+/**
+ *  @author CC, 2016-12-30
+ *  
+ *  @brief  提示加载
+ *
+ *  @param title           标题
+ *  @param detailsText     详细
+ *  @param executingBlock  执行函数
+ *  @param completionBlock 完成回调函数
+ */
++ (void)showWithExecutingBlock:(NSString *)title
+                   DetailsText:(NSString *)detailsText
+           whileExecutingBlock:(dispatch_block_t)executingBlock
+          whileCompletionBlock:(dispatch_block_t)completionBlock;
+
 
 #pragma mark :. Show & hide
 - (void)show;
@@ -107,5 +146,21 @@
 
 - (void)hide:(BOOL)animated
   afterDelay:(NSTimeInterval)delay;
+
+- (void)showAnimated:(BOOL)animated
+ whileExecutingBlock:(dispatch_block_t)block;
+
+- (void)showAnimated:(BOOL)animated
+ whileExecutingBlock:(dispatch_block_t)block
+     completionBlock:(void (^)())completion;
+
+- (void)showAnimated:(BOOL)animated
+ whileExecutingBlock:(dispatch_block_t)block
+             onQueue:(dispatch_queue_t)queue;
+
+- (void)showAnimated:(BOOL)animated
+ whileExecutingBlock:(dispatch_block_t)block
+             onQueue:(dispatch_queue_t)queue
+     completionBlock:(void (^)())completion;
 
 @end
