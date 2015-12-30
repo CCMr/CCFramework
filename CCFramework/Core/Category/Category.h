@@ -62,5 +62,6 @@
 #import <CCFramework/CCBubblePhotoImageView.h>
 #import <CCFramework/NSObject+Additions.h>
 #import <CCFramework/UISearchBar+Addition.h>
+#import <CCFramework/UINavigationBar+Additional.h>
 
 #endif

@@ -184,6 +184,8 @@
 		425477841BD2AEC20071BBC5 /* RSADataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 425477241BD2AEC20071BBC5 /* RSADataVerifier.m */; };
 		425477871BD2AF6A0071BBC5 /* AliOrderFormEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 425477851BD2AF6A0071BBC5 /* AliOrderFormEntity.h */; };
 		425477881BD2AF6A0071BBC5 /* AliOrderFormEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 425477861BD2AF6A0071BBC5 /* AliOrderFormEntity.m */; };
+		42591B4B1C33C95D00BF6C48 /* UINavigationBar+Additional.h in Headers */ = {isa = PBXBuildFile; fileRef = 42591B491C33C95D00BF6C48 /* UINavigationBar+Additional.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42591B4C1C33C95D00BF6C48 /* UINavigationBar+Additional.m in Sources */ = {isa = PBXBuildFile; fileRef = 42591B4A1C33C95D00BF6C48 /* UINavigationBar+Additional.m */; };
 		425A4F381C11C466009A7E77 /* CCXML.h in Headers */ = {isa = PBXBuildFile; fileRef = 425A4F361C11C466009A7E77 /* CCXML.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		425A4F391C11C466009A7E77 /* CCXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A4F371C11C466009A7E77 /* CCXML.m */; };
 		425A4F3C1C11CA42009A7E77 /* CCWXSingleEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 425A4F3A1C11CA42009A7E77 /* CCWXSingleEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1077,6 +1079,8 @@
 		425477241BD2AEC20071BBC5 /* RSADataVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataVerifier.m; sourceTree = "<group>"; };
 		425477851BD2AF6A0071BBC5 /* AliOrderFormEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AliOrderFormEntity.h; path = CCFramework/Tools/Vender/Pay/Alipay/Model/AliOrderFormEntity.h; sourceTree = SOURCE_ROOT; };
 		425477861BD2AF6A0071BBC5 /* AliOrderFormEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AliOrderFormEntity.m; path = CCFramework/Tools/Vender/Pay/Alipay/Model/AliOrderFormEntity.m; sourceTree = SOURCE_ROOT; };
+		42591B491C33C95D00BF6C48 /* UINavigationBar+Additional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationBar+Additional.h"; path = "UINavigationBar/UINavigationBar+Additional.h"; sourceTree = "<group>"; };
+		42591B4A1C33C95D00BF6C48 /* UINavigationBar+Additional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationBar+Additional.m"; path = "UINavigationBar/UINavigationBar+Additional.m"; sourceTree = "<group>"; };
 		425A4F361C11C466009A7E77 /* CCXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCXML.h; path = Core/CCXML/CCXML.h; sourceTree = "<group>"; };
 		425A4F371C11C466009A7E77 /* CCXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCXML.m; path = Core/CCXML/CCXML.m; sourceTree = "<group>"; };
 		425A4F3A1C11CA42009A7E77 /* CCWXSingleEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCWXSingleEntity.h; path = Pay/Wxpay/Model/CCWXSingleEntity.h; sourceTree = "<group>"; };
@@ -2212,6 +2216,15 @@
 				425477241BD2AEC20071BBC5 /* RSADataVerifier.m */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		42591B481C33C93400BF6C48 /* UINavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				42591B491C33C95D00BF6C48 /* UINavigationBar+Additional.h */,
+				42591B4A1C33C95D00BF6C48 /* UINavigationBar+Additional.m */,
+			);
+			name = UINavigationBar;
 			sourceTree = "<group>";
 		};
 		425A4F2A1C1073B8009A7E77 /* Model */ = {
@@ -4081,6 +4094,7 @@
 		42F411811C2150E500814E7B /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				42591B481C33C93400BF6C48 /* UINavigationBar */,
 				42F411821C2150E500814E7B /* UIActionSheet */,
 				42F411851C2150E500814E7B /* UIAlertView */,
 				42F411881C2150E500814E7B /* UIBarButtonItem */,
@@ -4695,6 +4709,7 @@
 				425477451BD2AEC20071BBC5 /* err.h in Headers */,
 				429C9FD31B9EF8BF0013A44A /* SRVersion.h in Headers */,
 				4230E1911BBB83E40001E68F /* CCRadarView.h in Headers */,
+				42591B4B1C33C95D00BF6C48 /* UINavigationBar+Additional.h in Headers */,
 				429C9FF11B9EF8BF0013A44A /* SRServerSentEventsTransport.h in Headers */,
 				42C208E21BDDF91400C76004 /* Animation.h in Headers */,
 				429C9FE81B9EF8BF0013A44A /* SRServerSentEvent.h in Headers */,
@@ -4898,7 +4913,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Sets the target folders and the final framework product.\nFMK_NAME=${PROJECT_NAME}\nFMK_VERSION=CC\nOPEN_PATH=${SRCROOT}/Products\n\n# Install dir will be the final output to the framework or bundle.\n# The following line create it in the root folder of the current project.\nINSTALL_DIR=${OPEN_PATH}/${FMK_NAME}.framework\nINSTALL_BUNDLE=${OPEN_PATH}/${FMK_NAME}.bundle\n\n# Working dir will be deleted after the framework or bundle creation.\nWRK_DIR=build\n\n# framework\nDEVICE_DIR=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.framework\nSIMULATOR_DIR=${WRK_DIR}/Debug-iphonesimulator/${FMK_NAME}.framework\n\n# bundle\nDEVICE_BUNDLE=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.bundle\nSIMULATOR_BUNDLE=${WRK_DIR}/Debug-iphonesimulator/${FMK_NAME}.bundle\n\n# -configuration ${CONFIGURATION}\n# Clean and Building both architectures.\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphoneos clean build\nxcodebuild -configuration \"Debug\" -target \"${FMK_NAME}\" -sdk iphonesimulator clean build\n\n# Cleaning the oldest.\nif [ -d \"${INSTALL_DIR}\" -d \"${INSTALL_BUNDLE}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nrm -rf \"${INSTALL_BUNDLE}\"\nfi\n\n# Creates and renews the final product folder.\nmkdir -p \"${INSTALL_DIR}\"\nmkdir -p \"${INSTALL_DIR}/Versions\"\nmkdir -p \"${INSTALL_DIR}/Versions/${FMK_VERSION}\"\nmkdir -p \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources\"\nmkdir -p \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Headers\"\n\n# bundle\nmkdir -p \"${INSTALL_BUNDLE}\"\nmkdir -p \"${INSTALL_BUNDLE}/Versions\"\nmkdir -p \"${INSTALL_BUNDLE}/Versions/${FMK_VERSION}\"\nmkdir -p \"${INSTALL_BUNDLE}/Versions/${FMK_VERSION}/Resources\"\n\n# Creates the internal links.\n# It MUST uses relative path, otherwise will not work when the folder is copied/moved.\nln -s \"${FMK_VERSION}\" \"${INSTALL_DIR}/Versions/Current\"\nln -s \"Versions/Current/Headers\" \"${INSTALL_DIR}/Headers\"\nln -s \"Versions/Current/Resources\" \"${INSTALL_DIR}/Resources\"\nln -s \"Versions/Current/${FMK_NAME}\" \"${INSTALL_DIR}/${FMK_NAME}\"\n\n# bundle\nln -s \"${FMK_VERSION}\" \"${INSTALL_BUNDLE}/Versions/Current\"\nln -s \"Versions/Current/Resources\" \"${INSTALL_BUNDLE}/Resources\"\nln -s \"Versions/Current/${FMK_NAME}\" \"${INSTALL_BUNDLE}/${FMK_NAME}\"\n\n# Copies the headers and resources files to the final product folder.\ncp -R \"${DEVICE_DIR}/Headers/\" \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Headers/\"\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources/\"\n\n# bundle\ncp -R \"${DEVICE_BUNDLE}/\" \"${INSTALL_BUNDLE}/Versions/${FMK_VERSION}/Resources/\"\n\n# Removes the binary and header from the resources folder.\nrm -r \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources/Headers\"\nrm -r \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources/${FMK_NAME}\"\n\n# bundle\nrm -r \"${INSTALL_BUNDLE}/Versions/${FMK_VERSION}/Resources/${FMK_NAME}\"\n\n# Uses the Lipo Tool to merge both binary files (i386 + armv6/armv7) into one Universal final product.\nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\nlipo -create \"${DEVICE_BUNDLE}/${FMK_NAME}\" \"${SIMULATOR_BUNDLE}/${FMK_NAME}\" -output \"${INSTALL_BUNDLE}/${FMK_NAME}\"\n\nrm -r \"${WRK_DIR}\"\n\nopen \"${OPEN_PATH}\"\n\n\n\n";
+			shellScript = "# Sets the target folders and the final framework product.\nFMK_NAME=${PROJECT_NAME}\nFMK_VERSION=CC\nOPEN_PATH=${SRCROOT}/Products\n\n# Install dir will be the final output to the framework or bundle.\n# The following line create it in the root folder of the current project.\nINSTALL_DIR=${OPEN_PATH}/${FMK_NAME}.framework\nINSTALL_BUNDLE=${OPEN_PATH}/${FMK_NAME}.bundle\n\n# Working dir will be deleted after the framework or bundle creation.\nWRK_DIR=build\n\n# framework\nDEVICE_DIR=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.framework\nSIMULATOR_DIR=${WRK_DIR}/Debug-iphonesimulator/${FMK_NAME}.framework\n\n# bundle\nDEVICE_BUNDLE=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.bundle\nSIMULATOR_BUNDLE=${WRK_DIR}/Debug-iphonesimulator/${FMK_NAME}.bundle\n\n# -configuration ${CONFIGURATION}\n# Clean and Building both architectures.\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphoneos clean build\nxcodebuild -configuration \"Debug\" -target \"${FMK_NAME}\" -sdk iphonesimulator clean build\n\n# Cleaning the oldest.\nif [ -d \"${INSTALL_DIR}\"]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\n\n# Cleaning the oldest. BUNDLE\nif [ -d \"${INSTALL_BUNDLE}\" ]\nthen\nrm -rf \"${INSTALL_BUNDLE}\"\nfi\n\n# Creates and renews the final product folder.\nmkdir -p \"${INSTALL_DIR}\"\nmkdir -p \"${INSTALL_DIR}/Versions\"\nmkdir -p \"${INSTALL_DIR}/Versions/${FMK_VERSION}\"\nmkdir -p \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources\"\nmkdir -p \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Headers\"\n\n# bundle\nmkdir -p \"${INSTALL_BUNDLE}\"\nmkdir -p \"${INSTALL_BUNDLE}/Versions\"\nmkdir -p \"${INSTALL_BUNDLE}/Versions/${FMK_VERSION}\"\nmkdir -p \"${INSTALL_BUNDLE}/Versions/${FMK_VERSION}/Resources\"\n\n# Creates the internal links.\n# It MUST uses relative path, otherwise will not work when the folder is copied/moved.\nln -s \"${FMK_VERSION}\" \"${INSTALL_DIR}/Versions/Current\"\nln -s \"Versions/Current/Headers\" \"${INSTALL_DIR}/Headers\"\nln -s \"Versions/Current/Resources\" \"${INSTALL_DIR}/Resources\"\nln -s \"Versions/Current/${FMK_NAME}\" \"${INSTALL_DIR}/${FMK_NAME}\"\n\n# bundle\nln -s \"${FMK_VERSION}\" \"${INSTALL_BUNDLE}/Versions/Current\"\nln -s \"Versions/Current/Resources\" \"${INSTALL_BUNDLE}/Resources\"\nln -s \"Versions/Current/${FMK_NAME}\" \"${INSTALL_BUNDLE}/${FMK_NAME}\"\n\n# Copies the headers and resources files to the final product folder.\ncp -R \"${DEVICE_DIR}/Headers/\" \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Headers/\"\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources/\"\n\n# bundle\ncp -R \"${DEVICE_BUNDLE}/\" \"${INSTALL_BUNDLE}/Versions/${FMK_VERSION}/Resources/\"\n\n# Removes the binary and header from the resources folder.\nrm -r \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources/Headers\"\nrm -r \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources/${FMK_NAME}\"\n\n# bundle\nrm -r \"${INSTALL_BUNDLE}/Versions/${FMK_VERSION}/Resources/${FMK_NAME}\"\n\n# Uses the Lipo Tool to merge both binary files (i386 + armv6/armv7) into one Universal final product.\nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\nlipo -create \"${DEVICE_BUNDLE}/${FMK_NAME}\" \"${SIMULATOR_BUNDLE}/${FMK_NAME}\" -output \"${INSTALL_BUNDLE}/${FMK_NAME}\"\n\nrm -r \"${WRK_DIR}\"\n\nopen \"${OPEN_PATH}\"\n\n\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -5238,6 +5253,7 @@
 				429CA1271B9EF8BF0013A44A /* CCAnnotation.m in Sources */,
 				42A3563A1BF4399800B6F1F2 /* CCRefreshFooterView.m in Sources */,
 				42F411E31C2150E500814E7B /* UIControl+BUIControl.m in Sources */,
+				42591B4C1C33C95D00BF6C48 /* UINavigationBar+Additional.m in Sources */,
 				4269792C1BA695BA00C3E93C /* AFURLSessionManager.m in Sources */,
 				42F411E51C2150E500814E7B /* UIImage+Additions.m in Sources */,
 				42F24C751BEA5236008CDEDC /* CCCountingLabel.m in Sources */,
