@@ -54,9 +54,8 @@
     
     // Execute Batch Request
     NSError *batchUpdateRequestError = nil;
-    NSBatchUpdateResult *batchUpdateResult = (NSBatchUpdateResult *)
-    [self.currentContext executeRequest:batchUpdateRequest
-                                  error:&batchUpdateRequestError];
+    NSBatchUpdateResult *batchUpdateResult = (NSBatchUpdateResult *)[self.currentContext executeRequest:batchUpdateRequest
+                                                                                                  error:&batchUpdateRequestError];
     
     if (batchUpdateRequestError) {
         NSLog(@"%@, %@", batchUpdateRequestError, batchUpdateRequestError.localizedDescription);
@@ -66,8 +65,7 @@
         
         for (NSManagedObjectID *objectID in objectIDs) {
             // Turn Managed Objects into Faults
-            NSManagedObject *managedObject =
-            [self.currentContext objectWithID:objectID];
+            NSManagedObject *managedObject = [self.currentContext objectWithID:objectID];
             
             if (managedObject) {
                 [self.currentContext refreshObject:managedObject mergeChanges:NO];
