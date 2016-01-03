@@ -61,8 +61,7 @@ static char OperationKey;
  *
  *  @since 1.0
  */
-- (BOOL)application:(UIApplication *)application
-didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //全局crash捕获
     InstallUncaughtExceptionHandler();
@@ -116,8 +115,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
 //首先在 application:didFinishLaunchingWithOptions: 中设置 minimun background fetch interval 类型为 UIApplicationBackgroundFetchIntervalMinimum（默认为 UIApplicationBackgroundFetchIntervalNever），然后实现代理方法 application:performFetchWithCompletionHandler: 中实现数据请求。
 //[application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-- (void)application:(UIApplication *)application
-performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
 }
 
@@ -133,6 +131,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     [self initguidePages:imageStrAry
     EnterBackgroundImage:backgroundImage
                EnterSzie:size
+              FirstStart:nil
                  EndBack:nil];
 }
 
@@ -144,11 +143,13 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
  *  @param imageStrAry     引导页图片集合
  *  @param backgroundImage 完成万纽背景图片
  *  @param size            图片大小
+ *  @param firstStartBlock 第一次启动调用
  *  @param endBack         回调事件
  */
 - (void)initguidePages:(NSArray *)imageStrAry
   EnterBackgroundImage:(NSString *)backgroundImage
              EnterSzie:(CGSize)size
+            FirstStart:(void (^)())firstStartBlock
                EndBack:(void (^)())endBack
 {
     BOOL canShow = [SmoothViewController canShowNewFeature];
@@ -164,6 +165,9 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
             [self startViewController];
         }];
         self.window.rootViewController = viewController;
+        
+        if (firstStartBlock)
+            firstStartBlock();
     } else {
         [self startViewController];
     }
@@ -196,7 +200,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         [[UINavigationBar appearance] setTintColor:color];
     }
     
-    [[UINavigationBar appearance] setTranslucent:YES];
+    [[UINavigationBar appearance] setTranslucent:NO];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     
     [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -252,7 +256,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     //            NSMutableDictionary *sendDic = [NSMutableDictionary dictionary];
     //            [sendDic setObject:date forKey:@"ErrDate"];
     //            [sendDic setObject:[dic objectForKey:date] forKey:@"ErrMsg"];
-    //            [sendDic setObject:[CCUserDefaultsUserinfo sharedlnstance].userName forKey:@"ErrName"];
+    //            [sendDic setObject:[CCUserDefaultsUserinfo manager].userName forKey:@"ErrName"];
     //            [sendDic setObject:@"4" forKey:@"ErrType"];
     //            [[CCHTTPRequest sharedlnstance] sendError:sendDic responseBlock:^(id responseData, BOOL isError) {
     //                if (!isError) {
@@ -368,8 +372,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 }
 
 #pragma mark - 推送
-- (void)application:(UIApplication *)application
-didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     if (_isJPush) { //注册deviceToken
         [_APService performSelectors:@"registerDeviceToken:"
@@ -387,15 +390,13 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
  *
  *  @since 1.0
  */
-- (void)application:(UIApplication *)application
-didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
     NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
 }
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
-- (void)application:(UIApplication *)application
-didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
 }
 
@@ -404,10 +405,7 @@ didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSe
 // A nil action identifier indicates the default action.
 // You should call the completion handler as soon as you've finished handling
 // the action.
-- (void)application:(UIApplication *)application
-handleActionWithIdentifier:(NSString *)identifier
-forLocalNotification:(UILocalNotification *)notification
-  completionHandler:(void (^)())completionHandler
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void (^)())completionHandler
 {
 }
 
@@ -416,16 +414,12 @@ forLocalNotification:(UILocalNotification *)notification
 // A nil action identifier indicates the default action.
 // You should call the completion handler as soon as you've finished handling
 // the action.
-- (void)application:(UIApplication *)application
-handleActionWithIdentifier:(NSString *)identifier
-forRemoteNotification:(NSDictionary *)userInfo
-  completionHandler:(void (^)())completionHandler
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler
 {
 }
 #endif
 
-- (void)application:(UIApplication *)application
-didReceiveRemoteNotification:(NSDictionary *)userInfo
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     if (_isJPush) {
         [_APService performSelectors:@"handleRemoteNotification:"
@@ -434,9 +428,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
     }
 }
 
-- (void)application:(UIApplication *)application
-didReceiveRemoteNotification:(NSDictionary *)userInfo
-fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     if (_isJPush) {
         [_APService performSelectors:@"handleRemoteNotification:"
@@ -446,8 +438,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
-- (void)application:(UIApplication *)application
-didReceiveLocalNotification:(UILocalNotification *)notification
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
     if (_isJPush)
         [_APService performSelectors:@"showLocalNotificationAtFront:identifierKey:"

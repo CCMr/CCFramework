@@ -127,7 +127,7 @@
 {
     if (!_enterButton) {
         _enterButton = [UIButton new];
-        [_enterButton setTitle:NSLocalizedString(@"Enter", nil)
+        [_enterButton setTitle:NSLocalizedString(@"点击进入", nil)
                       forState:UIControlStateNormal];
         _enterButton.layer.borderWidth = 0.5;
         _enterButton.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -161,10 +161,7 @@
  */
 - (void)setEnterSzie:(CGSize)enterSzie
 {
-    self.enterButton.frame =
-    CGRectMake(self.view.frame.size.width / 2 - enterSzie.width / 2,
-               self.pageControl.frame.origin.y - enterSzie.height,
-               enterSzie.width, enterSzie.height);
+    self.enterButton.frame = CGRectMake(self.view.frame.size.width / 2 - enterSzie.width / 2, self.pageControl.frame.origin.y - enterSzie.height, enterSzie.width, enterSzie.height);
 }
 
 /**

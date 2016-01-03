@@ -62,11 +62,13 @@
  *  @param imageStrAry     引导页图片集合
  *  @param backgroundImage 完成万纽背景图片
  *  @param size            图片大小
+ *  @param firstStartBlock 第一次启动调用
  *  @param endBack         回调事件
  */
 - (void)initguidePages:(NSArray *)imageStrAry
   EnterBackgroundImage:(NSString *)backgroundImage
              EnterSzie:(CGSize)size
+            FirstStart:(void (^)())firstStartBlock
                EndBack:(void (^)())endBack;
 
 /**
