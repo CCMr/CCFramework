@@ -1,121 +1,153 @@
 //
-//  GVUserDefaults.m
-//  GVUserDefaults
+//  CCUserDefaults.m
+//  CCFramework
 //
-//  Created by Kevin Renskers on 18-12-12.
-//  Copyright (c) 2012 Gangverk. All rights reserved.
+// Copyright (c) 2015 CC ( http://www.ccskill.com )
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 //
 
 #import "CCUserDefaults.h"
 #import <objc/runtime.h>
 
 @interface CCUserDefaults ()
-@property (strong, nonatomic) NSMutableDictionary *mapping;
-@property (strong, nonatomic) NSUserDefaults *userDefault;
+@property(strong, nonatomic) NSMutableDictionary *mapping;
+@property(strong, nonatomic) NSUserDefaults *userDefault;
 @end
 
 @implementation CCUserDefaults
 
 enum TypeEncodings {
-    Char                = 'c',
-    Bool                = 'B',
-    Short               = 's',
-    Int                 = 'i',
-    Long                = 'l',
-    LongLong            = 'q',
-    UnsignedChar        = 'C',
-    UnsignedShort       = 'S',
-    UnsignedInt         = 'I',
-    UnsignedLong        = 'L',
-    UnsignedLongLong    = 'Q',
-    Float               = 'f',
-    Double              = 'd',
-    Object              = '@'
+    Char = 'c',
+    Bool = 'B',
+    Short = 's',
+    Int = 'i',
+    Long = 'l',
+    LongLong = 'q',
+    UnsignedChar = 'C',
+    UnsignedShort = 'S',
+    UnsignedInt = 'I',
+    UnsignedLong = 'L',
+    UnsignedLongLong = 'Q',
+    Float = 'f',
+    Double = 'd',
+    Object = '@'
 };
 
-- (NSUserDefaults *)userDefault {
+- (NSUserDefaults *)userDefault
+{
     if (!_userDefault) {
         NSString *suiteName = nil;
         if ([NSUserDefaults instancesRespondToSelector:@selector(initWithSuiteName:)]) {
             suiteName = [self _suiteName];
         }
-
+        
         if (suiteName && suiteName.length) {
             _userDefault = [[NSUserDefaults alloc] initWithSuiteName:suiteName];
         } else {
             _userDefault = [NSUserDefaults standardUserDefaults];
         }
     }
-
+    
     return _userDefault;
 }
 
-- (NSString *)defaultsKeyForPropertyNamed:(char const *)propertyName {
+- (NSString *)defaultsKeyForPropertyNamed:(char const *)propertyName
+{
     NSString *key = [NSString stringWithFormat:@"%s", propertyName];
     return [self _transformKey:key];
 }
 
-- (NSString *)defaultsKeyForSelector:(SEL)selector {
+- (NSString *)defaultsKeyForSelector:(SEL)selector
+{
     return [self.mapping objectForKey:NSStringFromSelector(selector)];
 }
 
-static long long longLongGetter(CCUserDefaults *self, SEL _cmd) {
+static long long longLongGetter(CCUserDefaults *self, SEL _cmd)
+{
     NSString *key = [self defaultsKeyForSelector:_cmd];
     return [[self.userDefault objectForKey:key] longLongValue];
 }
 
-static void longLongSetter(CCUserDefaults *self, SEL _cmd, long long value) {
+static void longLongSetter(CCUserDefaults *self, SEL _cmd, long long value)
+{
     NSString *key = [self defaultsKeyForSelector:_cmd];
     NSNumber *object = [NSNumber numberWithLongLong:value];
     [self.userDefault setObject:object forKey:key];
 }
 
-static BOOL boolGetter(CCUserDefaults *self, SEL _cmd) {
+static BOOL boolGetter(CCUserDefaults *self, SEL _cmd)
+{
     NSString *key = [self defaultsKeyForSelector:_cmd];
     return [self.userDefault boolForKey:key];
 }
 
-static void boolSetter(CCUserDefaults *self, SEL _cmd, BOOL value) {
+static void boolSetter(CCUserDefaults *self, SEL _cmd, BOOL value)
+{
     NSString *key = [self defaultsKeyForSelector:_cmd];
     [self.userDefault setBool:value forKey:key];
 }
 
-static int integerGetter(CCUserDefaults *self, SEL _cmd) {
+static int integerGetter(CCUserDefaults *self, SEL _cmd)
+{
     NSString *key = [self defaultsKeyForSelector:_cmd];
     return (int)[self.userDefault integerForKey:key];
 }
 
-static void integerSetter(CCUserDefaults *self, SEL _cmd, int value) {
+static void integerSetter(CCUserDefaults *self, SEL _cmd, int value)
+{
     NSString *key = [self defaultsKeyForSelector:_cmd];
     [self.userDefault setInteger:value forKey:key];
 }
 
-static float floatGetter(CCUserDefaults *self, SEL _cmd) {
+static float floatGetter(CCUserDefaults *self, SEL _cmd)
+{
     NSString *key = [self defaultsKeyForSelector:_cmd];
     return [self.userDefault floatForKey:key];
 }
 
-static void floatSetter(CCUserDefaults *self, SEL _cmd, float value) {
+static void floatSetter(CCUserDefaults *self, SEL _cmd, float value)
+{
     NSString *key = [self defaultsKeyForSelector:_cmd];
     [self.userDefault setFloat:value forKey:key];
 }
 
-static double doubleGetter(CCUserDefaults *self, SEL _cmd) {
+static double doubleGetter(CCUserDefaults *self, SEL _cmd)
+{
     NSString *key = [self defaultsKeyForSelector:_cmd];
     return [self.userDefault doubleForKey:key];
 }
 
-static void doubleSetter(CCUserDefaults *self, SEL _cmd, double value) {
+static void doubleSetter(CCUserDefaults *self, SEL _cmd, double value)
+{
     NSString *key = [self defaultsKeyForSelector:_cmd];
     [self.userDefault setDouble:value forKey:key];
 }
 
-static id objectGetter(CCUserDefaults *self, SEL _cmd) {
+static id objectGetter(CCUserDefaults *self, SEL _cmd)
+{
     NSString *key = [self defaultsKeyForSelector:_cmd];
     return [self.userDefault objectForKey:key];
 }
 
-static void objectSetter(CCUserDefaults *self, SEL _cmd, id object) {
+static void objectSetter(CCUserDefaults *self, SEL _cmd, id object)
+{
     NSString *key = [self defaultsKeyForSelector:_cmd];
     if (object) {
         [self.userDefault setObject:object forKey:key];
@@ -127,7 +159,8 @@ static void objectSetter(CCUserDefaults *self, SEL _cmd, id object) {
 
 #pragma mark - Begin
 
-+ (instancetype)manager {
++ (instancetype)manager
+{
     NSString *key = [NSString stringWithUTF8String:object_getClassName(self)];
     static NSMutableDictionary *sharedInstanceDic = nil;
     if (!sharedInstanceDic)
@@ -136,7 +169,7 @@ static void objectSetter(CCUserDefaults *self, SEL _cmd, id object) {
     id sharedInstance = [sharedInstanceDic objectForKey:key];
     
     if (!sharedInstance) {
-        sharedInstance =  [[self alloc] init];
+        sharedInstance = [[self alloc] init];
         [sharedInstanceDic setObject:sharedInstance forKey:key];
     }
     
@@ -163,10 +196,10 @@ static void objectSetter(CCUserDefaults *self, SEL _cmd, id object) {
             [self.userDefault registerDefaults:mutableDefaults];
             [self.userDefault synchronize];
         }
-
+        
         [self generateAccessorMethods];
     }
-
+    
     return self;
 }
 
@@ -175,7 +208,7 @@ static void objectSetter(CCUserDefaults *self, SEL _cmd, id object) {
     if ([self respondsToSelector:@selector(transformKey:)]) {
         return [self performSelector:@selector(transformKey:) withObject:key];
     }
-
+    
     return key;
 }
 
@@ -184,11 +217,11 @@ static void objectSetter(CCUserDefaults *self, SEL _cmd, id object) {
     if ([self respondsToSelector:@selector(suitName)]) {
         return [self performSelector:@selector(suitName)];
     }
-
+    
     if ([self respondsToSelector:@selector(suiteName)]) {
         return [self performSelector:@selector(suiteName)];
     }
-
+    
     return nil;
 }
 
@@ -198,14 +231,14 @@ static void objectSetter(CCUserDefaults *self, SEL _cmd, id object) {
 {
     unsigned int count = 0;
     objc_property_t *properties = class_copyPropertyList([self class], &count);
-
+    
     self.mapping = [NSMutableDictionary dictionary];
-
+    
     for (int i = 0; i < count; ++i) {
         objc_property_t property = properties[i];
         const char *name = property_getName(property);
         const char *attributes = property_getAttributes(property);
-
+        
         char *getter = strstr(attributes, ",G");
         if (getter) {
             getter = strdup(getter + 2);
@@ -215,7 +248,7 @@ static void objectSetter(CCUserDefaults *self, SEL _cmd, id object) {
         }
         SEL getterSel = sel_registerName(getter);
         free(getter);
-
+        
         char *setter = strstr(attributes, ",S");
         if (setter) {
             setter = strdup(setter + 2);
@@ -225,11 +258,11 @@ static void objectSetter(CCUserDefaults *self, SEL _cmd, id object) {
         }
         SEL setterSel = sel_registerName(setter);
         free(setter);
-
+        
         NSString *key = [self defaultsKeyForPropertyNamed:name];
         [self.mapping setValue:key forKey:NSStringFromSelector(getterSel)];
         [self.mapping setValue:key forKey:NSStringFromSelector(setterSel)];
-
+        
         IMP getterImp = NULL;
         IMP setterImp = NULL;
         char type = attributes[1];
@@ -245,48 +278,48 @@ static void objectSetter(CCUserDefaults *self, SEL _cmd, id object) {
                 getterImp = (IMP)longLongGetter;
                 setterImp = (IMP)longLongSetter;
                 break;
-
+                
             case Bool:
             case Char:
                 getterImp = (IMP)boolGetter;
                 setterImp = (IMP)boolSetter;
                 break;
-
+                
             case Int:
                 getterImp = (IMP)integerGetter;
                 setterImp = (IMP)integerSetter;
                 break;
-
+                
             case Float:
                 getterImp = (IMP)floatGetter;
                 setterImp = (IMP)floatSetter;
                 break;
-
+                
             case Double:
                 getterImp = (IMP)doubleGetter;
                 setterImp = (IMP)doubleSetter;
                 break;
-
+                
             case Object:
                 getterImp = (IMP)objectGetter;
                 setterImp = (IMP)objectSetter;
                 break;
-
+                
             default:
                 free(properties);
                 [NSException raise:NSInternalInconsistencyException format:@"Unsupported type of property \"%s\" in class %@", name, self];
                 break;
         }
-
+        
         char types[5];
-
+        
         snprintf(types, 4, "%c@:", type);
         class_addMethod([self class], getterSel, getterImp, types);
         
         snprintf(types, 5, "v@:%c", type);
         class_addMethod([self class], setterSel, setterImp, types);
     }
-
+    
     free(properties);
 }
 
