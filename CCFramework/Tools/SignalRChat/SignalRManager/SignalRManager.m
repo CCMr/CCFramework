@@ -204,8 +204,6 @@
     if (self.hubConnection.state == disconnected) {
         [self addNotification];
         [self.hubConnection start];
-    } else if (self.hubConnection.state == connected) {
-        [self registerDevice];
     }
 }
 
@@ -271,6 +269,17 @@
 #pragma mark - 回调函数
 
 /**
+ *  @author CC, 2016-01-05
+ *  
+ *  @brief  链接成功后调用
+ */
+- (void)connectionWillComplete
+{
+    if (self.hubConnection.state == connected)
+        [self registerDevice];
+}
+
+/**
  *  @author CC, 15-09-18
  *
  *  @brief  重新链接服务
@@ -317,7 +326,7 @@
  */
 - (void)SRConnectionDidOpen:(id<SRConnectionInterface>)connection
 {
-    [self registerDevice];
+    [self connectionWillComplete];
 }
 
 /**
@@ -359,7 +368,6 @@
  */
 - (void)SRConnection:(id<SRConnectionInterface>)connection didReceiveData:(id)data
 {
-    [self connectionDidClose];
 }
 
 /**
@@ -373,6 +381,7 @@
  */
 - (void)SRConnectionDidClose:(id<SRConnectionInterface>)connection
 {
+    [self connectionDidClose];
 }
 
 /**
