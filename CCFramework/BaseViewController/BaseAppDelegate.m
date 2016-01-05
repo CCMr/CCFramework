@@ -70,6 +70,13 @@ static char OperationKey;
     
     [self NavigationBarColor:[UIColor colorFromHexCode:@"3b3f4d"]];
     
+    float sysVersion = [[UIDevice currentDevice] systemVersion].floatValue;
+    if (sysVersion >= 8.0) {
+        UIUserNotificationType type = UIUserNotificationTypeBadge | UIUserNotificationTypeAlert | UIUserNotificationTypeSound;
+        UIUserNotificationSettings *setting = [UIUserNotificationSettings settingsForTypes:type categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:setting];
+    }
+    
     return YES;
 }
 
@@ -141,7 +148,7 @@ static char OperationKey;
  */
 - (void)initGuidePages:(NSArray *)imageStrAry
   EnterBackgroundImage:(NSString *)backgroundImage
-             EnterSzie:(CGSize)size 
+             EnterSzie:(CGSize)size
             FirstStart:(void (^)())firstStartBlock
 {
     [self initGuidePages:imageStrAry
