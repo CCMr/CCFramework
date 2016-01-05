@@ -1,5 +1,5 @@
 //
-//  Ability.h
+//  CCBottomPopupView.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,29 +23,58 @@
 // THE SOFTWARE.
 //
 
-#ifndef CCFramework_Ability_h
-#define CCFramework_Ability_h
+#import <UIKit/UIKit.h>
 
-#import <CCFramework/CCRadarPointView.h>
-#import <CCFramework/CCUncaughtExceptionHandler.h>
-#import <CCFramework/CCSideMenu.h>
-#import <CCFramework/UIViewController+CCSideMenu.h>
-#import <CCFramework/ContactPersonEntity.h>
-#import <CCFramework/ContactRead.h>
-#import <CCFramework/CCBase64.h>
-#import <CCFramework/CCLanguage.h>
-#import <CCFramework/CCQRCodeViewController.h>
-#import <CCFramework/CCQRCodeDisplayViewController.h>
-#import <CCFramework/CCScanningView.h>
-#import <CCFramework/CCSecurityStrategy.h>
-#import <CCFramework/CCSignatureView.h>
-#import <CCFramework/CCIntroductionViewController.h>
-#import <CCFramework/SmoothViewController.h>
-#import <CCFramework/CCThemeManager.h>
-#import <CCFramework/CCUserDefaults.h>
-#import <CCFramework/Friend.h>
-#import <CCFramework/FriendGroup.h>
-#import <CCFramework/CCInfoBanner.h>
-#import <CCFramework/CCBottomPopupView.h>
+@interface CCBottomPopupView : NSObject
 
-#endif
+#pragma mark :. show & hide
+/**
+ *  @author CC, 2016-01-05
+ *  
+ *  @brief  弹出视图
+ *
+ *  @param view 视图
+ */
++ (void)showInView:(UIView *)view;
+
+/**
+ *  @author CC, 2016-01-05
+ *  
+ *  @brief  弹出视图
+ *
+ *  @param view           视图
+ *  @param backgroundView 背景视图
+ */
++ (void)showInView:(UIView *)view
+    BackgroundView:(UIView *)backgroundView;
+
+/**
+ *  @author CC, 2016-01-05
+ *  
+ *  @brief  弹出视图
+ *
+ *  @param view           视图
+ *  @param backgroundView 背景视图
+ *  @param completion     完成回调
+ */
++ (void)showInView:(UIView *)view
+    BackgroundView:(UIView *)backgroundView
+        Completion:(void (^)())completion;
+
+/**
+ *  @author CC, 2016-01-05
+ *  
+ *  @brief  隐藏
+ */
++ (void)hide;
+
+/**
+ *  @author CC, 2016-01-05
+ *  
+ *  @brief  隐藏
+ *
+ *  @param completion 完成回调
+ */
++ (void)hide:(void (^)())completion;
+
+@end

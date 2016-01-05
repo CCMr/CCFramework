@@ -24,7 +24,7 @@
 		4213943C1BF2D9F50046062B /* SRLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213943B1BF2D9F50046062B /* SRLog.h */; };
 		4213FAFC1C13D860006918AC /* CCJPsuh.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213FAFA1C13D860006918AC /* CCJPsuh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4213FAFD1C13D860006918AC /* CCJPsuh.m in Sources */ = {isa = PBXBuildFile; fileRef = 4213FAFB1C13D860006918AC /* CCJPsuh.m */; };
-		4220B6181BFAB95A006145FD /* CustomIOSAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4220B6161BFAB95A006145FD /* CustomIOSAlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4220B6181BFAB95A006145FD /* CustomIOSAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4220B6161BFAB95A006145FD /* CustomIOSAlertView.h */; };
 		4220B6191BFAB95A006145FD /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4220B6171BFAB95A006145FD /* CustomIOSAlertView.m */; };
 		4226FC411C327BE0003EAEFE /* CCInfoBanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 4226FC3F1C327BE0003EAEFE /* CCInfoBanner.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4226FC421C327BE0003EAEFE /* CCInfoBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4226FC401C327BE0003EAEFE /* CCInfoBanner.m */; };
@@ -71,6 +71,9 @@
 		423B25311BE9E89900DAF075 /* CCDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 423B252F1BE9E89900DAF075 /* CCDropDown.m */; };
 		423C12791C0ECACB009FBA17 /* CCTool.h in Headers */ = {isa = PBXBuildFile; fileRef = 423C12771C0ECACB009FBA17 /* CCTool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		423C127A1C0ECACB009FBA17 /* CCTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 423C12781C0ECACB009FBA17 /* CCTool.m */; };
+		423D1DA01C3A00CE008E483A /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 423D1D9F1C3A00CE008E483A /* libWeChatSDK.a */; };
+		423D1DA41C3A11F0008E483A /* CCAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 423D1DA21C3A11F0008E483A /* CCAlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		423D1DA51C3A11F0008E483A /* CCAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 423D1DA31C3A11F0008E483A /* CCAlertView.m */; };
 		424255141C310CCA00D94E04 /* CCMessagePhotoImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 424255121C310CCA00D94E04 /* CCMessagePhotoImageView.h */; };
 		424255151C310CCA00D94E04 /* CCMessagePhotoImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 424255131C310CCA00D94E04 /* CCMessagePhotoImageView.m */; };
 		424255171C31255E00D94E04 /* placeholderImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 424255161C31255E00D94E04 /* placeholderImage@2x.png */; };
@@ -902,6 +905,8 @@
 		42F4121F1C21648300814E7B /* CCPaintingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F4121D1C21648300814E7B /* CCPaintingLayer.m */; };
 		42F945871BC8ED5D008882AE /* CCDisplayMediaViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F945851BC8ED5D008882AE /* CCDisplayMediaViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42F945881BC8ED5D008882AE /* CCDisplayMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F945861BC8ED5D008882AE /* CCDisplayMediaViewController.m */; };
+		42F967881C3A5FBC0047FC15 /* CCBottomPopupView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F967861C3A5FBC0047FC15 /* CCBottomPopupView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42F967891C3A5FBC0047FC15 /* CCBottomPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F967871C3A5FBC0047FC15 /* CCBottomPopupView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -965,6 +970,9 @@
 		423B252F1BE9E89900DAF075 /* CCDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCDropDown.m; path = CCDorpDown/CCDropDown.m; sourceTree = "<group>"; };
 		423C12771C0ECACB009FBA17 /* CCTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCTool.h; path = Core/Tool/CCTool.h; sourceTree = "<group>"; };
 		423C12781C0ECACB009FBA17 /* CCTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCTool.m; path = Core/Tool/CCTool.m; sourceTree = "<group>"; };
+		423D1D9F1C3A00CE008E483A /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		423D1DA21C3A11F0008E483A /* CCAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCAlertView.h; path = Core/CCAlertView/CCAlertView.h; sourceTree = "<group>"; };
+		423D1DA31C3A11F0008E483A /* CCAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCAlertView.m; path = Core/CCAlertView/CCAlertView.m; sourceTree = "<group>"; };
 		424255121C310CCA00D94E04 /* CCMessagePhotoImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMessagePhotoImageView.h; sourceTree = "<group>"; };
 		424255131C310CCA00D94E04 /* CCMessagePhotoImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCMessagePhotoImageView.m; sourceTree = "<group>"; };
 		424255161C31255E00D94E04 /* placeholderImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholderImage@2x.png"; sourceTree = "<group>"; };
@@ -1800,6 +1808,8 @@
 		42F4121D1C21648300814E7B /* CCPaintingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCPaintingLayer.m; path = CCGraffitiBoard/View/CCPaintingLayer.m; sourceTree = "<group>"; };
 		42F945851BC8ED5D008882AE /* CCDisplayMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDisplayMediaViewController.h; sourceTree = "<group>"; };
 		42F945861BC8ED5D008882AE /* CCDisplayMediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDisplayMediaViewController.m; sourceTree = "<group>"; };
+		42F967861C3A5FBC0047FC15 /* CCBottomPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCBottomPopupView.h; path = CCBottomPopupView/CCBottomPopupView.h; sourceTree = "<group>"; };
+		42F967871C3A5FBC0047FC15 /* CCBottomPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCBottomPopupView.m; path = CCBottomPopupView/CCBottomPopupView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1811,6 +1821,7 @@
 				424492921C0D90F500488AA2 /* libopencore-amrnb.a in Frameworks */,
 				424492931C0D90F500488AA2 /* libopencore-amrwb.a in Frameworks */,
 				425477281BD2AEC20071BBC5 /* libssl.a in Frameworks */,
+				423D1DA01C3A00CE008E483A /* libWeChatSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2014,6 +2025,15 @@
 				423C12781C0ECACB009FBA17 /* CCTool.m */,
 			);
 			name = Tool;
+			sourceTree = "<group>";
+		};
+		423D1DA11C3A11C5008E483A /* CCAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				423D1DA21C3A11F0008E483A /* CCAlertView.h */,
+				423D1DA31C3A11F0008E483A /* CCAlertView.m */,
+			);
+			name = CCAlertView;
 			sourceTree = "<group>";
 		};
 		4244927D1C0D90F500488AA2 /* VoiceConvert */ = {
@@ -2387,6 +2407,7 @@
 		427E1D381C107066004B257C /* ResourceFile */ = {
 			isa = PBXGroup;
 			children = (
+				423D1D9F1C3A00CE008E483A /* libWeChatSDK.a */,
 				427E1D3A1C107066004B257C /* WXApi.h */,
 				427E1D3B1C107066004B257C /* WXApiObject.h */,
 			);
@@ -2680,6 +2701,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E31BDE021900C76004 /* Ability.h */,
+				42F967851C3A5FA20047FC15 /* CCBottomPopupView */,
 				4226FC431C3286BD003EAEFE /* CCHierarchySearcher */,
 				4226FC3E1C327B65003EAEFE /* CCInfoBanner */,
 				42A58A7A1BCDFE4F0027429C /* CCSideMenu */,
@@ -3702,6 +3724,7 @@
 			isa = PBXGroup;
 			children = (
 				42B6473F1BEDA8DD00B2F6FD /* Core.h */,
+				423D1DA11C3A11C5008E483A /* CCAlertView */,
 				429B9BA81C322DB000ACB250 /* CCProgressHUD */,
 				42DEB2AE1C25496C00734E09 /* CCUtilities */,
 				42F4116B1C2150E500814E7B /* Category */,
@@ -4276,6 +4299,15 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		42F967851C3A5FA20047FC15 /* CCBottomPopupView */ = {
+			isa = PBXGroup;
+			children = (
+				42F967861C3A5FBC0047FC15 /* CCBottomPopupView.h */,
+				42F967871C3A5FBC0047FC15 /* CCBottomPopupView.m */,
+			);
+			name = CCBottomPopupView;
+			sourceTree = "<group>";
+		};
 		42FC46291BF478BD00EF8D3A /* Reactive */ = {
 			isa = PBXGroup;
 			children = (
@@ -4321,6 +4353,7 @@
 				42F24C6F1BEA5091008CDEDC /* PNScatterChartDataItem.h in Headers */,
 				4254773C1BD2AEC20071BBC5 /* dsa.h in Headers */,
 				42C208E41BDE021900C76004 /* Ability.h in Headers */,
+				423D1DA41C3A11F0008E483A /* CCAlertView.h in Headers */,
 				425477691BD2AEC20071BBC5 /* stack.h in Headers */,
 				4254776A1BD2AEC20071BBC5 /* symhacks.h in Headers */,
 				42F24C531BEA5091008CDEDC /* PNChart.h in Headers */,
@@ -4534,6 +4567,7 @@
 				42F4113F1C214C5400814E7B /* CCLineBrush.h in Headers */,
 				42F411341C214C5400814E7B /* CCBaseBrush.h in Headers */,
 				42DEB2BA1C254A6800734E09 /* CCColorPickerController.h in Headers */,
+				42F967881C3A5FBC0047FC15 /* CCBottomPopupView.h in Headers */,
 				42F411CA1C2150E500814E7B /* NSData+Additions.h in Headers */,
 				42F24C791BEA5A10008CDEDC /* CCChart.h in Headers */,
 				42F411361C214C5400814E7B /* CCPaintBrush.h in Headers */,
@@ -4909,7 +4943,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Sets the target folders and the final framework product.\nFMK_NAME=${PROJECT_NAME}\nFMK_VERSION=CC\nOPEN_PATH=${SRCROOT}/Products\n\n# Install dir will be the final output to the framework or bundle.\n# The following line create it in the root folder of the current project.\nINSTALL_DIR=${OPEN_PATH}/${FMK_NAME}.framework\nINSTALL_BUNDLE=${OPEN_PATH}/${FMK_NAME}.bundle\n\n# Working dir will be deleted after the framework or bundle creation.\nWRK_DIR=build\n\n# framework\nDEVICE_DIR=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.framework\nSIMULATOR_DIR=${WRK_DIR}/Debug-iphonesimulator/${FMK_NAME}.framework\n\n# bundle\nDEVICE_BUNDLE=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.bundle\nSIMULATOR_BUNDLE=${WRK_DIR}/Debug-iphonesimulator/${FMK_NAME}.bundle\n\n# -configuration ${CONFIGURATION}\n# Clean and Building both architectures.\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphoneos clean build\nxcodebuild -configuration \"Debug\" -target \"${FMK_NAME}\" -sdk iphonesimulator clean build\n\n# Cleaning the oldest.\nif [ -d \"${INSTALL_DIR}\"]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\n\n# Cleaning the oldest. BUNDLE\nif [ -d \"${INSTALL_BUNDLE}\" ]\nthen\nrm -rf \"${INSTALL_BUNDLE}\"\nfi\n\n# Creates and renews the final product folder.\nmkdir -p \"${INSTALL_DIR}\"\nmkdir -p \"${INSTALL_DIR}/Versions\"\nmkdir -p \"${INSTALL_DIR}/Versions/${FMK_VERSION}\"\nmkdir -p \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources\"\nmkdir -p \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Headers\"\n\n# bundle\nmkdir -p \"${INSTALL_BUNDLE}\"\nmkdir -p \"${INSTALL_BUNDLE}/Versions\"\nmkdir -p \"${INSTALL_BUNDLE}/Versions/${FMK_VERSION}\"\nmkdir -p \"${INSTALL_BUNDLE}/Versions/${FMK_VERSION}/Resources\"\n\n# Creates the internal links.\n# It MUST uses relative path, otherwise will not work when the folder is copied/moved.\nln -s \"${FMK_VERSION}\" \"${INSTALL_DIR}/Versions/Current\"\nln -s \"Versions/Current/Headers\" \"${INSTALL_DIR}/Headers\"\nln -s \"Versions/Current/Resources\" \"${INSTALL_DIR}/Resources\"\nln -s \"Versions/Current/${FMK_NAME}\" \"${INSTALL_DIR}/${FMK_NAME}\"\n\n# bundle\nln -s \"${FMK_VERSION}\" \"${INSTALL_BUNDLE}/Versions/Current\"\nln -s \"Versions/Current/Resources\" \"${INSTALL_BUNDLE}/Resources\"\nln -s \"Versions/Current/${FMK_NAME}\" \"${INSTALL_BUNDLE}/${FMK_NAME}\"\n\n# Copies the headers and resources files to the final product folder.\ncp -R \"${DEVICE_DIR}/Headers/\" \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Headers/\"\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources/\"\n\n# bundle\ncp -R \"${DEVICE_BUNDLE}/\" \"${INSTALL_BUNDLE}/Versions/${FMK_VERSION}/Resources/\"\n\n# Removes the binary and header from the resources folder.\nrm -r \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources/Headers\"\nrm -r \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources/${FMK_NAME}\"\n\n# bundle\nrm -r \"${INSTALL_BUNDLE}/Versions/${FMK_VERSION}/Resources/${FMK_NAME}\"\n\n# Uses the Lipo Tool to merge both binary files (i386 + armv6/armv7) into one Universal final product.\nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\nlipo -create \"${DEVICE_BUNDLE}/${FMK_NAME}\" \"${SIMULATOR_BUNDLE}/${FMK_NAME}\" -output \"${INSTALL_BUNDLE}/${FMK_NAME}\"\n\nrm -r \"${WRK_DIR}\"\n\nopen \"${OPEN_PATH}\"\n\n\n\n";
+			shellScript = "# Sets the target folders and the final framework product.\nFMK_NAME=${PROJECT_NAME}\nFMK_VERSION=CC\nOPEN_PATH=${SRCROOT}/Products\n\n# Install dir will be the final output to the framework or bundle.\n# The following line create it in the root folder of the current project.\nINSTALL_DIR=${OPEN_PATH}/${FMK_NAME}.framework\nINSTALL_BUNDLE=${OPEN_PATH}/${FMK_NAME}.bundle\n\n# Working dir will be deleted after the framework or bundle creation.\nWRK_DIR=build\n\n# framework\nDEVICE_DIR=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.framework\nSIMULATOR_DIR=${WRK_DIR}/Debug-iphonesimulator/${FMK_NAME}.framework\n\n# bundle\nDEVICE_BUNDLE=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.bundle\nSIMULATOR_BUNDLE=${WRK_DIR}/Debug-iphonesimulator/${FMK_NAME}.bundle\n\n# -configuration ${CONFIGURATION}\n# Clean and Building both architectures.\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphoneos clean build\nxcodebuild -configuration \"Debug\" -target \"${FMK_NAME}\" -sdk iphonesimulator clean build\n\n# Cleaning the oldest.\nif [ -d \"${OPEN_PATH}\" ]\nthen\nrm -rf \"${OPEN_PATH}\"\nfi\n\n# Creates and renews the final product folder.\nmkdir -p \"${INSTALL_DIR}\"\nmkdir -p \"${INSTALL_DIR}/Versions\"\nmkdir -p \"${INSTALL_DIR}/Versions/${FMK_VERSION}\"\nmkdir -p \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources\"\nmkdir -p \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Headers\"\n\n# bundle\nmkdir -p \"${INSTALL_BUNDLE}\"\n\n# Creates the internal links.\n# It MUST uses relative path, otherwise will not work when the folder is copied/moved.\nln -s \"${FMK_VERSION}\" \"${INSTALL_DIR}/Versions/Current\"\nln -s \"Versions/Current/Headers\" \"${INSTALL_DIR}/Headers\"\nln -s \"Versions/Current/Resources\" \"${INSTALL_DIR}/Resources\"\nln -s \"Versions/Current/${FMK_NAME}\" \"${INSTALL_DIR}/${FMK_NAME}\"\n\n# Copies the headers and resources files to the final product folder.\ncp -R \"${DEVICE_DIR}/Headers/\" \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Headers/\"\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources/\"\n\n# bundle\ncp -R \"${DEVICE_BUNDLE}/\" \"${INSTALL_BUNDLE}/\"\n\n# Removes the binary and header from the resources folder.\nrm -r \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources/Headers\"\nrm -r \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources/${FMK_NAME}\"\n\n# Uses the Lipo Tool to merge both binary files (i386 + armv6/armv7) into one Universal final product.\nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\nlipo -create \"${DEVICE_BUNDLE}/${FMK_NAME}\" \"${SIMULATOR_BUNDLE}/${FMK_NAME}\" -output \"${INSTALL_BUNDLE}/${FMK_NAME}\"\n\nrm -r \"${WRK_DIR}\"\n\nopen \"${OPEN_PATH}\"\n\n\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -4975,6 +5009,7 @@
 				429CA00E1B9EF8BF0013A44A /* CalendarDay.m in Sources */,
 				429CA0101B9EF8BF0013A44A /* CalendarFlowLayout.m in Sources */,
 				426979491BA695BA00C3E93C /* UIRefreshControl+AFNetworking.m in Sources */,
+				423D1DA51C3A11F0008E483A /* CCAlertView.m in Sources */,
 				429C9FBD1B9EF8BF0013A44A /* MBProgressHUD.m in Sources */,
 				42B30DE01BBD72AD0039BB94 /* SDWebImageDownloader.m in Sources */,
 				429CA0351B9EF8BF0013A44A /* CCPhotoLoadingView.m in Sources */,
@@ -5158,6 +5193,7 @@
 				429C9F571B9EF8BF0013A44A /* BaseTableViewController.m in Sources */,
 				4244928F1C0D90F500488AA2 /* amrFileCodec.m in Sources */,
 				42F411F51C2150E500814E7B /* UIImage+Utility.m in Sources */,
+				42F967891C3A5FBC0047FC15 /* CCBottomPopupView.m in Sources */,
 				429CA0691B9EF8BF0013A44A /* CCPickerGroup.m in Sources */,
 				429CA1251B9EF8BF0013A44A /* CCShareMenuView.m in Sources */,
 				429CA10E1B9EF8BF0013A44A /* CCEmotionManager.m in Sources */,
