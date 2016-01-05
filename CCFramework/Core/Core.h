@@ -33,5 +33,6 @@
 #import <CCFramework/CCTool.h>
 #import <CCFramework/CCXML.h>
 #import <CCFramework/CCProgressHUD.h>
+#import <CCFramework/CCAlertView.h>
 
 #endif /* Core_h */
