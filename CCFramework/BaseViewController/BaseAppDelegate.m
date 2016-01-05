@@ -124,11 +124,27 @@ static char OperationKey;
  *
  *  @brief  引导页
  */
-- (void)initguidePages:(NSArray *)imageStrAry
+- (void)initGuidePages:(NSArray *)imageStrAry
   EnterBackgroundImage:(NSString *)backgroundImage
              EnterSzie:(CGSize)size
 {
-    [self initguidePages:imageStrAry
+    [self initGuidePages:imageStrAry
+    EnterBackgroundImage:backgroundImage
+               EnterSzie:size
+              FirstStart:nil];
+}
+
+/**
+ *  @author CC, 16-1-4
+ *
+ *  @brief  引导页
+ */
+- (void)initGuidePages:(NSArray *)imageStrAry
+  EnterBackgroundImage:(NSString *)backgroundImage
+             EnterSzie:(CGSize)size 
+            FirstStart:(void (^)())firstStartBlock
+{
+    [self initGuidePages:imageStrAry
     EnterBackgroundImage:backgroundImage
                EnterSzie:size
               FirstStart:nil
@@ -146,7 +162,7 @@ static char OperationKey;
  *  @param firstStartBlock 第一次启动调用
  *  @param endBack         回调事件
  */
-- (void)initguidePages:(NSArray *)imageStrAry
+- (void)initGuidePages:(NSArray *)imageStrAry
   EnterBackgroundImage:(NSString *)backgroundImage
              EnterSzie:(CGSize)size
             FirstStart:(void (^)())firstStartBlock
@@ -200,7 +216,7 @@ static char OperationKey;
         [[UINavigationBar appearance] setTintColor:color];
     }
     
-    [[UINavigationBar appearance] setTranslucent:NO];
+    [[UINavigationBar appearance] setTranslucent:YES];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     
     [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:

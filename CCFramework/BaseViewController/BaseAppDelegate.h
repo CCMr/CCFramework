@@ -50,9 +50,19 @@
  *
  *  @brief  引导页
  */
-- (void)initguidePages:(NSArray *)imageStrAry
+- (void)initGuidePages:(NSArray *)imageStrAry
   EnterBackgroundImage:(NSString *)backgroundImage
              EnterSzie:(CGSize)size;
+
+/**
+ *  @author CC, 16-1-4
+ *
+ *  @brief  引导页
+ */
+- (void)initGuidePages:(NSArray *)imageStrAry
+  EnterBackgroundImage:(NSString *)backgroundImage
+             EnterSzie:(CGSize)size
+            FirstStart:(void (^)())firstStartBlock;
 
 /**
  *  @author CC, 2015-11-13
@@ -65,7 +75,7 @@
  *  @param firstStartBlock 第一次启动调用
  *  @param endBack         回调事件
  */
-- (void)initguidePages:(NSArray *)imageStrAry
+- (void)initGuidePages:(NSArray *)imageStrAry
   EnterBackgroundImage:(NSString *)backgroundImage
              EnterSzie:(CGSize)size
             FirstStart:(void (^)())firstStartBlock
