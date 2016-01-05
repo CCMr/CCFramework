@@ -27,40 +27,16 @@
 #import "BaseNavigationController.h"
 #import "Config.h"
 #import "CCNSLog.h"
-#import "UIButton+BUIButton.h"
-#import "UIView+BUIView.h"
+#import "UIBarButtonItem+Addition.h"
 
-@interface BaseViewController () {
-    BOOL touchYES, inside;
-    CGRect PopMenuFrame;
-}
-
-/**
- *  @author CC, 2015-07-23 10:07:50
- *
- *  @brief  底部视图
- *
- *  @since 1.0
- */
-@property(nonatomic, copy) UIView *BottomPopView;
-
-/**
- *  @author CC, 2015-07-23 10:07:03
- *
- *  @brief  时间选择器选中时间
- *
- *  @since 1.0
- */
-@property(nonatomic, assign) NSDate *SelectedDate;
-
-@property(nonatomic, assign) UIButton *leftBarButton;
-@property(nonatomic, assign) UIButton *rightBarButton;
+@interface BaseViewController ()
 
 @end
 
 @implementation BaseViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithNibName:(NSString *)nibNameOrNil 
+               bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -79,10 +55,6 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    if (_isNotKeyboard) {
-        cc_NoticeObserver(self, @selector(keyboardWillShow:), UIKeyboardWillShowNotification, nil);
-        cc_NoticeObserver(self, @selector(keyboardWillHide:), UIKeyboardWillHideNotification, nil);
-    }
     
     cc_NoticeObserver(self, @selector(receiveLanguageChangedNotification:), CCNotificationLanguageChanged, nil);
     cc_NoticeObserver(self, @selector(receiveLanguageChangedNotification:), CCThemeDidChangeNotification, nil);
@@ -90,54 +62,13 @@
     [self InitNavigation];
 }
 
-- (CustomIOSAlertView *)alertView
+- (void)setIsNotKeyboard:(BOOL)isNotKeyboard
 {
-    if (!_alertView) {
-        _alertView = [[CustomIOSAlertView alloc] init];
-        _alertView.containerView.backgroundColor = [UIColor whiteColor];
-        _alertView.parentView.backgroundColor = [UIColor whiteColor];
-        _alertView.dialogView.backgroundColor = [UIColor whiteColor];
-        [_alertView setButtonTitles:@[]];
-        [_alertView setUseMotionEffects:YES];
+    _isNotKeyboard = isNotKeyboard;
+    if (_isNotKeyboard) {
+        cc_NoticeObserver(self, @selector(keyboardWillShow:), UIKeyboardWillShowNotification, nil);
+        cc_NoticeObserver(self, @selector(keyboardWillHide:), UIKeyboardWillHideNotification, nil);
     }
-    return _alertView;
-}
-
-#pragma mark - 底部弹出视图
-- (void)bottomPopView:(UIView *)popView
-{
-    popView.tag = 9999999;
-    
-    _BottomPopView = [[UIView alloc] init];
-    _BottomPopView.backgroundColor = cc_ColorRGBA(0, 0, 0, .3);
-    [_BottomPopView addSubview:popView];
-    
-    
-    UIViewController *topViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    while (topViewController.presentedViewController != nil)
-        topViewController = topViewController.presentedViewController;
-    
-    if ([topViewController.view viewWithTag:9999999])
-        [[topViewController.view viewWithTag:9999999] removeFromSuperview];
-    
-    _BottomPopView.frame = topViewController.view.bounds;
-    [topViewController.view addSubview:_BottomPopView];
-    
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        popView.frame =  CGRectMake(0, _BottomPopView.frame.size.height - popView.frame.size.height, winsize.width, popView.frame.size.height);
-    }];
-}
-
-- (void)bottomPopViewHidden
-{
-    [UIView animateWithDuration:0.3 animations:^{
-        CGRect frame = [_BottomPopView viewWithTag:9999999].frame;
-        frame.origin.y = _BottomPopView.frame.size.height;
-        [_BottomPopView viewWithTag:9999999].frame = frame;
-    } completion:^(BOOL finished) {
-        [_BottomPopView removeFromSuperview];
-    }];
 }
 
 #pragma mark - 初始化导航栏
@@ -145,66 +76,40 @@
 {
 }
 
-- (UIButton *)leftBarButton
+/**
+ *  @author CC, 2016-01-04
+ *  
+ *  @brief  导航左按钮
+ *
+ *  @param title                 标题
+ *  @param imageName             背景图片
+ *  @param onButtonTouchUpInside 回调函数
+ */
+- (void)setLeftBarButtonWithTitle:(NSString *)title
+                        imageName:(NSString *)imageName
+         didOnButtonTouchUpInside:(void (^)(UIButton *sender))onButtonTouchUpInside
 {
-    if (!_leftBarButton) {
-        UIButton *leftButton = [UIButton buttonWith];
-        [leftButton setImage:[UIImage imageNamed:@"public_back_btu_normal"] forState:UIControlStateNormal];
-        [leftButton addTarget:self action:@selector(pressLeftBarButton:) forControlEvents:UIControlEventTouchUpInside];
-        [leftButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.navigationItem setLeftBarButtonItem:[[[UIBarButtonItem alloc] init] initWithCustomView:leftButton]];
-        leftButton.hidden = YES;
-        _leftBarButton = leftButton;
-    }
-    
-    return _leftBarButton;
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem buttonItemWithTitle:title
+                                                                 BackgroundImage:imageName
+                                                        didOnButtonTouchUpInside:onButtonTouchUpInside];
 }
 
-
-- (UIButton *)rightBarButton
+/**
+ *  @author CC, 2016-01-04
+ *  
+ *  @brief  导航右按钮
+ *
+ *  @param title                 标题
+ *  @param imageName             背景
+ *  @param onButtonTouchUpInside 回调函数
+ */
+- (void)setRightBarButtonWithTitle:(NSString *)title
+                         imageName:(NSString *)imageName
+          didOnButtonTouchUpInside:(void (^)(UIButton *sender))onButtonTouchUpInside
 {
-    if (!_rightBarButton) {
-        UIButton *rightButton = [UIButton buttonWith];
-        [rightButton addTarget:self action:@selector(pressRightBarButton:) forControlEvents:UIControlEventTouchUpInside];
-        [rightButton setImage:nil forState:UIControlStateNormal];
-        [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc] init] initWithCustomView:rightButton]];
-        rightButton.hidden = YES;
-        _rightBarButton = rightButton;
-    }
-    
-    return _rightBarButton;
-}
-
-- (void)pressLeftBarButton:(id)sender
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)pressRightBarButton:(id)sender
-{
-    //do nothing
-}
-
-- (void)setLeftBarButtonWithTitle:(NSString *)title imageName:(NSString *)imageName
-{
-    [self.leftBarButton setTitle:title forState:UIControlStateNormal];
-    [self.leftBarButton setImage:[UIImage imageNamed:cc_SafeString(imageName)] forState:UIControlStateNormal];
-    self.leftBarButton.hidden = NO;
-}
-
-- (void)setRightBarButtonWithTitle:(NSString *)title imageName:(NSString *)imageName
-{
-    [self.rightBarButton setTitle:title forState:UIControlStateNormal];
-    [self.rightBarButton setImage:[UIImage imageNamed:cc_SafeString(imageName)] forState:UIControlStateNormal];
-    self.rightBarButton.hidden = NO;
-}
-
-//default  left NO  , right YES
-- (void)setLeftBarButtonHidden:(BOOL)isLeftHidden rightBarButtonHidden:(BOOL)isRightHidden
-{
-    self.leftBarButton.hidden = isLeftHidden;
-    self.rightBarButton.hidden = isRightHidden;
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem buttonItemWithTitle:title
+                                                                  BackgroundImage:imageName
+                                                         didOnButtonTouchUpInside:onButtonTouchUpInside];
 }
 
 #pragma mark - 初始化页面控件
@@ -221,11 +126,9 @@
 /**
  *  @author CC, 2015-08-02
  *
- *  @brief  <#Description#>
+ *  @brief  切换语言
  *
- *  @param notification <#notification description#>
- *
- *  @since <#version number#>
+ *  @param notification 回调通知
  */
 - (void)receiveLanguageChangedNotification:(NSNotification *)notification
 {
@@ -248,11 +151,9 @@
 /**
  *  @author CC, 2015-08-02
  *
- *  @brief  <#Description#>
+ *  @brief  切换主体
  *
- *  @param notification <#notification description#>
- *
- *  @since <#version number#>
+ *  @param notification 回调通知
  */
 - (void)receiveThemeChangedNotification:(NSNotification *)notification
 {
@@ -298,7 +199,8 @@
  *  @param newViewController 目标新的控制器对象
  *  @param title             标题
  */
-- (void)pushNewViewControllerWithBackTitle:(UIViewController *)newViewController BackTitle:(NSString *)title
+- (void)pushNewViewControllerWithBackTitle:(UIViewController *)newViewController 
+                                 BackTitle:(NSString *)title
 {
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleBordered target:self action:nil];
     if (self.navigationController)
@@ -371,16 +273,15 @@
 }
 
 /**
- *  @author CC, 2015-07-23 10:07:27
+ *  @author CC, 2015-07-23
  *
  *  @brief  页面隐藏软盘
  *
  *  @param touches <#touches description#>
  *  @param event   <#event description#>
- *
- *  @since <#version number#>
  */
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)touchesBegan:(NSSet *)touches 
+           withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
     NSArray *array = self.view.subviews;
@@ -395,7 +296,7 @@
 }
 
 /**
- *  @author CC, 2015-07-23 10:07:07
+ *  @author CC, 2015-07-23
  *
  *  @brief  隐藏软盘
  *
@@ -527,7 +428,8 @@
     return UIInterfaceOrientationPortrait;
 }
 
-- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection 
+              withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
     [coordinator animateAlongsideTransition:^(id context) {
@@ -543,7 +445,6 @@
 
 - (void)dealloc
 {
-    self.alertView = nil;
     cc_NoticeremoveObserver(self, UIKeyboardWillShowNotification, nil);
     cc_NoticeremoveObserver(self, UIKeyboardWillHideNotification, nil);
     cc_NoticeremoveObserver(self, CCNotificationLanguageChanged, nil);

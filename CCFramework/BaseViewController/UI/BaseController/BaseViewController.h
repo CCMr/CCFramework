@@ -24,12 +24,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CustomIOSAlertView.h"
-
 #import "CCLanguage.h"
 #import "CCThemeManager.h"
 
-@interface BaseViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface BaseViewController : UIViewController <UINavigationControllerDelegate>
 
 /**
  *  @author CC, 2015-10-09
@@ -44,13 +42,6 @@
  *  @brief  扩展递归该对象
  */
 @property(nonatomic, strong) UITabBarController *extendTabBarController;
-
-/**
- *  @author C C, 15-08-18
- *
- *  @brief  弹出提示层
- */
-@property(nonatomic, strong) CustomIOSAlertView *alertView;
 
 /**
  *  @author C C, 2015-08-02
@@ -85,17 +76,12 @@
  */
 - (void)SwitchingTheme;
 
-- (void)bottomPopView:(UIView *)popView;
-- (void)bottomPopViewHidden;
-
 /**
  *  @author C C, 15-08-18
  *
  *  @brief  push新的控制器到导航控制器
  *
  *  @param newViewController 目标新的控制器对象
- *
- *  @since <#1.0#>
  */
 - (void)pushNewViewController:(UIViewController *)newViewController;
 
@@ -158,19 +144,31 @@
 - (void)BasekeyboardWillHide;
 
 #pragma mark - 导航栏按钮
-//返回键默认存在
-- (void)pressLeftBarButton:(id)sender;
-//右键 默认不存在
-- (void)pressRightBarButton:(id)sender;
-
+/**
+ *  @author CC, 2016-01-04
+ *  
+ *  @brief  导航左按钮
+ *
+ *  @param title                 标题
+ *  @param imageName             背景图片
+ *  @param onButtonTouchUpInside 回调函数
+ */
 - (void)setLeftBarButtonWithTitle:(NSString *)title
-                        imageName:(NSString *)imageName;
+                        imageName:(NSString *)imageName
+         didOnButtonTouchUpInside:(void (^)(UIButton *sender))onButtonTouchUpInside;
 
+/**
+ *  @author CC, 2016-01-04
+ *  
+ *  @brief  导航右按钮
+ *
+ *  @param title                 标题
+ *  @param imageName             背景
+ *  @param onButtonTouchUpInside 回调函数
+ */
 - (void)setRightBarButtonWithTitle:(NSString *)title
-                         imageName:(NSString *)imageName;
-//default  left NO  , right YES
-- (void)setLeftBarButtonHidden:(BOOL)isLeftHidden
-          rightBarButtonHidden:(BOOL)isRightHidden;
+                         imageName:(NSString *)imageName
+          didOnButtonTouchUpInside:(void (^)(UIButton *sender))onButtonTouchUpInside;
 
 #pragma mark - 隐藏显示TabBar
 /**
@@ -190,4 +188,5 @@
  *  @brief  隐藏导航栏底部线
  */
 - (void)hideNavigationControllerBottomLine;
+
 @end
