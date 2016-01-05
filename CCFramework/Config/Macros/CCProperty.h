@@ -175,12 +175,30 @@
 [view.layer setCornerRadius:(radius)]; \
 [view.layer setMasksToBounds:YES]
 
+/** view 单个圆角 
+ angle某个圆角
+ * UIRectCornerTopLeft
+ * UIRectCornerTopRight
+ * UIRectCornerBottomLeft
+ * UIRectCornerBottomRight
+ * UIRectCornerAllCorners
+ 
+ radius圆角度
+ */
+#define cc_View_SingleFillet(view,angle,radius)\
+UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds \
+                                               byRoundingCorners:angle \
+                                                     cornerRadii:CGSizeMake(radius, radius)]; \
+CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init]; \
+maskLayer.frame = view.bounds; \
+maskLayer.path = maskPath.CGPath; \
+view.layer.mask = maskLayer;
+
 /** view 圆角 边框 */
 #define cc_View_Border_Radius(view, radius, width, color) \
 cc_View_Radius(view, radius); \
 [view.layer setBorderWidth:(width)]; \
 [view.layer setBorderColor:[color CGColor]]
-
 
 
 #endif /* CCProperty_h */
