@@ -27,6 +27,28 @@
 
 @interface CCInfoBanner : UIView
 
+#pragma mark :. 设置属性
+/**
+ *  @author CC, 2016-01-05
+ *  
+ *  @brief  设置标题
+ *
+ *  @param title 标题
+ */
+- (void)setTitle:(NSString *)title;
+
+/**
+ *  @author CC, 2016-01-05
+ *  
+ *  @brief  设置图标与标题
+ *
+ *  @param icon  图标
+ *  @param title 标题
+ */
+- (void)setIconWithTile:(NSString *)icon
+                  Title:(NSString *)title;
+
+#pragma mark :. 静态调用
 /**
  *  @author CC, 2016-12-30
  *  
@@ -134,6 +156,12 @@
            whileExecutingBlock:(dispatch_block_t)executingBlock
           whileCompletionBlock:(dispatch_block_t)completionBlock;
 
+/**
+ *  @author CC, 2016-01-05
+ *  
+ *  @brief  创建指示器视图
+ */
++ (CCInfoBanner *)showWithIndicatorView;
 
 #pragma mark :. Show & hide
 - (void)show;

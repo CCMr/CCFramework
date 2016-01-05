@@ -32,6 +32,11 @@
 
 static const NSTimeInterval kAnimationDuration = 0.3;
 
+typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
+    CCInfoBannerShowTypeMessage,
+    CCInfoBannerShowTypeIndicatorView,
+};
+
 @interface CCInfoBanner ()
 
 /**
@@ -65,6 +70,8 @@ static const NSTimeInterval kAnimationDuration = 0.3;
 @property(nonatomic, strong) UIView *targetView;
 @property(nonatomic, strong) UIView *viewAboveBanner;
 @property(nonatomic) CGFloat additionalTopSpacing;
+
+@property(nonatomic, assign) CCInfoBannerShowType showType;
 
 @end
 
@@ -118,7 +125,7 @@ static const NSTimeInterval kAnimationDuration = 0.3;
         _detailsLabel.textColor = [UIColor whiteColor];
         [self addSubview:_detailsLabel];
     }
-    self.backgroundColor = cc_ColorRGBA(23, 23, 23, .6);
+    self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
 }
 
 /**
@@ -154,18 +161,18 @@ static const NSTimeInterval kAnimationDuration = 0.3;
         frame = self.iconImageView.frame;
         x = (self.bounds.size.width - (frame.size.width + w)) / 2;
         x = x < 0 ?: x;
-        frame.origin.x = x + 10;
+        frame.origin.x = x - 15;
         frame.origin.y = (self.bounds.size.height - frame.size.height) / 2;
         self.iconImageView.frame = frame;
         
-        x += frame.size.width + 10;
+        x += frame.size.width;
     } else if (self.indicatorView) {
         x = (self.bounds.size.width - (self.indicatorView.width + w)) / 2;
         x = x < 0 ?: x;
         CGFloat indicatorCenterY = self.frame.size.height * 0.5;
-        self.indicatorView.center = CGPointMake(x + 10, indicatorCenterY);
+        self.indicatorView.center = CGPointMake(x - 15, indicatorCenterY);
         
-        x += self.indicatorView.width + 10;
+        x += self.indicatorView.width;
     }
     
     frame = self.titleLabel.frame;
@@ -185,6 +192,8 @@ static const NSTimeInterval kAnimationDuration = 0.3;
         
         self.detailsLabel.frame = frame;
     }
+    
+    cc_View_SingleFillet(self, UIRectCornerBottomLeft | UIRectCornerBottomRight, 5);
 }
 
 #pragma mark :. 显示函数
@@ -196,6 +205,7 @@ static const NSTimeInterval kAnimationDuration = 0.3;
 + (instancetype)initializationShow
 {
     CCInfoBanner *banner = [[[self class] alloc] init];
+    banner.showType = CCInfoBannerShowTypeMessage;
     return banner;
 }
 
@@ -369,6 +379,55 @@ static const NSTimeInterval kAnimationDuration = 0.3;
          completionBlock:completionBlock];
 }
 
+/**
+ *  @author CC, 2016-01-05
+ *  
+ *  @brief  创建指示器视图
+ */
++ (CCInfoBanner *)showWithIndicatorView
+{
+    CCInfoBanner *banner = [self initializationShow];
+    [banner.indicatorView startAnimating];
+    banner.showType = CCInfoBannerShowTypeIndicatorView;
+    return banner;
+}
+
+#pragma mark :. 设置属性
+/**
+ *  @author CC, 2016-01-05
+ *  
+ *  @brief  设置标题
+ *
+ *  @param title 标题
+ */
+- (void)setTitle:(NSString *)title
+{
+    self.titleLabel.text = title;
+    if (self.showType == CCInfoBannerShowTypeIndicatorView) {
+        self.iconImageView.hidden = YES;
+        self.indicatorView.hidden = NO;
+    }
+}
+
+/**
+ *  @author CC, 2016-01-05
+ *  
+ *  @brief  设置图标与标题
+ *
+ *  @param icon  图标
+ *  @param title 标题
+ */
+- (void)setIconWithTile:(NSString *)icon
+                  Title:(NSString *)title
+{
+    self.iconImageView.image = [UIImage imageNamed:icon];
+    self.iconImageView.hidden = NO;
+    self.iconImageView.center = self.indicatorView.center;
+    
+    self.indicatorView.hidden = YES;
+    self.titleLabel.text = title;
+}
+
 #pragma mark :. Show & hide
 - (void)show
 {
@@ -388,7 +447,7 @@ static const NSTimeInterval kAnimationDuration = 0.3;
     
     [self setHidden:NO];
     
-    self.frame = CGRectMake(0, self.additionalTopSpacing, CGRectGetWidth(self.targetView.frame), 40);
+    self.frame = CGRectMake(10, self.additionalTopSpacing, CGRectGetWidth(self.targetView.frame) - 20, 44);
     [self layoutSubviews];
     if (animated) {
         [self.superview layoutIfNeeded];
