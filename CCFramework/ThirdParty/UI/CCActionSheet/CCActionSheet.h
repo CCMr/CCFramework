@@ -104,6 +104,22 @@ typedef void (^CCActionSheetHandler)(CCActionSheet *actionSheet);
 - (instancetype)initWithTitle:(NSString *)title;
 
 /**
+ *  @author CC, 2016-01-06
+ *  
+ *  @brief  黑色半透明
+ */
+- (instancetype)initWithAdvancedExample;
+
+/**
+ *  @author CC, 2016-01-06
+ *  
+ *  @brief  黑色半透明
+ *
+ *  @param title 标题
+ */
+- (instancetype)initWithAdvancedExample:(NSString *)title;
+
+/**
  *  Adds a button without an image. Has to be called before showing the action sheet.
  *
  *  @param handler A completion handler block to execute when a dismissal animation (after the user tapped on the button) has finished.

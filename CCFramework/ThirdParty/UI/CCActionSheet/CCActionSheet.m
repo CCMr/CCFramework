@@ -78,13 +78,13 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
     }
     
     CCActionSheet *appearance = [self appearance];
-    //    [appearance setBlurRadius:16.0f];
-    //    [appearance setBlurTintColor:[UIColor colorWithWhite:1.0f alpha:0.5f]];
-    [appearance setBlurRadius:.1f];
-    [appearance setBlurTintColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.7]];
+    appearance.cancelButtonTitle = @"取消";
+    
+    [appearance setBlurRadius:16.0f];
+    [appearance setBlurTintColor:[UIColor colorWithWhite:1.0f alpha:0.5f]];
     [appearance setBlurSaturationDeltaFactor:1.8f];
-    [appearance setButtonHeight:40.0f];
-    [appearance setCancelButtonHeight:44.0f];
+    [appearance setButtonHeight:50.0f];
+    [appearance setCancelButtonHeight:50.0f];
     [appearance setAutomaticallyTintButtonImages:@YES];
     [appearance setSelectedBackgroundColor:[UIColor colorWithWhite:0.1f alpha:0.2f]];
     [appearance setCancelButtonTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0f],
@@ -103,11 +103,8 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
 
 - (instancetype)initWithTitle:(NSString *)title
 {
-    self = [super init];
-    
-    if (self) {
+    if (self = [super init]) {
         _title = [title copy];
-        _cancelButtonTitle = @"取消";
     }
     
     return self;
@@ -116,6 +113,48 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
 - (instancetype)init
 {
     return [self initWithTitle:nil];
+}
+
+/**
+ *  @author CC, 2016-01-06
+ *  
+ *  @brief  黑色半透明
+ */
+- (instancetype)initWithAdvancedExample
+{
+    return [self initWithAdvancedExample:nil];
+}
+
+/**
+ *  @author CC, 2016-01-06
+ *  
+ *  @brief  黑色半透明
+ *
+ *  @param title 标题
+ */
+- (instancetype)initWithAdvancedExample:(NSString *)title
+{
+    CCActionSheet *appearance = [self initWithTitle:title];
+    appearance.blurTintColor = [UIColor colorWithWhite:0.0f alpha:0.55f];
+    appearance.blurRadius = 8.0f;
+    appearance.buttonHeight = 50.0f;
+    appearance.cancelButtonHeight = 50.0f;
+    appearance.animationDuration = 0.5f;
+    appearance.cancelButtonShadowColor = [UIColor colorWithWhite:0.0f alpha:0.1f];
+    appearance.separatorColor = [UIColor colorWithWhite:1.0f alpha:0.3f];
+    appearance.selectedBackgroundColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
+    UIFont *defaultFont = [UIFont fontWithName:@"Avenir" size:17.0f];
+    appearance.buttonTextAttributes = @{NSFontAttributeName : defaultFont,
+                                        NSForegroundColorAttributeName : [UIColor whiteColor]};
+    appearance.disabledButtonTextAttributes = @{NSFontAttributeName : defaultFont,
+                                                NSForegroundColorAttributeName : [UIColor grayColor]};
+    appearance.destructiveButtonTextAttributes = @{NSFontAttributeName : defaultFont,
+                                                   NSForegroundColorAttributeName : [UIColor redColor]};
+    appearance.cancelButtonTextAttributes = @{NSFontAttributeName : defaultFont,
+                                              NSForegroundColorAttributeName : [UIColor whiteColor]};
+    appearance.titleTextAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:14.0f],
+                                       NSForegroundColorAttributeName : [UIColor whiteColor]};
+    return appearance;
 }
 
 - (void)dealloc
@@ -173,7 +212,7 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
         cell.imageView.tintColor = attributes[NSForegroundColorAttributeName] ? attributes[NSForegroundColorAttributeName] : [UIColor blackColor];
     }
     
-    cell.backgroundColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor clearColor];
     
     if (self.selectedBackgroundColor && ![cell.selectedBackgroundView.backgroundColor isEqual:self.selectedBackgroundColor]) {
         cell.selectedBackgroundView = [[UIView alloc] init];
@@ -199,8 +238,8 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
     return self.buttonHeight;
 }
 
-- (void)tableView:(UITableView *)tableView 
-  willDisplayCell:(UITableViewCell *)cell 
+- (void)tableView:(UITableView *)tableView
+  willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
@@ -263,8 +302,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)cancelButtonTapped:(id)sender
 {
-    [self dismissAnimated:YES 
-                 duration:self.animationDuration 
+    [self dismissAnimated:YES
+                 duration:self.animationDuration
                completion:self.cancelHandler];
 }
 
@@ -282,10 +321,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
                       type:(CCActionSheetButtonType)type
                    handler:(CCActionSheetHandler)handler
 {
-    [self addButtonWithTitle:title 
-                  TitleColor:[UIColor blackColor] 
-                       image:image 
-                        type:type 
+    [self addButtonWithTitle:title
+                  TitleColor:[UIColor whiteColor]
+                       image:image
+                        type:type
                      handler:handler];
 }
 
@@ -389,7 +428,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     return !!self.window;
 }
 
-- (void)dismissAnimated:(BOOL)animated 
+- (void)dismissAnimated:(BOOL)animated
                duration:(NSTimeInterval)duration
              completion:(CCActionSheetHandler)completionHandler
 {
@@ -493,7 +532,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     [self addSubview:cancelButton];
     
     self.cancelButton = cancelButton;
-    self.cancelButton.backgroundColor = [UIColor whiteColor];
     
     // add a small shadow/glow above the button
     if (self.cancelButtonShadowColor) {
@@ -562,7 +600,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         // create and add a header consisting of the label
         UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), labelSize.height + 2 * topBottomPadding)];
         if (_title.length > 0)
-            headerView.backgroundColor = [UIColor whiteColor];
+            headerView.backgroundColor = [UIColor clearColor];
         [headerView addSubview:label];
         self.tableView.tableHeaderView = headerView;
         
@@ -594,7 +632,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     }
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
        shouldReceiveTouch:(UITouch *)touch
 {
     // If the view that is touched is not the view associated with this view's table view, but
