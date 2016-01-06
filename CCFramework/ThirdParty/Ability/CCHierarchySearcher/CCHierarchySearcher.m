@@ -25,7 +25,7 @@
 
 @import UIKit;
 #import "CCSideMenu.h"
-
+#import "CCDrawerController.h"
 #import "CCHierarchySearcher.h"
 
 @implementation CCHierarchySearcher
@@ -55,9 +55,15 @@
         return [vc navigationController];
     
     if ([vc isKindOfClass:[CCSideMenu class]]) {
-         UITabBarController *tabbar = (UITabBarController *)((CCSideMenu *)vc).contentViewController;
+        UITabBarController *tabbar = (UITabBarController *)((CCSideMenu *)vc).contentViewController;
         return [self topmostNavigationControllerFrom:tabbar.selectedViewController];
     }
+    
+    if ([vc isKindOfClass:[CCDrawerController class]]) {
+        UITabBarController *tabbar = (UITabBarController *)((CCDrawerController *)vc).centerViewController;
+        return [self topmostNavigationControllerFrom:tabbar.selectedViewController];
+    }
+    
     
     if (vc.presentingViewController)
         return [self topmostNavigationControllerFrom:vc.presentingViewController];
