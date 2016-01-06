@@ -223,7 +223,7 @@ static char OperationKey;
         [[UINavigationBar appearance] setTintColor:color];
     }
     
-    [[UINavigationBar appearance] setTranslucent:YES];
+    [[UINavigationBar appearance] setTranslucent:NO];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     
     [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
