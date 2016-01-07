@@ -34,5 +34,6 @@
 #import <CCFramework/CCXML.h>
 #import <CCFramework/CCProgressHUD.h>
 #import <CCFramework/CCAlertView.h>
+#import <CCFramework/CCSystemSound.h>
 
 #endif /* Core_h */
