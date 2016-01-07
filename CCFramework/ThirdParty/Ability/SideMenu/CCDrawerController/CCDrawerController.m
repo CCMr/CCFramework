@@ -1149,6 +1149,33 @@ static NSString *CCDrawerOpenSideKey = @"CCDrawerOpenSide";
     return YES;
 }
 
+#pragma mark - 转屏
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
+}
+
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection 
+              withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+    [coordinator animateAlongsideTransition:^(id context) {
+        if (newCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
+            
+        } else {
+            
+        }
+        self.view.frame = self.view.bounds;
+        [self.view setNeedsLayout];
+    } completion:nil];
+}
+
+
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
@@ -1933,4 +1960,6 @@ static inline CGFloat originXForDrawerOriginAndTargetOriginOffset(CGFloat origin
     return (CGRectContainsPoint(rightBezelRect, point) &&
             [self isPointContainedWithinCenterViewContentRect:point]);
 }
+
+
 @end
