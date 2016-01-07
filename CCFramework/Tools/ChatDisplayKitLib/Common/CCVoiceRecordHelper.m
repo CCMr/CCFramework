@@ -299,7 +299,7 @@
     if (error) {
         self.recordDuration = @"";
     } else {
-        self.recordDuration = [NSString stringWithFormat:@"%.1f", play.duration];
+        self.recordDuration = [NSString stringWithFormat:@"%.0f", play.duration];
     }
 }
 

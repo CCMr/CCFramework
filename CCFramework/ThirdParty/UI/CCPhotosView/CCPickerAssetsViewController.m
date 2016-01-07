@@ -97,7 +97,7 @@
 #pragma mark - 初始化页面控件
 - (void)InitControl
 {
-    _toolbarView = [[UIView alloc] initWithFrame:CGRectMake(0, winsize.height - 54, winsize.width, 50)];
+    _toolbarView = [[UIView alloc] initWithFrame:CGRectMake(0, winsize.height - 114, winsize.width, 50)];
     [self.view addSubview:_toolbarView];
     
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, winsize.width, .5)];

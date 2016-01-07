@@ -44,55 +44,39 @@
     CGFloat height = imageSize.height;
     CGFloat targetWidth = targetSize.width;
     CGFloat targetHeight = targetSize.height;
-    
-    if (width <= targetSize.width && height <= targetSize.height)
-        return self;
-    
-    //CGFloat yEdge = 0;//内存检测 暂时 删除 说不定以后可以用到
-    // CGFloat xEdge = 0;
-    if (width > height) {
-        //yEdge = (1 - height/width)* targetHeight;
-        targetHeight = height / width * targetHeight;
-    } else {
-        // xEdge = (1 - width/height ) * targetWidth;
-        targetWidth = width / height * targetWidth;
-    }
-    
     CGFloat scaleFactor = 0.0;
     CGFloat scaledWidth = targetWidth;
     CGFloat scaledHeight = targetHeight;
     CGPoint thumbnailPoint = CGPointMake(0.0, 0.0);
     
     if (CGSizeEqualToSize(imageSize, targetSize) == NO) {
+        
         CGFloat widthFactor = targetWidth / width;
         CGFloat heightFactor = targetHeight / height;
         if (widthFactor > heightFactor)
-            scaleFactor = widthFactor;
+            scaleFactor = widthFactor; // scale to fit height
         else
-            scaleFactor = heightFactor;
+            scaleFactor = heightFactor; // scale to fit width
+        
         scaledWidth = width * scaleFactor;
         scaledHeight = height * scaleFactor;
         // center the image
-        if (widthFactor > heightFactor) {
+        if (widthFactor > heightFactor)
             thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
-        } else if (widthFactor < heightFactor) {
+        else if (widthFactor < heightFactor)
             thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
-        }
     }
     
-    UIGraphicsBeginImageContext(CGSizeMake(targetWidth, targetHeight)); // this will crop
-    
+    UIGraphicsBeginImageContext(targetSize); // this will crop
     CGRect thumbnailRect = CGRectZero;
     thumbnailRect.origin = thumbnailPoint;
     thumbnailRect.size.width = scaledWidth;
     thumbnailRect.size.height = scaledHeight;
-    
     [sourceImage drawInRect:thumbnailRect];
     
     newImage = UIGraphicsGetImageFromCurrentImageContext();
     if (newImage == nil)
         NSLog(@"could not scale image");
-    
     //pop the context to get back to the default
     UIGraphicsEndImageContext();
     
@@ -160,15 +144,24 @@
  */
 - (NSData *)resetSizeOfImageDataWithMaxSize:(NSInteger)maxSize
 {
-    UIImage *newImage = [self resetSizeOfImage];
-    
     //调整大小
-    NSData *imageData = UIImageJPEGRepresentation(newImage, 1.0);
+    NSData *imageData = UIImageJPEGRepresentation(self, 1.0);
     NSUInteger sizeOrigin = [imageData length];
     NSUInteger sizeOriginKB = sizeOrigin / 1024;
     
-    if (sizeOriginKB > maxSize)
-        imageData = UIImageJPEGRepresentation(newImage,0.50);
+    if (sizeOriginKB > maxSize) {
+        float kMaxSize = maxSize;
+        float kSizeOriginKB = (float)sizeOriginKB;
+        float scale = sqrtf(kMaxSize / kSizeOriginKB);
+        
+        CGSize sizeImage = [self size];
+        CGFloat widthSmall = sizeImage.width * scale;
+        CGFloat heighSmall = sizeImage.height * scale;
+        CGSize sizeImageSmall = CGSizeMake(widthSmall, heighSmall);
+        
+        UIImage *compressionImage = [self compression:sizeImageSmall];
+        imageData = UIImageJPEGRepresentation(compressionImage, 1.0);
+    };
     
     return imageData;
 }
@@ -178,15 +171,11 @@
  *  @author CC, 2015-07-31
  *
  *  @brief  随着模糊
- *
- *  @return <#return value description#>
- *
- *  @since 1.0
  */
 - (UIImage *)imageWithBlur
 {
-    return [self imageWithLightAlpha:0.1 
-                              radius:15 
+    return [self imageWithLightAlpha:0.1
+                              radius:15
                colorSaturationFactor:1];
 }
 
@@ -199,10 +188,6 @@
  *  @param radius                默认30,推荐值 3   半径值越大越模糊 ,值越小越清楚
  *  @param colorSaturationFactor 色彩饱和度(浓度)因子:  0是黑白灰, 9是浓彩色, 1是原色  默认1.8
  *                               “彩度”，英文是称Saturation，即饱和度。将无彩色的黑白灰定为0，最鲜艳定为9s，这样大致分成十阶段，让数值和人的感官直觉一致。
- *
- *  @return <#return value description#>
- *
- *  @since 1.0
  */
 - (UIImage *)imageWithLightAlpha:(CGFloat)alpha
                           radius:(CGFloat)radius
@@ -210,9 +195,9 @@
 {
     UIColor *tintColor = [UIColor colorWithWhite:1.0 alpha:alpha];
     
-    return [self imageBluredWithRadius:radius 
-                             tintColor:tintColor 
-                 saturationDeltaFactor:colorSaturationFactor 
+    return [self imageBluredWithRadius:radius
+                             tintColor:tintColor
+                 saturationDeltaFactor:colorSaturationFactor
                              maskImage:nil];
 }
 
@@ -226,10 +211,7 @@
  *  @param saturationDeltaFactor 色彩饱和度(浓度)因子:  0是黑白灰, 9是浓彩色, 1是原色  默认1.8
  *                               “彩度”，英文是称Saturation，即饱和度。将无彩色的黑白灰定为0，最鲜艳定为9s，这样大致分成十阶段，让数值和人的感官直觉一致。
  *  @param maskImage             <#maskImage description#>
- *
- *  @return <#return value description#>
- *
- *  @since 1.0
+ 
  */
 - (UIImage *)imageBluredWithRadius:(CGFloat)blurRadius
                          tintColor:(UIColor *)tintColor
