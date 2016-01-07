@@ -1,6 +1,6 @@
 /*
  *  CCPhotoToolbar.m
- *  CCPhotoToolbar
+ *  CCFramework
  *
  * Copyright (c) 2015 CC (http://www.ccskill.com)
  *

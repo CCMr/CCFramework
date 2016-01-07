@@ -1,6 +1,6 @@
 //
 //  CCDropzoneViewController.m
-//  CC
+//  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
 //

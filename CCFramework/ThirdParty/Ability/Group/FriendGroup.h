@@ -1,6 +1,6 @@
 //
 //  FriendGroup.h
-//  CC
+//  CCFramework
 //
 //  Created by kairunyun on 15/3/6.
 //
