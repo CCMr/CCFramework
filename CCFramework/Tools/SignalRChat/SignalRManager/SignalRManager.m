@@ -280,6 +280,15 @@
 }
 
 /**
+ *  @author CC, 2016-01-07
+ *  
+ *  @brief  重新链接成功
+ */
+- (void)connectionWillReconnectSuccess
+{
+}
+
+/**
  *  @author CC, 15-09-18
  *
  *  @brief  重新链接服务
@@ -346,7 +355,7 @@
 /**
  *  @author CC, 15-09-18
  *
- *  @brief  是否重新链接
+ *  @brief  重新链接成功
  *
  *  @param connection 链接
  *
@@ -354,6 +363,8 @@
  */
 - (void)SRConnectionDidReconnect:(id<SRConnectionInterface>)connection
 {
+    if (connection.state == connected)
+        [self connectionWillReconnectSuccess];
 }
 
 /**

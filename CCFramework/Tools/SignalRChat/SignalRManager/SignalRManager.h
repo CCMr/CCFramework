@@ -138,6 +138,12 @@ typedef NS_ENUM(NSInteger, ConnectionStatus) {
 
 
 #pragma mark - 回调函数
+/**
+ *  @author CC, 2016-01-07
+ *  
+ *  @brief  重新链接成功
+ */
+- (void)connectionWillReconnectSuccess;
 
 /**
  *  @author CC, 15-09-18
