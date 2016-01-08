@@ -116,6 +116,8 @@ typedef void (^CCDrawerControllerDrawerVisualStateBlock)(CCDrawerController *dra
 
 @interface CCDrawerController : UIViewController
 
+@property (assign, readwrite, nonatomic) IBInspectable BOOL interactivePopGestureRecognizerEnabled;
+
 ///---------------------------------------
 /// @name Accessing Drawer Container View Controller Properties
 ///---------------------------------------

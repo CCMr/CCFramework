@@ -29,6 +29,16 @@
 #import "CCDrawerVisualState.h"
 #import <QuartzCore/QuartzCore.h>
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_6_1
+#define IF_IOS7_OR_GREATER(...) \
+if (kCFCoreFoundationVersionNumber > kCFCoreFoundationVersionNumber_iOS_6_1) \
+{ \
+__VA_ARGS__ \
+}
+#else
+#define IF_IOS7_OR_GREATER(...)
+#endif
+
 CGFloat const CCDrawerDefaultWidth = 320.0f;
 CGFloat const CCDrawerDefaultAnimationVelocity = 840.0f;
 
@@ -207,6 +217,7 @@ static NSString *CCDrawerOpenSideKey = @"CCDrawerOpenSide";
 
 - (void)commonSetup
 {
+    [self setInteractivePopGestureRecognizerEnabled:YES];
     [self setDrawerAnimationType:CCDrawerAnimationTypeParallax];
     [self setPanGestureEnabled:YES];
     [self setMaximumLeftDrawerWidth:CCDrawerDefaultWidth];
@@ -225,7 +236,7 @@ static NSString *CCDrawerOpenSideKey = @"CCDrawerOpenSide";
     [self setShadowOpacity:CCDrawerDefaultShadowOpacity];
     [self setShadowRadius:CCDrawerDefaultShadowRadius];
     [self setShadowOffset:CGSizeMake(0, -3)];
-    [self setShadowColor:[UIColor blackColor]];
+    [self setShadowColor:[UIColor clearColor]];
     
     // set default bezel range for panGestureReconizer
     [self setBezelPanningCenterViewRange:CCDrawerBezelRange];
@@ -1839,6 +1850,14 @@ static inline CGFloat originXForDrawerOriginAndTargetOriginOffset(CGFloat origin
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
      [self detectingIsSideslip];
+    
+    IF_IOS7_OR_GREATER(
+                       if (self.interactivePopGestureRecognizerEnabled && [self.centerViewController isKindOfClass:[UINavigationController class]]) {
+                           UINavigationController *navigationController = (UINavigationController *)self.centerViewController;
+                           if (navigationController.viewControllers.count > 1 && navigationController.interactivePopGestureRecognizer.enabled) {
+                               return NO;
+                           }
+                       });
     
     if (self.openSide == CCDrawerSideNone) {
         CCOpenDrawerGestureMode possibleOpenGestureModes = [self possibleOpenGestureModesForGestureRecognizer:gestureRecognizer
