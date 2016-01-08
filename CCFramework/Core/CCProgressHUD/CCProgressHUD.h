@@ -93,6 +93,16 @@ whileExecutingBlock:(dispatch_block_t)block
     completionBlock:(void (^)())completion;
 
 #pragma mark :. Show & hide
+
+/**
+ *  @author CC, 2016-01-08
+ *  
+ *  @brief  预留导航栏位置
+ *
+ *  @param animated 动画
+ */
++ (void)showWithCoveredNavigationBar:(BOOL)animated;
+
 /**
  *  @author CC, 2016-12-29
  *  

@@ -97,6 +97,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 @synthesize square;
 @synthesize margin;
 @synthesize dimBackground;
+@synthesize coveredNavigationBar;
 @synthesize graceTime;
 @synthesize minShowTime;
 @synthesize graceTimer;
@@ -198,6 +199,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
         self.graceTime = 0.0f;
         self.minShowTime = 0.0f;
         self.removeFromSuperViewOnHide = NO;
+        self.coveredNavigationBar = NO;
         self.minSize = CGSizeZero;
         self.square = NO;
         self.contentMode = UIViewContentModeCenter;
@@ -600,6 +602,16 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
         self.frame = parent.bounds;
     }
     CGRect bounds = self.bounds;
+    
+    if (self.coveredNavigationBar) {
+        CGRect frame = bounds;
+        frame.origin.y = 64;
+        frame.size.height -= 64;
+        self.frame = frame;
+        bounds = frame;
+        
+        yOffset = -32;
+    }
     
     // Determine the total width and height needed
     CGFloat maxWidth = bounds.size.width - 4 * margin;
