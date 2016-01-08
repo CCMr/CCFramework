@@ -1,7 +1,7 @@
 
 //
 //  BaseViewController.m
-//  BaseViewController
+//  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
 //
@@ -35,7 +35,7 @@
 
 @implementation BaseViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil 
+- (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -180,16 +180,58 @@
  *  @brief  push新的控制器到导航控制器
  *
  *  @param newViewController 目标新的控制器对象
- *
- *  @since <#1.0#>
  */
 - (void)pushNewViewController:(UIViewController *)newViewController
 {
-    if (self.navigationController)
-        [self.navigationController pushViewController:newViewController animated:YES];
-    else
-        [self.extendNavigationController pushViewController:newViewController animated:YES];
+    [self pushNewViewController:newViewController Animated:YES];
 }
+
+/**
+ *  @author CC, 2016-01-08
+ *  
+ *  @brief  push新的控制器到导航控制器
+ *
+ *  @param newViewController 目标新的控制器对象
+ *  @param animated          动画
+ */
+- (void)pushNewViewController:(UIViewController *)newViewController
+                     Animated:(BOOL)animated
+{
+    if (self.navigationController)
+        [self.navigationController pushViewController:newViewController animated:animated];
+    else
+        [self.extendNavigationController pushViewController:newViewController animated:animated];
+}
+
+/**
+ *  @author CC, 2016-01-08
+ *  
+ *  @brief  push新的控制器到导航控制器(返回按钮无文字)
+ *
+ *  @param newViewController 目标新的控制器对象
+ */
+- (void)pushNewViewControllerWithBack:(UIViewController *)newViewController
+{
+    [self pushNewViewControllerWithBackTitle:newViewController
+                                   BackTitle:@""];
+}
+
+/**
+ *  @author CC, 2016-01-08
+ *  
+ *  @brief  push新的控制器到导航控制器(返回按钮无文字)
+ *
+ *  @param newViewController 目标新的控制器对象
+ *  @param animated          动画
+ */
+- (void)pushNewViewControllerWithBack:(UIViewController *)newViewController
+                             Animated:(BOOL)animated
+{
+    [self pushNewViewControllerWithBackTitle:newViewController
+                                   BackTitle:@""
+                                    Animated:animated];
+}
+
 
 /**
  *  @author CC, 2015-11-06
@@ -199,14 +241,32 @@
  *  @param newViewController 目标新的控制器对象
  *  @param title             标题
  */
-- (void)pushNewViewControllerWithBackTitle:(UIViewController *)newViewController 
+- (void)pushNewViewControllerWithBackTitle:(UIViewController *)newViewController
                                  BackTitle:(NSString *)title
+{
+    [self pushNewViewControllerWithBackTitle:newViewController
+                                   BackTitle:title
+                                    Animated:YES];
+}
+
+/**
+ *  @author CC, 2016-01-08
+ *  
+ *  @brief  push新的控制器到导航控制器 并设置返回文字
+ *
+ *  @param newViewController 目标新的控制器对象
+ *  @param title             标题
+ *  @param animated          动画
+ */
+- (void)pushNewViewControllerWithBackTitle:(UIViewController *)newViewController
+                                 BackTitle:(NSString *)title
+                                  Animated:(BOOL)animated
 {
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleBordered target:self action:nil];
     if (self.navigationController)
-        [self.navigationController pushViewController:newViewController animated:YES];
+        [self.navigationController pushViewController:newViewController animated:animated];
     else
-        [self.extendNavigationController pushViewController:newViewController animated:YES];
+        [self.extendNavigationController pushViewController:newViewController animated:animated];
 }
 
 /**
@@ -280,7 +340,7 @@
  *  @param touches <#touches description#>
  *  @param event   <#event description#>
  */
-- (void)touchesBegan:(NSSet *)touches 
+- (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
@@ -428,7 +488,7 @@
     return UIInterfaceOrientationPortrait;
 }
 
-- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection 
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection
               withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];

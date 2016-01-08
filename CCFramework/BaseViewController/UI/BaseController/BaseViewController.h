@@ -76,6 +76,7 @@
  */
 - (void)SwitchingTheme;
 
+#pragma mark :. 跳转导航栏
 /**
  *  @author C C, 15-08-18
  *
@@ -84,6 +85,37 @@
  *  @param newViewController 目标新的控制器对象
  */
 - (void)pushNewViewController:(UIViewController *)newViewController;
+
+/**
+ *  @author CC, 2016-01-08
+ *  
+ *  @brief  push新的控制器到导航控制器
+ *
+ *  @param newViewController 目标新的控制器对象
+ *  @param animated          动画
+ */
+- (void)pushNewViewController:(UIViewController *)newViewController
+                     Animated:(BOOL)animated;
+
+/**
+ *  @author CC, 2016-01-08
+ *  
+ *  @brief  push新的控制器到导航控制器(返回按钮无文字)
+ *
+ *  @param newViewController 目标新的控制器对象
+ */
+- (void)pushNewViewControllerWithBack:(UIViewController *)newViewController;
+
+/**
+ *  @author CC, 2016-01-08
+ *  
+ *  @brief  push新的控制器到导航控制器(返回按钮无文字)
+ *
+ *  @param newViewController 目标新的控制器对象
+ *  @param animated          动画
+ */
+- (void)pushNewViewControllerWithBack:(UIViewController *)newViewController
+                             Animated:(BOOL)animated;
 
 /**
  *  @author CC, 2015-11-06
@@ -95,6 +127,19 @@
  */
 - (void)pushNewViewControllerWithBackTitle:(UIViewController *)newViewController
                                  BackTitle:(NSString *)title;
+
+/**
+ *  @author CC, 2016-01-08
+ *  
+ *  @brief  push新的控制器到导航控制器 并设置返回文字
+ *
+ *  @param newViewController 目标新的控制器对象
+ *  @param title             标题
+ *  @param animated          动画
+ */
+- (void)pushNewViewControllerWithBackTitle:(UIViewController *)newViewController
+                                 BackTitle:(NSString *)title
+                                  Animated:(BOOL)animated;
 
 /**
  *  @author CC, 2015-11-17
@@ -113,6 +158,7 @@
  */
 - (void)popToViewController:(Class)viewControllerClass;
 
+#pragma mark :.
 /**
  *  @author C C, 2015-08-02
  *
