@@ -169,6 +169,20 @@ whileExecutingBlock:(dispatch_block_t)block
 
 #pragma mark :. Show & hide
 /**
+ *  @author CC, 2016-01-08
+ *  
+ *  @brief  预留导航栏位置
+ *
+ *  @param animated 动画
+ */
++(void)showWithCoveredNavigationBar:(BOOL)animated
+{
+    MBProgressHUD *hud = [self initialization];
+    hud.coveredNavigationBar = YES;
+    [hud show:YES];
+}
+
+/**
  *  @author CC, 2016-12-29
  *  
  *  @brief  显弹窗

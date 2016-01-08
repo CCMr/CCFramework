@@ -361,6 +361,13 @@ typedef void (^MBProgressHUDCompletionBlock)();
  */
 @property(assign) BOOL dimBackground;
 
+/**
+ *  @author CC, 2016-01-08
+ *  
+ *  @brief  是否遮盖导航栏
+ */
+@property(assign) BOOL coveredNavigationBar;
+
 /*
  * Grace period is the time (in seconds) that the invoked method may be run without 
  * showing the HUD. If the task finishes before the grace time runs out, the HUD will
