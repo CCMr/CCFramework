@@ -28,8 +28,10 @@
 
 @interface CCPopMenuItemView : UITableViewCell
 
-@property (nonatomic, strong) CCPopMenuItem *popMenuItem;
+@property(nonatomic, strong) CCPopMenuItem *popMenuItem;
 
-- (void)setupPopMenuItem:(CCPopMenuItem *)popMenuItem atIndexPath:(NSIndexPath *)indexPath isBottom:(BOOL)isBottom;
+- (void)setupPopMenuItem:(CCPopMenuItem *)popMenuItem
+             atIndexPath:(NSIndexPath *)indexPath
+                isBottom:(BOOL)isBottom;
 
 @end

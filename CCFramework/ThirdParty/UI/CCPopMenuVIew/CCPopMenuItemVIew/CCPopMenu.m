@@ -247,7 +247,9 @@
     }
     
     if (indexPath.row < self.menus.count) {
-        [popMenuItemView setupPopMenuItem:self.menus[indexPath.row] atIndexPath:indexPath isBottom:(indexPath.row == self.menus.count - 1)];
+        [popMenuItemView setupPopMenuItem:self.menus[indexPath.row] 
+                              atIndexPath:indexPath 
+                                 isBottom:(indexPath.row == self.menus.count - 1)];
     }
     
     popMenuItemView.textLabel.textColor = self.menuItemTextColor;

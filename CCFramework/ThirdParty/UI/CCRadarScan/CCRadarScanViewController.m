@@ -28,13 +28,16 @@
 
 @interface CCRadarScanViewController ()
 
-@property (nonatomic, strong) CCRadarView *radarView;
+@property(nonatomic, strong) CCRadarView *radarView;
+
+@property(nonatomic, readonly) UIStatusBarStyle statusBarStyle;
 
 @end
 
 @implementation CCRadarScanViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self InitControl];
@@ -48,10 +51,12 @@
  *
  *  @param animated animated description
  */
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    _statusBarStyle = [UIApplication sharedApplication].statusBarStyle;
+    if ([UIApplication sharedApplication].statusBarStyle != UIStatusBarStyleLightContent)
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 }
 
 /**
@@ -61,7 +66,7 @@
  *
  *  @param animated animated description
  */
--(void)viewDidAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [_radarView startScanning];
@@ -74,10 +79,10 @@
  *
  *  @param animated animated description
  */
--(void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+    [[UIApplication sharedApplication] setStatusBarStyle:_statusBarStyle animated:YES];
 }
 
 - (void)InitControl
@@ -91,12 +96,12 @@
     [self.view addSubview:_radarView];
 }
 
--(void)setBackgroundImage:(NSString *)backgroundImage
+- (void)setBackgroundImage:(NSString *)backgroundImage
 {
     _radarView.backgroundImage = [UIImage imageNamed:backgroundImage];
 }
 
--(void)setPersonImage:(NSString *)personImage
+- (void)setPersonImage:(NSString *)personImage
 {
     _radarView.PersonImage = [UIImage imageNamed:personImage];
 }
@@ -108,7 +113,6 @@
  */
 - (void)InitLoadData
 {
-
 }
 
 /**
@@ -116,7 +120,7 @@
  *
  *  @brief  刷新数据
  */
--(void)reloadData
+- (void)reloadData
 {
     [_radarView reloadData];
 }
@@ -133,16 +137,16 @@
     return self.userDataArray.count;
 }
 
--(void)didDropOut
+- (void)didDropOut
 {
     self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
 #pragma mark - 转屏
--(UIInterfaceOrientationMask)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskPortrait;
 }
@@ -152,26 +156,27 @@
     return YES;
 }
 
--(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
     return UIInterfaceOrientationPortrait;
 }
 
--(void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
-    [coordinator animateAlongsideTransition:^(id  context) {
+    [coordinator animateAlongsideTransition:^(id context) {
         if (newCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
-
+            
         } else {
-
+            
         }
         _radarView.frame = self.view.bounds;
         [self.view setNeedsLayout];
     } completion:nil];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

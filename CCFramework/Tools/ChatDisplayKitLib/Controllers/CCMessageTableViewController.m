@@ -1143,6 +1143,8 @@ static CGPoint delayOffset = {0.0};
     emojiTextAttachment.emotionPath = emotionPath;
     emojiTextAttachment.emotionSize = CGSizeMake(24, 24);
     
+    UIFont *font = self.messageInputView.inputTextView.font;
+    
     //Insert emoji image
     [self.messageInputView.inputTextView.textStorage insertAttributedString:[NSAttributedString attributedStringWithAttachment:emojiTextAttachment]
                                                                     atIndex:self.messageInputView.inputTextView.selectedRange.location];
@@ -1154,7 +1156,7 @@ static CGPoint delayOffset = {0.0};
     
     [self.messageInputView.inputTextView.textStorage removeAttribute:NSFontAttributeName range:wholeRange];
     
-    [self.messageInputView.inputTextView.textStorage addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18.0f] range:wholeRange];
+    [self.messageInputView.inputTextView.textStorage addAttribute:NSFontAttributeName value:font range:wholeRange];
 }
 
 /**

@@ -57,6 +57,7 @@
                withIsExternal:(BOOL)isExternal
 {
     CustomIOSAlertView *alertView = [self alertView];
+    alertView.containerView = containerView;
     alertView.IsExternal = isExternal;
     [alertView show];
 }
