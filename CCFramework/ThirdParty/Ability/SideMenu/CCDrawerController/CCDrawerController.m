@@ -1157,19 +1157,19 @@ static NSString *CCDrawerOpenSideKey = @"CCDrawerOpenSide";
 
 - (BOOL)shouldAutorotate
 {
-    return YES;
+    return self.centerViewController.shouldAutorotate;
 }
 
-#pragma mark - 转屏
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationMaskPortrait;
+    return self.centerViewController.supportedInterfaceOrientations;
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
-    return UIInterfaceOrientationPortrait;
+    return self.centerViewController.preferredInterfaceOrientationForPresentation;
 }
+
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection 
               withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
