@@ -53,6 +53,8 @@ typedef NS_ENUM(NSInteger, CCPageContaiinerTopBarType) {
     CCPageContaiinerTopBarTypeText = 0,
     /** 上图下文本 **/
     CCPageContaiinerTopBarTypeUPMapNextText,
+    /** 左文右图 */
+    CCPageContaiinerTopBarTypeLeftTextRightMap,
     /** 左图右文本 **/
     CCPageContaiinerTopBarTypeLeftMapRightText,
 };

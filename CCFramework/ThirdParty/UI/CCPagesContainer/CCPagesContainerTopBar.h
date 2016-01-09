@@ -43,9 +43,17 @@
 @property (strong, nonatomic) UIFont *font;
 @property (assign, nonatomic) CGFloat topBarItemsOffset;
 @property (nonatomic, assign) BOOL IsCovered;
+
+/**
+ *  @author CC, 2016-01-09
+ *  
+ *  @brief 是否加分割线
+ */
+@property (nonatomic, assign) BOOL IsDividingLine;
+
 @property (nonatomic, assign) CCPageContaiinerTopBarType topBarType;
 @property (nonatomic, strong) NSArray *topBarImageAry;
-@property (readonly, strong, nonatomic) NSArray *itemViews;
+@property (readonly, strong, nonatomic) NSMutableArray *itemViews;
 @property (readonly, strong, nonatomic) UIScrollView *scrollView;
 @property (weak, nonatomic) id<CCPagesContainerTopBarDelegate> delegate;
 
