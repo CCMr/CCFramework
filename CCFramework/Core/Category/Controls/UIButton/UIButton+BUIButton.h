@@ -226,6 +226,19 @@
                      Frame:(CGRect)frame;
 
 /**
+ *  @author CC, 2016-01-09
+ *  
+ *  @brief 左文右图
+ *
+ *  @param rightImage 右图
+ *  @param title      标题
+ *  @param frame      位置
+ */
++ (id)buttonWithLeftTitleImage:(UIImage *)rightImage
+                         Title:(NSString *)title
+                         Frame:(CGRect)frame;
+
+/**
  *  @author CC, 2015-07-16
  *
  *  @brief  设置背景图片与位置

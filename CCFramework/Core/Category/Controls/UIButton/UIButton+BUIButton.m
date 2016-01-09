@@ -411,6 +411,25 @@ static char BUTTONCARRYOBJECTS;
                      Title:(NSString *)title
                      Frame:(CGRect)frame
 {
+    UIImage *LeftIcon = [UIImage imageNamed:rightImage];
+    return [self buttonWithLeftTitleImage:LeftIcon
+                                    Title:title
+                                    Frame:frame];
+}
+
+/**
+ *  @author CC, 2016-01-09
+ *  
+ *  @brief 左文右图
+ *
+ *  @param rightImage 右图
+ *  @param title      标题
+ *  @param frame      位置
+ */
++ (id)buttonWithLeftTitleImage:(UIImage *)rightImage
+                         Title:(NSString *)title
+                         Frame:(CGRect)frame
+{
     UIButton *button = [self buttonWith];
     
     button.frame = frame;
@@ -419,12 +438,11 @@ static char BUTTONCARRYOBJECTS;
     button.titleLabel.numberOfLines = 0;
     button.titleLabel.font = [UIFont systemFontOfSize:[UIFont systemFontSize] - 1];
     button.titleLabel.textAlignment = NSTextAlignmentCenter;
-    CGFloat w = -(frame.size.width - button.titleLabel.frame.size.width) / 2;
-    button.titleEdgeInsets = UIEdgeInsetsMake(0, w, 0, 0);
+    CGFloat w = -(frame.size.width - button.titleLabel.frame.size.width) / 3;
+//    button.titleEdgeInsets = UIEdgeInsetsMake(0, w / 6, 0, 0);
     
-    UIImage *LeftIcon = [UIImage imageNamed:rightImage];
-    [button setImage:LeftIcon forState:UIControlStateNormal];
-    [button setImage:LeftIcon forState:UIControlStateHighlighted];
+    [button setImage:rightImage forState:UIControlStateNormal];
+    [button setImage:rightImage forState:UIControlStateHighlighted];
     button.imageEdgeInsets = UIEdgeInsetsMake(0, frame.size.width - button.imageView.frame.size.width + w / 2.5, 0, 0);
     
     return button;
