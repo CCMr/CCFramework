@@ -71,7 +71,8 @@
 #import <CCFramework/CCWaterfallsFlow.h>
 #import <CCFramework/CCWebViewController.h>
 #import <CCFramework/CCWebView.h>
-#import <CCFramework/CCDropDown.h>
+#import <CCFramework/CCDropDownList.h>
+#import <CCFramework/CCDropDownMenu.h>
 #import <CCFramework/CCColorPickerController.h>
 
 #endif
