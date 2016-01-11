@@ -51,5 +51,6 @@
 #import <CCFramework/FriendGroup.h>
 #import <CCFramework/CCInfoBanner.h>
 #import <CCFramework/CCBottomPopupView.h>
+#import <CCFramework/CCExpandHeader.h>
 
 #endif
