@@ -243,6 +243,12 @@
 		4267DD1D1BDB5C5900B0C43F /* BaseManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4267DD191BDB5C5900B0C43F /* BaseManagedObject.m */; };
 		4267DD1E1BDB5C5900B0C43F /* CoreDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4267DD1A1BDB5C5900B0C43F /* CoreDataManager.h */; };
 		4267DD1F1BDB5C5900B0C43F /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4267DD1B1BDB5C5900B0C43F /* CoreDataManager.m */; };
+		4268CED51C43421E00434D65 /* CCStarRatingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4268CED31C43421E00434D65 /* CCStarRatingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4268CED61C43421E00434D65 /* CCStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4268CED41C43421E00434D65 /* CCStarRatingView.m */; };
+		4268CED91C4356CE00434D65 /* icon_star_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4268CED71C4356CE00434D65 /* icon_star_gray@2x.png */; };
+		4268CEDA1C4356CE00434D65 /* icon_star_yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4268CED81C4356CE00434D65 /* icon_star_yellow@2x.png */; };
+		4268CEDE1C4381A100434D65 /* CCExpandHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 4268CEDC1C4381A100434D65 /* CCExpandHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4268CEDF1C4381A100434D65 /* CCExpandHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4268CEDD1C4381A100434D65 /* CCExpandHeader.m */; };
 		426979281BA695BA00C3E93C /* AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 426978FE1BA695BA00C3E93C /* AFNetworking.h */; };
 		426979291BA695BA00C3E93C /* AFHTTPSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 426979001BA695BA00C3E93C /* AFHTTPSessionManager.h */; };
 		4269792A1BA695BA00C3E93C /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 426979011BA695BA00C3E93C /* AFHTTPSessionManager.m */; };
@@ -1154,6 +1160,12 @@
 		4267DD191BDB5C5900B0C43F /* BaseManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseManagedObject.m; path = Macros/BaseManagedObject.m; sourceTree = "<group>"; };
 		4267DD1A1BDB5C5900B0C43F /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataManager.h; path = Macros/CoreDataManager.h; sourceTree = "<group>"; };
 		4267DD1B1BDB5C5900B0C43F /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataManager.m; path = Macros/CoreDataManager.m; sourceTree = "<group>"; };
+		4268CED31C43421E00434D65 /* CCStarRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCStarRatingView.h; path = CCStarRatingView/CCStarRatingView.h; sourceTree = "<group>"; };
+		4268CED41C43421E00434D65 /* CCStarRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCStarRatingView.m; path = CCStarRatingView/CCStarRatingView.m; sourceTree = "<group>"; };
+		4268CED71C4356CE00434D65 /* icon_star_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_star_gray@2x.png"; sourceTree = "<group>"; };
+		4268CED81C4356CE00434D65 /* icon_star_yellow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_star_yellow@2x.png"; sourceTree = "<group>"; };
+		4268CEDC1C4381A100434D65 /* CCExpandHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCExpandHeader.h; path = CCExpandHeader/CCExpandHeader.h; sourceTree = "<group>"; };
+		4268CEDD1C4381A100434D65 /* CCExpandHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCExpandHeader.m; path = CCExpandHeader/CCExpandHeader.m; sourceTree = "<group>"; };
 		426978FE1BA695BA00C3E93C /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
 		426979001BA695BA00C3E93C /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
 		426979011BA695BA00C3E93C /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
@@ -2374,6 +2386,24 @@
 			name = Macros;
 			sourceTree = "<group>";
 		};
+		4268CED21C43420000434D65 /* CCStarRatingView */ = {
+			isa = PBXGroup;
+			children = (
+				4268CED31C43421E00434D65 /* CCStarRatingView.h */,
+				4268CED41C43421E00434D65 /* CCStarRatingView.m */,
+			);
+			name = CCStarRatingView;
+			sourceTree = "<group>";
+		};
+		4268CEDB1C43814200434D65 /* CCExpandHeader */ = {
+			isa = PBXGroup;
+			children = (
+				4268CEDC1C4381A100434D65 /* CCExpandHeader.h */,
+				4268CEDD1C4381A100434D65 /* CCExpandHeader.m */,
+			);
+			name = CCExpandHeader;
+			sourceTree = "<group>";
+		};
 		426978FF1BA695BA00C3E93C /* NSRULSession */ = {
 			isa = PBXGroup;
 			children = (
@@ -2781,6 +2811,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E31BDE021900C76004 /* Ability.h */,
+				4268CEDB1C43814200434D65 /* CCExpandHeader */,
 				42F967851C3A5FA20047FC15 /* CCBottomPopupView */,
 				4226FC431C3286BD003EAEFE /* CCHierarchySearcher */,
 				4226FC3E1C327B65003EAEFE /* CCInfoBanner */,
@@ -3094,6 +3125,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E51BDE025300C76004 /* UI.h */,
+				4268CED21C43420000434D65 /* CCStarRatingView */,
 				42DEB2B31C254A2100734E09 /* CCBarSlider */,
 				42F410E61C2147DC00814E7B /* CCGraffitiBoard */,
 				42F24C711BEA5236008CDEDC /* CCCountingLabel */,
@@ -3847,6 +3879,8 @@
 				422754611C29371F0099B653 /* MBProgressHUD */,
 				422754661C29371F0099B653 /* PhotosViewImage */,
 				422754511C2932640099B653 /* GraffitiBoard */,
+				4268CED71C4356CE00434D65 /* icon_star_gray@2x.png */,
+				4268CED81C4356CE00434D65 /* icon_star_yellow@2x.png */,
 				4227547A1C2938E30099B653 /* arrow@2x.png */,
 				424255161C31255E00D94E04 /* placeholderImage@2x.png */,
 				42F163FA1C294C9800F17928 /* Supporting Files */,
@@ -4783,6 +4817,7 @@
 				429CA10D1B9EF8BF0013A44A /* CCEmotionManager.h in Headers */,
 				426979411BA695BA00C3E93C /* UIButton+AFNetworking.h in Headers */,
 				429CA1161B9EF8BF0013A44A /* CCMessageBubbleView.h in Headers */,
+				4268CEDE1C4381A100434D65 /* CCExpandHeader.h in Headers */,
 				42B30DD71BBD72AD0039BB94 /* UIImage+WebP.h in Headers */,
 				42F412151C215BC400814E7B /* CCGraffitiBoardView.h in Headers */,
 				429CA0321B9EF8BF0013A44A /* CCPhotoBrowser.h in Headers */,
@@ -4865,6 +4900,7 @@
 				4265289A1BECA1AB0096C0EF /* CCLoadingView.h in Headers */,
 				429CA0991B9EF8BF0013A44A /* SEConstants.h in Headers */,
 				4226FC491C3286F2003EAEFE /* CCViewControllerHierarchy.h in Headers */,
+				4268CED51C43421E00434D65 /* CCStarRatingView.h in Headers */,
 				429CA0A91B9EF8BF0013A44A /* SETextLayout.h in Headers */,
 				42F411D81C2150E500814E7B /* UIActionSheet+BUIActionSheet.h in Headers */,
 				429CA0AB1B9EF8BF0013A44A /* SETextMagnifierCaret.h in Headers */,
@@ -4999,6 +5035,7 @@
 				422754791C29371F0099B653 /* returns@2x.png in Resources */,
 				422754551C29329C0099B653 /* slider_border@2x.png in Resources */,
 				42F164061C2A38BD00F17928 /* undo@2x.png in Resources */,
+				4268CED91C4356CE00434D65 /* icon_star_gray@2x.png in Resources */,
 				4227547B1C2938E30099B653 /* arrow@2x.png in Resources */,
 				422754771C29371F0099B653 /* AssetsNO@2x.png in Resources */,
 				42300C6D1C2A466800D03641 /* eraser@2x.png in Resources */,
@@ -5009,6 +5046,7 @@
 				42F164021C2A38BD00F17928 /* bar_plus@2x.png in Resources */,
 				422754741C29371F0099B653 /* error@2x.png in Resources */,
 				42F164031C2A38BD00F17928 /* dismiss@2x.png in Resources */,
+				4268CEDA1C4356CE00434D65 /* icon_star_yellow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5280,6 +5318,7 @@
 				4244928F1C0D90F500488AA2 /* amrFileCodec.m in Sources */,
 				42F411F51C2150E500814E7B /* UIImage+Utility.m in Sources */,
 				42F967891C3A5FBC0047FC15 /* CCBottomPopupView.m in Sources */,
+				4268CED61C43421E00434D65 /* CCStarRatingView.m in Sources */,
 				429CA0691B9EF8BF0013A44A /* CCPickerGroup.m in Sources */,
 				429CA1251B9EF8BF0013A44A /* CCShareMenuView.m in Sources */,
 				429CA10E1B9EF8BF0013A44A /* CCEmotionManager.m in Sources */,
@@ -5289,6 +5328,7 @@
 				429CA0331B9EF8BF0013A44A /* CCPhotoBrowser.m in Sources */,
 				42F411401C214C5400814E7B /* CCLineBrush.m in Sources */,
 				429CA0651B9EF8BF0013A44A /* CCPickerViewController.m in Sources */,
+				4268CEDF1C4381A100434D65 /* CCExpandHeader.m in Sources */,
 				4298C7871BDCB33D00A3581D /* CoreDataMasterSlave+Convenience.m in Sources */,
 				42F412161C215BC400814E7B /* CCGraffitiBoardView.m in Sources */,
 				4298C78D1BDCBB0300A3581D /* CoreDataMasterSlave+Removed.m in Sources */,

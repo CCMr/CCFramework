@@ -74,5 +74,6 @@
 #import <CCFramework/CCDropDownList.h>
 #import <CCFramework/CCDropDownMenu.h>
 #import <CCFramework/CCColorPickerController.h>
+#import <CCFramework/CCStarRatingView.h>
 
 #endif
