@@ -25,7 +25,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^didSelectedHeaderFooterView)(NSObject *requestData,BOOL IsError);
+typedef void (^didSelectedHeaderFooterView)(NSObject *requestData, BOOL IsError);
 
 @protocol BaseTableViewHeaderFooterViewDelegate <NSObject>
 
@@ -40,8 +40,8 @@ typedef void (^didSelectedHeaderFooterView)(NSObject *requestData,BOOL IsError);
  *
  *  @since 1.0
  */
--(void)didClickHeadView: (UIView *)views
-                  Index: (int)index;
+- (void)didClickHeadView:(UIView *)views
+                   Index:(int)index;
 
 /**
  *  @author CC, 15-09-17
@@ -53,8 +53,8 @@ typedef void (^didSelectedHeaderFooterView)(NSObject *requestData,BOOL IsError);
  *
  *  @since 1.0
  */
-- (void)didClickDoubleClick: (UIView *)views
-                      Index: (int)index;
+- (void)didClickDoubleClick:(UIView *)views
+                      Index:(int)index;
 
 /**
  *  @author CC, 15-09-17
@@ -66,8 +66,8 @@ typedef void (^didSelectedHeaderFooterView)(NSObject *requestData,BOOL IsError);
  *
  *  @since 1.0
  */
-- (void)didLongPress: (UIView *)view
-               Index: (int)index;
+- (void)didLongPress:(UIView *)view
+               Index:(int)index;
 
 /**
  *  @author CC, 15-09-16
@@ -79,12 +79,12 @@ typedef void (^didSelectedHeaderFooterView)(NSObject *requestData,BOOL IsError);
  *
  *  @since 1.0
  */
--(void)didEditingChanged: (NSString *)text
-                   Index: (int)index;
+- (void)didEditingChanged:(NSString *)text
+                    Index:(int)index;
 
 @end
 
-@interface BaseTableViewHeaderFooterView : UITableViewHeaderFooterView<UIGestureRecognizerDelegate>
+@interface BaseTableViewHeaderFooterView : UITableViewHeaderFooterView <UIGestureRecognizerDelegate>
 
 + (id)initViewWithNibName:(NSString *)nibName;
 
@@ -92,10 +92,6 @@ typedef void (^didSelectedHeaderFooterView)(NSObject *requestData,BOOL IsError);
  *  @author CC, 2015-07-29
  *
  *  @brief  初始化子视图  子类必须重载
- *
- *  @return <#return value description#>
- *
- *  @since 1.0
  */
 + (id)initHeaderFooterView;
 
@@ -106,7 +102,7 @@ typedef void (^didSelectedHeaderFooterView)(NSObject *requestData,BOOL IsError);
  *
  *  @since 1.0
  */
-@property (nonatomic, weak) id<BaseTableViewHeaderFooterViewDelegate> delegate;
+@property(nonatomic, weak) id<BaseTableViewHeaderFooterViewDelegate> delegate;
 
 /**
  *  @author CC, 15-09-16
@@ -115,7 +111,7 @@ typedef void (^didSelectedHeaderFooterView)(NSObject *requestData,BOOL IsError);
  *
  *  @since 1.0
  */
-@property (nonatomic, copy) didSelectedHeaderFooterView didSelected;
+@property(nonatomic, copy) didSelectedHeaderFooterView didSelected;
 
 /**
  *  @author CC, 15-09-16
@@ -124,7 +120,14 @@ typedef void (^didSelectedHeaderFooterView)(NSObject *requestData,BOOL IsError);
  *
  *  @since 1.0
  */
-@property (nonatomic, strong) UIImage *backgroundImage;
+@property(nonatomic, strong) UIImage *backgroundImage;
+
+/**
+ *  @author CC, 2016-01-13
+ *  
+ *  @brief 设置背景颜色
+ */
+@property(nonatomic, strong) UIColor *backgroundViewColor;
 
 /**
  *  @author CC, 15-09-16
@@ -135,7 +138,7 @@ typedef void (^didSelectedHeaderFooterView)(NSObject *requestData,BOOL IsError);
  *
  *  @since 1.0
  */
--(void)setDatas:(NSObject *)obj;
+- (void)setDatas:(NSObject *)obj;
 
 /**
  *  @author CC, 15-09-16
@@ -147,7 +150,6 @@ typedef void (^didSelectedHeaderFooterView)(NSObject *requestData,BOOL IsError);
  *
  *  @since 1.0
  */
--(void)setDatas: (NSObject *) objDatas
-didSelectedBlock: (didSelectedHeaderFooterView)seletedBlock;
+-(void)setDatas:(NSObject *)objDatas didSelectedBlock:(didSelectedHeaderFooterView)seletedBlock;
 
 @end

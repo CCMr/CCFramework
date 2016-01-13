@@ -27,13 +27,11 @@
 #import "FriendGroup.h"
 #include "Config.h"
 
-@interface BaseTableViewHeaderFooterView()
+@interface BaseTableViewHeaderFooterView ()
 
-@property (nonatomic, weak) FriendGroup *friendGroup;
+@property(nonatomic, weak) FriendGroup *friendGroup;
 
-@property (nonatomic, strong) UIButton *clickBtn;
-
-@property (nonatomic, strong) UIImageView *backgroundImageView;
+@property(nonatomic, strong) UIImageView *backgroundImageView;
 
 @end
 
@@ -60,7 +58,7 @@
     id view = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil].lastObject;
     if (view)
         [view Initialization];
-
+    
     return view;
 }
 
@@ -86,21 +84,13 @@
  *  @since 1.0
  */
 - (void)Initialization
-{
-    if (!_clickBtn) {
-        _clickBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_clickBtn addTarget:self action:@selector(didSelectedClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_clickBtn];
-
-        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongPressClick:)];
-        longPress.minimumPressDuration = 0.8; //定义按的时间
-        [_clickBtn addGestureRecognizer:longPress];
-
-        _backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        _backgroundImageView.backgroundColor = [UIColor whiteColor];
-        [self addSubview:_backgroundImageView];
-        [self sendSubviewToBack:_backgroundImageView];
-    }
+{    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSelectedClick:)];
+    [self addGestureRecognizer:tapGesture];
+    
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongPressClick:)];
+    longPress.minimumPressDuration = 0.8; //定义按的时间
+    [self addGestureRecognizer:longPress];
 }
 
 /**
@@ -112,9 +102,9 @@
  *
  *  @since 1.0
  */
-- (void)didSelectedClick: (UIButton *)sender
+- (void)didSelectedClick:(UILongPressGestureRecognizer *)gestureRecognizer
 {
-    if ([self.delegate respondsToSelector:@selector(didClickHeadView:Index:)]){
+    if ([self.delegate respondsToSelector:@selector(didClickHeadView:Index:)]) {
         _friendGroup.opened = !_friendGroup.opened;
         [self.delegate didClickHeadView:self Index:(int)self.tag];
     }
@@ -129,7 +119,7 @@
  *
  *  @since 1.0
  */
-- (void)didSelectedDoubleClick: (UITapGestureRecognizer *)recognizer
+- (void)didSelectedDoubleClick:(UITapGestureRecognizer *)recognizer
 {
     if ([self.delegate respondsToSelector:@selector(didClickDoubleClick:Index:)]) {
         [self.delegate didClickDoubleClick:self Index:(int)self.tag];
@@ -145,26 +135,12 @@
  *
  *  @since 1.0
  */
--(void)didLongPressClick: (UILongPressGestureRecognizer *)gestureRecognizer
+- (void)didLongPressClick:(UILongPressGestureRecognizer *)gestureRecognizer
 {
     if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
         if ([self.delegate respondsToSelector:@selector(didLongPress:Index:)])
             [self.delegate didLongPress:self Index:(int)self.tag];
     }
-}
-
-/**
- *  @author CC, 15-09-16
- *
- *  @brief  设置背景图片
- *
- *  @param lineBgImageView 图片
- *
- *  @since 1.0
- */
-- (void)setBackgroundImage:(UIImage *)backgroundImage
-{
-    _backgroundImageView.image = backgroundImage;
 }
 
 /**
@@ -176,7 +152,8 @@
  *
  *  @since 1.0
  */
--(void)setDatas:(NSObject *)obj{
+- (void)setDatas:(NSObject *)obj
+{
     _friendGroup = (FriendGroup *)obj;
 }
 
@@ -190,16 +167,32 @@
  *
  *  @since 1.0
  */
--(void)setDatas: (NSObject *)objDatas
-didSelectedBlock: (didSelectedHeaderFooterView)seletedBlock{
+- (void)setDatas:(NSObject *)objDatas
+didSelectedBlock:(didSelectedHeaderFooterView)seletedBlock
+{
     self.didSelected = seletedBlock;
     _friendGroup = (FriendGroup *)objDatas;
 }
 
--(void)layoutSubviews
+- (void)layoutSubviews
 {
-    _clickBtn.frame = self.bounds;
     _backgroundImageView.frame = self.bounds;
+    
+    [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        if ([NSStringFromClass([obj class]) isEqualToString:@"_UITableViewHeaderFooterViewBackground"]){
+            if (self.backgroundViewColor || self.backgroundImage) {
+                UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:obj.bounds];
+                backgroundImageView.backgroundColor = [UIColor clearColor];
+                if (self.backgroundImage)
+                    backgroundImageView.image = self.backgroundImage;
+                
+                if (self.backgroundViewColor)
+                    backgroundImageView.backgroundColor = self.backgroundViewColor;
+                
+                [obj addSubview:backgroundImageView];
+            }
+        }
+    }];
 }
 
 @end
