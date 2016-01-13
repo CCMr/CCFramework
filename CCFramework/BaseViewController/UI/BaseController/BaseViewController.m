@@ -262,11 +262,13 @@
                                  BackTitle:(NSString *)title
                                   Animated:(BOOL)animated
 {
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleBordered target:self action:nil];
-    if (self.navigationController)
+    if (self.navigationController){
+         self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleBordered target:self action:nil];
         [self.navigationController pushViewController:newViewController animated:animated];
-    else
+    }else{
+        self.extendNavigationController.topViewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleBordered target:self action:nil];
         [self.extendNavigationController pushViewController:newViewController animated:animated];
+    }
 }
 
 /**
