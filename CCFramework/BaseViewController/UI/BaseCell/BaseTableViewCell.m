@@ -53,7 +53,7 @@
 - (id)init
 {
     self = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self.class) owner:self options:nil].lastObject;
-    
+
     if (!self) {
         self = [self initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellIdentifier"];
 

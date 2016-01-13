@@ -181,7 +181,7 @@ CG_INLINE CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13,
         overlay.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
         // Take screenshot and scale
-        UIImageView *ss = [self cc_addOrUpdateParentScreenshotInView:overlay];
+        UIImageView *overlayImageView = [self cc_addOrUpdateParentScreenshotInView:overlay];
         [target addSubview:overlay];
         
         // Dismiss button
@@ -194,19 +194,19 @@ CG_INLINE CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13,
         
         // Begin overlay animation
         [UIView animateWithDuration:kCCDuration animations:^{
-            ss.layer.transform = CATransform3DMakePerspective(0, -0.0007);
+            overlayImageView.layer.transform = CATransform3DMakePerspective(0, -0.0007);
         } completion:^(BOOL finished) {
             [UIView animateWithDuration:0.2 animations:^{
                 
-                float newWidht = ss.frame.size.width * 0.7;
-                float newHeight = ss.frame.size.height * 0.7;
-                ss.frame = CGRectMake(([[UIScreen mainScreen]bounds].size.width - newWidht) / 2, 22, newWidht, newHeight);
-                ss.layer.transform = CATransform3DMakePerspective(0, 0);
+                float newWidht = overlayImageView.frame.size.width * 0.7;
+                float newHeight = overlayImageView.frame.size.height * 0.9;
+                overlayImageView.frame = CGRectMake(([[UIScreen mainScreen]bounds].size.width - newWidht) / 2, 22, newWidht, newHeight);
+                overlayImageView.layer.transform = CATransform3DMakePerspective(0, 0);
             } completion:nil];
         }];
         
         [UIView animateWithDuration:0.5 animations:^{
-            ss.alpha = 0.5;
+            overlayImageView.alpha = 0.8;
         }];
         
         // Present view animated
@@ -256,18 +256,19 @@ CG_INLINE CATransform3D CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13,
     UIView *overlay = [target.subviews objectAtIndex:target.subviews.count - 2];
     
     // Begin overlay animation
-    UIImageView *ss = (UIImageView *)[overlay.subviews objectAtIndex:0];
+    UIImageView *overlayImageView = (UIImageView *)[overlay.subviews objectAtIndex:0];
     
     [UIView animateWithDuration:kCCDuration animations:^{
         
-        ss.alpha = 1;
-        ss.layer.transform = CATransform3DMakePerspective(0, -0.0007);
+        overlayImageView.alpha = 1;
+        overlayImageView.layer.transform = CATransform3DMakePerspective(0, -0.0007);
     } completion:^(BOOL finished) {
         
         [UIView animateWithDuration:0.2 animations:^{
             
-            ss.frame = [[UIScreen mainScreen]bounds];
-            ss.layer.transform = CATransform3DMakePerspective(0, 0);
+            overlayImageView.frame = [[UIScreen mainScreen]bounds];
+            overlayImageView
+            .layer.transform = CATransform3DMakePerspective(0, 0);
             modal.frame = CGRectMake(0, target.frame.size.height, modal.frame.size.width, modal.frame.size.height);
         } completion:^(BOOL finished) {
             

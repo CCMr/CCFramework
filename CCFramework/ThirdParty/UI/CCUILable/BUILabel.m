@@ -25,15 +25,41 @@
 
 #import "BUILabel.h"
 
-@interface BUILabel()
+@interface BUILabel ()
 
-@property (nonatomic, strong)  NSMutableAttributedString *attString;
+@property(nonatomic, strong) NSMutableAttributedString *attString;
 
 @end
 
 @implementation BUILabel
 
-- (void)setText:(NSString *)text{
+- (instancetype)init
+{
+    if (self = [super init]) {
+        [self initialization];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame]) {
+        [self initialization];
+    }
+    return self;
+}
+
+- (void)initialization
+{
+    self.clipsToBounds = NO;
+    self.textColor = [UIColor blackColor];
+    self.backgroundColor = [UIColor clearColor];
+    self.lineBreakMode = NSLineBreakByWordWrapping;
+    self.numberOfLines = 0;
+}
+
+- (void)setText:(NSString *)text
+{
     [super setText:text];
     _attString = nil;
     if (text)
@@ -47,7 +73,7 @@
  *
  *  @param Alignment 位置
  */
-- (void)setAlignmentCenter: (NSTextAlignment)Alignment
+- (void)setAlignmentCenter:(NSTextAlignment)Alignment
 {
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setAlignment:Alignment];
@@ -63,11 +89,11 @@
  *  @param location 开始位置
  *  @param length   结束位置
  */
-- (void)setColor: (UIColor *)color
-       fromIndex: (NSInteger)location
-          length: (NSInteger)length
+- (void)setColor:(UIColor *)color
+       fromIndex:(NSInteger)location
+          length:(NSInteger)length
 {
-    if (location < 0||location>self.text.length-1||length+location>self.text.length)
+    if (location < 0 || location > self.text.length - 1 || length + location > self.text.length)
         return;
     [_attString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)color.CGColor range:NSMakeRange(location, length)];
 }
@@ -81,13 +107,13 @@
  *  @param location 开始位置
  *  @param length   结束位置
  */
-- (void)setFont: (UIFont *)font
-      fromIndex: (NSInteger)location
-         length: (NSInteger)length
+- (void)setFont:(UIFont *)font
+      fromIndex:(NSInteger)location
+         length:(NSInteger)length
 {
-    if (location < 0||location>self.text.length-1||length+location>self.text.length)
+    if (location < 0 || location > self.text.length - 1 || length + location > self.text.length)
         return;
-    [_attString addAttribute:(NSString *)kCTFontAttributeName value:(id)CFBridgingRelease(CTFontCreateWithName((CFStringRef)font.fontName,font.pointSize,NULL)) range:NSMakeRange(location, length)];
+    [_attString addAttribute:(NSString *)kCTFontAttributeName value:(id)CFBridgingRelease(CTFontCreateWithName((CFStringRef)font.fontName, font.pointSize, NULL)) range:NSMakeRange(location, length)];
 }
 
 /**
@@ -99,11 +125,11 @@
  *  @param location 开始位置
  *  @param length   结束位置
  */
-- (void)setStyle: (CTUnderlineStyle)style
-       fromIndex: (NSInteger)location
-          length: (NSInteger)length
+- (void)setStyle:(CTUnderlineStyle)style
+       fromIndex:(NSInteger)location
+          length:(NSInteger)length
 {
-    if (location < 0||location>self.text.length-1||length+location>self.text.length)
+    if (location < 0 || location > self.text.length - 1 || length + location > self.text.length)
         return;
     [_attString addAttribute:(NSString *)kCTUnderlineStyleAttributeName value:(id)[NSNumber numberWithInt:style] range:NSMakeRange(location, length)];
 }
@@ -118,14 +144,15 @@
  *
  *  @since 1.0
  */
-- (void)setUnderline: (NSInteger)location
-              length: (NSInteger)length
+- (void)setUnderline:(NSInteger)location
+              length:(NSInteger)length
 {
     [_attString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(location, length)];
 }
 
-#pragma  mark - 横线
--(void)drawTextInRect:(CGRect)rect{
+#pragma mark - 横线
+- (void)drawTextInRect:(CGRect)rect
+{
     if (_strikeThroughEnabled) {
         [super drawTextInRect:rect];
         
@@ -134,11 +161,11 @@
         CGRect lineRect;
         
         if ([self textAlignment] == NSTextAlignmentRight)
-            lineRect = CGRectMake(rect.size.width - strikeWidth, rect.size.height/2, strikeWidth, 1);
+            lineRect = CGRectMake(rect.size.width - strikeWidth, rect.size.height / 2, strikeWidth, 1);
         else if ([self textAlignment] == NSTextAlignmentCenter)
-            lineRect = CGRectMake(rect.size.width/2 - strikeWidth/2, rect.size.height/2, strikeWidth, 1);
+            lineRect = CGRectMake(rect.size.width / 2 - strikeWidth / 2, rect.size.height / 2, strikeWidth, 1);
         else
-            lineRect = CGRectMake(0, rect.size.height/2, strikeWidth, 1);
+            lineRect = CGRectMake(0, rect.size.height / 2, strikeWidth, 1);
         
         CGContextRef context = UIGraphicsGetCurrentContext();
         CGContextFillRect(context, lineRect);
@@ -154,7 +181,8 @@
  *
  *  @since 1.0
  */
-- (void)setStrikeThroughEnabled:(BOOL)strikeThroughEnabled {
+- (void)setStrikeThroughEnabled:(BOOL)strikeThroughEnabled
+{
     
     _strikeThroughEnabled = strikeThroughEnabled;
     
@@ -164,21 +192,22 @@
 }
 
 #pragma mark - 文字颜色与大小
-- (void)drawRect:(CGRect)rect{
+- (void)drawRect:(CGRect)rect
+{
     [super drawRect:rect];
     
     if (!_strikeThroughEnabled) {
         if (_attString) {
-            CGContextRef context = UIGraphicsGetCurrentContext();//注，像许多低级别的API，核心文本使用的Y翻转坐标系 更杯具的是，内容是也渲染的翻转向下！
+            CGContextRef context = UIGraphicsGetCurrentContext(); //注，像许多低级别的API，核心文本使用的Y翻转坐标系 更杯具的是，内容是也渲染的翻转向下！
             //手动翻转,注，每次使用可将下面三句话复制粘贴过去。必用
             CGContextSetTextMatrix(context, CGAffineTransformIdentity);
             CGContextTranslateCTM(context, 0, self.bounds.size.height);
             CGContextScaleCTM(context, 1.0, -1.0);
             
-            CGMutablePathRef path = CGPathCreateMutable();//1,外边框。mac支持矩形和圆，ios仅支持矩形。本例中使用self.bounds作为path的reference
+            CGMutablePathRef path = CGPathCreateMutable(); //1,外边框。mac支持矩形和圆，ios仅支持矩形。本例中使用self.bounds作为path的reference
             CGPathAddRect(path, NULL, self.bounds);
             
-            CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)_attString);//3CTFramesetter是最重要的类时使用的绘图核心文本。管理您的字体引用和绘制文本框。就目前而言，你需要知道什么是CTFramesetterCreateWithAttributedString为您将创建一个CTFramesetter的，保留它，并使用附带的属性字符串初始化。在本节中，你有framesetter后你创建一个框架，你给CTFramesetterCreateFrame，呈现了一系列的字符串（我们选择这里的整个字符串）和矩形绘制文本时会出现。
+            CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)_attString); //3CTFramesetter是最重要的类时使用的绘图核心文本。管理您的字体引用和绘制文本框。就目前而言，你需要知道什么是CTFramesetterCreateWithAttributedString为您将创建一个CTFramesetter的，保留它，并使用附带的属性字符串初始化。在本节中，你有framesetter后你创建一个框架，你给CTFramesetterCreateFrame，呈现了一系列的字符串（我们选择这里的整个字符串）和矩形绘制文本时会出现。
             CTFrameRef frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, [_attString length]), path, NULL);
             CTFrameDraw(frame, context);//4绘制
             
