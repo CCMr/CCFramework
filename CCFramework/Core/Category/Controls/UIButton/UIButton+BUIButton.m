@@ -400,16 +400,16 @@ static char BUTTONCARRYOBJECTS;
 /**
  *  @author C C, 2015-12-01
  *
- *  @brief  右图左文
+ *  @brief  左文右图
  *
  *  @param rightImage 右图
  *  @param title      标题
  *  @param frame      尺寸
  *
  */
-+ (id)buttonWithTitleImage:(NSString *)rightImage
-                     Title:(NSString *)title
-                     Frame:(CGRect)frame
++ (id)buttonLeftTitleWithImage:(NSString *)rightImage
+                         Title:(NSString *)title
+                         Frame:(CGRect)frame
 {
     UIImage *LeftIcon = [UIImage imageNamed:rightImage];
     return [self buttonWithLeftTitleImage:LeftIcon
@@ -439,7 +439,7 @@ static char BUTTONCARRYOBJECTS;
     button.titleLabel.font = [UIFont systemFontOfSize:[UIFont systemFontSize] - 1];
     button.titleLabel.textAlignment = NSTextAlignmentCenter;
     CGFloat w = -(frame.size.width - button.titleLabel.frame.size.width) / 3;
-//    button.titleEdgeInsets = UIEdgeInsetsMake(0, w / 6, 0, 0);
+    //    button.titleEdgeInsets = UIEdgeInsetsMake(0, w / 6, 0, 0);
     
     [button setImage:rightImage forState:UIControlStateNormal];
     [button setImage:rightImage forState:UIControlStateHighlighted];

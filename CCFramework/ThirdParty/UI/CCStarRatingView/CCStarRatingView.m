@@ -208,6 +208,7 @@ typedef void (^didStarRatingView)(CCStarRatingView *starRationView, float scroe)
 {
     if (!self.StarRatingNumber)
         self.StarRatingNumber = kCCDefaultStarRatingNumber;
+    self.maxNumber = 5;
     
     self.opaque = NO;
     self.backgroundColor = [UIColor clearColor];

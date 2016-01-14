@@ -190,7 +190,7 @@
                                                 Frame:frame];
             break;
         case CCPageContaiinerTopBarTypeLeftTextRightMap:
-            itemView = [UIButton buttonWithTitleImage:[_topBarImageAry objectAtIndex:index]
+            itemView = [UIButton buttonLeftTitleWithImage:[_topBarImageAry objectAtIndex:index]
                                                 Title:title
                                                 Frame:frame];
             break;

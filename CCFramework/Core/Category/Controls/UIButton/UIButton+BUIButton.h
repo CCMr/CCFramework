@@ -221,9 +221,9 @@
  *  @param title      标题
  *  @param frame      尺寸
  */
-+ (id)buttonWithTitleImage:(NSString *)rightImage
-                     Title:(NSString *)title
-                     Frame:(CGRect)frame;
++ (id)buttonLeftTitleWithImage:(NSString *)rightImage
+                         Title:(NSString *)title
+                         Frame:(CGRect)frame;
 
 /**
  *  @author CC, 2016-01-09

@@ -284,6 +284,8 @@
                   complete:(void (^)())complete
 {
     CGRect frame = self.galleryView.frame;
+    self.galleryView.clipsToBounds = YES;
+    self.galleryView.layer.masksToBounds = YES;
     if (show) {
         self.galleryView.frame = CGRectMake(0, self.y + self.height, winsize.width, 0);
         [self.superview addSubview:self.galleryView];
