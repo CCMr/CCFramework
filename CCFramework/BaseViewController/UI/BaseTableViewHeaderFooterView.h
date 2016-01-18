@@ -138,7 +138,7 @@ typedef void (^didSelectedHeaderFooterView)(NSObject *requestData, BOOL IsError)
  *
  *  @since 1.0
  */
-- (void)setDatas:(NSObject *)obj;
+- (void)setDatas:(id)obj;
 
 /**
  *  @author CC, 15-09-16

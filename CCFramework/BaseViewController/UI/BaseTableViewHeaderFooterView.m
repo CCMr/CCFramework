@@ -152,7 +152,7 @@
  *
  *  @since 1.0
  */
-- (void)setDatas:(NSObject *)obj
+- (void)setDatas:(id)obj
 {
     _friendGroup = (FriendGroup *)obj;
 }
