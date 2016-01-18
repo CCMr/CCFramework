@@ -150,10 +150,7 @@
 
 - (void)backgroundTapped:(UITapGestureRecognizer *)paramSender
 {
-    [self animateIdicator:NO complecte:^{
-        _show = NO;
-        [self scrollEnabled];
-    }];
+    [self animateIdicator:NO];
 }
 
 - (void)layoutSubviews
@@ -173,18 +170,13 @@
 - (void)itemAtIndex:(NSUInteger)index didSelectInPagesContainerTopBar:(CCPagesContainerTopBar *)bar
 {
     if (index == _currentSelectedMenudIndex && _show) {
-        [self animateIdicator:NO complecte:^{
-            _show = NO;
-            [self scrollEnabled];
-        }];
+        [self animateIdicator:NO];
     } else {
         if (self.galleryView)
             [self.galleryView removeFromSuperview];
         
         self.galleryView = [self.viewAry objectAtIndex:index];
         [self animateIdicator:YES complecte:^{
-            _show = YES;
-            [self scrollEnabled];
             self.currentSelectedMenudIndex = index;
         }];
     }
@@ -204,8 +196,10 @@
     
     if (!_show) {
         UIButton *previosSelectdItem = self.topMenuScrollView.itemViews[self.currentSelectedMenudIndex];
-        [previosSelectdItem setTitleColor:self.pageItemsTitleColor forState:UIControlStateNormal];
-        previosSelectdItem.imageView.transform = CGAffineTransformMakeRotation(0);
+        [UIView animateWithDuration:0.3 delay:0. options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            [previosSelectdItem setTitleColor:self.pageItemsTitleColor forState:UIControlStateNormal];
+            previosSelectdItem.imageView.transform = CGAffineTransformMakeRotation(0);
+        } completion:nil];
     }
 }
 
@@ -231,13 +225,32 @@
     _currentSelectedMenudIndex = selectedIndex;
 }
 
-
 #pragma mark :. Animation
+- (void)hide
+{
+    [self hide:nil];
+}
+
+- (void)hide:(void (^)())complete
+{
+    [self animateIdicator:NO
+                complecte:complete];
+}
+
+- (void)animateIdicator:(BOOL)forward
+{
+    [self animateIdicator:forward
+                complecte:nil];
+}
+
 - (void)animateIdicator:(BOOL)forward
               complecte:(void (^)())complete
 {
     [self animateBackGroundView:forward complete:^{
         [self animateGalleryView:forward complete:^{
+            _show = !_show;
+            [self scrollEnabled];
+            
             if (complete)
                 complete();
         }];
@@ -269,7 +282,9 @@
             [self.backGroundView removeFromSuperview];
         }];
     }
-    complete();
+    
+    if (complete)
+        complete();
 }
 
 /**
@@ -301,7 +316,9 @@
             self.galleryView.frame = frame;
         }];
     }
-    complete();
+    
+    if (complete)
+        complete();
 }
 
 

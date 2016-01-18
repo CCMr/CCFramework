@@ -60,4 +60,8 @@
                    ItemsTitle:(NSArray *)itemsTitle
                     ItemsView:(NSArray *)itemsView;
 
+-(void)hide;
+
+-(void)hide:(void (^)())complete;
+
 @end

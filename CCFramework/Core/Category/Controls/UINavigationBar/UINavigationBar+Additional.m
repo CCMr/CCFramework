@@ -56,6 +56,16 @@ static char overlayKey;
         [self insertSubview:self.overlay atIndex:0];
     }
     self.overlay.backgroundColor = backgroundColor;
+    const CGFloat *components = CGColorGetComponents(backgroundColor.CGColor);
+    [self navigationItemView:components[3]];
+}
+
+- (void)navigationItemView:(CGFloat)alpha
+{
+    [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        if ([NSStringFromClass([obj class]) isEqualToString:@"UINavigationItemView"])
+            obj.alpha = alpha;
+    }];
 }
 
 - (void)setTranslationY:(CGFloat)translationY
