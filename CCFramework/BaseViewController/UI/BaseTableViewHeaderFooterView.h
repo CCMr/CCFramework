@@ -150,6 +150,6 @@ typedef void (^didSelectedHeaderFooterView)(NSObject *requestData, BOOL IsError)
  *
  *  @since 1.0
  */
--(void)setDatas:(NSObject *)objDatas didSelectedBlock:(didSelectedHeaderFooterView)seletedBlock;
+-(void)setDatas:(id)objDatas didSelectedBlock:(didSelectedHeaderFooterView)seletedBlock;
 
 @end

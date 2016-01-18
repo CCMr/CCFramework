@@ -167,7 +167,7 @@
  *
  *  @since 1.0
  */
-- (void)setDatas:(NSObject *)objDatas
+- (void)setDatas:(id)objDatas
 didSelectedBlock:(didSelectedHeaderFooterView)seletedBlock
 {
     self.didSelected = seletedBlock;
