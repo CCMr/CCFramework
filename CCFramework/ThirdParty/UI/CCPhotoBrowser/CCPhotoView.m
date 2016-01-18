@@ -72,6 +72,10 @@
         UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
         doubleTap.numberOfTapsRequired = 2;
         [self addGestureRecognizer:doubleTap];
+        
+        // 旋转手势
+        UIRotationGestureRecognizer *rotationGestureRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotateView:)];
+        [self addGestureRecognizer:rotationGestureRecognizer];
     }
     return self;
 }
@@ -122,6 +126,7 @@
         [self photoStartLoad];
     }
     
+    _imageView.transform = CGAffineTransformMakeRotation(0);
     // 调整frame参数
     [self adjustFrame];
 }
@@ -287,6 +292,15 @@
 {
     _imageView.image = _photo.capture;
     _imageView.contentMode = UIViewContentModeScaleToFill;
+}
+
+// 处理旋转手势
+- (void)rotateView:(UIRotationGestureRecognizer *)rotationGestureRecognizer
+{
+    if (rotationGestureRecognizer.state == UIGestureRecognizerStateBegan || rotationGestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        _imageView.transform = CGAffineTransformRotate(_imageView.transform, rotationGestureRecognizer.rotation);
+        [rotationGestureRecognizer setRotation:0];
+    }
 }
 
 - (void)handleDoubleTap:(UITapGestureRecognizer *)tap
