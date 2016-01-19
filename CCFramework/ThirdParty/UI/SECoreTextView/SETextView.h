@@ -10,11 +10,11 @@
 #import <CoreText/CoreText.h>
 #import "SECompatibility.h"
 
-typedef void(^SETextAttachmentDrawingBlock)(CGRect rect, CGContextRef context);
+typedef void (^SETextAttachmentDrawingBlock)(CGRect rect, CGContextRef context);
 
 typedef NS_ENUM(NSUInteger, SETextAttachmentDrawingOptions) {
     SETextAttachmentDrawingOptionNone = 0,
-    SETextAttachmentDrawingOptionNewLine  = 1 << 0
+    SETextAttachmentDrawingOptionNewLine = 1 << 0
 };
 
 @protocol SETextViewDelegate;
@@ -27,62 +27,62 @@ typedef NS_ENUM(NSUInteger, SETextAttachmentDrawingOptions) {
 @interface SETextView : NSView
 #endif
 
-@property (nonatomic, weak) IBOutlet id<SETextViewDelegate> delegate;
+@property(nonatomic, weak) IBOutlet id<SETextViewDelegate> delegate;
 
-@property (nonatomic, copy) NSString *text;
-@property (nonatomic, copy) NSAttributedString *attributedText;
+@property(nonatomic, copy) NSString *text;
+@property(nonatomic, copy) NSAttributedString *attributedText;
 
 #if TARGET_OS_IPHONE
-@property (nonatomic) UIFont *font;
+@property(nonatomic) UIFont *font;
 #else
-@property (nonatomic) NSFont *font;
+@property(nonatomic) NSFont *font;
 #endif
-@property (nonatomic) NSColor *textColor;
-@property (nonatomic) NSColor *highlightedTextColor;
-@property (nonatomic) NSTextAlignment textAlignment;
-@property (nonatomic) NSLineBreakMode lineBreakMode;
-@property (nonatomic) CGFloat lineSpacing;
-@property (nonatomic) CGFloat lineHeight;
-@property (nonatomic) CGFloat paragraphSpacing;
+@property(nonatomic) NSColor *textColor;
+@property(nonatomic) NSColor *highlightedTextColor;
+@property(nonatomic) NSTextAlignment textAlignment;
+@property(nonatomic) NSLineBreakMode lineBreakMode;
+@property(nonatomic) CGFloat lineSpacing;
+@property(nonatomic) CGFloat lineHeight;
+@property(nonatomic) CGFloat paragraphSpacing;
 
-@property (nonatomic) NSColor *selectedTextBackgroundColor;
-@property (nonatomic) NSColor *linkHighlightColor;
-@property (nonatomic) NSColor *linkRolloverEffectColor;
+@property(nonatomic) NSColor *selectedTextBackgroundColor;
+@property(nonatomic) NSColor *linkHighlightColor;
+@property(nonatomic) NSColor *linkRolloverEffectColor;
 
-@property (nonatomic, readonly) CGRect layoutFrame;
+@property(nonatomic, readonly) CGRect layoutFrame;
 
-@property (nonatomic, getter = isHighlighted) BOOL highlighted;
-@property (nonatomic, getter = isSelectable) BOOL selectable;
+@property(nonatomic, getter=isHighlighted) BOOL highlighted;
+@property(nonatomic, getter=isSelectable) BOOL selectable;
 #if TARGET_OS_IPHONE
-@property (nonatomic) BOOL showsEditingMenuAutomatically;
+@property(nonatomic) BOOL showsEditingMenuAutomatically;
 #endif
 
 #if TARGET_OS_IPHONE
-@property (nonatomic) NSRange selectedRange;
+@property(nonatomic) NSRange selectedRange;
 #else
-@property (nonatomic, readonly) NSRange selectedRange;
+@property(nonatomic, readonly) NSRange selectedRange;
 #endif
-@property (nonatomic, readonly) NSString *selectedText;
-@property (nonatomic, readonly) NSAttributedString *selectedAttributedText;
+@property(nonatomic, readonly) NSString *selectedText;
+@property(nonatomic, readonly) NSAttributedString *selectedAttributedText;
 
-@property (nonatomic) NSTimeInterval minimumLongPressDuration;
+@property(nonatomic) NSTimeInterval minimumLongPressDuration;
 
-@property (nonatomic, getter = isEditable) BOOL editable;
-@property (nonatomic, readonly, getter = isEditing) BOOL editing;
-@property (nonatomic, readonly) CGRect caretRect;
+@property(nonatomic, getter=isEditable) BOOL editable;
+@property(nonatomic, readonly, getter=isEditing) BOOL editing;
+@property(nonatomic, readonly) CGRect caretRect;
 
-@property (readwrite) UIView *inputView;
-@property (readwrite) UIView *inputAccessoryView;
+@property(readwrite) UIView *inputView;
+@property(readwrite) UIView *inputAccessoryView;
 
 #if TARGET_OS_IPHONE
-@property (nonatomic) UITextAutocapitalizationType autocapitalizationType;
-@property (nonatomic) UITextAutocorrectionType autocorrectionType;
-@property (nonatomic) UITextSpellCheckingType spellCheckingType;
-@property (nonatomic) UIKeyboardType keyboardType;
-@property (nonatomic) UIKeyboardAppearance keyboardAppearance;
-@property (nonatomic) UIReturnKeyType returnKeyType;
-@property (nonatomic) BOOL enablesReturnKeyAutomatically;
-@property (nonatomic, getter = isSecureTextEntry) BOOL secureTextEntry;
+@property(nonatomic) UITextAutocapitalizationType autocapitalizationType;
+@property(nonatomic) UITextAutocorrectionType autocorrectionType;
+@property(nonatomic) UITextSpellCheckingType spellCheckingType;
+@property(nonatomic) UIKeyboardType keyboardType;
+@property(nonatomic) UIKeyboardAppearance keyboardAppearance;
+@property(nonatomic) UIReturnKeyType returnKeyType;
+@property(nonatomic) BOOL enablesReturnKeyAutomatically;
+@property(nonatomic, getter=isSecureTextEntry) BOOL secureTextEntry;
 #endif
 
 - (id)initWithFrame:(CGRect)frame;
@@ -122,6 +122,7 @@ typedef NS_ENUM(NSUInteger, SETextAttachmentDrawingOptions) {
 #endif
 
 - (void)clearSelection;
+- (void)clearAttachments;
 
 @end
 

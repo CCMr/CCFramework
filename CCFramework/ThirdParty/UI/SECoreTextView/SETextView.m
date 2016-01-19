@@ -542,6 +542,11 @@ static NSString * const PARAGRAPH_SEPARATOR = @"\u2029";
     self.textLayout.textSelection = nil;
 }
 
+-(void)clearAttachments
+{
+    [self.attachments removeAllObjects];
+}
+
 - (void)finishSelecting
 {
 #if TARGET_OS_IPHONE
