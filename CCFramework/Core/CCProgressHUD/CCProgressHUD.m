@@ -42,6 +42,7 @@
         hud = [MBProgressHUD showHUDAddedTo:windowView animated:YES];
         hud.removeFromSuperViewOnHide = YES;
         hud.dimBackground = NO;
+//        hud.IndeterminateLogo = @"";
         hud.tag = 999999;
     }
     

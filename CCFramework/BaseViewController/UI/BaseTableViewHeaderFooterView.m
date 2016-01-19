@@ -84,7 +84,7 @@
  *  @since 1.0
  */
 - (void)Initialization
-{    
+{
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSelectedClick:)];
     [self addGestureRecognizer:tapGesture];
     

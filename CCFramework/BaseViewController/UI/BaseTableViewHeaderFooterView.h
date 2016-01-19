@@ -25,7 +25,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^didSelectedHeaderFooterView)(NSObject *requestData, BOOL IsError);
+typedef void (^didSelectedHeaderFooterView)(id requestData, BOOL IsError);
 
 @protocol BaseTableViewHeaderFooterViewDelegate <NSObject>
 
