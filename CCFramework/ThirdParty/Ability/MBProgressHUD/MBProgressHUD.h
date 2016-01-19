@@ -282,6 +282,10 @@ typedef void (^MBProgressHUDCompletionBlock)();
 
 #endif
 
+@property(copy) NSString *IndeterminateLogo;
+
+@property(copy) NSString *IndeterminateGIF;
+
 /** 
  * MBProgressHUD operation mode. The default is MBProgressHUDModeIndeterminate.
  *

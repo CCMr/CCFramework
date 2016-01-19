@@ -180,8 +180,8 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
         // Set default values for properties
         self.animationType = MBProgressHUDAnimationFade;
         //		self.mode = MBProgressHUDModeIndeterminate;
-        //        self.mode = MBProgressHUDModeIndeterminateLogo;
-        self.mode = MBProgressHUDModeIndeterminateLoadingRotation;
+        self.mode = MBProgressHUDModeIndeterminateLogo;
+        //        self.mode = MBProgressHUDModeIndeterminateLoadingRotation;
         self.labelText = nil;
         self.detailsLabelText = nil;
         self.opacity = 0.4f;
@@ -539,11 +539,11 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
         
     } else if (mode == MBProgressHUDModeIndeterminateLogo) {
         [indicator removeFromSuperview];
-        self.indicator = MB_AUTORELEASE([[CCLoadLogoView alloc] initWithLogo:@"load_probar_icon_bg" Frame:CGRectMake(0, 0, 40, 40)]);
+        self.indicator = MB_AUTORELEASE([[CCLoadLogoView alloc] initWithLogo:self.IndeterminateLogo Frame:CGRectMake(0, 0, 40, 40)]);
         [self addSubview:indicator];
     } else if (mode == MBProgressHUDModeGIF) {
         [indicator removeFromSuperview];
-        NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"load_probar_icon_bg" ofType:@"gif"]];
+        NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:self.IndeterminateGIF ofType:@"gif"]];
         
         UIImage *image = [UIImage sd_animatedGIFWithData:data];
         
