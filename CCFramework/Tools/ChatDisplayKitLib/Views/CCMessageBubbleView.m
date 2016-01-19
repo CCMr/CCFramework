@@ -141,7 +141,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         if (w > kCCMaxWidth) { //超过显示最大宽度
             isWrap = YES;
             w = image.size.width;
-            size.height += image.size.height;
+            size.height += image.size.height+ 5;
         }
         
         size = CGSizeMake(w, size.height);
@@ -445,12 +445,14 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 
 - (void)configureMessageDisplayMediaWithMessage:(id<CCMessageModel>)message
 {
+     
     switch (message.messageMediaType) {
         case CCBubbleMessageMediaTypeText:
+            [_displayTextView clearAttachments];
             _displayTextView.attributedText = [[CCMessageBubbleHelper sharedMessageBubbleHelper] bubbleAttributtedStringWithText:[message text]];
             break;
         case CCBubbleMessageMediaTypeTeletext: {
-            
+            [_displayTextView clearAttachments];
             NSString *text = [[message text] stringByReplacingOccurrencesOfString:message.teletextReplaceStr withString:OBJECT_REPLACEMENT_CHARACTER];
             
             NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"\uFFFC" options:NSRegularExpressionCaseInsensitive error:nil];
@@ -461,7 +463,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 NSTextCheckingResult *match = [resultArray objectAtIndex:i];
                 
                 NSString *path = @"";
-                if (message.teletextPath.count)
+                if (message.teletextPath.count && i < message.teletextPath.count)
                      path = [[message.teletextPath objectAtIndex:i] objectForKey:@"path"];
                 
                 CGSize size = CGSizeMake(20, 20);
@@ -772,7 +774,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 }
                 CGRect viewFrame = CGRectZero;
                 viewFrame.size.width = CGRectGetWidth(bubbleFrame) - kCCLeftTextHorizontalBubblePadding - kCCRightTextHorizontalBubblePadding - kCCArrowMarginWidth;
-                viewFrame.size.height = CGRectGetHeight(bubbleFrame) - kCCHaveBubbleMargin * 3;
+                viewFrame.size.height = CGRectGetHeight(bubbleFrame) - kCCHaveBubbleMargin * 2;
                 
                 if (currentType == CCBubbleMessageMediaTypeText || currentType == CCBubbleMessageMediaTypeTeletext) {
                     self.displayTextView.frame = viewFrame;

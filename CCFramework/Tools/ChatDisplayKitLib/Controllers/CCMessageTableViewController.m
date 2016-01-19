@@ -393,11 +393,12 @@ static CGPoint delayOffset = {0.0};
 - (void)insertOldMessages:(NSArray *)oldMessages
                completion:(void (^)())completion
 {
-    WEAKSELF;
+    @weakify(self);
     [self exChangeMessageDataSourceQueue:^{
-        NSMutableArray *messages = [[NSMutableArray alloc] initWithArray:weakSelf.messages];
+        @strongify(self);
+        NSMutableArray *messages = [[NSMutableArray alloc] initWithArray:self.messages];
         
-        delayOffset = weakSelf.messageTableView.contentOffset;
+        delayOffset = self.messageTableView.contentOffset;
         NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:oldMessages.count];
         NSMutableIndexSet *indexSets = [[NSMutableIndexSet alloc] init];
         [oldMessages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -405,26 +406,34 @@ static CGPoint delayOffset = {0.0};
             [indexPaths addObject:indexPath];
             
             if (messages.count) {
-                delayOffset.y += [weakSelf calculateCellHeightWithMessage:[messages objectAtIndex:idx]
+                if (idx < messages.count - 1){
+                    delayOffset.y += [self calculateCellHeightWithMessage:[messages objectAtIndex:idx]
                                                               atIndexPath:indexPath];
+                }
             }
             
             [indexSets addIndex:idx];
         }];
         [messages insertObjects:oldMessages atIndexes:indexSets];
         
-        [weakSelf exMainQueue:^{
+        @weakify(self);
+        [self exMainQueue:^{
+            @strongify(self);
             [UIView setAnimationsEnabled:NO];
-            [self.messageTableView beginUpdates];
+            self.messageTableView.userInteractionEnabled = NO;
+            //[self.messageTableView beginUpdates];
             
-            weakSelf.messages = messages;
-            [weakSelf.messageTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+            self.messages = messages;
             
-            [self.messageTableView endUpdates];
+            [self.messageTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+            
+            //[self.messageTableView endUpdates];
             
             [UIView setAnimationsEnabled:YES];
             
-            [weakSelf.messageTableView setContentOffset:delayOffset animated:NO];
+            
+            [self.messageTableView setContentOffset:delayOffset animated:NO];
+             self.messageTableView.userInteractionEnabled = YES;
             if (completion) {
                 completion();
             }
@@ -450,7 +459,7 @@ static CGPoint delayOffset = {0.0};
 - (UIView *)headerContainerView
 {
     if (!_headerContainerView) {
-        _headerContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
+        _headerContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 30)];
         _headerContainerView.backgroundColor = self.messageTableView.backgroundColor;
         [_headerContainerView addSubview:self.loadMoreActivityIndicatorView];
     }
@@ -470,8 +479,10 @@ static CGPoint delayOffset = {0.0};
     _loadingMoreMessage = loadingMoreMessage;
     if (loadingMoreMessage) {
         [self.loadMoreActivityIndicatorView startAnimating];
+        self.messageTableView.tableHeaderView.hidden = NO;
     } else {
         [self.loadMoreActivityIndicatorView stopAnimating];
+        self.messageTableView.tableHeaderView.hidden = YES;
     }
 }
 
@@ -1563,52 +1574,42 @@ static CGPoint delayOffset = {0.0};
     _state = state;
     // 4.根据状态执行不同的操作
     switch (state) {
-        case CCMessageRefreshStateNormal: // 下拉可以刷新
-        {
+        case CCMessageRefreshStateNormal: { // 下拉可以刷新
             // 刷新完毕
             if (CCMessageRefreshStateRefreshing == oldState) {
                 self.loadingMoreMessage = NO;
                 [UIView animateWithDuration:0.25 animations:^{
                     self.messageTableView.contentInsetTop -= CCMessageRefreshViewHeight;
                 }];
-            } else {
-                // 执行动画
+            } else { // 执行动画
                 self.loadingMoreMessage = NO;
             }
             break;
         }
-            
-        case CCMessageRefreshStatePulling: // 松开可立即刷新
-        {
+        case CCMessageRefreshStatePulling: { // 松开可立即刷新
             // 执行动画
             self.loadingMoreMessage = YES;
-            
             break;
         }
+        case CCMessageRefreshStateRefreshing: { // 正在刷新中
             
-        case CCMessageRefreshStateRefreshing: // 正在刷新中
-        {
-            // 执行动画
             [UIView animateWithDuration:0.25 animations:^{
                 // 1.增加滚动区域
                 self.messageTableView.contentInsetTop = CCMessageRefreshViewHeight;
-                
                 // 2.设置滚动位置
-                self.messageTableView.contentOffsetY = - CCMessageRefreshViewHeight;
+                self.messageTableView.contentOffsetY = -CCMessageRefreshViewHeight;
             }];
             
             //刷新数据
             if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollTotop)]) {
                 [self.delegate loadMoreMessagesScrollTotop];
             }
-            
             break;
         }
-            
         default:
             break;
     }
-}
+} 
 
 /**
  *  @author CC, 2015-11-19
