@@ -263,24 +263,17 @@
 
 - (void)addMessage:(CCMessage *)addedMessage
 {
-    @weakify(self);
-    [self exChangeMessageDataSourceQueue:^{
-        @strongify(self);
-        NSMutableArray *messages = [NSMutableArray arrayWithArray:self.messages];
-        [messages addObject:addedMessage];
-        
-        NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:1];
-        [indexPaths addObject:[NSIndexPath indexPathForRow:messages.count - 1 inSection:0]];
-        @weakify(self);
-        [self exMainQueue:^{
-            @strongify(self);
-            [self finishSendMessageWithBubbleMessageType:addedMessage.messageMediaType];
-            self.messages = messages;
-            //            [self.messageTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-            [self.messageTableView reloadData];
-            [self scrollToBottomAnimated:YES];
-        }];
-    }];
+    
+    NSMutableArray *messages = [NSMutableArray arrayWithArray:self.messages];
+    [messages addObject:addedMessage];
+    
+    NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:1];
+    [indexPaths addObject:[NSIndexPath indexPathForRow:messages.count - 1 inSection:0]];
+    
+    [self finishSendMessageWithBubbleMessageType:addedMessage.messageMediaType];
+    self.messages = messages;
+    [self.messageTableView reloadData];
+    [self scrollToBottomAnimated:YES];
 }
 
 /**
@@ -296,14 +289,18 @@
 - (void)updateMessageData:(CCMessage *)messageData
           MessageSendType:(CCMessageSendType)sendType
 {
+    
     NSMutableArray *messages = [NSMutableArray arrayWithArray:self.messages];
     NSInteger index = [messages indexOfObject:messageData];
-    if (index > -1) {
+    
+    if (index != NSNotFound) {
+        NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:1];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:index inSection:0]];
         messageData.messageSendState = sendType;
         [messages replaceObjectAtIndex:index withObject:messageData];
+        
         self.messages = messages;
-        [self.messageTableView reloadData];
-        [self scrollToBottomAnimated:YES];
+        [self.messageTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
     }
 }
 
