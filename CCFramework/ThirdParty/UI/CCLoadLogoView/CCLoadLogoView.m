@@ -100,6 +100,11 @@
     }
 }
 
+-(void)setLineColor:(UIColor *)lineColor
+{
+    self.LoadViews.lineColor = lineColor;
+}
+
 -(void)startAnimation{
     _isAnimating = YES;
     [_LoadViews startAnimation];
@@ -142,6 +147,12 @@ static int stage = 0;
         self.backgroundColor = [UIColor clearColor];
     }
     return self;
+}
+
+-(void)setLineColor:(UIColor *)lineColor
+{
+    _lineColor = lineColor;
+    [self setNeedsDisplay];
 }
 
 - (void)setAnglePer:(CGFloat)anglePer{

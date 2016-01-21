@@ -28,33 +28,35 @@
 typedef enum {
     CCLoadLogoViewModeIndeterminate,
     CCLoadLogoViewModeFloatingPoint,
-}CCLoadLogoViewMode;
+} CCLoadLogoViewMode;
 
 @interface CCLoadLogoView : UIView
 
--(instancetype)initWithLogo:(NSString *)Logo Frame:(CGRect)frame;
+@property(nonatomic, strong) UIColor *lineColor;
 
--(instancetype)initWithLoading:(CGRect)frame;
+- (instancetype)initWithLogo:(NSString *)Logo Frame:(CGRect)frame;
 
--(void)startAnimation;
+- (instancetype)initWithLoading:(CGRect)frame;
 
--(void)stopAnimation;
+- (void)startAnimation;
 
-@property (assign) CCLoadLogoViewMode mode;
+- (void)stopAnimation;
+
+@property(assign) CCLoadLogoViewMode mode;
 
 @end
 
 @interface CCLoadView : UIView
 
-@property (assign) CCLoadLogoViewMode mode;
+@property(assign) CCLoadLogoViewMode mode;
 
 //default is 1.0f
-@property (nonatomic, assign) CGFloat lineWidth;
+@property(nonatomic, assign) CGFloat lineWidth;
 
 //default is [UIColor whiteColor]
-@property (nonatomic, strong) UIColor *lineColor;
+@property(nonatomic, strong) UIColor *lineColor;
 
-@property (nonatomic, readonly) BOOL isAnimating;
+@property(nonatomic, readonly) BOOL isAnimating;
 
 //use this to init
 - (id)initWithFrame:(CGRect)frame;
