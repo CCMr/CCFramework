@@ -102,6 +102,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
  */
 - (void)initialization
 {
+    self.tag = 204517;
     if (!_iconImageView) {
         _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
         [self addSubview:_iconImageView];
@@ -437,6 +438,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
 - (void)show:(BOOL)animated
 {
     [self setupViewsAndFrames];
+    [[self.targetView viewWithTag:204517] removeFromSuperview];
     
     // In previously indicated, send subview to be below another view.
     // This is used when showing below navigation bar
