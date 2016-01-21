@@ -56,7 +56,7 @@
  *
  *  @return 返回是否可以访问
  */
-+ (BOOL)netWorkReachabilityWithURLString:(NSString*)strUrl;
++ (BOOL)netWorkReachabilityWithURLString:(NSString *)strUrl;
 
 /**
  *  @author CC, 2015-07-23
@@ -67,7 +67,7 @@
  *
  *  @return 返回请求参数
  */
-- (NSMutableDictionary*)fixedParameters:(NSDictionary*)postData;
+- (NSMutableDictionary *)fixedParameters:(NSDictionary *)postData;
 
 /**
  *  @author CC, 2015-07-23
@@ -78,7 +78,7 @@
  *
  *  @return 返回服务器API地址
  */
-- (NSString*)appendingServerURLWithString:(NSString*)MethodName;
+- (NSString *)appendingServerURLWithString:(NSString *)MethodName;
 
 /**
  *  @author CC, 2015-10-12
@@ -89,7 +89,7 @@
  *
  *  @return 返回服务器API地址
  */
-- (NSString*)appendingExpandServerURLWithString:(NSString*)MethodName;
+- (NSString *)appendingExpandServerURLWithString:(NSString *)MethodName;
 
 /**
  *  @author CC, 2015-10-12
@@ -101,8 +101,8 @@
  *
  *  @return 返回服务器API地址
  */
-- (NSString*)appendingServerURLWithString:(NSString*)serviceAddres
-                               MethodName:(NSString*)methodName;
+- (NSString *)appendingServerURLWithString:(NSString *)serviceAddres
+                                MethodName:(NSString *)methodName;
 
 #pragma mark - 回调函数设置
 /**
@@ -140,7 +140,7 @@
  *
  *  @param responseData 响应数据
  */
--(void)responseProcessEvent:(id)responseData;
+- (void)responseProcessEvent:(id)responseData;
 
 /**
  *  @author CC, 2015-07-23
@@ -150,6 +150,17 @@
  *  @param errorDic 错误信息
  */
 - (void)errorProcessEvent:(id)error;
+
+/**
+ *  @author CC, 2016-01-21
+ *  
+ *  @brief 对ErrorCode进行处理
+ *
+ *  @param responseData 回调响应数据
+ *  @param error        错误消息
+ */
+-(void)errorProcessEvent:(id)responseData
+                   Error:(id)error;
 
 /**
  *  @author CC, 2015-07-23

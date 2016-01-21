@@ -25,14 +25,23 @@
 
 
 #import "CCMessage.h"
+#import "NSString+BNSString.h"
 
 @implementation CCMessage
+
+- (instancetype)init
+{
+    if (self = [super init]) {
+        self.uniqueID = [NSString uniqueUUID];
+    }
+    return self;
+}
 
 - (instancetype)initWithText:(NSString *)text
                       sender:(NSString *)sender
                    timestamp:(NSDate *)timestamp
 {
-    self = [super init];
+    self = [self init];
     if (self) {
         self.text = text;
         
@@ -62,7 +71,7 @@
                           sender:(NSString *)sender
                        timestamp:(NSDate *)timestamp
 {
-    if (self = [super init]) {
+    if (self = [self init]) {
         self.text = text;
         self.teletextPath = telextPath;
         self.teletextReplaceStr = teletextReplaceStr;
@@ -90,7 +99,7 @@
                        sender:(NSString *)sender
                     timestamp:(NSDate *)timestamp
 {
-    self = [super init];
+    self = [self init];
     if (self) {
         self.photo = photo;
         self.thumbnailUrl = thumbnailUrl;
@@ -121,7 +130,7 @@
                                   sender:(NSString *)sender
                                timestamp:(NSDate *)timestamp
 {
-    self = [super init];
+    self = [self init];
     if (self) {
         self.videoConverPhoto = videoConverPhoto;
         self.videoPath = videoPath;
@@ -180,7 +189,7 @@
                         timestamp:(NSDate *)timestamp
                            isRead:(BOOL)isRead
 {
-    self = [super init];
+    self = [self init];
     if (self) {
         self.voicePath = voicePath;
         self.voiceUrl = voiceUrl;
@@ -209,7 +218,7 @@
                              sender:(NSString *)sender
                           timestamp:(NSDate *)timestamp
 {
-    self = [super init];
+    self = [self init];
     if (self) {
         self.emotionPath = emotionPath;
         self.emotionUrl = emotionUrl;
@@ -238,7 +247,7 @@
                                     sender:(NSString *)sender
                                  timestamp:(NSDate *)timestamp
 {
-    self = [super init];
+    self = [self init];
     if (self) {
         self.localPositionPhoto = localPositionPhoto;
         self.geolocations = geolocations;
@@ -257,6 +266,8 @@
 {
     self = [super init];
     if (self) {
+        _uniqueID = [aDecoder decodeObjectForKey:@"uniqueID"];
+        
         _text = [aDecoder decodeObjectForKey:@"text"];
         _teletextPath = [aDecoder decodeObjectForKey:@"teletextPath"];
         _teletextReplaceStr = [aDecoder decodeObjectForKey:@"teletextReplaceStr"];
@@ -297,6 +308,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
+    [aCoder encodeObject:self.uniqueID forKey:@"uniqueID"];
     [aCoder encodeObject:self.text forKey:@"text"];
     [aCoder encodeObject:self.teletextPath forKey:@"teletextPath"];
     [aCoder encodeObject:self.teletextReplaceStr forKey:@"teletextReplaceStr"];
@@ -385,7 +397,7 @@
 
 - (void)dealloc
 {
-    
+    _uniqueID = nil;
     _text = nil;
     _teletextPath = nil;
     _teletextReplaceStr = nil;

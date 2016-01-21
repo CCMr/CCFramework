@@ -115,15 +115,15 @@
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:postData];
     
-    //    [dic enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id _Nonnull obj, BOOL *_Nonnull stop) {
-    //        if ([obj isKindOfClass:[NSArray class]]) {
-    //            NSError *error = nil;
-    //            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:&error];
-    //            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    //            if (jsonString && !error)
-    //                [dic setObject:jsonString forKey:key];
-    //        }
-    //    }];
+        [dic enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id _Nonnull obj, BOOL *_Nonnull stop) {
+            if ([obj isKindOfClass:[NSArray class]]) {
+                NSError *error = nil;
+                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:&error];
+                NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+                if (jsonString && !error)
+                    [dic setObject:jsonString forKey:key];
+            }
+        }];
     
     return dic;
 }
@@ -240,10 +240,23 @@
  *  @brief  对ErrorCode进行处理
  *
  *  @param errorDic 错误消息
- *
- *  @since 1.0
  */
 - (void)errorProcessEvent:(id)error
+{
+    [self errorProcessEvent:nil
+                      Error:error];
+}
+
+/**
+ *  @author CC, 2016-01-21
+ *  
+ *  @brief 对ErrorCode进行处理
+ *
+ *  @param responseData 回调响应数据
+ *  @param error        错误消息
+ */
+- (void)errorProcessEvent:(id)responseData
+                    Error:(id)error
 {
     if (_requestBacktrack) {
         NSString *errorStr = error ?: @"";
@@ -252,7 +265,7 @@
             code = ((NSError *)error).code;
             errorStr = [self httpErrorAnalysis:((NSError *)error).code];
         }
-        _requestBacktrack(nil, [NSError errorWithDomain:errorStr code:code userInfo:nil]);
+        _requestBacktrack(responseData, [NSError errorWithDomain:errorStr code:code userInfo:nil]);
     }
 }
 

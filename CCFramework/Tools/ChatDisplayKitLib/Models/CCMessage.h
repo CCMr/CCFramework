@@ -28,8 +28,16 @@
 #import <CoreLocation/CoreLocation.h>
 #import "CCMessageModel.h"
 #import <CoreData/CoreData.h>
+#import "BaseEntity.h"
 
-@interface CCMessage : NSObject <CCMessageModel, NSCoding, NSCopying>
+@interface CCMessage : BaseEntity <CCMessageModel, NSCoding, NSCopying>
+
+/**
+ *  @author CC, 2016-01-21
+ *  
+ *  @brief 唯一ID
+ */
+@property(nonatomic, copy) NSString *uniqueID;
 
 @property(nonatomic, copy) NSString *text;
 
@@ -185,7 +193,7 @@
  *  @return 返回Message model 对象
  */
 - (instancetype)initWithTeletext:(NSString *)text
-                      TelextPath:(NSArray *)telextPath 
+                      TelextPath:(NSArray *)telextPath
               TeletextReplaceStr:(NSString *)teletextReplaceStr
                           sender:(NSString *)sender
                        timestamp:(NSDate *)timestamp;
@@ -290,4 +298,5 @@
                                   location:(CLLocation *)location
                                     sender:(NSString *)sender
                                  timestamp:(NSDate *)timestamp;
+
 @end

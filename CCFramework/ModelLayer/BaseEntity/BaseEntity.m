@@ -370,10 +370,8 @@
                 //子对象名
                 NSString *className = keyAry.lastObject;
                 //解析判断字段名
-                NSString *isKey =
-                [keyName stringByReplacingOccurrencesOfString:
-                 [NSString stringWithFormat:@"_%@", className]
-                                                   withString:@""];
+                NSString *isKey = [keyName stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"_%@", className]
+                                                                     withString:@""];
                 
                 const char *propType = getPropertyType(property);
                 NSString *propertyName =

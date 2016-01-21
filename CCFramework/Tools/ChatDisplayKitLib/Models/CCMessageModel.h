@@ -81,6 +81,13 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 @protocol CCMessageModel <NSObject>
 
 @required
+/**
+ *  @author CC, 2016-01-21
+ *  
+ *  @brief 唯一ID
+ */
+- (NSString *)uniqueID;
+
 #pragma mark - 文本
 - (NSString *)text;
 
