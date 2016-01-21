@@ -57,7 +57,7 @@ static char CCRefreshFooterViewKey;
 - (void)setFooter:(CCRefreshFooterView *)footer
 {
     [self willChangeValueForKey:@"CCRefreshFooterViewKey"];
-    objc_setAssociatedObject(self, &CCRefreshFooterViewKey,footer,OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, &CCRefreshFooterViewKey, footer, OBJC_ASSOCIATION_ASSIGN);
     [self didChangeValueForKey:@"CCRefreshFooterViewKey"];
 }
 
@@ -99,16 +99,41 @@ static char CCRefreshFooterViewKey;
  *  @param target 目标
  *  @param action 回调方法
  */
-- (void)addHeaderWithTarget:(id)target action:(SEL)action
+- (void)addHeaderWithTarget:(id)target
+                     action:(SEL)action
 {
-    [self addHeaderWithTarget:target action:action dateKey:nil];
+    [self addHeaderWithTarget:target
+                       action:action
+                      dateKey:nil];
 }
 
-- (void)addHeaderWithTarget:(id)target action:(SEL)action dateKey:(NSString *)dateKey
+- (void)addHeaderWithTargetIndicatorView:(id)target
+                     action:(SEL)action
+{
+    [self addHeaderWithTarget:target
+                       action:action
+                      dateKey:nil
+                        Style:CCRefreshViewStyleIndicatorView];
+}
+
+- (void)addHeaderWithTarget:(id)target
+                     action:(SEL)action
+                    dateKey:(NSString *)dateKey
+{
+    [self addHeaderWithTarget:target action:action
+                      dateKey:dateKey
+                        Style:CCRefreshViewStyleDefault];
+}
+
+- (void)addHeaderWithTarget:(id)target
+                     action:(SEL)action
+                    dateKey:(NSString *)dateKey
+                      Style:(CCRefreshViewStyle)style
 {
     // 1.创建新的header
     if (!self.header) {
         CCRefreshHeaderView *header = [CCRefreshHeaderView header];
+        header.style = style;
         [self addSubview:header];
         self.header = header;
     }

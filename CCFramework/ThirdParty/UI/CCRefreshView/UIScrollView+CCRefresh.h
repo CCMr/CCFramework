@@ -75,6 +75,9 @@
  */
 - (void)addHeaderWithTarget:(id)target action:(SEL)action;
 
+- (void)addHeaderWithTargetIndicatorView:(id)target
+                                  action:(SEL)action;
+
 /**
  *  添加一个下拉刷新头部控件
  *
