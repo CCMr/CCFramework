@@ -38,8 +38,6 @@
  *  @author C C, 15-08-18
  *
  *  @brief  输入VIew类型
- *
- *  @since <#1.0#>
  */
 typedef NS_ENUM(NSUInteger, CCInputViewType) {
     /** 默认 **/
@@ -68,7 +66,6 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 - (void)didSendText:(NSString *)text
          fromSender:(NSString *)sender
              onDate:(NSDate *)date;
-
 /**
  *  @author CC, 2015-12-25
  *  
@@ -135,21 +132,6 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 onDate:(NSDate *)date;
 
 /**
- *  @author CC, 2015-12-11
- *  
- *  @brief  发送第三方表情消息的回调方法(小图)
- *
- *  @param emotionPath 目标第三方表情的本地路径
- *  @param emotionUrl  目标第三方表情的网络路径
- *  @param sender      目标第三方表情的本地路径
- *  @param date        发送时间
- */
-- (void)didSendSmallEmotion:(NSString *)emotionPath
-                 EmotionUrl:(NSString *)emotionUrl
-                 fromSender:(NSString *)sender
-                     onDate:(NSDate *)date;
-
-/**
  *  @author CC, 2015-12-03
  *  
  *  @brief  表情包商店
@@ -178,8 +160,8 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
  *
  *  @return 根据indexPath获取消息的Model的对象，从而判断返回YES or NO来控制是否显示时间轴Label
  */
-- (BOOL)shouldDisplayTimestampForRowAtIndexPath:(NSIndexPath *)indexPath
-                                  targetMessage:(id<CCMessageModel>)message;
+- (BOOL)shouldDisplayTimestampForRowAtIndexPath:(NSIndexPath *)indexPath 
+                                  targetMessage:(id<CCMessageModel>)message;;
 
 /**
  *  配置Cell的样式或者字体
@@ -189,15 +171,6 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
  */
 - (void)configureCell:(CCMessageTableViewCell *)cell
           atIndexPath:(NSIndexPath *)indexPath;
-
-/**
- *  @author CC, 15-09-16
- *
- *  @brief  失败消息重新发送
- *
- *  @since 1.0
- */
-- (void)didSendNotSuccessfulCallback;
 
 /**
  *  协议回掉是否支持用户手动滚动
@@ -228,7 +201,9 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
  *
  *  @return 返回计算好的Cell高度
  */
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath targetMessage:(id<CCMessageModel>)message;
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath
+	      targetMessage:(id<CCMessageModel>)message;
 
 @end
 
@@ -240,7 +215,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 @optional
 /**
  *  配置TableViewCell的方法，如果你想定制自己的Cell样式，那么你必须要实现Delegate中的方法
- - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath targetMessage:(id<XHMessageModel>)message;
+ - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath targetMessage:(id<CCMessageModel>)message;
  *
  *  @param tableView 目标TableView
  *  @param indexPath 目标IndexPath
@@ -254,12 +229,15 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 
 @end
 
-
 @interface CCMessageTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, CCMessageTableViewControllerDelegate, CCMessageTableViewControllerDataSource, CCMessageInputViewDelegate, CCMessageTableviewCellDelegate, CCShareMenuViewDelegate, CCEmotionManagerViewDelegate, CCEmotionManagerViewDataSource>
 
 @property(nonatomic, weak) id<CCMessageTableViewControllerDelegate> delegate;
 
 @property(nonatomic, weak) id<CCMessageTableViewControllerDataSource> dataSource;
+
+@property(nonatomic, assign, readonly) CCInputViewType textViewInputViewType;
+
+@property(nonatomic, assign) UIActivityIndicatorViewStyle loadMoreActivityIndicatorViewStyle;
 
 /**
  *  @author CC, 2015-12-05
@@ -304,6 +282,10 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
  */
 @property(nonatomic, weak, readonly) CCEmotionManagerView *emotionManagerView;
 
+/**
+ *  是否正在加载更多旧的消息数据
+ */
+@property(nonatomic, assign) BOOL loadingMoreMessage;
 
 #pragma mark - Message View Controller Default stup
 /**
@@ -344,7 +326,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
  *
  *  @return 返回录音的路径
  */
-- (NSString *)getRecorderPath;
+- (NSString *)obtainRecorderPath;
 
 #pragma mark - DataSource Change
 /**
@@ -368,17 +350,6 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
           MessageSendType:(CCMessageSendType)sendType;
 
 /**
- *  @author CC, 15-08-20
- *
- *  @brief  新增聊天数据
- *
- *  @param messageAry 多数据源
- *
- *  @since 1.0
- */
-- (void)addMessageArray:(NSArray *)messageAry;
-
-/**
  *  删除一条已存在的消息
  *
  *  @param reomvedMessage 删除的目标消息对象
@@ -398,8 +369,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
  *  @param oldMessages 目标的旧消息数据
  *  @param completion  insert 完成回调
  */
-- (void)insertOldMessages:(NSArray *)oldMessages 
-               completion:(void (^)())completion;
+- (void)insertOldMessages:(NSArray *)oldMessages completion:(void (^)())completion;
 
 #pragma mark - Messages view controller
 /**
@@ -445,6 +415,15 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
  *  @brief  结束刷新
  */
 - (void)headerEndRefreshing;
+
+#pragma mark - Other Menu View Frame Helper Mehtod
+/**
+ *  根据显示或隐藏的需求对所有第三方Menu进行管理
+ *
+ *  @param hide 需求条件
+ */
+- (void)layoutOtherMenuViewHiden:(BOOL)hide;
+
 
 #pragma mark - CCShareMenuView Delegate
 

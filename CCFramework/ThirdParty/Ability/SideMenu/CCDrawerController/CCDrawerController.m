@@ -228,7 +228,7 @@ static NSString *CCDrawerOpenSideKey = @"CCDrawerOpenSide";
     [self setShowsShadow:YES];
     [self setShouldStretchDrawer:YES];
     
-    [self setOpenDrawerGestureModeMask:CCOpenDrawerGestureModeNone];
+    [self setOpenDrawerGestureModeMask:CCOpenDrawerGestureModeBezelPanningCenterView];
     [self setCloseDrawerGestureModeMask:CCCloseDrawerGestureModeNone];
     [self setCenterHiddenInteractionMode:CCDrawerOpenCenterInteractionModeNavigationBarOnly];
     
@@ -1473,7 +1473,7 @@ static NSString *CCDrawerOpenSideKey = @"CCDrawerOpenSide";
 - (void)panGestureCallback:(UIPanGestureRecognizer *)panGesture
 {
     if (!self.panGestureEnabled) return;
-        
+    
     switch (panGesture.state) {
         case UIGestureRecognizerStateBegan: {
             if (self.animatingDrawer) {
@@ -1622,22 +1622,22 @@ static NSString *CCDrawerOpenSideKey = @"CCDrawerOpenSide";
                                    percentVisible:(CGFloat)percentVisible
 {
     
-     CCDrawerControllerDrawerVisualStateBlock visualStateBlock = nil;
+    CCDrawerControllerDrawerVisualStateBlock visualStateBlock = nil;
     switch (self.drawerAnimationType) {
         case CCDrawerAnimationTypeSlide:
-           visualStateBlock=  [CCDrawerVisualState slideVisualStateBlock];
+            visualStateBlock=  [CCDrawerVisualState slideVisualStateBlock];
             break;
         case CCDrawerAnimationTypeSlideAndScale:
             visualStateBlock= [CCDrawerVisualState slideAndScaleVisualStateBlock];
             break;
         case CCDrawerAnimationTypeParallax:
-             visualStateBlock=[CCDrawerVisualState parallaxVisualStateBlockWithParallaxFactor:2.0];
+            visualStateBlock=[CCDrawerVisualState parallaxVisualStateBlockWithParallaxFactor:2.0];
             break;
         case CCDrawerAnimationTypeSwingingDoor:
-           visualStateBlock=  [CCDrawerVisualState swingingDoorVisualStateBlock];
+            visualStateBlock=  [CCDrawerVisualState swingingDoorVisualStateBlock];
             break;
         default:{
-             visualStateBlock =  ^(CCDrawerController * drawerController, CCDrawerSide drawerSide, CGFloat percentVisible){
+            visualStateBlock =  ^(CCDrawerController * drawerController, CCDrawerSide drawerSide, CGFloat percentVisible){
                 UIViewController *sideDrawerViewController;
                 CATransform3D transform;
                 CGFloat maxDrawerWidth = 0.0;
@@ -1664,24 +1664,24 @@ static NSString *CCDrawerOpenSideKey = @"CCDrawerOpenSide";
                     transform = CATransform3DIdentity;
                 }
                 [sideDrawerViewController.view.layer setTransform:transform];
-             };
+            };
         }break;
     }
     
     visualStateBlock(self,drawerSide,percentVisible);
     
-//    if (percentVisible >= 1.f) {
-//        CATransform3D transform = CATransform3DIdentity;
-//        UIViewController *sideDrawerViewController = [self sideDrawerViewControllerForSide:drawerSide];
-//        if (drawerSide == CCDrawerSideLeft) {
-//            transform = CATransform3DMakeScale(percentVisible, 1.f, 1.f);
-//            transform = CATransform3DTranslate(transform, self.maximumLeftDrawerWidth * (percentVisible - 1.f) / 2, 0.f, 0.f);
-//        } else if (drawerSide == CCDrawerSideRight) {
-//            transform = CATransform3DMakeScale(percentVisible, 1.f, 1.f);
-//            transform = CATransform3DTranslate(transform, -self.maximumRightDrawerWidth * (percentVisible - 1.f) / 2, 0.f, 0.f);
-//        }
-//        sideDrawerViewController.view.layer.transform = transform;
-//    }
+    //    if (percentVisible >= 1.f) {
+    //        CATransform3D transform = CATransform3DIdentity;
+    //        UIViewController *sideDrawerViewController = [self sideDrawerViewControllerForSide:drawerSide];
+    //        if (drawerSide == CCDrawerSideLeft) {
+    //            transform = CATransform3DMakeScale(percentVisible, 1.f, 1.f);
+    //            transform = CATransform3DTranslate(transform, self.maximumLeftDrawerWidth * (percentVisible - 1.f) / 2, 0.f, 0.f);
+    //        } else if (drawerSide == CCDrawerSideRight) {
+    //            transform = CATransform3DMakeScale(percentVisible, 1.f, 1.f);
+    //            transform = CATransform3DTranslate(transform, -self.maximumRightDrawerWidth * (percentVisible - 1.f) / 2, 0.f, 0.f);
+    //        }
+    //        sideDrawerViewController.view.layer.transform = transform;
+    //    }
 }
 
 - (void)resetDrawerVisualStateForDrawerSide:(CCDrawerSide)drawerSide
@@ -1737,13 +1737,16 @@ static inline CGFloat originXForDrawerOriginAndTargetOriginOffset(CGFloat origin
 #pragma mark - Helpers
 - (void)setupGestureRecognizers
 {
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureCallback:)];
-    [pan setDelegate:self];
-    [self.view addGestureRecognizer:pan];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureCallback:)];
-    [tap setDelegate:self];
-    [self.view addGestureRecognizer:tap];
+    if (self.panGestureEnabled) {
+        self.view.multipleTouchEnabled = NO;
+        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureCallback:)];
+        [pan setDelegate:self];
+        [self.view addGestureRecognizer:pan];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureCallback:)];
+        [tap setDelegate:self];
+        [self.view addGestureRecognizer:tap];
+    }
 }
 
 - (void)prepareToPresentDrawer:(CCDrawerSide)drawer animated:(BOOL)animated
@@ -1811,7 +1814,7 @@ static inline CGFloat originXForDrawerOriginAndTargetOriginOffset(CGFloat origin
         }
     }
     
-   
+    
 }
 
 - (NSTimeInterval)animationDurationForAnimationDistance:(CGFloat)distance
@@ -1849,7 +1852,7 @@ static inline CGFloat originXForDrawerOriginAndTargetOriginOffset(CGFloat origin
 #pragma mark - UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-     [self detectingIsSideslip];
+    [self detectingIsSideslip];
     
     IF_IOS7_OR_GREATER(
                        if (self.interactivePopGestureRecognizerEnabled && [self.centerViewController isKindOfClass:[UINavigationController class]]) {
