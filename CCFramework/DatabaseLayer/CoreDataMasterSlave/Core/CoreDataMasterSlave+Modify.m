@@ -570,7 +570,7 @@
                Data:(NSDictionary *)data
           inContext:(NSManagedObjectContext *)context
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", primaryKey, primaryValue];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", primaryKey, primaryValue ? primaryValue : @""];
     
     return [self objctWithData:tableName
                  SubPredicates:@[ predicate ]
