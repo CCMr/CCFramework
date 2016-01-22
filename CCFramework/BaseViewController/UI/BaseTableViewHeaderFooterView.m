@@ -85,6 +85,9 @@
  */
 - (void)Initialization
 {
+    
+    self.backgroundViewColor = [UIColor whiteColor];
+    
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSelectedClick:)];
     [self addGestureRecognizer:tapGesture];
     

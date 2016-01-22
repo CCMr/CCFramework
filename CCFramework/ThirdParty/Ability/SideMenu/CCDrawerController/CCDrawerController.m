@@ -229,7 +229,7 @@ static NSString *CCDrawerOpenSideKey = @"CCDrawerOpenSide";
     [self setShouldStretchDrawer:YES];
     
     [self setOpenDrawerGestureModeMask:CCOpenDrawerGestureModeBezelPanningCenterView];
-    [self setCloseDrawerGestureModeMask:CCCloseDrawerGestureModeNone];
+    [self setCloseDrawerGestureModeMask:CCCloseDrawerGestureModePanningCenterView | CCCloseDrawerGestureModeTapCenterView];
     [self setCenterHiddenInteractionMode:CCDrawerOpenCenterInteractionModeNavigationBarOnly];
     
     // set shadow related default values

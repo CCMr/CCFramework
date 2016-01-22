@@ -109,10 +109,12 @@
     
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperationManager manager] GET:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        
         CCResponseObject *entity = [[CCResponseObject alloc] initWithDict:dic];
+        CCNSLogger(@"%@", [entity ChangedDictionary]);
+        
         if (operation.userInfo)
             entity.userInfo = operation.userInfo;
-        CCNSLogger(@"%@", [entity ChangedDictionary]);
         
         blockTrack(entity,nil);
         
