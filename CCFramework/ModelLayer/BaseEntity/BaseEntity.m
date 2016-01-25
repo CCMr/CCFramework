@@ -244,9 +244,7 @@
         __block NSString *key = keys;
         if (![properties objectForKey:keys]) {
             //不区分大小写解析对象属性
-            [properties.allKeys
-             enumerateObjectsUsingBlock:^(id obj, NSUInteger idx,
-                                          BOOL *stop) {
+            [properties.allKeys  enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                  if ([obj compare:key options:NSCaseInsensitiveSearch] == NSOrderedSame)
                      key = obj;
              }];
@@ -271,9 +269,7 @@
             if (!_propertArray) {
                 //获取对象属性中是数组的属性
                 _propertArray = [NSMutableArray array];
-                [properties.allKeys
-                 enumerateObjectsUsingBlock:^(id obj, NSUInteger idx,
-                                              BOOL *stop) {
+                [properties.allKeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                      id type = [properties objectForKey:obj];
                      
                      if ([type isEqualToString:@"NSArray"] ||
@@ -284,16 +280,13 @@
             }
             
             //匹配当前属性
-            [_propertArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx,
-                                                        BOOL *stop) {
+            [_propertArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 NSArray *keyAry = [obj componentsSeparatedByString:@"_"];
                 if (keyAry.count > 1) {
                     //子对象名
                     NSString *className = keyAry.lastObject;
                     //解析判断字段名
-                    NSString *isKey =
-                    [obj stringByReplacingOccurrencesOfString:
-                     [NSString stringWithFormat:@"_%@", className]
+                    NSString *isKey = [obj stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"_%@", className]
                                                    withString:@""];
                     
                     if ([key isEqualToString:isKey]) {
@@ -322,8 +315,7 @@
             Class objCls = NSClassFromString(classKey);
             
             NSMutableArray *chilArray = [NSMutableArray array];
-            [value enumerateObjectsUsingBlock:^(id valueObj, NSUInteger idx,
-                                                BOOL *stop) {
+            [value enumerateObjectsUsingBlock:^(id valueObj, NSUInteger idx, BOOL *stop) {
                 //创建子对象
                 //递归解析对象
                 id childObj = [[objCls alloc] init];
@@ -374,17 +366,13 @@
                                                                      withString:@""];
                 
                 const char *propType = getPropertyType(property);
-                NSString *propertyName =
-                [NSString stringWithUTF8String:
-                 [isKey UTF8String]]; //属性名称转换成小写
-                NSString *propertyType =
-                [NSString stringWithUTF8String:propType];
+                NSString *propertyName = [NSString stringWithUTF8String:[isKey UTF8String]]; //属性名称转换成小写
+                NSString *propertyType = [NSString stringWithUTF8String:propType];
                 [results setObject:propertyType forKey:propertyName];
             }
             
             const char *propType = getPropertyType(property);
-            NSString *propertyName =
-            [NSString stringWithUTF8String:propName]; //属性名称转换成小写
+            NSString *propertyName = [NSString stringWithUTF8String:propName]; //属性名称转换成小写
             NSString *propertyType = [NSString stringWithUTF8String:propType];
             [results setObject:propertyType forKey:propertyName];
         }
