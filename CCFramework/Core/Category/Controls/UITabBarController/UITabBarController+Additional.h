@@ -36,8 +36,19 @@
  *  @param viewController 跳转的页面
  *  @param animated       是否动画效果
  */
-- (void)setSelectedIndex: (NSUInteger)selectedIndex
-      PushViewController: (UIViewController *)viewController
-                animated: (BOOL)animated;
+- (void)setSelectedIndex:(NSUInteger)selectedIndex
+      PushViewController:(UIViewController *)viewController
+                animated:(BOOL)animated;
+
+/**
+ *  @author CC, 2016-01-25
+ *  
+ *  @brief 返回当前根目录跳转页面
+ *
+ *  @param viewController 跳转页面
+ *  @param animated       动画效果
+ */
+- (void)popToRootWithPushViewConroller:(UIViewController *)viewController
+                              animated:(BOOL)animated;
 
 @end
