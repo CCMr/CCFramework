@@ -49,7 +49,7 @@
     touchYES = YES;
 }
 
--(void)InitControl{
+-(void)initControl{
     w = 0.125 * winsize.width;
     h = 0.125 * winsize.width;
     

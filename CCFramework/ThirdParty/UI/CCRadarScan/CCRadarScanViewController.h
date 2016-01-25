@@ -62,6 +62,6 @@
  *
  *  @brief  加载数据
  */
-- (void)InitLoadData;
+- (void)initLoadData;
 
 @end

@@ -59,7 +59,8 @@
     cc_NoticeObserver(self, @selector(receiveLanguageChangedNotification:), CCNotificationLanguageChanged, nil);
     cc_NoticeObserver(self, @selector(receiveLanguageChangedNotification:), CCThemeDidChangeNotification, nil);
     
-    [self InitNavigation];
+    [self initNavigation];
+    [self initWithData];
 }
 
 - (void)setIsNotKeyboard:(BOOL)isNotKeyboard
@@ -72,9 +73,7 @@
 }
 
 #pragma mark - 初始化导航栏
-- (void)InitNavigation
-{
-}
+
 
 /**
  *  @author CC, 2016-01-04
@@ -112,13 +111,41 @@
                                                          didOnButtonTouchUpInside:onButtonTouchUpInside];
 }
 
-#pragma mark - 初始化页面控件
-- (void)InitControl
+#pragma mark - 初始化
+/**
+ *  @author CC, 2016-01-25
+ *  
+ *  @brief 初始化导航栏
+ */
+- (void)initNavigation
 {
 }
 
-#pragma mark - 初始化数据
-- (void)InitLoadData
+/**
+ *  @author CC, 2016-01-25
+ *  
+ *  @brief 初始化控件
+ */
+- (void)initControl
+{
+}
+
+/**
+ *  @author CC, 2016-01-25
+ *  
+ *  @brief 初始化数据
+ */
+-(void)initWithData
+{
+    
+}
+
+/**
+ *  @author CC, 2016-01-25
+ *  
+ *  @brief 初始化加载数据
+ */
+- (void)initLoadData
 {
 }
 

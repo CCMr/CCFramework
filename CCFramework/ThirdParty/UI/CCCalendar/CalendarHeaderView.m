@@ -32,26 +32,26 @@
 
 -(instancetype)init{
     if (self = [super init]) {
-        [self InitControl];
+        [self initControl];
     }
     return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        [self InitControl];
+        [self initControl];
     }
     return self;
 }
 
 -(instancetype)initWithCoder:(NSCoder *)aDecoder{
     if (self = [super initWithCoder:aDecoder]) {
-        [self InitControl];
+        [self initControl];
     }
     return self;
 }
 
--(void)InitControl{
+-(void)initControl{
     self.clipsToBounds = YES;
     //月份
     masterLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, winsize.width, 40)];

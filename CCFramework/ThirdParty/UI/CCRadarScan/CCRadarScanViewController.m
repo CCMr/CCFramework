@@ -40,8 +40,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self InitControl];
-    [self InitLoadData];
+    [self initControl];
+    [self initLoadData];
 }
 
 /**
@@ -85,7 +85,7 @@
     [[UIApplication sharedApplication] setStatusBarStyle:_statusBarStyle animated:YES];
 }
 
-- (void)InitControl
+- (void)initControl
 {
     _radarView = [[CCRadarView alloc] initWithFrame:self.view.bounds];
     _radarView.dataSource = self;
@@ -111,7 +111,7 @@
  *
  *  @brief  加载数据
  */
-- (void)InitLoadData
+- (void)initLoadData
 {
 }
 

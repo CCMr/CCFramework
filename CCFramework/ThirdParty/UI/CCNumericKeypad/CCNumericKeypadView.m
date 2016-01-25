@@ -36,7 +36,7 @@
 {
     if (self = [super init]) {
         _EnterCount = 9;
-        [self InitControl];
+        [self initControl];
     }
     return self;
 }
@@ -46,7 +46,7 @@
     if (self = [super init]) {
         _EnterCount = 9;
         containerView = ainerView;
-        [self InitControl];
+        [self initControl];
     }
     return self;
 }
@@ -55,12 +55,12 @@
 {
     if (self = [super initWithFrame:frame]) {
         _EnterCount = 9;
-        [self InitControl];
+        [self initControl];
     }
     return self;
 }
 
-- (void)InitControl
+- (void)initControl
 {
     float h = 246, y = 30;
     self.frame = CGRectMake(0, 0, winsize.width, h);

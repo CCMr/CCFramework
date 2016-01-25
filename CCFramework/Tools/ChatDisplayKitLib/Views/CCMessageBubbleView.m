@@ -141,7 +141,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         if (w > kCCMaxWidth) { //超过显示最大宽度
             isWrap = YES;
             w = image.size.width;
-            size.height += image.size.height+ 5;
+            size.height += image.size.height + 5;
         }
         
         size = CGSizeMake(w, size.height);
@@ -445,7 +445,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 
 - (void)configureMessageDisplayMediaWithMessage:(id<CCMessageModel>)message
 {
-     
+    
     switch (message.messageMediaType) {
         case CCBubbleMessageMediaTypeText:
             [_displayTextView clearAttachments];
@@ -464,7 +464,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 
                 NSString *path = @"";
                 if (message.teletextPath.count && i < message.teletextPath.count)
-                     path = [[message.teletextPath objectAtIndex:i] objectForKey:@"path"];
+                    path = [[message.teletextPath objectAtIndex:i] objectForKey:@"path"];
                 
                 CGSize size = CGSizeMake(20, 20);
                 UIImage *Images = [UIImage imageWithContentsOfFile:path];
@@ -774,7 +774,12 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 }
                 CGRect viewFrame = CGRectZero;
                 viewFrame.size.width = CGRectGetWidth(bubbleFrame) - kCCLeftTextHorizontalBubblePadding - kCCRightTextHorizontalBubblePadding - kCCArrowMarginWidth;
-                viewFrame.size.height = CGRectGetHeight(bubbleFrame) - kCCHaveBubbleMargin * 2;
+                
+                int count = 2;
+                if (currentType == CCBubbleMessageMediaTypeText)
+                    count = 3;
+                
+                viewFrame.size.height = CGRectGetHeight(bubbleFrame) - kCCHaveBubbleMargin * count;
                 
                 if (currentType == CCBubbleMessageMediaTypeText || currentType == CCBubbleMessageMediaTypeTeletext) {
                     self.displayTextView.frame = viewFrame;

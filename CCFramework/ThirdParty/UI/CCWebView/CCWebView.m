@@ -28,6 +28,7 @@
 #import <WebKit/WebKit.h>
 #import "CCWebViewProgress.h"
 #import "CCWebViewProgressView.h"
+#import "config.h"
 
 
 @interface CCWebView () <WKNavigationDelegate, WKUIDelegate, CCWebViewProgressDelegate, CCWebViewProgressDelegate, UIWebViewDelegate>
@@ -171,8 +172,8 @@
 - (void)loadRequest:(NSString *)baseURL
 {
     if (![baseURL rangeOfString:@"http://"].location != NSNotFound)
-        baseURL = [NSString stringWithFormat:@"http://%@",baseURL];
-
+        baseURL = [NSString stringWithFormat:@"http://%@", baseURL];
+    
     NSURL *url = [NSURL URLWithString:[baseURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
     _originLable.text = [NSString stringWithFormat:@"网页由 %@ 提供", url.host];
@@ -182,6 +183,22 @@
         [((UIWebView *)self.webView)loadRequest:request];
     else
         [((WKWebView *)self.webView)loadRequest:request];
+}
+
+/**
+ *  @author CC, 2016-01-25
+ *  
+ *  @brief 加载HTML页面
+ *
+ *  @param string HTML文件或者字符串
+ */
+- (void)loadHTMLString:(NSString *)string
+{
+    _originLable.text = [NSString stringWithFormat:@"网页由 %@ 提供", AppName];
+    if ([self.webView isKindOfClass:[UIWebView class]])
+        [((UIWebView *)self.webView)loadHTMLString:string baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
+    else
+        [((WKWebView *)self.webView)loadHTMLString:string baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
 }
 
 /**

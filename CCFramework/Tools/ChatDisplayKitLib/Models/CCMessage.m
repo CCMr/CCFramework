@@ -29,19 +29,11 @@
 
 @implementation CCMessage
 
-- (instancetype)init
-{
-    if (self = [super init]) {
-        self.uniqueID = [NSString uniqueUUID];
-    }
-    return self;
-}
-
 - (instancetype)initWithText:(NSString *)text
                       sender:(NSString *)sender
                    timestamp:(NSDate *)timestamp
 {
-    self = [self init];
+    self = [super init];
     if (self) {
         self.text = text;
         
@@ -71,7 +63,7 @@
                           sender:(NSString *)sender
                        timestamp:(NSDate *)timestamp
 {
-    if (self = [self init]) {
+    if (self = [super init]) {
         self.text = text;
         self.teletextPath = telextPath;
         self.teletextReplaceStr = teletextReplaceStr;
@@ -99,7 +91,7 @@
                        sender:(NSString *)sender
                     timestamp:(NSDate *)timestamp
 {
-    self = [self init];
+    self = [super init];
     if (self) {
         self.photo = photo;
         self.thumbnailUrl = thumbnailUrl;
@@ -130,7 +122,7 @@
                                   sender:(NSString *)sender
                                timestamp:(NSDate *)timestamp
 {
-    self = [self init];
+    self = [super init];
     if (self) {
         self.videoConverPhoto = videoConverPhoto;
         self.videoPath = videoPath;
@@ -189,7 +181,7 @@
                         timestamp:(NSDate *)timestamp
                            isRead:(BOOL)isRead
 {
-    self = [self init];
+    self = [super init];
     if (self) {
         self.voicePath = voicePath;
         self.voiceUrl = voiceUrl;
@@ -218,7 +210,7 @@
                              sender:(NSString *)sender
                           timestamp:(NSDate *)timestamp
 {
-    self = [self init];
+    self = [super init];
     if (self) {
         self.emotionPath = emotionPath;
         self.emotionUrl = emotionUrl;
@@ -247,7 +239,7 @@
                                     sender:(NSString *)sender
                                  timestamp:(NSDate *)timestamp
 {
-    self = [self init];
+    self = [super init];
     if (self) {
         self.localPositionPhoto = localPositionPhoto;
         self.geolocations = geolocations;

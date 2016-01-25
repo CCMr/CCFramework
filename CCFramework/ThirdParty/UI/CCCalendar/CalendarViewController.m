@@ -74,8 +74,8 @@ static NSString *CellHeaderIdentifier = @"CalendarHeader";
 
 - (void)initUI
 {
-    [self InitNavigation];
-    [self InitControl];
+    [self initNavigation];
+    [self initControl];
 }
 
 - (void)viewDidLoad {
@@ -83,7 +83,7 @@ static NSString *CellHeaderIdentifier = @"CalendarHeader";
     // Do any additional setup after loading the view.
 }
 
--(void)InitNavigation
+-(void)initNavigation
 {
     UIButton *NavLeftBtn = [UIButton buttonWith];
     [NavLeftBtn setImage:CCResourceImage(@"returns") forState:UIControlStateNormal];
@@ -96,7 +96,7 @@ static NSString *CellHeaderIdentifier = @"CalendarHeader";
     
 }
 
--(void)InitControl{
+-(void)initControl{
     _calendarLogic = [[CalendarLogic alloc] init];
     
     CalendarFlowLayout *layout = [CalendarFlowLayout new];
@@ -112,7 +112,7 @@ static NSString *CellHeaderIdentifier = @"CalendarHeader";
         [self InitTipsControl];
 }
 
--(void)InitLoadData{
+-(void)initLoadData{
     NSDate *selectdate  = [NSDate date];
     if (_beginDate)
         selectdate = _beginDate;
@@ -150,7 +150,7 @@ static NSString *CellHeaderIdentifier = @"CalendarHeader";
         [self.view viewWithTag:123456789].hidden = NO;
         [self.view viewWithTag:987654321].hidden = NO;
     }
-    [self InitLoadData];
+    [self initLoadData];
 }
 
 //页面消失的时候

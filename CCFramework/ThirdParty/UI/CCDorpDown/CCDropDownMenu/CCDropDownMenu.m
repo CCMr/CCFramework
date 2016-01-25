@@ -109,7 +109,7 @@
         self.titleAry = itemsTitle;
         _imageAry = [NSMutableArray array];
         [self.titleAry enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-            [self.imageAry addObject:@"Selected"];
+            [self.imageAry addObject:@"xll"];
         }];
         self.viewAry = itemsView;
         [self initialization];

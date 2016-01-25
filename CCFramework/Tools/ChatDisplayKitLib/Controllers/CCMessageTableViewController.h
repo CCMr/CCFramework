@@ -160,8 +160,9 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
  *
  *  @return 根据indexPath获取消息的Model的对象，从而判断返回YES or NO来控制是否显示时间轴Label
  */
-- (BOOL)shouldDisplayTimestampForRowAtIndexPath:(NSIndexPath *)indexPath 
-                                  targetMessage:(id<CCMessageModel>)message;;
+- (BOOL)shouldDisplayTimestampForRowAtIndexPath:(NSIndexPath *)indexPath
+                                  targetMessage:(id<CCMessageModel>)message;
+;
 
 /**
  *  配置Cell的样式或者字体
@@ -348,6 +349,17 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
  */
 - (void)updateMessageData:(CCMessage *)messageData
           MessageSendType:(CCMessageSendType)sendType;
+
+/**
+ *  @author CC, 2016-01-23
+ *  
+ *  @brief 替换对象
+ *
+ *  @param messageData 消息实体
+ *  @param newMessage  新消息实体
+ */
+- (void)replaceMessages:(CCMessage *)messageData
+               Replaceobj:(CCMessage *)newMessage;
 
 /**
  *  删除一条已存在的消息

@@ -99,7 +99,7 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
-    [self InitControl];
+    [self initControl];
 }
 
 - (void)show
@@ -118,7 +118,7 @@
     [self.view removeFromSuperview];
 }
 
-- (void)InitControl
+- (void)initControl
 {
     [self IntiPaintBrush];
     [self InitBarItems];

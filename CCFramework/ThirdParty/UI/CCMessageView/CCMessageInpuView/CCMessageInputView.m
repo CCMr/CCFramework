@@ -153,7 +153,8 @@
             
             break;
         }
-        case 1: {
+        case 1:
+        case 2: {
             sender.selected = !sender.selected;
             self.voiceChangeButton.selected = !sender.selected;
             
@@ -173,16 +174,17 @@
                 }];
             }
             
-            if ([self.delegate respondsToSelector:@selector(didSendFaceAction:)]) {
-                [self.delegate didSendFaceAction:sender.selected];
+            if (index == 1) {
+                if ([self.delegate respondsToSelector:@selector(didSendFaceAction:)]) {
+                    [self.delegate didSendFaceAction:sender.selected];
+                }
+            }else{
+                self.faceSendButton.selected = NO;
+                if ([self.delegate respondsToSelector:@selector(didSelectedMultipleMediaAction)]) {
+                    [self.delegate didSelectedMultipleMediaAction];
+                }
             }
-            break;
-        }
-        case 2: {
-            self.faceSendButton.selected = NO;
-            if ([self.delegate respondsToSelector:@selector(didSelectedMultipleMediaAction)]) {
-                [self.delegate didSelectedMultipleMediaAction];
-            }
+            
             break;
         }
         default:
@@ -361,7 +363,7 @@
     textView.textColor = [UIColor blackColor];
     
     
-    textView.placeholder = NSLocalizedStringFromTable(@"SendAMessage", @"MessageDisplayKitString", nil);
+    textView.placeholder = NSLocalizedStringFromTable(@"发送消息", @"MessageDisplayKitString", nil);
     textView.delegate = self;
     
     [self addSubview:textView];
@@ -391,8 +393,8 @@
         UIEdgeInsets edgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
         button = [self createButtonWithImage:cc_Stretch_Image([UIImage imageNamed:@"VoiceBtn_Black"], edgeInsets) HLImage:cc_Stretch_Image([UIImage imageNamed:@"VoiceBtn_BlackHL"], edgeInsets)];
         [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        [button setTitle:NSLocalizedStringFromTable(@"HoldToTalk", @"MessageDisplayKitString", nil) forState:UIControlStateNormal];
-        [button setTitle:NSLocalizedStringFromTable(@"ReleaseToSend", @"MessageDisplayKitString", nil) forState:UIControlStateHighlighted];
+        [button setTitle:NSLocalizedStringFromTable(@"按住 说话", @"MessageDisplayKitString", nil) forState:UIControlStateNormal];
+        [button setTitle:NSLocalizedStringFromTable(@"松开 结束", @"MessageDisplayKitString", nil) forState:UIControlStateHighlighted];
         buttonFrame = CGRectMake(textViewLeftMargin - 5, 0, width + 10, self.frame.size.height);
         button.frame = buttonFrame;
         button.alpha = self.voiceChangeButton.selected;

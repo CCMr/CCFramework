@@ -64,7 +64,7 @@ typedef void (^CompleteSelectedType)(float lineSize, CCBrushType type);
 - (instancetype)init
 {
     if (self = [super init]) {
-        [self InitControl];
+        [self initControl];
     }
     return self;
 }
@@ -72,7 +72,7 @@ typedef void (^CompleteSelectedType)(float lineSize, CCBrushType type);
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        [self InitControl];
+        [self initControl];
     }
     return self;
 }
@@ -82,7 +82,7 @@ typedef void (^CompleteSelectedType)(float lineSize, CCBrushType type);
  *  
  *  @brief  初始化控件
  */
-- (void)InitControl
+- (void)initControl
 {
     UITableView *brushTableView = [[UITableView alloc] initWithFrame:self.bounds style:UITableViewStylePlain];
     brushTableView.showsHorizontalScrollIndicator = NO;

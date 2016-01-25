@@ -44,12 +44,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self InitNavigation];
-    [self InitControl];
-    [self InitLoadData];
+    [self initNavigation];
+    [self initControl];
+    [self initLoadData];
 }
 
-- (void)InitNavigation
+- (void)initNavigation
 {
     self.title = @"照片";
     UIButton *NavRightBtn = [UIButton buttonWith];
@@ -62,7 +62,7 @@
     }];
 }
 
-- (void)InitControl
+- (void)initControl
 {
     UITableView *pickrTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 5, winsize.width, winsize.height - 70) style:UITableViewStylePlain];
     pickrTableView.delegate = self;
@@ -72,7 +72,7 @@
     self.pickrTableView = pickrTableView;
 }
 
-- (void)InitLoadData
+- (void)initLoadData
 {
     CCPickerDatas *datas = [CCPickerDatas defaultPicker];
     __weak typeof(self) weakSelf = self;

@@ -38,10 +38,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self InitControl];
+    [self initControl];
 }
 
-- (void)InitControl
+- (void)initControl
 {
     UIView *bgView = [[UIView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:bgView];

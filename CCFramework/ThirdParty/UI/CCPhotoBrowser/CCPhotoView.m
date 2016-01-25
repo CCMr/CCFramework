@@ -62,6 +62,8 @@
         self.showsVerticalScrollIndicator = NO;
         self.decelerationRate = UIScrollViewDecelerationRateFast;
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.delaysContentTouches = YES;
+        self.canCancelContentTouches = NO;
         
         // 监听点击
         UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
@@ -75,7 +77,7 @@
         
         // 旋转手势
         UIRotationGestureRecognizer *rotationGestureRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotateView:)];
-        [self addGestureRecognizer:rotationGestureRecognizer];
+        [_imageView addGestureRecognizer:rotationGestureRecognizer];
     }
     return self;
 }

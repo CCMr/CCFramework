@@ -68,19 +68,19 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     // 获取Assets
-    [self InitLoadData];
+    [self initLoadData];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self InitNavigation];
-    [self InitControl];
+    [self initNavigation];
+    [self initControl];
 }
 
 #pragma mark - 初始化导航栏
-- (void)InitNavigation
+- (void)initNavigation
 {
     UIButton *NavRightBtn = [UIButton buttonWith];
     [self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc] init] initWithCustomView:NavRightBtn]];
@@ -95,7 +95,7 @@
 }
 
 #pragma mark - 初始化页面控件
-- (void)InitControl
+- (void)initControl
 {
     _toolbarView = [[UIView alloc] initWithFrame:CGRectMake(0, winsize.height - 50, winsize.width, 50)];
     [self.view addSubview:_toolbarView];
@@ -155,7 +155,7 @@
 }
 
 #pragma mark - 初始化数据
-- (void)InitLoadData
+- (void)initLoadData
 {
     if (!self.BrowseArray)
         self.BrowseArray = [NSMutableArray array];

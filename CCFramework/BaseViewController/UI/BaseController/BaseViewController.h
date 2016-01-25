@@ -52,11 +52,34 @@
  */
 @property(nonatomic, assign) BOOL isNotKeyboard;
 
-- (void)InitNavigation;
+#pragma mark - 初始化
+/**
+ *  @author CC, 2016-01-25
+ *  
+ *  @brief 初始化导航栏
+ */
+- (void)initNavigation;
 
-- (void)InitControl;
+/**
+ *  @author CC, 2016-01-25
+ *  
+ *  @brief 初始化控件
+ */
+- (void)initControl;
 
-- (void)InitLoadData;
+/**
+ *  @author CC, 2016-01-25
+ *  
+ *  @brief 初始化数据
+ */
+-(void)initWithData;
+
+/**
+ *  @author CC, 2016-01-25
+ *  
+ *  @brief 初始化加载数据
+ */
+- (void)initLoadData;
 
 /**
  *  @author C C, 2015-08-02

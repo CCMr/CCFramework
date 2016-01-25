@@ -29,6 +29,8 @@
 
 @protocol CCWebViewDelegate <NSObject>
 
+@optional
+
 /**
  *  @author CC, 2015-10-13
  *
@@ -55,5 +57,14 @@
  *  @param baseURL 网页地址
  */
 - (void)loadRequest:(NSString *)baseURL;
+
+/**
+ *  @author CC, 2016-01-25
+ *  
+ *  @brief 加载HTML页面
+ *
+ *  @param string HTML文件或者字符串
+ */
+- (void)loadHTMLString:(NSString *)string;
 
 @end

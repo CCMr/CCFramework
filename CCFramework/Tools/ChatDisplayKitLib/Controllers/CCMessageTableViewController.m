@@ -263,17 +263,21 @@
 
 - (void)addMessage:(CCMessage *)addedMessage
 {
-    
     NSMutableArray *messages = [NSMutableArray arrayWithArray:self.messages];
     [messages addObject:addedMessage];
-    
-    NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:1];
-    [indexPaths addObject:[NSIndexPath indexPathForRow:messages.count - 1 inSection:0]];
-    
-    [self finishSendMessageWithBubbleMessageType:addedMessage.messageMediaType];
     self.messages = messages;
+    [self finishSendMessageWithBubbleMessageType:addedMessage.messageMediaType];
+    
+    CGFloat heigth = self.messageTableView.frame.size.height;
+    CGFloat contentYoffset = self.messageTableView.contentOffsetY;
+    CGFloat distanceFromBootom = self.messageTableView.contentSizeHeight - contentYoffset;
+    
+    BOOL animated = YES;
+    if (distanceFromBootom < heigth)
+        animated = NO;
+    
     [self.messageTableView reloadData];
-    [self scrollToBottomAnimated:YES];
+    [self scrollToBottomAnimated:animated];
 }
 
 /**
@@ -289,15 +293,31 @@
 - (void)updateMessageData:(CCMessage *)messageData
           MessageSendType:(CCMessageSendType)sendType
 {
-    
+    CCMessage *message = [messageData copy];
+    message.messageSendState = sendType;
+    [self replaceMessages:messageData
+               Replaceobj:message];
+}
+
+/**
+ *  @author CC, 2016-01-23
+ *  
+ *  @brief 替换对象
+ *
+ *  @param messageData 消息实体
+ *  @param newMessage  新消息实体
+ */
+- (void)replaceMessages:(CCMessage *)messageData
+             Replaceobj:(CCMessage *)newMessage
+
+{
     NSMutableArray *messages = [NSMutableArray arrayWithArray:self.messages];
     NSInteger index = [messages indexOfObject:messageData];
     
     if (index != NSNotFound) {
         NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:1];
         [indexPaths addObject:[NSIndexPath indexPathForRow:index inSection:0]];
-        messageData.messageSendState = sendType;
-        [messages replaceObjectAtIndex:index withObject:messageData];
+        [messages replaceObjectAtIndex:index withObject:newMessage];
         
         self.messages = messages;
         [self.messageTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
@@ -331,6 +351,9 @@
         
         WEAKSELF;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (completion)
+                completion();
+            
             [weakSelf.messageTableView reloadData];
             [weakSelf.messageTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
         });
@@ -711,6 +734,8 @@
     [self.view bringSubviewToFront:inputView];
     _messageInputView = inputView;
     
+    //设置默认高度
+    self.previousTextViewContentHeight = inputView.inputTextView.frame.size.height;
     
     // 设置手势滑动，默认添加一个bar的高度值
     self.messageTableView.messageInputBarHeight = CGRectGetHeight(_messageInputView.bounds);
@@ -881,10 +906,7 @@
                              }
                              
                              CGRect inputViewFrame = self.messageInputView.frame;
-                             self.messageInputView.frame = CGRectMake(0.0f,
-                                                                      inputViewFrame.origin.y - changeInHeight,
-                                                                      inputViewFrame.size.width,
-                                                                      inputViewFrame.size.height + changeInHeight);
+                             self.messageInputView.frame = CGRectMake(0.0f, inputViewFrame.origin.y - changeInHeight, inputViewFrame.size.width, inputViewFrame.size.height + changeInHeight);
                              if (!isShrinking) {
                                  if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
                                      self.previousTextViewContentHeight = MIN(contentH, maxHeight);
@@ -1045,7 +1067,7 @@
 {
     CCEmotionTextAttachment *emojiTextAttachment = [CCEmotionTextAttachment new];
     emojiTextAttachment.emotionPath = emotionPath;
-    emojiTextAttachment.emotionSize = CGSizeMake(24, 24);
+    emojiTextAttachment.emotionSize = CGSizeMake(22, 22);
     
     UIFont *font = self.messageInputView.inputTextView.font;
     
