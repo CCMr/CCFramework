@@ -197,8 +197,11 @@ view.layer.mask = maskLayer;
 /** view 圆角 边框 */
 #define cc_View_Border_Radius(view, radius, width, color) \
 cc_View_Radius(view, radius); \
-[view.layer setBorderWidth:(width)]; \
-[view.layer setBorderColor:[color CGColor]]
+cc_view_Border(view, width, color);
 
+/** view 边框 */
+#define cc_view_Border(view, width, color)\
+[view.layer setBorderWidth:(width)]; \
+[view.layer setBorderColor:[color CGColor]];
 
 #endif /* CCProperty_h */
