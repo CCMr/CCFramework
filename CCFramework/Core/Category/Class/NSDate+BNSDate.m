@@ -460,6 +460,8 @@
         strDate = [NSString stringWithFormat:@"昨天 %@", [self timeFormat:@"HH:mm"]];
     else if (currentComps.year == otherComps.year && currentComps.month == otherComps.month && days < 7)
         strDate = [NSString stringWithFormat:@"%@ %@", [NSDate getWeekStringFromInteger:(int)weekIntValue], [self timeFormat:@"HH:mm"]];
+    else if (currentComps.year == otherComps.year)
+         strDate = [self timeFormat:@"MM月dd日"];
     else
         strDate = [self timeFormat:@"yyyy年MM月dd HH:mm"];
     
