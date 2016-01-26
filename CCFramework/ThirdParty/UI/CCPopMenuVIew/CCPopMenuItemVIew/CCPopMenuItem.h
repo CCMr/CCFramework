@@ -36,10 +36,49 @@
 
 @interface CCPopMenuItem : NSObject
 
-@property (nonatomic, strong) UIImage *image;
+@property(nonatomic, strong) UIImage *iconImage;
 
-@property (nonatomic, copy) NSString *title;
+@property(nonatomic, copy) NSString *title;
 
-- (instancetype)initWithImage:(UIImage *)image title:(NSString *)title;
+@property(nonatomic, strong) UIColor *glowColor;
+
+@property(nonatomic, assign) NSInteger index;
+
+- (instancetype)initWithImage:(UIImage *)iconName
+                        title:(NSString *)title;
+
+#pragma mark - 初始话 init 使用于CCPopMenuView
+
+- (instancetype)initWithTitle:(NSString *)title
+                     iconName:(NSString *)iconName NS_AVAILABLE_IOS(2_0);
+
+- (instancetype)initWithTitle:(NSString *)title
+                     iconName:(NSString *)iconName
+                    glowColor:(UIColor *)glowColor NS_AVAILABLE_IOS(2_0);
+
+- (instancetype)initWithTitle:(NSString *)title
+                     iconName:(NSString *)iconName
+                        index:(NSInteger)index NS_AVAILABLE_IOS(2_0);
+
+- (instancetype)initWithTitle:(NSString *)title
+                     iconName:(NSString *)iconName
+                    glowColor:(UIColor *)glowColor
+                        index:(NSInteger)index NS_AVAILABLE_IOS(2_0);
+
++ (instancetype)itemWithTitle:(NSString *)title
+                     iconName:(NSString *)iconName NS_AVAILABLE_IOS(2_0);
+
++ (instancetype)itemWithTitle:(NSString *)title
+                     iconName:(NSString *)iconName
+                    glowColor:(UIColor *)glowColor NS_AVAILABLE_IOS(2_0);
+
++ (instancetype)initWithTitle:(NSString *)title
+                     iconName:(NSString *)iconName
+                        index:(NSInteger)index NS_AVAILABLE_IOS(2_0);
+
++ (instancetype)initWithTitle:(NSString *)title
+                     iconName:(NSString *)iconName
+                    glowColor:(UIColor *)glowColor
+                        index:(NSInteger)index NS_AVAILABLE_IOS(2_0);
 
 @end

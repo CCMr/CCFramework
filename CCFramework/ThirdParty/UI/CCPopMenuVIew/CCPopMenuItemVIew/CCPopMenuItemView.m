@@ -41,7 +41,7 @@
 {
     self.popMenuItem = popMenuItem;
     self.textLabel.text = popMenuItem.title;
-    self.imageView.image = popMenuItem.image;
+    self.imageView.image = popMenuItem.iconImage;
     self.separatorLineImageView.hidden = isBottom;
 }
 
