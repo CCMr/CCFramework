@@ -78,6 +78,10 @@
 		42068F2F1C57472A005DFB01 /* GlowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42068F2D1C57472A005DFB01 /* GlowImageView.m */; };
 		42068F321C57480C005DFB01 /* CCRealTimeBlur.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068F301C57480C005DFB01 /* CCRealTimeBlur.h */; };
 		42068F331C57480C005DFB01 /* CCRealTimeBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = 42068F311C57480C005DFB01 /* CCRealTimeBlur.m */; };
+		42068F371C576414005DFB01 /* CCVoiceProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068F351C576414005DFB01 /* CCVoiceProgressHUD.h */; };
+		42068F381C576414005DFB01 /* CCVoiceProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 42068F361C576414005DFB01 /* CCVoiceProgressHUD.m */; };
+		42068F411C576D26005DFB01 /* CCPulsingHaloLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068F3F1C576D26005DFB01 /* CCPulsingHaloLayer.h */; };
+		42068F421C576D26005DFB01 /* CCPulsingHaloLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42068F401C576D26005DFB01 /* CCPulsingHaloLayer.m */; };
 		4213943C1BF2D9F50046062B /* SRLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213943B1BF2D9F50046062B /* SRLog.h */; };
 		4213FAFC1C13D860006918AC /* CCJPsuh.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213FAFA1C13D860006918AC /* CCJPsuh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4213FAFD1C13D860006918AC /* CCJPsuh.m in Sources */ = {isa = PBXBuildFile; fileRef = 4213FAFB1C13D860006918AC /* CCJPsuh.m */; };
@@ -1051,6 +1055,10 @@
 		42068F2D1C57472A005DFB01 /* GlowImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GlowImageView.m; path = Views/GlowImageView.m; sourceTree = "<group>"; };
 		42068F301C57480C005DFB01 /* CCRealTimeBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRealTimeBlur.h; path = Views/CCRealTimeBlur.h; sourceTree = "<group>"; };
 		42068F311C57480C005DFB01 /* CCRealTimeBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRealTimeBlur.m; path = Views/CCRealTimeBlur.m; sourceTree = "<group>"; };
+		42068F351C576414005DFB01 /* CCVoiceProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCVoiceProgressHUD.h; path = CCVoiceProgressHUD/CCVoiceProgressHUD.h; sourceTree = "<group>"; };
+		42068F361C576414005DFB01 /* CCVoiceProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCVoiceProgressHUD.m; path = CCVoiceProgressHUD/CCVoiceProgressHUD.m; sourceTree = "<group>"; };
+		42068F3F1C576D26005DFB01 /* CCPulsingHaloLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPulsingHaloLayer.h; path = CCPulsingHaloLayer/CCPulsingHaloLayer.h; sourceTree = "<group>"; };
+		42068F401C576D26005DFB01 /* CCPulsingHaloLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCPulsingHaloLayer.m; path = CCPulsingHaloLayer/CCPulsingHaloLayer.m; sourceTree = "<group>"; };
 		4213943B1BF2D9F50046062B /* SRLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRLog.h; sourceTree = "<group>"; };
 		4213FAFA1C13D860006918AC /* CCJPsuh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCJPsuh.h; sourceTree = "<group>"; };
 		4213FAFB1C13D860006918AC /* CCJPsuh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCJPsuh.m; sourceTree = "<group>"; };
@@ -2088,6 +2096,24 @@
 				42068F311C57480C005DFB01 /* CCRealTimeBlur.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		42068F341C5763B1005DFB01 /* CCVoiceProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				42068F351C576414005DFB01 /* CCVoiceProgressHUD.h */,
+				42068F361C576414005DFB01 /* CCVoiceProgressHUD.m */,
+			);
+			name = CCVoiceProgressHUD;
+			sourceTree = "<group>";
+		};
+		42068F391C576CDB005DFB01 /* CCPulsingHaloLayer */ = {
+			isa = PBXGroup;
+			children = (
+				42068F3F1C576D26005DFB01 /* CCPulsingHaloLayer.h */,
+				42068F401C576D26005DFB01 /* CCPulsingHaloLayer.m */,
+			);
+			name = CCPulsingHaloLayer;
 			sourceTree = "<group>";
 		};
 		42105D131BDB1791003EE23E /* CoreDataFactory */ = {
@@ -3316,6 +3342,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E11BDDF91400C76004 /* Animation.h */,
+				42068F391C576CDB005DFB01 /* CCPulsingHaloLayer */,
 				42068EBC1C573876005DFB01 /* POP */,
 				426528971BECA16B0096C0EF /* Loading */,
 				4230E1811BBB7F730001E68F /* Radar */,
@@ -3466,6 +3493,7 @@
 		429C9E041B9EF8BF0013A44A /* CCMessageView */ = {
 			isa = PBXGroup;
 			children = (
+				42068F341C5763B1005DFB01 /* CCVoiceProgressHUD */,
 				429C9E051B9EF8BF0013A44A /* CCMessageInpuView */,
 				429C9E081B9EF8BF0013A44A /* CCMessageTextView */,
 				429C9E0B1B9EF8BF0013A44A /* CCVoiceRecordHUD */,
@@ -4721,6 +4749,7 @@
 				428A12CC1BC8A1C6005D904D /* ContactPersonEntity.h in Headers */,
 				4267DD001BDB584000B0C43F /* NSManagedObject+Mapping.h in Headers */,
 				4254772F1BD2AEC20071BBC5 /* bn.h in Headers */,
+				42068F371C576414005DFB01 /* CCVoiceProgressHUD.h in Headers */,
 				42F411C71C2150E500814E7B /* Category.h in Headers */,
 				4267DD081BDB5A7000B0C43F /* BaseManagedObject+Facade.h in Headers */,
 				425477651BD2AEC20071BBC5 /* ssl.h in Headers */,
@@ -4751,6 +4780,7 @@
 				42C208EB1BDE14F200C76004 /* Tools.h in Headers */,
 				42786E731C40ACD000C011FB /* CCDropDownList.h in Headers */,
 				429CA0EF1B9EF8BF0013A44A /* CCFoundationCommon.h in Headers */,
+				42068F411C576D26005DFB01 /* CCPulsingHaloLayer.h in Headers */,
 				429CA0361B9EF8BF0013A44A /* CCPhotoProgressView.h in Headers */,
 				429CA0231B9EF8BF0013A44A /* CCMessageTextView.h in Headers */,
 				426979281BA695BA00C3E93C /* AFNetworking.h in Headers */,
@@ -5666,6 +5696,7 @@
 				42B30DDE1BBD72AD0039BB94 /* UIView+WebCacheOperation.m in Sources */,
 				42DEB29C1C25495000734E09 /* gl_matrix.c in Sources */,
 				421E7A7A1C3D173D00C31AD0 /* CCCommonFunctions.m in Sources */,
+				42068F381C576414005DFB01 /* CCVoiceProgressHUD.m in Sources */,
 				4264D7431BA2C19100E83159 /* CCPagesContainerTopBar.m in Sources */,
 				42B647571BEDE57300B2F6FD /* CCHTTPManager+UploadDownload.m in Sources */,
 				4269792A1BA695BA00C3E93C /* AFHTTPSessionManager.m in Sources */,
@@ -5708,6 +5739,7 @@
 				429C9FDA1B9EF8BF0013A44A /* SRConnectionExtensions.m in Sources */,
 				425477821BD2AEC20071BBC5 /* RSADataSigner.m in Sources */,
 				42F24C5E1BEA5091008CDEDC /* PNLineChart.m in Sources */,
+				42068F421C576D26005DFB01 /* CCPulsingHaloLayer.m in Sources */,
 				42F411331C214C5400814E7B /* CCImagePicker.m in Sources */,
 				42F412091C2150E500814E7B /* UIView+CCRemoteImage.m in Sources */,
 				4254777A1BD2AEC20071BBC5 /* DataVerifier.m in Sources */,

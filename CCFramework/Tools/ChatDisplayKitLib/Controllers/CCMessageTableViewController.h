@@ -30,7 +30,6 @@
 
 #import "CCMessageInputView.h"
 #import "CCShareMenuView.h"
-#import "CCVoiceRecordHUD.h"
 #import "CCEmotionManagerView.h"
 #import "CCMessageTableView.h"
 

@@ -302,12 +302,12 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     switch (currentMediaType) {
         case CCBubbleMessageMediaTypePhoto:
         case CCBubbleMessageMediaTypeVideo:
-        case CCBubbleMessageMediaTypeLocalPosition:{
-             UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTapGestureRecognizerHandle:)];
+        case CCBubbleMessageMediaTypeLocalPosition: {
+            UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTapGestureRecognizerHandle:)];
             [self.messageBubbleView.bubblePhotoImageView addGestureRecognizer:tapGestureRecognizer];
             break;
         }
-        case CCBubbleMessageMediaTypeTeletext:{
+        case CCBubbleMessageMediaTypeTeletext: {
             UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTapGestureRecognizerHandle:)];
             [self.messageBubbleView.bubbleImageView addGestureRecognizer:tapGestureRecognizer];
             break;
@@ -513,7 +513,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         // 如果初始化成功，那就根据Message类型进行初始化控件，比如配置头像，配置发送和接收的样式
         
         if (!_selectedIndicator) {
-            UIImageView *selectedIndicator = [[UIImageView alloc] initWithFrame:CGRectMake(-30, 5, 30, 30)];
+            UIImageView *selectedIndicator = [[UIImageView alloc] initWithFrame:CGRectMake(-30, 10, 30, 30)];
             selectedIndicator.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
             [self.contentView addSubview:selectedIndicator];
             _selectedIndicator = selectedIndicator;
@@ -655,6 +655,10 @@ static const CGFloat kCCUserNameLabelHeight = 20;
                                                CGRectGetHeight(self.contentView.bounds) - timeStampLabelNeedHeight);
     self.messageBubbleView.frame = bubbleMessageViewFrame;
     
+    self.messageBubbleView.userInteractionEnabled = YES;
+    UITableView *edit = (UITableView *)self.superview.superview;
+    if (edit.editing)
+        self.messageBubbleView.userInteractionEnabled = NO;
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationBeginsFromCurrentState:YES];
@@ -663,6 +667,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         [self.selectedIndicator setImage:CCResourceImage(@"AssetsYES")];
     else
         [self.selectedIndicator setImage:CCResourceImage(@"AssetsNO")];
+    
     [UIView commitAnimations];
 }
 

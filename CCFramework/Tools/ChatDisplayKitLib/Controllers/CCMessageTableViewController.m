@@ -36,6 +36,8 @@
 #import "CCVoiceCommonHelper.h"
 #import "CCEmotionTextAttachment.h"
 #import "UIScrollView+CCRefresh.h"
+#import "CCVoiceRecordHUD.h"
+//#import "CCVoiceProgressHUD.h"
 
 @interface CCMessageTableViewController ()
 
@@ -60,7 +62,9 @@
 @property(nonatomic, weak, readwrite) CCMessageInputView *messageInputView;
 @property(nonatomic, weak, readwrite) CCShareMenuView *shareMenuView;
 @property(nonatomic, weak, readwrite) CCEmotionManagerView *emotionManagerView;
+
 @property(nonatomic, strong, readwrite) CCVoiceRecordHUD *voiceRecordHUD;
+
 
 @property(nonatomic, strong, readonly) CCCameraViewController *camerViewController;
 
@@ -444,6 +448,7 @@
 {
     if (!_voiceRecordHUD) {
         _voiceRecordHUD = [[CCVoiceRecordHUD alloc] initWithFrame:CGRectMake(0, 0, 140, 140)];
+//        [_voiceRecordHUD setColor:[UIColor colorWithRed:0 green:0.455 blue:0.756 alpha:1]];
     }
     return _voiceRecordHUD;
 }
@@ -1515,6 +1520,11 @@
 }
 
 #pragma mark - Table View Delegate
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleNone;
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
