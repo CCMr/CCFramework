@@ -293,10 +293,13 @@
 - (void)updateMessageData:(CCMessage *)messageData
           MessageSendType:(CCMessageSendType)sendType
 {
-    CCMessage *message = [messageData copy];
-    message.messageSendState = sendType;
-    [self replaceMessages:messageData
-               Replaceobj:message];
+    NSInteger index = [self.messages indexOfObject:messageData];
+    if (index != NSNotFound) {
+        CCMessage *message = [self.messages objectAtIndex:index];
+        message.messageSendState = sendType;
+        [self replaceMessages:messageData
+                   Replaceobj:message];
+    }
 }
 
 /**
