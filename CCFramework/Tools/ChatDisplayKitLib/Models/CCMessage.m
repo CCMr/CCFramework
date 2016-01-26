@@ -342,49 +342,65 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
+    CCMessage *message;
     switch (self.messageMediaType) {
         case CCBubbleMessageMediaTypeText:
-            return [[[self class] allocWithZone:zone] initWithText:[self.text copy]
-                                                            sender:[self.sender copy]
-                                                         timestamp:[self.timestamp copy]];
+            message = [[[self class] allocWithZone:zone] initWithText:[self.text copy]
+                                                               sender:[self.sender copy]
+                                                            timestamp:[self.timestamp copy]];
         case CCBubbleMessageMediaTypePhoto:
-            return [[[self class] allocWithZone:zone] initWithPhoto:[self.photo copy]
-                                                       thumbnailUrl:[self.thumbnailUrl copy]
-                                                     originPhotoUrl:[self.originPhotoUrl copy]
-                                                             sender:[self.sender copy]
-                                                          timestamp:[self.timestamp copy]];
-        case CCBubbleMessageMediaTypeVideo:
-            return [[[self class] allocWithZone:zone] initWithVideoConverPhoto:[self.videoConverPhoto copy]
-                                                                     videoPath:[self.videoPath copy]
-                                                                      videoUrl:[self.videoUrl copy]
-                                                                        sender:[self.sender copy]
-                                                                     timestamp:[self.timestamp copy]];
-        case CCBubbleMessageMediaTypeVoice:
-            return [[[self class] allocWithZone:zone] initWithVoicePath:[self.voicePath copy]
-                                                               voiceUrl:[self.voiceUrl copy]
-                                                          voiceDuration:[self.voiceDuration copy]
-                                                                 sender:[self.sender copy]
-                                                              timestamp:[self.timestamp copy]];
-        case CCBubbleMessageMediaTypeEmotion:
-            return [[[self class] allocWithZone:zone] initWithEmotionPath:[self.emotionPath copy]
-                                                               EmotionUrl:self.emotionUrl
-                                                                   sender:[self.sender copy]
-                                                                timestamp:[self.timestamp copy]];
-        case CCBubbleMessageMediaTypeLocalPosition:
-            return [[[self class] allocWithZone:zone] initWithLocalPositionPhoto:[self.localPositionPhoto copy]
-                                                                    geolocations:self.geolocations
-                                                                        location:[self.location copy]
-                                                                          sender:[self.sender copy]
-                                                                       timestamp:[self.timestamp copy]];
-        case CCBubbleMessageMediaTypeTeletext:
-            return [[[self class] allocWithZone:zone] initWithTeletext:[self.text copy]
-                                                            TelextPath:[self.teletextPath copy]
-                                                    TeletextReplaceStr:[self.teletextReplaceStr copy]
+            message = [[[self class] allocWithZone:zone] initWithPhoto:[self.photo copy]
+                                                          thumbnailUrl:[self.thumbnailUrl copy]
+                                                        originPhotoUrl:[self.originPhotoUrl copy]
                                                                 sender:[self.sender copy]
                                                              timestamp:[self.timestamp copy]];
+        case CCBubbleMessageMediaTypeVideo:
+            message = [[[self class] allocWithZone:zone] initWithVideoConverPhoto:[self.videoConverPhoto copy]
+                                                                        videoPath:[self.videoPath copy]
+                                                                         videoUrl:[self.videoUrl copy]
+                                                                           sender:[self.sender copy]
+                                                                        timestamp:[self.timestamp copy]];
+        case CCBubbleMessageMediaTypeVoice:
+            message = [[[self class] allocWithZone:zone] initWithVoicePath:[self.voicePath copy]
+                                                                  voiceUrl:[self.voiceUrl copy]
+                                                             voiceDuration:[self.voiceDuration copy]
+                                                                    sender:[self.sender copy]
+                                                                 timestamp:[self.timestamp copy]];
+        case CCBubbleMessageMediaTypeEmotion:
+            message = [[[self class] allocWithZone:zone] initWithEmotionPath:[self.emotionPath copy]
+                                                                  EmotionUrl:self.emotionUrl
+                                                                      sender:[self.sender copy]
+                                                                   timestamp:[self.timestamp copy]];
+        case CCBubbleMessageMediaTypeLocalPosition:
+            message = [[[self class] allocWithZone:zone] initWithLocalPositionPhoto:[self.localPositionPhoto copy]
+                                                                       geolocations:self.geolocations
+                                                                           location:[self.location copy]
+                                                                             sender:[self.sender copy]
+                                                                          timestamp:[self.timestamp copy]];
+        case CCBubbleMessageMediaTypeTeletext:
+            message = [[[self class] allocWithZone:zone] initWithTeletext:[self.text copy]
+                                                               TelextPath:[self.teletextPath copy]
+                                                       TeletextReplaceStr:[self.teletextReplaceStr copy]
+                                                                   sender:[self.sender copy]
+                                                                timestamp:[self.timestamp copy]];
         default:
-            return nil;
+            break;
     }
+    
+    message.objectID = _objectID;
+    message.avatar = _avatar;
+    message.sender = _sender;
+    message.timestamp = _timestamp;
+    message.showdate = _showdate;
+    message.shouldShowUserName = _shouldShowUserName;
+    message.sended = _sended;
+    message.messageMediaType = _messageMediaType;
+    message.messageSendState = _messageSendState;
+    message.bubbleMessageType = _bubbleMessageType;
+    message.isRead = _isRead;
+    message.selected = _selected;
+    
+    return message;
 }
 
 - (void)dealloc

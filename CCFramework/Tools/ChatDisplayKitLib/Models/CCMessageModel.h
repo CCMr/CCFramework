@@ -137,7 +137,7 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
  *  
  *  @brief  数据存储ID
  */
-@property(nonatomic, copy) NSManagedObjectID *objectID;
+- (NSManagedObjectID *)objectID;
 
 
 - (CCBubbleMessageMediaType)messageMediaType;
