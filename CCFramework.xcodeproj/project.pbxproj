@@ -21,6 +21,63 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		42068EF41C573E33005DFB01 /* POPAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EBE1C573E33005DFB01 /* POPAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42068EF51C573E33005DFB01 /* POPAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42068EBF1C573E33005DFB01 /* POPAnimation.mm */; };
+		42068EF61C573E33005DFB01 /* POPAnimationInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EC01C573E33005DFB01 /* POPAnimationInternal.h */; };
+		42068EF71C573E33005DFB01 /* POPAnimationPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EC11C573E33005DFB01 /* POPAnimationPrivate.h */; };
+		42068EF81C573E33005DFB01 /* POPBasicAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EC21C573E33005DFB01 /* POPBasicAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42068EF91C573E33005DFB01 /* POPBasicAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42068EC31C573E33005DFB01 /* POPBasicAnimation.mm */; };
+		42068EFA1C573E33005DFB01 /* POPBasicAnimationInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EC41C573E33005DFB01 /* POPBasicAnimationInternal.h */; };
+		42068EFB1C573E33005DFB01 /* POPCustomAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EC51C573E33005DFB01 /* POPCustomAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42068EFC1C573E33005DFB01 /* POPCustomAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42068EC61C573E33005DFB01 /* POPCustomAnimation.mm */; };
+		42068EFD1C573E33005DFB01 /* POPDecayAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EC71C573E33005DFB01 /* POPDecayAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42068EFE1C573E33005DFB01 /* POPDecayAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42068EC81C573E33005DFB01 /* POPDecayAnimation.mm */; };
+		42068EFF1C573E33005DFB01 /* POPDecayAnimationInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EC91C573E33005DFB01 /* POPDecayAnimationInternal.h */; };
+		42068F001C573E33005DFB01 /* POPPropertyAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068ECA1C573E33005DFB01 /* POPPropertyAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42068F011C573E33005DFB01 /* POPPropertyAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42068ECB1C573E33005DFB01 /* POPPropertyAnimation.mm */; };
+		42068F021C573E33005DFB01 /* POPPropertyAnimationInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068ECC1C573E33005DFB01 /* POPPropertyAnimationInternal.h */; };
+		42068F031C573E33005DFB01 /* POPSpringAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068ECD1C573E33005DFB01 /* POPSpringAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42068F041C573E33005DFB01 /* POPSpringAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42068ECE1C573E33005DFB01 /* POPSpringAnimation.mm */; };
+		42068F051C573E33005DFB01 /* POPSpringAnimationInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068ECF1C573E33005DFB01 /* POPSpringAnimationInternal.h */; };
+		42068F061C573E33005DFB01 /* POPAnimatableProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068ED11C573E33005DFB01 /* POPAnimatableProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42068F071C573E33005DFB01 /* POPAnimatableProperty.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42068ED21C573E33005DFB01 /* POPAnimatableProperty.mm */; };
+		42068F081C573E33005DFB01 /* POPAnimationEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068ED31C573E33005DFB01 /* POPAnimationEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42068F091C573E33005DFB01 /* POPAnimationEvent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42068ED41C573E33005DFB01 /* POPAnimationEvent.mm */; };
+		42068F0A1C573E33005DFB01 /* POPAnimationEventInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068ED51C573E33005DFB01 /* POPAnimationEventInternal.h */; };
+		42068F0B1C573E33005DFB01 /* POPAnimationExtras.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068ED61C573E33005DFB01 /* POPAnimationExtras.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42068F0C1C573E33005DFB01 /* POPAnimationExtras.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42068ED71C573E33005DFB01 /* POPAnimationExtras.mm */; };
+		42068F0D1C573E33005DFB01 /* POPAnimationRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068ED81C573E33005DFB01 /* POPAnimationRuntime.h */; };
+		42068F0E1C573E33005DFB01 /* POPAnimationRuntime.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42068ED91C573E33005DFB01 /* POPAnimationRuntime.mm */; };
+		42068F0F1C573E33005DFB01 /* POPAnimationTracer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EDA1C573E33005DFB01 /* POPAnimationTracer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42068F101C573E33005DFB01 /* POPAnimationTracer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42068EDB1C573E33005DFB01 /* POPAnimationTracer.mm */; };
+		42068F111C573E33005DFB01 /* POPAnimationTracerInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EDC1C573E33005DFB01 /* POPAnimationTracerInternal.h */; };
+		42068F121C573E33005DFB01 /* POPAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EDD1C573E33005DFB01 /* POPAnimator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42068F131C573E33005DFB01 /* POPAnimator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42068EDE1C573E33005DFB01 /* POPAnimator.mm */; };
+		42068F141C573E33005DFB01 /* POPAnimatorPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EDF1C573E33005DFB01 /* POPAnimatorPrivate.h */; };
+		42068F151C573E33005DFB01 /* POP.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EE01C573E33005DFB01 /* POP.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42068F161C573E33005DFB01 /* POPAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EE21C573E33005DFB01 /* POPAction.h */; };
+		42068F171C573E33005DFB01 /* POPCGUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EE31C573E33005DFB01 /* POPCGUtils.h */; };
+		42068F181C573E33005DFB01 /* POPCGUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42068EE41C573E33005DFB01 /* POPCGUtils.mm */; };
+		42068F191C573E33005DFB01 /* POPDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EE51C573E33005DFB01 /* POPDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42068F1A1C573E33005DFB01 /* POPGeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EE61C573E33005DFB01 /* POPGeometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42068F1B1C573E33005DFB01 /* POPGeometry.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42068EE71C573E33005DFB01 /* POPGeometry.mm */; };
+		42068F1C1C573E33005DFB01 /* POPLayerExtras.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EE81C573E33005DFB01 /* POPLayerExtras.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42068F1D1C573E33005DFB01 /* POPLayerExtras.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42068EE91C573E33005DFB01 /* POPLayerExtras.mm */; };
+		42068F1E1C573E33005DFB01 /* POPMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EEA1C573E33005DFB01 /* POPMath.h */; };
+		42068F1F1C573E33005DFB01 /* POPMath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42068EEB1C573E33005DFB01 /* POPMath.mm */; };
+		42068F201C573E33005DFB01 /* POPSpringSolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EEC1C573E33005DFB01 /* POPSpringSolver.h */; };
+		42068F211C573E33005DFB01 /* POPVector.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EED1C573E33005DFB01 /* POPVector.h */; };
+		42068F221C573E33005DFB01 /* POPVector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42068EEE1C573E33005DFB01 /* POPVector.mm */; };
+		42068F231C573E33005DFB01 /* FloatConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EF01C573E33005DFB01 /* FloatConversion.h */; };
+		42068F241C573E33005DFB01 /* TransformationMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42068EF11C573E33005DFB01 /* TransformationMatrix.cpp */; };
+		42068F251C573E33005DFB01 /* TransformationMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EF21C573E33005DFB01 /* TransformationMatrix.h */; };
+		42068F261C573E33005DFB01 /* UnitBezier.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068EF31C573E33005DFB01 /* UnitBezier.h */; };
+		42068F2A1C5746A1005DFB01 /* CCPopMenuButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068F281C5746A1005DFB01 /* CCPopMenuButton.h */; };
+		42068F2B1C5746A1005DFB01 /* CCPopMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 42068F291C5746A1005DFB01 /* CCPopMenuButton.m */; };
+		42068F2E1C57472A005DFB01 /* GlowImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068F2C1C57472A005DFB01 /* GlowImageView.h */; };
+		42068F2F1C57472A005DFB01 /* GlowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42068F2D1C57472A005DFB01 /* GlowImageView.m */; };
+		42068F321C57480C005DFB01 /* CCRealTimeBlur.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068F301C57480C005DFB01 /* CCRealTimeBlur.h */; };
+		42068F331C57480C005DFB01 /* CCRealTimeBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = 42068F311C57480C005DFB01 /* CCRealTimeBlur.m */; };
 		4213943C1BF2D9F50046062B /* SRLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213943B1BF2D9F50046062B /* SRLog.h */; };
 		4213FAFC1C13D860006918AC /* CCJPsuh.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213FAFA1C13D860006918AC /* CCJPsuh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4213FAFD1C13D860006918AC /* CCJPsuh.m in Sources */ = {isa = PBXBuildFile; fileRef = 4213FAFB1C13D860006918AC /* CCJPsuh.m */; };
@@ -937,6 +994,63 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		42068EBE1C573E33005DFB01 /* POPAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPAnimation.h; sourceTree = "<group>"; };
+		42068EBF1C573E33005DFB01 /* POPAnimation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = POPAnimation.mm; sourceTree = "<group>"; };
+		42068EC01C573E33005DFB01 /* POPAnimationInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPAnimationInternal.h; sourceTree = "<group>"; };
+		42068EC11C573E33005DFB01 /* POPAnimationPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPAnimationPrivate.h; sourceTree = "<group>"; };
+		42068EC21C573E33005DFB01 /* POPBasicAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPBasicAnimation.h; sourceTree = "<group>"; };
+		42068EC31C573E33005DFB01 /* POPBasicAnimation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = POPBasicAnimation.mm; sourceTree = "<group>"; };
+		42068EC41C573E33005DFB01 /* POPBasicAnimationInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPBasicAnimationInternal.h; sourceTree = "<group>"; };
+		42068EC51C573E33005DFB01 /* POPCustomAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPCustomAnimation.h; sourceTree = "<group>"; };
+		42068EC61C573E33005DFB01 /* POPCustomAnimation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = POPCustomAnimation.mm; sourceTree = "<group>"; };
+		42068EC71C573E33005DFB01 /* POPDecayAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPDecayAnimation.h; sourceTree = "<group>"; };
+		42068EC81C573E33005DFB01 /* POPDecayAnimation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = POPDecayAnimation.mm; sourceTree = "<group>"; };
+		42068EC91C573E33005DFB01 /* POPDecayAnimationInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPDecayAnimationInternal.h; sourceTree = "<group>"; };
+		42068ECA1C573E33005DFB01 /* POPPropertyAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPPropertyAnimation.h; sourceTree = "<group>"; };
+		42068ECB1C573E33005DFB01 /* POPPropertyAnimation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = POPPropertyAnimation.mm; sourceTree = "<group>"; };
+		42068ECC1C573E33005DFB01 /* POPPropertyAnimationInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPPropertyAnimationInternal.h; sourceTree = "<group>"; };
+		42068ECD1C573E33005DFB01 /* POPSpringAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPSpringAnimation.h; sourceTree = "<group>"; };
+		42068ECE1C573E33005DFB01 /* POPSpringAnimation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = POPSpringAnimation.mm; sourceTree = "<group>"; };
+		42068ECF1C573E33005DFB01 /* POPSpringAnimationInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPSpringAnimationInternal.h; sourceTree = "<group>"; };
+		42068ED11C573E33005DFB01 /* POPAnimatableProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPAnimatableProperty.h; sourceTree = "<group>"; };
+		42068ED21C573E33005DFB01 /* POPAnimatableProperty.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = POPAnimatableProperty.mm; sourceTree = "<group>"; };
+		42068ED31C573E33005DFB01 /* POPAnimationEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPAnimationEvent.h; sourceTree = "<group>"; };
+		42068ED41C573E33005DFB01 /* POPAnimationEvent.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = POPAnimationEvent.mm; sourceTree = "<group>"; };
+		42068ED51C573E33005DFB01 /* POPAnimationEventInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPAnimationEventInternal.h; sourceTree = "<group>"; };
+		42068ED61C573E33005DFB01 /* POPAnimationExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPAnimationExtras.h; sourceTree = "<group>"; };
+		42068ED71C573E33005DFB01 /* POPAnimationExtras.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = POPAnimationExtras.mm; sourceTree = "<group>"; };
+		42068ED81C573E33005DFB01 /* POPAnimationRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPAnimationRuntime.h; sourceTree = "<group>"; };
+		42068ED91C573E33005DFB01 /* POPAnimationRuntime.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = POPAnimationRuntime.mm; sourceTree = "<group>"; };
+		42068EDA1C573E33005DFB01 /* POPAnimationTracer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPAnimationTracer.h; sourceTree = "<group>"; };
+		42068EDB1C573E33005DFB01 /* POPAnimationTracer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = POPAnimationTracer.mm; sourceTree = "<group>"; };
+		42068EDC1C573E33005DFB01 /* POPAnimationTracerInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPAnimationTracerInternal.h; sourceTree = "<group>"; };
+		42068EDD1C573E33005DFB01 /* POPAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPAnimator.h; sourceTree = "<group>"; };
+		42068EDE1C573E33005DFB01 /* POPAnimator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = POPAnimator.mm; sourceTree = "<group>"; };
+		42068EDF1C573E33005DFB01 /* POPAnimatorPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPAnimatorPrivate.h; sourceTree = "<group>"; };
+		42068EE01C573E33005DFB01 /* POP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POP.h; path = POP/POP.h; sourceTree = "<group>"; };
+		42068EE21C573E33005DFB01 /* POPAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPAction.h; sourceTree = "<group>"; };
+		42068EE31C573E33005DFB01 /* POPCGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPCGUtils.h; sourceTree = "<group>"; };
+		42068EE41C573E33005DFB01 /* POPCGUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = POPCGUtils.mm; sourceTree = "<group>"; };
+		42068EE51C573E33005DFB01 /* POPDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPDefines.h; sourceTree = "<group>"; };
+		42068EE61C573E33005DFB01 /* POPGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPGeometry.h; sourceTree = "<group>"; };
+		42068EE71C573E33005DFB01 /* POPGeometry.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = POPGeometry.mm; sourceTree = "<group>"; };
+		42068EE81C573E33005DFB01 /* POPLayerExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPLayerExtras.h; sourceTree = "<group>"; };
+		42068EE91C573E33005DFB01 /* POPLayerExtras.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = POPLayerExtras.mm; sourceTree = "<group>"; };
+		42068EEA1C573E33005DFB01 /* POPMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPMath.h; sourceTree = "<group>"; };
+		42068EEB1C573E33005DFB01 /* POPMath.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = POPMath.mm; sourceTree = "<group>"; };
+		42068EEC1C573E33005DFB01 /* POPSpringSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPSpringSolver.h; sourceTree = "<group>"; };
+		42068EED1C573E33005DFB01 /* POPVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POPVector.h; sourceTree = "<group>"; };
+		42068EEE1C573E33005DFB01 /* POPVector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = POPVector.mm; sourceTree = "<group>"; };
+		42068EF01C573E33005DFB01 /* FloatConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloatConversion.h; sourceTree = "<group>"; };
+		42068EF11C573E33005DFB01 /* TransformationMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TransformationMatrix.cpp; sourceTree = "<group>"; };
+		42068EF21C573E33005DFB01 /* TransformationMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformationMatrix.h; sourceTree = "<group>"; };
+		42068EF31C573E33005DFB01 /* UnitBezier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitBezier.h; sourceTree = "<group>"; };
+		42068F281C5746A1005DFB01 /* CCPopMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPopMenuButton.h; path = Views/CCPopMenuButton.h; sourceTree = "<group>"; };
+		42068F291C5746A1005DFB01 /* CCPopMenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCPopMenuButton.m; path = Views/CCPopMenuButton.m; sourceTree = "<group>"; };
+		42068F2C1C57472A005DFB01 /* GlowImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GlowImageView.h; path = Views/GlowImageView.h; sourceTree = "<group>"; };
+		42068F2D1C57472A005DFB01 /* GlowImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GlowImageView.m; path = Views/GlowImageView.m; sourceTree = "<group>"; };
+		42068F301C57480C005DFB01 /* CCRealTimeBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRealTimeBlur.h; path = Views/CCRealTimeBlur.h; sourceTree = "<group>"; };
+		42068F311C57480C005DFB01 /* CCRealTimeBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRealTimeBlur.m; path = Views/CCRealTimeBlur.m; sourceTree = "<group>"; };
 		4213943B1BF2D9F50046062B /* SRLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRLog.h; sourceTree = "<group>"; };
 		4213FAFA1C13D860006918AC /* CCJPsuh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCJPsuh.h; sourceTree = "<group>"; };
 		4213FAFB1C13D860006918AC /* CCJPsuh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCJPsuh.m; sourceTree = "<group>"; };
@@ -1869,6 +1983,113 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		42068EBC1C573876005DFB01 /* POP */ = {
+			isa = PBXGroup;
+			children = (
+				42068EE01C573E33005DFB01 /* POP.h */,
+				42068EBD1C573E33005DFB01 /* Animations */,
+				42068ED01C573E33005DFB01 /* Engine */,
+				42068EE11C573E33005DFB01 /* Utility */,
+				42068EEF1C573E33005DFB01 /* WebCore */,
+			);
+			name = POP;
+			sourceTree = "<group>";
+		};
+		42068EBD1C573E33005DFB01 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				42068EBE1C573E33005DFB01 /* POPAnimation.h */,
+				42068EBF1C573E33005DFB01 /* POPAnimation.mm */,
+				42068EC01C573E33005DFB01 /* POPAnimationInternal.h */,
+				42068EC11C573E33005DFB01 /* POPAnimationPrivate.h */,
+				42068EC21C573E33005DFB01 /* POPBasicAnimation.h */,
+				42068EC31C573E33005DFB01 /* POPBasicAnimation.mm */,
+				42068EC41C573E33005DFB01 /* POPBasicAnimationInternal.h */,
+				42068EC51C573E33005DFB01 /* POPCustomAnimation.h */,
+				42068EC61C573E33005DFB01 /* POPCustomAnimation.mm */,
+				42068EC71C573E33005DFB01 /* POPDecayAnimation.h */,
+				42068EC81C573E33005DFB01 /* POPDecayAnimation.mm */,
+				42068EC91C573E33005DFB01 /* POPDecayAnimationInternal.h */,
+				42068ECA1C573E33005DFB01 /* POPPropertyAnimation.h */,
+				42068ECB1C573E33005DFB01 /* POPPropertyAnimation.mm */,
+				42068ECC1C573E33005DFB01 /* POPPropertyAnimationInternal.h */,
+				42068ECD1C573E33005DFB01 /* POPSpringAnimation.h */,
+				42068ECE1C573E33005DFB01 /* POPSpringAnimation.mm */,
+				42068ECF1C573E33005DFB01 /* POPSpringAnimationInternal.h */,
+			);
+			name = Animations;
+			path = POP/Animations;
+			sourceTree = "<group>";
+		};
+		42068ED01C573E33005DFB01 /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				42068ED11C573E33005DFB01 /* POPAnimatableProperty.h */,
+				42068ED21C573E33005DFB01 /* POPAnimatableProperty.mm */,
+				42068ED31C573E33005DFB01 /* POPAnimationEvent.h */,
+				42068ED41C573E33005DFB01 /* POPAnimationEvent.mm */,
+				42068ED51C573E33005DFB01 /* POPAnimationEventInternal.h */,
+				42068ED61C573E33005DFB01 /* POPAnimationExtras.h */,
+				42068ED71C573E33005DFB01 /* POPAnimationExtras.mm */,
+				42068ED81C573E33005DFB01 /* POPAnimationRuntime.h */,
+				42068ED91C573E33005DFB01 /* POPAnimationRuntime.mm */,
+				42068EDA1C573E33005DFB01 /* POPAnimationTracer.h */,
+				42068EDB1C573E33005DFB01 /* POPAnimationTracer.mm */,
+				42068EDC1C573E33005DFB01 /* POPAnimationTracerInternal.h */,
+				42068EDD1C573E33005DFB01 /* POPAnimator.h */,
+				42068EDE1C573E33005DFB01 /* POPAnimator.mm */,
+				42068EDF1C573E33005DFB01 /* POPAnimatorPrivate.h */,
+			);
+			name = Engine;
+			path = POP/Engine;
+			sourceTree = "<group>";
+		};
+		42068EE11C573E33005DFB01 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				42068EE21C573E33005DFB01 /* POPAction.h */,
+				42068EE31C573E33005DFB01 /* POPCGUtils.h */,
+				42068EE41C573E33005DFB01 /* POPCGUtils.mm */,
+				42068EE51C573E33005DFB01 /* POPDefines.h */,
+				42068EE61C573E33005DFB01 /* POPGeometry.h */,
+				42068EE71C573E33005DFB01 /* POPGeometry.mm */,
+				42068EE81C573E33005DFB01 /* POPLayerExtras.h */,
+				42068EE91C573E33005DFB01 /* POPLayerExtras.mm */,
+				42068EEA1C573E33005DFB01 /* POPMath.h */,
+				42068EEB1C573E33005DFB01 /* POPMath.mm */,
+				42068EEC1C573E33005DFB01 /* POPSpringSolver.h */,
+				42068EED1C573E33005DFB01 /* POPVector.h */,
+				42068EEE1C573E33005DFB01 /* POPVector.mm */,
+			);
+			name = Utility;
+			path = POP/Utility;
+			sourceTree = "<group>";
+		};
+		42068EEF1C573E33005DFB01 /* WebCore */ = {
+			isa = PBXGroup;
+			children = (
+				42068EF01C573E33005DFB01 /* FloatConversion.h */,
+				42068EF11C573E33005DFB01 /* TransformationMatrix.cpp */,
+				42068EF21C573E33005DFB01 /* TransformationMatrix.h */,
+				42068EF31C573E33005DFB01 /* UnitBezier.h */,
+			);
+			name = WebCore;
+			path = POP/WebCore;
+			sourceTree = "<group>";
+		};
+		42068F271C57449D005DFB01 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				42068F281C5746A1005DFB01 /* CCPopMenuButton.h */,
+				42068F291C5746A1005DFB01 /* CCPopMenuButton.m */,
+				42068F2C1C57472A005DFB01 /* GlowImageView.h */,
+				42068F2D1C57472A005DFB01 /* GlowImageView.m */,
+				42068F301C57480C005DFB01 /* CCRealTimeBlur.h */,
+				42068F311C57480C005DFB01 /* CCRealTimeBlur.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		42105D131BDB1791003EE23E /* CoreDataFactory */ = {
 			isa = PBXGroup;
 			children = (
@@ -3095,6 +3316,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E11BDDF91400C76004 /* Animation.h */,
+				42068EBC1C573876005DFB01 /* POP */,
 				426528971BECA16B0096C0EF /* Loading */,
 				4230E1811BBB7F730001E68F /* Radar */,
 				429C9DD61B9EF8BE0013A44A /* CCSlideShadowAnimation */,
@@ -3378,6 +3600,7 @@
 		429C9E691B9EF8BF0013A44A /* CCPopMenuVIew */ = {
 			isa = PBXGroup;
 			children = (
+				42068F271C57449D005DFB01 /* Views */,
 				429C9E6A1B9EF8BF0013A44A /* CCPopMenuView.h */,
 				429C9E6B1B9EF8BF0013A44A /* CCPopMenuView.m */,
 			);
@@ -4439,12 +4662,14 @@
 				422978631BEE407400CECBBF /* CCBlockTrace.h in Headers */,
 				42B647411BEDA9DA00B2F6FD /* Core.h in Headers */,
 				42F411F01C2150E500814E7B /* UIImage+Resize.h in Headers */,
+				42068EFD1C573E33005DFB01 /* POPDecayAnimation.h in Headers */,
 				42B647401BEDA9C600B2F6FD /* CCProperty.h in Headers */,
 				42F411FE1C2150E500814E7B /* UISearchBar+Addition.h in Headers */,
 				425477831BD2AEC20071BBC5 /* RSADataVerifier.h in Headers */,
 				428B5C321C22609C001B8584 /* QRCodeGenerator.h in Headers */,
 				428B5C3D1C22609C001B8584 /* split.h in Headers */,
 				425477621BD2AEC20071BBC5 /* sha.h in Headers */,
+				42068F081C573E33005DFB01 /* POPAnimationEvent.h in Headers */,
 				42F411D61C2150E500814E7B /* UIColor+BUIColor.h in Headers */,
 				42DEB2A41C25495000734E09 /* CCColorSourceView.h in Headers */,
 				425477711BD2AEC20071BBC5 /* x509.h in Headers */,
@@ -4454,6 +4679,7 @@
 				4213FAFC1C13D860006918AC /* CCJPsuh.h in Headers */,
 				42F945871BC8ED5D008882AE /* CCDisplayMediaViewController.h in Headers */,
 				42F411F41C2150E500814E7B /* UIImage+Utility.h in Headers */,
+				42068F061C573E33005DFB01 /* POPAnimatableProperty.h in Headers */,
 				42C208E61BDE025300C76004 /* UI.h in Headers */,
 				425477761BD2AEC20071BBC5 /* config.h in Headers */,
 				4298C7751BDCA4C100A3581D /* CCCollectionViewFetchResultController.h in Headers */,
@@ -4478,6 +4704,7 @@
 				42300C771C2BDD7200D03641 /* CCEmotionTextAttachment.h in Headers */,
 				42F411FC1C2150E500814E7B /* UIScrollView+CCkeyboardControl.h in Headers */,
 				4254774E1BD2AEC20071BBC5 /* mdc2.h in Headers */,
+				42068EF81C573E33005DFB01 /* POPBasicAnimation.h in Headers */,
 				4254775F1BD2AEC20071BBC5 /* rsa.h in Headers */,
 				425477591BD2AEC20071BBC5 /* pkcs7.h in Headers */,
 				4254772D1BD2AEC20071BBC5 /* bio.h in Headers */,
@@ -4487,6 +4714,7 @@
 				4254777D1BD2AEC20071BBC5 /* NSDataEx.h in Headers */,
 				425477421BD2AEC20071BBC5 /* ecdh.h in Headers */,
 				4254775A1BD2AEC20071BBC5 /* pqueue.h in Headers */,
+				42068F051C573E33005DFB01 /* POPSpringAnimationInternal.h in Headers */,
 				425477311BD2AEC20071BBC5 /* camellia.h in Headers */,
 				425477611BD2AEC20071BBC5 /* seed.h in Headers */,
 				425477371BD2AEC20071BBC5 /* conf_api.h in Headers */,
@@ -4527,6 +4755,7 @@
 				429CA0231B9EF8BF0013A44A /* CCMessageTextView.h in Headers */,
 				426979281BA695BA00C3E93C /* AFNetworking.h in Headers */,
 				429CA0F31B9EF8BF0013A44A /* CCMessageBubbleHelper.h in Headers */,
+				42068F141C573E33005DFB01 /* POPAnimatorPrivate.h in Headers */,
 				42F4121E1C21648300814E7B /* CCPaintingLayer.h in Headers */,
 				42A58A591BCCA23C0027429C /* CCWebView.h in Headers */,
 				426979451BA695BA00C3E93C /* UIKit+AFNetworking.h in Headers */,
@@ -4557,6 +4786,7 @@
 				429CA1181B9EF8BF0013A44A /* CCMessageTableView.h in Headers */,
 				42786E751C40ACD000C011FB /* CCDropDownListMenuItemView.h in Headers */,
 				426979431BA695BA00C3E93C /* UIImageView+AFNetworking.h in Headers */,
+				42068F0F1C573E33005DFB01 /* POPAnimationTracer.h in Headers */,
 				4269793F1BA695BA00C3E93C /* UIAlertView+AFNetworking.h in Headers */,
 				42B30DDF1BBD72AD0039BB94 /* SDWebImageDownloader.h in Headers */,
 				42B30DD91BBD72AD0039BB94 /* UIImageView+HighlightedWebCache.h in Headers */,
@@ -4571,6 +4801,7 @@
 				42F411DE1C2150E500814E7B /* UIButton+BUIButton.h in Headers */,
 				425477411BD2AEC20071BBC5 /* ec.h in Headers */,
 				429CA0EB1B9EF8BF0013A44A /* CCCaptureHelper.h in Headers */,
+				42068EFB1C573E33005DFB01 /* POPCustomAnimation.h in Headers */,
 				429CA0851B9EF8BF0013A44A /* BUILabel.h in Headers */,
 				42DEB2A61C25495000734E09 /* CCDragChip.h in Headers */,
 				425477571BD2AEC20071BBC5 /* pem2.h in Headers */,
@@ -4579,7 +4810,9 @@
 				42B30DD31BBD72AD0039BB94 /* UIImage+GIF.h in Headers */,
 				429CA00F1B9EF8BF0013A44A /* CalendarFlowLayout.h in Headers */,
 				429CA0381B9EF8BF0013A44A /* CCPhotoToolbar.h in Headers */,
+				42068F2A1C5746A1005DFB01 /* CCPopMenuButton.h in Headers */,
 				429C9F6C1B9EF8BF0013A44A /* CCUserDefaultsCrash.h in Headers */,
+				42068F231C573E33005DFB01 /* FloatConversion.h in Headers */,
 				429CA0641B9EF8BF0013A44A /* CCPickerViewController.h in Headers */,
 				429C9F721B9EF8BF0013A44A /* CCHTTPRequest.h in Headers */,
 				42F4113D1C214C5400814E7B /* CCDashLineBrush.h in Headers */,
@@ -4596,6 +4829,7 @@
 				4298C7861BDCB33D00A3581D /* CoreDataMasterSlave+Convenience.h in Headers */,
 				429C9FCA1B9EF8BF0013A44A /* SRHubs.h in Headers */,
 				429C9FC31B9EF8BF0013A44A /* SRHubProxy.h in Headers */,
+				42068F111C573E33005DFB01 /* POPAnimationTracerInternal.h in Headers */,
 				42A356351BF4399800B6F1F2 /* CCRefreshBaseView.h in Headers */,
 				429C9FC81B9EF8BF0013A44A /* SRHubResult.h in Headers */,
 				429C9FCB1B9EF8BF0013A44A /* SRSubscription.h in Headers */,
@@ -4621,7 +4855,9 @@
 				429CA12E1B9EF8BF0013A44A /* CCTimePicker.h in Headers */,
 				42B30DE51BBD72AD0039BB94 /* SDWebImageOperation.h in Headers */,
 				42D8CB371BDDB1EF007CAC62 /* CCCoreData.h in Headers */,
+				42068EF41C573E33005DFB01 /* POPAnimation.h in Headers */,
 				4263DEE61C225A54002E1071 /* CCColorWell.h in Headers */,
+				42068F1A1C573E33005DFB01 /* POPGeometry.h in Headers */,
 				429CA0FD1B9EF8BF0013A44A /* CCCacheManager.h in Headers */,
 				429CA1201B9EF8BF0013A44A /* CCEmotionManagerView.h in Headers */,
 				429C9F4C1B9EF8BF0013A44A /* BaseNavigationController.h in Headers */,
@@ -4634,6 +4870,7 @@
 				42B30DD51BBD72AD0039BB94 /* UIImage+MultiFormat.h in Headers */,
 				429CA1011B9EF8BF0013A44A /* CCMessageAvatarFactory.h in Headers */,
 				42C208F31BDE1EB400C76004 /* RequestProtocol.h in Headers */,
+				42068EFA1C573E33005DFB01 /* POPBasicAnimationInternal.h in Headers */,
 				429CA0031B9EF8BF0013A44A /* CCActionSheetViewController.h in Headers */,
 				4254774B1BD2AEC20071BBC5 /* lhash.h in Headers */,
 				429C9FAA1B9EF8BF0013A44A /* CCThemeManager.h in Headers */,
@@ -4668,6 +4905,7 @@
 				42F411431C214C5400814E7B /* CCEllipseBrush.h in Headers */,
 				42F411301C214C5400814E7B /* CCImageManger.h in Headers */,
 				428B5C351C22609C001B8584 /* qrencode.h in Headers */,
+				42068F1E1C573E33005DFB01 /* POPMath.h in Headers */,
 				42F411E01C2150E500814E7B /* UIButton+CCButtonTitlePosition.h in Headers */,
 				42F4113B1C214C5400814E7B /* CCArrowBrush.h in Headers */,
 				42F4121A1C21639B00814E7B /* CCPaintingView.h in Headers */,
@@ -4677,7 +4915,9 @@
 				42F24C651BEA5091008CDEDC /* PNPieChartDataItem.h in Headers */,
 				42F411F61C2150E500814E7B /* UIImageView+Additional.h in Headers */,
 				42DEB29D1C25495000734E09 /* gl_matrix.h in Headers */,
+				42068F2E1C57472A005DFB01 /* GlowImageView.h in Headers */,
 				423C12791C0ECACB009FBA17 /* CCTool.h in Headers */,
+				42068F211C573E33005DFB01 /* POPVector.h in Headers */,
 				42F4113F1C214C5400814E7B /* CCLineBrush.h in Headers */,
 				42F411341C214C5400814E7B /* CCBaseBrush.h in Headers */,
 				42DEB2BA1C254A6800734E09 /* CCColorPickerController.h in Headers */,
@@ -4713,7 +4953,9 @@
 				421E7A771C3D173D00C31AD0 /* UIViewController+CCDrawerController.h in Headers */,
 				429CA0831B9EF8BF0013A44A /* CCTextViewPlaceholder.h in Headers */,
 				429CA0F11B9EF8BF0013A44A /* CCLocationHelper.h in Headers */,
+				42068F161C573E33005DFB01 /* POPAction.h in Headers */,
 				429CA1091B9EF8BF0013A44A /* CCVideoOutputSampleBufferFactory.h in Headers */,
+				42068F0D1C573E33005DFB01 /* POPAnimationRuntime.h in Headers */,
 				429C9F5C1B9EF8BF0013A44A /* CCDropzone.h in Headers */,
 				4254775D1BD2AEC20071BBC5 /* rc4.h in Headers */,
 				42B30DCF1BBD72AD0039BB94 /* NSData+ImageContentType.h in Headers */,
@@ -4723,14 +4965,17 @@
 				429C9F581B9EF8BF0013A44A /* BaseViewController.h in Headers */,
 				429CA00B1B9EF8BF0013A44A /* CalendarCollectionViewCell.h in Headers */,
 				429CA0871B9EF8BF0013A44A /* CCLabel.h in Headers */,
+				42068F171C573E33005DFB01 /* POPCGUtils.h in Headers */,
 				4230E1961BBB8F7C0001E68F /* CCRadarScanViewController.h in Headers */,
 				4254775E1BD2AEC20071BBC5 /* ripemd.h in Headers */,
 				428B5C3B1C22609C001B8584 /* rscode.h in Headers */,
 				429CA0071B9EF8BF0013A44A /* CCAnimatedImageView.h in Headers */,
 				4254774C1BD2AEC20071BBC5 /* md4.h in Headers */,
+				42068F0A1C573E33005DFB01 /* POPAnimationEventInternal.h in Headers */,
 				429CA0E91B9EF8BF0013A44A /* CCAudioPlayerHelper.h in Headers */,
 				42F24C5D1BEA5091008CDEDC /* PNLineChart.h in Headers */,
 				42F24C551BEA5091008CDEDC /* PNChartLabel.h in Headers */,
+				42068F0B1C573E33005DFB01 /* POPAnimationExtras.h in Headers */,
 				429CA12A1B9EF8BF0013A44A /* CCLocationManager.h in Headers */,
 				429C9F5A1B9EF8BF0013A44A /* BaseTableViewHeaderFooterView.h in Headers */,
 				429CA1071B9EF8BF0013A44A /* CCMessageVoiceFactory.h in Headers */,
@@ -4767,6 +5012,7 @@
 				4267DCF21BDB32CD00B0C43F /* NSManagedObject+FetchRequest.h in Headers */,
 				425477561BD2AEC20071BBC5 /* pem.h in Headers */,
 				425477581BD2AEC20071BBC5 /* pkcs12.h in Headers */,
+				42068F261C573E33005DFB01 /* UnitBezier.h in Headers */,
 				42B30DE31BBD72AD0039BB94 /* SDWebImageCompat.h in Headers */,
 				424492951C0D90F500488AA2 /* interf_enc.h in Headers */,
 				429CA0911B9EF8BF0013A44A /* CCWebViewController.h in Headers */,
@@ -4786,6 +5032,7 @@
 				429CA0751B9EF8BF0013A44A /* CCPopMenuItemView.h in Headers */,
 				425476BD1BD2A9DC0071BBC5 /* CCAliPayEngine.h in Headers */,
 				429CA1261B9EF8BF0013A44A /* CCAnnotation.h in Headers */,
+				42068EFF1C573E33005DFB01 /* POPDecayAnimationInternal.h in Headers */,
 				42F412041C2150E500814E7B /* UIView+BUIView.h in Headers */,
 				429C9FBA1B9EF8BF0013A44A /* FriendGroup.h in Headers */,
 				42DEB2B61C254A2100734E09 /* CCBarSlider.h in Headers */,
@@ -4825,32 +5072,41 @@
 				42F24C6B1BEA5091008CDEDC /* PNScatterChart.h in Headers */,
 				429CA1031B9EF8BF0013A44A /* CCMessageBubbleFactory.h in Headers */,
 				429CA0731B9EF8BF0013A44A /* CCPopMenuItem.h in Headers */,
+				42068F031C573E33005DFB01 /* POPSpringAnimation.h in Headers */,
 				429CA03A1B9EF8BF0013A44A /* CCPhotoView.h in Headers */,
 				4254774D1BD2AEC20071BBC5 /* md5.h in Headers */,
 				425A4F381C11C466009A7E77 /* CCXML.h in Headers */,
 				42DEB2941C25495000734E09 /* CCColorSlider.h in Headers */,
 				4267DD1E1BDB5C5900B0C43F /* CoreDataManager.h in Headers */,
+				42068F121C573E33005DFB01 /* POPAnimator.h in Headers */,
+				42068EF71C573E33005DFB01 /* POPAnimationPrivate.h in Headers */,
 				425477461BD2AEC20071BBC5 /* evp.h in Headers */,
 				425477481BD2AEC20071BBC5 /* idea.h in Headers */,
+				42068F151C573E33005DFB01 /* POP.h in Headers */,
 				4254776C1BD2AEC20071BBC5 /* ts.h in Headers */,
 				42F411391C214C5400814E7B /* CCPencilBrush.h in Headers */,
 				4254774A1BD2AEC20071BBC5 /* kssl.h in Headers */,
 				425477291BD2AEC20071BBC5 /* aes.h in Headers */,
+				42068F321C57480C005DFB01 /* CCRealTimeBlur.h in Headers */,
 				421E7A751C3D173D00C31AD0 /* CCDrawerVisualState.h in Headers */,
 				421E7A7D1C3D173D00C31AD0 /* UIViewController+CCSideMenu.h in Headers */,
 				42DEB2A81C25495000734E09 /* CCInsetView.h in Headers */,
+				42068F201C573E33005DFB01 /* POPSpringSolver.h in Headers */,
 				425477301BD2AEC20071BBC5 /* buffer.h in Headers */,
 				426476A21BD0E3AF00EE191C /* CCCellScrollView.h in Headers */,
 				42F164091C2A401E00F17928 /* CCToolButton.h in Headers */,
+				42068F251C573E33005DFB01 /* TransformationMatrix.h in Headers */,
 				4267DD1C1BDB5C5900B0C43F /* BaseManagedObject.h in Headers */,
 				425477671BD2AEC20071BBC5 /* ssl23.h in Headers */,
 				42F411D01C2150E500814E7B /* NSMutableArray+BNSMutableArray.h in Headers */,
 				425477491BD2AEC20071BBC5 /* krb5_asn.h in Headers */,
 				425477681BD2AEC20071BBC5 /* ssl3.h in Headers */,
+				42068F191C573E33005DFB01 /* POPDefines.h in Headers */,
 				425477321BD2AEC20071BBC5 /* cast.h in Headers */,
 				42A58A401BCC94320027429C /* CCQRCodeDisplayViewController.h in Headers */,
 				425477471BD2AEC20071BBC5 /* hmac.h in Headers */,
 				429C9FF31B9EF8BF0013A44A /* SRWebSocketTransport.h in Headers */,
+				42068EF61C573E33005DFB01 /* POPAnimationInternal.h in Headers */,
 				42B6474A1BEDDA8200B2F6FD /* CCHTTPManager+Addition.h in Headers */,
 				429C9FF51B9EF8BF0013A44A /* SRWebSocketConnectionInfo.h in Headers */,
 				42F412081C2150E500814E7B /* UIView+CCRemoteImage.h in Headers */,
@@ -4861,6 +5117,7 @@
 				42591B4B1C33C95D00BF6C48 /* UINavigationBar+Additional.h in Headers */,
 				429C9FF11B9EF8BF0013A44A /* SRServerSentEventsTransport.h in Headers */,
 				42C208E21BDDF91400C76004 /* Animation.h in Headers */,
+				42068F021C573E33005DFB01 /* POPPropertyAnimationInternal.h in Headers */,
 				429C9FE81B9EF8BF0013A44A /* SRServerSentEvent.h in Headers */,
 				42C208EF1BDE1D7D00C76004 /* ModelLayer.h in Headers */,
 				429C9FE21B9EF8BF0013A44A /* SRNegotiationResponse.h in Headers */,
@@ -4868,6 +5125,7 @@
 				429C9FEF1B9EF8BF0013A44A /* SRLongPollingTransport.h in Headers */,
 				425477501BD2AEC20071BBC5 /* obj_mac.h in Headers */,
 				429C9FDF1B9EF8BF0013A44A /* SRKeepAliveData.h in Headers */,
+				42068F001C573E33005DFB01 /* POPPropertyAnimation.h in Headers */,
 				42F24C511BEA5091008CDEDC /* PNBarChart.h in Headers */,
 				429C9FED1B9EF8BF0013A44A /* SRHttpBasedTransport.h in Headers */,
 				42F4120C1C2150E500814E7B /* UIWindow+BUIWindow.h in Headers */,
@@ -4885,6 +5143,7 @@
 				42F411F21C2150E500814E7B /* UIImage+RoundedCorner.h in Headers */,
 				425477721BD2AEC20071BBC5 /* x509_vfy.h in Headers */,
 				4254774F1BD2AEC20071BBC5 /* modes.h in Headers */,
+				42068F1C1C573E33005DFB01 /* POPLayerExtras.h in Headers */,
 				429C9FD91B9EF8BF0013A44A /* SRConnectionExtensions.h in Headers */,
 				429C9FEC1B9EF8BF0013A44A /* SRClientTransportInterface.h in Headers */,
 				429C9FE41B9EF8BF0013A44A /* SRChunkBuffer.h in Headers */,
@@ -5106,6 +5365,7 @@
 				42B30DD01BBD72AD0039BB94 /* NSData+ImageContentType.m in Sources */,
 				429CA0B01B9EF8BF0013A44A /* SETextSelection.m in Sources */,
 				42F24C641BEA5091008CDEDC /* PNPieChart.m in Sources */,
+				42068F331C57480C005DFB01 /* CCRealTimeBlur.m in Sources */,
 				422978611BEE3A1100CECBBF /* CCResponseObject.m in Sources */,
 				42B6474D1BEDE00200B2F6FD /* CCHTTPManager+POST.m in Sources */,
 				4267DCF31BDB32CD00B0C43F /* NSManagedObject+FetchRequest.m in Sources */,
@@ -5141,12 +5401,15 @@
 				4298C77E1BDCAB3D00A3581D /* CoreDataMasterSlave.m in Sources */,
 				429CA08A1B9EF8BF0013A44A /* CCAutoTextView.m in Sources */,
 				428B5C331C22609C001B8584 /* QRCodeGenerator.m in Sources */,
+				42068F1D1C573E33005DFB01 /* POPLayerExtras.mm in Sources */,
 				42DEB2A71C25495000734E09 /* CCDragChip.m in Sources */,
 				4298C78C1BDCBB0300A3581D /* CoreDataMasterSlave+Queries.m in Sources */,
 				429CA0001B9EF8BF0013A44A /* CCRourRotation.m in Sources */,
 				42B73E851C17D40D001A1D0F /* CCEmotionView.m in Sources */,
 				4265289B1BECA1AB0096C0EF /* CCLoadingView.m in Sources */,
+				42068F131C573E33005DFB01 /* POPAnimator.mm in Sources */,
 				429CA0241B9EF8BF0013A44A /* CCMessageTextView.m in Sources */,
+				42068F221C573E33005DFB01 /* POPVector.mm in Sources */,
 				4267DD0C1BDB5A7000B0C43F /* NSManagedObject+Queries.m in Sources */,
 				4267DD0A1BDB5A7000B0C43F /* NSManagedObject+Create.m in Sources */,
 				429CA12F1B9EF8BF0013A44A /* CCTimePicker.m in Sources */,
@@ -5164,8 +5427,10 @@
 				429CA0F61B9EF8BF0013A44A /* CCPhotographyHelper.m in Sources */,
 				429C9FB91B9EF8BF0013A44A /* Friend.m in Sources */,
 				429CA0201B9EF8BF0013A44A /* CCLoadLogoView.m in Sources */,
+				42068F1B1C573E33005DFB01 /* POPGeometry.mm in Sources */,
 				429C9F691B9EF8BF0013A44A /* BaseEntity.m in Sources */,
 				429CA0391B9EF8BF0013A44A /* CCPhotoToolbar.m in Sources */,
+				42068F071C573E33005DFB01 /* POPAnimatableProperty.mm in Sources */,
 				42F1640A1C2A401E00F17928 /* CCToolButton.m in Sources */,
 				4267DD1D1BDB5C5900B0C43F /* BaseManagedObject.m in Sources */,
 				425477781BD2AEC20071BBC5 /* DataSigner.m in Sources */,
@@ -5221,22 +5486,26 @@
 				429C9F731B9EF8BF0013A44A /* CCHTTPRequest.m in Sources */,
 				426979421BA695BA00C3E93C /* UIButton+AFNetworking.m in Sources */,
 				429C9FC41B9EF8BF0013A44A /* SRHubProxy.m in Sources */,
+				42068F041C573E33005DFB01 /* POPSpringAnimation.mm in Sources */,
 				42DEB2AD1C25495000734E09 /* CCSwatches.m in Sources */,
 				429CA0081B9EF8BF0013A44A /* CCAnimatedImageView.m in Sources */,
 				4230E1861BBB83000001E68F /* CCRadarIndicatorView.m in Sources */,
 				42F411E91C2150E500814E7B /* UIImage+BUIImage.m in Sources */,
+				42068EF91C573E33005DFB01 /* POPBasicAnimation.mm in Sources */,
 				429C9FA71B9EF8BF0013A44A /* SmoothScrollView.m in Sources */,
 				425477881BD2AF6A0071BBC5 /* AliOrderFormEntity.m in Sources */,
 				429CA0781B9EF8BF0013A44A /* CCPopMenuView.m in Sources */,
 				429CA0121B9EF8BF0013A44A /* CalendarHeaderView.m in Sources */,
 				42B30DD41BBD72AD0039BB94 /* UIImage+GIF.m in Sources */,
 				429CA0901B9EF8BF0013A44A /* CCWebViewProgressView.m in Sources */,
+				42068F1F1C573E33005DFB01 /* POPMath.mm in Sources */,
 				429C9FC91B9EF8BF0013A44A /* SRHubResult.m in Sources */,
 				429CA10C1B9EF8BF0013A44A /* CCEmotion.m in Sources */,
 				42F411381C214C5400814E7B /* CCEraserBrush.m in Sources */,
 				429CA0141B9EF8BF0013A44A /* CalendarLogic.m in Sources */,
 				429C9FF71B9EF8BF0013A44A /* base64.c in Sources */,
 				429C9FBF1B9EF8BF0013A44A /* SRHubConnection.m in Sources */,
+				42068F0C1C573E33005DFB01 /* POPAnimationExtras.mm in Sources */,
 				426979401BA695BA00C3E93C /* UIAlertView+AFNetworking.m in Sources */,
 				42F24C5A1BEA5091008CDEDC /* PNColor.m in Sources */,
 				429C9FBB1B9EF8BF0013A44A /* FriendGroup.m in Sources */,
@@ -5288,7 +5557,9 @@
 				429CA0F41B9EF8BF0013A44A /* CCMessageBubbleHelper.m in Sources */,
 				429C9FC71B9EF8BF0013A44A /* SRHubRegistrationData.m in Sources */,
 				42DEB2A91C25495000734E09 /* CCInsetView.m in Sources */,
+				42068F2B1C5746A1005DFB01 /* CCPopMenuButton.m in Sources */,
 				429CA0861B9EF8BF0013A44A /* BUILabel.m in Sources */,
+				42068F2F1C57472A005DFB01 /* GlowImageView.m in Sources */,
 				429C9F4D1B9EF8BF0013A44A /* BaseNavigationController.m in Sources */,
 				429CA1001B9EF8BF0013A44A /* CCFileAttribute.m in Sources */,
 				429CA01A1B9EF8BF0013A44A /* CCPieChart.m in Sources */,
@@ -5314,6 +5585,7 @@
 				4298C78B1BDCBB0300A3581D /* CoreDataMasterSlave+Modify.m in Sources */,
 				42F24C5C1BEA5091008CDEDC /* PNGenericChart.m in Sources */,
 				429C9F571B9EF8BF0013A44A /* BaseTableViewController.m in Sources */,
+				42068EF51C573E33005DFB01 /* POPAnimation.mm in Sources */,
 				421E7A861C3DFCE300C31AD0 /* CCSystemSound.m in Sources */,
 				4244928F1C0D90F500488AA2 /* amrFileCodec.m in Sources */,
 				42F411F51C2150E500814E7B /* UIImage+Utility.m in Sources */,
@@ -5336,6 +5608,8 @@
 				429C9FAB1B9EF8BF0013A44A /* CCThemeManager.m in Sources */,
 				426979471BA695BA00C3E93C /* UIProgressView+AFNetworking.m in Sources */,
 				42DEB29B1C25495000734E09 /* CCShader.m in Sources */,
+				42068F0E1C573E33005DFB01 /* POPAnimationRuntime.mm in Sources */,
+				42068F241C573E33005DFB01 /* TransformationMatrix.cpp in Sources */,
 				42B647551BEDE08F00B2F6FD /* CCHTTPManager+PUT.m in Sources */,
 				429C9F991B9EF8BF0013A44A /* CCUncaughtExceptionHandler.m in Sources */,
 				429C9FE51B9EF8BF0013A44A /* SRChunkBuffer.m in Sources */,
@@ -5345,7 +5619,10 @@
 				428A12CD1BC8A1C6005D904D /* ContactPersonEntity.m in Sources */,
 				429C9F9F1B9EF8BF0013A44A /* CCScanningView.m in Sources */,
 				42DBA8571BB5305700AD47C6 /* CCBase64.m in Sources */,
+				42068EFE1C573E33005DFB01 /* POPDecayAnimation.mm in Sources */,
+				42068EFC1C573E33005DFB01 /* POPCustomAnimation.mm in Sources */,
 				4267DD1F1BDB5C5900B0C43F /* CoreDataManager.m in Sources */,
+				42068F181C573E33005DFB01 /* POPCGUtils.mm in Sources */,
 				42F411CF1C2150E500814E7B /* NSDictionary+Additions.m in Sources */,
 				429CA00C1B9EF8BF0013A44A /* CalendarCollectionViewCell.m in Sources */,
 				429C9F6D1B9EF8BF0013A44A /* CCUserDefaultsCrash.m in Sources */,
@@ -5357,11 +5634,14 @@
 				425A4F3D1C11CA42009A7E77 /* CCWXSingleEntity.m in Sources */,
 				42D9009D1BF47B3100B8B01F /* CCDelegateProxy.m in Sources */,
 				429CA0301B9EF8BF0013A44A /* CCPhoto.m in Sources */,
+				42068F091C573E33005DFB01 /* POPAnimationEvent.mm in Sources */,
 				42DEB2A11C25495000734E09 /* CCColorComparator.m in Sources */,
 				42F411DF1C2150E500814E7B /* UIButton+BUIButton.m in Sources */,
 				429C9F5B1B9EF8BF0013A44A /* BaseTableViewHeaderFooterView.m in Sources */,
 				4254777C1BD2AEC20071BBC5 /* MD5DataSigner.m in Sources */,
+				42068F101C573E33005DFB01 /* POPAnimationTracer.mm in Sources */,
 				4230E1971BBB8F7C0001E68F /* CCRadarScanViewController.m in Sources */,
+				42068F011C573E33005DFB01 /* POPPropertyAnimation.mm in Sources */,
 				429CA0A01B9EF8BF0013A44A /* SESelectionGrabber.m in Sources */,
 				42F24C561BEA5091008CDEDC /* PNChartLabel.m in Sources */,
 				429C9F4F1B9EF8BF0013A44A /* BaseTabBarController.m in Sources */,

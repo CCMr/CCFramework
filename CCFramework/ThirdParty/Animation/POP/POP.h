@@ -1,8 +1,8 @@
 //
-//  Animation.h
+//  POP.h
 //  CCFramework
 //
-// Copyright (c) 2015 CC ( http://www.ccskill.com )
+// Copyright (c) 2016 CC ( http://www.ccskill.com )
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,13 +23,22 @@
 // THE SOFTWARE.
 //
 
-#ifndef CCFramework_Animation_h
-#define CCFramework_Animation_h
+#ifndef CCFramework_POP_h
+#define CCFramework_POP_h
 
+#import <CCFramework/POPDefines.h>
+#import <CCFramework/POPAnimatableProperty.h>
+#import <CCFramework/POPAnimation.h>
+#import <CCFramework/POPAnimationEvent.h>
+#import <CCFramework/POPAnimationExtras.h>
+#import <CCFramework/POPAnimationTracer.h>
+#import <CCFramework/POPAnimator.h>
+#import <CCFramework/POPBasicAnimation.h>
+#import <CCFramework/POPCustomAnimation.h>
+#import <CCFramework/POPDecayAnimation.h>
+#import <CCFramework/POPGeometry.h>
+#import <CCFramework/POPLayerExtras.h>
+#import <CCFramework/POPPropertyAnimation.h>
+#import <CCFramework/POPSpringAnimation.h>
 
-#import <CCFramework/CCRadarView.h>
-#import <CCFramework/POP.h>
-//#import <CCFramework/CCSlideShadowAnimation.h>
-//#import <CCFramework/CCRourRotation.h>
-
-#endif
+#endif /* CCFramework_POP_h */
