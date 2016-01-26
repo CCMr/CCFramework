@@ -319,6 +319,10 @@
         }
             
         case CCRefreshStatePulling:
+            if (self.style == CCRefreshViewStyleIndicatorView) {
+                [self.activityView startAnimating];
+            } else if (self.style == CCRefreshViewStyleDefault)
+                [self.cc_activityView startAnimation];
             break;
             
         case CCRefreshStateRefreshing: {
