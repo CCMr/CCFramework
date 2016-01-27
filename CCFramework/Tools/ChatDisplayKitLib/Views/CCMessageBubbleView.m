@@ -141,7 +141,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         if (w > kCCMaxWidth) { //超过显示最大宽度
             isWrap = YES;
             w = image.size.width;
-            size.height += image.size.height + 5;
+            size.height += image.size.height;
         }
         
         size = CGSizeMake(w, size.height);
