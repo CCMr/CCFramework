@@ -9,6 +9,8 @@
 #import "CCVoiceProgressHUD.h"
 #import "UIView+BUIView.h"
 #import "CCPulsingHaloLayer.h"
+#import "config.h"
+#import "NSString+BNSString.h"
 
 @interface CCVoiceProgressHUD ()
 
@@ -80,7 +82,7 @@
 {
     self.frame = [[UIScreen mainScreen] bounds];
     
-    self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
     
     if (!_pulsingHaloLayer) {
         CCPulsingHaloLayer *pulsingHaloLayer = [CCPulsingHaloLayer layer];
@@ -92,8 +94,7 @@
     
     if (!_beaconView) {
         UIView *beaconView = [[UIView alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.bounds) - 80) / 2, (CGRectGetHeight(self.bounds) - 80) / 2, 80, 80)];
-        beaconView.layer.cornerRadius = 40;
-        beaconView.layer.masksToBounds = YES;
+        cc_View_Border_Radius(beaconView, 40, 0.5, [UIColor whiteColor]);
         [self addSubview:beaconView];
         [beaconView.superview.layer insertSublayer:_pulsingHaloLayer below:beaconView.layer];
         _pulsingHaloLayer.position = beaconView.center;
@@ -200,6 +201,8 @@
     [self configRecoding:YES];
     self.remindLabel.backgroundColor = [UIColor clearColor];
     self.remindLabel.text = NSLocalizedStringFromTable(@"SlideToCancel", @"MessageDisplayKitString", nil);
+    CGFloat w = [self.remindLabel.text calculateTextWidthHeight:self.remindLabel.font].width + 20;
+    self.remindLabel.frame = CGRectMake((CGRectGetWidth(self.bounds) - w) / 2, _beaconView.bottom + 10, w, 20);
 }
 
 - (void)resaueRecord
@@ -207,6 +210,8 @@
     [self configRecoding:NO];
     self.remindLabel.backgroundColor = [UIColor colorWithRed:1.000 green:0.000 blue:0.000 alpha:0.630];
     self.remindLabel.text = NSLocalizedStringFromTable(@"ReleaseToCancel", @"MessageDisplayKitString", nil);
+    CGFloat w = [self.remindLabel.text calculateTextWidthHeight:self.remindLabel.font].width + 20;
+    self.remindLabel.frame = CGRectMake((CGRectGetWidth(self.bounds) - w) / 2, _beaconView.bottom + 10, w, 20);
 }
 
 - (void)stopRecordCompled:(void (^)(BOOL fnished))compled
