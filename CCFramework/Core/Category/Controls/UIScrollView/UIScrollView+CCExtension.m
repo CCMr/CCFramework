@@ -24,8 +24,35 @@
 //
 
 #import "UIScrollView+CCExtension.h"
+#import <objc/runtime.h>
+
+static NSString *const kCCLogoView = @"kCCLogoView";
 
 @implementation UIScrollView (CCExtension)
+
+- (void)setLogoView:(UIImageView *)logoView
+{
+    objc_setAssociatedObject(self, &kCCLogoView, logoView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (UIImageView *)logoView
+{
+    return objc_getAssociatedObject(self, &kCCLogoView);
+}
+
+- (void)setLogoViewIcon:(NSString *)iconName
+{
+    UIImage *iconImage = [UIImage imageNamed:iconName];
+    if (iconImage) {
+        UIImageView *logoView = [self logoView];
+        if (!logoView) {
+            logoView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.bounds) - iconImage.size.width / 2.0, -iconImage.size.height - iconImage.size.height, iconImage.size.width, iconImage.size.height)];
+            [logoView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
+            [self addSubview:logoView];
+            [self setLogoView:logoView];
+        }
+        logoView.image = iconImage;
+    }
+}
 
 - (void)setContentInsetTop:(CGFloat)contentInsetTop
 {

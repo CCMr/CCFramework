@@ -38,4 +38,6 @@
 @property(nonatomic, assign) CGFloat contentSizeWidth;
 @property(nonatomic, assign) CGFloat contentSizeHeight;
 
+- (void)setLogoViewIcon:(NSString *)iconName;
+
 @end
