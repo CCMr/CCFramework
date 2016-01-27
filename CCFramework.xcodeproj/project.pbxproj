@@ -831,6 +831,11 @@
 		42DEB2BB1C254A6800734E09 /* CCColorPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2B91C254A6800734E09 /* CCColorPickerController.m */; };
 		42DEB2BF1C254ABC00734E09 /* CCBrushView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2BD1C254ABC00734E09 /* CCBrushView.h */; };
 		42DEB2C01C254ABC00734E09 /* CCBrushView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2BE1C254ABC00734E09 /* CCBrushView.m */; };
+		42E9531C1C589DB3001C93CB /* CCBannerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42E9531A1C589DB3001C93CB /* CCBannerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42E9531D1C589DB3001C93CB /* CCBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E9531B1C589DB3001C93CB /* CCBannerView.m */; };
+		42E953201C589E9E001C93CB /* CCBannerFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = 42E9531E1C589E9E001C93CB /* CCBannerFooter.h */; };
+		42E953211C589E9E001C93CB /* CCBannerFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E9531F1C589E9E001C93CB /* CCBannerFooter.m */; };
+		42E953231C58A9FC001C93CB /* banner_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42E953221C58A9FC001C93CB /* banner_arrow@2x.png */; };
 		42F164011C2A38BD00F17928 /* bar_minus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F163FB1C2A38BD00F17928 /* bar_minus@2x.png */; };
 		42F164021C2A38BD00F17928 /* bar_plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F163FC1C2A38BD00F17928 /* bar_plus@2x.png */; };
 		42F164031C2A38BD00F17928 /* dismiss@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F163FD1C2A38BD00F17928 /* dismiss@2x.png */; };
@@ -1812,6 +1817,11 @@
 		42DEB2B91C254A6800734E09 /* CCColorPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCColorPickerController.m; path = CCGraffitiBoard/CCColorPickerController.m; sourceTree = "<group>"; };
 		42DEB2BD1C254ABC00734E09 /* CCBrushView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCBrushView.h; sourceTree = "<group>"; };
 		42DEB2BE1C254ABC00734E09 /* CCBrushView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCBrushView.m; sourceTree = "<group>"; };
+		42E9531A1C589DB3001C93CB /* CCBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCBannerView.h; path = CCBannerView/CCBannerView.h; sourceTree = "<group>"; };
+		42E9531B1C589DB3001C93CB /* CCBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCBannerView.m; path = CCBannerView/CCBannerView.m; sourceTree = "<group>"; };
+		42E9531E1C589E9E001C93CB /* CCBannerFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCBannerFooter.h; path = CCBannerView/CCBannerFooter.h; sourceTree = "<group>"; };
+		42E9531F1C589E9E001C93CB /* CCBannerFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCBannerFooter.m; path = CCBannerView/CCBannerFooter.m; sourceTree = "<group>"; };
+		42E953221C58A9FC001C93CB /* banner_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner_arrow@2x.png"; sourceTree = "<group>"; };
 		42F163FB1C2A38BD00F17928 /* bar_minus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bar_minus@2x.png"; path = "GraffitiBoard/bar_minus@2x.png"; sourceTree = "<group>"; };
 		42F163FC1C2A38BD00F17928 /* bar_plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bar_plus@2x.png"; path = "GraffitiBoard/bar_plus@2x.png"; sourceTree = "<group>"; };
 		42F163FD1C2A38BD00F17928 /* dismiss@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dismiss@2x.png"; path = "GraffitiBoard/dismiss@2x.png"; sourceTree = "<group>"; };
@@ -3374,6 +3384,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E51BDE025300C76004 /* UI.h */,
+				42E953191C589D8C001C93CB /* CCBannerView */,
 				4268CED21C43420000434D65 /* CCStarRatingView */,
 				42DEB2B31C254A2100734E09 /* CCBarSlider */,
 				42F410E61C2147DC00814E7B /* CCGraffitiBoard */,
@@ -4131,6 +4142,7 @@
 				422754661C29371F0099B653 /* PhotosViewImage */,
 				422754511C2932640099B653 /* GraffitiBoard */,
 				4268CED71C4356CE00434D65 /* icon_star_gray@2x.png */,
+				42E953221C58A9FC001C93CB /* banner_arrow@2x.png */,
 				4268CED81C4356CE00434D65 /* icon_star_yellow@2x.png */,
 				4227547A1C2938E30099B653 /* arrow@2x.png */,
 				424255161C31255E00D94E04 /* placeholderImage@2x.png */,
@@ -4280,6 +4292,17 @@
 			);
 			name = BrushView;
 			path = CCGraffitiBoard/View/BrushView;
+			sourceTree = "<group>";
+		};
+		42E953191C589D8C001C93CB /* CCBannerView */ = {
+			isa = PBXGroup;
+			children = (
+				42E9531A1C589DB3001C93CB /* CCBannerView.h */,
+				42E9531B1C589DB3001C93CB /* CCBannerView.m */,
+				42E9531E1C589E9E001C93CB /* CCBannerFooter.h */,
+				42E9531F1C589E9E001C93CB /* CCBannerFooter.m */,
+			);
+			name = CCBannerView;
 			sourceTree = "<group>";
 		};
 		42F163FA1C294C9800F17928 /* Supporting Files */ = {
@@ -5023,6 +5046,7 @@
 				4254772C1BD2AEC20071BBC5 /* asn1t.h in Headers */,
 				429C9F701B9EF8BF0013A44A /* CCHTTPManager.h in Headers */,
 				428B5C391C22609C001B8584 /* qrspec.h in Headers */,
+				42E9531C1C589DB3001C93CB /* CCBannerView.h in Headers */,
 				429C9C9D1B9EF66A0013A44A /* CCFramework.h in Headers */,
 				42B30DEA1BBD72AD0039BB94 /* SDWebImagePrefetcher.h in Headers */,
 				429C9F521B9EF8BF0013A44A /* BaseTableViewCell.h in Headers */,
@@ -5087,6 +5111,7 @@
 				429CA10B1B9EF8BF0013A44A /* CCEmotion.h in Headers */,
 				429C9F4E1B9EF8BF0013A44A /* BaseTabBarController.h in Headers */,
 				429C9FFD1B9EF8BF0013A44A /* CCSlideShadowAnimation.h in Headers */,
+				42E953201C589E9E001C93CB /* CCBannerFooter.h in Headers */,
 				429C9F5E1B9EF8BF0013A44A /* CCDropzoneViewController.h in Headers */,
 				429C9F541B9EF8BF0013A44A /* BaseSearchTableViewController.h in Headers */,
 				42F411D21C2150E500814E7B /* NSObject+Additions.h in Headers */,
@@ -5315,6 +5340,7 @@
 				4227546E1C29371F0099B653 /* WithFinishedUnselecte@2x.png in Resources */,
 				42F164041C2A38BD00F17928 /* redo@2x.png in Resources */,
 				4227546A1C29371F0099B653 /* Back@2x.png in Resources */,
+				42E953231C58A9FC001C93CB /* banner_arrow@2x.png in Resources */,
 				4227546B1C29371F0099B653 /* KeyboardNumericBg@2x.png in Resources */,
 				42F164051C2A38BD00F17928 /* style@2x.png in Resources */,
 				42F164011C2A38BD00F17928 /* bar_minus@2x.png in Resources */,
@@ -5480,6 +5506,7 @@
 				42F411C61C2150E500814E7B /* CALayer+Transition.m in Sources */,
 				429CA0FC1B9EF8BF0013A44A /* CCMessageTableViewController.m in Sources */,
 				429CA1211B9EF8BF0013A44A /* CCEmotionManagerView.m in Sources */,
+				42E953211C589E9E001C93CB /* CCBannerFooter.m in Sources */,
 				429C9FE01B9EF8BF0013A44A /* SRKeepAliveData.m in Sources */,
 				4226FC421C327BE0003EAEFE /* CCInfoBanner.m in Sources */,
 				429CA0FA1B9EF8BF0013A44A /* CCVoiceRecordHelper.m in Sources */,
@@ -5615,6 +5642,7 @@
 				4298C78B1BDCBB0300A3581D /* CoreDataMasterSlave+Modify.m in Sources */,
 				42F24C5C1BEA5091008CDEDC /* PNGenericChart.m in Sources */,
 				429C9F571B9EF8BF0013A44A /* BaseTableViewController.m in Sources */,
+				42E9531D1C589DB3001C93CB /* CCBannerView.m in Sources */,
 				42068EF51C573E33005DFB01 /* POPAnimation.mm in Sources */,
 				421E7A861C3DFCE300C31AD0 /* CCSystemSound.m in Sources */,
 				4244928F1C0D90F500488AA2 /* amrFileCodec.m in Sources */,
