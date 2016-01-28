@@ -135,9 +135,8 @@
  *  
  *  @brief 初始化数据
  */
--(void)initWithData
+- (void)initWithData
 {
-    
 }
 
 /**
@@ -289,10 +288,10 @@
                                  BackTitle:(NSString *)title
                                   Animated:(BOOL)animated
 {
-    if (self.navigationController){
+    if (self.navigationController) {
         self.navigationController.topViewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleBordered target:self action:nil];
         [self.navigationController pushViewController:newViewController animated:animated];
-    }else{
+    } else {
         self.extendNavigationController.topViewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleBordered target:self action:nil];
         [self.extendNavigationController pushViewController:newViewController animated:animated];
     }
@@ -372,15 +371,23 @@
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event
 {
-    UITouch *touch = [touches anyObject];
-    NSArray *array = self.view.subviews;
-    UITableView *views = (UITableView *)self.view.subviews.firstObject;
-    if (views)
-        array = views.subviews;
-    for (UIView *v in array) {
-        if (touch.view != v) {
-            [v endEditing:YES];
-        }
+    [self closeKeyboard:self.view];
+}
+
+/**
+ *  @author CC, 16-01-28
+ *  
+ *  @brief 关闭键盘
+ *
+ *  @param views 对应视图
+ */
+- (void)closeKeyboard:(UIView *)views
+{
+    NSArray *ary = views.subviews;
+    for (UIView *v in ary) {
+        if (v.subviews.count)
+            [self closeKeyboard:v];
+        [v endEditing:YES];
     }
 }
 
@@ -393,8 +400,7 @@
  */
 - (void)resignFirstResponders
 {
-    for (UIView *v in self.view.subviews)
-        [v endEditing:YES];
+    [self closeKeyboard:self.view];
 }
 
 #pragma mark - 键盘事件
