@@ -25,7 +25,6 @@
 #import "CCHTTPManager+Addition.h"
 #import "AFNetworking.h"
 #import "NSDate+BNSDate.h"
-#import "CCResponseObject.h"
 #import "NSString+BNSString.h"
 
 @implementation CCHTTPManager (UploadDownload)
@@ -38,7 +37,7 @@
  *  @param requestURLString 下载路径
  *  @param blockTrack       完成回调
  */
-+ (void)NetRequestDownloadWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestDownloadWithRequestURL:(NSString *)requestURLString
                     WithRequestBacktrack:(CCRequestBacktrack)blockTrack
 {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -77,12 +76,16 @@
  *
  *  @since <#1.0#>
  */
-+ (void)NetRequestDownloadWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestDownloadWithRequestURL:(NSString *)requestURLString
                       WithUploadFileName:(NSString *)fileName
                     WithReturnValeuBlock:(RequestDownloadBacktrack)blockTrack
                       WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                        WithProgressBlock:(RequestProgressBacktrack)progressBlock
 {
+    if (![self requestBeforeCheckNetWork]) {
+        errorBlock([NSError errorWithDomain:@"Error. Count not recover network reachability flags" code:kCFURLErrorNotConnectedToInternet userInfo:nil]);
+        return;
+    }
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
@@ -153,7 +156,7 @@
  *
  *  @since 1.0
  */
-+ (void)NetRequestUploadFormWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestUploadFormWithRequestURL:(NSString *)requestURLString
                         WithUploadFilePath:(NSString *)filePath
                                   FileType:(CCUploadFormFileType)fileType
                       ServiceReceivingName:(NSString *)serviceReceivingName
@@ -183,7 +186,7 @@
  *  @param errorBlock           错误回调
  *  @param progressBlock        进度回调
  */
-+ (void)NetRequestUploadFormWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestUploadFormWithRequestURL:(NSString *)requestURLString
                        WithUploadFileImage:(UIImage *)fileImage
                                   FileType:(CCUploadFormFileType)fileType
                       ServiceReceivingName:(NSString *)serviceReceivingName
@@ -191,7 +194,12 @@
                         WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
                          WithProgressBlock:(RequestProgressBacktrack)progressBlock
 {
-    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperationManager manager] POST:requestURLString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    if (![self requestBeforeCheckNetWork]) {
+        errorBlock([NSError errorWithDomain:@"Error. Count not recover network reachability flags" code:kCFURLErrorNotConnectedToInternet userInfo:nil]);
+        return;
+    }
+    
+    AFHTTPRequestOperation *requestOperation = [[self requestOperationManager] POST:requestURLString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         NSData *postData;
         NSString *postFileType;
         NSString *postFileName;
@@ -242,13 +250,17 @@
  *
  *  @since 1.0
  */
-+ (void)NetRequestUploadFormWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestUploadFormWithRequestURL:(NSString *)requestURLString
                         WithUploadFilePath:(NSString *)filePath
                       WithReturnValeuBlock:(RequestBacktrack)blockTrack
                         WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
-                         WithProgressBlock:
-(NSProgress *__autoreleasing *)progressBlock
+                         WithProgressBlock:(NSProgress *__autoreleasing *)progressBlock
 {
+    if (![self requestBeforeCheckNetWork]) {
+        errorBlock([NSError errorWithDomain:@"Error. Count not recover network reachability flags" code:kCFURLErrorNotConnectedToInternet userInfo:nil]);
+        return;
+    }
+    
     AFURLSessionManager *sessionManager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     //添加请求接口
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:requestURLString]];
@@ -257,23 +269,20 @@
     NSURL *postFilePath = [NSURL fileURLWithPath:filePath];
     
     //发送上传请求
-    NSURLSessionUploadTask *uploadTask = [sessionManager uploadTaskWithRequest:request
-                                                                      fromFile:postFilePath
-                                                                      progress:progressBlock
-                                                             completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-                                                                 if (error) { //请求失败
-                                                                     errorBlock(error);
-                                                                 } else { //请求成功
-                                                                     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-                                                                     
-                                                                     CCResponseObject *entity = [[CCResponseObject alloc] initWithDict:dic];
-                                                                     CCNSLogger(@"%@", [entity ChangedDictionary]);
-                                                                     
-                                                                     blockTrack(entity,nil);
-                                                                     
-                                                                     blockTrack(responseObject,nil);
-                                                                 }
-                                                             }];
+    NSURLSessionUploadTask *uploadTask = [sessionManager uploadTaskWithRequest:request fromFile:postFilePath progress:progressBlock completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) { //请求失败
+            errorBlock(error);
+        } else { //请求成功
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+            
+            CCResponseObject *entity = [[CCResponseObject alloc] initWithDict:dic];
+            CCNSLogger(@"%@", [entity ChangedDictionary]);
+            
+            blockTrack(entity,nil);
+            
+            blockTrack(responseObject,nil);
+        }
+    }];
     
     //开始上传
     [uploadTask resume];
@@ -290,7 +299,7 @@
  *
  *  @since 1.0
  */
-+ (NSString *)filePath:(NSString *)fileName
+- (NSString *)filePath:(NSString *)fileName
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *audioDir = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Download"];
@@ -315,7 +324,7 @@
  *
  *  @since 1.0
  */
-+ (long long)cacheFileWithPath:(NSString *)path
+- (long long)cacheFileWithPath:(NSString *)path
 {
     NSFileHandle *fh = [NSFileHandle fileHandleForReadingAtPath:path];
     NSData *contentData = [fh readDataToEndOfFile];
@@ -334,7 +343,7 @@
  *
  *  @since <#1.0#>
  */
-+ (NSMutableURLRequest *)requestWithUrl:(id)url Range:(long long)length
+- (NSMutableURLRequest *)requestWithUrl:(id)url Range:(long long)length
 {
     NSURL *requestUrl = [url isKindOfClass:[NSURL class]] ? url : [NSURL URLWithString:url];
     
@@ -360,7 +369,7 @@
  *
  *  @since 1.0
  */
-+ (void)readCacheToOutStreamWithPath:(AFHTTPRequestOperation *)requestOperation
+- (void)readCacheToOutStreamWithPath:(AFHTTPRequestOperation *)requestOperation
                                 Path:(NSString *)path
 {
     NSFileHandle *fh = [NSFileHandle fileHandleForReadingAtPath:path];

@@ -82,6 +82,12 @@
 		42068F381C576414005DFB01 /* CCVoiceProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 42068F361C576414005DFB01 /* CCVoiceProgressHUD.m */; };
 		42068F411C576D26005DFB01 /* CCPulsingHaloLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42068F3F1C576D26005DFB01 /* CCPulsingHaloLayer.h */; };
 		42068F421C576D26005DFB01 /* CCPulsingHaloLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42068F401C576D26005DFB01 /* CCPulsingHaloLayer.m */; };
+		420CD8B11C59F788009578D4 /* CCInputDodger.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CD8AF1C59F788009578D4 /* CCInputDodger.h */; };
+		420CD8B21C59F788009578D4 /* CCInputDodger.m in Sources */ = {isa = PBXBuildFile; fileRef = 420CD8B01C59F788009578D4 /* CCInputDodger.m */; };
+		420CD8BB1C59F9B9009578D4 /* UIScrollView+CCInputDodger.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CD8B71C59F9B9009578D4 /* UIScrollView+CCInputDodger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		420CD8BC1C59F9B9009578D4 /* UIScrollView+CCInputDodger.m in Sources */ = {isa = PBXBuildFile; fileRef = 420CD8B81C59F9B9009578D4 /* UIScrollView+CCInputDodger.m */; };
+		420CD8BD1C59F9B9009578D4 /* UIView+CCInputDodger.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CD8B91C59F9B9009578D4 /* UIView+CCInputDodger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		420CD8BE1C59F9B9009578D4 /* UIView+CCInputDodger.m in Sources */ = {isa = PBXBuildFile; fileRef = 420CD8BA1C59F9B9009578D4 /* UIView+CCInputDodger.m */; };
 		4213943C1BF2D9F50046062B /* SRLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213943B1BF2D9F50046062B /* SRLog.h */; };
 		4213FAFC1C13D860006918AC /* CCJPsuh.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213FAFA1C13D860006918AC /* CCJPsuh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4213FAFD1C13D860006918AC /* CCJPsuh.m in Sources */ = {isa = PBXBuildFile; fileRef = 4213FAFB1C13D860006918AC /* CCJPsuh.m */; };
@@ -1064,6 +1070,12 @@
 		42068F361C576414005DFB01 /* CCVoiceProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCVoiceProgressHUD.m; path = CCVoiceProgressHUD/CCVoiceProgressHUD.m; sourceTree = "<group>"; };
 		42068F3F1C576D26005DFB01 /* CCPulsingHaloLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPulsingHaloLayer.h; path = CCPulsingHaloLayer/CCPulsingHaloLayer.h; sourceTree = "<group>"; };
 		42068F401C576D26005DFB01 /* CCPulsingHaloLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCPulsingHaloLayer.m; path = CCPulsingHaloLayer/CCPulsingHaloLayer.m; sourceTree = "<group>"; };
+		420CD8AF1C59F788009578D4 /* CCInputDodger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCInputDodger.h; path = CCInputDodger/CCInputDodger.h; sourceTree = "<group>"; };
+		420CD8B01C59F788009578D4 /* CCInputDodger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCInputDodger.m; path = CCInputDodger/CCInputDodger.m; sourceTree = "<group>"; };
+		420CD8B71C59F9B9009578D4 /* UIScrollView+CCInputDodger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+CCInputDodger.h"; path = "CCInputDodger/UIScrollView+CCInputDodger.h"; sourceTree = "<group>"; };
+		420CD8B81C59F9B9009578D4 /* UIScrollView+CCInputDodger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+CCInputDodger.m"; path = "CCInputDodger/UIScrollView+CCInputDodger.m"; sourceTree = "<group>"; };
+		420CD8B91C59F9B9009578D4 /* UIView+CCInputDodger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+CCInputDodger.h"; path = "CCInputDodger/UIView+CCInputDodger.h"; sourceTree = "<group>"; };
+		420CD8BA1C59F9B9009578D4 /* UIView+CCInputDodger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+CCInputDodger.m"; path = "CCInputDodger/UIView+CCInputDodger.m"; sourceTree = "<group>"; };
 		4213943B1BF2D9F50046062B /* SRLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRLog.h; sourceTree = "<group>"; };
 		4213FAFA1C13D860006918AC /* CCJPsuh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCJPsuh.h; sourceTree = "<group>"; };
 		4213FAFB1C13D860006918AC /* CCJPsuh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCJPsuh.m; sourceTree = "<group>"; };
@@ -2126,6 +2138,19 @@
 			name = CCPulsingHaloLayer;
 			sourceTree = "<group>";
 		};
+		420CD8AE1C59F76E009578D4 /* CCInputDodger */ = {
+			isa = PBXGroup;
+			children = (
+				420CD8AF1C59F788009578D4 /* CCInputDodger.h */,
+				420CD8B01C59F788009578D4 /* CCInputDodger.m */,
+				420CD8B71C59F9B9009578D4 /* UIScrollView+CCInputDodger.h */,
+				420CD8B81C59F9B9009578D4 /* UIScrollView+CCInputDodger.m */,
+				420CD8B91C59F9B9009578D4 /* UIView+CCInputDodger.h */,
+				420CD8BA1C59F9B9009578D4 /* UIView+CCInputDodger.m */,
+			);
+			name = CCInputDodger;
+			sourceTree = "<group>";
+		};
 		42105D131BDB1791003EE23E /* CoreDataFactory */ = {
 			isa = PBXGroup;
 			children = (
@@ -3068,6 +3093,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E31BDE021900C76004 /* Ability.h */,
+				420CD8AE1C59F76E009578D4 /* CCInputDodger */,
 				4268CEDB1C43814200434D65 /* CCExpandHeader */,
 				42F967851C3A5FA20047FC15 /* CCBottomPopupView */,
 				4226FC431C3286BD003EAEFE /* CCHierarchySearcher */,
@@ -4739,6 +4765,7 @@
 				42F24C611BEA5091008CDEDC /* PNLineChartDataItem.h in Headers */,
 				425477771BD2AEC20071BBC5 /* DataSigner.h in Headers */,
 				4244928E1C0D90F500488AA2 /* amrFileCodec.h in Headers */,
+				420CD8BD1C59F9B9009578D4 /* UIView+CCInputDodger.h in Headers */,
 				42F24C6F1BEA5091008CDEDC /* PNScatterChartDataItem.h in Headers */,
 				4254773C1BD2AEC20071BBC5 /* dsa.h in Headers */,
 				42C208E41BDE021900C76004 /* Ability.h in Headers */,
@@ -4944,6 +4971,7 @@
 				425477381BD2AEC20071BBC5 /* crypto.h in Headers */,
 				429CA0931B9EF8BF0013A44A /* CCDatePicker.h in Headers */,
 				429CA0FB1B9EF8BF0013A44A /* CCMessageTableViewController.h in Headers */,
+				420CD8B11C59F788009578D4 /* CCInputDodger.h in Headers */,
 				429CA1121B9EF8BF0013A44A /* CCShareMenuItem.h in Headers */,
 				42F411371C214C5400814E7B /* CCEraserBrush.h in Headers */,
 				429CA0B51B9EF8BF0013A44A /* CCCameraViewController.h in Headers */,
@@ -5123,6 +5151,7 @@
 				42B30DD71BBD72AD0039BB94 /* UIImage+WebP.h in Headers */,
 				42F412151C215BC400814E7B /* CCGraffitiBoardView.h in Headers */,
 				429CA0321B9EF8BF0013A44A /* CCPhotoBrowser.h in Headers */,
+				420CD8BB1C59F9B9009578D4 /* UIScrollView+CCInputDodger.h in Headers */,
 				429C9FA81B9EF8BF0013A44A /* SmoothViewController.h in Headers */,
 				42F24C6B1BEA5091008CDEDC /* PNScatterChart.h in Headers */,
 				429CA1031B9EF8BF0013A44A /* CCMessageBubbleFactory.h in Headers */,
@@ -5592,6 +5621,7 @@
 				429CA1191B9EF8BF0013A44A /* CCMessageTableView.m in Sources */,
 				428B5C301C22609C001B8584 /* mask.c in Sources */,
 				42B30DE71BBD72AD0039BB94 /* SDWebImageDecoder.m in Sources */,
+				420CD8B21C59F788009578D4 /* CCInputDodger.m in Sources */,
 				42DEB2BB1C254A6800734E09 /* CCColorPickerController.m in Sources */,
 				429CA0721B9EF8BF0013A44A /* CCPopMenu.m in Sources */,
 				428B5C2E1C22609C001B8584 /* bitstream.c in Sources */,
@@ -5628,6 +5658,7 @@
 				429CA03D1B9EF8BF0013A44A /* MBProgressHUD+Add.m in Sources */,
 				429CA10A1B9EF8BF0013A44A /* CCVideoOutputSampleBufferFactory.m in Sources */,
 				429C9F9D1B9EF8BF0013A44A /* CCQRCodeViewController.m in Sources */,
+				420CD8BE1C59F9B9009578D4 /* UIView+CCInputDodger.m in Sources */,
 				429C9FEE1B9EF8BF0013A44A /* SRHttpBasedTransport.m in Sources */,
 				429C9FF41B9EF8BF0013A44A /* SRWebSocketTransport.m in Sources */,
 				429C9F5F1B9EF8BF0013A44A /* CCDropzoneViewController.m in Sources */,
@@ -5655,6 +5686,7 @@
 				429C9FCC1B9EF8BF0013A44A /* SRSubscription.m in Sources */,
 				429CA0FE1B9EF8BF0013A44A /* CCCacheManager.m in Sources */,
 				429CA1291B9EF8BF0013A44A /* CCDisplayLocationViewController.m in Sources */,
+				420CD8BC1C59F9B9009578D4 /* UIScrollView+CCInputDodger.m in Sources */,
 				429CA0331B9EF8BF0013A44A /* CCPhotoBrowser.m in Sources */,
 				42F411401C214C5400814E7B /* CCLineBrush.m in Sources */,
 				429CA0651B9EF8BF0013A44A /* CCPickerViewController.m in Sources */,

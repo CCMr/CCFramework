@@ -25,7 +25,6 @@
 
 #import "CCHTTPManager+Addition.h"
 #import "AFNetworking.h"
-#import "CCResponseObject.h"
 
 @implementation CCHTTPManager (PUT)
 
@@ -40,7 +39,7 @@
  *  @param errorBlock       请求失败回调
  *  @param failureBlock     网络错误回调
  */
-+ (void)NetRequestPUTWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestPUTWithRequestURL:(NSString *)requestURLString
                       WithParameter:(NSDictionary *)parameter
                WithReturnValeuBlock:(RequestBacktrack)blockTrack
                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
@@ -67,7 +66,7 @@
  *  @param errorBlock       请求失败回调
  *  @param failureBlock     网络错误回调
  */
-+ (void)NetRequestPUTWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestPUTWithRequestURL:(NSString *)requestURLString
                       WithParameter:(NSDictionary *)parameter 
                        WithUserInfo:(NSDictionary *)userInfo
                WithReturnValeuBlock:(RequestBacktrack)blockTrack
@@ -96,7 +95,7 @@
  *  @param failureBlock     网络错误回调
  *  @param completionBlock  请求完成回调函数
  */
-+ (void)NetRequestPUTWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestPUTWithRequestURL:(NSString *)requestURLString
                       WithParameter:(NSDictionary *)parameter
                        WithUserInfo:(NSDictionary *)userInfo
                WithReturnValeuBlock:(RequestBacktrack)blockTrack
@@ -104,13 +103,16 @@
                    WithFailureBlock:(FailureBlock)failureBlock
                      WithCompletion:(RequestCompletionBacktrack)completionBlock
 {
-    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperationManager manager] PUT:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+    if (![self requestBeforeCheckNetWork]){
+        failureBlock([NSError errorWithDomain:@"Error. Count not recover network reachability flags" code:kCFURLErrorNotConnectedToInternet userInfo:nil]);
+        return;
+    }
+    
+    AFHTTPRequestOperation *requestOperation = [[self requestOperationManager] PUT:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
+      CCResponseObject *entity = [self dealwithResponseObject:responseObject];
         
-        CCResponseObject *entity = [[CCResponseObject alloc] initWithDict:dic];
         if (operation.userInfo)
             entity.userInfo = operation.userInfo;
-         CCNSLogger(@"%@", [entity ChangedDictionary]);
         
         blockTrack(entity,nil);
         
@@ -126,8 +128,6 @@
     
     if (userInfo)
         requestOperation.userInfo = userInfo;
-    
-    requestOperation.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [requestOperation start];
 }

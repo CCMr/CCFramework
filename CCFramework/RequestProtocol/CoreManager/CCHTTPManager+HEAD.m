@@ -39,7 +39,7 @@
  *  @param errorBlock       请求失败回调
  *  @param failureBlock     网络错误回调
  */
-+ (void)NetRequestHEADWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestHEADWithRequestURL:(NSString *)requestURLString
                        WithParameter:(NSDictionary *)parameter
                 WithReturnValeuBlock:(RequestBacktrack)blockTrack
                   WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
@@ -66,7 +66,7 @@
  *  @param errorBlock       请求失败回调
  *  @param failureBlock     网络错误回调
  */
-+ (void)NetRequestHEADWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestHEADWithRequestURL:(NSString *)requestURLString
                        WithParameter:(NSDictionary *)parameter
                         WithUserInfo:(NSDictionary *)userInfo
                 WithReturnValeuBlock:(RequestBacktrack)blockTrack
@@ -95,7 +95,7 @@
  *  @param failureBlock     网络错误回调
  *  @param completionBlock  请求完成回调函数
  */
-+ (void)NetRequestHEADWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestHEADWithRequestURL:(NSString *)requestURLString
                        WithParameter:(NSDictionary *)parameter
                         WithUserInfo:(NSDictionary *)userInfo
                 WithReturnValeuBlock:(RequestBacktrack)blockTrack
@@ -103,12 +103,18 @@
                     WithFailureBlock:(FailureBlock)failureBlock
                       WithCompletion:(RequestCompletionBacktrack)completionBlock
 {
-    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperationManager manager] HEAD:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *operation) {
+    if (![self requestBeforeCheckNetWork]){
+        failureBlock([NSError errorWithDomain:@"Error. Count not recover network reachability flags" code:kCFURLErrorNotConnectedToInternet userInfo:nil]);
+        return;
+    }
+    
+    AFHTTPRequestOperation *requestOperation = [[self requestOperationManager] HEAD:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *operation) {
         
         CCResponseObject *entity = [[CCResponseObject alloc] init];
+        CCNSLogger(@"%@", [entity ChangedDictionary]);
+        
         if (operation.userInfo)
             entity.userInfo = operation.userInfo;
-        CCNSLogger(@"%@", [entity ChangedDictionary]);
         
         blockTrack(entity,nil);
 
@@ -124,8 +130,6 @@
     
     if (userInfo)
         requestOperation.userInfo = userInfo;
-    
-    requestOperation.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [requestOperation start];
 }

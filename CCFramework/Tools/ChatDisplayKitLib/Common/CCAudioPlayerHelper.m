@@ -143,7 +143,7 @@
     NSString *fileName = [[path componentsSeparatedByString:@"/"].lastObject componentsSeparatedByString:@"."].firstObject;
     self.dFileName = fileName;
     @weakify(self);
-    [CCHTTPManager NetRequestDownloadWithRequestURL:path WithRequestBacktrack:^(id responseObject, NSError *error) {
+    [[CCHTTPManager manager] NetRequestDownloadWithRequestURL:path WithRequestBacktrack:^(id responseObject, NSError *error) {
         @strongify(self);
         
         NSString *path = [self.dFileName stringByAppendingString:@"amrToWav"];

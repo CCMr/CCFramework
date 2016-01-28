@@ -28,22 +28,6 @@
 @implementation BaseViewModel
 
 #pragma mark - Public 函数
-/**
- *  @author CC, 15-08-20
- *
- *  @brief  检测链接服务器网络是否畅通
- *
- *  @param netConnectBlock  网络状态回调
- *  @param requestURLString 服务器网络地址
- *
- *  @since 1.0
- */
-- (void) netWorkStateWithNetConnectBlock: (NetWorkBlock) netConnectBlock
-                        RequestURLString: (NSString *) requestURLString
-{
-    BOOL newState = [CCHTTPRequest netWorkReachabilityWithURLString:requestURLString];
-    netConnectBlock(newState);
-}
 
 /**
  *  @author CC, 15-08-20

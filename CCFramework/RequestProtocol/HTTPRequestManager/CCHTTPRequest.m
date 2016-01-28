@@ -89,22 +89,6 @@
 /**
  *  @author CC, 2015-07-23
  *
- *  @brief  监测网络的可链接性
- *
- *  @param strUrl <#strUrl description#>
- *
- *  @return <#return value description#>
- *
- *  @since 1.0
- */
-+ (BOOL)netWorkReachabilityWithURLString:(NSString *)strUrl
-{
-    return [CCHTTPManager netWorkReachabilityWithURLString:strUrl];
-}
-
-/**
- *  @author CC, 2015-07-23
- *
  *  @brief  设定固定请求参数
  *
  *  @param postData 请求参数
@@ -115,15 +99,15 @@
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:postData];
     
-        [dic enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id _Nonnull obj, BOOL *_Nonnull stop) {
-            if ([obj isKindOfClass:[NSArray class]]) {
-                NSError *error = nil;
-                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:&error];
-                NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-                if (jsonString && !error)
-                    [dic setObject:jsonString forKey:key];
-            }
-        }];
+    [dic enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id _Nonnull obj, BOOL *_Nonnull stop) {
+        if ([obj isKindOfClass:[NSArray class]]) {
+            NSError *error = nil;
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:&error];
+            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            if (jsonString && !error)
+                [dic setObject:jsonString forKey:key];
+        }
+    }];
     
     return dic;
 }

@@ -25,7 +25,6 @@
 
 #import "CCHTTPManager+Addition.h"
 #import "AFNetworking.h"
-#import "CCResponseObject.h"
 
 @implementation CCHTTPManager (GET)
 
@@ -42,7 +41,7 @@
  *
  *  @since 1.0
  */
-+ (void)NetRequestGETWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestGETWithRequestURL:(NSString *)requestURLString
                       WithParameter:(NSDictionary *)parameter
                WithReturnValeuBlock:(RequestBacktrack)blockTrack
                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
@@ -69,8 +68,8 @@
  *  @param errorBlock       请求失败回调
  *  @param failureBlock     网络错误回调
  */
-+ (void)NetRequestGETWithRequestURL:(NSString *)requestURLString
-                      WithParameter:(NSDictionary *)parameter 
+- (void)NetRequestGETWithRequestURL:(NSString *)requestURLString
+                      WithParameter:(NSDictionary *)parameter
                        WithUserInfo:(NSDictionary *)userInfo
                WithReturnValeuBlock:(RequestBacktrack)blockTrack
                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
@@ -98,7 +97,7 @@
  *  @param failureBlock     网络错误回调
  *  @param completionBlock  请求完成回调函数
  */
-+ (void)NetRequestGETWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestGETWithRequestURL:(NSString *)requestURLString
                       WithParameter:(NSDictionary *)parameter
                        WithUserInfo:(NSDictionary *)userInfo
                WithReturnValeuBlock:(RequestBacktrack)blockTrack
@@ -106,12 +105,14 @@
                    WithFailureBlock:(FailureBlock)failureBlock
                      WithCompletion:(RequestCompletionBacktrack)completionBlock
 {
+
+    if (![self requestBeforeCheckNetWork]){
+        failureBlock([NSError errorWithDomain:@"Error. Count not recover network reachability flags" code:kCFURLErrorNotConnectedToInternet userInfo:nil]);
+        return;
+    }
     
-    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperationManager manager] GET:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-        
-        CCResponseObject *entity = [[CCResponseObject alloc] initWithDict:dic];
-        CCNSLogger(@"%@", [entity ChangedDictionary]);
+    AFHTTPRequestOperation *requestOperation = [[self requestOperationManager] GET:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        CCResponseObject *entity = [self dealwithResponseObject:responseObject];
         
         if (operation.userInfo)
             entity.userInfo = operation.userInfo;
@@ -130,8 +131,6 @@
     
     if (userInfo)
         requestOperation.userInfo = userInfo;
-    
-    requestOperation.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [requestOperation start];
 }

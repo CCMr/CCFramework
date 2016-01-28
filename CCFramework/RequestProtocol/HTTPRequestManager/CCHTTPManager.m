@@ -26,6 +26,7 @@
 #import "CCHTTPManager.h"
 #import "AFNetworking.h"
 #import "UIKit+AFNetworking.h"
+#import "Core.h"
 
 @implementation CCHTTPManager
 
@@ -35,8 +36,6 @@
  *  @brief  单列模式
  *
  *  @return 返回当前对象
- *
- *  @since 1.0
  */
 + (id)sharedlnstance
 {
@@ -48,6 +47,25 @@
     return _sharedlnstance;
 }
 
++ (instancetype)manager
+{
+    return [[self alloc] init];
+}
+
+- (id)requestOperationManager
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    if (self.timeoutInterval > 0)
+        [manager.requestSerializer setTimeoutInterval:self.timeoutInterval];
+    
+    if (self.acceptableContentTypes)
+        manager.responseSerializer.acceptableContentTypes = self.acceptableContentTypes;
+    
+    return manager;
+}
+
 /**
  *  @author CC, 2015-07-23
  *
@@ -57,7 +75,7 @@
  *
  *  @return 返回网络是否可用
  */
-+ (BOOL)netWorkReachabilityWithURLString:(NSString *)strUrl
+- (BOOL)netWorkReachabilityWithURLString:(NSString *)strUrl
 {
     __block BOOL netState = NO;
     
@@ -85,6 +103,67 @@
     [manager.reachabilityManager startMonitoring];
     
     return netState;
+}
+
+/**
+ *  @author CC, 16-01-28
+ *  
+ *  @brief 时时网络状态（status 0: 无网络 1: 3G/4G 2:WiFi）
+ *
+ *  @param status 网络状态
+ */
+- (void)netWorkReachability:(void (^)(NSInteger status))success
+{
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        if (success)
+            success(status);
+    }];
+}
+
+/**
+ *  @author CC, 16-01-28
+ *  
+ *  @brief 请求检查网络
+ */
+- (BOOL)requestBeforeCheckNetWork
+{
+    struct sockaddr zeroAddress;
+    bzero(&zeroAddress, sizeof(zeroAddress));
+    zeroAddress.sa_len = sizeof(zeroAddress);
+    zeroAddress.sa_family = AF_INET;
+    SCNetworkReachabilityRef defaultRouteReachability =
+    SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *)&zeroAddress);
+    SCNetworkReachabilityFlags flags;
+    BOOL didRetrieveFlags =
+    SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags);
+    CFRelease(defaultRouteReachability);
+    if (!didRetrieveFlags) {
+        printf("Error. Count not recover network reachability flags\n");
+        return NO;
+    }
+    BOOL isReachable = flags & kSCNetworkFlagsReachable;
+    BOOL needsConnection = flags & kSCNetworkFlagsConnectionRequired;
+    BOOL isNetworkEnable = (isReachable && !needsConnection) ? YES : NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = isNetworkEnable;/*  网络指示器的状态： 有网络 ： 开  没有网络： 关  */
+    });
+    return isNetworkEnable;
+}
+
+- (CCResponseObject *)dealwithResponseObject:(NSData *)responseData
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;// 关闭网络指示器
+    });
+    
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+    
+    CCResponseObject *entity = [[CCResponseObject alloc] initWithDict:dic];
+    CCNSLogger(@"%@", [entity ChangedDictionary]);
+    
+    return entity;
 }
 
 @end

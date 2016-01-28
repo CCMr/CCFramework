@@ -47,16 +47,6 @@
 - (instancetype)initWithBase;
 
 #pragma mark - 参数设置
-/**
- *  @author CC, 2015-07-23
- *
- *  @brief  监测网络的可链接性
- *
- *  @param strUrl 检验网络地址
- *
- *  @return 返回是否可以访问
- */
-+ (BOOL)netWorkReachabilityWithURLString:(NSString *)strUrl;
 
 /**
  *  @author CC, 2015-07-23

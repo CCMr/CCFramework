@@ -35,35 +35,21 @@
  *
  *  @brief  请求成功回调函数
  */
-@property (nonatomic, copy) Completion returnBlock;
+@property(nonatomic, copy) Completion returnBlock;
 
 /**
  *  @author CC, 2015-10-22
  *
  *  @brief  请求错误回调函数
  */
-@property (nonatomic, copy) ErrorCodeBlock errorBlock;
+@property(nonatomic, copy) ErrorCodeBlock errorBlock;
 
 /**
  *  @author CC, 2015-10-22
  *
  *  @brief  请求故障回调函数
  */
-@property (nonatomic, copy) FailureBlock failureBlock;
-
-
-/**
- *  @author CC, 15-08-20
- *
- *  @brief  检测链接服务器网络是否畅通
- *
- *  @param netConnectBlock  网络状态回调
- *  @param requestURLString 服务器网络地址
- *
- *  @since 1.0
- */
-- (void) netWorkStateWithNetConnectBlock: (NetWorkBlock) netConnectBlock
-                        RequestURLString: (NSString *) requestURLString;
+@property(nonatomic, copy) FailureBlock failureBlock;
 
 /**
  *  @author CC, 15-08-20
@@ -73,12 +59,10 @@
  *  @param returnBlock   完成响应回调
  *  @param errorBlock    错误响应函数
  *  @param faiilureBlock 超时或者请求失败响应函数
- *
- *  @since <#1.0#>
  */
-- (void) responseWithBlock: (Completion) returnBlock
-            WithErrorBlock: (ErrorCodeBlock) errorBlock
-          WithFailureBlock: (FailureBlock)failureBlock;
+- (void)responseWithBlock:(Completion)returnBlock
+           WithErrorBlock:(ErrorCodeBlock)errorBlock
+         WithFailureBlock:(FailureBlock)failureBlock;
 
 /**
  *  @author CC, 15-08-20

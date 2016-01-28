@@ -26,6 +26,7 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "Config.h"
+#import "CCResponseObject.h"
 
 @interface CCHTTPManager : NSObject
 
@@ -44,15 +45,34 @@
 @property(nonatomic, assign) NSTimeInterval timeoutInterval;
 
 /**
+ *  @author CC, 16-01-28
+ *  
+ *  @brief 设置数据传输格式
+ */
+@property(nonatomic, copy) NSSet *acceptableContentTypes;
+
+/**
  *  @author CC, 2015-07-23
  *
  *  @brief  单列模式
  *
  *  @return 当前对象
- *
- *  @since 1.0
  */
 + (id)sharedlnstance;
+
+/**
+ *  @author CC, 16-01-28
+ *  
+ *  @brief 创建并返回一个‘CCHTTPManager’对象。
+ */
++ (instancetype)manager;
+
+/**
+ *  @author CC, 16-01-28
+ *  
+ *  @brief 初始化请求对象
+ */
+- (id)requestOperationManager;
 
 /**
  *  @author CC, 2015-07-23
@@ -63,6 +83,31 @@
  *
  *  @return 返回网络是否可用
  */
-+ (BOOL)netWorkReachabilityWithURLString:(NSString *)strUrl;
+- (BOOL)netWorkReachabilityWithURLString:(NSString *)strUrl;
+
+/**
+ *  @author CC, 16-01-28
+ *  
+ *  @brief 时时网络状态（status 0: 无网络 1: 3G/4G 2:WiFi）
+ *
+ *  @param status 网络状态
+ */
+- (void)netWorkReachability:(void (^)(NSInteger status))success;
+
+/**
+ *  @author CC, 16-01-28
+ *  
+ *  @brief 请求检查网络
+ */
+- (BOOL)requestBeforeCheckNetWork;
+
+/**
+ *  @author CC, 16-01-28
+ *  
+ *  @brief 处理响应对象
+ *
+ *  @param responseData 响应数据
+ */
+- (CCResponseObject *)dealwithResponseObject:(NSData *)responseData;
 
 @end

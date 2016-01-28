@@ -63,7 +63,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *
  *  @since 1.0
  */
-+ (void)NetRequestGETWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestGETWithRequestURL:(NSString *)requestURLString
                       WithParameter:(NSDictionary *)parameter
                WithReturnValeuBlock:(RequestBacktrack)blockTrack
                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
@@ -81,7 +81,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *  @param errorBlock       请求失败回调
  *  @param failureBlock     网络错误回调
  */
-+ (void)NetRequestGETWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestGETWithRequestURL:(NSString *)requestURLString
                       WithParameter:(NSDictionary *)parameter 
                        WithUserInfo:(NSDictionary *)userInfo
                WithReturnValeuBlock:(RequestBacktrack)blockTrack
@@ -101,7 +101,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *  @param failureBlock     网络错误回调
  *  @param completionBlock  请求完成回调函数
  */
-+ (void)NetRequestGETWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestGETWithRequestURL:(NSString *)requestURLString
                       WithParameter:(NSDictionary *)parameter
                        WithUserInfo:(NSDictionary *)userInfo
                WithReturnValeuBlock:(RequestBacktrack)blockTrack
@@ -127,7 +127,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *
  *  @since 1.0
  */
-+ (void)NetRequestPOSTWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestPOSTWithRequestURL:(NSString *)requestURLString
                        WithParameter:(NSDictionary *)parameter
                 WithReturnValeuBlock:(RequestBacktrack)blockTrack
                   WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
@@ -145,7 +145,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *  @param errorBlock       请求失败回调
  *  @param failureBlock     网络错误回调
  */
-+ (void)NetRequestPOSTWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestPOSTWithRequestURL:(NSString *)requestURLString
                        WithParameter:(NSDictionary *)parameter
                         WithUserInfo:(NSDictionary *)userInfo
                 WithReturnValeuBlock:(RequestBacktrack)blockTrack
@@ -165,7 +165,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *  @param failureBlock     网络错误回调
  *  @param completionBlock  请求完成回调函数
  */
-+ (void)NetRequestPOSTWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestPOSTWithRequestURL:(NSString *)requestURLString
                        WithParameter:(NSDictionary *)parameter
                         WithUserInfo:(NSDictionary *)userInfo
                 WithReturnValeuBlock:(RequestBacktrack)blockTrack
@@ -189,7 +189,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *  @param errorBlock       请求失败回调
  *  @param failureBlock     网络错误回调
  */
-+ (void)NetRequestDELETEWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestDELETEWithRequestURL:(NSString *)requestURLString
                          WithParameter:(NSDictionary *)parameter
                   WithReturnValeuBlock:(RequestBacktrack)blockTrack
                     WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
@@ -207,7 +207,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *  @param errorBlock       请求失败回调
  *  @param failureBlock     网络错误回调
  */
-+ (void)NetRequestDELETEWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestDELETEWithRequestURL:(NSString *)requestURLString
                          WithParameter:(NSDictionary *)parameter 
                           WithUserInfo:(NSDictionary *)userInfo
                   WithReturnValeuBlock:(RequestBacktrack)blockTrack
@@ -227,7 +227,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *  @param failureBlock     网络错误回调
  *  @param completionBlock  请求完成回调函数
  */
-+ (void)NetRequestDELETEWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestDELETEWithRequestURL:(NSString *)requestURLString
                          WithParameter:(NSDictionary *)parameter
                           WithUserInfo:(NSDictionary *)userInfo
                   WithReturnValeuBlock:(RequestBacktrack)blockTrack
@@ -252,7 +252,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *  @param errorBlock       请求失败回调
  *  @param failureBlock     网络错误回调
  */
-+ (void)NetRequestHEADWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestHEADWithRequestURL:(NSString *)requestURLString
                        WithParameter:(NSDictionary *)parameter
                 WithReturnValeuBlock:(RequestBacktrack)blockTrack
                   WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
@@ -270,7 +270,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *  @param errorBlock       请求失败回调
  *  @param failureBlock     网络错误回调
  */
-+ (void)NetRequestHEADWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestHEADWithRequestURL:(NSString *)requestURLString
                        WithParameter:(NSDictionary *)parameter
                         WithUserInfo:(NSDictionary *)userInfo
                 WithReturnValeuBlock:(RequestBacktrack)blockTrack
@@ -290,7 +290,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *  @param failureBlock     网络错误回调
  *  @param completionBlock  请求完成回调函数
  */
-+ (void)NetRequestHEADWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestHEADWithRequestURL:(NSString *)requestURLString
                        WithParameter:(NSDictionary *)parameter
                         WithUserInfo:(NSDictionary *)userInfo
                 WithReturnValeuBlock:(RequestBacktrack)blockTrack
@@ -315,7 +315,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *  @param errorBlock       请求失败回调
  *  @param failureBlock     网络错误回调
  */
-+ (void)NetRequestPUTWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestPUTWithRequestURL:(NSString *)requestURLString
                       WithParameter:(NSDictionary *)parameter
                WithReturnValeuBlock:(RequestBacktrack)blockTrack
                  WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
@@ -333,7 +333,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *  @param errorBlock       请求失败回调
  *  @param failureBlock     网络错误回调
  */
-+ (void)NetRequestPUTWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestPUTWithRequestURL:(NSString *)requestURLString
                       WithParameter:(NSDictionary *)parameter 
                        WithUserInfo:(NSDictionary *)userInfo
                WithReturnValeuBlock:(RequestBacktrack)blockTrack
@@ -353,7 +353,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *  @param failureBlock     网络错误回调
  *  @param completionBlock  请求完成回调函数
  */
-+ (void)NetRequestPUTWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestPUTWithRequestURL:(NSString *)requestURLString
                       WithParameter:(NSDictionary *)parameter
                        WithUserInfo:(NSDictionary *)userInfo
                WithReturnValeuBlock:(RequestBacktrack)blockTrack
@@ -377,7 +377,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *  @param errorBlock       请求失败回调
  *  @param failureBlock     网络错误回调
  */
-+ (void)NetRequestPATCHWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestPATCHWithRequestURL:(NSString *)requestURLString
                         WithParameter:(NSDictionary *)parameter
                  WithReturnValeuBlock:(RequestBacktrack)blockTrack
                    WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
@@ -395,7 +395,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *  @param errorBlock       请求失败回调
  *  @param failureBlock     网络错误回调
  */
-+ (void)NetRequestPATCHWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestPATCHWithRequestURL:(NSString *)requestURLString
                         WithParameter:(NSDictionary *)parameter
                          WithUserInfo:(NSDictionary *)userInfo
                  WithReturnValeuBlock:(RequestBacktrack)blockTrack
@@ -415,7 +415,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *  @param failureBlock     网络错误回调
  *  @param completionBlock  请求完成回调函数
  */
-+ (void)NetRequestPATCHWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestPATCHWithRequestURL:(NSString *)requestURLString
                         WithParameter:(NSDictionary *)parameter
                          WithUserInfo:(NSDictionary *)userInfo
                  WithReturnValeuBlock:(RequestBacktrack)blockTrack
@@ -437,7 +437,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *  @param requestURLString 下载路径
  *  @param blockTrack       完成回调
  */
-+ (void)NetRequestDownloadWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestDownloadWithRequestURL:(NSString *)requestURLString
                     WithRequestBacktrack:(CCRequestBacktrack)blockTrack;
 
 /**
@@ -452,7 +452,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *
  *  @since <#1.0#>
  */
-+ (void)NetRequestDownloadWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestDownloadWithRequestURL:(NSString *)requestURLString
                       WithUploadFileName:(NSString *)fileName
                     WithReturnValeuBlock:(RequestDownloadBacktrack)blockTrack
                       WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
@@ -472,7 +472,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *
  *  @since 1.0
  */
-+ (void)NetRequestUploadFormWithRequestURL:(NSString *)requestURLString
+- (void)NetRequestUploadFormWithRequestURL:(NSString *)requestURLString
                         WithUploadFilePath:(NSString *)filePath
                                   FileType:(CCUploadFormFileType)fileType
                       ServiceReceivingName:(NSString *)serviceReceivingName
@@ -493,7 +493,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *  @param errorBlock           错误回调
  *  @param progressBlock        进度回调
  */
-+ (void)NetRequestUploadFormWithRequestURL:(NSString*)requestURLString
+- (void)NetRequestUploadFormWithRequestURL:(NSString*)requestURLString
                        WithUploadFileImage:(UIImage*)fileImage
                                   FileType:(CCUploadFormFileType)fileType
                       ServiceReceivingName:(NSString*)serviceReceivingName
@@ -514,7 +514,7 @@ typedef NS_ENUM(NSInteger, CCUploadFormFileType) {
  *
  *  @since 1.0
  */
-+ (void)NetRequestUploadFormWithRequestURL:(NSString*)requestURLString
+- (void)NetRequestUploadFormWithRequestURL:(NSString*)requestURLString
                         WithUploadFilePath:(NSString*)filePath
                       WithReturnValeuBlock:(RequestBacktrack)blockTrack
                         WithErrorCodeBlock:(ErrorCodeBlock)errorBlock
