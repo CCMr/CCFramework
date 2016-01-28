@@ -108,7 +108,7 @@ void CCInputDodger_Swizzle(Class c, SEL origSEL, SEL newSEL)
     static NSString *key = @"originalY";
     
     [self willChangeValueForKey:key];
-    objc_setAssociatedObject(self, &originalY, @(originalY), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &kCCOriginalY, @(originalY), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [self didChangeValueForKey:key];
 }
 
