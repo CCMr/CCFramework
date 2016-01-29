@@ -25,6 +25,7 @@
 
 #import "CCAlertView.h"
 #import "CustomIOSAlertView.h"
+#import "config.h"
 
 @implementation CCAlertView
 
@@ -56,6 +57,8 @@
 + (void)showWithContainerView:(UIView *)containerView
                withIsExternal:(BOOL)isExternal
 {
+     cc_View_SingleFillet(containerView, UIRectCornerTopLeft | UIRectCornerTopRight, 5);
+    
     CustomIOSAlertView *alertView = [self alertView];
     alertView.containerView = containerView;
     alertView.IsExternal = isExternal;
