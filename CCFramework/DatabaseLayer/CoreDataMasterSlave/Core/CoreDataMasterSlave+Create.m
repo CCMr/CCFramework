@@ -177,14 +177,37 @@
  *
  *  @return 返回新增或更新对象
  */
-+ (id)cc_insertOrUpdateWtihData:(NSString *)tableName
-                     PrimaryKey:(NSString *)primaryKey
-                       WithData:(NSDictionary *)data
++ (void)cc_insertOrUpdateWtihData:(NSString *)tableName
+                       PrimaryKey:(NSString *)primaryKey
+                         WithData:(NSDictionary *)data
 {
-    return [self cc_insertOrUpdateWtihData:tableName 
-                                PrimaryKey:primaryKey
-                                  WithData:data
-                                 inContext:self.saveCurrentContext];
+    [self cc_insertOrUpdateWtihData:tableName
+                         PrimaryKey:primaryKey
+                           WithData:data
+                         Completion:nil];
+}
+
+/**
+ *  @author CC, 16-01-29
+ *  
+ *  @brief 新增或更新数据
+ *
+ *  @param tableName  表名
+ *  @param primaryKey 主键
+ *  @param data       数据源
+ *  @param completion 完成回调
+ */
++ (void)cc_insertOrUpdateWtihData:(NSString *)tableName
+                       PrimaryKey:(NSString *)primaryKey
+                         WithData:(NSDictionary *)data
+                       Completion:(void (^)(NSError *error))completion
+{
+    [self saveContext:^(NSManagedObjectContext *currentContext) {
+        [self cc_insertOrUpdateWtihData:tableName 
+                             PrimaryKey:primaryKey
+                               WithData:data
+                              inContext:currentContext];
+    } completion:completion];
 }
 
 /**
@@ -238,9 +261,9 @@
                                  PrimaryKey:(NSString *)primaryKey
                               WithDataArray:(NSArray *)dataArray
 {
-    return [self cc_insertOrUpdateWtihDataArray:tableName 
-                                     PrimaryKey:primaryKey 
-                                  WithDataArray:dataArray 
+    return [self cc_insertOrUpdateWtihDataArray:tableName
+                                     PrimaryKey:primaryKey
+                                  WithDataArray:dataArray
                                       inContext:self.saveCurrentContext];
 }
 
@@ -257,17 +280,17 @@
  *  @return 返回新增或更新对象集
  */
 + (NSArray *)cc_insertOrUpdateWtihDataArray:(NSString *)tableName
-                          PrimaryKey:(NSString *)primaryKey
-                       WithDataArray:(NSArray *)dataArray
-                           inContext:(NSManagedObjectContext *)context
+                                 PrimaryKey:(NSString *)primaryKey
+                              WithDataArray:(NSArray *)dataArray
+                                  inContext:(NSManagedObjectContext *)context
 {
     __block NSMutableArray *array = [NSMutableArray array];
-    [dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [dataArray enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         
         id objData = [self cc_insertOrUpdateWtihData:tableName 
-                             PrimaryKey:primaryKey 
-                               WithData:obj 
-                              inContext:context];
+                                          PrimaryKey:primaryKey 
+                                            WithData:obj 
+                                           inContext:context];
         
         [array addObject:objData];
     }];

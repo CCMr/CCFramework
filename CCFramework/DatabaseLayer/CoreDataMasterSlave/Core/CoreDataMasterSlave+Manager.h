@@ -120,9 +120,24 @@
  *
  *  @return 返回新增或更新对象
  */
-+ (id)cc_insertOrUpdateWtihData:(NSString *)tableName
-                     PrimaryKey:(NSString *)primaryKey
-                       WithData:(NSDictionary *)data;
++ (void)cc_insertOrUpdateWtihData:(NSString *)tableName
+                       PrimaryKey:(NSString *)primaryKey
+                         WithData:(NSDictionary *)data;
+
+/**
+ *  @author CC, 16-01-29
+ *  
+ *  @brief 新增或更新数据
+ *
+ *  @param tableName  表名
+ *  @param primaryKey 主键
+ *  @param data       数据源
+ *  @param completion 完成回调
+ */
++ (void)cc_insertOrUpdateWtihData:(NSString *)tableName
+                       PrimaryKey:(NSString *)primaryKey
+                         WithData:(NSDictionary *)data
+                       Completion:(void (^)(NSError *error))completion;
 
 /**
  *  @author CC, 2015-11-30

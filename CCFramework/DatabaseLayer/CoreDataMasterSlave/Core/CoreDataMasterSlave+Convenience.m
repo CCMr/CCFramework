@@ -276,7 +276,8 @@
  */
 + (void)saveContext:(void (^)(NSManagedObjectContext *currentContext))saveContext
 {
-    [self saveContext:saveContext completion:nil];
+    [self saveContext:saveContext 
+           completion:nil];
 }
 
 /**
@@ -306,7 +307,9 @@
 + (void)saveWithContext:(NSManagedObjectContext *)saveContext
              completion:(void (^)(NSError *error))completion
 {
-    [self saveWithContext:saveContext SaveContextBlock:nil completion:completion];
+    [self saveWithContext:saveContext
+         SaveContextBlock:nil
+               completion:completion];
 }
 
 /**
