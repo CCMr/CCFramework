@@ -271,8 +271,10 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
          DetailsText:(NSString *)detailsText
 {
     CCInfoBanner *banner = [self initializationShow];
-    if (icon)
+    if (icon) {
         banner.iconImageView.image = [UIImage imageNamed:icon];
+        [banner.indicatorView stopAnimating];
+    }
     
     banner.titleLabel.text = title;
     banner.detailsLabel.text = detailsText;
@@ -422,6 +424,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
                   Title:(NSString *)title
 {
     self.iconImageView.image = [UIImage imageNamed:icon];
+    [self.indicatorView stopAnimating];
     self.iconImageView.hidden = NO;
     self.iconImageView.center = self.indicatorView.center;
     
