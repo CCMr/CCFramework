@@ -29,7 +29,7 @@
 
 #import <CCFramework/CCRadarView.h>
 #import <CCFramework/POP.h>
-//#import <CCFramework/CCSlideShadowAnimation.h>
+#import <CCFramework/CCUnReadBubbleView.h>
 //#import <CCFramework/CCRourRotation.h>
 
 #endif

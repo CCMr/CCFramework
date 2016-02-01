@@ -126,10 +126,6 @@
 		422754701C29371F0099B653 /* save_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4227545E1C29371F0099B653 /* save_icon@2x.png */; };
 		422754711C29371F0099B653 /* save_icon_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 4227545F1C29371F0099B653 /* save_icon_highlighted.png */; };
 		422754721C29371F0099B653 /* save_icon_highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422754601C29371F0099B653 /* save_icon_highlighted@2x.png */; };
-		422754731C29371F0099B653 /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 422754621C29371F0099B653 /* error.png */; };
-		422754741C29371F0099B653 /* error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422754631C29371F0099B653 /* error@2x.png */; };
-		422754751C29371F0099B653 /* success.png in Resources */ = {isa = PBXBuildFile; fileRef = 422754641C29371F0099B653 /* success.png */; };
-		422754761C29371F0099B653 /* success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422754651C29371F0099B653 /* success@2x.png */; };
 		422754771C29371F0099B653 /* AssetsNO@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422754671C29371F0099B653 /* AssetsNO@2x.png */; };
 		422754781C29371F0099B653 /* AssetsYES@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422754681C29371F0099B653 /* AssetsYES@2x.png */; };
 		422754791C29371F0099B653 /* returns@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422754691C29371F0099B653 /* returns@2x.png */; };
@@ -137,6 +133,21 @@
 		422978601BEE3A1100CECBBF /* CCResponseObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4229785E1BEE3A1100CECBBF /* CCResponseObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		422978611BEE3A1100CECBBF /* CCResponseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229785F1BEE3A1100CECBBF /* CCResponseObject.m */; };
 		422978631BEE407400CECBBF /* CCBlockTrace.h in Headers */ = {isa = PBXBuildFile; fileRef = 422978621BEE405900CECBBF /* CCBlockTrace.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		422E91491C5F0D9C008F7DDA /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 422E91451C5F0D9C008F7DDA /* error.png */; };
+		422E914A1C5F0D9C008F7DDA /* error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422E91461C5F0D9C008F7DDA /* error@2x.png */; };
+		422E914B1C5F0D9C008F7DDA /* success.png in Resources */ = {isa = PBXBuildFile; fileRef = 422E91471C5F0D9C008F7DDA /* success.png */; };
+		422E914C1C5F0D9C008F7DDA /* success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422E91481C5F0D9C008F7DDA /* success@2x.png */; };
+		422E91531C5F0DD2008F7DDA /* bomb0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422E914E1C5F0DD2008F7DDA /* bomb0@2x.png */; };
+		422E91541C5F0DD2008F7DDA /* bomb1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422E914F1C5F0DD2008F7DDA /* bomb1@2x.png */; };
+		422E91551C5F0DD2008F7DDA /* bomb2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422E91501C5F0DD2008F7DDA /* bomb2@2x.png */; };
+		422E91561C5F0DD2008F7DDA /* bomb3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422E91511C5F0DD2008F7DDA /* bomb3@2x.png */; };
+		422E91571C5F0DD2008F7DDA /* bomb4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422E91521C5F0DD2008F7DDA /* bomb4@2x.png */; };
+		422E91691C5F323A008F7DDA /* CCUnReadBubbleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 422E91671C5F323A008F7DDA /* CCUnReadBubbleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		422E916A1C5F323A008F7DDA /* CCUnReadBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 422E91681C5F323A008F7DDA /* CCUnReadBubbleView.m */; };
+		422E91701C5F38BE008F7DDA /* PRTween.h in Headers */ = {isa = PBXBuildFile; fileRef = 422E916C1C5F38BE008F7DDA /* PRTween.h */; };
+		422E91711C5F38BE008F7DDA /* PRTween.m in Sources */ = {isa = PBXBuildFile; fileRef = 422E916D1C5F38BE008F7DDA /* PRTween.m */; };
+		422E91721C5F38BE008F7DDA /* PRTweenTimingFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 422E916E1C5F38BE008F7DDA /* PRTweenTimingFunctions.h */; };
+		422E91731C5F38BE008F7DDA /* PRTweenTimingFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 422E916F1C5F38BE008F7DDA /* PRTweenTimingFunctions.m */; };
 		42300C6C1C2A466800D03641 /* brush@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42300C6A1C2A466800D03641 /* brush@2x.png */; };
 		42300C6D1C2A466800D03641 /* eraser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42300C6B1C2A466800D03641 /* eraser@2x.png */; };
 		42300C771C2BDD7200D03641 /* CCEmotionTextAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = 42300C751C2BDD7200D03641 /* CCEmotionTextAttachment.h */; };
@@ -1114,10 +1125,6 @@
 		4227545E1C29371F0099B653 /* save_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "save_icon@2x.png"; sourceTree = "<group>"; };
 		4227545F1C29371F0099B653 /* save_icon_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save_icon_highlighted.png; sourceTree = "<group>"; };
 		422754601C29371F0099B653 /* save_icon_highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "save_icon_highlighted@2x.png"; sourceTree = "<group>"; };
-		422754621C29371F0099B653 /* error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error.png; sourceTree = "<group>"; };
-		422754631C29371F0099B653 /* error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error@2x.png"; sourceTree = "<group>"; };
-		422754641C29371F0099B653 /* success.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = success.png; sourceTree = "<group>"; };
-		422754651C29371F0099B653 /* success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "success@2x.png"; sourceTree = "<group>"; };
 		422754671C29371F0099B653 /* AssetsNO@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AssetsNO@2x.png"; sourceTree = "<group>"; };
 		422754681C29371F0099B653 /* AssetsYES@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AssetsYES@2x.png"; sourceTree = "<group>"; };
 		422754691C29371F0099B653 /* returns@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "returns@2x.png"; sourceTree = "<group>"; };
@@ -1125,6 +1132,21 @@
 		4229785E1BEE3A1100CECBBF /* CCResponseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCResponseObject.h; path = ResponseEntity/CCResponseObject.h; sourceTree = "<group>"; };
 		4229785F1BEE3A1100CECBBF /* CCResponseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCResponseObject.m; path = ResponseEntity/CCResponseObject.m; sourceTree = "<group>"; };
 		422978621BEE405900CECBBF /* CCBlockTrace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCBlockTrace.h; sourceTree = "<group>"; };
+		422E91451C5F0D9C008F7DDA /* error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error.png; sourceTree = "<group>"; };
+		422E91461C5F0D9C008F7DDA /* error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error@2x.png"; sourceTree = "<group>"; };
+		422E91471C5F0D9C008F7DDA /* success.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = success.png; sourceTree = "<group>"; };
+		422E91481C5F0D9C008F7DDA /* success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "success@2x.png"; sourceTree = "<group>"; };
+		422E914E1C5F0DD2008F7DDA /* bomb0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bomb0@2x.png"; path = "CCDragDropBadgeView/bomb0@2x.png"; sourceTree = "<group>"; };
+		422E914F1C5F0DD2008F7DDA /* bomb1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bomb1@2x.png"; path = "CCDragDropBadgeView/bomb1@2x.png"; sourceTree = "<group>"; };
+		422E91501C5F0DD2008F7DDA /* bomb2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bomb2@2x.png"; path = "CCDragDropBadgeView/bomb2@2x.png"; sourceTree = "<group>"; };
+		422E91511C5F0DD2008F7DDA /* bomb3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bomb3@2x.png"; path = "CCDragDropBadgeView/bomb3@2x.png"; sourceTree = "<group>"; };
+		422E91521C5F0DD2008F7DDA /* bomb4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bomb4@2x.png"; path = "CCDragDropBadgeView/bomb4@2x.png"; sourceTree = "<group>"; };
+		422E91671C5F323A008F7DDA /* CCUnReadBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCUnReadBubbleView.h; path = CCUnReadBubbleView/CCUnReadBubbleView.h; sourceTree = "<group>"; };
+		422E91681C5F323A008F7DDA /* CCUnReadBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCUnReadBubbleView.m; path = CCUnReadBubbleView/CCUnReadBubbleView.m; sourceTree = "<group>"; };
+		422E916C1C5F38BE008F7DDA /* PRTween.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRTween.h; sourceTree = "<group>"; };
+		422E916D1C5F38BE008F7DDA /* PRTween.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRTween.m; sourceTree = "<group>"; };
+		422E916E1C5F38BE008F7DDA /* PRTweenTimingFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRTweenTimingFunctions.h; sourceTree = "<group>"; };
+		422E916F1C5F38BE008F7DDA /* PRTweenTimingFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRTweenTimingFunctions.m; sourceTree = "<group>"; };
 		42300C6A1C2A466800D03641 /* brush@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "brush@2x.png"; path = "GraffitiBoard/brush@2x.png"; sourceTree = "<group>"; };
 		42300C6B1C2A466800D03641 /* eraser@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "eraser@2x.png"; path = "GraffitiBoard/eraser@2x.png"; sourceTree = "<group>"; };
 		42300C751C2BDD7200D03641 /* CCEmotionTextAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEmotionTextAttachment.h; sourceTree = "<group>"; };
@@ -2301,14 +2323,15 @@
 			path = CCPhotoBrowser;
 			sourceTree = "<group>";
 		};
-		422754611C29371F0099B653 /* MBProgressHUD */ = {
+		422754611C29371F0099B653 /* CCProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
-				422754621C29371F0099B653 /* error.png */,
-				422754631C29371F0099B653 /* error@2x.png */,
-				422754641C29371F0099B653 /* success.png */,
-				422754651C29371F0099B653 /* success@2x.png */,
+				422E91451C5F0D9C008F7DDA /* error.png */,
+				422E91461C5F0D9C008F7DDA /* error@2x.png */,
+				422E91471C5F0D9C008F7DDA /* success.png */,
+				422E91481C5F0D9C008F7DDA /* success@2x.png */,
 			);
+			name = CCProgressHUD;
 			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
@@ -2329,6 +2352,40 @@
 				4229785F1BEE3A1100CECBBF /* CCResponseObject.m */,
 			);
 			name = ResponseEntity;
+			sourceTree = "<group>";
+		};
+		422E914D1C5F0DB5008F7DDA /* CCDragDropBadgeView */ = {
+			isa = PBXGroup;
+			children = (
+				422E914E1C5F0DD2008F7DDA /* bomb0@2x.png */,
+				422E914F1C5F0DD2008F7DDA /* bomb1@2x.png */,
+				422E91501C5F0DD2008F7DDA /* bomb2@2x.png */,
+				422E91511C5F0DD2008F7DDA /* bomb3@2x.png */,
+				422E91521C5F0DD2008F7DDA /* bomb4@2x.png */,
+			);
+			name = CCDragDropBadgeView;
+			sourceTree = "<group>";
+		};
+		422E91661C5F3212008F7DDA /* CCUnReadBubbleView */ = {
+			isa = PBXGroup;
+			children = (
+				422E916B1C5F38BE008F7DDA /* PRTween */,
+				422E91671C5F323A008F7DDA /* CCUnReadBubbleView.h */,
+				422E91681C5F323A008F7DDA /* CCUnReadBubbleView.m */,
+			);
+			name = CCUnReadBubbleView;
+			sourceTree = "<group>";
+		};
+		422E916B1C5F38BE008F7DDA /* PRTween */ = {
+			isa = PBXGroup;
+			children = (
+				422E916C1C5F38BE008F7DDA /* PRTween.h */,
+				422E916D1C5F38BE008F7DDA /* PRTween.m */,
+				422E916E1C5F38BE008F7DDA /* PRTweenTimingFunctions.h */,
+				422E916F1C5F38BE008F7DDA /* PRTweenTimingFunctions.m */,
+			);
+			name = PRTween;
+			path = CCUnReadBubbleView/PRTween;
 			sourceTree = "<group>";
 		};
 		4230E1811BBB7F730001E68F /* Radar */ = {
@@ -3378,6 +3435,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E11BDDF91400C76004 /* Animation.h */,
+				422E91661C5F3212008F7DDA /* CCUnReadBubbleView */,
 				42068F391C576CDB005DFB01 /* CCPulsingHaloLayer */,
 				42068EBC1C573876005DFB01 /* POP */,
 				426528971BECA16B0096C0EF /* Loading */,
@@ -4162,9 +4220,10 @@
 		42BEC0021C28FCB000316AE4 /* CCResource */ = {
 			isa = PBXGroup;
 			children = (
+				422E914D1C5F0DB5008F7DDA /* CCDragDropBadgeView */,
 				422754561C29371F0099B653 /* CCNumericKeypadImage */,
 				4227545C1C29371F0099B653 /* CCPhotoBrowser */,
-				422754611C29371F0099B653 /* MBProgressHUD */,
+				422754611C29371F0099B653 /* CCProgressHUD */,
 				422754661C29371F0099B653 /* PhotosViewImage */,
 				422754511C2932640099B653 /* GraffitiBoard */,
 				4268CED71C4356CE00434D65 /* icon_star_gray@2x.png */,
@@ -4784,6 +4843,7 @@
 				4254774E1BD2AEC20071BBC5 /* mdc2.h in Headers */,
 				42068EF81C573E33005DFB01 /* POPBasicAnimation.h in Headers */,
 				4254775F1BD2AEC20071BBC5 /* rsa.h in Headers */,
+				422E91721C5F38BE008F7DDA /* PRTweenTimingFunctions.h in Headers */,
 				425477591BD2AEC20071BBC5 /* pkcs7.h in Headers */,
 				4254772D1BD2AEC20071BBC5 /* bio.h in Headers */,
 				4298C77D1BDCAB3D00A3581D /* CoreDataMasterSlave.h in Headers */,
@@ -5050,6 +5110,7 @@
 				4230E1961BBB8F7C0001E68F /* CCRadarScanViewController.h in Headers */,
 				4254775E1BD2AEC20071BBC5 /* ripemd.h in Headers */,
 				428B5C3B1C22609C001B8584 /* rscode.h in Headers */,
+				422E91701C5F38BE008F7DDA /* PRTween.h in Headers */,
 				429CA0071B9EF8BF0013A44A /* CCAnimatedImageView.h in Headers */,
 				4254774C1BD2AEC20071BBC5 /* md4.h in Headers */,
 				42068F0A1C573E33005DFB01 /* POPAnimationEventInternal.h in Headers */,
@@ -5206,6 +5267,7 @@
 				42C208EF1BDE1D7D00C76004 /* ModelLayer.h in Headers */,
 				429C9FE21B9EF8BF0013A44A /* SRNegotiationResponse.h in Headers */,
 				4269792D1BA695BA00C3E93C /* AFHTTPRequestOperation.h in Headers */,
+				422E91691C5F323A008F7DDA /* CCUnReadBubbleView.h in Headers */,
 				429C9FEF1B9EF8BF0013A44A /* SRLongPollingTransport.h in Headers */,
 				425477501BD2AEC20071BBC5 /* obj_mac.h in Headers */,
 				429C9FDF1B9EF8BF0013A44A /* SRKeepAliveData.h in Headers */,
@@ -5361,23 +5423,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				4227546D1C29371F0099B653 /* KeyboardNumericEntryKeyBackspaceGlyphTextured@2x.png in Resources */,
-				422754751C29371F0099B653 /* success.png in Resources */,
-				422754761C29371F0099B653 /* success@2x.png in Resources */,
+				422E91561C5F0DD2008F7DDA /* bomb3@2x.png in Resources */,
 				422754541C29329C0099B653 /* color_wheel@2x.png in Resources */,
-				422754731C29371F0099B653 /* error.png in Resources */,
 				422754781C29371F0099B653 /* AssetsYES@2x.png in Resources */,
 				4227546E1C29371F0099B653 /* WithFinishedUnselecte@2x.png in Resources */,
 				42F164041C2A38BD00F17928 /* redo@2x.png in Resources */,
 				4227546A1C29371F0099B653 /* Back@2x.png in Resources */,
 				42E953231C58A9FC001C93CB /* banner_arrow@2x.png in Resources */,
+				422E914B1C5F0D9C008F7DDA /* success.png in Resources */,
 				4227546B1C29371F0099B653 /* KeyboardNumericBg@2x.png in Resources */,
 				42F164051C2A38BD00F17928 /* style@2x.png in Resources */,
 				42F164011C2A38BD00F17928 /* bar_minus@2x.png in Resources */,
 				422754701C29371F0099B653 /* save_icon@2x.png in Resources */,
+				422E91571C5F0DD2008F7DDA /* bomb4@2x.png in Resources */,
 				4227546C1C29371F0099B653 /* KeyboardNumericEntryKeyBackspaceGlyphTextured.png in Resources */,
+				422E91551C5F0DD2008F7DDA /* bomb2@2x.png in Resources */,
 				422754711C29371F0099B653 /* save_icon_highlighted.png in Resources */,
 				422754791C29371F0099B653 /* returns@2x.png in Resources */,
+				422E914A1C5F0D9C008F7DDA /* error@2x.png in Resources */,
+				422E91541C5F0DD2008F7DDA /* bomb1@2x.png in Resources */,
 				422754551C29329C0099B653 /* slider_border@2x.png in Resources */,
+				422E914C1C5F0D9C008F7DDA /* success@2x.png in Resources */,
 				42F164061C2A38BD00F17928 /* undo@2x.png in Resources */,
 				4268CED91C4356CE00434D65 /* icon_star_gray@2x.png in Resources */,
 				4227547B1C2938E30099B653 /* arrow@2x.png in Resources */,
@@ -5385,10 +5451,11 @@
 				42300C6D1C2A466800D03641 /* eraser@2x.png in Resources */,
 				4227546F1C29371F0099B653 /* save_icon.png in Resources */,
 				424255171C31255E00D94E04 /* placeholderImage@2x.png in Resources */,
+				422E91531C5F0DD2008F7DDA /* bomb0@2x.png in Resources */,
+				422E91491C5F0D9C008F7DDA /* error.png in Resources */,
 				42300C6C1C2A466800D03641 /* brush@2x.png in Resources */,
 				422754721C29371F0099B653 /* save_icon_highlighted@2x.png in Resources */,
 				42F164021C2A38BD00F17928 /* bar_plus@2x.png in Resources */,
-				422754741C29371F0099B653 /* error@2x.png in Resources */,
 				42F164031C2A38BD00F17928 /* dismiss@2x.png in Resources */,
 				4268CEDA1C4356CE00434D65 /* icon_star_yellow@2x.png in Resources */,
 			);
@@ -5460,6 +5527,7 @@
 				42F411C91C2150E500814E7B /* NSArray+BNSArray.m in Sources */,
 				428B5C381C22609C001B8584 /* qrspec.c in Sources */,
 				429CA0F21B9EF8BF0013A44A /* CCLocationHelper.m in Sources */,
+				422E916A1C5F323A008F7DDA /* CCUnReadBubbleView.m in Sources */,
 				429C9FE71B9EF8BF0013A44A /* SREventSourceStreamReader.m in Sources */,
 				42F24C6A1BEA5091008CDEDC /* PNRadarChartDataItem.m in Sources */,
 				42B6473E1BEDA8C100B2F6FD /* CCBacktrace.m in Sources */,
@@ -5505,6 +5573,7 @@
 				429CA0741B9EF8BF0013A44A /* CCPopMenuItem.m in Sources */,
 				42F411D71C2150E500814E7B /* UIColor+BUIColor.m in Sources */,
 				42F24C661BEA5091008CDEDC /* PNPieChartDataItem.m in Sources */,
+				422E91731C5F38BE008F7DDA /* PRTweenTimingFunctions.m in Sources */,
 				429CA0611B9EF8BF0013A44A /* CCPickerAssetsViewController.m in Sources */,
 				429C9FF61B9EF8BF0013A44A /* SRWebSocketConnectionInfo.m in Sources */,
 				42F411311C214C5400814E7B /* CCImageManger.m in Sources */,
@@ -5672,6 +5741,7 @@
 				42F4121F1C21648300814E7B /* CCPaintingLayer.m in Sources */,
 				4298C78B1BDCBB0300A3581D /* CoreDataMasterSlave+Modify.m in Sources */,
 				42F24C5C1BEA5091008CDEDC /* PNGenericChart.m in Sources */,
+				422E91711C5F38BE008F7DDA /* PRTween.m in Sources */,
 				429C9F571B9EF8BF0013A44A /* BaseTableViewController.m in Sources */,
 				42E9531D1C589DB3001C93CB /* CCBannerView.m in Sources */,
 				42068EF51C573E33005DFB01 /* POPAnimation.mm in Sources */,
