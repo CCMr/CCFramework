@@ -29,6 +29,35 @@
 @interface CCAlertView : NSObject
 
 /**
+ *  @author CC, 16-02-02
+ *  
+ *  @brief 提醒框
+ *
+ *  @param message               消息内容
+ *  @param buttonTitles          按钮
+ *  @param onButtonTouchUpInside 回调事件
+ */
++ (void)showWithMessage:(NSString *)message
+   withButtonTitleArray:(NSArray *)buttonTitles
+  OnButtonTouchUpInside:(void (^)(NSInteger buttonIndex))onButtonTouchUpInside;
+
+/**
+ *  @author CC, 16-02-02
+ *  
+ *  @brief 弹出提示消息
+ *
+ *  @param title                 消息标题
+ *  @param message               消息内容
+ *  @param buttonTitles          按钮
+ *  @param onButtonTouchUpInside 回调事件
+ */
++ (void)showWithMessage:(NSString *)title
+            withMessage:(NSString *)message
+   withButtonTitleArray:(NSArray *)buttonTitles
+  OnButtonTouchUpInside:(void (^)(NSInteger buttonIndex))onButtonTouchUpInside;
+
+
+/**
  *  @author CC, 2016-01-04
  *  
  *  @brief  弹出框

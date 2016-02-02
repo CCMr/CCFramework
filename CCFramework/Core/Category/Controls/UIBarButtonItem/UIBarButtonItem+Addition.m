@@ -46,11 +46,38 @@
     }
 }
 
+/**
+ *  @author CC, 16-02-02
+ *  
+ *  @brief 图片按钮
+ *
+ *  @param iconName 图标
+ *  @param target   当前页面
+ *  @param action   页面回调函数
+ *
+ *  @return 返回当前对象
+ */
++ (UIBarButtonItem *)imageWithAction:(NSString *)iconName
+                              Target:(id)target
+                              Action:(SEL)action
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    UIImage *image = [UIImage imageNamed:iconName];
+    [button setImage:image forState:UIControlStateNormal];
+    [button setImage:image forState:UIControlStateHighlighted];
+    [button setFrame:CGRectMake(0, 7, 40, 30)];
+    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *itme = [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+    return itme;
+}
+
 
 /**
  *  @author CC, 15-09-28
  *
- *  @brief  图片按钮
+ *  @brief  圆角图片按钮
  *
  *  @param backgroundImage 背景图片
  *  @param target          当前页面
@@ -93,7 +120,7 @@
                 didOnButtonTouchUpInside:(void (^)(UIButton *sender))onButtonTouchUpInside
 {
     UIButton *button = [UIButton buttonWithTitleBackgroundImage:title BackgroundImage:backgroundImage];
-    button.frame = CGRectMake(0, 0, [title calculateTextWidthHeight:[UIFont systemFontOfSize:[UIFont systemFontSize]]].width + 40, 40);
+    button.frame = CGRectMake(0, 0, [title calculateTextWidthHeight:button.bounds.size.width Font:[UIFont systemFontOfSize:[UIFont systemFontSize]]].width + 40, 40);
     [button handleControlEvent:UIControlEventTouchUpInside withBlock:onButtonTouchUpInside];
     UIBarButtonItem *itme = [[UIBarButtonItem alloc] initWithCustomView:button];
     return itme;
@@ -118,7 +145,7 @@
 {
     UIButton *button = [UIButton buttonWithImageTitle:backgroundImage
                                                 Title:title
-                                                Frame:CGRectMake(0, 0, [title calculateTextWidthHeight:[UIFont systemFontOfSize:[UIFont systemFontSize]]].width + 40, 40)];
+                                                Frame:CGRectMake(0, 0, [title calculateTextWidthHeight:100 Font:[UIFont systemFontOfSize:[UIFont systemFontSize]]].width + 40, 40)];
     [button setTitleColor:[UIColor whiteColor]];
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *itme = [[UIBarButtonItem alloc] initWithCustomView:button];
@@ -142,7 +169,7 @@
 {
     UIButton *button = [UIButton buttonWithImageTitle:backgroundImage
                                                 Title:title
-                                                Frame:CGRectMake(0, 0, [title calculateTextWidthHeight:[UIFont systemFontOfSize:[UIFont systemFontSize]]].width + 40, 40)];
+                                                Frame:CGRectMake(0, 0, [title calculateTextWidthHeight:100 Font:[UIFont systemFontOfSize:[UIFont systemFontSize]]].width + 40, 40)];
     
     [button handleControlEvent:UIControlEventTouchUpInside withBlock:onButtonTouchUpInside];
     [button setTitleColor:[UIColor whiteColor]];

@@ -26,6 +26,8 @@
 #import "CCAlertView.h"
 #import "CustomIOSAlertView.h"
 #import "config.h"
+#import "UIView+BUIView.h"
+#import "NSString+BNSString.h"
 
 @implementation CCAlertView
 
@@ -47,6 +49,75 @@
 }
 
 /**
+ *  @author CC, 16-02-02
+ *  
+ *  @brief 提醒框
+ *
+ *  @param message               消息内容
+ *  @param buttonTitles          按钮
+ *  @param onButtonTouchUpInside 回调事件
+ */
++ (void)showWithMessage:(NSString *)message
+   withButtonTitleArray:(NSArray *)buttonTitles
+  OnButtonTouchUpInside:(void (^)(NSInteger buttonIndex))onButtonTouchUpInside
+{
+    [self showWithMessage:nil
+              withMessage:message
+     withButtonTitleArray:buttonTitles
+    OnButtonTouchUpInside:onButtonTouchUpInside];
+}
+
+/**
+ *  @author CC, 16-02-02
+ *  
+ *  @brief 弹出提示消息
+ *
+ *  @param title                 消息标题
+ *  @param message               消息内容
+ *  @param buttonTitles          按钮
+ *  @param onButtonTouchUpInside 回调事件
+ */
++ (void)showWithMessage:(NSString *)title
+            withMessage:(NSString *)message
+   withButtonTitleArray:(NSArray *)buttonTitles
+  OnButtonTouchUpInside:(void (^)(NSInteger buttonIndex))onButtonTouchUpInside
+{
+    CGRect frame = CGRectMake(0, 0, 224, 0);
+    UIView *containerView = [[UIView alloc] initWithFrame:frame];
+    
+    if (title && ![title isEqualToString:@""]) {
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, containerView.width, 20)];
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.font = [UIFont systemFontOfSize:18];
+        titleLabel.text = title;
+        [containerView addSubview:titleLabel];
+        frame.size.height += 20;
+    }
+    
+    if (message && ![message isEqualToString:@""]) {
+        CGFloat h = [message calculateTextWidthHeight:containerView.width Font:[UIFont systemFontOfSize:15]].height;
+        
+        if (h < 50)
+            h = 50;
+        
+        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height, containerView.width, h)];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.font = [UIFont systemFontOfSize:15];
+        messageLabel.text = message;
+        [containerView addSubview:messageLabel];
+        
+        frame.size.height += messageLabel.height;
+    }
+    
+    containerView.frame = frame;
+    
+    [self showWithContainerView:containerView
+           withButtonTitleArray:buttonTitles
+          OnButtonTouchUpInside:onButtonTouchUpInside];
+}
+
+/**
  *  @author CC, 2016-01-04
  *  
  *  @brief  弹出框
@@ -57,7 +128,7 @@
 + (void)showWithContainerView:(UIView *)containerView
                withIsExternal:(BOOL)isExternal
 {
-     cc_View_SingleFillet(containerView, UIRectCornerTopLeft | UIRectCornerTopRight, 5);
+    cc_View_SingleFillet(containerView, UIRectCornerTopLeft | UIRectCornerTopRight, 5);
     
     CustomIOSAlertView *alertView = [self alertView];
     alertView.containerView = containerView;
@@ -82,9 +153,8 @@
     [alertView setContainerView:containerView];
     [alertView setButtonTitles:buttonTitles];
     [alertView setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
-        if (onButtonTouchUpInside) {
+        if (onButtonTouchUpInside)
             onButtonTouchUpInside(buttonIndex);
-        }
         [alertView close];
     }];
     [alertView show];

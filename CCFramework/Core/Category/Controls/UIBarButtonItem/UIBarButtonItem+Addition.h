@@ -37,6 +37,21 @@
 - (void)setItemImage:(NSString *)backgroundImage;
 
 /**
+ *  @author CC, 16-02-02
+ *  
+ *  @brief 图片按钮
+ *
+ *  @param iconName 图标
+ *  @param target   当前页面
+ *  @param action   页面回调函数
+ *
+ *  @return 返回当前对象
+ */
++ (UIBarButtonItem *)imageWithAction:(NSString *)iconName
+                              Target:(id)target
+                              Action:(SEL)action;
+
+/**
  *  @author CC, 15-09-28
  *
  *  @brief  图片按钮
