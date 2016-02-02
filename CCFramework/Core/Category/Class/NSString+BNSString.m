@@ -560,7 +560,8 @@
  *
  *  @return 返回长宽
  */
-- (CGSize)calculateTextWidthHeight:(UIFont *)font
+- (CGSize)calculateTextWidthHeight:(CGFloat)MaxWith
+                              Font:(UIFont *)font
 {
     return [self sizeWithFont:font
             constrainedToSize:CGSizeMake([[UIScreen mainScreen] bounds].size.width, MAXFLOAT)

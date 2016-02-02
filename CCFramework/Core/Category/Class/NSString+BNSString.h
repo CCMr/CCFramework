@@ -208,13 +208,15 @@
 - (NSInteger)numberOfLines;
 
 /**
- *  @author C C, 2015-09-28
+ *  @author CC, 16-02-02
+ *  
+ *  @brief 计算文字长宽
  *
- *  @brief  计算文字长宽
- *
- *  @return 返回长宽
+ *  @param MaxWith 最大宽度
+ *  @param font    字体
  */
-- (CGSize)calculateTextWidthHeight:(UIFont *)font;
+- (CGSize)calculateTextWidthHeight:(CGFloat)MaxWith
+                              Font:(UIFont *)font;
 
 #pragma mark - 加密
 /**
