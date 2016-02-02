@@ -160,6 +160,8 @@
 		4230E1921BBB83E40001E68F /* CCRadarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E1901BBB83E40001E68F /* CCRadarView.m */; };
 		4230E1961BBB8F7C0001E68F /* CCRadarScanViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4230E1941BBB8F7C0001E68F /* CCRadarScanViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4230E1971BBB8F7C0001E68F /* CCRadarScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E1951BBB8F7C0001E68F /* CCRadarScanViewController.m */; };
+		423B739B1C60882400BC49E5 /* Fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 423B73981C60882400BC49E5 /* Fill@2x.png */; };
+		423B739C1C60882400BC49E5 /* Slice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 423B73991C60882400BC49E5 /* Slice@2x.png */; };
 		423C12791C0ECACB009FBA17 /* CCTool.h in Headers */ = {isa = PBXBuildFile; fileRef = 423C12771C0ECACB009FBA17 /* CCTool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		423C127A1C0ECACB009FBA17 /* CCTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 423C12781C0ECACB009FBA17 /* CCTool.m */; };
 		423D1DA01C3A00CE008E483A /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 423D1D9F1C3A00CE008E483A /* libWeChatSDK.a */; };
@@ -1159,6 +1161,8 @@
 		4230E1901BBB83E40001E68F /* CCRadarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRadarView.m; path = Radar/Scanning/CCRadarView.m; sourceTree = "<group>"; };
 		4230E1941BBB8F7C0001E68F /* CCRadarScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRadarScanViewController.h; path = CCRadarScan/CCRadarScanViewController.h; sourceTree = "<group>"; };
 		4230E1951BBB8F7C0001E68F /* CCRadarScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRadarScanViewController.m; path = CCRadarScan/CCRadarScanViewController.m; sourceTree = "<group>"; };
+		423B73981C60882400BC49E5 /* Fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Fill@2x.png"; sourceTree = "<group>"; };
+		423B73991C60882400BC49E5 /* Slice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Slice@2x.png"; sourceTree = "<group>"; };
 		423C12771C0ECACB009FBA17 /* CCTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCTool.h; path = Core/Tool/CCTool.h; sourceTree = "<group>"; };
 		423C12781C0ECACB009FBA17 /* CCTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCTool.m; path = Core/Tool/CCTool.m; sourceTree = "<group>"; };
 		423D1D9F1C3A00CE008E483A /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
@@ -4227,6 +4231,8 @@
 				422754661C29371F0099B653 /* PhotosViewImage */,
 				422754511C2932640099B653 /* GraffitiBoard */,
 				4268CED71C4356CE00434D65 /* icon_star_gray@2x.png */,
+				423B73981C60882400BC49E5 /* Fill@2x.png */,
+				423B73991C60882400BC49E5 /* Slice@2x.png */,
 				42E953221C58A9FC001C93CB /* banner_arrow@2x.png */,
 				4268CED81C4356CE00434D65 /* icon_star_yellow@2x.png */,
 				4227547A1C2938E30099B653 /* arrow@2x.png */,
@@ -5440,6 +5446,7 @@
 				422E91551C5F0DD2008F7DDA /* bomb2@2x.png in Resources */,
 				422754711C29371F0099B653 /* save_icon_highlighted.png in Resources */,
 				422754791C29371F0099B653 /* returns@2x.png in Resources */,
+				423B739B1C60882400BC49E5 /* Fill@2x.png in Resources */,
 				422E914A1C5F0D9C008F7DDA /* error@2x.png in Resources */,
 				422E91541C5F0DD2008F7DDA /* bomb1@2x.png in Resources */,
 				422754551C29329C0099B653 /* slider_border@2x.png in Resources */,
@@ -5450,6 +5457,7 @@
 				422754771C29371F0099B653 /* AssetsNO@2x.png in Resources */,
 				42300C6D1C2A466800D03641 /* eraser@2x.png in Resources */,
 				4227546F1C29371F0099B653 /* save_icon.png in Resources */,
+				423B739C1C60882400BC49E5 /* Slice@2x.png in Resources */,
 				424255171C31255E00D94E04 /* placeholderImage@2x.png in Resources */,
 				422E91531C5F0DD2008F7DDA /* bomb0@2x.png in Resources */,
 				422E91491C5F0D9C008F7DDA /* error.png in Resources */,

@@ -38,9 +38,9 @@
 #define kFollowTimeInterval 0.016f
 #define kBombDuration 0.5f
 #define kValidRadius 20.0f
-#define kDefaultFontSize 16.0f
+#define kDefaultFontSize 14.0f
 
-#define kPaddingSize 5.0f
+#define kPaddingSize 0.0f
 
 CGFloat distanceBetweenPoints(CGPoint p1, CGPoint p2)
 {

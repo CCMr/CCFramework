@@ -749,7 +749,6 @@
     self.messageTableView.messageInputBarHeight = CGRectGetHeight(_messageInputView.bounds);
 }
 
-
 /**
  *  @author CC, 2015-11-16
  *  
@@ -1248,7 +1247,7 @@
     }];
 }
 
-#pragma mark - XHMessageInputView Delegate
+#pragma mark - CCMessageInputView Delegate
 
 - (void)inputTextViewWillBeginEditing:(CCMessageTextView *)messageInputTextView
 {
@@ -1370,7 +1369,7 @@
     }
 }
 
-#pragma mark - XHEmotionManagerView Delegate
+#pragma mark - CCEmotionManagerView Delegate
 
 - (void)didSelecteEmotion:(CCEmotion *)emotion atIndexPath:(NSIndexPath *)indexPath
 {
@@ -1398,7 +1397,7 @@
     [self didEmotionStore];
 }
 
-#pragma mark - XHEmotionManagerView DataSource
+#pragma mark - CCEmotionManagerView DataSource
 
 - (NSInteger)numberOfEmotionManagers
 {
@@ -1457,14 +1456,14 @@
     self.isUserScrolling = NO;
 }
 
-#pragma mark - XHMessageTableViewController Delegate
+#pragma mark - CCMessageTableViewController Delegate
 
 - (BOOL)shouldPreventScrollToBottomWhileUserScrolling
 {
     return YES;
 }
 
-#pragma mark - XHMessageTableViewController DataSource
+#pragma mark - CCMessageTableViewController DataSource
 
 - (id<CCMessageModel>)messageForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -1515,7 +1514,7 @@
     if ([self.delegate respondsToSelector:@selector(configureCell:atIndexPath:)]) {
         [self.delegate configureCell:messageTableViewCell atIndexPath:indexPath];
     }
-    
+    messageTableViewCell.backgroundColor = [UIColor clearColor];
     return messageTableViewCell;
 }
 

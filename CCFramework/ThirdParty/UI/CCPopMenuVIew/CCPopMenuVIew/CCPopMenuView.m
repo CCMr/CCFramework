@@ -95,6 +95,8 @@
     
     _realTimeBlur.willDismissBlurViewCompleted = ^(void) {
         [weakSelf hidenButtons];
+        if (weakSelf.didSelectedItemCompletion)
+            weakSelf.didSelectedItemCompletion(nil);
     };
     _realTimeBlur.didDismissBlurViewCompleted = ^(BOOL finished) {
         weakSelf.isShowed = NO;
@@ -193,7 +195,7 @@
                 fromRect.origin.y = self.startPoint.y;
                 break;
             case kPopMenuAnimationTypeNetEase:
-                fromRect.origin.x = CGRectGetMaxX(menuButton.bounds); //self.startPoint.x - menuButtonWidth / 2.0;
+                fromRect.origin.x = self.startPoint.x - menuButtonWidth / 2.0;
                 fromRect.origin.y = -(self.startPoint.y / 3);
                 break;
             default:
