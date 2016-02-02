@@ -68,8 +68,6 @@ static char OperationKey;
     
     [self uploadCrashLog];
     
-    [self NavigationBarColor:[UIColor colorFromHexCode:@"3b3f4d"]];
-    
     float sysVersion = [[UIDevice currentDevice] systemVersion].floatValue;
     if (sysVersion >= 8.0) {
         UIUserNotificationType type = UIUserNotificationTypeBadge | UIUserNotificationTypeAlert | UIUserNotificationTypeSound;
@@ -223,7 +221,7 @@ static char OperationKey;
         [[UINavigationBar appearance] setTintColor:color];
     }
     
-//    [[UINavigationBar appearance] setTranslucent:NO];
+    [[UINavigationBar appearance] setTranslucent:NO];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     
     [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:

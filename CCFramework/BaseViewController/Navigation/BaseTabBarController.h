@@ -25,7 +25,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BaseTabBarController : UITabBarController
+@interface BaseTabBarController : UITabBarController <UITabBarControllerDelegate>
 
 /**
  *  @author CC, 15-09-09
@@ -34,6 +34,6 @@
  *
  *  @since 1.0
  */
--(void)HideTabBar;
+- (void)HideTabBar;
 
 @end
