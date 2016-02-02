@@ -107,27 +107,31 @@
         timeLabel.font = [UIFont systemFontOfSize:13];
         timeLabel.backgroundColor = [UIColor clearColor];
         timeLabel.textAlignment = NSTextAlignmentCenter;
+        timeLabel.text = @"00:00";
         timeLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
         [_beaconView addSubview:timeLabel];
         _timeLabel = timeLabel;
     }
     
     if (!_microPhoneImageView) {
-        UIImageView *microPhoneImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, _timeLabel.bottom, _beaconView.width - 30, _beaconView.height - 30)];
-        microPhoneImageView.layer.cornerRadius = 25;
-        microPhoneImageView.layer.masksToBounds = YES;
+        UIImage *images = CCResourceImage(@"Fill");
+        
+        UIImageView *microPhoneImageView = [[UIImageView alloc] initWithFrame:CGRectMake((_beaconView.width - images.size.width) / 2, _timeLabel.bottom + 5, images.size.width, images.size.height)];
         microPhoneImageView.hidden = YES;
-        microPhoneImageView.backgroundColor = [UIColor redColor];
+        microPhoneImageView.image = images;
+        microPhoneImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+        microPhoneImageView.contentMode = UIViewContentModeScaleAspectFit;
         [_beaconView addSubview:microPhoneImageView];
         _microPhoneImageView = microPhoneImageView;
     }
     
     if (!_recordingHUDImageView) {
-        UIImageView *recordingHUDImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _beaconView.width, _beaconView.height)];
-        recordingHUDImageView.layer.cornerRadius = 40;
-        recordingHUDImageView.layer.masksToBounds = YES;
-        recordingHUDImageView.hidden = YES;
-        recordingHUDImageView.backgroundColor = [UIColor redColor];
+        UIImage *images = CCResourceImage(@"Slice");
+        
+        UIImageView *recordingHUDImageView = [[UIImageView alloc] initWithFrame:CGRectMake((_beaconView.width - images.size.width) / 2, (_beaconView.height - images.size.height) / 2, images.size.width, images.size.height)];
+        recordingHUDImageView.image = images;
+        recordingHUDImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+        recordingHUDImageView.contentMode = UIViewContentModeScaleAspectFit;
         [_beaconView addSubview:recordingHUDImageView];
         _recordingHUDImageView = recordingHUDImageView;
     }
@@ -148,10 +152,8 @@
 
 - (void)startRecordingHUDAtView:(UIView *)view
 {
-    //    CGPoint center = CGPointMake(CGRectGetWidth(view.frame) / 2.0, CGRectGetHeight(view.frame) / 2.0);
-    //    self.center = center;
     _time = nil;
-    _time = [NSTimer scheduledTimerWithTimeInterval:0.1
+    _time = [NSTimer scheduledTimerWithTimeInterval:1
                                              target:self
                                            selector:@selector(startAnimation)
                                            userInfo:nil
@@ -201,7 +203,7 @@
     [self configRecoding:YES];
     self.remindLabel.backgroundColor = [UIColor clearColor];
     self.remindLabel.text = NSLocalizedStringFromTable(@"SlideToCancel", @"MessageDisplayKitString", nil);
-    CGFloat w = [self.remindLabel.text calculateTextWidthHeight:self.remindLabel.font].width + 20;
+    CGFloat w = [self.remindLabel.text calculateTextWidthHeight:self.bounds.size.width Font:self.remindLabel.font].width + 20;
     self.remindLabel.frame = CGRectMake((CGRectGetWidth(self.bounds) - w) / 2, _beaconView.bottom + 10, w, 20);
 }
 
@@ -210,7 +212,7 @@
     [self configRecoding:NO];
     self.remindLabel.backgroundColor = [UIColor colorWithRed:1.000 green:0.000 blue:0.000 alpha:0.630];
     self.remindLabel.text = NSLocalizedStringFromTable(@"ReleaseToCancel", @"MessageDisplayKitString", nil);
-    CGFloat w = [self.remindLabel.text calculateTextWidthHeight:self.remindLabel.font].width + 20;
+    CGFloat w = [self.remindLabel.text calculateTextWidthHeight:self.bounds.size.width Font:self.remindLabel.font].width + 20;
     self.remindLabel.frame = CGRectMake((CGRectGetWidth(self.bounds) - w) / 2, _beaconView.bottom + 10, w, 20);
 }
 
@@ -226,7 +228,6 @@
 
 - (void)dismissCompled:(void (^)(BOOL fnished))compled
 {
-    
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [self.time invalidate];
         self.time = nil;
@@ -252,15 +253,25 @@
 - (void)startAnimation
 {
     [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.09];
+    [UIView setAnimationDuration:1];
     UIView.AnimationRepeatAutoreverses = YES;
-    float second = [_timeLabel.text floatValue];
-    if (second >= 50.0f) {
+    
+    float second = _timeLabel.tag;
+    if (second >= 50.0f)
         _timeLabel.textColor = [UIColor redColor];
-    } else {
+    else
         _timeLabel.textColor = [UIColor whiteColor];
-    }
-    _timeLabel.text = [NSString stringWithFormat:@"%.1f", second + 0.1];
+    
+    second++;
+    _timeLabel.tag = second;
+    
+    NSString *seconds;
+    if (second < 10)
+        seconds = [NSString stringWithFormat:@"0%.0f", second];
+    else
+        seconds = [NSString stringWithFormat:@"%.0f", second];
+    
+    _timeLabel.text = [NSString stringWithFormat:@"00:%@", seconds];
     [UIView commitAnimations];
 }
 

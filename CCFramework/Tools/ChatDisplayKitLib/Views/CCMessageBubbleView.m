@@ -35,17 +35,17 @@
 #import "CCMessageBubbleFactory.h"
 #import "CCMessageVoiceFactory.h"
 
-#define kCCHaveBubbleMargin 8.0f       // 文本、视频、表情气泡上下边的间隙
-#define kCCHaveBubbleVoiceMargin 13.5f // 语音气泡上下边的间隙
-#define kCCHaveBubblePhotoMargin 6.5f  // 图片、地理位置气泡上下边的间隙
+#define kCCHaveBubbleMargin 5.0f      // 文本、视频、表情气泡上下边的间隙
+#define kCCHaveBubbleVoiceMargin 8.5f // 语音气泡上下边的间隙
+#define kCCHaveBubblePhotoMargin 6.5f // 图片、地理位置气泡上下边的间隙
 
 #define kCCVoiceMargin 20.0f // 播放语音时的动画控件距离头像的间隙
 
 #define kCCArrowMarginWidth 5.2f // 箭头宽度
 
-#define kCCTopAndBottomBubbleMargin 13.0f	 // 文本在气泡内部的上下间隙
-#define kCCLeftTextHorizontalBubblePadding 13.0f  // 文本的水平间隙
-#define kCCRightTextHorizontalBubblePadding 13.0f // 文本的水平间隙
+#define kCCTopAndBottomBubbleMargin 8.0f	  // 文本在气泡内部的上下间隙
+#define kCCLeftTextHorizontalBubblePadding 10.0f  // 文本的水平间隙
+#define kCCRightTextHorizontalBubblePadding 10.0f // 文本的水平间隙
 
 #define kCCUnReadDotSize 10.0f // 语音未读的红点大小
 
@@ -554,7 +554,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 - (void)configureSendNotSuccessfulButtonFrameWithBubbleFrame:(CGRect)bubbleFrame
 {
     CGRect sendNotSuccessfulButtonFrame = _sendNotSuccessfulButton.frame;
-    sendNotSuccessfulButtonFrame.origin.x = (self.message.bubbleMessageType == CCBubbleMessageTypeSending ? bubbleFrame.origin.x - CGRectGetWidth(sendNotSuccessfulButtonFrame) : bubbleFrame.origin.x + bubbleFrame.size.width);
+    sendNotSuccessfulButtonFrame.origin.x = (self.message.bubbleMessageType == CCBubbleMessageTypeSending ? bubbleFrame.origin.x - (CGRectGetWidth(sendNotSuccessfulButtonFrame) + 5) : bubbleFrame.origin.x + bubbleFrame.size.width + 5);
     sendNotSuccessfulButtonFrame.origin.y = CGRectGetMidY(bubbleFrame) - kCCSendNotSuccessfulSize / 2.0;
     _sendNotSuccessfulButton.frame = sendNotSuccessfulButtonFrame;
 }
@@ -571,7 +571,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 - (void)configureIndicatorViewFrameWithBubbleFrame:(CGRect)bubbleFrame
 {
     CGRect indicatorViewFrame = _indicatorView.frame;
-    indicatorViewFrame.origin.x = (self.message.bubbleMessageType == CCBubbleMessageTypeSending ? bubbleFrame.origin.x - CGRectGetWidth(indicatorViewFrame) : bubbleFrame.origin.x + bubbleFrame.size.width);
+    indicatorViewFrame.origin.x = (self.message.bubbleMessageType == CCBubbleMessageTypeSending ? bubbleFrame.origin.x - (CGRectGetWidth(indicatorViewFrame) + 5) : bubbleFrame.origin.x + bubbleFrame.size.width + 5);
     indicatorViewFrame.origin.y = CGRectGetMidY(bubbleFrame) - kCCSendNotSuccessfulSize / 2.0;
     _indicatorView.frame = indicatorViewFrame;
 }
