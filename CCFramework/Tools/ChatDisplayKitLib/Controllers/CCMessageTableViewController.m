@@ -39,64 +39,63 @@
 //#import "CCVoiceRecordHUD.h"
 #import "CCVoiceProgressHUD.h"
 
-@interface CCMessageTableViewController ()
+@interface CCMessageTableViewController () <CCMessageTableViewDelegate>
 
 /**
  *  判断是否用户手指滚动
  */
-@property(nonatomic, assign) BOOL isUserScrolling;
+@property (nonatomic, assign) BOOL isUserScrolling;
 
 /**
  *  记录旧的textView contentSize Heigth
  */
-@property(nonatomic, assign) CGFloat previousTextViewContentHeight;
+@property (nonatomic, assign) CGFloat previousTextViewContentHeight;
 
 /**
  *  记录键盘的高度，为了适配iPad和iPhone
  */
-@property(nonatomic, assign) CGFloat keyboardViewHeight;
+@property (nonatomic, assign) CGFloat keyboardViewHeight;
 
-@property(nonatomic, assign, readwrite) CCInputViewType textViewInputViewType;
+@property (nonatomic, assign, readwrite) CCInputViewType textViewInputViewType;
 
-@property(nonatomic, weak, readwrite) CCMessageTableView *messageTableView;
-@property(nonatomic, weak, readwrite) CCMessageInputView *messageInputView;
-@property(nonatomic, weak, readwrite) CCShareMenuView *shareMenuView;
-@property(nonatomic, weak, readwrite) CCEmotionManagerView *emotionManagerView;
+@property (nonatomic, weak, readwrite) CCMessageTableView *messageTableView;
+@property (nonatomic, weak, readwrite) CCMessageInputView *messageInputView;
+@property (nonatomic, weak, readwrite) CCShareMenuView *shareMenuView;
+@property (nonatomic, weak, readwrite) CCEmotionManagerView *emotionManagerView;
 
-@property(nonatomic, strong, readwrite) CCVoiceProgressHUD *voiceRecordHUD;
+@property (nonatomic, strong, readwrite) CCVoiceProgressHUD *voiceRecordHUD;
 
+@property (nonatomic, strong, readonly) CCCameraViewController *camerViewController;
 
-@property(nonatomic, strong, readonly) CCCameraViewController *camerViewController;
-
-@property(nonatomic, strong) UIView *headerContainerView;
-@property(nonatomic, strong) UIActivityIndicatorView *loadMoreActivityIndicatorView;
+@property (nonatomic, strong) UIView *headerContainerView;
+@property (nonatomic, strong) UIActivityIndicatorView *loadMoreActivityIndicatorView;
 
 /**
  *  @author CC, 2015-12-25
  *  
  *  @brief  图文路径
  */
-@property(nonatomic, copy) NSArray *teletextPath;
+@property (nonatomic, copy) NSArray *teletextPath;
 
 /**
  *  管理本机的摄像和图片库的工具对象
  */
-@property(nonatomic, strong) CCPhotographyHelper *photographyHelper;
+@property (nonatomic, strong) CCPhotographyHelper *photographyHelper;
 
 /**
  *  管理地理位置的工具对象
  */
-@property(nonatomic, strong) CCLocationHelper *locationHelper;
+@property (nonatomic, strong) CCLocationHelper *locationHelper;
 
 /**
  *  管理录音工具对象
  */
-@property(nonatomic, strong) CCVoiceRecordHelper *voiceRecordHelper;
+@property (nonatomic, strong) CCVoiceRecordHelper *voiceRecordHelper;
 
 /**
  *  判断是不是超出了录音最大时长
  */
-@property(nonatomic) BOOL isMaxTimeStop;
+@property (nonatomic) BOOL isMaxTimeStop;
 
 #pragma mark - DataSource Change
 /**
@@ -298,7 +297,8 @@
           MessageSendType:(CCMessageSendType)sendType
 {
     NSInteger index = [self.messages indexOfObject:messageData];
-    if (index != NSNotFound) {
+    if (index != NSNotFound)
+    {
         CCMessage *message = [self.messages objectAtIndex:index];
         message.messageSendState = sendType;
         [self replaceMessages:messageData
@@ -321,7 +321,8 @@
     NSMutableArray *messages = [NSMutableArray arrayWithArray:self.messages];
     NSInteger index = [messages indexOfObject:messageData];
     
-    if (index != NSNotFound) {
+    if (index != NSNotFound)
+    {
         NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:1];
         [indexPaths addObject:[NSIndexPath indexPathForRow:index inSection:0]];
         [messages replaceObjectAtIndex:index withObject:newMessage];
@@ -330,7 +331,6 @@
         [self.messageTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
     }
 }
-
 
 - (void)removeMessageAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -353,7 +353,8 @@
         [array insertObject:ms atIndex:0];
     
     self.messages = array;
-    if (oldMessages.count) {
+    if (oldMessages.count)
+    {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:oldMessages.count inSection:0];
         
         WEAKSELF;
@@ -376,7 +377,8 @@
 
 - (NSMutableArray *)messages
 {
-    if (!_messages) {
+    if (!_messages)
+    {
         _messages = [NSMutableArray array];
     }
     return _messages;
@@ -384,7 +386,8 @@
 
 - (UIView *)headerContainerView
 {
-    if (!_headerContainerView) {
+    if (!_headerContainerView)
+    {
         _headerContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
         _headerContainerView.backgroundColor = self.messageTableView.backgroundColor;
         [_headerContainerView addSubview:self.loadMoreActivityIndicatorView];
@@ -393,7 +396,8 @@
 }
 - (UIActivityIndicatorView *)loadMoreActivityIndicatorView
 {
-    if (!_loadMoreActivityIndicatorView) {
+    if (!_loadMoreActivityIndicatorView)
+    {
         _loadMoreActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         _loadMoreActivityIndicatorView.center = CGPointMake(CGRectGetWidth(_headerContainerView.bounds) / 2.0, CGRectGetHeight(_headerContainerView.bounds) / 2.0);
     }
@@ -402,9 +406,12 @@
 - (void)setLoadingMoreMessage:(BOOL)loadingMoreMessage
 {
     _loadingMoreMessage = loadingMoreMessage;
-    if (loadingMoreMessage) {
+    if (loadingMoreMessage)
+    {
         [self.loadMoreActivityIndicatorView startAnimating];
-    } else {
+    }
+    else
+    {
         [self.loadMoreActivityIndicatorView stopAnimating];
     }
 }
@@ -416,7 +423,8 @@
 
 - (CCShareMenuView *)shareMenuView
 {
-    if (!_shareMenuView) {
+    if (!_shareMenuView)
+    {
         CCShareMenuView *shareMenuView = [[CCShareMenuView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), self.keyboardViewHeight)];
         shareMenuView.delegate = self;
         shareMenuView.backgroundColor = [UIColor colorWithWhite:0.961 alpha:1.000];
@@ -431,7 +439,8 @@
 
 - (CCEmotionManagerView *)emotionManagerView
 {
-    if (!_emotionManagerView) {
+    if (!_emotionManagerView)
+    {
         CCEmotionManagerView *emotionManagerView = [[CCEmotionManagerView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), self.keyboardViewHeight)];
         emotionManagerView.delegate = self;
         emotionManagerView.dataSource = self;
@@ -446,7 +455,8 @@
 
 - (CCVoiceProgressHUD *)voiceRecordHUD
 {
-    if (!_voiceRecordHUD) {
+    if (!_voiceRecordHUD)
+    {
         _voiceRecordHUD = [[CCVoiceProgressHUD alloc] initWithFrame:CGRectMake(0, 0, 140, 140)];
         [_voiceRecordHUD setColor:[UIColor colorWithRed:0 green:0.455 blue:0.756 alpha:1]];
     }
@@ -455,7 +465,8 @@
 
 - (CCPhotographyHelper *)photographyHelper
 {
-    if (!_photographyHelper) {
+    if (!_photographyHelper)
+    {
         _photographyHelper = [[CCPhotographyHelper alloc] init];
     }
     return _photographyHelper;
@@ -463,7 +474,8 @@
 
 - (CCLocationHelper *)locationHelper
 {
-    if (!_locationHelper) {
+    if (!_locationHelper)
+    {
         _locationHelper = [[CCLocationHelper alloc] init];
     }
     return _locationHelper;
@@ -471,7 +483,8 @@
 
 - (CCVoiceRecordHelper *)voiceRecordHelper
 {
-    if (!_voiceRecordHelper) {
+    if (!_voiceRecordHelper)
+    {
         _isMaxTimeStop = NO;
         
         WEAKSELF;
@@ -499,11 +512,14 @@
 
 - (void)finishSendMessageWithBubbleMessageType:(CCBubbleMessageMediaType)mediaType
 {
-    switch (mediaType) {
+    switch (mediaType)
+    {
         case CCBubbleMessageMediaTypeText:
-        case CCBubbleMessageMediaTypeTeletext: {
+        case CCBubbleMessageMediaTypeTeletext:
+        {
             [self.messageInputView.inputTextView setText:nil];
-            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+            {
                 self.messageInputView.inputTextView.enablesReturnKeyAutomatically = NO;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     self.messageInputView.inputTextView.enablesReturnKeyAutomatically = YES;
@@ -512,19 +528,24 @@
             }
             break;
         }
-        case CCBubbleMessageMediaTypePhoto: {
+        case CCBubbleMessageMediaTypePhoto:
+        {
             break;
         }
-        case CCBubbleMessageMediaTypeVideo: {
+        case CCBubbleMessageMediaTypeVideo:
+        {
             break;
         }
-        case CCBubbleMessageMediaTypeVoice: {
+        case CCBubbleMessageMediaTypeVoice:
+        {
             break;
         }
-        case CCBubbleMessageMediaTypeEmotion: {
+        case CCBubbleMessageMediaTypeEmotion:
+        {
             break;
         }
-        case CCBubbleMessageMediaTypeLocalPosition: {
+        case CCBubbleMessageMediaTypeLocalPosition:
+        {
             break;
         }
         default:
@@ -551,7 +572,8 @@
     
     NSInteger rows = [self.messageTableView numberOfRowsInSection:0];
     
-    if (rows > 0) {
+    if (rows > 0)
+    {
         [self.messageTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:rows - 1 inSection:0]
                                      atScrollPosition:UITableViewScrollPositionBottom
                                              animated:animated];
@@ -574,8 +596,10 @@
 
 - (BOOL)shouldAllowScroll
 {
-    if (self.isUserScrolling) {
-        if ([self.delegate respondsToSelector:@selector(shouldPreventScrollToBottomWhileUserScrolling)] && [self.delegate shouldPreventScrollToBottomWhileUserScrolling]) {
+    if (self.isUserScrolling)
+    {
+        if ([self.delegate respondsToSelector:@selector(shouldPreventScrollToBottomWhileUserScrolling)] && [self.delegate shouldPreventScrollToBottomWhileUserScrolling])
+        {
             return NO;
         }
     }
@@ -602,7 +626,8 @@
 - (id)init
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         [self setup];
     }
     return self;
@@ -615,11 +640,13 @@
 
 - (void)initilzer
 {
-    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
+    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)])
+    {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+    {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
@@ -631,14 +658,18 @@
     messageTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     messageTableView.dataSource = self;
     messageTableView.delegate = self;
+    messageTableView.touchDelegate = self;
     messageTableView.separatorColor = [UIColor clearColor];
     messageTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     BOOL shouldLoadMoreMessagesScrollToTop = YES;
-    if ([self.delegate respondsToSelector:@selector(shouldLoadMoreMessagesScrollToTop)]) {
+    if ([self.delegate respondsToSelector:@selector(shouldLoadMoreMessagesScrollToTop)])
+    {
         shouldLoadMoreMessagesScrollToTop = [self.delegate shouldLoadMoreMessagesScrollToTop];
     }
-    if (shouldLoadMoreMessagesScrollToTop) {
+    
+    if (shouldLoadMoreMessagesScrollToTop)
+    {
         [messageTableView addHeaderWithTargetIndicatorView:self action:@selector(scrollRefresh)];
     }
     [self.view addSubview:messageTableView];
@@ -659,7 +690,8 @@
                                    inputViewHeight);
     
     WEAKSELF;
-    if (self.allowsPanToDismissKeyboard) {
+    if (self.allowsPanToDismissKeyboard)
+    {
         // 控制输入工具条的位置块
         void (^AnimationForMessageInputViewAtPoint)(CGPoint point) = ^(CGPoint point) {
             CGRect inputViewFrame = weakSelf.messageInputView.frame;
@@ -782,7 +814,8 @@
 {
     [super viewWillDisappear:animated];
     
-    if (self.textViewInputViewType != CCInputViewTypeNormal) {
+    if (self.textViewInputViewType != CCInputViewTypeNormal)
+    {
         [self layoutOtherMenuViewHiden:YES];
     }
     
@@ -873,9 +906,12 @@
 
 - (CGFloat)getTextViewContentH:(UITextView *)textView
 {
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+    {
         return ceilf([textView sizeThatFits:textView.frame.size].height);
-    } else {
+    }
+    else
+    {
         return textView.contentSize.height;
     }
 }
@@ -891,13 +927,17 @@
     BOOL isShrinking = contentH < self.previousTextViewContentHeight;
     CGFloat changeInHeight = contentH - _previousTextViewContentHeight;
     
-    if (!isShrinking && (self.previousTextViewContentHeight == maxHeight || textView.text.length == 0)) {
+    if (!isShrinking && (self.previousTextViewContentHeight == maxHeight || textView.text.length == 0))
+    {
         changeInHeight = 0;
-    } else {
+    }
+    else
+    {
         changeInHeight = MIN(changeInHeight, maxHeight - self.previousTextViewContentHeight);
     }
     
-    if (changeInHeight != 0.0f) {
+    if (changeInHeight != 0.0f)
+    {
         [UIView animateWithDuration:0.25f
                          animations:^{
                              [self setTableViewInsetsWithBottomValue:self.messageTableView.contentInset.bottom + changeInHeight];
@@ -930,7 +970,8 @@
     
     // Once we reached the max height, we have to consider the bottom offset for the text view.
     // To make visible the last line, again we have to set the content offset.
-    if (self.previousTextViewContentHeight == maxHeight) {
+    if (self.previousTextViewContentHeight == maxHeight)
+    {
         double delayInSeconds = 0.01;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime,
@@ -955,7 +996,8 @@
 {
     UIEdgeInsets insets = UIEdgeInsetsZero;
     
-    if ([self respondsToSelector:@selector(topLayoutGuide)]) {
+    if ([self respondsToSelector:@selector(topLayoutGuide)])
+    {
         insets.top = self.topLayoutGuide.length;
     }
     
@@ -971,7 +1013,8 @@
     CGFloat cellHeight = 0;
     
     BOOL displayTimestamp = YES;
-    if ([self.delegate respondsToSelector:@selector(shouldDisplayTimestampForRowAtIndexPath:targetMessage:)]) {
+    if ([self.delegate respondsToSelector:@selector(shouldDisplayTimestampForRowAtIndexPath:targetMessage:)])
+    {
         displayTimestamp = [self.delegate shouldDisplayTimestampForRowAtIndexPath:indexPath targetMessage:message];
     }
     
@@ -984,7 +1027,8 @@
 
 - (void)didSendMessageWithText:(NSString *)text
 {
-    if ([self.delegate respondsToSelector:@selector(didSendText:fromSender:onDate:)]) {
+    if ([self.delegate respondsToSelector:@selector(didSendText:fromSender:onDate:)])
+    {
         [self.delegate didSendText:text
                         fromSender:self.messageSender
                             onDate:[NSDate date]];
@@ -993,7 +1037,8 @@
 
 - (void)didSendMessageWithPhoto:(UIImage *)photo
 {
-    if ([self.delegate respondsToSelector:@selector(didSendPhoto:fromSender:onDate:)]) {
+    if ([self.delegate respondsToSelector:@selector(didSendPhoto:fromSender:onDate:)])
+    {
         [self.delegate didSendPhoto:photo
                          fromSender:self.messageSender
                              onDate:[NSDate date]];
@@ -1002,7 +1047,8 @@
 
 - (void)didSendMessageWithVideoConverPhoto:(UIImage *)videoConverPhoto videoPath:(NSString *)videoPath
 {
-    if ([self.delegate respondsToSelector:@selector(didSendVideoConverPhoto:videoPath:fromSender:onDate:)]) {
+    if ([self.delegate respondsToSelector:@selector(didSendVideoConverPhoto:videoPath:fromSender:onDate:)])
+    {
         [self.delegate didSendVideoConverPhoto:videoConverPhoto
                                      videoPath:videoPath
                                     fromSender:self.messageSender
@@ -1013,7 +1059,8 @@
 - (void)didSendMessageWithVoice:(NSString *)voicePath
                   voiceDuration:(NSString *)voiceDuration
 {
-    if ([self.delegate respondsToSelector:@selector(didSendVoice:voiceDuration:fromSender:onDate:)]) {
+    if ([self.delegate respondsToSelector:@selector(didSendVoice:voiceDuration:fromSender:onDate:)])
+    {
         [self.delegate didSendVoice:voicePath
                       voiceDuration:voiceDuration
                          fromSender:self.messageSender
@@ -1032,7 +1079,8 @@
 - (void)didSendEmotionMessageWithEmotionPath:(NSString *)emotionPath
                                   EmotionUrl:(NSString *)emotionUrl
 {
-    if ([self.delegate respondsToSelector:@selector(didSendEmotion:EmotionUrl:fromSender:onDate:)]) {
+    if ([self.delegate respondsToSelector:@selector(didSendEmotion:EmotionUrl:fromSender:onDate:)])
+    {
         [self.delegate didSendEmotion:emotionPath
                            EmotionUrl:emotionUrl
                            fromSender:self.messageSender
@@ -1108,14 +1156,16 @@
 
 - (void)didEmotionStore
 {
-    if ([self.delegate respondsToSelector:@selector(didEmotionStore)]) {
+    if ([self.delegate respondsToSelector:@selector(didEmotionStore)])
+    {
         [self.delegate didEmotionStore];
     }
 }
 
 - (void)didSendGeolocationsMessageWithGeolocaltions:(NSString *)geolcations location:(CLLocation *)location
 {
-    if ([self.delegate respondsToSelector:@selector(didSendGeoLocationsPhoto:geolocations:location:fromSender:onDate:)]) {
+    if ([self.delegate respondsToSelector:@selector(didSendGeoLocationsPhoto:geolocations:location:fromSender:onDate:)])
+    {
         [self.delegate didSendGeoLocationsPhoto:[UIImage imageNamed:@"Fav_Cell_Loc"]
                                    geolocations:geolcations
                                        location:location
@@ -1262,7 +1312,8 @@
 
 - (void)didChangeSendVoiceAction:(BOOL)changed
 {
-    if (changed) {
+    if (changed)
+    {
         if (self.textViewInputViewType == CCInputViewTypeText)
             return;
         // 在这之前，textViewInputViewType已经不是XHTextViewTextInputType
@@ -1272,16 +1323,21 @@
 
 - (void)didSendTextAction:(NSString *)text
 {
-    if ([text rangeOfString:OBJECT_REPLACEMENT_CHARACTER].location != NSNotFound) { //图文消息
-        if ([self.delegate respondsToSelector:@selector(didSendTeletext:TeletextPath:fromSender:onDate:)]) {
+    if ([text rangeOfString:OBJECT_REPLACEMENT_CHARACTER].location != NSNotFound)
+    { //图文消息
+        if ([self.delegate respondsToSelector:@selector(didSendTeletext:TeletextPath:fromSender:onDate:)])
+        {
             [self.delegate didSendTeletext:text
                               TeletextPath:self.teletextPath
                                 fromSender:self.messageSender
                                     onDate:[NSDate date]];
             self.teletextPath = nil;
         }
-    } else { //文本消息
-        if ([self.delegate respondsToSelector:@selector(didSendText:fromSender:onDate:)]) {
+    }
+    else
+    { //文本消息
+        if ([self.delegate respondsToSelector:@selector(didSendText:fromSender:onDate:)])
+        {
             [self.delegate didSendText:text
                             fromSender:self.messageSender
                                 onDate:[NSDate date]];
@@ -1297,10 +1353,13 @@
 
 - (void)didSendFaceAction:(BOOL)sendFace
 {
-    if (sendFace) {
+    if (sendFace)
+    {
         self.textViewInputViewType = CCInputViewTypeEmotion;
         [self layoutOtherMenuViewHiden:NO];
-    } else {
+    }
+    else
+    {
         [self.messageInputView.inputTextView becomeFirstResponder];
     }
 }
@@ -1322,9 +1381,12 @@
 
 - (void)didFinishRecoingVoiceAction
 {
-    if (self.isMaxTimeStop == NO) {
+    if (self.isMaxTimeStop == NO)
+    {
         [self finishRecorded];
-    } else {
+    }
+    else
+    {
         self.isMaxTimeStop = NO;
     }
 }
@@ -1345,8 +1407,10 @@
                         atIndex:(NSInteger)index
 {
     WEAKSELF;
-    switch (shareMenuItem.itemType) {
-        case CCShareMenuItemTypePhoto: {
+    switch (shareMenuItem.itemType)
+    {
+        case CCShareMenuItemTypePhoto:
+        {
             _camerViewController = [[CCCameraViewController alloc] init];
             [_camerViewController startPhotoFileWithViewController:weakSelf complate:^(id request) {
                 NSArray *photoAry = request;
@@ -1354,8 +1418,10 @@
                     [weakSelf didSendMessageWithPhoto:obj];
                 }];
             }];
-        } break;
-        case CCShareMenuItemTypeVideo: {
+        }
+            break;
+        case CCShareMenuItemTypeVideo:
+        {
             _camerViewController = [[CCCameraViewController alloc] init];
             [_camerViewController startCcameraWithViewController:weakSelf complate:^(id request) {
                 NSArray *photoAry = request;
@@ -1363,7 +1429,8 @@
                     [weakSelf didSendMessageWithPhoto:obj];
                 }];
             }];
-        } break;
+        }
+            break;
         default:
             break;
     }
@@ -1418,9 +1485,11 @@
 
 - (void)scrollRefresh
 {
-    if (!self.loadingMoreMessage) {
+    if (!self.loadingMoreMessage)
+    {
         self.loadingMoreMessage = YES;
-        if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollTotop)]) {
+        if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollTotop)])
+        {
             [self.delegate loadMoreMessagesScrollTotop];
         }
     }
@@ -1442,18 +1511,25 @@
     self.isUserScrolling = YES;
     
     UIMenuController *menu = [UIMenuController sharedMenuController];
-    if (menu.isMenuVisible) {
+    if (menu.isMenuVisible)
         [menu setMenuVisible:NO animated:YES];
-    }
     
-    if (self.textViewInputViewType != CCInputViewTypeNormal) {
+    if (self.textViewInputViewType != CCInputViewTypeNormal)
         [self layoutOtherMenuViewHiden:YES];
-    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     self.isUserScrolling = NO;
+}
+
+#pragma mark - CCMessageTableViewController toucheDelegate
+- (void)tableView:(UITableView *)tableView
+     touchesEnded:(NSSet *)touches
+        withEvent:(UIEvent *)event
+{
+    if (self.textViewInputViewType != CCInputViewTypeNormal)
+        [self layoutOtherMenuViewHiden:YES];
 }
 
 #pragma mark - CCMessageTableViewController Delegate
@@ -1488,13 +1564,15 @@
     id<CCMessageModel> message = [self.dataSource messageForRowAtIndexPath:indexPath];
     
     // 如果需要定制复杂的业务UI，那么就实现该DataSource方法
-    if ([self.dataSource respondsToSelector:@selector(tableView:cellForRowAtIndexPath:targetMessage:)]) {
+    if ([self.dataSource respondsToSelector:@selector(tableView:cellForRowAtIndexPath:targetMessage:)])
+    {
         UITableViewCell *tableViewCell = [self.dataSource tableView:tableView cellForRowAtIndexPath:indexPath targetMessage:message];
         return tableViewCell;
     }
     
     BOOL displayTimestamp = YES;
-    if ([self.delegate respondsToSelector:@selector(shouldDisplayTimestampForRowAtIndexPath:targetMessage:)]) {
+    if ([self.delegate respondsToSelector:@selector(shouldDisplayTimestampForRowAtIndexPath:targetMessage:)])
+    {
         displayTimestamp = [self.delegate shouldDisplayTimestampForRowAtIndexPath:indexPath targetMessage:message];
     }
     
@@ -1502,7 +1580,8 @@
     
     CCMessageTableViewCell *messageTableViewCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-    if (!messageTableViewCell) {
+    if (!messageTableViewCell)
+    {
         messageTableViewCell = [[CCMessageTableViewCell alloc] initWithMessage:message displaysTimestamp:displayTimestamp reuseIdentifier:cellIdentifier];
         messageTableViewCell.delegate = self;
     }
@@ -1511,7 +1590,8 @@
     [messageTableViewCell configureCellWithMessage:message displaysTimestamp:displayTimestamp];
     [messageTableViewCell setBackgroundColor:tableView.backgroundColor];
     
-    if ([self.delegate respondsToSelector:@selector(configureCell:atIndexPath:)]) {
+    if ([self.delegate respondsToSelector:@selector(configureCell:atIndexPath:)])
+    {
         [self.delegate configureCell:messageTableViewCell atIndexPath:indexPath];
     }
     messageTableViewCell.backgroundColor = [UIColor clearColor];
@@ -1548,6 +1628,9 @@
         message.selected = !message.selected;
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     }
+    
+    if (self.textViewInputViewType != CCInputViewTypeNormal)
+        [self layoutOtherMenuViewHiden:YES];
 }
 
 #pragma mark - Key-value Observing

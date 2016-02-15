@@ -48,8 +48,9 @@ static char overlayKey;
  */
 - (void)setBackgroundColor:(UIColor *)backgroundColor
 {
-    if (!self.overlay) {
+    if (!self.overlay){
         [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+        
         self.overlay = [[UIView alloc] initWithFrame:CGRectMake(0, -20, [UIScreen mainScreen].bounds.size.width, CGRectGetHeight(self.bounds) + 20)];
         self.overlay.userInteractionEnabled = NO;
         self.overlay.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -65,6 +66,10 @@ static char overlayKey;
     [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([NSStringFromClass([obj class]) isEqualToString:@"UINavigationItemView"])
             obj.alpha = alpha;
+        
+        if ([obj isKindOfClass:NSClassFromString(@"_UINavigationBarBackground")]) {
+            obj.alpha = alpha;
+        }
     }];
 }
 
@@ -109,6 +114,10 @@ static char overlayKey;
 - (void)reset
 {
     [self setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        if ([obj isKindOfClass:NSClassFromString(@"_UINavigationBarBackground")])
+            obj.alpha = 1;
+    }];
     [self.overlay removeFromSuperview];
     self.overlay = nil;
 }

@@ -56,7 +56,7 @@ typedef void(^TransformScanningAnimationBlock)(void);
 
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDelay:0];
-    [UIView setAnimationDuration:1.2];
+    [UIView setAnimationDuration:2];
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
     [UIView setAnimationRepeatCount:FLT_MAX];
     [UIView setAnimationRepeatAutoreverses:NO];
@@ -70,7 +70,7 @@ typedef void(^TransformScanningAnimationBlock)(void);
 
 - (UIImageView *)scanningImageView {
     if (!_scanningImageView) {
-        _scanningImageView = [[UIImageView alloc] initWithFrame:CGRectMake(55, 30, CGRectGetWidth(self.bounds) - 110, 3)];
+        _scanningImageView = [[UIImageView alloc] initWithFrame:CGRectMake(55, 30, CGRectGetWidth(self.bounds) - 110, 2)];
         _scanningImageView.backgroundColor = [UIColor greenColor];
     }
     return _scanningImageView;
@@ -199,13 +199,13 @@ typedef void(^TransformScanningAnimationBlock)(void);
     UIImage *bottomLeftImage = [UIImage imageNamed:@"ScanQR3"];
     UIImage *bottomRightImage = [UIImage imageNamed:@"ScanQR4"];
 
-    [topLeftImage drawInRect:CGRectMake(clearRect.origin.x, clearRect.origin.y, topLeftImage.size.width, topLeftImage.size.height)];
+    [topLeftImage drawInRect:CGRectMake(clearRect.origin.x - 2, clearRect.origin.y - 2, topLeftImage.size.width, topLeftImage.size.height)];
 
-    [topRightImage drawInRect:CGRectMake(CGRectGetMaxX(clearRect) - topRightImage.size.width, clearRect.origin.y, topRightImage.size.width, topRightImage.size.height)];
+    [topRightImage drawInRect:CGRectMake(CGRectGetMaxX(clearRect) - topRightImage.size.width + 2, clearRect.origin.y - 2, topRightImage.size.width, topRightImage.size.height)];
 
-    [bottomLeftImage drawInRect:CGRectMake(clearRect.origin.x, CGRectGetMaxY(clearRect) - bottomLeftImage.size.height, bottomLeftImage.size.width, bottomLeftImage.size.height)];
+    [bottomLeftImage drawInRect:CGRectMake(clearRect.origin.x - 2, CGRectGetMaxY(clearRect) - bottomLeftImage.size.height + 2, bottomLeftImage.size.width, bottomLeftImage.size.height)];
 
-    [bottomRightImage drawInRect:CGRectMake(CGRectGetMaxX(clearRect) - bottomRightImage.size.width, CGRectGetMaxY(clearRect) - bottomRightImage.size.height, bottomRightImage.size.width, bottomRightImage.size.height)];
+    [bottomRightImage drawInRect:CGRectMake(CGRectGetMaxX(clearRect) - bottomRightImage.size.width + 2, CGRectGetMaxY(clearRect) - bottomRightImage.size.height + 2, bottomRightImage.size.width, bottomRightImage.size.height)];
 
     CGFloat padding = 0.5;
     CGContextMoveToPoint(context, CGRectGetMinX(clearRect) - padding, CGRectGetMinY(clearRect) - padding);
