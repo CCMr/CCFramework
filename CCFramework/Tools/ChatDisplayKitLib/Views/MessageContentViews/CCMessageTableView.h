@@ -25,6 +25,30 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol CCMessageTableViewDelegate <NSObject>
+
+@optional
+
+- (void)tableView:(UITableView *)tableView
+     touchesBegan:(NSSet *)touches
+        withEvent:(UIEvent *)event;
+
+- (void)tableView:(UITableView *)tableView
+ touchesCancelled:(NSSet *)touches
+        withEvent:(UIEvent *)event;
+
+- (void)tableView:(UITableView *)tableView
+     touchesEnded:(NSSet *)touches
+        withEvent:(UIEvent *)event;
+
+- (void)tableView:(UITableView *)tableView
+     touchesMoved:(NSSet *)touches
+        withEvent:(UIEvent *)event;
+
+@end
+
 @interface CCMessageTableView : UITableView
+
+@property (nonatomic, assign) id<CCMessageTableViewDelegate> touchDelegate;
 
 @end
