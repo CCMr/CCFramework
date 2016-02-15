@@ -106,13 +106,13 @@
                       WithCompletion:(RequestCompletionBacktrack)completionBlock
 {
     
-    if (![self requestBeforeCheckNetWork]){
+    if (![self requestBeforeCheckNetWork]) {
         failureBlock([NSError errorWithDomain:@"Error. Count not recover network reachability flags" code:kCFURLErrorNotConnectedToInternet userInfo:nil]);
         return;
     }
     
     AFHTTPRequestOperation *requestOperation = [[self requestOperationManager] POST:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
-       CCResponseObject *entity = [self dealwithResponseObject:responseObject];
+        CCResponseObject *entity = [self dealwithResponseObject:responseObject];
         
         if (operation.userInfo)
             entity.userInfo = operation.userInfo;
@@ -123,10 +123,16 @@
             completionBlock(entity, operation.userInfo);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (errorAnalysis(error.code))
-            failureBlock(error);
+        BOOL errorBol = NO;
+        
+        id  failureError = [self dealwithError:operation.userInfo 
+                                         Error:error 
+                                 withErrorBooL:&errorBol];
+        
+        if (errorBol)
+            failureBlock(failureError);
         else
-            errorBlock(error);
+            errorBlock(failureError);
     }];
     
     if (userInfo)

@@ -123,10 +123,16 @@
             completionBlock(entity, operation.userInfo);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {        
-        if (errorAnalysis(error.code))
-            failureBlock(error);
+        BOOL errorBol = NO;
+        
+        id  failureError = [self dealwithError:operation.userInfo 
+                                         Error:error 
+                                 withErrorBooL:&errorBol];
+        
+        if (errorBol)
+            failureBlock(failureError);
         else
-            errorBlock(error);
+            errorBlock(failureError);
     }];
     
     if (userInfo)

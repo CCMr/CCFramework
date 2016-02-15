@@ -110,4 +110,17 @@
  */
 - (CCResponseObject *)dealwithResponseObject:(NSData *)responseData;
 
+/**
+ *  @author CC, 16-02-15
+ *  
+ *  @brief 错误处理
+ *
+ *  @param userInfo  传递对象
+ *  @param error     错误消息
+ *  @param errorBooL 错误类型
+ */
+- (id)dealwithError:(NSDictionary *)userInfo
+              Error:(NSError *)error 
+      withErrorBooL:(BOOL *)errorBooL;
+
 @end

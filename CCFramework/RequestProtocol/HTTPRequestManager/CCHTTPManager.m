@@ -166,4 +166,23 @@
     return entity;
 }
 
+- (id)dealwithError:(NSDictionary *)userInfo
+              Error:(NSError *)error
+      withErrorBooL:(BOOL *)errorBooL
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;// 关闭网络指示器
+    });
+    
+    *errorBooL = NO;
+    if (error.code >= 300 || error.code <= 311)
+        *errorBooL = YES;
+    
+    id errors = error;
+    if (userInfo) 
+        errors =  @{@"userInfo":userInfo,@"error":error};
+    
+    return errors;
+}
+
 @end

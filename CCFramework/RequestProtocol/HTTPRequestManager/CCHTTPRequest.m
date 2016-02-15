@@ -65,7 +65,6 @@
     return [[self alloc] initWithBase];
 }
 
-
 - (instancetype)init
 {
     return [self initWithBase];
@@ -259,19 +258,36 @@
  *  @brief  对网路异常进行处理
  *
  *  @param error 错误消息
- *
- *  @since 1.0
  */
 - (void)netFailure:(id)error
+{
+    [self netFailure:nil
+               Error:error];
+}
+
+/**
+ *  @author CC, 2016-02-15
+ *
+ *  @brief  对网路异常进行处理
+ *
+ *  @param error 错误消息
+ */
+- (void)netFailure:(id)responseData
+             Error:(id)error
 {
     if (_requestBacktrack) {
         NSString *errorStr = error ?: @"";
         NSInteger code = 0;
         if ([error isKindOfClass:[NSError class]]) {
             code = ((NSError *)error).code;
-            errorStr = [self httpErrorAnalysis:((NSError *)error).code];
+            errorStr = [self httpErrorAnalysis:code];
+        } else if ([error isKindOfClass:[NSDictionary class]]) {
+            responseData = [error objectForKey:@"userInfo"];
+            NSError *Error = [error objectForKey:@"error"];
+            code = Error.code;
+            errorStr = [self httpErrorAnalysis:code];
         }
-        _requestBacktrack(nil, [NSError errorWithDomain:errorStr code:code userInfo:nil]);
+        _requestBacktrack(responseData, [NSError errorWithDomain:errorStr code:code userInfo:nil]);
     }
 }
 
@@ -290,7 +306,6 @@
         _requestCompletionBacktrack(completionData, userInfo);
     }
 }
-
 
 /**
  *  @author CC, 2015-11-07

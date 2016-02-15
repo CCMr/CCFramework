@@ -149,8 +149,8 @@
  *  @param responseData 回调响应数据
  *  @param error        错误消息
  */
--(void)errorProcessEvent:(id)responseData
-                   Error:(id)error;
+- (void)errorProcessEvent:(id)responseData
+                    Error:(id)error;
 
 /**
  *  @author CC, 2015-07-23
@@ -160,6 +160,16 @@
  *  @param error 故障信息
  */
 - (void)netFailure:(id)error;
+
+/**
+ *  @author CC, 2016-02-15
+ *
+ *  @brief  对网路异常进行处理
+ *
+ *  @param error 错误消息
+ */
+- (void)netFailure:(id)responseData
+             Error:(id)error;
 
 /**
  *  @author CC, 2015-10-22
