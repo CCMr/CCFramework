@@ -453,7 +453,8 @@
                                                         Data:obj 
                                                    inContext:self.saveCurrentContext];
         
-        [objs addObject:[managedObject changedDictionary]];
+        if (managedObject)
+            [objs addObject:[managedObject changedDictionary]];
     }];
     
     if (completion) {

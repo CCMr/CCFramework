@@ -529,7 +529,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 - (void)configureVoiceDurationLabelFrameWithBubbleFrame:(CGRect)bubbleFrame
 {
     CGRect voiceFrame = _voiceDurationLabel.frame;
-    voiceFrame.origin.x = (self.message.bubbleMessageType == CCBubbleMessageTypeSending ? bubbleFrame.origin.x - CGRectGetWidth(voiceFrame) : bubbleFrame.origin.x + bubbleFrame.size.width);
+    voiceFrame.origin.x = (self.message.bubbleMessageType == CCBubbleMessageTypeSending ? bubbleFrame.origin.x - CGRectGetWidth(voiceFrame) - 5 : bubbleFrame.origin.x + bubbleFrame.size.width + 5);
     _voiceDurationLabel.frame = voiceFrame;
     _voiceDurationLabel.textAlignment = (self.message.bubbleMessageType == CCBubbleMessageTypeSending ? NSTextAlignmentRight : NSTextAlignmentLeft);
 }
@@ -537,8 +537,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 - (void)configureVoiceUnreadDotImageViewFrameWithBubbleFrame:(CGRect)bubbleFrame
 {
     CGRect voiceUnreadDotFrame = _voiceUnreadDotImageView.frame;
-    voiceUnreadDotFrame.origin.x = (self.message.bubbleMessageType == CCBubbleMessageTypeSending ? bubbleFrame.origin.x + kCCUnReadDotSize : CGRectGetMaxX(bubbleFrame) - kCCUnReadDotSize * 2);
-    voiceUnreadDotFrame.origin.y = CGRectGetMidY(bubbleFrame) - kCCUnReadDotSize / 2.0;
+    voiceUnreadDotFrame.origin.x = (self.message.bubbleMessageType == CCBubbleMessageTypeSending ? bubbleFrame.origin.x - CGRectGetWidth(voiceUnreadDotFrame) + 5 : bubbleFrame.origin.x + bubbleFrame.size.width + 5);
     _voiceUnreadDotImageView.frame = voiceUnreadDotFrame;
 }
 
@@ -636,7 +635,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         
         // 4、初始化显示语音时长的label
         if (!_voiceDurationLabel) {
-            UILabel *voiceDurationLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 90, 30)];
+            UILabel *voiceDurationLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 50, 30)];
             voiceDurationLabel.textColor = [UIColor colorWithWhite:0.579 alpha:1.000];
             voiceDurationLabel.backgroundColor = [UIColor clearColor];
             voiceDurationLabel.font = [UIFont systemFontOfSize:13.f];
@@ -655,8 +654,9 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         
         // 6. 初始化显示语音未读标记的imageview
         if (!_voiceUnreadDotImageView) {
-            UIImageView *voiceUnreadDotImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kCCUnReadDotSize, kCCUnReadDotSize)];
-            voiceUnreadDotImageView.image = [UIImage imageNamed:@"msg_chat_voice_unread"];
+            UIImageView *voiceUnreadDotImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 12, kCCUnReadDotSize, kCCUnReadDotSize)];
+            voiceUnreadDotImageView.backgroundColor = [UIColor redColor];
+            cc_View_Radius(voiceUnreadDotImageView, kCCUnReadDotSize / 2);
             voiceUnreadDotImageView.hidden = YES;
             [self addSubview:voiceUnreadDotImageView];
             _voiceUnreadDotImageView = voiceUnreadDotImageView;
