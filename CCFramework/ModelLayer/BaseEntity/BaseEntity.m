@@ -244,10 +244,10 @@
         __block NSString *key = keys;
         if (![properties objectForKey:keys]) {
             //不区分大小写解析对象属性
-            [properties.allKeys  enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                 if ([obj compare:key options:NSCaseInsensitiveSearch] == NSOrderedSame)
-                     key = obj;
-             }];
+            [properties.allKeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                if ([obj compare:key options:NSCaseInsensitiveSearch] == NSOrderedSame)
+                    key = obj;
+            }];
             
             if ([key isEqualToString:keys]) continue;
         }
@@ -270,13 +270,13 @@
                 //获取对象属性中是数组的属性
                 _propertArray = [NSMutableArray array];
                 [properties.allKeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                     id type = [properties objectForKey:obj];
-                     
-                     if ([type isEqualToString:@"NSArray"] ||
-                         [type isEqualToString:@"NSMutableArray"]) {
-                         [_propertArray addObject:obj];
-                     }
-                 }];
+                    id type = [properties objectForKey:obj];
+                    
+                    if ([type isEqualToString:@"NSArray"] ||
+                        [type isEqualToString:@"NSMutableArray"]) {
+                        [_propertArray addObject:obj];
+                    }
+                }];
             }
             
             //匹配当前属性
@@ -287,7 +287,7 @@
                     NSString *className = keyAry.lastObject;
                     //解析判断字段名
                     NSString *isKey = [obj stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"_%@", className]
-                                                   withString:@""];
+                                                                     withString:@""];
                     
                     if ([key isEqualToString:isKey]) {
                         propertKey = obj;
@@ -446,16 +446,16 @@ static const char *getPropertyType(objc_property_t property)
                    [propertyType isEqualToString:@"q"] ||
                    [propertyType isEqualToString:@"I"]) {
             value = @(-1);
-        }else if ([propertyType isEqualToString:@"NSArray"] || 
-                  [propertyType isEqualToString:@"NSMutableArray"]){
+        } else if ([propertyType isEqualToString:@"NSArray"] ||
+                   [propertyType isEqualToString:@"NSMutableArray"]) {
             value = @[];
-        }else if ([propertyType isEqualToString:@"B"]){
-            value =@(NO);
+        } else if ([propertyType isEqualToString:@"B"]) {
+            value = @(NO);
         }
-    }else{
+    } else {
         NSString *propertyType = [properties objectForKey:key];
         if ([propertyType isEqualToString:@"c"]) {
-            value = @([[dict objectForKey:key] boolValue]); 
+            value = @([[dict objectForKey:key] boolValue]);
         }
     }
     
