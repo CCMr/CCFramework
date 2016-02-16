@@ -1,5 +1,5 @@
 //
-//  ModelLayer.h
+//  CCExtension.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,12 +23,9 @@
 // THE SOFTWARE.
 //
 
-#ifndef CCFramework_ModelLayer_h
-#define CCFramework_ModelLayer_h
-
-#import <CCFramework/BaseEntity.h>
-#import <CCFramework/BaseViewModel.h>
-#import <CCFramework/CCUserDefaultsCrash.h>
-#import <CCFramework/CCExtension.h>
-
-#endif
+#import "NSObject+CCCoding.h"
+#import "NSObject+CCProperty.h"
+#import "NSObject+CCClass.h"
+#import "NSObject+CCKeyValue.h"
+#import "NSString+CCExtension.h"
+#import "CCExtensionConst.h"

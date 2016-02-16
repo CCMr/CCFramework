@@ -110,6 +110,27 @@
 		421E7A861C3DFCE300C31AD0 /* CCSystemSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 421E7A841C3DFCE300C31AD0 /* CCSystemSound.m */; };
 		4220B6181BFAB95A006145FD /* CustomIOSAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4220B6161BFAB95A006145FD /* CustomIOSAlertView.h */; };
 		4220B6191BFAB95A006145FD /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4220B6171BFAB95A006145FD /* CustomIOSAlertView.m */; };
+		422511391C72F795003B3623 /* CCExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 422511241C72F795003B3623 /* CCExtension.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4225113A1C72F795003B3623 /* CCExtensionConst.h in Headers */ = {isa = PBXBuildFile; fileRef = 422511251C72F795003B3623 /* CCExtensionConst.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4225113B1C72F795003B3623 /* CCExtensionConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 422511261C72F795003B3623 /* CCExtensionConst.m */; };
+		4225113C1C72F795003B3623 /* CCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 422511271C72F795003B3623 /* CCFoundation.h */; };
+		4225113D1C72F795003B3623 /* CCFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 422511281C72F795003B3623 /* CCFoundation.m */; };
+		4225113E1C72F795003B3623 /* CCProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 422511291C72F795003B3623 /* CCProperty.h */; };
+		4225113F1C72F795003B3623 /* CCProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 4225112A1C72F795003B3623 /* CCProperty.m */; };
+		422511401C72F795003B3623 /* CCPropertyKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 4225112B1C72F795003B3623 /* CCPropertyKey.h */; };
+		422511411C72F795003B3623 /* CCPropertyKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 4225112C1C72F795003B3623 /* CCPropertyKey.m */; };
+		422511421C72F795003B3623 /* CCPropertyType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4225112D1C72F795003B3623 /* CCPropertyType.h */; };
+		422511431C72F795003B3623 /* CCPropertyType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4225112E1C72F795003B3623 /* CCPropertyType.m */; };
+		4225116D1C7306AD003B3623 /* NSObject+CCClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 422511631C7306AD003B3623 /* NSObject+CCClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4225116E1C7306AD003B3623 /* NSObject+CCClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 422511641C7306AD003B3623 /* NSObject+CCClass.m */; };
+		4225116F1C7306AD003B3623 /* NSObject+CCCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 422511651C7306AD003B3623 /* NSObject+CCCoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		422511701C7306AD003B3623 /* NSObject+CCCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 422511661C7306AD003B3623 /* NSObject+CCCoding.m */; };
+		422511711C7306AD003B3623 /* NSObject+CCKeyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 422511671C7306AD003B3623 /* NSObject+CCKeyValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		422511721C7306AD003B3623 /* NSObject+CCKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 422511681C7306AD003B3623 /* NSObject+CCKeyValue.m */; };
+		422511731C7306AD003B3623 /* NSObject+CCProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 422511691C7306AD003B3623 /* NSObject+CCProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		422511741C7306AD003B3623 /* NSObject+CCProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 4225116A1C7306AD003B3623 /* NSObject+CCProperty.m */; };
+		422511751C7306AD003B3623 /* NSString+CCExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 4225116B1C7306AD003B3623 /* NSString+CCExtension.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		422511761C7306AD003B3623 /* NSString+CCExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4225116C1C7306AD003B3623 /* NSString+CCExtension.m */; };
 		4226FC411C327BE0003EAEFE /* CCInfoBanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 4226FC3F1C327BE0003EAEFE /* CCInfoBanner.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4226FC421C327BE0003EAEFE /* CCInfoBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4226FC401C327BE0003EAEFE /* CCInfoBanner.m */; };
 		4226FC471C3286F2003EAEFE /* CCHierarchySearcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 4226FC441C3286F2003EAEFE /* CCHierarchySearcher.h */; };
@@ -1111,6 +1132,27 @@
 		421E7A841C3DFCE300C31AD0 /* CCSystemSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCSystemSound.m; path = Core/CCSystemSound/CCSystemSound.m; sourceTree = "<group>"; };
 		4220B6161BFAB95A006145FD /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
 		4220B6171BFAB95A006145FD /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
+		422511241C72F795003B3623 /* CCExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCExtension.h; path = EntityExtension/CCExtension.h; sourceTree = "<group>"; };
+		422511251C72F795003B3623 /* CCExtensionConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCExtensionConst.h; path = EntityExtension/CCExtensionConst.h; sourceTree = "<group>"; };
+		422511261C72F795003B3623 /* CCExtensionConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCExtensionConst.m; path = EntityExtension/CCExtensionConst.m; sourceTree = "<group>"; };
+		422511271C72F795003B3623 /* CCFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCFoundation.h; path = EntityExtension/CCFoundation.h; sourceTree = "<group>"; };
+		422511281C72F795003B3623 /* CCFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCFoundation.m; path = EntityExtension/CCFoundation.m; sourceTree = "<group>"; };
+		422511291C72F795003B3623 /* CCProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCProperty.h; path = EntityExtension/CCProperty.h; sourceTree = "<group>"; };
+		4225112A1C72F795003B3623 /* CCProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCProperty.m; path = EntityExtension/CCProperty.m; sourceTree = "<group>"; };
+		4225112B1C72F795003B3623 /* CCPropertyKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPropertyKey.h; path = EntityExtension/CCPropertyKey.h; sourceTree = "<group>"; };
+		4225112C1C72F795003B3623 /* CCPropertyKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCPropertyKey.m; path = EntityExtension/CCPropertyKey.m; sourceTree = "<group>"; };
+		4225112D1C72F795003B3623 /* CCPropertyType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPropertyType.h; path = EntityExtension/CCPropertyType.h; sourceTree = "<group>"; };
+		4225112E1C72F795003B3623 /* CCPropertyType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCPropertyType.m; path = EntityExtension/CCPropertyType.m; sourceTree = "<group>"; };
+		422511631C7306AD003B3623 /* NSObject+CCClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+CCClass.h"; path = "EntityExtension/NSObject+CCClass.h"; sourceTree = "<group>"; };
+		422511641C7306AD003B3623 /* NSObject+CCClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+CCClass.m"; path = "EntityExtension/NSObject+CCClass.m"; sourceTree = "<group>"; };
+		422511651C7306AD003B3623 /* NSObject+CCCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+CCCoding.h"; path = "EntityExtension/NSObject+CCCoding.h"; sourceTree = "<group>"; };
+		422511661C7306AD003B3623 /* NSObject+CCCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+CCCoding.m"; path = "EntityExtension/NSObject+CCCoding.m"; sourceTree = "<group>"; };
+		422511671C7306AD003B3623 /* NSObject+CCKeyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+CCKeyValue.h"; path = "EntityExtension/NSObject+CCKeyValue.h"; sourceTree = "<group>"; };
+		422511681C7306AD003B3623 /* NSObject+CCKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+CCKeyValue.m"; path = "EntityExtension/NSObject+CCKeyValue.m"; sourceTree = "<group>"; };
+		422511691C7306AD003B3623 /* NSObject+CCProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+CCProperty.h"; path = "EntityExtension/NSObject+CCProperty.h"; sourceTree = "<group>"; };
+		4225116A1C7306AD003B3623 /* NSObject+CCProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+CCProperty.m"; path = "EntityExtension/NSObject+CCProperty.m"; sourceTree = "<group>"; };
+		4225116B1C7306AD003B3623 /* NSString+CCExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+CCExtension.h"; path = "EntityExtension/NSString+CCExtension.h"; sourceTree = "<group>"; };
+		4225116C1C7306AD003B3623 /* NSString+CCExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+CCExtension.m"; path = "EntityExtension/NSString+CCExtension.m"; sourceTree = "<group>"; };
 		4226FC3F1C327BE0003EAEFE /* CCInfoBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCInfoBanner.h; path = CCInfoBanner/CCInfoBanner.h; sourceTree = "<group>"; };
 		4226FC401C327BE0003EAEFE /* CCInfoBanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCInfoBanner.m; path = CCInfoBanner/CCInfoBanner.m; sourceTree = "<group>"; };
 		4226FC441C3286F2003EAEFE /* CCHierarchySearcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCHierarchySearcher.h; path = CCHierarchySearcher/CCHierarchySearcher.h; sourceTree = "<group>"; };
@@ -2268,6 +2310,34 @@
 			name = CCSystemSound;
 			sourceTree = "<group>";
 		};
+		422511231C72F719003B3623 /* EntityExtension */ = {
+			isa = PBXGroup;
+			children = (
+				422511241C72F795003B3623 /* CCExtension.h */,
+				422511251C72F795003B3623 /* CCExtensionConst.h */,
+				422511261C72F795003B3623 /* CCExtensionConst.m */,
+				422511271C72F795003B3623 /* CCFoundation.h */,
+				422511281C72F795003B3623 /* CCFoundation.m */,
+				422511291C72F795003B3623 /* CCProperty.h */,
+				4225112A1C72F795003B3623 /* CCProperty.m */,
+				4225112B1C72F795003B3623 /* CCPropertyKey.h */,
+				4225112C1C72F795003B3623 /* CCPropertyKey.m */,
+				4225112D1C72F795003B3623 /* CCPropertyType.h */,
+				4225112E1C72F795003B3623 /* CCPropertyType.m */,
+				422511631C7306AD003B3623 /* NSObject+CCClass.h */,
+				422511641C7306AD003B3623 /* NSObject+CCClass.m */,
+				422511651C7306AD003B3623 /* NSObject+CCCoding.h */,
+				422511661C7306AD003B3623 /* NSObject+CCCoding.m */,
+				422511671C7306AD003B3623 /* NSObject+CCKeyValue.h */,
+				422511681C7306AD003B3623 /* NSObject+CCKeyValue.m */,
+				422511691C7306AD003B3623 /* NSObject+CCProperty.h */,
+				4225116A1C7306AD003B3623 /* NSObject+CCProperty.m */,
+				4225116B1C7306AD003B3623 /* NSString+CCExtension.h */,
+				4225116C1C7306AD003B3623 /* NSString+CCExtension.m */,
+			);
+			name = EntityExtension;
+			sourceTree = "<group>";
+		};
 		4226FC3E1C327B65003EAEFE /* CCInfoBanner */ = {
 			isa = PBXGroup;
 			children = (
@@ -3084,6 +3154,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208EE1BDE1D7D00C76004 /* ModelLayer.h */,
+				422511231C72F719003B3623 /* EntityExtension */,
 				429C9D1D1B9EF8BE0013A44A /* BaseEntity */,
 				429C9D201B9EF8BE0013A44A /* BaseViewModel */,
 				429C9D231B9EF8BE0013A44A /* UserDefaultsEntity */,
@@ -4819,6 +4890,7 @@
 				425477551BD2AEC20071BBC5 /* ossl_typ.h in Headers */,
 				425477531BD2AEC20071BBC5 /* opensslconf.h in Headers */,
 				4213FAFC1C13D860006918AC /* CCJPsuh.h in Headers */,
+				422511401C72F795003B3623 /* CCPropertyKey.h in Headers */,
 				42F945871BC8ED5D008882AE /* CCDisplayMediaViewController.h in Headers */,
 				42F411F41C2150E500814E7B /* UIImage+Utility.h in Headers */,
 				42068F061C573E33005DFB01 /* POPAnimatableProperty.h in Headers */,
@@ -4832,6 +4904,7 @@
 				4244928E1C0D90F500488AA2 /* amrFileCodec.h in Headers */,
 				420CD8BD1C59F9B9009578D4 /* UIView+CCInputDodger.h in Headers */,
 				42F24C6F1BEA5091008CDEDC /* PNScatterChartDataItem.h in Headers */,
+				422511711C7306AD003B3623 /* NSObject+CCKeyValue.h in Headers */,
 				4254773C1BD2AEC20071BBC5 /* dsa.h in Headers */,
 				42C208E41BDE021900C76004 /* Ability.h in Headers */,
 				423D1DA41C3A11F0008E483A /* CCAlertView.h in Headers */,
@@ -4883,6 +4956,7 @@
 				429C9FD51B9EF8BF0013A44A /* SignalR.h in Headers */,
 				429C9FCD1B9EF8BF0013A44A /* NSObject+SRJSON.h in Headers */,
 				425477351BD2AEC20071BBC5 /* comp.h in Headers */,
+				4225113A1C72F795003B3623 /* CCExtensionConst.h in Headers */,
 				429CA0971B9EF8BF0013A44A /* SECompatibility.h in Headers */,
 				42DEB2A21C25495000734E09 /* CCColorIndicator.h in Headers */,
 				429CA0A11B9EF8BF0013A44A /* SETextAttachment.h in Headers */,
@@ -4919,6 +4993,7 @@
 				429CA0FF1B9EF8BF0013A44A /* CCFileAttribute.h in Headers */,
 				42F4120A1C2150E500814E7B /* UIWindow+Additions.h in Headers */,
 				42F24C591BEA5091008CDEDC /* PNColor.h in Headers */,
+				422511391C72F795003B3623 /* CCExtension.h in Headers */,
 				429CA00D1B9EF8BF0013A44A /* CalendarDay.h in Headers */,
 				42C208F11BDE1E4C00C76004 /* BaseController.h in Headers */,
 				429CA0111B9EF8BF0013A44A /* CalendarHeaderView.h in Headers */,
@@ -4928,7 +5003,9 @@
 				429CA11A1B9EF8BF0013A44A /* CCMessageTableViewCell.h in Headers */,
 				42F411451C214C5400814E7B /* CCRectangleBrush.h in Headers */,
 				429CA01B1B9EF8BF0013A44A /* ColumnarChart.h in Headers */,
+				4225116F1C7306AD003B3623 /* NSObject+CCCoding.h in Headers */,
 				42F24C741BEA5236008CDEDC /* CCCountingLabel.h in Headers */,
+				422511751C7306AD003B3623 /* NSString+CCExtension.h in Headers */,
 				429CA1181B9EF8BF0013A44A /* CCMessageTableView.h in Headers */,
 				42786E751C40ACD000C011FB /* CCDropDownListMenuItemView.h in Headers */,
 				426979431BA695BA00C3E93C /* UIImageView+AFNetworking.h in Headers */,
@@ -4941,6 +5018,7 @@
 				42F411EC1C2150E500814E7B /* UIImage+Data.h in Headers */,
 				429CA1111B9EF8BF0013A44A /* CCMessageModel.h in Headers */,
 				429CA0151B9EF8BF0013A44A /* CalendarViewController.h in Headers */,
+				4225113C1C72F795003B3623 /* CCFoundation.h in Headers */,
 				429CA1221B9EF8BF0013A44A /* CCEmotionSectionBar.h in Headers */,
 				429CA10F1B9EF8BF0013A44A /* CCMessage.h in Headers */,
 				42B6473D1BEDA8C100B2F6FD /* CCBacktrace.h in Headers */,
@@ -5024,6 +5102,7 @@
 				429C9FBC1B9EF8BF0013A44A /* MBProgressHUD.h in Headers */,
 				425477871BD2AF6A0071BBC5 /* AliOrderFormEntity.h in Headers */,
 				4254773E1BD2AEC20071BBC5 /* dtls1.h in Headers */,
+				4225116D1C7306AD003B3623 /* NSObject+CCClass.h in Headers */,
 				42A3563B1BF4399800B6F1F2 /* CCRefreshHeaderView.h in Headers */,
 				429CA0661B9EF8BF0013A44A /* CCPickerDatas.h in Headers */,
 				429CA0211B9EF8BF0013A44A /* CCMessageInputView.h in Headers */,
@@ -5120,6 +5199,7 @@
 				429CA0071B9EF8BF0013A44A /* CCAnimatedImageView.h in Headers */,
 				4254774C1BD2AEC20071BBC5 /* md4.h in Headers */,
 				42068F0A1C573E33005DFB01 /* POPAnimationEventInternal.h in Headers */,
+				422511421C72F795003B3623 /* CCPropertyType.h in Headers */,
 				429CA0E91B9EF8BF0013A44A /* CCAudioPlayerHelper.h in Headers */,
 				42F24C5D1BEA5091008CDEDC /* PNLineChart.h in Headers */,
 				42F24C551BEA5091008CDEDC /* PNChartLabel.h in Headers */,
@@ -5202,6 +5282,7 @@
 				4226FC411C327BE0003EAEFE /* CCInfoBanner.h in Headers */,
 				429CA08F1B9EF8BF0013A44A /* CCWebViewProgressView.h in Headers */,
 				42D850F91BDB248D00CB194E /* NSManagedObject+CCManagedObject.h in Headers */,
+				422511731C7306AD003B3623 /* NSObject+CCProperty.h in Headers */,
 				429B9BAB1C322DCB00ACB250 /* CCProgressHUD.h in Headers */,
 				429CA10B1B9EF8BF0013A44A /* CCEmotion.h in Headers */,
 				429C9F4E1B9EF8BF0013A44A /* BaseTabBarController.h in Headers */,
@@ -5225,6 +5306,7 @@
 				429CA0731B9EF8BF0013A44A /* CCPopMenuItem.h in Headers */,
 				42068F031C573E33005DFB01 /* POPSpringAnimation.h in Headers */,
 				429CA03A1B9EF8BF0013A44A /* CCPhotoView.h in Headers */,
+				4225113E1C72F795003B3623 /* CCProperty.h in Headers */,
 				4254774D1BD2AEC20071BBC5 /* md5.h in Headers */,
 				425A4F381C11C466009A7E77 /* CCXML.h in Headers */,
 				42DEB2941C25495000734E09 /* CCColorSlider.h in Headers */,
@@ -5544,6 +5626,7 @@
 				42F24C621BEA5091008CDEDC /* PNLineChartDataItem.m in Sources */,
 				42F411D91C2150E500814E7B /* UIActionSheet+BUIActionSheet.m in Sources */,
 				429C9FE91B9EF8BF0013A44A /* SRServerSentEvent.m in Sources */,
+				422511761C7306AD003B3623 /* NSString+CCExtension.m in Sources */,
 				429C9F551B9EF8BF0013A44A /* BaseSearchTableViewController.m in Sources */,
 				426979381BA695BA00C3E93C /* AFURLRequestSerialization.m in Sources */,
 				429CA03B1B9EF8BF0013A44A /* CCPhotoView.m in Sources */,
@@ -5591,6 +5674,7 @@
 				429CA0201B9EF8BF0013A44A /* CCLoadLogoView.m in Sources */,
 				42068F1B1C573E33005DFB01 /* POPGeometry.mm in Sources */,
 				429C9F691B9EF8BF0013A44A /* BaseEntity.m in Sources */,
+				422511741C7306AD003B3623 /* NSObject+CCProperty.m in Sources */,
 				429CA0391B9EF8BF0013A44A /* CCPhotoToolbar.m in Sources */,
 				42068F071C573E33005DFB01 /* POPAnimatableProperty.mm in Sources */,
 				42F1640A1C2A401E00F17928 /* CCToolButton.m in Sources */,
@@ -5605,6 +5689,7 @@
 				429CA1021B9EF8BF0013A44A /* CCMessageAvatarFactory.m in Sources */,
 				429CA01C1B9EF8BF0013A44A /* ColumnarChart.m in Sources */,
 				426476A91BD0E3AF00EE191C /* CCUtilityButtonTapGestureRecognizer.m in Sources */,
+				422511411C72F795003B3623 /* CCPropertyKey.m in Sources */,
 				429CA0F01B9EF8BF0013A44A /* CCFoundationCommon.m in Sources */,
 				42F411D51C2150E500814E7B /* NSString+BNSString.m in Sources */,
 				429CA0371B9EF8BF0013A44A /* CCPhotoProgressView.m in Sources */,
@@ -5612,6 +5697,8 @@
 				42F411C61C2150E500814E7B /* CALayer+Transition.m in Sources */,
 				429CA0FC1B9EF8BF0013A44A /* CCMessageTableViewController.m in Sources */,
 				429CA1211B9EF8BF0013A44A /* CCEmotionManagerView.m in Sources */,
+				422511431C72F795003B3623 /* CCPropertyType.m in Sources */,
+				4225113B1C72F795003B3623 /* CCExtensionConst.m in Sources */,
 				42E953211C589E9E001C93CB /* CCBannerFooter.m in Sources */,
 				429C9FE01B9EF8BF0013A44A /* SRKeepAliveData.m in Sources */,
 				4226FC421C327BE0003EAEFE /* CCInfoBanner.m in Sources */,
@@ -5627,6 +5714,7 @@
 				42DEB2951C25495000734E09 /* CCColorSlider.m in Sources */,
 				429C9F591B9EF8BF0013A44A /* BaseViewController.m in Sources */,
 				42F411EB1C2150E500814E7B /* UIImage+CCRounded.m in Sources */,
+				422511701C7306AD003B3623 /* NSObject+CCCoding.m in Sources */,
 				42B30DE21BBD72AD0039BB94 /* SDWebImageDownloaderOperation.m in Sources */,
 				429C9FA31B9EF8BF0013A44A /* CCSignatureView.m in Sources */,
 				425A4F391C11C466009A7E77 /* CCXML.m in Sources */,
@@ -5664,6 +5752,7 @@
 				42068F1F1C573E33005DFB01 /* POPMath.mm in Sources */,
 				429C9FC91B9EF8BF0013A44A /* SRHubResult.m in Sources */,
 				429CA10C1B9EF8BF0013A44A /* CCEmotion.m in Sources */,
+				4225113F1C72F795003B3623 /* CCProperty.m in Sources */,
 				42F411381C214C5400814E7B /* CCEraserBrush.m in Sources */,
 				429CA0141B9EF8BF0013A44A /* CalendarLogic.m in Sources */,
 				429C9FF71B9EF8BF0013A44A /* base64.c in Sources */,
@@ -5734,6 +5823,7 @@
 				421E7A7C1C3D173D00C31AD0 /* CCSideMenu.m in Sources */,
 				429CA03D1B9EF8BF0013A44A /* MBProgressHUD+Add.m in Sources */,
 				429CA10A1B9EF8BF0013A44A /* CCVideoOutputSampleBufferFactory.m in Sources */,
+				4225116E1C7306AD003B3623 /* NSObject+CCClass.m in Sources */,
 				429C9F9D1B9EF8BF0013A44A /* CCQRCodeViewController.m in Sources */,
 				420CD8BE1C59F9B9009578D4 /* UIView+CCInputDodger.m in Sources */,
 				429C9FEE1B9EF8BF0013A44A /* SRHttpBasedTransport.m in Sources */,
@@ -5820,6 +5910,7 @@
 				429C9F511B9EF8BF0013A44A /* NavMainViewController.m in Sources */,
 				42DEB2A31C25495000734E09 /* CCColorIndicator.m in Sources */,
 				428B5C3A1C22609C001B8584 /* rscode.c in Sources */,
+				4225113D1C72F795003B3623 /* CCFoundation.m in Sources */,
 				42F411EF1C2150E500814E7B /* UIImage+Operations.m in Sources */,
 				42D900A31BF4817000B8B01F /* UITextView+CCSignalSupport.m in Sources */,
 				429C9FD41B9EF8BF0013A44A /* SRVersion.m in Sources */,
@@ -5856,6 +5947,7 @@
 				42B30DCC1BBD72AD0039BB94 /* SDImageCache.m in Sources */,
 				429C9FFA1B9EF8BF0013A44A /* NSData+SRB64Additions.m in Sources */,
 				429CA0921B9EF8BF0013A44A /* CCWebViewController.m in Sources */,
+				422511721C7306AD003B3623 /* NSObject+CCKeyValue.m in Sources */,
 				42B30DE41BBD72AD0039BB94 /* SDWebImageCompat.m in Sources */,
 				429CA0F81B9EF8BF0013A44A /* CCVoiceCommonHelper.m in Sources */,
 				429CA1271B9EF8BF0013A44A /* CCAnnotation.m in Sources */,

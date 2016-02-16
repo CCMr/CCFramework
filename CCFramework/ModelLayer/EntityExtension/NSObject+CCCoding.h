@@ -1,5 +1,5 @@
 //
-//  ModelLayer.h
+//  CCCoding.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,12 +23,51 @@
 // THE SOFTWARE.
 //
 
-#ifndef CCFramework_ModelLayer_h
-#define CCFramework_ModelLayer_h
+#import <Foundation/Foundation.h>
 
-#import <CCFramework/BaseEntity.h>
-#import <CCFramework/BaseViewModel.h>
-#import <CCFramework/CCUserDefaultsCrash.h>
-#import <CCFramework/CCExtension.h>
+/**
+ *  Codeing协议
+ */
+@protocol CCCoding <NSObject>
 
-#endif
+@optional
+/**
+ *  这个数组中的属性名才会进行归档
+ */
++ (NSArray *)cc_allowedCodingPropertyNames;
+/**
+ *  这个数组中的属性名将会被忽略：不进行归档
+ */
++ (NSArray *)cc_ignoredCodingPropertyNames;
+
+@end
+
+@interface NSObject (CCCoding) <CCCoding>
+/**
+ *  解码（从文件中解析对象）
+ */
+- (void)cc_decode:(NSCoder *)decoder;
+/**
+ *  编码（将对象写入文件中）
+ */
+- (void)cc_encode:(NSCoder *)encoder;
+@end
+
+/**
+ 归档的实现
+ */
+#define CCCodingImplementation \
+- (id)initWithCoder:(NSCoder *)decoder \
+{ \
+if (self = [super init]) { \
+[self cc_decode:decoder]; \
+} \
+return self; \
+} \
+\
+- (void)encodeWithCoder:(NSCoder *)encoder \
+{ \
+[self cc_encode:encoder]; \
+}
+
+#define CCExtensionCodingImplementation CCCodingImplementation

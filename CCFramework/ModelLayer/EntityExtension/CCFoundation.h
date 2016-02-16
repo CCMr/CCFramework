@@ -1,5 +1,5 @@
 //
-//  ModelLayer.h
+//  CCFoundation.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,12 +23,10 @@
 // THE SOFTWARE.
 //
 
-#ifndef CCFramework_ModelLayer_h
-#define CCFramework_ModelLayer_h
+#import <Foundation/Foundation.h>
 
-#import <CCFramework/BaseEntity.h>
-#import <CCFramework/BaseViewModel.h>
-#import <CCFramework/CCUserDefaultsCrash.h>
-#import <CCFramework/CCExtension.h>
+@interface CCFoundation : NSObject
 
-#endif
++ (BOOL)isClassFromFoundation:(Class)c;
+
+@end

@@ -1,5 +1,5 @@
 //
-//  ModelLayer.h
+//  CCPropertyKey.m
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,12 +23,20 @@
 // THE SOFTWARE.
 //
 
-#ifndef CCFramework_ModelLayer_h
-#define CCFramework_ModelLayer_h
+#import "CCPropertyKey.h"
 
-#import <CCFramework/BaseEntity.h>
-#import <CCFramework/BaseViewModel.h>
-#import <CCFramework/CCUserDefaultsCrash.h>
-#import <CCFramework/CCExtension.h>
+@implementation CCPropertyKey
 
-#endif
+- (id)valueInObject:(id)object
+{
+    if ([object isKindOfClass:[NSDictionary class]] && self.type == CCPropertyKeyTypeDictionary) {
+        return object[self.name];
+    } else if ([object isKindOfClass:[NSArray class]] && self.type == CCPropertyKeyTypeArray) {
+        NSArray *array = object;
+        NSUInteger index = self.name.intValue;
+        if (index < array.count) return array[index];
+        return nil;
+    }
+    return nil;
+}
+@end

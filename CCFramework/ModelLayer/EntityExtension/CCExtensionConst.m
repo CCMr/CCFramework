@@ -1,5 +1,5 @@
 //
-//  ModelLayer.h
+//  CCExtensionConst.m
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,12 +23,30 @@
 // THE SOFTWARE.
 //
 
-#ifndef CCFramework_ModelLayer_h
-#define CCFramework_ModelLayer_h
+#ifndef CCFramework_CCExtensionConst_h
+#define CCFramework_CCExtensionConst_h
 
-#import <CCFramework/BaseEntity.h>
-#import <CCFramework/BaseViewModel.h>
-#import <CCFramework/CCUserDefaultsCrash.h>
-#import <CCFramework/CCExtension.h>
+#import <Foundation/Foundation.h>
+
+/**
+ *  成员变量类型（属性类型）
+ */
+NSString *const CCPropertyTypeInt = @"i";
+NSString *const CCPropertyTypeShort = @"s";
+NSString *const CCPropertyTypeFloat = @"f";
+NSString *const CCPropertyTypeDouble = @"d";
+NSString *const CCPropertyTypeLong = @"l";
+NSString *const CCPropertyTypeLongLong = @"q";
+NSString *const CCPropertyTypeChar = @"c";
+NSString *const CCPropertyTypeBOOL1 = @"c";
+NSString *const CCPropertyTypeBOOL2 = @"b";
+NSString *const CCPropertyTypePointer = @"*";
+
+NSString *const CCPropertyTypeIvar = @"^{objc_ivar=}";
+NSString *const CCPropertyTypeMethod = @"^{objc_method=}";
+NSString *const CCPropertyTypeBlock = @"@?";
+NSString *const CCPropertyTypeClass = @"#";
+NSString *const CCPropertyTypeSEL = @":";
+NSString *const CCPropertyTypeId = @"@";
 
 #endif
