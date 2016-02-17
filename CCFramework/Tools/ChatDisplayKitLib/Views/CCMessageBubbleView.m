@@ -119,12 +119,11 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 }
 
 //计算图文最大的大小
-+ (CGSize)neededSizeForTeletext:(NSArray *)teletextPath
-                           Text:(NSString *)text
++ (CGSize)neededSizeForTeletext:(id<CCMessageModel>)message
 {
-    CGSize size = [CCMessageBubbleView neededSizeForText:text];
+    CGSize size = [CCMessageBubbleView neededSizeForText:[message text]];
     BOOL isWrap = NO;
-    for (NSDictionary *d in teletextPath) {
+    for (NSDictionary *d in message.teletextPath) {
         NSString *path = [d objectForKey:@"path"];
         
         UIImage *image = [UIImage imageWithContentsOfFile:path];
@@ -150,7 +149,55 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     if (isWrap)
         size = CGSizeMake(kCCMaxWidth, size.height);
     
+    size.height = [self displayTextViewWithHeight:message Size:size];
+    
     return size;
+}
+
++ (CGFloat)displayTextViewWithHeight:(id<CCMessageModel>)message
+                                Size:(CGSize)size
+{
+    
+    SETextView *displayTextView = [[SETextView alloc] initWithFrame:CGRectZero];
+    displayTextView.textColor = [UIColor colorWithWhite:0.143 alpha:1.000];
+    displayTextView.backgroundColor = [UIColor clearColor];
+    displayTextView.selectable = NO;
+    displayTextView.lineSpacing = kCCTextLineSpacing;
+    displayTextView.font = [[CCMessageBubbleView appearance] font];
+    displayTextView.showsEditingMenuAutomatically = NO;
+    displayTextView.highlighted = NO;
+    
+    
+    NSString *text = [[message text] stringByReplacingOccurrencesOfString:message.teletextReplaceStr withString:OBJECT_REPLACEMENT_CHARACTER];
+    
+    NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"\uFFFC" options:NSRegularExpressionCaseInsensitive error:nil];
+    NSArray *resultArray = [re matchesInString:text options:0 range:NSMakeRange(0, text.length)];
+    
+    for (int i = 0; i < resultArray.count; i++) {
+        
+        NSTextCheckingResult *match = [resultArray objectAtIndex:i];
+        
+        NSString *path = @"";
+        if (message.teletextPath.count && i < message.teletextPath.count)
+            path = [[message.teletextPath objectAtIndex:i] objectForKey:@"path"];
+        
+        CGSize size = CGSizeMake(20, 20);
+        UIImage *Images = [UIImage imageWithContentsOfFile:path];
+        if (Images)
+            size = CGSizeMake(Images.size.width < 100 ? Images.size.width : 100, Images.size.height < 100 ? Images.size.height : 100);
+        else if ([path rangeOfString:@"http://"].location != NSNotFound) { //网络加载图片时
+            size = CGSizeMake(100, 100);
+        }
+        
+        CCMessagePhotoImageView *messagePhotoImageView = [[CCMessagePhotoImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+        messagePhotoImageView.imageFilePath = path;
+        
+        [displayTextView addObject:messagePhotoImageView size:size replaceRange:[match range]];
+    }
+    
+    displayTextView.attributedText = [[CCMessageBubbleHelper sharedMessageBubbleHelper] bubbleAttributtedStringWithText:text];
+    
+    return [displayTextView sizeThatFits:size].height;
 }
 
 // 计算图片实际大小
@@ -218,11 +265,8 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             break;
         }
         case CCBubbleMessageMediaTypeTeletext: { //图文
-            NSString *text = [message.text stringByReplacingOccurrencesOfString:message.teletextReplaceStr withString:@""];
-            text = [text stringByReplacingOccurrencesOfString:OBJECT_REPLACEMENT_CHARACTER withString:@""];
-            CGSize needTextSize = [CCMessageBubbleView neededSizeForTeletext:message.teletextPath
-                                                                        Text:text];
-								    
+            CGSize needTextSize = [CCMessageBubbleView neededSizeForTeletext:message];
+            
             bubbleSize = CGSizeMake(needTextSize.width + kCCLeftTextHorizontalBubblePadding + kCCRightTextHorizontalBubblePadding + kCCArrowMarginWidth, needTextSize.height + kCCHaveBubbleMargin * 2 + kCCTopAndBottomBubbleMargin * 2);
             break;
         }
