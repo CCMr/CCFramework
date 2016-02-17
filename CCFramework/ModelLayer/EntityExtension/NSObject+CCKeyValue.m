@@ -207,7 +207,6 @@ static NSNumberFormatter *numberFormatter_;
             [property setValue:value forObject:self];
         } @catch (NSException *exception) {
             CCExtensionBuildError([self class], exception.reason);
-            CCNSLogger(@"%@", exception);
         }
     }];
     

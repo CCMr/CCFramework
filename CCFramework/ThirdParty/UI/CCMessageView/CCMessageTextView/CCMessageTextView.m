@@ -170,7 +170,6 @@
 {    
     if ([self.text length] == 0 && self.placeholder) {
         CGRect placeHolderRect = CGRectMake(10.0f, 7.0f, rect.size.width, rect.size.height);
-//        rect.size.height = [self.subviews objectAtIndex:0].frame.size.height;
         [self.placeholderTextColor set];
         
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
