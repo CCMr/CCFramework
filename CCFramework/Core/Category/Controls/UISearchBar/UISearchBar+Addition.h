@@ -47,4 +47,13 @@
 - (void)setCancelTitleWithColor:(NSString *)title
                           Color:(UIColor *)color;
 
+/**
+ *  @author CC, 16-02-18
+ *  
+ *  @brief 设置输入框背景颜色
+ *
+ *  @param backgroundColor 颜色
+ */
+- (void)setSearchTextFieldBackgroundColor:(UIColor *)backgroundColor;
+
 @end

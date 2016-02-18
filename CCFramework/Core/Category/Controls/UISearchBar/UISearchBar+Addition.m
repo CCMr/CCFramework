@@ -24,6 +24,7 @@
 //
 
 #import "UISearchBar+Addition.h"
+#import "Config.h"
 
 @implementation UISearchBar (Addition)
 
@@ -60,6 +61,29 @@
                 [cancelBtn setTintColor:color];
         }
     }
+}
+
+/**
+ *  @author CC, 16-02-18
+ *  
+ *  @brief 设置输入框背景颜色
+ *
+ *  @param backgroundColor 颜色
+ */
+- (void)setSearchTextFieldBackgroundColor:(UIColor *)backgroundColor
+{
+    UIView *searchTextField = nil;
+    if (IsiOS7Later) {
+        searchTextField = [[[self.subviews firstObject] subviews] lastObject];
+    } else {
+        for (UIView *subView in self.subviews) {
+            if ([subView isKindOfClass:NSClassFromString(@"UISearchBarTextField")]) {
+                searchTextField = subView;
+            }
+        }
+    }
+    
+    searchTextField.backgroundColor = backgroundColor;
 }
 
 @end
