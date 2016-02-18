@@ -45,19 +45,19 @@ FOUNDATION_EXPORT void cc_dispatch_after_f(dispatch_time_t time, dispatch_queue_
 ///
 /// On OS X, you can enable the automatic capturing of asynchronous backtraces
 /// (in Debug builds) by setting the `DYLD_INSERT_LIBRARIES` environment variable
-/// to `@executable_path/../Frameworks/ReactiveCocoa.framework/ReactiveCocoa` in
+/// to `@executable_path/../Frameworks/CCFramework.framework/CCFramework.framework` in
 /// your scheme's Run action settings.
 ///
-/// On iOS, your project and RAC will automatically use the `rac_` GCD functions
+/// On iOS, your project and RAC will automatically use the `cc_` GCD functions
 /// (declared above) for asynchronous work. Unfortunately, unlike OS X, it's
 /// impossible to capture backtraces inside NSOperationQueue or other code
 /// outside of your project.
 ///
-/// Once backtraces are being captured, you can `po [RACBacktrace backtrace]` in
+/// Once backtraces are being captured, you can `po [CCBacktrace backtrace]` in
 /// the debugger to print them out at any time. You can even set up an alias in
 /// ~/.lldbinit to do so:
 ///
-///    command alias racbt po [RACBacktrace backtrace]
+///    command alias racbt po [CCBacktrace backtrace]
 /// 
 @interface CCBacktrace : NSObject
 

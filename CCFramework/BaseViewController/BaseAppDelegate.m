@@ -28,9 +28,9 @@
 #import "CCSecurityStrategy.h"
 #import "SmoothViewController.h"
 #import "CCUserDefaultsCrash.h"
-#import "UIColor+BUIColor.h"
 #import "NSObject+Additions.h"
 #import <objc/runtime.h>
+#import "CCLaunchAnimation.h"
 
 static char OperationKey;
 
@@ -237,26 +237,7 @@ static char OperationKey;
  */
 - (void)AnimationStartPage
 {
-    if ([SmoothViewController canShowNewFeature]) {
-        UIView *splashScreen = self.window.rootViewController.view;
-        [UIView animateWithDuration:2.5 animations:^{
-            splashScreen.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.0);
-            splashScreen.alpha = 0.0;
-        } completion:^(BOOL finished) {
-            [splashScreen removeFromSuperview];
-        }];
-    } else {
-        UIImageView *splashScreen = [[UIImageView alloc] initWithFrame:self.window.bounds];
-        splashScreen.image = [UIImage imageNamed:@"Default-568h"];
-        [self.window addSubview:splashScreen];
-        
-        [UIView animateWithDuration:2.5 animations:^{
-            splashScreen.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.0);
-            splashScreen.alpha = 0.0;
-        } completion:^(BOOL finished) {
-            [splashScreen removeFromSuperview];
-        }];
-    }
+    [CCLaunchAnimation animationWithWindow:self.window];
 }
 
 /**
