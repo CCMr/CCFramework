@@ -151,6 +151,16 @@
 		422754781C29371F0099B653 /* AssetsYES@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422754681C29371F0099B653 /* AssetsYES@2x.png */; };
 		422754791C29371F0099B653 /* returns@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422754691C29371F0099B653 /* returns@2x.png */; };
 		4227547B1C2938E30099B653 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4227547A1C2938E30099B653 /* arrow@2x.png */; };
+		422966801C756480005E1C03 /* CCLaunchAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 4229667E1C756480005E1C03 /* CCLaunchAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		422966811C756480005E1C03 /* CCLaunchAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229667F1C756480005E1C03 /* CCLaunchAnimation.m */; };
+		422966891C75926B005E1C03 /* CCFlipImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 422966831C75926B005E1C03 /* CCFlipImageView.h */; };
+		4229668A1C75926B005E1C03 /* CCFlipImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 422966841C75926B005E1C03 /* CCFlipImageView.m */; };
+		4229668B1C75926B005E1C03 /* CCFlipNumberViewImageFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 422966851C75926B005E1C03 /* CCFlipNumberViewImageFactory.h */; };
+		4229668C1C75926B005E1C03 /* CCFlipNumberViewImageFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 422966861C75926B005E1C03 /* CCFlipNumberViewImageFactory.m */; };
+		4229668D1C75926B005E1C03 /* UIView+CCFlipImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 422966871C75926B005E1C03 /* UIView+CCFlipImageView.h */; };
+		4229668E1C75926B005E1C03 /* UIView+CCFlipImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 422966881C75926B005E1C03 /* UIView+CCFlipImageView.m */; };
+		422966941C75AB28005E1C03 /* UISearchController+Addition.h in Headers */ = {isa = PBXBuildFile; fileRef = 422966921C75AB28005E1C03 /* UISearchController+Addition.h */; };
+		422966951C75AB28005E1C03 /* UISearchController+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 422966931C75AB28005E1C03 /* UISearchController+Addition.m */; };
 		422978601BEE3A1100CECBBF /* CCResponseObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4229785E1BEE3A1100CECBBF /* CCResponseObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		422978611BEE3A1100CECBBF /* CCResponseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229785F1BEE3A1100CECBBF /* CCResponseObject.m */; };
 		422978631BEE407400CECBBF /* CCBlockTrace.h in Headers */ = {isa = PBXBuildFile; fileRef = 422978621BEE405900CECBBF /* CCBlockTrace.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1173,6 +1183,16 @@
 		422754681C29371F0099B653 /* AssetsYES@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AssetsYES@2x.png"; sourceTree = "<group>"; };
 		422754691C29371F0099B653 /* returns@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "returns@2x.png"; sourceTree = "<group>"; };
 		4227547A1C2938E30099B653 /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
+		4229667E1C756480005E1C03 /* CCLaunchAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCLaunchAnimation.h; path = CCLaunchAnimation/CCLaunchAnimation.h; sourceTree = "<group>"; };
+		4229667F1C756480005E1C03 /* CCLaunchAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCLaunchAnimation.m; path = CCLaunchAnimation/CCLaunchAnimation.m; sourceTree = "<group>"; };
+		422966831C75926B005E1C03 /* CCFlipImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCFlipImageView.h; path = CCLaunchAnimation/CCFlip/CCFlipImageView.h; sourceTree = "<group>"; };
+		422966841C75926B005E1C03 /* CCFlipImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCFlipImageView.m; path = CCLaunchAnimation/CCFlip/CCFlipImageView.m; sourceTree = "<group>"; };
+		422966851C75926B005E1C03 /* CCFlipNumberViewImageFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCFlipNumberViewImageFactory.h; path = CCLaunchAnimation/CCFlip/CCFlipNumberViewImageFactory.h; sourceTree = "<group>"; };
+		422966861C75926B005E1C03 /* CCFlipNumberViewImageFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCFlipNumberViewImageFactory.m; path = CCLaunchAnimation/CCFlip/CCFlipNumberViewImageFactory.m; sourceTree = "<group>"; };
+		422966871C75926B005E1C03 /* UIView+CCFlipImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+CCFlipImageView.h"; path = "CCLaunchAnimation/CCFlip/UIView+CCFlipImageView.h"; sourceTree = "<group>"; };
+		422966881C75926B005E1C03 /* UIView+CCFlipImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+CCFlipImageView.m"; path = "CCLaunchAnimation/CCFlip/UIView+CCFlipImageView.m"; sourceTree = "<group>"; };
+		422966921C75AB28005E1C03 /* UISearchController+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UISearchController+Addition.h"; path = "UISearchController/UISearchController+Addition.h"; sourceTree = "<group>"; };
+		422966931C75AB28005E1C03 /* UISearchController+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UISearchController+Addition.m"; path = "UISearchController/UISearchController+Addition.m"; sourceTree = "<group>"; };
 		4229785E1BEE3A1100CECBBF /* CCResponseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCResponseObject.h; path = ResponseEntity/CCResponseObject.h; sourceTree = "<group>"; };
 		4229785F1BEE3A1100CECBBF /* CCResponseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCResponseObject.m; path = ResponseEntity/CCResponseObject.m; sourceTree = "<group>"; };
 		422978621BEE405900CECBBF /* CCBlockTrace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCBlockTrace.h; sourceTree = "<group>"; };
@@ -2419,6 +2439,38 @@
 			path = PhotosViewImage;
 			sourceTree = "<group>";
 		};
+		4229667D1C756428005E1C03 /* CCLaunchAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				422966821C75922D005E1C03 /* CCFlip */,
+				4229667E1C756480005E1C03 /* CCLaunchAnimation.h */,
+				4229667F1C756480005E1C03 /* CCLaunchAnimation.m */,
+			);
+			name = CCLaunchAnimation;
+			sourceTree = "<group>";
+		};
+		422966821C75922D005E1C03 /* CCFlip */ = {
+			isa = PBXGroup;
+			children = (
+				422966831C75926B005E1C03 /* CCFlipImageView.h */,
+				422966841C75926B005E1C03 /* CCFlipImageView.m */,
+				422966851C75926B005E1C03 /* CCFlipNumberViewImageFactory.h */,
+				422966861C75926B005E1C03 /* CCFlipNumberViewImageFactory.m */,
+				422966871C75926B005E1C03 /* UIView+CCFlipImageView.h */,
+				422966881C75926B005E1C03 /* UIView+CCFlipImageView.m */,
+			);
+			name = CCFlip;
+			sourceTree = "<group>";
+		};
+		422966911C75AAFE005E1C03 /* UISearchController */ = {
+			isa = PBXGroup;
+			children = (
+				422966921C75AB28005E1C03 /* UISearchController+Addition.h */,
+				422966931C75AB28005E1C03 /* UISearchController+Addition.m */,
+			);
+			name = UISearchController;
+			sourceTree = "<group>";
+		};
 		4229785D1BEE39E000CECBBF /* ResponseEntity */ = {
 			isa = PBXGroup;
 			children = (
@@ -3510,6 +3562,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E11BDDF91400C76004 /* Animation.h */,
+				4229667D1C756428005E1C03 /* CCLaunchAnimation */,
 				422E91661C5F3212008F7DDA /* CCUnReadBubbleView */,
 				42068F391C576CDB005DFB01 /* CCPulsingHaloLayer */,
 				42068EBC1C573876005DFB01 /* POP */,
@@ -4661,6 +4714,7 @@
 		42F411811C2150E500814E7B /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				422966911C75AAFE005E1C03 /* UISearchController */,
 				42591B481C33C93400BF6C48 /* UINavigationBar */,
 				42F411821C2150E500814E7B /* UIActionSheet */,
 				42F411851C2150E500814E7B /* UIAlertView */,
@@ -4877,6 +4931,7 @@
 				42F411F01C2150E500814E7B /* UIImage+Resize.h in Headers */,
 				42068EFD1C573E33005DFB01 /* POPDecayAnimation.h in Headers */,
 				42B647401BEDA9C600B2F6FD /* CCProperty.h in Headers */,
+				4229668D1C75926B005E1C03 /* UIView+CCFlipImageView.h in Headers */,
 				42F411FE1C2150E500814E7B /* UISearchBar+Addition.h in Headers */,
 				425477831BD2AEC20071BBC5 /* RSADataVerifier.h in Headers */,
 				428B5C321C22609C001B8584 /* QRCodeGenerator.h in Headers */,
@@ -5147,6 +5202,7 @@
 				42F4113F1C214C5400814E7B /* CCLineBrush.h in Headers */,
 				42F411341C214C5400814E7B /* CCBaseBrush.h in Headers */,
 				42DEB2BA1C254A6800734E09 /* CCColorPickerController.h in Headers */,
+				422966941C75AB28005E1C03 /* UISearchController+Addition.h in Headers */,
 				42F967881C3A5FBC0047FC15 /* CCBottomPopupView.h in Headers */,
 				42F411CA1C2150E500814E7B /* NSData+Additions.h in Headers */,
 				42F24C791BEA5A10008CDEDC /* CCChart.h in Headers */,
@@ -5200,6 +5256,7 @@
 				4254774C1BD2AEC20071BBC5 /* md4.h in Headers */,
 				42068F0A1C573E33005DFB01 /* POPAnimationEventInternal.h in Headers */,
 				422511421C72F795003B3623 /* CCPropertyType.h in Headers */,
+				422966801C756480005E1C03 /* CCLaunchAnimation.h in Headers */,
 				429CA0E91B9EF8BF0013A44A /* CCAudioPlayerHelper.h in Headers */,
 				42F24C5D1BEA5091008CDEDC /* PNLineChart.h in Headers */,
 				42F24C551BEA5091008CDEDC /* PNChartLabel.h in Headers */,
@@ -5231,6 +5288,7 @@
 				428B5C311C22609C001B8584 /* mask.h in Headers */,
 				42B30DDD1BBD72AD0039BB94 /* UIView+WebCacheOperation.h in Headers */,
 				429C9F981B9EF8BF0013A44A /* CCUncaughtExceptionHandler.h in Headers */,
+				4229668B1C75926B005E1C03 /* CCFlipNumberViewImageFactory.h in Headers */,
 				429CA0711B9EF8BF0013A44A /* CCPopMenu.h in Headers */,
 				429C9F9C1B9EF8BF0013A44A /* CCQRCodeViewController.h in Headers */,
 				429C9FAC1B9EF8BF0013A44A /* CCUserDefaults.h in Headers */,
@@ -5294,6 +5352,7 @@
 				42F24C4F1BEA5091008CDEDC /* PNBar.h in Headers */,
 				429CA10D1B9EF8BF0013A44A /* CCEmotionManager.h in Headers */,
 				426979411BA695BA00C3E93C /* UIButton+AFNetworking.h in Headers */,
+				422966891C75926B005E1C03 /* CCFlipImageView.h in Headers */,
 				429CA1161B9EF8BF0013A44A /* CCMessageBubbleView.h in Headers */,
 				4268CEDE1C4381A100434D65 /* CCExpandHeader.h in Headers */,
 				42B30DD71BBD72AD0039BB94 /* UIImage+WebP.h in Headers */,
@@ -5664,6 +5723,7 @@
 				429CA0741B9EF8BF0013A44A /* CCPopMenuItem.m in Sources */,
 				42F411D71C2150E500814E7B /* UIColor+BUIColor.m in Sources */,
 				42F24C661BEA5091008CDEDC /* PNPieChartDataItem.m in Sources */,
+				422966811C756480005E1C03 /* CCLaunchAnimation.m in Sources */,
 				422E91731C5F38BE008F7DDA /* PRTweenTimingFunctions.m in Sources */,
 				429CA0611B9EF8BF0013A44A /* CCPickerAssetsViewController.m in Sources */,
 				429C9FF61B9EF8BF0013A44A /* SRWebSocketConnectionInfo.m in Sources */,
@@ -5679,6 +5739,7 @@
 				42068F071C573E33005DFB01 /* POPAnimatableProperty.mm in Sources */,
 				42F1640A1C2A401E00F17928 /* CCToolButton.m in Sources */,
 				4267DD1D1BDB5C5900B0C43F /* BaseManagedObject.m in Sources */,
+				4229668C1C75926B005E1C03 /* CCFlipNumberViewImageFactory.m in Sources */,
 				425477781BD2AEC20071BBC5 /* DataSigner.m in Sources */,
 				42F24C521BEA5091008CDEDC /* PNBarChart.m in Sources */,
 				426476AB1BD0E3AF00EE191C /* CCUtilityButtonView.m in Sources */,
@@ -5762,6 +5823,7 @@
 				42F24C5A1BEA5091008CDEDC /* PNColor.m in Sources */,
 				429C9FBB1B9EF8BF0013A44A /* FriendGroup.m in Sources */,
 				429CA0181B9EF8BF0013A44A /* CCLineChartView.m in Sources */,
+				422966951C75AB28005E1C03 /* UISearchController+Addition.m in Sources */,
 				429C9F531B9EF8BF0013A44A /* BaseTableViewCell.m in Sources */,
 				42B30DE91BBD72AD0039BB94 /* SDWebImageManager.m in Sources */,
 				429C9FF01B9EF8BF0013A44A /* SRLongPollingTransport.m in Sources */,
@@ -5775,6 +5837,7 @@
 				421E7A761C3D173D00C31AD0 /* CCDrawerVisualState.m in Sources */,
 				42A356361BF4399800B6F1F2 /* CCRefreshBaseView.m in Sources */,
 				42F411FB1C2150E500814E7B /* UIScrollView+CCExtension.m in Sources */,
+				4229668E1C75926B005E1C03 /* UIView+CCFlipImageView.m in Sources */,
 				425477841BD2AEC20071BBC5 /* RSADataVerifier.m in Sources */,
 				42DEB2971C25495000734E09 /* CCColorSquare.m in Sources */,
 				42F4113A1C214C5400814E7B /* CCPencilBrush.m in Sources */,
@@ -5790,6 +5853,7 @@
 				420CD8B21C59F788009578D4 /* CCInputDodger.m in Sources */,
 				42DEB2BB1C254A6800734E09 /* CCColorPickerController.m in Sources */,
 				429CA0721B9EF8BF0013A44A /* CCPopMenu.m in Sources */,
+				4229668A1C75926B005E1C03 /* CCFlipImageView.m in Sources */,
 				428B5C2E1C22609C001B8584 /* bitstream.c in Sources */,
 				42A58A411BCC94320027429C /* CCQRCodeDisplayViewController.m in Sources */,
 				425476BE1BD2A9DC0071BBC5 /* CCAliPayEngine.m in Sources */,

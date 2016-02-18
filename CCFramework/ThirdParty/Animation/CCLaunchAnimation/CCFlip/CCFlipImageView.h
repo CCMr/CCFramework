@@ -1,5 +1,5 @@
 //
-//  Animation.h
+//  CCFlipImageView.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,13 +23,32 @@
 // THE SOFTWARE.
 //
 
-#ifndef CCFramework_Animation_h
-#define CCFramework_Animation_h
+#import <UIKit/UIKit.h>
 
+extern const NSTimeInterval CCFlipImageViewDefaultFlipDuration;
 
-#import <CCFramework/CCRadarView.h>
-#import <CCFramework/POP.h>
-#import <CCFramework/CCUnReadBubbleView.h>
-#import <CCFramework/CCLaunchAnimation.h>
+typedef void(^CCFlipImageViewCompletionBlock)(BOOL finished);
 
-#endif
+typedef NS_ENUM(NSInteger, CCFlipImageViewFlipDirection) {
+    CCFlipImageViewFlipDirectionDown,
+    CCFlipImageViewFlipDirectionUp
+};
+
+@interface CCFlipImageView : UIView
+
+@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, assign) CCFlipImageViewFlipDirection flipDirection;
+@property (nonatomic, assign) NSUInteger zDistance;
+
+- (id)initWithImage:(UIImage*)image;
+
+- (void)setImageAnimated:(UIImage*)image;
+
+- (void)setImageAnimated:(UIImage*)image
+              completion:(CCFlipImageViewCompletionBlock)completion;
+
+- (void)setImageAnimated:(UIImage*)image
+                duration:(CGFloat)duration
+              completion:(CCFlipImageViewCompletionBlock)completion;
+
+@end

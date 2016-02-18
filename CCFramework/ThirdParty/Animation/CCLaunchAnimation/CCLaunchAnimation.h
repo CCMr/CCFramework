@@ -1,5 +1,5 @@
 //
-//  Animation.h
+//  CCLaunchAnimation.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,13 +23,25 @@
 // THE SOFTWARE.
 //
 
-#ifndef CCFramework_Animation_h
-#define CCFramework_Animation_h
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, CCLaunchAnimationType) {
+    CCLaunchAnimationTypeLite,
+    CCLaunchAnimationTypePlus,
+    CCLaunchAnimationTypeCool,
+    CCLaunchAnimationTypeFlip,
+};
 
-#import <CCFramework/CCRadarView.h>
-#import <CCFramework/POP.h>
-#import <CCFramework/CCUnReadBubbleView.h>
-#import <CCFramework/CCLaunchAnimation.h>
+@interface CCLaunchAnimation : NSObject
 
-#endif
++ (void)animationWithWindow:(UIWindow *)window;
+
++ (void)animationWithWindow:(UIWindow *)window
+                LaunchImage:(UIImage *)launchImage;
+
++ (void)animationWithWindow:(UIWindow *)window
+                LaunchImage:(UIImage *)launchImage
+              AnimationType:(CCLaunchAnimationType)animationType;
+
+@end

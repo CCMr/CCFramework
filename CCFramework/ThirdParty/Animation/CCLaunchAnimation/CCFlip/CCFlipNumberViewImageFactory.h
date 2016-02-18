@@ -1,5 +1,5 @@
 //
-//  Animation.h
+//  CCFlipNumberViewImageFactory.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,13 +23,17 @@
 // THE SOFTWARE.
 //
 
-#ifndef CCFramework_Animation_h
-#define CCFramework_Animation_h
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+@interface CCFlipNumberViewImageFactory : NSObject
 
++ (CCFlipNumberViewImageFactory*)sharedInstance;
 
-#import <CCFramework/CCRadarView.h>
-#import <CCFramework/POP.h>
-#import <CCFramework/CCUnReadBubbleView.h>
-#import <CCFramework/CCLaunchAnimation.h>
+- (CGSize)imageSizeForBundleNamed:(NSString*)bundleName;
+- (NSArray*)topImagesForBundleNamed:(NSString*)bundleName;
+- (NSArray*)bottomImagesForBundleNamed:(NSString*)bundleName;
 
-#endif
+- (void)generateImagesFromBundleNamed:(NSString*)bundleName;
+- (NSArray*)generateImagesFromImage:(UIImage*)image;
+
+@end
