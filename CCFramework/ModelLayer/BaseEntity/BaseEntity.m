@@ -111,8 +111,11 @@
 - (id)initWithJson:(NSString *)jsonStr
 {
     if (self = [super init]) {
+        jsonStr = [jsonStr stringByReplacingOccurrencesOfString:@"\r\n" withString:@"\\r\\n"];
+        jsonStr = [jsonStr stringByReplacingOccurrencesOfString:@"\r" withString:@"\\r"];
+        jsonStr = [jsonStr stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:[jsonStr dataUsingEncoding:NSUTF8StringEncoding]
-                                                            options:NSJSONReadingAllowFragments
+                                                            options:0
                                                               error:nil];
         [self populateObject:self fromDictionary:dic exclude:nil];
     }
