@@ -544,5 +544,17 @@
     cc_NoticeremoveObserver(self, UIKeyboardWillHideNotification, nil);
     cc_NoticeremoveObserver(self, CCNotificationLanguageChanged, nil);
     cc_NoticeremoveObserver(self, CCThemeDidChangeNotification, nil);
+    [self deallocs];
 }
+
+/**
+ *  @author CC, 16-02-19
+ *  
+ *  @brief 释放内存
+ */
+-(void)deallocs
+{
+    
+}
+
 @end

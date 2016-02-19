@@ -72,7 +72,7 @@
  *  
  *  @brief 初始化数据
  */
--(void)initWithData;
+- (void)initWithData;
 
 /**
  *  @author CC, 2016-01-25
@@ -257,5 +257,12 @@
  *  @brief  隐藏导航栏底部线
  */
 - (void)hideNavigationControllerBottomLine;
+
+/**
+ *  @author CC, 16-02-19
+ *  
+ *  @brief 释放内存
+ */
+-(void)deallocs;
 
 @end

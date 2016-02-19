@@ -89,8 +89,15 @@
 {
     if (!_assetsVc) {
         _assetsVc = [[CCPickerAssetsViewController alloc] init];
+        _assetsVc.minCount = self.minCount;
     }
     return _assetsVc;
+}
+
+- (void)setMinCount:(NSInteger)minCount
+{
+    _minCount = minCount;
+    self.assetsVc.minCount = minCount;
 }
 
 #pragma mark 跳转到控制器里面的内容
