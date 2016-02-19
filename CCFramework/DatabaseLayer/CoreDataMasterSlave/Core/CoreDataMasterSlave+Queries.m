@@ -71,7 +71,7 @@
         fetchRequest.predicate = predicate;
     }
     
-    return [self executeQueriesCount:fetchRequest];
+    return [self cc_executeQueriesCount:fetchRequest];
 }
 
 /**
@@ -132,7 +132,7 @@
     if (condition)
         [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
     
-    return [self ConversionData:[self executeQueriesContext:fetchRequest]];
+    return [self ConversionData:[self cc_executeQueriesContext:fetchRequest]];
 }
 
 /**
@@ -194,7 +194,7 @@
     if (condition)
         [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
     
-    [self executeQueriesContext:fetchRequest
+    [self cc_executeQueriesContext:fetchRequest
                         Handler:handler];
 }
 
@@ -325,7 +325,7 @@
         [fetchRequest setSortDescriptors:@[ sorted ]];
     }
     
-    return [self ConversionData:[self executeQueriesContext:fetchRequest]];
+    return [self ConversionData:[self cc_executeQueriesContext:fetchRequest]];
 }
 
 /**
@@ -455,7 +455,7 @@
         [fetchRequest setSortDescriptors:@[ sorted ]];
     }
     
-    return [self ConversionData:[self executeQueriesContext:fetchRequest]];
+    return [self ConversionData:[self cc_executeQueriesContext:fetchRequest]];
 }
 
 /**

@@ -95,7 +95,7 @@
  *
  *  @return 返回数量
  */
-+ (NSInteger)executeQueriesCount:(NSFetchRequest *)request;
++ (NSInteger)cc_executeQueriesCount:(NSFetchRequest *)request;
 
 /**
  *  @author CC, 2015-10-28
@@ -107,8 +107,8 @@
  *
  *  @return 返回数量
  */
-+ (NSInteger)executeQueriesCount:(NSManagedObjectContext *)queriesContext
-                    FetchRequest:(NSFetchRequest *)request;
++ (NSInteger)cc_executeQueriesCount:(NSManagedObjectContext *)queriesContext
+                       FetchRequest:(NSFetchRequest *)request;
 
 /**
  *  @author CC, 2015-10-26
@@ -118,8 +118,8 @@
  *  @param request 查询条件
  *  @param handler 完成回调函数
  */
-+ (void)executeQueriesCount:(NSFetchRequest *)request
-                    Handler:(void (^)(NSError *error, NSInteger requestCount))handler;
++ (void)cc_executeQueriesCount:(NSFetchRequest *)request
+                       Handler:(void (^)(NSError *error, NSInteger requestCount))handler;
 
 /**
  *  @author CC, 2015-10-26
@@ -130,9 +130,9 @@
  *  @param request        查询条件
  *  @param handler        完成回调函数
  */
-+ (void)executeQueriesCount:(NSManagedObjectContext *)queriesContext
-               FetchRequest:(NSFetchRequest *)request
-                    Handler:(void (^)(NSError *error, NSInteger requestCount))handler;
++ (void)cc_executeQueriesCount:(NSManagedObjectContext *)queriesContext
+                  FetchRequest:(NSFetchRequest *)request
+                       Handler:(void (^)(NSError *error, NSInteger requestCount))handler;
 
 /**
  *  @author CC, 2015-10-26
@@ -143,7 +143,7 @@
  *
  *  @return 返回结果集
  */
-+ (NSArray *)executeQueriesContext:(NSFetchRequest *)request;
++ (NSArray *)cc_executeQueriesContext:(NSFetchRequest *)request;
 
 /**
  *  @author CC, 2015-10-28
@@ -155,8 +155,8 @@
  *
  *  @return 返回结果集
  */
-+ (NSArray *)executeQueriesContext:(NSManagedObjectContext *)queriesContext
-                      FetchRequest:(NSFetchRequest *)request;
++ (NSArray *)cc_executeQueriesContext:(NSManagedObjectContext *)queriesContext
+                         FetchRequest:(NSFetchRequest *)request;
 
 /**
  *  @author CC, 2015-10-26
@@ -166,8 +166,8 @@
  *  @param request 查询条件
  *  @param handler 完成回调函数
  */
-+ (void)executeQueriesContext:(NSFetchRequest *)request
-                      Handler:(void (^)(NSError *error, NSArray *requestResults))handler;
++ (void)cc_executeQueriesContext:(NSFetchRequest *)request
+                         Handler:(void (^)(NSError *error, NSArray *requestResults))handler;
 
 /**
  *  @author CC, 2015-10-26
@@ -178,10 +178,11 @@
  *  @param request        查询条件
  *  @param handler        完成回调函数
  */
-+ (void)executeQueriesContext:(NSManagedObjectContext *)queriesContext
-                 FetchRequest:(NSFetchRequest *)request
-                      Handler:(void (^)(NSError *error, NSArray *))handler;
++ (void)cc_executeQueriesContext:(NSManagedObjectContext *)queriesContext
+                    FetchRequest:(NSFetchRequest *)request
+                         Handler:(void (^)(NSError *error, NSArray *))handler;
 
+#pragma mark -
 #pragma mark + 保存
 /**
  *  @author CC, 2015-10-24
@@ -190,7 +191,7 @@
  *
  *  @param saveContext 线程管理对象
  */
-+ (void)saveContext:(void (^)(NSManagedObjectContext *currentContext))saveContext;
++ (void)cc_saveContext:(void (^)(NSManagedObjectContext *currentContext))saveContext;
 
 /**
  *  @author CC, 2015-10-24
@@ -200,8 +201,8 @@
  *  @param saveContext 线程管理对象
  *  @param completion  完成回调函数
  */
-+ (void)saveContext:(void (^)(NSManagedObjectContext *currentContext))saveContext
-         completion:(void (^)(NSError *error))completion;
++ (void)cc_saveContext:(void (^)(NSManagedObjectContext *currentContext))saveContext
+            completion:(void (^)(NSError *error))completion;
 
 /**
  *  @author C C, 2015-10-25
@@ -211,8 +212,8 @@
  *  @param saveContext 线程管理对象
  *  @param completion  完成回调函数
  */
-+ (void)saveWithContext:(NSManagedObjectContext *)saveContext
-             completion:(void (^)(NSError *error))completion;
++ (void)cc_saveWithContext:(NSManagedObjectContext *)saveContext
+                completion:(void (^)(NSError *error))completion;
 
 /**
  *  @author C C, 2015-10-25
@@ -223,8 +224,58 @@
  *  @param block       回调执行函数
  *  @param completion  完成回调函数
  */
-+ (void)saveWithContext:(NSManagedObjectContext *)saveContext
-       SaveContextBlock:(void (^)(NSManagedObjectContext *currentContext))saveContextBlock
-             completion:(void (^)(NSError *error))completion;
++ (void)cc_saveWithContext:(NSManagedObjectContext *)saveContext
+          SaveContextBlock:(void (^)(NSManagedObjectContext *currentContext))saveContextBlock
+                completion:(void (^)(NSError *error))completion;
+
+#pragma mark + 保存数据 同步
+
+/**
+ *  @author CC, 16-02-19
+ *  
+ *  @brief 保存对象 同步
+ *
+ *  @param saveContext      管理对象
+ *  @param saveContextBlock 回调执行函数
+ *  @param completion       完成回调函数
+ */
++ (void)cc_saveAndWaitWithContext:(void (^)(NSManagedObjectContext *currentContext))saveContextBlock;
+
+/**
+ *  @author CC, 16-02-19
+ *  
+ *  @brief 保存对象 同步
+ *
+ *  @param saveContext      管理对象
+ *  @param saveContextBlock 回调执行函数
+ *  @param completion       完成回调函数
+ */
++ (void)cc_saveAndWaitWithContextError:(void (^)(NSManagedObjectContext *currentContext))saveContextBlock
+                            completion:(void (^)(NSError *error))completion;
+
+/**
+ *  @author CC, 16-02-19
+ *  
+ *  @brief 保存对象 同步
+ *
+ *  @param saveContext      管理对象
+ *  @param saveContextBlock 回调执行函数
+ *  @param completion       完成回调函数
+ */
++ (void)cc_saveAndWaitWithContext:(NSManagedObjectContext *)saveContext
+                 SaveContextBlock:(void (^)(NSManagedObjectContext *currentContext))saveContextBlock;
+
+/**
+ *  @author CC, 16-02-19
+ *  
+ *  @brief 保存对象 同步
+ *
+ *  @param saveContext      管理对象
+ *  @param saveContextBlock 回调执行函数
+ *  @param completion       完成回调函数
+ */
++ (void)cc_saveAndWaitWithContext:(NSManagedObjectContext *)saveContext
+                 SaveContextBlock:(void (^)(NSManagedObjectContext *currentContext))saveContextBlock
+                       completion:(void (^)(NSError *error))completion;
 
 @end

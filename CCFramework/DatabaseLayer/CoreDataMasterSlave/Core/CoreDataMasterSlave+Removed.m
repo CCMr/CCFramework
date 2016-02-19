@@ -49,7 +49,7 @@
 + (void)cc_RemovedAll:(NSString *)tableName
            completion:(void (^)(NSError *error))completion
 {
-    [self saveContext:^(NSManagedObjectContext *currentContext) {
+    [self cc_saveAndWaitWithContextError:^(NSManagedObjectContext *currentContext) {
         NSFetchRequest *request = [self cc_AllRequest:tableName];
         [request setReturnsObjectsAsFaults:YES];
         [request setIncludesPropertyValues:NO];
@@ -123,7 +123,7 @@
                    ManagedObjectId:(NSArray *)arrayObjectID
                         completion:(void (^)(NSError *error))completion
 {
-    [self saveContext:^(NSManagedObjectContext *currentContext) {
+    [self cc_saveAndWaitWithContextError:^(NSManagedObjectContext *currentContext) {
         NSFetchRequest *request = [self cc_AllRequest:tableName];
         [request setReturnsObjectsAsFaults:YES];
         [request setIncludesPropertyValues:NO];
@@ -170,7 +170,7 @@
                       Condition:(NSString *)condition
                      Completion:(void (^)(NSError *error))completion
 {
-    [self saveContext:^(NSManagedObjectContext *currentContext) {
+    [self cc_saveAndWaitWithContextError:^(NSManagedObjectContext *currentContext) {
         
         NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
         if (condition)
@@ -227,7 +227,7 @@
                   MultiProperty:(NSDictionary *)propertyKeyValues
                      completion:(void (^)(NSError *error))completion
 {
-    [self saveContext:^(NSManagedObjectContext *currentContext) {
+    [self cc_saveAndWaitWithContextError:^(NSManagedObjectContext *currentContext) {
         
         NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
         if (propertyKeyValues) {

@@ -125,7 +125,7 @@
     if (!editDataArray.count)
         return;
     
-    [self saveContext:^(NSManagedObjectContext *currentContext) {
+    [self cc_saveAndWaitWithContextError:^(NSManagedObjectContext *currentContext) {
         for (NSDictionary *endtDic in editDataArray) {
             NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
             [fetchRequest setPredicate:[NSPredicate predicateWithFormat: [NSString stringWithFormat: @"%@ %@ '%@'", conditionKey, condition, [endtDic objectForKey:conditionValue]]]];
@@ -195,7 +195,7 @@
                  EditData:(NSDictionary *)editData
                completion:(void (^)(NSError *error))completion
 {
-    [self saveContext:^(NSManagedObjectContext *currentContext) {
+    [self cc_saveAndWaitWithContextError:^(NSManagedObjectContext *currentContext) {
         
         NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
         [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
@@ -267,7 +267,7 @@
            AttributeValue:(id)attributeValue
                completion:(void (^)(NSError *error))completion
 {
-    [self saveContext:^(NSManagedObjectContext *currentContext) {
+    [self cc_saveAndWaitWithContextError:^(NSManagedObjectContext *currentContext) {
         NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
         [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
         NSError *error = nil;
@@ -329,7 +329,7 @@
                  EditData:(NSDictionary *)editData
                completion:(void (^)(NSError *error))completion
 {
-    [self saveContext:^(NSManagedObjectContext *currentContext) {
+    [self cc_saveAndWaitWithContextError:^(NSManagedObjectContext *currentContext) {
         
         NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
         NSError *error = nil;

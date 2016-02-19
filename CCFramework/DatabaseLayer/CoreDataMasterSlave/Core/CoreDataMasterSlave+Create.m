@@ -99,7 +99,7 @@
 {
     if (!dataArray.count) return;
     
-    [self saveContext:^(NSManagedObjectContext *currentContext) {
+    [self cc_saveAndWaitWithContextError:^(NSManagedObjectContext *currentContext) {
         for (NSDictionary *mapping in dataArray){
             
             NSManagedObject *entity = [NSEntityDescription insertNewObjectForEntityForName:tableName inManagedObjectContext:currentContext];
@@ -202,7 +202,7 @@
                          WithData:(NSDictionary *)data
                        Completion:(void (^)(NSError *error))completion
 {
-    [self saveContext:^(NSManagedObjectContext *currentContext) {
+    [self cc_saveAndWaitWithContextError:^(NSManagedObjectContext *currentContext) {
         [self cc_insertOrUpdateWtihData:tableName 
                              PrimaryKey:primaryKey
                                WithData:data
