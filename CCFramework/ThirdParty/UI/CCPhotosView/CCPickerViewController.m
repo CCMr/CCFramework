@@ -40,6 +40,7 @@
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        self.minCount = 9;
         [self createNavigationController];
     }
     return self;
@@ -57,13 +58,19 @@
 {
     CCPickerGroupViewController *groupVc = [[CCPickerGroupViewController alloc] init];
     groupVc.IsPush = YES;
-    groupVc.minCount = 9;
+    groupVc.minCount = self.minCount;
     groupVc.delegate = self;
     BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:groupVc];
     nav.view.frame = self.view.bounds;
     [self addChildViewController:nav];
     [self.view addSubview:nav.view];
     self.groupVc = groupVc;
+}
+
+- (void)setMinCount:(NSInteger)minCount
+{
+    _minCount = minCount;
+    self.groupVc.minCount = minCount;
 }
 
 #pragma mark - 展示控制器

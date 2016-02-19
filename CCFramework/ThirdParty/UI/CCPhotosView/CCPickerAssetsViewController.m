@@ -97,7 +97,7 @@
 #pragma mark - 初始化页面控件
 - (void)initControl
 {
-    _toolbarView = [[UIView alloc] initWithFrame:CGRectMake(0, winsize.height - 50, winsize.width, 50)];
+    _toolbarView = [[UIView alloc] initWithFrame:CGRectMake(0,winsize.height - 114, winsize.width, 50)];
     [self.view addSubview:_toolbarView];
     
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, winsize.width, .5)];
@@ -186,22 +186,21 @@
         layout.minimumInteritemSpacing = 0;
         layout.minimumLineSpacing = 4;
         
-        CCPickerCollectionView *collectionView = [[CCPickerCollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+        CCPickerCollectionView *collectionView = [[CCPickerCollectionView alloc] initWithFrame:CGRectMake(0, 0, winsize.width, winsize.height - 114) collectionViewLayout:layout];
         collectionView.translatesAutoresizingMaskIntoConstraints = NO;
         [collectionView registerClass:[CCPickerCollectionViewCell class] forCellWithReuseIdentifier:@"CCPickerCollectionViewCell"];
         collectionView.contentInset = UIEdgeInsetsMake(5, 5, 5, 5);
         collectionView.collectionViewDelegate = self;
-        [self.view insertSubview:_collectionView = collectionView belowSubview:_toolbarView];
-        
-        NSDictionary *views = NSDictionaryOfVariableBindings(collectionView);
-        
-        NSString *widthVfl = @"H:|-0-[collectionView]-0-|";
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:widthVfl options:0 metrics:nil views:views]];
-        
-        NSString *heightVfl = @"V:|-0-[collectionView]-50-|";
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:heightVfl options:0 metrics:nil views:views]];
+        collectionView.minCount = self.minCount;
+        [self.view addSubview:_collectionView = collectionView];
     }
     return _collectionView;
+}
+
+-(void)setMinCount:(NSInteger)minCount
+{
+    _minCount = minCount;
+    self.collectionView.minCount = minCount;
 }
 
 /**

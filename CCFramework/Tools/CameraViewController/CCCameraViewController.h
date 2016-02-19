@@ -28,6 +28,8 @@
 
 @interface CCCameraViewController : UIViewController
 
+@property(nonatomic, assign) NSInteger minCount;
+
 /**
  *  @author CC, 2015-07-23
  *

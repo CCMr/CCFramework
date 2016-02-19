@@ -39,6 +39,13 @@
 
 @implementation CCCameraViewController
 
+- (instancetype)init
+{
+    if (self = [super init])
+        self.minCount = 9;
+    return self;
+}
+
 /**
  *  @author CC, 2015-07-23
  *
@@ -107,7 +114,7 @@
 - (void)LocalPhoto
 {
     CCPickerViewController *pickerViewcontroller = [[CCPickerViewController alloc] init];
-    pickerViewcontroller.minCount = 9;
+    pickerViewcontroller.minCount = self.minCount;
     pickerViewcontroller.delegate = self;
     [pickerViewcontroller show];
 }
@@ -264,7 +271,7 @@
     if ([self isCameraAvailable] && [self doesCameraSupportTakingPhotos]) {
         UIImagePickerController *controller = [[UIImagePickerController alloc] init]; //初始化图片选择控制器
         [controller setSourceType:UIImagePickerControllerSourceTypeCamera];	   // 设置类型
-         controller.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;//设置闪光灯模式
+        controller.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;      //设置闪光灯模式
         
         // 设置所支持的类型，设置只能拍照，或则只能录像，或者两者都可以
         NSString *requiredMediaType = (NSString *)kUTTypeImage;
