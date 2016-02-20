@@ -28,6 +28,7 @@
 #import "CCActionSheet.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "CCPhotoPickerController.h"
 
 @interface CCCameraViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, CCPickerDelegate>
 
@@ -113,10 +114,14 @@
  */
 - (void)LocalPhoto
 {
-    CCPickerViewController *pickerViewcontroller = [[CCPickerViewController alloc] init];
-    pickerViewcontroller.minCount = self.minCount;
-    pickerViewcontroller.delegate = self;
-    [pickerViewcontroller show];
+//    CCPickerViewController *pickerViewcontroller = [[CCPickerViewController alloc] init];
+//    pickerViewcontroller.minCount = self.minCount;
+//    pickerViewcontroller.delegate = self;
+//    [pickerViewcontroller show];
+    
+    CCPhotoPickerController *photoPickerC = [[CCPhotoPickerController alloc] initWithMaxCount:9 delegate:nil];
+    
+     [[[[UIApplication sharedApplication].windows firstObject] rootViewController] presentViewController:photoPickerC animated:YES completion:nil];
 }
 
 /**
