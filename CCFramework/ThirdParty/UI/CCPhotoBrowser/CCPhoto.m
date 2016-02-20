@@ -52,6 +52,8 @@
     return [UIImage imageWithCGImage:[_assets thumbnail]];
 }
 
+
+
 #pragma mark 截图
 - (UIImage *)capture:(UIView *)view
 {

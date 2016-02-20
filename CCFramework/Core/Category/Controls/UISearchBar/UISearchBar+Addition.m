@@ -73,7 +73,7 @@
 - (void)setSearchTextFieldBackgroundColor:(UIColor *)backgroundColor
 {
     UIView *searchTextField = nil;
-    if (IsiOS7Later) {
+    if (iOS7Later) {
         searchTextField = [[[self.subviews firstObject] subviews] lastObject];
     } else {
         for (UIView *subView in self.subviews) {

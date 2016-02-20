@@ -25,6 +25,7 @@
 
 #ifndef CCProperty_h
 #define CCProperty_h
+#import <UIKit/UIDevice.h>
 
 #define Bundle                              [NSBundle mainBundle]
 
@@ -45,7 +46,9 @@
 
 /** 设备类型 */
 #define deviceType                          [[UIDevice currentDevice] model];
-#define IsiOS7Later                         !(CURRENT_SYS_VERSION < 7.0)
+#define iOS7Later                           (CURRENT_SYS_VERSION >= 7.0f)
+#define iOS8Later                           (CURRENT_SYS_VERSION >= 8.0f)
+#define iOS9Later                           (CURRENT_SYS_VERSION >= 9.0f)
 
 /** 设备版本号 */
 #define CURRENT_SYS_VERSION                 [[[UIDevice currentDevice] systemVersion] floatValue]
