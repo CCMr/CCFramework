@@ -43,7 +43,7 @@
 
 #define kCCArrowMarginWidth 5.2f // 箭头宽度
 
-#define kCCTopAndBottomBubbleMargin 8.0f	  // 文本在气泡内部的上下间隙
+#define kCCTopAndBottomBubbleMargin 10.0f	  // 文本在气泡内部的上下间隙
 #define kCCLeftTextHorizontalBubblePadding 10.0f  // 文本的水平间隙
 #define kCCRightTextHorizontalBubblePadding 10.0f // 文本的水平间隙
 
@@ -121,7 +121,9 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 //计算图文最大的大小
 + (CGSize)neededSizeForTeletext:(id<CCMessageModel>)message
 {
-    CGSize size = [CCMessageBubbleView neededSizeForText:[message text]];
+    NSString *text = [[message text] stringByReplacingOccurrencesOfString:message.teletextReplaceStr withString:@""];
+    text = [text stringByReplacingOccurrencesOfString:message.teletextReplaceStr withString:OBJECT_REPLACEMENT_CHARACTER];
+    CGSize size = [CCMessageBubbleView neededSizeForText:text];
     BOOL isWrap = NO;
     for (NSDictionary *d in message.teletextPath) {
         NSString *path = [d objectForKey:@"path"];
@@ -813,17 +815,12 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 //小表情与文字消息时设置气泡框
                 
                 CGFloat textX = -(kCCArrowMarginWidth / 2.0);
-                if (self.message.bubbleMessageType == CCBubbleMessageTypeReceiving) {
+                if (self.message.bubbleMessageType == CCBubbleMessageTypeReceiving)
                     textX = kCCArrowMarginWidth / 2.0;
-                }
+                
                 CGRect viewFrame = CGRectZero;
                 viewFrame.size.width = CGRectGetWidth(bubbleFrame) - kCCLeftTextHorizontalBubblePadding - kCCRightTextHorizontalBubblePadding - kCCArrowMarginWidth;
-                
-                int count = 2;
-                if (currentType == CCBubbleMessageMediaTypeText)
-                    count = 3;
-                
-                viewFrame.size.height = CGRectGetHeight(bubbleFrame) - kCCHaveBubbleMargin * count;
+                viewFrame.size.height = CGRectGetHeight(bubbleFrame) - kCCHaveBubbleMargin * 3;
                 
                 if (currentType == CCBubbleMessageMediaTypeText || currentType == CCBubbleMessageMediaTypeTeletext) {
                     self.displayTextView.frame = viewFrame;
