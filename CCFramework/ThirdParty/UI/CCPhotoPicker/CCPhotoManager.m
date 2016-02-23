@@ -27,7 +27,7 @@
 #import "config.h"
 
 #pragma clang diagnostic push
-#pragma clang diagnostic ignored"-Wdeprecated-declarations"
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 @implementation CCPhotoManager
 @synthesize assetLibrary = _assetLibrary;
@@ -35,7 +35,8 @@
 
 #pragma mark - Life Cycle
 
-+ (instancetype)sharedManager {
++ (instancetype)sharedManager
+{
     static dispatch_once_t onceToken;
     static id manager;
     dispatch_once(&onceToken, ^{
@@ -47,10 +48,11 @@
 #pragma mark - Methods
 
 
-- (BOOL)hasAuthorized {
+- (BOOL)hasAuthorized
+{
     if (iOS8Later) {
         return [PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusAuthorized;
-    }else {
+    } else {
         return [ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized;
     }
 }
@@ -67,13 +69,14 @@
  *  @param completionBlock    回调block
  */
 - (void)getAlbumsPickingVideoEnable:(BOOL)pickingVideoEnable
-                    completionBlock:(void(^_Nonnull)(NSArray<CCAlbumModel *> * _Nullable albums))completionBlock {
+                    completionBlock:(void (^_Nonnull)(NSArray<CCAlbumModel *> *_Nullable albums))completionBlock
+{
     NSMutableArray *albumArr = [NSMutableArray array];
     if (iOS8Later) {
         
         PHFetchOptions *option = [[PHFetchOptions alloc] init];
         if (!pickingVideoEnable) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeImage];
-        option.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
+        option.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES] ];
         PHAssetCollectionSubtype smartAlbumSubtype = PHAssetCollectionSubtypeSmartAlbumUserLibrary | PHAssetCollectionSubtypeSmartAlbumRecentlyAdded | PHAssetCollectionSubtypeSmartAlbumVideos;
         // For iOS 9, We need to show ScreenShots Album && SelfPortraits Album
         if (iOS9Later) {
@@ -102,7 +105,7 @@
             }
         }
         completionBlock ? completionBlock(albumArr) : nil;
-    }else {
+    } else {
         [self.assetLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
             if (group == nil) {
                 NSLog(@"group nil will do it");
@@ -132,7 +135,8 @@
  */
 - (void)getAssetsFromResult:(id _Nonnull)result
          pickingVideoEnable:(BOOL)pickingVideoEnable
-            completionBlock:(void(^_Nonnull)(NSArray<CCAssetModel *> * _Nullable assets))completionBlock {
+            completionBlock:(void (^_Nonnull)(NSArray<CCAssetModel *> *_Nullable assets))completionBlock
+{
     NSMutableArray *photoArr = [NSMutableArray array];
     if ([result isKindOfClass:[PHFetchResult class]]) {
         for (PHAsset *asset in result) {
@@ -140,7 +144,7 @@
             if (asset.mediaSubtypes == PHAssetMediaSubtypePhotoLive) {
                 type = CCAssetTypeLivePhoto;
             }
-            NSString *timeLength = type == CCAssetTypeVideo ? [NSString stringWithFormat:@"%0.0f",asset.duration] : @"";
+            NSString *timeLength = type == CCAssetTypeVideo ? [NSString stringWithFormat:@"%0.0f", asset.duration] : @"";
             timeLength = [self _timeStringFromSeconds:[timeLength intValue]];
             [photoArr addObject:[CCAssetModel modelWithAsset:asset type:type timeLength:timeLength]];
         }
@@ -164,30 +168,32 @@
 }
 
 
-- (CCAssetType)_assetTypeWithOriginType:(PHAssetMediaType)originType {
+- (CCAssetType)_assetTypeWithOriginType:(PHAssetMediaType)originType
+{
     
     if (originType == PHAssetMediaTypeVideo) {
         return CCAssetTypeVideo;
-    }else if (originType == PHAssetMediaTypeAudio) {
+    } else if (originType == PHAssetMediaTypeAudio) {
         return CCAssetTypeAudio;
     }
     
     return CCAssetTypePhoto;
 }
 
-- (NSString *)_timeStringFromSeconds:(int)seconds {
+- (NSString *)_timeStringFromSeconds:(int)seconds
+{
     NSString *newTime = @"";
     if (seconds < 10) {
-        newTime = [NSString stringWithFormat:@"0:0%zd",seconds];
+        newTime = [NSString stringWithFormat:@"0:0%zd", seconds];
     } else if (seconds < 60) {
-        newTime = [NSString stringWithFormat:@"0:%zd",seconds];
+        newTime = [NSString stringWithFormat:@"0:%zd", seconds];
     } else {
         NSInteger min = seconds / 60;
         NSInteger sec = seconds - (min * 60);
         if (sec < 10) {
-            newTime = [NSString stringWithFormat:@"%zd:0%zd",min,sec];
+            newTime = [NSString stringWithFormat:@"%zd:0%zd", min, sec];
         } else {
-            newTime = [NSString stringWithFormat:@"%zd:%zd",min,sec];
+            newTime = [NSString stringWithFormat:@"%zd:%zd", min, sec];
         }
     }
     return newTime;
@@ -205,18 +211,19 @@
  *  @param completionBlock 回到block
  */
 - (void)getOriginImageWithAsset:(id _Nonnull)asset
-                completionBlock:(void(^_Nonnull)(UIImage * _Nullable image))completionBlock {
+                completionBlock:(void (^_Nonnull)(UIImage *_Nullable image))completionBlock
+{
     
     __block UIImage *resultImage;
     if (iOS8Later) {
         PHImageRequestOptions *imageRequestOption = [[PHImageRequestOptions alloc] init];
         imageRequestOption.synchronous = YES;
-        [self.cachingImageManager requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeDefault options:imageRequestOption resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+        [self.cachingImageManager requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeDefault options:imageRequestOption resultHandler:^(UIImage *_Nullable result, NSDictionary *_Nullable info) {
             resultImage = result;
             completionBlock ? completionBlock(resultImage) : nil;
         }];
     } else {
-
+        
         CGImageRef fullResolutionImageRef = [[(ALAsset *)asset defaultRepresentation] fullResolutionImage];
         // 通过 fullResolutionImage 获取到的的高清图实际上并不带上在照片应用中使用“编辑”处理的效果，需要额外在 AlAssetRepresentation 中获取这些信息
         NSString *adjustment = [[[(ALAsset *)asset defaultRepresentation] metadata] objectForKey:@"AdjustmentXMP"];
@@ -254,14 +261,15 @@
  */
 - (void)getThumbnailWithAsset:(id _Nonnull)asset
                          size:(CGSize)size
-              completionBlock:(void(^_Nonnull)(UIImage *_Nullable image))completionBlock {
+              completionBlock:(void (^_Nonnull)(UIImage *_Nullable image))completionBlock
+{
     if (iOS8Later) {
         PHImageRequestOptions *imageRequestOptions = [[PHImageRequestOptions alloc] init];
         imageRequestOptions.synchronous = YES;
         imageRequestOptions.resizeMode = PHImageRequestOptionsResizeModeExact;
         // 在 PHImageManager 中，targetSize 等 size 都是使用 px 作为单位，因此需要对targetSize 中对传入的 Size 进行处理，宽高各自乘以 ScreenScale，从而得到正确的图片
         CGFloat screenScale = [UIScreen mainScreen].scale;
-        [self.cachingImageManager requestImageForAsset:asset targetSize:CGSizeMake(size.width * screenScale, size.height * screenScale) contentMode:PHImageContentModeAspectFit options:imageRequestOptions resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+        [self.cachingImageManager requestImageForAsset:asset targetSize:CGSizeMake(size.width * screenScale, size.height * screenScale) contentMode:PHImageContentModeAspectFit options:imageRequestOptions resultHandler:^(UIImage *_Nullable result, NSDictionary *_Nullable info) {
             completionBlock ? completionBlock(result) : nil;
         }];
     } else {
@@ -279,7 +287,8 @@
  *  @param completionBlock 回调block
  */
 - (void)getPreviewImageWithAsset:(id _Nonnull)asset
-                 completionBlock:(void(^_Nonnull)(UIImage * _Nullable image))completionBlock {
+                 completionBlock:(void (^_Nonnull)(UIImage *_Nullable image))completionBlock
+{
     [self getThumbnailWithAsset:asset size:[UIScreen mainScreen].bounds.size completionBlock:completionBlock];
 }
 
@@ -290,11 +299,12 @@
  *  @param completionBlock 回调block
  */
 - (void)getImageOrientationWithAsset:(id _Nonnull)asset
-                     completionBlock:(void(^_Nonnull)(UIImageOrientation imageOrientation))completionBlock {
+                     completionBlock:(void (^_Nonnull)(UIImageOrientation imageOrientation))completionBlock
+{
     if (iOS8Later) {
         PHImageRequestOptions *imageRequestOptions = [[PHImageRequestOptions alloc] init];
         imageRequestOptions.synchronous = YES;
-        [self.cachingImageManager requestImageDataForAsset:asset options:imageRequestOptions resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+        [self.cachingImageManager requestImageDataForAsset:asset options:imageRequestOptions resultHandler:^(NSData *_Nullable imageData, NSString *_Nullable dataUTI, UIImageOrientation orientation, NSDictionary *_Nullable info) {
             completionBlock ? completionBlock(orientation) : nil;
         }];
     } else {
@@ -302,9 +312,10 @@
     }
 }
 
-- (void)getAssetSizeWithAsset:(id)asset completionBlock:(void(^)(CGFloat size))completionBlock {
+- (void)getAssetSizeWithAsset:(id)asset completionBlock:(void (^)(CGFloat size))completionBlock
+{
     if ([asset isKindOfClass:[PHAsset class]]) {
-        [[PHImageManager defaultManager] requestImageDataForAsset:asset options:nil resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+        [[PHImageManager defaultManager] requestImageDataForAsset:asset options:nil resultHandler:^(NSData *_Nullable imageData, NSString *_Nullable dataUTI, UIImageOrientation orientation, NSDictionary *_Nullable info) {
             completionBlock ? completionBlock(imageData.length) : nil;
         }];
     } else if ([asset isKindOfClass:[ALAsset class]]) {
@@ -320,9 +331,10 @@
  *  @param completionBlock 回调block
  */
 - (void)getVideoInfoWithAsset:(id _Nonnull)asset
-              completionBlock:(void(^ _Nonnull)(AVPlayerItem * _Nullable playerItem,NSDictionary * _Nullable playetItemInfo))completionBlock {
+              completionBlock:(void (^_Nonnull)(AVPlayerItem *_Nullable playerItem, NSDictionary *_Nullable playetItemInfo))completionBlock
+{
     if ([asset isKindOfClass:[PHAsset class]]) {
-        [[PHImageManager defaultManager] requestPlayerItemForVideo:asset options:nil resultHandler:^(AVPlayerItem * _Nullable playerItem, NSDictionary * _Nullable info) {
+        [[PHImageManager defaultManager] requestPlayerItemForVideo:asset options:nil resultHandler:^(AVPlayerItem *_Nullable playerItem, NSDictionary *_Nullable info) {
             completionBlock ? completionBlock(playerItem,info) : nil;
         }];
     } else if ([asset isKindOfClass:[ALAsset class]]) {
@@ -331,10 +343,9 @@
         NSString *uti = [defaultRepresentation UTI];
         NSURL *videoURL = [[asset valueForProperty:ALAssetPropertyURLs] valueForKey:uti];
         AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:videoURL];
-        completionBlock ? completionBlock(playerItem,nil) : nil;
+        completionBlock ? completionBlock(playerItem, nil) : nil;
     }
 }
-
 
 #pragma mark - Getters
 

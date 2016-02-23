@@ -65,6 +65,12 @@ typedef enum : NSUInteger {
 /** 视频播放item的信息 */
 @property (nonatomic, copy,   readonly, nullable) NSDictionary * playerItemInfo;
 
+/**
+ *  @author CC, 16-02-22
+ *  
+ *  @brief 是否原图 默认NO
+ */
+@property (nonatomic, assign) BOOL selectOriginEnable;
 
 /** 是否被选中  默认NO */
 @property (nonatomic, assign) BOOL selected;

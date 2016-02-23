@@ -1,5 +1,5 @@
 //
-//  CCBottomToolBar.h
+//  CCPhotoPreviewViewLayout.m
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,41 +23,26 @@
 // THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, CCBottomBarType) {
-    CCCollectionBottomBar,
-    CCPreviewBottomBar,
-    CCVideoPreviewBottomBar,
-};
+#import "CCPhotoPreviewViewLayout.h"
+#import "config.h"
 
-@interface CCBottomBar : UIView
+@implementation CCPhotoPreviewViewLayout
 
-@property(nonatomic, assign, readonly) CCBottomBarType barType;
-@property(nonatomic, assign, readonly) CGFloat totalSize;
-@property(nonatomic, assign, readonly) BOOL selectOriginEnable;
-@property(nonatomic, copy) void (^confirmBlock)();
-/**
- *  @author CC, 16-02-20
- *  
- *  @brief 预览回调
- */
-@property(nonatomic, copy) void (^previewBlock)();
+- (instancetype)init
+{
+    if (self = [super init]) {
+        self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        self.itemSize = CGSizeMake(winsize.width, winsize.height);
+        self.minimumInteritemSpacing = 0;
+        self.minimumLineSpacing = 0;
+    }
+    return self;
+}
 
-/**
- *  @author CC, 16-02-22
- *  
- *  @brief 原图大小回调
- */
-@property(nonatomic, copy) void (^originalPhotototalSizeBlock)();
-
-@property (nonatomic, assign) NSUInteger currentPhotoIndex;
-
-
-- (instancetype)initWithBarType:(CCBottomBarType)barType;
-
-- (void)updateBottomBarWithAssets:(NSArray *)assets;
-
-- (void)originalPhotototalSize:(id)asset;
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)oldBounds
+{
+    return YES;
+}
 
 @end

@@ -32,9 +32,8 @@
 @interface CCBottomBar ()
 
 @property(weak, nonatomic) UIButton *previewButton;
-@property(weak, nonatomic) UIView *originView;
-@property(weak, nonatomic) UIImageView *originStateImageView;
-@property(weak, nonatomic) UILabel *originSizeLabel;
+@property(weak, nonatomic) UIButton *originalPhotoButton;
+@property(weak, nonatomic) UILabel *originalPhotoLable;
 @property(weak, nonatomic) UIButton *confirmButton;
 @property(weak, nonatomic) UIImageView *numberImageView;
 @property(weak, nonatomic) UILabel *numberLabel;
@@ -68,35 +67,64 @@
 
 - (void)initialization
 {
-    UIButton *previewButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    previewButton.frame = CGRectMake(10, 3, 44, 44);
-    [previewButton addTarget:self action:@selector(previewButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    previewButton.titleLabel.font = [UIFont systemFontOfSize:16];
-    [previewButton setTitle:@"预览" forState:UIControlStateNormal];
-    [previewButton setTitle:@"预览" forState:UIControlStateDisabled];
-    [previewButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [previewButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-    previewButton.hidden = NO;
-    [self addSubview:_previewButton = previewButton];
+    if (!_previewButton) {
+        UIButton *previewButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        previewButton.frame = CGRectMake(10, 3, 44, 44);
+        previewButton.titleLabel.font = [UIFont systemFontOfSize:16];
+        [previewButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        //        [previewButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
+        [self addSubview:_previewButton = previewButton];
+    }
     
-    UIButton *confirmButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    confirmButton.frame = CGRectMake(winsize.width - 66, 0, 44, 44);
-    confirmButton.titleLabel.font = [UIFont systemFontOfSize:16];
-    [self addSubview:_confirmButton = confirmButton];
+    if (!_originalPhotoButton) {
+        UIButton *originalPhotoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        originalPhotoButton.frame = CGRectMake(5, 0, 120, 44);
+        originalPhotoButton.imageEdgeInsets = UIEdgeInsetsMake(0, -8, 0, 0);
+        originalPhotoButton.contentEdgeInsets = UIEdgeInsetsMake(0, -50, 0, 0);
+        originalPhotoButton.backgroundColor = [UIColor clearColor];
+        [originalPhotoButton addTarget:self action:@selector(originalPhotoButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        originalPhotoButton.titleLabel.font = [UIFont systemFontOfSize:13];
+        [originalPhotoButton setTitle:@"原图" forState:UIControlStateNormal];
+        [originalPhotoButton setTitle:@"原图" forState:UIControlStateSelected];
+        [originalPhotoButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [originalPhotoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [originalPhotoButton setImage:CCResourceImage(@"preview_original_def") forState:UIControlStateNormal];
+        [originalPhotoButton setImage:CCResourceImage(@"photo_original_sel") forState:UIControlStateSelected];
+        originalPhotoButton.hidden = YES;
+        [self addSubview:_originalPhotoButton = originalPhotoButton];
+    }
+    if (!_originalPhotoLable) {
+        UILabel *originalPhotoLable = [[UILabel alloc] init];
+        originalPhotoLable.frame = CGRectMake(70, 0, 70, 44);
+        originalPhotoLable.textAlignment = NSTextAlignmentLeft;
+        originalPhotoLable.font = [UIFont systemFontOfSize:13];
+        originalPhotoLable.textColor = [UIColor whiteColor];
+        originalPhotoLable.backgroundColor = [UIColor clearColor];
+        originalPhotoLable.hidden = YES;
+        [self addSubview:_originalPhotoLable = originalPhotoLable];
+    }
+    if (!_confirmButton) {
+        UIButton *confirmButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        confirmButton.frame = CGRectMake(winsize.width - 66, 0, 44, 44);
+        confirmButton.titleLabel.font = [UIFont systemFontOfSize:16];
+        [self addSubview:_confirmButton = confirmButton];
+    }
+    if (!_numberImageView) {
+        UIImageView *numberImageView = [[UIImageView alloc] initWithImage:CCResourceImage(@"photo_number_icon")];
+        numberImageView.backgroundColor = [UIColor clearColor];
+        numberImageView.frame = CGRectMake(winsize.width - 66 - 24, 9, 26, 26);
+        numberImageView.hidden = YES;
+        [self addSubview:_numberImageView = numberImageView];
+    }
     
-    UIImageView *numberImageView = [[UIImageView alloc] initWithImage:CCResourceImage(@"photo_number_icon")];
-    numberImageView.backgroundColor = [UIColor clearColor];
-    numberImageView.frame = CGRectMake(winsize.width - 66 - 24, 9, 26, 26);
-    numberImageView.hidden = YES;
-    [self addSubview:_numberImageView = numberImageView];
-    
-    
-    UILabel *numberLable = [[UILabel alloc] initWithFrame:_numberImageView.frame];
-    numberLable.font = [UIFont systemFontOfSize:16];
-    numberLable.textColor = [UIColor whiteColor];
-    numberLable.textAlignment = NSTextAlignmentCenter;
-    numberLable.backgroundColor = [UIColor clearColor];
-    [self addSubview:_numberLabel = numberLable];
+    if (!_numberLabel) {
+        UILabel *numberLable = [[UILabel alloc] initWithFrame:_numberImageView.frame];
+        numberLable.font = [UIFont systemFontOfSize:16];
+        numberLable.textColor = [UIColor whiteColor];
+        numberLable.textAlignment = NSTextAlignmentCenter;
+        numberLable.backgroundColor = [UIColor clearColor];
+        [self addSubview:_numberLabel = numberLable];
+    }
 }
 
 - (void)previewButtonClick
@@ -113,21 +141,11 @@
     return bottomBar;
 }
 
-
 #pragma mark - Methods
 
 - (void)updateBottomBarWithAssets:(NSArray *)assets
 {
-    
     _totalSize = .0f;
-    
-    if (!assets || assets.count == 0) {
-        self.originStateImageView.highlighted = NO;
-        self.originSizeLabel.textColor = [UIColor lightGrayColor];
-        self.originSizeLabel.text = @"原图";
-    } else {
-        self.originStateImageView.highlighted = self.selectOriginEnable;
-    }
     
     self.numberLabel.text = [NSString stringWithFormat:@"%zi", assets.count];
     
@@ -135,53 +153,57 @@
     self.confirmButton.enabled = assets.count >= 1;
     
     self.previewButton.enabled = assets.count >= 1;
-    self.originView.userInteractionEnabled = assets.count >= 1;
+    self.confirmButton.alpha = .5f;
+    self.previewButton.alpha = .5f;
+    if (self.previewButton.enabled) {
+        self.confirmButton.alpha = 1;
+        self.previewButton.alpha = 1;
+    }
     
     [UIView animationWithLayer:self.numberImageView.layer type:CCAnimationTypeSmaller];
-    
-    __weak typeof(*&self) wSelf = self;
-    [assets enumerateObjectsUsingBlock:^(CCAssetModel *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        [[CCPhotoManager sharedManager] getAssetSizeWithAsset:obj.asset completionBlock:^(CGFloat size) {
+}
+
+- (void)originalPhotototalSize:(id)asset
+{
+    if (self.selectOriginEnable) {
+        __weak typeof(*&self) wSelf = self;
+        [[CCPhotoManager sharedManager] getAssetSizeWithAsset:((CCAssetModel *)asset).asset completionBlock:^(CGFloat size) {
             __weak typeof(*&self) self = wSelf;
-            _totalSize += size;
-            if (idx == assets.count - 1) {
-                [self _updateSizeLabel];
-                *stop = YES;
-            }
+            _totalSize = size;
+            [self _updateSizeLabel];
         }];
-    }];
+    }
 }
 
 - (void)_setupWithType:(CCBottomBarType)barType
 {
     _barType = barType;
-    _selectOriginEnable = YES;
     
     self.lineView.hidden = barType == CCPreviewBottomBar;
-    self.backgroundColor = barType == CCPreviewBottomBar ? [UIColor colorWithRed:34 / 255.0f green:34 / 255.0f blue:34 / 255.0f alpha:.7f] : [UIColor colorWithRed:247 / 255.0f green:247 / 255.0f blue:247 / 255.0 alpha:1.0f];
+    
+    UIColor *color = [UIColor colorWithRed:247 / 255.0f green:247 / 255.0f blue:247 / 255.0 alpha:1.0f];
+    BOOL hidden = NO;
+    if (barType == CCPreviewBottomBar || barType == CCVideoPreviewBottomBar) {
+        color = [UIColor colorWithRed:34 / 255.0f green:34 / 255.0f blue:34 / 255.0f alpha:.7f];
+        hidden = YES;
+    }
+    self.backgroundColor = color;
     self.lineView.backgroundColor = [UIColor colorWithRed:223 / 255.0f green:223 / 255.0f blue:223 / 255.0f alpha:1.f];
     
     //config previewButton
-    self.previewButton.hidden = barType == CCPreviewBottomBar;
-    self.previewButton.enabled = NO;
+    self.previewButton.hidden = hidden;
     [self.previewButton setTitle:@"预览" forState:UIControlStateNormal];
     [self.previewButton setTitle:@"预览" forState:UIControlStateDisabled];
-    [self.previewButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.previewButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
+    self.previewButton.alpha = .5f;
+    [self.previewButton addTarget:self action:@selector(previewButtonClick) forControlEvents:UIControlEventTouchUpInside];
     
-    //config originView
-    self.originView.hidden = YES;
-    self.originView.userInteractionEnabled = NO;
-    self.originView.backgroundColor = [UIColor clearColor];
-    UITapGestureRecognizer *originViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_handleOriginViewTap)];
-    [self.originView addGestureRecognizer:originViewTap];
     
-    self.originStateImageView.highlighted = NO;
-    [self.originStateImageView setImage:CCResourceImage(@"bottom_bar_origin_normal")];
-    [self.originStateImageView setHighlightedImage:CCResourceImage(@"bottom_bar_origin_selected")];
+    hidden = NO;
+    if (barType == CCCollectionBottomBar || barType == CCVideoPreviewBottomBar)
+        hidden = YES;
     
-    self.originSizeLabel.text = @"原图";
-    self.originSizeLabel.textColor = [UIColor lightGrayColor];
+    self.originalPhotoButton.hidden = hidden;
+    self.originalPhotoLable.hidden = self.originalPhotoButton.hidden;
     
     //config number
     self.numberImageView.hidden = self.numberLabel.hidden = YES;
@@ -193,7 +215,8 @@
     [self.confirmButton setTitle:@"确定" forState:UIControlStateNormal];
     [self.confirmButton setTitle:@"确定" forState:UIControlStateDisabled];
     [self.confirmButton setTitleColor:[UIColor colorWithRed:(83 / 255.0)green:(179 / 255.0)blue:(17 / 255.0)alpha:1.0f] forState:UIControlStateNormal];
-    [self.confirmButton setTitleColor:[UIColor colorWithRed:(83 / 255.0)green:(179 / 255.0)blue:(17 / 255.0)alpha:.5f] forState:UIControlStateDisabled];
+    //    [self.confirmButton setTitleColor:[UIColor colorWithRed:(83 / 255.0)green:(179 / 255.0)blue:(17 / 255.0)alpha:.5f] forState:UIControlStateDisabled];
+    self.confirmButton.alpha = .5f;
     [self.confirmButton addTarget:self action:@selector(handleConfirmAction) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -202,21 +225,20 @@
     self.confirmBlock ? self.confirmBlock() : nil;
 }
 
-- (void)_handleOriginViewTap
+- (void)originalPhotoButtonClick
 {
     self.selectOriginEnable = !self.selectOriginEnable;
-    self.originStateImageView.highlighted = self.selectOriginEnable;
-    [self _updateSizeLabel];
+    _originalPhotoButton.selected = !_originalPhotoButton.isSelected;
+    _originalPhotoLable.hidden = !_originalPhotoButton.isSelected;
+    if (self.selectOriginEnable)
+        self.originalPhotototalSizeBlock ? self.originalPhotototalSizeBlock() : nil;
 }
 
 - (void)_updateSizeLabel
 {
     if (self.selectOriginEnable) {
-        self.originSizeLabel.text = [NSString stringWithFormat:@"原图 (%@)", [self _bytesStringFromDataLength:self.totalSize]];
-        self.originSizeLabel.textColor = self.barType == CCCollectionBottomBar ? [UIColor blackColor] : [UIColor whiteColor];
-    } else {
-        self.originSizeLabel.text = @"原图";
-        self.originSizeLabel.textColor = [UIColor lightGrayColor];
+        self.originalPhotoLable.text = [NSString stringWithFormat:@"(%@)", [self _bytesStringFromDataLength:self.totalSize]];
+        self.originalPhotoLable.textColor = self.barType == CCCollectionBottomBar ? [UIColor blackColor] : [UIColor whiteColor];
     }
 }
 

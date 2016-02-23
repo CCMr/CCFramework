@@ -29,25 +29,35 @@
 #import "config.h"
 #import "CCAlbumCell.h"
 
+@interface CCPhotoPickerController ()
+
+@property(weak, nonatomic) UIView *progressHUD;
+
+@property(weak, nonatomic) UIActivityIndicatorView *progressHUDIndicatorView;
+
+@end
+
 @implementation CCPhotoPickerController
 
 #pragma clang diagnostic push
-#pragma clang diagnostic ignored"-Wdeprecated-declarations"
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 #pragma mark - CCPhotoPickerController Life Cycle
 
-- (instancetype)initWithMaxCount:(NSUInteger)maxCount delegate:(id<CCPhotoPickerControllerDelegate>)delegate {
+- (instancetype)initWithMaxCount:(NSUInteger)maxCount delegate:(id<CCPhotoPickerControllerDelegate>)delegate
+{
     CCAlbumListController *albumListC = [[CCAlbumListController alloc] init];
     if (self = [super initWithRootViewController:albumListC]) {
         _photoPickerDelegate = delegate;
-        _maxCount = maxCount ? : NSUIntegerMax;
+        _maxCount = maxCount ?: NSUIntegerMax;
         _autoPushToPhotoCollection = YES;
         _pickingVideoEnable = YES;
     }
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     [self _setupNavigationBarAppearance];
     [self _setupUnAuthorizedTips];
@@ -58,7 +68,8 @@
  *  判断是否需要自动push到第一个相册专辑内
  *  @param animated 是否需要动画
  */
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     if (self.autoPushToPhotoCollection) {
         CCPhotoCollectionController *photoCollectionC = [[CCPhotoCollectionController alloc] initWithCollectionViewLayout:[CCPhotoCollectionController photoCollectionViewLayoutWithWidth:self.view.frame.size.width]];
@@ -71,8 +82,42 @@
     }
 }
 
-- (void)dealloc {
-    NSLog(@"photo picker dealloc");
+- (void)showProgressHUD
+{
+    if (!_progressHUD) {
+        UIView *HUDContainer = [[UIView alloc] init];
+        HUDContainer.frame = CGRectMake((CGRectGetWidth(self.view.bounds) - 120) / 2, (CGRectGetHeight(self.view.bounds) - 90) / 2, 120, 90);
+        HUDContainer.layer.cornerRadius = 8;
+        HUDContainer.clipsToBounds = YES;
+        HUDContainer.backgroundColor = [UIColor darkGrayColor];
+        HUDContainer.alpha = 0.7;
+        _progressHUD = HUDContainer;
+        
+        UIActivityIndicatorView *HUDIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        HUDIndicatorView.frame = CGRectMake(45, 15, 30, 30);
+        [HUDContainer addSubview:HUDIndicatorView];
+        _progressHUDIndicatorView = HUDIndicatorView;
+        
+        UILabel *HUDLable = [[UILabel alloc] init];
+        HUDLable.frame = CGRectMake(0, 40, 120, 50);
+        HUDLable.textAlignment = NSTextAlignmentCenter;
+        HUDLable.text = @"正在处理...";
+        HUDLable.font = [UIFont systemFontOfSize:15];
+        HUDLable.textColor = [UIColor whiteColor];
+        [HUDContainer addSubview:HUDLable];
+    }
+    
+    [_progressHUDIndicatorView startAnimating];
+    [[UIApplication sharedApplication].keyWindow addSubview:_progressHUD];
+}
+
+- (void)hideProgressHUD
+{
+    if (_progressHUD) {
+        [_progressHUDIndicatorView stopAnimating];
+        [_progressHUD removeFromSuperview];
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - CCPhotoPickerController Methods
@@ -82,37 +127,45 @@
  *
  *  @param assets 具体回传的资源
  */
-- (void)didFinishPickingPhoto:(NSArray<CCAssetModel *> *)assets {
+- (void)didFinishPickingPhoto:(NSArray<CCAssetModel *> *)assets
+{
+    [self showProgressHUD];
     NSMutableArray *images = [NSMutableArray array];
-    [assets enumerateObjectsUsingBlock:^(CCAssetModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [images addObject:obj.previewImage];
+    [assets enumerateObjectsUsingBlock:^(CCAssetModel *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        [images addObject:obj.selectOriginEnable ? obj.originImage: obj.previewImage];
     }];
-    if (self.photoPickerDelegate && [self.photoPickerDelegate respondsToSelector:@selector(photoPickerController:didFinishPickingPhotos:sourceAssets:)]) {
+    
+    if (self.photoPickerDelegate && [self.photoPickerDelegate respondsToSelector:@selector(photoPickerController:didFinishPickingPhotos:sourceAssets:)])
         [self.photoPickerDelegate photoPickerController:self didFinishPickingPhotos:images sourceAssets:assets];
-    }
-    self.didFinishPickingPhotosBlock ? self.didFinishPickingPhotosBlock(images,assets) : nil;
+    
+    self.didFinishPickingPhotosBlock ? self.didFinishPickingPhotosBlock(images, assets) : nil;
+    
+    [self hideProgressHUD];
 }
 
-- (void)didFinishPickingVideo:(CCAssetModel *)asset {
-    
-    if (self.photoPickerDelegate && [self.photoPickerDelegate respondsToSelector:@selector(photoPickerController:didFinishPickingVideo:sourceAssets:)]) {
+- (void)didFinishPickingVideo:(CCAssetModel *)asset
+{
+    [self showProgressHUD];
+    if (self.photoPickerDelegate && [self.photoPickerDelegate respondsToSelector:@selector(photoPickerController:didFinishPickingVideo:sourceAssets:)])
         [self.photoPickerDelegate photoPickerController:self didFinishPickingVideo:asset.previewImage sourceAssets:asset];
-    }
     
-    self.didFinishPickingVideoBlock ? self.didFinishPickingVideoBlock(asset.previewImage , asset) : nil;
+    self.didFinishPickingVideoBlock ? self.didFinishPickingVideoBlock(asset.previewImage, asset) : nil;
+    [self hideProgressHUD];
 }
 
-- (void)didCancelPickingPhoto {
-    if (self.photoPickerDelegate && [self.photoPickerDelegate respondsToSelector:@selector(photoPickerControllerDidCancel:)]) {
+- (void)didCancelPickingPhoto
+{
+    if (self.photoPickerDelegate && [self.photoPickerDelegate respondsToSelector:@selector(photoPickerControllerDidCancel:)])
         [self.photoPickerDelegate photoPickerControllerDidCancel:self];
-    }
+    
     self.didCancelPickingBlock ? self.didCancelPickingBlock() : nil;
 }
 
 /**
  *  设置当用户未授权访问照片时提示
  */
-- (void)_setupUnAuthorizedTips {
+- (void)_setupUnAuthorizedTips
+{
     if (![[CCPhotoManager sharedManager] hasAuthorized]) {
         UILabel *tipsLabel = [[UILabel alloc] init];
         tipsLabel.frame = CGRectMake(8, 64, self.view.frame.size.width - 16, 300);
@@ -123,7 +176,7 @@
         tipsLabel.userInteractionEnabled = YES;
         NSString *appName = [[NSBundle mainBundle].infoDictionary valueForKey:@"CFBundleDisplayName"];
         if (!appName) appName = [[NSBundle mainBundle].infoDictionary valueForKey:@"CFBundleName"];
-        tipsLabel.text = [NSString stringWithFormat:@"请在%@的\"设置-隐私-照片\"选项中，\r允许%@访问你的手机相册。",[UIDevice currentDevice].model,appName];
+        tipsLabel.text = [NSString stringWithFormat:@"请在%@的\"设置-隐私-照片\"选项中，\r允许%@访问你的手机相册。", [UIDevice currentDevice].model, appName];
         [self.view addSubview:tipsLabel];
         
         //!!! bug 用户前往设置后,修改授权会导致app崩溃
@@ -135,14 +188,16 @@
 /**
  *  处理当用户未授权访问相册时 tipsLabel的点击手势,暂时有bug
  */
-- (void)_handleTipsTap {
+- (void)_handleTipsTap
+{
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
 }
 
 /**
  *  设置navigationBar的样式
  */
-- (void)_setupNavigationBarAppearance {
+- (void)_setupNavigationBarAppearance
+{
     self.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationBar.translucent = YES;
     
@@ -150,7 +205,7 @@
     [UIApplication sharedApplication].statusBarHidden = NO;
     
     if (iOS7Later) {
-        self.navigationBar.barTintColor = [UIColor colorWithRed:(34/255.0) green:(34/255.0) blue:(34/255.0) alpha:1.0];
+        self.navigationBar.barTintColor = [UIColor colorWithRed:(34 / 255.0)green:(34 / 255.0)blue:(34 / 255.0)alpha:1.0];
         self.navigationBar.tintColor = [UIColor whiteColor];
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
@@ -158,14 +213,16 @@
     UINavigationBar *navigationBar;
     UIBarButtonItem *barItem;
     if (iOS9Later) {
-        barItem = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[CCPhotoPickerController class]]];
-        navigationBar = [UINavigationBar appearanceWhenContainedInInstancesOfClasses:@[[CCPhotoPickerController class]]];
+        barItem = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[ [CCPhotoPickerController class] ]];
+        navigationBar = [UINavigationBar appearanceWhenContainedInInstancesOfClasses:@[ [CCPhotoPickerController class] ]];
     } else {
         barItem = [UIBarButtonItem appearanceWhenContainedIn:[CCPhotoPickerController class], nil];
         navigationBar = [UINavigationBar appearanceWhenContainedIn:[CCPhotoPickerController class], nil];
     }
-    [barItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0f],NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateNormal];
-    [navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:20.0f]}];
+    [barItem setTitleTextAttributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:15.0f],
+                                       NSForegroundColorAttributeName : [UIColor whiteColor] }
+                           forState:UIControlStateNormal];
+    [navigationBar setTitleTextAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:20.0f]}];
     [navigationBar setBarStyle:UIBarStyleBlackTranslucent];
 }
 
@@ -174,9 +231,10 @@
 
 @implementation CCAlbumListController
 
-#pragma mark - CCAlbumListController Life Cycle 
+#pragma mark - CCAlbumListController Life Cycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     self.navigationItem.title = @"照片";
@@ -194,34 +252,34 @@
         self.albums = [NSArray arrayWithArray:albums];
         [self.tableView reloadData];
     }];
-    
 }
 
 #pragma mark - CCAlbumListController Methods
 
-- (void)_handleCancelAction {
+- (void)_handleCancelAction
+{
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     CCPhotoPickerController *photoPickerVC = (CCPhotoPickerController *)self.navigationController;
     [photoPickerVC didCancelPickingPhoto];
-    
 }
 
 
 #pragma mark - CCAlbumListController UITableViewDataSource && UITableViewDelegate
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return self.albums.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     CCAlbumCell *albumCell = [tableView dequeueReusableCellWithIdentifier:@"CCAlbumCell"];
     [albumCell configCellWithItem:self.albums[indexPath.row]];
     return albumCell;
-    
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     CCPhotoCollectionController *photoCollectionC = [[CCPhotoCollectionController alloc] initWithCollectionViewLayout:[CCPhotoCollectionController photoCollectionViewLayoutWithWidth:self.view.frame.size.width]];
     photoCollectionC.album = self.albums[indexPath.row];
     [self.navigationController pushViewController:photoCollectionC animated:YES];

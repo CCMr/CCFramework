@@ -48,7 +48,7 @@
 
 - (void)configCellWithItem:(CCAssetModel *)item {
     
-    [self.scrollView setZoomScale:1.0f];
+//    [self.scrollView setZoomScale:1.0f];
     self.imageView.image = item.previewImage;
     [self _resizeSubviews];
     
@@ -166,12 +166,10 @@
 
 - (UIImageView *)imageView {
     if (!_imageView) {
-        
         _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
         _imageView.backgroundColor = [UIColor colorWithWhite:1.000 alpha:0.500];
         _imageView.clipsToBounds = YES;
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
-        
     }
     return _imageView;
 }

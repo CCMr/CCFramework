@@ -62,7 +62,6 @@
 }
 
 - (void)dealloc {
-    NSLog(@"video preview dealloc");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -114,14 +113,14 @@
 - (void)_setupPlayButton {
     UIButton *playButton  = [UIButton buttonWithType:UIButtonTypeCustom];
     playButton.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64 - 44);
-    [playButton setImage:[UIImage imageNamed:@"video_preview_play_normal"] forState:UIControlStateNormal];
-    [playButton setImage:[UIImage imageNamed:@"video_preview_play_highlight"] forState:UIControlStateHighlighted];
+    [playButton setImage:CCResourceImage(@"MMVideoPreviewPlay") forState:UIControlStateNormal];
+    [playButton setImage:CCResourceImage(@"MMVideoPreviewPlayHL") forState:UIControlStateHighlighted];
     [playButton addTarget:self action:@selector(_handlePlayAciton) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.playButton = playButton];
 }
 
 - (void)_setupBottomBar {
-    CCBottomBar *bottomBar = [[CCBottomBar alloc] initWithBarType:CCPreviewBottomBar];
+    CCBottomBar *bottomBar = [[CCBottomBar alloc] initWithBarType:CCVideoPreviewBottomBar];
     [bottomBar setFrame:CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44)];
     __weak typeof(*&self) wSelf = self;
     self.selectedVideoEnable ? [bottomBar setConfirmBlock:^{
@@ -150,7 +149,7 @@
 }
 
 - (void)_pausePlayer {
-    [self.playButton setImage:[UIImage imageNamed:@"video_preview_play_normal"] forState:UIControlStateNormal];
+    [self.playButton setImage:CCResourceImage(@"MMVideoPreviewPlay") forState:UIControlStateNormal];
     [self.player pause];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [UIView animateWithDuration:.2 animations:^{
@@ -179,7 +178,7 @@
         [_topBar addSubview:label];
         
         UIButton *backButton  = [UIButton buttonWithType:UIButtonTypeCustom];
-        [backButton setImage:[UIImage imageNamed:@"navigation_back"] forState:UIControlStateNormal];
+        [backButton setImage:CCResourceImage(@"navi_back") forState:UIControlStateNormal];
         [backButton setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 10)];
         [backButton sizeToFit];
         backButton.frame = CGRectMake(12, _topBar.frame.size.height/2 - backButton.frame.size.height/2 + originY/2, backButton.frame.size.width, backButton.frame.size.height);

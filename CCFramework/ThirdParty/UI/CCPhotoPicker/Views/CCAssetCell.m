@@ -66,30 +66,35 @@
 
 - (void)initialization
 {
-    UIImageView *photoImageView = [[UIImageView alloc] initWithFrame:self.bounds];
-    photoImageView.contentMode = UIViewContentModeScaleAspectFill;
-    photoImageView.clipsToBounds = YES;
-    [self addSubview:_photoImageView = photoImageView];
+    if (!_photoImageView) {
+        UIImageView *photoImageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        photoImageView.contentMode = UIViewContentModeScaleAspectFill;
+        photoImageView.clipsToBounds = YES;
+        [self addSubview:_photoImageView = photoImageView];
+    }
     
-    UIButton *photoStateButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 27, 0, 27, 27)];
-    [photoStateButton setBackgroundImage:CCResourceImage(@"photo_def_photoPickerVc") forState:UIControlStateNormal];
-    [photoStateButton setImage:CCResourceImage(@"photo_sel_photoPickerVc") forState:UIControlStateSelected];
-    [photoStateButton addTarget:self action:@selector(handleButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_photoStateButton = photoStateButton];
-    
-    UIView *videoView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.bounds) - 18, self.bounds.size.width, 18)];
-    videoView.backgroundColor = [UIColor blackColor];
-    [self addSubview:_videoView = videoView];
-    
-    UIImageView *video_icon = [[UIImageView alloc] initWithFrame:CGRectMake(4, 0, 18, 18)];
-    video_icon.image = CCResourceImage(@"VideoSendIcon");
-    [videoView addSubview:video_icon];
-    
-    UILabel *videoTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(videoView.frame.size.width - 27, 0, 24, 18)];
-    videoTimeLabel.backgroundColor = [UIColor clearColor];
-    videoTimeLabel.textColor = [UIColor whiteColor];
-    videoTimeLabel.font = [UIFont systemFontOfSize:12];
-    [videoView addSubview:_videoTimeLabel = videoTimeLabel];
+    if (!_photoStateButton) {
+        UIButton *photoStateButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 27, 0, 27, 27)];
+        [photoStateButton setBackgroundImage:CCResourceImage(@"photo_def_photoPickerVc") forState:UIControlStateNormal];
+        [photoStateButton setImage:CCResourceImage(@"photo_sel_photoPickerVc") forState:UIControlStateSelected];
+        [photoStateButton addTarget:self action:@selector(handleButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_photoStateButton = photoStateButton];
+    }
+    if (!_videoView) {
+        UIView *videoView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.bounds) - 18, self.bounds.size.width, 18)];
+        videoView.backgroundColor = [UIColor blackColor];
+        [self addSubview:_videoView = videoView];
+        
+        UIImageView *video_icon = [[UIImageView alloc] initWithFrame:CGRectMake(4, 0, 18, 18)];
+        video_icon.image = CCResourceImage(@"VideoSendIcon");
+        [videoView addSubview:video_icon];
+        
+        UILabel *videoTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(videoView.frame.size.width - 27, 0, 24, 18)];
+        videoTimeLabel.backgroundColor = [UIColor clearColor];
+        videoTimeLabel.textColor = [UIColor whiteColor];
+        videoTimeLabel.font = [UIFont systemFontOfSize:12];
+        [videoView addSubview:_videoTimeLabel = videoTimeLabel];
+    }
 }
 
 #pragma mark - Methods
@@ -106,9 +111,11 @@
 - (void)configCellWithItem:(CCAssetModel *_Nonnull)item
 {
     _asset = item;
+    self.photoStateButton.hidden = NO;
     switch (item.type) {
         case CCAssetTypeVideo:
         case CCAssetTypeAudio:
+            self.photoStateButton.hidden = YES;
             self.videoView.hidden = NO;
             self.videoTimeLabel.text = item.timeLength;
             break;

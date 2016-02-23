@@ -46,6 +46,6 @@
 @property (nonatomic, assign) NSUInteger maxCount;
 
 
-+ (UICollectionViewLayout *)photoPreviewViewLayoutWithSize:(CGSize)size;
+//+ (UICollectionViewLayout *)photoPreviewViewLayoutWithSize:(CGSize)size;
 
 @end

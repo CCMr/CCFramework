@@ -31,21 +31,23 @@
 #import "UIView+Animations.h"
 #import "UIViewController+CCPhotoHUD.h"
 #import "config.h"
+#import "CCPhotoManager.h"
 
 @interface CCPhotoPreviewController ()
 
-@property (nonatomic, strong) UIView *topBar;
-@property (nonatomic, weak)   UIButton *stateButton;
+@property(nonatomic, strong) UIView *topBar;
+@property(nonatomic, weak) UIButton *stateButton;
 
-@property (nonatomic, strong) CCBottomBar *bottomBar;
+@property(nonatomic, strong) CCBottomBar *bottomBar;
 
 @end
 
 @implementation CCPhotoPreviewController
 
-static NSString * const kCCPhotoPreviewIdentifier = @"CCPhotoPreviewCell";
+static NSString *const kCCPhotoPreviewIdentifier = @"CCPhotoPreviewCell";
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -57,79 +59,102 @@ static NSString * const kCCPhotoPreviewIdentifier = @"CCPhotoPreviewCell";
     // Do any additional setup after loading the view.
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
     [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO];
 }
 
-- (BOOL)prefersStatusBarHidden {
+- (BOOL)prefersStatusBarHidden
+{
     return NO;
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
     return UIStatusBarStyleLightContent;
-}
-
-- (void)dealloc {
-    NSLog(@"preview dealloc");
 }
 
 #pragma mark - Methods
 
-- (void)_setup {
+- (void)_setup
+{
     [self.view addSubview:self.topBar];
     [self.view addSubview:self.bottomBar];
     [self _updateTopBarStatus];
     [self.bottomBar updateBottomBarWithAssets:self.selectedAssets];
 }
 
-- (void)_setupCollectionView {
-    
+- (void)_setupCollectionView
+{
     [self.collectionView registerClass:[CCPhotoPreviewCell class] forCellWithReuseIdentifier:kCCPhotoPreviewIdentifier];
     self.collectionView.backgroundColor = [UIColor blackColor];
     self.collectionView.scrollsToTop = NO;
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.contentSize = CGSizeMake(self.view.frame.size.width * self.assets.count, self.view.frame.size.height);
     self.collectionView.pagingEnabled = YES;
-    
 }
 
-- (void)_handleBackAction {
+- (void)_handleBackAction
+{
     self.didFinishPreviewBlock ? self.didFinishPreviewBlock(self.selectedAssets) : nil;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)_handleStateChangeAction {
+- (void)handleStateChangeAction
+{
     if (self.stateButton.selected) {
         [self.selectedAssets removeObject:self.assets[self.currentIndex]];
         self.assets[self.currentIndex].selected = NO;
+        self.assets[self.currentIndex].selectOriginEnable = NO;
         [self _updateTopBarStatus];
-    }else {
+    } else {
         if (self.selectedAssets.count < self.maxCount) {
             self.assets[self.currentIndex].selected = YES;
             [self.selectedAssets addObject:self.assets[self.currentIndex]];
             [self _updateTopBarStatus];
             [UIView animationWithLayer:self.stateButton.layer type:CCAnimationTypeBigger];
-        }else {
+        } else {
             //TODO 超过最大数量
-            [self showAlertWithMessage:[NSString stringWithFormat:@"最多只能选择%zi张照片",self.maxCount]];
+            [self showAlertWithMessage:[NSString stringWithFormat:@"最多只能选择%zi张照片", self.maxCount]];
         }
     }
     [self.bottomBar updateBottomBarWithAssets:self.selectedAssets];
 }
 
-- (void)_updateTopBarStatus {
+- (void)originalPhotototalSize
+{
+    if (!self.stateButton.selected) {
+        if (self.selectedAssets.count < self.maxCount) {
+            self.assets[self.currentIndex].selected = YES;
+            [self.selectedAssets addObject:self.assets[self.currentIndex]];
+            [self _updateTopBarStatus];
+            [UIView animationWithLayer:self.stateButton.layer type:CCAnimationTypeBigger];
+        } else {
+            //TODO 超过最大数量
+            [self showAlertWithMessage:[NSString stringWithFormat:@"最多只能选择%zi张照片", self.maxCount]];
+        }
+    }
+    self.assets[self.currentIndex].selectOriginEnable = !self.assets[self.currentIndex].selectOriginEnable;
+    [self.bottomBar updateBottomBarWithAssets:self.selectedAssets];
+}
+
+- (void)_updateTopBarStatus
+{
     CCAssetModel *asset = self.assets[self.currentIndex];
+    [self.bottomBar originalPhotototalSize:asset];
     self.stateButton.selected = asset.selected;
 }
 
-- (void)_setBarHidden:(BOOL)hidden animated:(BOOL)animated {
+- (void)_setBarHidden:(BOOL)hidden animated:(BOOL)animated
+{
     if (!animated) {
         self.topBar.hidden = self.bottomBar.hidden = hidden;
         return;
@@ -138,33 +163,38 @@ static NSString * const kCCPhotoPreviewIdentifier = @"CCPhotoPreviewCell";
         self.topBar.alpha = self.bottomBar.alpha = hidden ? .0f : 1.0f;
     } completion:^(BOOL finished) {
         self.topBar.hidden = self.bottomBar.hidden = hidden;
+        [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationFade];
     }];
 }
 
 #pragma mark - UIScrollViewDelegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
     CGPoint offSet = scrollView.contentOffset;
     self.currentIndex = offSet.x / self.view.frame.size.width;
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
     [self _updateTopBarStatus];
 }
 
-
 #pragma mark <UICollectionViewDataSource>
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
     return 1;
 }
 
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     return self.assets.count;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     CCPhotoPreviewCell *previewCell = [collectionView dequeueReusableCellWithReuseIdentifier:kCCPhotoPreviewIdentifier forIndexPath:indexPath];
     [previewCell configCellWithItem:self.assets[indexPath.row]];
     __weak typeof(*&self) wSelf = self;
@@ -178,36 +208,37 @@ static NSString * const kCCPhotoPreviewIdentifier = @"CCPhotoPreviewCell";
 
 #pragma mark - Getters
 
-- (UIView *)topBar {
+- (UIView *)topBar
+{
     if (!_topBar) {
         
         CGFloat originY = iOS7Later ? 20 : 0;
         _topBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, originY + 44)];
-        _topBar.backgroundColor = [UIColor colorWithRed:34/255.0f green:34/255.0f blue:34/255.0f alpha:.7f];
+        _topBar.backgroundColor = [UIColor colorWithRed:34 / 255.0f green:34 / 255.0f blue:34 / 255.0f alpha:.7f];
         
-        UIButton *backButton  = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [backButton setImage:CCResourceImage(@"navi_back") forState:UIControlStateNormal];
         [backButton setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 10)];
         [backButton sizeToFit];
-        backButton.frame = CGRectMake(12, _topBar.frame.size.height/2 - backButton.frame.size.height/2 + originY/2, backButton.frame.size.width, backButton.frame.size.height);
+        backButton.frame = CGRectMake(12, _topBar.frame.size.height / 2 - backButton.frame.size.height / 2 + originY / 2, backButton.frame.size.width, backButton.frame.size.height);
         [backButton addTarget:self action:@selector(_handleBackAction) forControlEvents:UIControlEventTouchUpInside];
         [_topBar addSubview:backButton];
         
-        UIButton *stateButton  = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIButton *stateButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [stateButton setImage:CCResourceImage(@"photo_def_previewVc") forState:UIControlStateNormal];
         [stateButton setImage:CCResourceImage(@"photo_sel_photoPickerVc") forState:UIControlStateSelected];
         [stateButton setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 10)];
         [stateButton sizeToFit];
-        stateButton.frame = CGRectMake(_topBar.frame.size.width - 12 - stateButton.frame.size.width, _topBar.frame.size.height/2 - stateButton.frame.size.height/2 + originY/2, stateButton.frame.size.width, stateButton.frame.size.height);
-
-        [stateButton addTarget:self action:@selector(_handleStateChangeAction) forControlEvents:UIControlEventTouchUpInside];
-        [_topBar addSubview:self.stateButton = stateButton];
+        stateButton.frame = CGRectMake(_topBar.frame.size.width - 12 - stateButton.frame.size.width, _topBar.frame.size.height / 2 - stateButton.frame.size.height / 2 + originY / 2, stateButton.frame.size.width, stateButton.frame.size.height);
         
+        [stateButton addTarget:self action:@selector(handleStateChangeAction) forControlEvents:UIControlEventTouchUpInside];
+        [_topBar addSubview:self.stateButton = stateButton];
     }
     return _topBar;
 }
 
-- (CCBottomBar *)bottomBar {
+- (CCBottomBar *)bottomBar
+{
     if (!_bottomBar) {
         _bottomBar = [[CCBottomBar alloc] initWithBarType:CCPreviewBottomBar];
         _bottomBar.frame = CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44);
@@ -222,19 +253,12 @@ static NSString * const kCCPhotoPreviewIdentifier = @"CCPhotoPreviewCell";
             }];
             self.didFinishPickingBlock ? self.didFinishPickingBlock(images,self.selectedAssets) : nil;
         }];
+        
+        _bottomBar.originalPhotototalSizeBlock = ^{
+            [wSelf originalPhotototalSize];;
+        };
     }
     return _bottomBar;
 }
-
-
-+ (UICollectionViewLayout *)photoPreviewViewLayoutWithSize:(CGSize)size {
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    layout.itemSize = CGSizeMake(size.width, size.height);
-    layout.minimumInteritemSpacing = 0;
-    layout.minimumLineSpacing = 0;
-    return layout;
-}
-
 
 @end

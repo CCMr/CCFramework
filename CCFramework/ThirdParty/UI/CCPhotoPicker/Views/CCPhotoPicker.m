@@ -25,7 +25,7 @@
 
 #import "CCPhotoPicker.h"
 #import "CCAssetCell.h"
-
+#import "CCPhotoPreviewViewLayout.h"
 #import "CCPhotoPickerController.h"
 #import "CCPhotoPreviewController.h"
 #import "CCVideoPreviewController.h"
@@ -79,10 +79,6 @@
         self.maxCount = maxCount ? : self.maxCount;
     }
     return self;
-}
-
-- (void)dealloc {
-    NSLog(@"CCPhotoPicker dealloc");
 }
 
 #pragma mark - Methods
@@ -351,7 +347,7 @@
         }];
         [self.parentController presentViewController:videoPreviewC animated:YES completion:nil];
     }else {
-        CCPhotoPreviewController *previewC = [[CCPhotoPreviewController alloc] initWithCollectionViewLayout:[CCPhotoPreviewController photoPreviewViewLayoutWithSize:[UIScreen mainScreen].bounds.size]];
+        CCPhotoPreviewController *previewC = [[CCPhotoPreviewController alloc] initWithCollectionViewLayout:[[CCPhotoPreviewViewLayout alloc] init]];
         previewC.assets = self.assets;
         previewC.maxCount = self.maxCount;
         previewC.selectedAssets = [NSMutableArray arrayWithArray:self.selectedAssets];

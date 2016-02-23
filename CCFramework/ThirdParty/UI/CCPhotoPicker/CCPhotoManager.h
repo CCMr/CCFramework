@@ -35,11 +35,11 @@
 
 @interface CCPhotoManager : NSObject
 
-@property (nonatomic, strong, readonly)  PHCachingImageManager * _Nullable cachingImageManager;
+@property(nonatomic, strong, readonly) PHCachingImageManager *_Nullable cachingImageManager;
 
 #pragma clang diagnostic push
-#pragma clang diagnostic ignored"-Wdeprecated-declarations"
-@property (nonatomic, strong, readonly)  ALAssetsLibrary * _Nullable assetLibrary;
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+@property(nonatomic, strong, readonly) ALAssetsLibrary *_Nullable assetLibrary;
 #pragma clang diagnostic pop
 
 
@@ -65,7 +65,7 @@
  *  @param completionBlock    回调block
  */
 - (void)getAlbumsPickingVideoEnable:(BOOL)pickingVideoEnable
-                    completionBlock:(void(^_Nonnull)(NSArray<CCAlbumModel *> * _Nullable albums))completionBlock;
+                    completionBlock:(void (^_Nonnull)(NSArray<CCAlbumModel *> *_Nullable albums))completionBlock;
 
 
 /**
@@ -77,7 +77,7 @@
  */
 - (void)getAssetsFromResult:(id _Nonnull)result
          pickingVideoEnable:(BOOL)pickingVideoEnable
-            completionBlock:(void(^_Nonnull)(NSArray<CCAssetModel *> * _Nullable assets))completionBlock;
+            completionBlock:(void (^_Nonnull)(NSArray<CCAssetModel *> *_Nullable assets))completionBlock;
 
 /// ========================================
 /// @name   获取Asset对应信息相关方法
@@ -90,7 +90,7 @@
  *  @param completionBlock 回到block
  */
 - (void)getOriginImageWithAsset:(id _Nonnull)asset
-                completionBlock:(void(^_Nonnull)(UIImage * _Nullable image))completionBlock;
+                completionBlock:(void (^_Nonnull)(UIImage *_Nullable image))completionBlock;
 
 /**
  *  根据提供的asset获取缩略图
@@ -101,7 +101,7 @@
  */
 - (void)getThumbnailWithAsset:(id _Nonnull)asset
                          size:(CGSize)size
-              completionBlock:(void(^_Nonnull)(UIImage *_Nullable image))completionBlock;
+              completionBlock:(void (^_Nonnull)(UIImage *_Nullable image))completionBlock;
 
 /**
  *  根据asset 获取屏幕预览图
@@ -110,7 +110,7 @@
  *  @param completionBlock 回调block
  */
 - (void)getPreviewImageWithAsset:(id _Nonnull)asset
-                 completionBlock:(void(^_Nonnull)(UIImage * _Nullable image))completionBlock;
+                 completionBlock:(void (^_Nonnull)(UIImage *_Nullable image))completionBlock;
 
 /**
  *  根据asset 获取图片的方向
@@ -119,14 +119,14 @@
  *  @param completionBlock 回调block
  */
 - (void)getImageOrientationWithAsset:(id _Nonnull)asset
-                     completionBlock:(void(^_Nonnull)(UIImageOrientation imageOrientation))completionBlock;
+                     completionBlock:(void (^_Nonnull)(UIImageOrientation imageOrientation))completionBlock;
 /**
  *  根据asset获取图片的大小信息
  *
  *  @param asset           PHAsset or ALAsset
  *  @param completionBlock 回调block
  */
-- (void)getAssetSizeWithAsset:(id _Nonnull)asset completionBlock:(void(^ _Nonnull)(CGFloat size))completionBlock;
+- (void)getAssetSizeWithAsset:(id _Nonnull)asset completionBlock:(void (^_Nonnull)(CGFloat size))completionBlock;
 
 /**
  *  根据asset获取Video信息
@@ -135,6 +135,6 @@
  *  @param completionBlock 回调block
  */
 - (void)getVideoInfoWithAsset:(id _Nonnull)asset
-              completionBlock:(void(^ _Nonnull)(AVPlayerItem * _Nullable playerItem,NSDictionary * _Nullable playetItemInfo))completionBlock;
+              completionBlock:(void (^_Nonnull)(AVPlayerItem *_Nullable playerItem, NSDictionary *_Nullable playetItemInfo))completionBlock;
 
 @end
