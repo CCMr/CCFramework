@@ -25,19 +25,19 @@
 
 #import "CCCaptureHelper.h"
 
-@interface CCCaptureHelper ()<AVCaptureMetadataOutputObjectsDelegate>
+@interface CCCaptureHelper () <AVCaptureMetadataOutputObjectsDelegate>
 
-@property (nonatomic, copy) DidOutputScanResultBlock didOutputSampleBuffer;
+@property(nonatomic, copy) DidOutputScanResultBlock didOutputSampleBuffer;
 
-@property (nonatomic, strong) dispatch_queue_t captureSessionQueue;
+@property(nonatomic, strong) dispatch_queue_t captureSessionQueue;
 
-@property (nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
-@property (nonatomic, strong) AVCaptureSession           *captureSession;
-@property (nonatomic, strong) AVCaptureDeviceInput       *captureInput;
-@property (nonatomic, strong) AVCaptureDeviceInput       *frontDeviceInput;
-@property (nonatomic, strong) AVCaptureVideoDataOutput   *captureOutput;
-@property (nonatomic, strong) AVCaptureMetadataOutput    *captureMetadataOutput;
-@property (strong, nonatomic) AVCaptureDevice            *defaultDevice;
+@property(nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
+@property(nonatomic, strong) AVCaptureSession *captureSession;
+@property(nonatomic, strong) AVCaptureDeviceInput *captureInput;
+@property(nonatomic, strong) AVCaptureDeviceInput *frontDeviceInput;
+@property(nonatomic, strong) AVCaptureVideoDataOutput *captureOutput;
+@property(nonatomic, strong) AVCaptureMetadataOutput *captureMetadataOutput;
+@property(strong, nonatomic) AVCaptureDevice *defaultDevice;
 @end
 
 @implementation CCCaptureHelper
@@ -49,7 +49,8 @@
  *
  *  @param didOutputSampleBuffer 委托
  */
-- (void)setDidOutputSampleBufferHandle:(DidOutputScanResultBlock)didOutputSampleBuffer {
+- (void)setDidOutputSampleBufferHandle:(DidOutputScanResultBlock)didOutputSampleBuffer
+{
     self.didOutputSampleBuffer = didOutputSampleBuffer;
 }
 
@@ -60,10 +61,11 @@
  *
  *  @param preview 父View
  */
-- (void)showCaptureOnView:(UIView *)preview {
+- (void)showCaptureOnView:(UIView *)preview
+{
     dispatch_async(self.captureSessionQueue, ^{
         [self.captureSession startRunning];
-
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             self.captureVideoPreviewLayer.frame = preview.bounds;
             [preview.layer addSublayer:self.captureVideoPreviewLayer];
@@ -80,18 +82,18 @@
 - (void)setupAVComponents
 {
     self.defaultDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-
+    
     if (_defaultDevice) {
-        self.captureInput             = [AVCaptureDeviceInput deviceInputWithDevice:_defaultDevice error:nil];
-        self.captureMetadataOutput    = [[AVCaptureMetadataOutput alloc] init];
-        self.captureSession           = [[AVCaptureSession alloc] init];
+        self.captureInput = [AVCaptureDeviceInput deviceInputWithDevice:_defaultDevice error:nil];
+        self.captureMetadataOutput = [[AVCaptureMetadataOutput alloc] init];
+        self.captureSession = [[AVCaptureSession alloc] init];
         self.captureVideoPreviewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
-
+        
         for (AVCaptureDevice *device in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
             if (device.position == AVCaptureDevicePositionFront)
                 self.defaultDevice = device;
         }
-
+        
         if (_defaultDevice)
             self.frontDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:_defaultDevice error:nil];
     }
@@ -106,19 +108,19 @@
 {
     if (self.captureType == CCCaptureHelperTypeMeta) {
         [_captureSession addOutput:_captureMetadataOutput];
-
+        
         if (_captureInput)
             [_captureSession addInput:_captureInput];
-
+        
         [_captureMetadataOutput setMetadataObjectsDelegate:self queue:self.captureSessionQueue];
-
+        
         if ([[_captureMetadataOutput availableMetadataObjectTypes] containsObject:AVMetadataObjectTypeQRCode])
             [_captureMetadataOutput setMetadataObjectTypes:@[ AVMetadataObjectTypeQRCode ]];
-
-    }else{
+        
+    } else {
         if ([_captureSession canAddInput:_captureInput])
             [self.captureSession addInput:_captureInput];
-
+        
         self.captureOutput = [[AVCaptureVideoDataOutput alloc] init];
         self.captureOutput.alwaysDiscardsLateVideoFrames = YES;
         [self.captureOutput setSampleBufferDelegate:self queue:self.captureSessionQueue];
@@ -126,16 +128,16 @@
         NSNumber *value = [NSNumber numberWithUnsignedInt:kCVPixelFormatType_32BGRA];
         NSDictionary *videoSettings = [NSDictionary dictionaryWithObject:value forKey:key];
         [_captureOutput setVideoSettings:videoSettings];
-
+        
         [self.captureSession addOutput:self.captureOutput];
-
-        NSString* preset = 0;
+        
+        NSString *preset = 0;
         // Proxy for "is this iOS 5" ...
         if (NSClassFromString(@"NSOrderedSet") &&
             [UIScreen mainScreen].scale > 1 &&
             [_defaultDevice supportsAVCaptureSessionPreset:AVCaptureSessionPresetiFrame960x540])
             preset = AVCaptureSessionPresetiFrame960x540;
-
+        
         if (!preset)
             preset = AVCaptureSessionPresetMedium;
         self.captureSession.sessionPreset = preset;
@@ -149,7 +151,8 @@
  *
  *  @return 返回扫描视图
  */
-- (AVCaptureVideoPreviewLayer *)captureVideoPreviewLayer {
+- (AVCaptureVideoPreviewLayer *)captureVideoPreviewLayer
+{
     if (!_captureVideoPreviewLayer) {
         _captureVideoPreviewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
         _captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
@@ -166,20 +169,52 @@
 {
     if (_frontDeviceInput) {
         [_captureSession beginConfiguration];
-
+        
         AVCaptureDeviceInput *currentInput = [_captureSession.inputs firstObject];
         [_captureSession removeInput:currentInput];
-
+        
         AVCaptureDeviceInput *newDeviceInput = (currentInput.device.position == AVCaptureDevicePositionFront) ? _captureInput : _frontDeviceInput;
         [_captureSession addInput:newDeviceInput];
-
+        
         [_captureSession commitConfiguration];
     }
 }
 
+/**
+ *  @author CC, 16-02-22
+ *  
+ *  @brief 切换照明
+ */
+- (void)switchTorch
+{
+    _isTorch = !_isTorch;
+    
+    AVCaptureTorchMode torch = self.captureInput.device.torchMode;
+    
+    switch (_captureInput.device.torchMode) {
+        case AVCaptureTorchModeAuto:
+            break;
+        case AVCaptureTorchModeOff:
+            torch = AVCaptureTorchModeOn;
+            break;
+        case AVCaptureTorchModeOn:
+            torch = AVCaptureTorchModeOff;
+            break;
+        default:
+            break;
+    }
+    
+    [_captureInput.device lockForConfiguration:nil];
+    _captureInput.device.torchMode = torch;
+    [_captureInput.device unlockForConfiguration];
+    
+    
+}
+
 #pragma mark - Life Cycle
 
-- (id)init {
+- (id)init
+{
     self = [super init];
     if (self) {
         self.captureSessionQueue = dispatch_queue_create("com.CC.captureSessionQueue", 0);
@@ -199,7 +234,6 @@
 {
     if (![self.captureSession isRunning])
         [self.captureSession startRunning];
-
 }
 
 /**
@@ -217,16 +251,16 @@
 {
     _captureSessionQueue = nil;
     _captureVideoPreviewLayer = nil;
-
+    
     if (![_captureSession canAddOutput:self.captureOutput])
         [_captureSession removeOutput:self.captureOutput];
-
+    
     if (![_captureSession canAddOutput:self.captureMetadataOutput])
         [_captureSession removeOutput:self.captureMetadataOutput];
-
+    
     self.captureOutput = nil;
     self.captureMetadataOutput = nil;
-
+    
     [_captureSession stopRunning];
     _captureSession = nil;
 }
@@ -234,11 +268,10 @@
 #pragma mark - AVCaptureVideoDataOutputSampleBuffer Delegate
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
 {
-    for(AVMetadataObject *current in metadataObjects) {
-        if ([current isKindOfClass:[AVMetadataMachineReadableCodeObject class]]
-            && [current.type isEqualToString:AVMetadataObjectTypeQRCode]) {
-            NSString *scannedResult = [(AVMetadataMachineReadableCodeObject *) current stringValue];
-
+    for (AVMetadataObject *current in metadataObjects) {
+        if ([current isKindOfClass:[AVMetadataMachineReadableCodeObject class]] && [current.type isEqualToString:AVMetadataObjectTypeQRCode]) {
+            NSString *scannedResult = [(AVMetadataMachineReadableCodeObject *)current stringValue];
+            
             if ([self.delegate respondsToSelector:@selector(DidOutputSampleBufferBlock:ScanResult:)])
                 [self.delegate DidOutputSampleBufferBlock:self ScanResult:scannedResult];
             else if (self.didOutputSampleBuffer)
@@ -248,7 +281,8 @@
     }
 }
 
-- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
+{
     if ([self.delegate respondsToSelector:@selector(DidOutputSampleBufferBlock:CMSampleBufferRef:)])
         [self.delegate DidOutputSampleBufferBlock:self CMSampleBufferRef:sampleBuffer];
     else if (self.didOutputSampleBuffer)

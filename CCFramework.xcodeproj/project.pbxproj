@@ -131,6 +131,8 @@
 		420CD8BD1C59F9B9009578D4 /* UIView+CCInputDodger.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CD8B91C59F9B9009578D4 /* UIView+CCInputDodger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		420CD8BE1C59F9B9009578D4 /* UIView+CCInputDodger.m in Sources */ = {isa = PBXBuildFile; fileRef = 420CD8BA1C59F9B9009578D4 /* UIView+CCInputDodger.m */; };
 		4213943C1BF2D9F50046062B /* SRLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213943B1BF2D9F50046062B /* SRLog.h */; };
+		4213B0CF1C7ADA5C00D9A75C /* CCPhotoPreviewViewLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213B0CD1C7ADA5C00D9A75C /* CCPhotoPreviewViewLayout.h */; };
+		4213B0D01C7ADA5C00D9A75C /* CCPhotoPreviewViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4213B0CE1C7ADA5C00D9A75C /* CCPhotoPreviewViewLayout.m */; };
 		4213FAFC1C13D860006918AC /* CCJPsuh.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213FAFA1C13D860006918AC /* CCJPsuh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4213FAFD1C13D860006918AC /* CCJPsuh.m in Sources */ = {isa = PBXBuildFile; fileRef = 4213FAFB1C13D860006918AC /* CCJPsuh.m */; };
 		4219A78B1C40B145007804A7 /* CCDropDownMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 4219A7891C40B145007804A7 /* CCDropDownMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -173,6 +175,18 @@
 		422511741C7306AD003B3623 /* NSObject+CCProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 4225116A1C7306AD003B3623 /* NSObject+CCProperty.m */; };
 		422511751C7306AD003B3623 /* NSString+CCExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 4225116B1C7306AD003B3623 /* NSString+CCExtension.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		422511761C7306AD003B3623 /* NSString+CCExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4225116C1C7306AD003B3623 /* NSString+CCExtension.m */; };
+		42255DFD1C7BEA4B00C0A057 /* ScanBook_HL@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42255DF11C7BEA4B00C0A057 /* ScanBook_HL@2x.png */; };
+		42255DFE1C7BEA4B00C0A057 /* ScanBook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42255DF21C7BEA4B00C0A057 /* ScanBook@2x.png */; };
+		42255DFF1C7BEA4B00C0A057 /* ScanQR1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42255DF31C7BEA4B00C0A057 /* ScanQR1@2x.png */; };
+		42255E001C7BEA4B00C0A057 /* ScanQR2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42255DF41C7BEA4B00C0A057 /* ScanQR2@2x.png */; };
+		42255E011C7BEA4B00C0A057 /* ScanQR3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42255DF51C7BEA4B00C0A057 /* ScanQR3@2x.png */; };
+		42255E021C7BEA4B00C0A057 /* ScanQR4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42255DF61C7BEA4B00C0A057 /* ScanQR4@2x.png */; };
+		42255E031C7BEA4B00C0A057 /* ScanQRCode_HL@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42255DF71C7BEA4B00C0A057 /* ScanQRCode_HL@2x.png */; };
+		42255E041C7BEA4B00C0A057 /* ScanQRCode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42255DF81C7BEA4B00C0A057 /* ScanQRCode@2x.png */; };
+		42255E051C7BEA4B00C0A057 /* ScanStreet_HL@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42255DF91C7BEA4B00C0A057 /* ScanStreet_HL@2x.png */; };
+		42255E061C7BEA4B00C0A057 /* ScanStreet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42255DFA1C7BEA4B00C0A057 /* ScanStreet@2x.png */; };
+		42255E071C7BEA4B00C0A057 /* ScanWord_HL@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42255DFB1C7BEA4B00C0A057 /* ScanWord_HL@2x.png */; };
+		42255E081C7BEA4B00C0A057 /* ScanWord@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42255DFC1C7BEA4B00C0A057 /* ScanWord@2x.png */; };
 		4226FC411C327BE0003EAEFE /* CCInfoBanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 4226FC3F1C327BE0003EAEFE /* CCInfoBanner.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4226FC421C327BE0003EAEFE /* CCInfoBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4226FC401C327BE0003EAEFE /* CCInfoBanner.m */; };
 		4226FC471C3286F2003EAEFE /* CCHierarchySearcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 4226FC441C3286F2003EAEFE /* CCHierarchySearcher.h */; };
@@ -233,8 +247,6 @@
 		4230E1921BBB83E40001E68F /* CCRadarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E1901BBB83E40001E68F /* CCRadarView.m */; };
 		4230E1961BBB8F7C0001E68F /* CCRadarScanViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4230E1941BBB8F7C0001E68F /* CCRadarScanViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4230E1971BBB8F7C0001E68F /* CCRadarScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E1951BBB8F7C0001E68F /* CCRadarScanViewController.m */; };
-		423B739B1C60882400BC49E5 /* Fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 423B73981C60882400BC49E5 /* Fill@2x.png */; };
-		423B739C1C60882400BC49E5 /* Slice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 423B73991C60882400BC49E5 /* Slice@2x.png */; };
 		423C12791C0ECACB009FBA17 /* CCTool.h in Headers */ = {isa = PBXBuildFile; fileRef = 423C12771C0ECACB009FBA17 /* CCTool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		423C127A1C0ECACB009FBA17 /* CCTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 423C12781C0ECACB009FBA17 /* CCTool.m */; };
 		423D1DA01C3A00CE008E483A /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 423D1D9F1C3A00CE008E483A /* libWeChatSDK.a */; };
@@ -1205,6 +1217,8 @@
 		420CD8B91C59F9B9009578D4 /* UIView+CCInputDodger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+CCInputDodger.h"; path = "CCInputDodger/UIView+CCInputDodger.h"; sourceTree = "<group>"; };
 		420CD8BA1C59F9B9009578D4 /* UIView+CCInputDodger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+CCInputDodger.m"; path = "CCInputDodger/UIView+CCInputDodger.m"; sourceTree = "<group>"; };
 		4213943B1BF2D9F50046062B /* SRLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRLog.h; sourceTree = "<group>"; };
+		4213B0CD1C7ADA5C00D9A75C /* CCPhotoPreviewViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPhotoPreviewViewLayout.h; sourceTree = "<group>"; };
+		4213B0CE1C7ADA5C00D9A75C /* CCPhotoPreviewViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPhotoPreviewViewLayout.m; sourceTree = "<group>"; };
 		4213FAFA1C13D860006918AC /* CCJPsuh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCJPsuh.h; sourceTree = "<group>"; };
 		4213FAFB1C13D860006918AC /* CCJPsuh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCJPsuh.m; sourceTree = "<group>"; };
 		4219A7891C40B145007804A7 /* CCDropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDropDownMenu.h; sourceTree = "<group>"; };
@@ -1247,6 +1261,18 @@
 		4225116A1C7306AD003B3623 /* NSObject+CCProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+CCProperty.m"; path = "EntityExtension/NSObject+CCProperty.m"; sourceTree = "<group>"; };
 		4225116B1C7306AD003B3623 /* NSString+CCExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+CCExtension.h"; path = "EntityExtension/NSString+CCExtension.h"; sourceTree = "<group>"; };
 		4225116C1C7306AD003B3623 /* NSString+CCExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+CCExtension.m"; path = "EntityExtension/NSString+CCExtension.m"; sourceTree = "<group>"; };
+		42255DF11C7BEA4B00C0A057 /* ScanBook_HL@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ScanBook_HL@2x.png"; path = "QRcode/ScanBook_HL@2x.png"; sourceTree = "<group>"; };
+		42255DF21C7BEA4B00C0A057 /* ScanBook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ScanBook@2x.png"; path = "QRcode/ScanBook@2x.png"; sourceTree = "<group>"; };
+		42255DF31C7BEA4B00C0A057 /* ScanQR1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ScanQR1@2x.png"; path = "QRcode/ScanQR1@2x.png"; sourceTree = "<group>"; };
+		42255DF41C7BEA4B00C0A057 /* ScanQR2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ScanQR2@2x.png"; path = "QRcode/ScanQR2@2x.png"; sourceTree = "<group>"; };
+		42255DF51C7BEA4B00C0A057 /* ScanQR3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ScanQR3@2x.png"; path = "QRcode/ScanQR3@2x.png"; sourceTree = "<group>"; };
+		42255DF61C7BEA4B00C0A057 /* ScanQR4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ScanQR4@2x.png"; path = "QRcode/ScanQR4@2x.png"; sourceTree = "<group>"; };
+		42255DF71C7BEA4B00C0A057 /* ScanQRCode_HL@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ScanQRCode_HL@2x.png"; path = "QRcode/ScanQRCode_HL@2x.png"; sourceTree = "<group>"; };
+		42255DF81C7BEA4B00C0A057 /* ScanQRCode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ScanQRCode@2x.png"; path = "QRcode/ScanQRCode@2x.png"; sourceTree = "<group>"; };
+		42255DF91C7BEA4B00C0A057 /* ScanStreet_HL@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ScanStreet_HL@2x.png"; path = "QRcode/ScanStreet_HL@2x.png"; sourceTree = "<group>"; };
+		42255DFA1C7BEA4B00C0A057 /* ScanStreet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ScanStreet@2x.png"; path = "QRcode/ScanStreet@2x.png"; sourceTree = "<group>"; };
+		42255DFB1C7BEA4B00C0A057 /* ScanWord_HL@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ScanWord_HL@2x.png"; path = "QRcode/ScanWord_HL@2x.png"; sourceTree = "<group>"; };
+		42255DFC1C7BEA4B00C0A057 /* ScanWord@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ScanWord@2x.png"; path = "QRcode/ScanWord@2x.png"; sourceTree = "<group>"; };
 		4226FC3F1C327BE0003EAEFE /* CCInfoBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCInfoBanner.h; path = CCInfoBanner/CCInfoBanner.h; sourceTree = "<group>"; };
 		4226FC401C327BE0003EAEFE /* CCInfoBanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCInfoBanner.m; path = CCInfoBanner/CCInfoBanner.m; sourceTree = "<group>"; };
 		4226FC441C3286F2003EAEFE /* CCHierarchySearcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCHierarchySearcher.h; path = CCHierarchySearcher/CCHierarchySearcher.h; sourceTree = "<group>"; };
@@ -1307,8 +1333,6 @@
 		4230E1901BBB83E40001E68F /* CCRadarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRadarView.m; path = Radar/Scanning/CCRadarView.m; sourceTree = "<group>"; };
 		4230E1941BBB8F7C0001E68F /* CCRadarScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRadarScanViewController.h; path = CCRadarScan/CCRadarScanViewController.h; sourceTree = "<group>"; };
 		4230E1951BBB8F7C0001E68F /* CCRadarScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRadarScanViewController.m; path = CCRadarScan/CCRadarScanViewController.m; sourceTree = "<group>"; };
-		423B73981C60882400BC49E5 /* Fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Fill@2x.png"; sourceTree = "<group>"; };
-		423B73991C60882400BC49E5 /* Slice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Slice@2x.png"; sourceTree = "<group>"; };
 		423C12771C0ECACB009FBA17 /* CCTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCTool.h; path = Core/Tool/CCTool.h; sourceTree = "<group>"; };
 		423C12781C0ECACB009FBA17 /* CCTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCTool.m; path = Core/Tool/CCTool.m; sourceTree = "<group>"; };
 		423D1D9F1C3A00CE008E483A /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
@@ -2397,6 +2421,8 @@
 				4206A5131C783CFA001A1CF3 /* CCPhotoPicker.m */,
 				4206A5141C783CFA001A1CF3 /* CCPhotoPreviewCell.h */,
 				4206A5151C783CFA001A1CF3 /* CCPhotoPreviewCell.m */,
+				4213B0CD1C7ADA5C00D9A75C /* CCPhotoPreviewViewLayout.h */,
+				4213B0CE1C7ADA5C00D9A75C /* CCPhotoPreviewViewLayout.m */,
 			);
 			name = Views;
 			path = CCPhotoPicker/Views;
@@ -2532,6 +2558,25 @@
 				4225116C1C7306AD003B3623 /* NSString+CCExtension.m */,
 			);
 			name = EntityExtension;
+			sourceTree = "<group>";
+		};
+		42255DF01C7BEA3C00C0A057 /* QRcode */ = {
+			isa = PBXGroup;
+			children = (
+				42255DF11C7BEA4B00C0A057 /* ScanBook_HL@2x.png */,
+				42255DF21C7BEA4B00C0A057 /* ScanBook@2x.png */,
+				42255DF31C7BEA4B00C0A057 /* ScanQR1@2x.png */,
+				42255DF41C7BEA4B00C0A057 /* ScanQR2@2x.png */,
+				42255DF51C7BEA4B00C0A057 /* ScanQR3@2x.png */,
+				42255DF61C7BEA4B00C0A057 /* ScanQR4@2x.png */,
+				42255DF71C7BEA4B00C0A057 /* ScanQRCode_HL@2x.png */,
+				42255DF81C7BEA4B00C0A057 /* ScanQRCode@2x.png */,
+				42255DF91C7BEA4B00C0A057 /* ScanStreet_HL@2x.png */,
+				42255DFA1C7BEA4B00C0A057 /* ScanStreet@2x.png */,
+				42255DFB1C7BEA4B00C0A057 /* ScanWord_HL@2x.png */,
+				42255DFC1C7BEA4B00C0A057 /* ScanWord@2x.png */,
+			);
+			name = QRcode;
 			sourceTree = "<group>";
 		};
 		4226FC3E1C327B65003EAEFE /* CCInfoBanner */ = {
@@ -4525,6 +4570,7 @@
 		42BEC0021C28FCB000316AE4 /* CCResource */ = {
 			isa = PBXGroup;
 			children = (
+				42255DF01C7BEA3C00C0A057 /* QRcode */,
 				4206A4D91C783CE4001A1CF3 /* CCPhotoPicker */,
 				422E914D1C5F0DB5008F7DDA /* CCDragDropBadgeView */,
 				422754561C29371F0099B653 /* CCNumericKeypadImage */,
@@ -4533,8 +4579,6 @@
 				422754661C29371F0099B653 /* PhotosViewImage */,
 				422754511C2932640099B653 /* GraffitiBoard */,
 				4268CED71C4356CE00434D65 /* icon_star_gray@2x.png */,
-				423B73981C60882400BC49E5 /* Fill@2x.png */,
-				423B73991C60882400BC49E5 /* Slice@2x.png */,
 				42E953221C58A9FC001C93CB /* banner_arrow@2x.png */,
 				4268CED81C4356CE00434D65 /* icon_star_yellow@2x.png */,
 				4227547A1C2938E30099B653 /* arrow@2x.png */,
@@ -5186,6 +5230,7 @@
 				426476AA1BD0E3AF00EE191C /* CCUtilityButtonView.h in Headers */,
 				4254772E1BD2AEC20071BBC5 /* blowfish.h in Headers */,
 				4269793B1BA695BA00C3E93C /* AFNetworkActivityIndicatorManager.h in Headers */,
+				4213B0CF1C7ADA5C00D9A75C /* CCPhotoPreviewViewLayout.h in Headers */,
 				42F24C5F1BEA5091008CDEDC /* PNLineChartData.h in Headers */,
 				4254776B1BD2AEC20071BBC5 /* tls1.h in Headers */,
 				424255141C310CCA00D94E04 /* CCMessagePhotoImageView.h in Headers */,
@@ -5767,24 +5812,32 @@
 				422754781C29371F0099B653 /* AssetsYES@2x.png in Resources */,
 				4227546E1C29371F0099B653 /* WithFinishedUnselecte@2x.png in Resources */,
 				4206A4E91C783CE4001A1CF3 /* MMVideoPreviewPlayHL@2x.png in Resources */,
+				42255E011C7BEA4B00C0A057 /* ScanQR3@2x.png in Resources */,
+				42255DFE1C7BEA4B00C0A057 /* ScanBook@2x.png in Resources */,
 				42F164041C2A38BD00F17928 /* redo@2x.png in Resources */,
 				4227546A1C29371F0099B653 /* Back@2x.png in Resources */,
 				42E953231C58A9FC001C93CB /* banner_arrow@2x.png in Resources */,
 				422E914B1C5F0D9C008F7DDA /* success.png in Resources */,
 				4227546B1C29371F0099B653 /* KeyboardNumericBg@2x.png in Resources */,
+				42255E081C7BEA4B00C0A057 /* ScanWord@2x.png in Resources */,
+				42255E031C7BEA4B00C0A057 /* ScanQRCode_HL@2x.png in Resources */,
 				42F164051C2A38BD00F17928 /* style@2x.png in Resources */,
 				42F164011C2A38BD00F17928 /* bar_minus@2x.png in Resources */,
 				422754701C29371F0099B653 /* save_icon@2x.png in Resources */,
 				422E91571C5F0DD2008F7DDA /* bomb4@2x.png in Resources */,
 				4206A4EB1C783CE4001A1CF3 /* photo_def_photoPickerVc@2x.png in Resources */,
 				4227546C1C29371F0099B653 /* KeyboardNumericEntryKeyBackspaceGlyphTextured.png in Resources */,
+				42255E021C7BEA4B00C0A057 /* ScanQR4@2x.png in Resources */,
 				4206A4EF1C783CE4001A1CF3 /* photo_original_sel@2x.png in Resources */,
 				422E91551C5F0DD2008F7DDA /* bomb2@2x.png in Resources */,
 				4206A4F01C783CE4001A1CF3 /* photo_sel_photoPickerVc@2x.png in Resources */,
+				42255E001C7BEA4B00C0A057 /* ScanQR2@2x.png in Resources */,
+				42255E041C7BEA4B00C0A057 /* ScanQRCode@2x.png in Resources */,
+				42255E071C7BEA4B00C0A057 /* ScanWord_HL@2x.png in Resources */,
 				422754711C29371F0099B653 /* save_icon_highlighted.png in Resources */,
 				422754791C29371F0099B653 /* returns@2x.png in Resources */,
 				4206A4F41C783CE4001A1CF3 /* TableViewArrow@2x.png in Resources */,
-				423B739B1C60882400BC49E5 /* Fill@2x.png in Resources */,
+				42255DFF1C7BEA4B00C0A057 /* ScanQR1@2x.png in Resources */,
 				422E914A1C5F0D9C008F7DDA /* error@2x.png in Resources */,
 				422E91541C5F0DD2008F7DDA /* bomb1@2x.png in Resources */,
 				422754551C29329C0099B653 /* slider_border@2x.png in Resources */,
@@ -5799,7 +5852,9 @@
 				422754771C29371F0099B653 /* AssetsNO@2x.png in Resources */,
 				42300C6D1C2A466800D03641 /* eraser@2x.png in Resources */,
 				4227546F1C29371F0099B653 /* save_icon.png in Resources */,
-				423B739C1C60882400BC49E5 /* Slice@2x.png in Resources */,
+				42255E051C7BEA4B00C0A057 /* ScanStreet_HL@2x.png in Resources */,
+				42255E061C7BEA4B00C0A057 /* ScanStreet@2x.png in Resources */,
+				42255DFD1C7BEA4B00C0A057 /* ScanBook_HL@2x.png in Resources */,
 				424255171C31255E00D94E04 /* placeholderImage@2x.png in Resources */,
 				422E91531C5F0DD2008F7DDA /* bomb0@2x.png in Resources */,
 				422E91491C5F0D9C008F7DDA /* error.png in Resources */,
@@ -6236,6 +6291,7 @@
 				42A3563A1BF4399800B6F1F2 /* CCRefreshFooterView.m in Sources */,
 				42F411E31C2150E500814E7B /* UIControl+BUIControl.m in Sources */,
 				42591B4C1C33C95D00BF6C48 /* UINavigationBar+Additional.m in Sources */,
+				4213B0D01C7ADA5C00D9A75C /* CCPhotoPreviewViewLayout.m in Sources */,
 				4269792C1BA695BA00C3E93C /* AFURLSessionManager.m in Sources */,
 				42F411E51C2150E500814E7B /* UIImage+Additions.m in Sources */,
 				42F24C751BEA5236008CDEDC /* CCCountingLabel.m in Sources */,

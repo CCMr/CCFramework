@@ -33,7 +33,7 @@
  *
  *  @brief  二维码扫描模式
  */
-typedef NS_ENUM(NSInteger, CCCaptureHelperType){
+typedef NS_ENUM(NSInteger, CCCaptureHelperType) {
     /** 扫描图像三方解析 */
     CCCaptureHelperTypeVideo,
     /** 扫描图像系统解析 */
@@ -42,7 +42,7 @@ typedef NS_ENUM(NSInteger, CCCaptureHelperType){
 
 @class CCCaptureHelper;
 
-typedef void(^DidOutputScanResultBlock)(id scanResult);
+typedef void (^DidOutputScanResultBlock)(id scanResult);
 
 @protocol CCCaptureHelperDelegate <NSObject>
 
@@ -54,8 +54,8 @@ typedef void(^DidOutputScanResultBlock)(id scanResult);
  *  @param capture      当前对象
  *  @param sampleBuffer 扫描结果对象
  */
--(void)DidOutputSampleBufferBlock: (CCCaptureHelper *)capture
-                CMSampleBufferRef: (CMSampleBufferRef) sampleBuffer;
+- (void)DidOutputSampleBufferBlock:(CCCaptureHelper *)capture
+                 CMSampleBufferRef:(CMSampleBufferRef)sampleBuffer;
 
 /**
  *  @author CC, 2015-10-12
@@ -65,8 +65,8 @@ typedef void(^DidOutputScanResultBlock)(id scanResult);
  *  @param capture 当前对象
  *  @param result  扫描之后的结果
  */
--(void)DidOutputSampleBufferBlock: (CCCaptureHelper *)capture
-                       ScanResult: (NSString *)result;
+- (void)DidOutputSampleBufferBlock:(CCCaptureHelper *)capture
+                        ScanResult:(NSString *)result;
 
 @end
 
@@ -77,14 +77,21 @@ typedef void(^DidOutputScanResultBlock)(id scanResult);
  *
  *  @brief  扫描方式
  */
-@property (nonatomic, assign) CCCaptureHelperType captureType;
+@property(nonatomic, assign) CCCaptureHelperType captureType;
+
+/**
+ *  @author CC, 16-02-22
+ *  
+ *  @brief 是否开启照明
+ */
+@property(nonatomic, assign, readonly) BOOL isTorch;
 
 /**
  *  @author CC, 2015-10-12
  *
  *  @brief  扫描结果委托
  */
-@property (nonatomic, weak) id<CCCaptureHelperDelegate> delegate;
+@property(nonatomic, weak) id<CCCaptureHelperDelegate> delegate;
 
 
 /**
@@ -118,5 +125,12 @@ typedef void(^DidOutputScanResultBlock)(id scanResult);
  *  @brief  停止扫描
  */
 - (void)stopRunning;
+
+/**
+ *  @author CC, 16-02-22
+ *  
+ *  @brief 切换照明
+ */
+- (void)switchTorch;
 
 @end
