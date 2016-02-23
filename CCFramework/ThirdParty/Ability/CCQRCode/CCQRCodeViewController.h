@@ -32,7 +32,16 @@
  *
  *  @brief  是否系统处理
  */
-@property (nonatomic, assign) BOOL scanDealWithResult;
+@property(nonatomic, assign) BOOL scanDealWithResult;
+
+@property(nonatomic, strong) UIView *buttonContainerView;
+
+/**
+ *  @author CC, 16-02-23
+ *  
+ *  @brief 创建底部按钮
+ */
+- (UIButton *)createButton;
 
 /**
  *  @author CC, 2015-10-09
@@ -42,5 +51,42 @@
  *  @param block 返回结果回调函数
  */
 - (void)diAnalysisOutcome:(void (^)(NSString *outcome))block;
+
+/**
+ *  @author CC, 16-02-22
+ *  
+ *  @brief 分析二维码
+ *
+ *  @param qrCode 二维码图片
+ */
+- (void)analysisQRCode:(UIImage *)qrCode;
+
+/**
+ *  @author CC, 16-02-22
+ *  
+ *  @brief 切换照明
+ */
+- (void)switchTorch;
+
+/**
+ *  @author CC, 16-02-23
+ *  
+ *  @brief 选着相册
+ */
+- (void)showPhotoLibray;
+
+/**
+ *  @author CC, 16-02-23
+ *  
+ *  @brief 启动扫描
+ */
+- (void)startRunning;
+
+/**
+ *  @author CC, 16-02-23
+ *  
+ *  @brief 关闭扫描
+ */
+-(void)stopRunning;
 
 @end
