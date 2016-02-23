@@ -24,6 +24,7 @@
 //
 
 #import "CCScanningView.h"
+#import "config.h"
 
 #define kCCQRCodeTipString @"将二维码/条码放入框内，即可自动扫描"
 #define kCCBookTipString @"将书、CD、电影海报放入框内，即可自动扫描"
@@ -124,7 +125,7 @@ typedef void(^TransformScanningAnimationBlock)(void);
 
         [self addSubview:self.scanningImageView];
         [self addSubview:self.QRCodeTipLabel];
-        [self addSubview:self.myQRCodeButton];
+//        [self addSubview:self.myQRCodeButton];
 
         [self scanning];
     }
@@ -194,10 +195,10 @@ typedef void(^TransformScanningAnimationBlock)(void);
     CGContextSaveGState(context);
 
 
-    UIImage *topLeftImage = [UIImage imageNamed:@"ScanQR1"];
-    UIImage *topRightImage = [UIImage imageNamed:@"ScanQR2"];
-    UIImage *bottomLeftImage = [UIImage imageNamed:@"ScanQR3"];
-    UIImage *bottomRightImage = [UIImage imageNamed:@"ScanQR4"];
+    UIImage *topLeftImage = CCResourceImage(@"ScanQR1");
+    UIImage *topRightImage = CCResourceImage(@"ScanQR2");
+    UIImage *bottomLeftImage = CCResourceImage(@"ScanQR3");
+    UIImage *bottomRightImage = CCResourceImage(@"ScanQR4");
 
     [topLeftImage drawInRect:CGRectMake(clearRect.origin.x - 2, clearRect.origin.y - 2, topLeftImage.size.width, topLeftImage.size.height)];
 
