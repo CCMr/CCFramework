@@ -259,6 +259,15 @@
 - (void)hideNavigationControllerBottomLine;
 
 /**
+ *  @author CC, 16-02-24
+ *  
+ *  @brief 设置导航栏底部线颜色
+ *
+ *  @param color 颜色
+ */
+- (void)navigationControllerBottomLineBackgroundColor:(UIColor *)color;
+
+/**
  *  @author CC, 16-02-19
  *  
  *  @brief 释放内存

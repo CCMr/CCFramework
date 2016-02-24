@@ -484,23 +484,49 @@
  */
 - (void)hideNavigationControllerBottomLine
 {
+    [self navigationControllerBottomLine:YES
+                         BackgroundColor:nil];
+}
+
+/**
+ *  @author CC, 16-02-24
+ *  
+ *  @brief 设置导航栏底部线颜色
+ *
+ *  @param color 颜色
+ */
+- (void)navigationControllerBottomLineBackgroundColor:(UIColor *)color
+{
+    [self navigationControllerBottomLine:NO
+                         BackgroundColor:color];
+}
+
+/**
+ *  @author CC, 16-02-24
+ *  
+ *  @brief 导航栏底部线设置
+ *
+ *  @param hiden 是否隐藏
+ *  @param color 颜色
+ */
+- (void)navigationControllerBottomLine:(BOOL)hiden
+                       BackgroundColor:(UIColor *)color
+{
     if ([self.navigationController.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
-        NSArray *list = self.navigationController.navigationBar.subviews;
-        for (id obj in list) {
-            if ([obj isKindOfClass:[UIImageView class]]) {
-                UIImageView *imageView = (UIImageView *)obj;
-                NSArray *list2 = imageView.subviews;
-                for (id obj2 in list2) {
-                    if ([obj2 isKindOfClass:[UIImageView class]]) {
-                        UIImageView *imageView2 = (UIImageView *)obj2;
-                        imageView2.hidden = YES;
+        NSArray *subArray = self.navigationController.navigationBar.subviews;
+        for (UIView *subV in subArray) {
+            if ([subV isKindOfClass:[UIImageView class]]) {
+                for (UIView *subVs in subV.subviews) {
+                    if ([subVs isKindOfClass:[UIImageView class]]) {
+                        subVs.hidden = hiden;
+                        if (color)
+                            subVs.backgroundColor = color;
                     }
                 }
             }
         }
     }
 }
-
 
 - (void)didReceiveMemoryWarning
 {
