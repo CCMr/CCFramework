@@ -224,28 +224,6 @@
         imageFrame.origin.y = 0;
     }
     
-    UIImage *image = self.imageView.image;
-    CGFloat screenScale = [UIScreen mainScreen].scale;
-    CGFloat widthPercent = (image.size.width / screenScale) / self.frame.size.width;
-    CGFloat heightPercent = (image.size.height / screenScale) / self.frame.size.height;
-    
-    
-    if (widthPercent <= 1.0f && heightPercent <= 1.0f) {
-        imageFrame = CGRectMake(0, 0, image.size.width/screenScale, image.size.height/screenScale);
-//        self.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
-    } else if (widthPercent > 1.0f && heightPercent < 1.0f) {
-        imageFrame = CGRectMake(0, 0, self.frame.size.width, heightPercent * self.frame.size.width);
-    }else if (widthPercent <= 1.0f && heightPercent > 1.0f) {
-        self.frame = CGRectMake(0, 0, self.frame.size.height * widthPercent ,self.frame.size.height);
-    }else {
-        if (widthPercent > heightPercent) {
-            imageFrame = CGRectMake(0, 0, self.frame.size.width, heightPercent * self.frame.size.width);
-        }else {
-            imageFrame = CGRectMake(0, 0, self.frame.size.height * widthPercent ,self.frame.size.height);
-        }
-    }
-
-    
     if (_photo.firstShow) {    // 第一次显示的图片
         _photo.firstShow = NO; // 已经显示过了
         _imageView.frame = [_photo.srcImageView convertRect:_photo.srcImageView.bounds toView:nil];
