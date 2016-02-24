@@ -60,7 +60,7 @@
 {
     _currentViewController = viewController;
     
-    CCActionSheet *actionSheet = [[CCActionSheet alloc] initWithAdvancedExample];
+    CCActionSheet *actionSheet = [[CCActionSheet alloc] initWithWhiteExample];
     [actionSheet addButtonWithTitle:@"拍照获取" image:nil type:CCActionSheetButtonTypeTextAlignmentCenter handler:^(CCActionSheet *actionSheet) {
         [self cameras];
     }];

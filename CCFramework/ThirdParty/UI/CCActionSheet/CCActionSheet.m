@@ -85,14 +85,19 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
     [appearance setBlurSaturationDeltaFactor:1.8f];
     [appearance setButtonHeight:50.0f];
     [appearance setCancelButtonHeight:50.0f];
+    [appearance setCancelButtonBackgroundColor:[UIColor whiteColor]];
     [appearance setAutomaticallyTintButtonImages:@YES];
     [appearance setSelectedBackgroundColor:[UIColor colorWithWhite:0.1f alpha:0.2f]];
-    [appearance setCancelButtonTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0f],
+    [appearance setButtonBackgroundColor:[UIColor whiteColor]];
+    UIFont *defaultFont = [UIFont fontWithName:@"Avenir" size:17.0f];
+    [appearance setCancelButtonTextAttributes:@{NSFontAttributeName : defaultFont,
                                                 NSForegroundColorAttributeName : [UIColor darkGrayColor]}];
-    [appearance setButtonTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0f]}];
+    [appearance setButtonTextAttributes:@{NSFontAttributeName : defaultFont,
+                                          NSForegroundColorAttributeName : [UIColor darkGrayColor]}];
+    
     [appearance setDisabledButtonTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14.0f],
                                                   NSForegroundColorAttributeName : [UIColor colorWithWhite:0.6f alpha:1.0]}];
-    [appearance setDestructiveButtonTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0f],
+    [appearance setDestructiveButtonTextAttributes:@{NSFontAttributeName : defaultFont,
                                                      NSForegroundColorAttributeName : [UIColor redColor]}];
     [appearance setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14.0f],
                                          NSForegroundColorAttributeName : [UIColor grayColor]}];
@@ -116,6 +121,50 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
 }
 
 /**
+ *  @author CC, 16-02-24
+ *  
+ *  @brief 白色半透明
+ */
+- (instancetype)initWithWhiteExample
+{
+    return [self initWithWhiteExample:nil];
+}
+
+/**
+ *  @author CC, 16-02-24
+ *  
+ *  @brief 白色半透明
+ *
+ *  @param title 标题
+ */
+- (instancetype)initWithWhiteExample:(NSString *)title
+{
+    CCActionSheet *appearance = [self initWithTitle:title];
+    appearance.titleBackgroundColor = [UIColor whiteColor];
+    [appearance setBlurRadius:0];
+    [appearance setBlurTintColor:[UIColor colorWithWhite:.0f alpha:0.5f]];
+    [appearance setBlurSaturationDeltaFactor:0];
+    [appearance setButtonHeight:50.0f];
+    [appearance setCancelButtonHeight:50.0f];
+    [appearance setAutomaticallyTintButtonImages:@YES];
+    [appearance setSelectedBackgroundColor:[UIColor colorWithWhite:0.1f alpha:0.2f]];
+    [appearance setCancelButtonTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0f],
+                                                NSForegroundColorAttributeName : [UIColor darkGrayColor]}];
+    [appearance setButtonTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0f]}];
+    [appearance setDisabledButtonTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14.0f],
+                                                  NSForegroundColorAttributeName : [UIColor colorWithWhite:0.6f alpha:1.0]}];
+    [appearance setDestructiveButtonTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0f],
+                                                     NSForegroundColorAttributeName : [UIColor redColor]}];
+    [appearance setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14.0f],
+                                         NSForegroundColorAttributeName : [UIColor grayColor]}];
+    [appearance setCancelOnPanGestureEnabled:@(YES)];
+    [appearance setCancelOnTapEmptyAreaEnabled:@(NO)];
+    [appearance setAnimationDuration:kDefaultAnimationDuration];
+    
+    return appearance;
+}
+
+/**
  *  @author CC, 2016-01-06
  *  
  *  @brief  黑色半透明
@@ -135,7 +184,7 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
 - (instancetype)initWithAdvancedExample:(NSString *)title
 {
     CCActionSheet *appearance = [self initWithTitle:title];
-    appearance.blurTintColor = [UIColor colorWithWhite:0.0f alpha:0.55f];
+    appearance.blurTintColor = [UIColor colorWithWhite:0.0f alpha:0.75f];
     appearance.blurRadius = 8.0f;
     appearance.buttonHeight = 50.0f;
     appearance.cancelButtonHeight = 50.0f;
@@ -183,6 +232,7 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
     NSDictionary *attributes = nil;
     switch (item.type) {
         case CCActionSheetButtonTypeDefault:
+        case CCActionSheetButtonTypeTextAlignmentCenter:
             attributes = self.buttonTextAttributes;
             break;
         case CCActionSheetButtonTypeDisabled:
@@ -212,7 +262,7 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
         cell.imageView.tintColor = attributes[NSForegroundColorAttributeName] ? attributes[NSForegroundColorAttributeName] : [UIColor blackColor];
     }
     
-    cell.backgroundColor = [UIColor clearColor];
+    cell.backgroundColor = self.buttonBackgroundColor;
     
     if (self.selectedBackgroundColor && ![cell.selectedBackgroundView.backgroundColor isEqual:self.selectedBackgroundColor]) {
         cell.selectedBackgroundView = [[UIView alloc] init];
@@ -322,7 +372,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
                    handler:(CCActionSheetHandler)handler
 {
     [self addButtonWithTitle:title
-                  TitleColor:[UIColor whiteColor]
+                  TitleColor:nil
                        image:image
                         type:type
                      handler:handler];
@@ -529,6 +579,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     // move the button below the screen (ready to be animated -show)
     cancelButton.transform = CGAffineTransformMakeTranslation(0, self.cancelButtonHeight);
     cancelButton.clipsToBounds = YES;
+    cancelButton.backgroundColor = self.cancelButtonBackgroundColor;
     [self addSubview:cancelButton];
     
     self.cancelButton = cancelButton;
@@ -551,10 +602,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGRect statusBarViewRect = [self convertRect:[UIApplication sharedApplication].statusBarFrame fromView:nil];
     CGFloat statusBarHeight = CGRectGetHeight(statusBarViewRect);
-    CGRect frame = CGRectMake(0,
-                              statusBarHeight,
-                              CGRectGetWidth(self.bounds),
-                              CGRectGetHeight(self.bounds) - statusBarHeight - self.cancelButtonHeight);
+    CGRect frame = CGRectMake(0,statusBarHeight,CGRectGetWidth(self.bounds),CGRectGetHeight(self.bounds) - statusBarHeight - 10 - self.cancelButtonHeight);
     
     UITableView *tableView = [[UITableView alloc] initWithFrame:frame];
     tableView.backgroundColor = [UIColor clearColor];
@@ -599,8 +647,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         
         // create and add a header consisting of the label
         UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), labelSize.height + 2 * topBottomPadding)];
-        if (_title.length > 0)
-            headerView.backgroundColor = [UIColor clearColor];
+        headerView.backgroundColor = [UIColor clearColor];
+        if (self.title.length)
+            headerView.backgroundColor = self.titleBackgroundColor;
         [headerView addSubview:label];
         self.tableView.tableHeaderView = headerView;
         

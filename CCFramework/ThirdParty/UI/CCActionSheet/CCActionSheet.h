@@ -41,7 +41,7 @@ typedef void (^CCActionSheetHandler)(CCActionSheet *actionSheet);
 // Appearance - all of the following properties should be set before showing the action sheet. See `+initialize` to learn the default values of all properties.
 
 /**
- *  See UIImage+AHKAdditions.h/.m to learn how these three properties are used.
+ *  See UIImage+Additions.h/.m to learn how these three properties are used.
  */
 @property(nonatomic) CGFloat blurRadius UI_APPEARANCE_SELECTOR;
 @property(strong, nonatomic) UIColor *blurTintColor UI_APPEARANCE_SELECTOR;
@@ -57,6 +57,28 @@ typedef void (^CCActionSheetHandler)(CCActionSheet *actionSheet);
  *  See "Advanced" example in the example project to see it used.
  */
 @property(strong, nonatomic) UIColor *cancelButtonShadowColor UI_APPEARANCE_SELECTOR;
+
+/**
+ *  @author CC, 16-02-24
+ *  
+ *  @brief 取消按钮背景色 默认白色
+ */
+@property(strong, nonatomic) UIColor *cancelButtonBackgroundColor UI_APPEARANCE_SELECTOR;
+
+/**
+ *  @author CC, 16-02-24
+ *  
+ *  @brief 按钮背景颜色 默认白色
+ */
+@property(strong, nonatomic) UIColor *buttonBackgroundColor UI_APPEARANCE_SELECTOR;
+
+/**
+ *  @author CC, 16-02-24
+ *  
+ *  @brief 标题背景颜色 默认白色
+ */
+@property(strong, nonatomic) UIColor *titleBackgroundColor UI_APPEARANCE_SELECTOR;
+
 /// Boxed (@YES, @NO) boolean value (enabled by default). Isn't supported on iOS 6.
 @property(strong, nonatomic) NSNumber *automaticallyTintButtonImages UI_APPEARANCE_SELECTOR;
 /// Boxed boolean value. Useful when adding buttons without images (in that case text looks better centered). Disabled by default.
@@ -118,6 +140,22 @@ typedef void (^CCActionSheetHandler)(CCActionSheet *actionSheet);
  *  @param title 标题
  */
 - (instancetype)initWithAdvancedExample:(NSString *)title;
+
+/**
+ *  @author CC, 16-02-24
+ *  
+ *  @brief 白色半透明
+ */
+- (instancetype)initWithWhiteExample;
+
+/**
+ *  @author CC, 16-02-24
+ *  
+ *  @brief 白色半透明
+ *
+ *  @param title 标题
+ */
+- (instancetype)initWithWhiteExample:(NSString *)title;
 
 /**
  *  Adds a button without an image. Has to be called before showing the action sheet.
