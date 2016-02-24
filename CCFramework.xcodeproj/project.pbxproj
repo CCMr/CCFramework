@@ -149,6 +149,8 @@
 		420CB14A1C7D788500A0EC25 /* View+MASShorthandAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CB1311C7D788500A0EC25 /* View+MASShorthandAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		420CB14B1C7D788500A0EC25 /* ViewController+MASAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CB1321C7D788500A0EC25 /* ViewController+MASAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		420CB14C1C7D788500A0EC25 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 420CB1331C7D788500A0EC25 /* ViewController+MASAdditions.m */; };
+		420CB1501C7D856F00A0EC25 /* CCSegmentedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CB14E1C7D856F00A0EC25 /* CCSegmentedView.h */; };
+		420CB1511C7D856F00A0EC25 /* CCSegmentedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 420CB14F1C7D856F00A0EC25 /* CCSegmentedView.m */; };
 		420CD8B11C59F788009578D4 /* CCInputDodger.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CD8AF1C59F788009578D4 /* CCInputDodger.h */; };
 		420CD8B21C59F788009578D4 /* CCInputDodger.m in Sources */ = {isa = PBXBuildFile; fileRef = 420CD8B01C59F788009578D4 /* CCInputDodger.m */; };
 		420CD8BB1C59F9B9009578D4 /* UIScrollView+CCInputDodger.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CD8B71C59F9B9009578D4 /* UIScrollView+CCInputDodger.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1260,6 +1262,8 @@
 		420CB1311C7D788500A0EC25 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
 		420CB1321C7D788500A0EC25 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
 		420CB1331C7D788500A0EC25 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
+		420CB14E1C7D856F00A0EC25 /* CCSegmentedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCSegmentedView.h; path = CCSegmentedView/CCSegmentedView.h; sourceTree = "<group>"; };
+		420CB14F1C7D856F00A0EC25 /* CCSegmentedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCSegmentedView.m; path = CCSegmentedView/CCSegmentedView.m; sourceTree = "<group>"; };
 		420CD8AF1C59F788009578D4 /* CCInputDodger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCInputDodger.h; path = CCInputDodger/CCInputDodger.h; sourceTree = "<group>"; };
 		420CD8B01C59F788009578D4 /* CCInputDodger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCInputDodger.m; path = CCInputDodger/CCInputDodger.m; sourceTree = "<group>"; };
 		420CD8B71C59F9B9009578D4 /* UIScrollView+CCInputDodger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+CCInputDodger.h"; path = "CCInputDodger/UIScrollView+CCInputDodger.h"; sourceTree = "<group>"; };
@@ -2508,6 +2512,15 @@
 				420CB1331C7D788500A0EC25 /* ViewController+MASAdditions.m */,
 			);
 			path = Masonry;
+			sourceTree = "<group>";
+		};
+		420CB14D1C7D854300A0EC25 /* CCSegmentedView */ = {
+			isa = PBXGroup;
+			children = (
+				420CB14E1C7D856F00A0EC25 /* CCSegmentedView.h */,
+				420CB14F1C7D856F00A0EC25 /* CCSegmentedView.m */,
+			);
+			name = CCSegmentedView;
 			sourceTree = "<group>";
 		};
 		420CD8AE1C59F76E009578D4 /* CCInputDodger */ = {
@@ -3900,6 +3913,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E51BDE025300C76004 /* UI.h */,
+				420CB14D1C7D854300A0EC25 /* CCSegmentedView */,
 				42E953191C589D8C001C93CB /* CCBannerView */,
 				4268CED21C43420000434D65 /* CCStarRatingView */,
 				42DEB2B31C254A2100734E09 /* CCBarSlider */,
@@ -5742,6 +5756,7 @@
 				42068F021C573E33005DFB01 /* POPPropertyAnimationInternal.h in Headers */,
 				429C9FE81B9EF8BF0013A44A /* SRServerSentEvent.h in Headers */,
 				42C208EF1BDE1D7D00C76004 /* ModelLayer.h in Headers */,
+				420CB1501C7D856F00A0EC25 /* CCSegmentedView.h in Headers */,
 				429C9FE21B9EF8BF0013A44A /* SRNegotiationResponse.h in Headers */,
 				4269792D1BA695BA00C3E93C /* AFHTTPRequestOperation.h in Headers */,
 				422E91691C5F323A008F7DDA /* CCUnReadBubbleView.h in Headers */,
@@ -6174,6 +6189,7 @@
 				42F411E91C2150E500814E7B /* UIImage+BUIImage.m in Sources */,
 				42068EF91C573E33005DFB01 /* POPBasicAnimation.mm in Sources */,
 				4206A5231C783CFA001A1CF3 /* CCVideoPreviewController.m in Sources */,
+				420CB1511C7D856F00A0EC25 /* CCSegmentedView.m in Sources */,
 				4206A5211C783CFA001A1CF3 /* CCPhotoPreviewController.m in Sources */,
 				429C9FA71B9EF8BF0013A44A /* SmoothScrollView.m in Sources */,
 				425477881BD2AF6A0071BBC5 /* AliOrderFormEntity.m in Sources */,
