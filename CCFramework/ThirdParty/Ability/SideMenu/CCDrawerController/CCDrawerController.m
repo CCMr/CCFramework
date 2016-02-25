@@ -39,7 +39,7 @@ __VA_ARGS__ \
 #define IF_IOS7_OR_GREATER(...)
 #endif
 
-CGFloat const CCDrawerDefaultWidth = 320.0f;
+#define CCDrawerDefaultWidth [UIScreen mainScreen].bounds.size.width - 55
 CGFloat const CCDrawerDefaultAnimationVelocity = 840.0f;
 
 NSTimeInterval const CCDrawerDefaultFullAnimationDelay = 0.10f;
@@ -217,11 +217,12 @@ static NSString *CCDrawerOpenSideKey = @"CCDrawerOpenSide";
 
 - (void)commonSetup
 {
+    [self setMaximumLeftDrawerWidth:CCDrawerDefaultWidth];
+    [self setMaximumRightDrawerWidth:CCDrawerDefaultWidth];
+    
     [self setInteractivePopGestureRecognizerEnabled:YES];
     [self setDrawerAnimationType:CCDrawerAnimationTypeParallax];
     [self setPanGestureEnabled:YES];
-    [self setMaximumLeftDrawerWidth:CCDrawerDefaultWidth];
-    [self setMaximumRightDrawerWidth:CCDrawerDefaultWidth];
     
     [self setAnimationVelocity:CCDrawerDefaultAnimationVelocity];
     
