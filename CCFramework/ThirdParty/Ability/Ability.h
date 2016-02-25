@@ -49,7 +49,7 @@
 #import <CCFramework/FriendGroup.h>
 #import <CCFramework/CCInfoBanner.h>
 #import <CCFramework/CCBottomPopupView.h>
-#import <CCFramework/CCExpandHeader.h>
+#import <CCFramework/UIScrollView+Expand.h>
 #import <CCFramework/UIScrollView+CCInputDodger.h>
 #import <CCFramework/UIView+CCInputDodger.h>
 #import <CCFramework/Masonry.h>
