@@ -439,7 +439,7 @@
 		4268CED61C43421E00434D65 /* CCStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4268CED41C43421E00434D65 /* CCStarRatingView.m */; };
 		4268CED91C4356CE00434D65 /* icon_star_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4268CED71C4356CE00434D65 /* icon_star_gray@2x.png */; };
 		4268CEDA1C4356CE00434D65 /* icon_star_yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4268CED81C4356CE00434D65 /* icon_star_yellow@2x.png */; };
-		4268CEDE1C4381A100434D65 /* CCExpandHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 4268CEDC1C4381A100434D65 /* CCExpandHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4268CEDE1C4381A100434D65 /* CCExpandHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 4268CEDC1C4381A100434D65 /* CCExpandHeader.h */; };
 		4268CEDF1C4381A100434D65 /* CCExpandHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4268CEDD1C4381A100434D65 /* CCExpandHeader.m */; };
 		426979281BA695BA00C3E93C /* AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 426978FE1BA695BA00C3E93C /* AFNetworking.h */; };
 		426979291BA695BA00C3E93C /* AFHTTPSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 426979001BA695BA00C3E93C /* AFHTTPSessionManager.h */; };
@@ -1121,6 +1121,8 @@
 		42F945881BC8ED5D008882AE /* CCDisplayMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F945861BC8ED5D008882AE /* CCDisplayMediaViewController.m */; };
 		42F967881C3A5FBC0047FC15 /* CCBottomPopupView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F967861C3A5FBC0047FC15 /* CCBottomPopupView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42F967891C3A5FBC0047FC15 /* CCBottomPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F967871C3A5FBC0047FC15 /* CCBottomPopupView.m */; };
+		42FCABAE1C7EEFA000DDE2C9 /* UIScrollView+Expand.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FCABAC1C7EEFA000DDE2C9 /* UIScrollView+Expand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42FCABAF1C7EEFA000DDE2C9 /* UIScrollView+Expand.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FCABAD1C7EEFA000DDE2C9 /* UIScrollView+Expand.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2238,6 +2240,8 @@
 		42F945861BC8ED5D008882AE /* CCDisplayMediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDisplayMediaViewController.m; sourceTree = "<group>"; };
 		42F967861C3A5FBC0047FC15 /* CCBottomPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCBottomPopupView.h; path = CCBottomPopupView/CCBottomPopupView.h; sourceTree = "<group>"; };
 		42F967871C3A5FBC0047FC15 /* CCBottomPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCBottomPopupView.m; path = CCBottomPopupView/CCBottomPopupView.m; sourceTree = "<group>"; };
+		42FCABAC1C7EEFA000DDE2C9 /* UIScrollView+Expand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+Expand.h"; path = "CCExpandHeader/UIScrollView+Expand.h"; sourceTree = "<group>"; };
+		42FCABAD1C7EEFA000DDE2C9 /* UIScrollView+Expand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+Expand.m"; path = "CCExpandHeader/UIScrollView+Expand.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3181,6 +3185,8 @@
 			children = (
 				4268CEDC1C4381A100434D65 /* CCExpandHeader.h */,
 				4268CEDD1C4381A100434D65 /* CCExpandHeader.m */,
+				42FCABAC1C7EEFA000DDE2C9 /* UIScrollView+Expand.h */,
+				42FCABAD1C7EEFA000DDE2C9 /* UIScrollView+Expand.m */,
 			);
 			name = CCExpandHeader;
 			sourceTree = "<group>";
@@ -5505,6 +5511,7 @@
 				429CA0931B9EF8BF0013A44A /* CCDatePicker.h in Headers */,
 				429CA0FB1B9EF8BF0013A44A /* CCMessageTableViewController.h in Headers */,
 				420CD8B11C59F788009578D4 /* CCInputDodger.h in Headers */,
+				42FCABAE1C7EEFA000DDE2C9 /* UIScrollView+Expand.h in Headers */,
 				429CA1121B9EF8BF0013A44A /* CCShareMenuItem.h in Headers */,
 				42F411371C214C5400814E7B /* CCEraserBrush.h in Headers */,
 				429CA0B51B9EF8BF0013A44A /* CCCameraViewController.h in Headers */,
@@ -6133,6 +6140,7 @@
 				429CA1021B9EF8BF0013A44A /* CCMessageAvatarFactory.m in Sources */,
 				429CA01C1B9EF8BF0013A44A /* ColumnarChart.m in Sources */,
 				426476A91BD0E3AF00EE191C /* CCUtilityButtonTapGestureRecognizer.m in Sources */,
+				42FCABAF1C7EEFA000DDE2C9 /* UIScrollView+Expand.m in Sources */,
 				422511411C72F795003B3623 /* CCPropertyKey.m in Sources */,
 				429CA0F01B9EF8BF0013A44A /* CCFoundationCommon.m in Sources */,
 				4206A52F1C783CFA001A1CF3 /* CCPhotoPicker.m in Sources */,
