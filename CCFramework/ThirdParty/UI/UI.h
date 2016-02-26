@@ -77,4 +77,7 @@
 #import <CCFramework/CCStarRatingView.h>
 #import <CCFramework/CCBannerView.h>
 
+#import <CCFramework/MLLabel.h>
+#import <CCFramework/MLLinkLabel.h>
+#import <CCFramework/MLExpressionManager.h>
 #endif
