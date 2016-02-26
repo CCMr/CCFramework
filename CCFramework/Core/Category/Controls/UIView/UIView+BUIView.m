@@ -29,6 +29,22 @@
 @implementation UIView (BUIView)
 
 /**
+ *  @author CC, 16-02-26
+ *  
+ *  @brief 是否包含视图类型
+ *
+ *  @param cls 视图类型
+ */
+- (BOOL)containsSubViewOfClassType:(Class)cls
+{
+    for (UIView *view in [self subviews]) {
+        if ([view isMemberOfClass:cls])
+            return YES;
+    }
+    return NO;
+}
+
+/**
  *  @author CC, 2015-07-16
  *
  *  @brief  清空View所子控件
@@ -39,6 +55,21 @@
 {
     while (self.subviews.count) {
         [self.subviews.lastObject removeFromSuperview];
+    }
+}
+
+/**
+ *  @author CC, 16-02-26
+ *  
+ *  @brief 删除某项类型
+ *
+ *  @param cls 视图类型
+ */
+- (void)removeSubviewsWithSubviewClass:(Class)cls
+{
+    for (UIView *view in [self subviews]) {
+        if ([view isKindOfClass:cls])
+            [view removeFromSuperview];
     }
 }
 
@@ -121,38 +152,44 @@
     self.frame = frame;
 }
 
-- (void)setLeft:(CGFloat)x {
+- (void)setLeft:(CGFloat)x
+{
     
     CGRect frame = self.frame;
     frame.origin.x = x;
     self.frame = frame;
 }
 
-- (CGFloat)left {
+- (CGFloat)left
+{
     
     return self.frame.origin.x;
 }
 
-- (void)setBottom:(CGFloat)bottom {
+- (void)setBottom:(CGFloat)bottom
+{
     
     CGRect frame = self.frame;
     frame.origin.y = bottom - frame.size.height;
     self.frame = frame;
 }
 
-- (CGFloat)bottom {
+- (CGFloat)bottom
+{
     
     return self.frame.origin.y + self.frame.size.height;
 }
 
-- (void)setRight:(CGFloat)right {
+- (void)setRight:(CGFloat)right
+{
     
     CGRect frame = self.frame;
     frame.origin.x = right - frame.size.width;
     self.frame = frame;
 }
 
-- (CGFloat)right {
+- (CGFloat)right
+{
     
     return self.frame.origin.x + self.frame.size.width;
 }

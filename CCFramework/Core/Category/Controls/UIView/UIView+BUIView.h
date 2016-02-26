@@ -46,6 +46,15 @@
 - (void)setFramePreservingHeight:(CGRect)frame;
 
 /**
+ *  @author CC, 16-02-26
+ *  
+ *  @brief 是否包含视图类型
+ *
+ *  @param cls 视图类型
+ */
+- (BOOL)containsSubViewOfClassType:(Class)cls;
+
+/**
  *  @author CC, 2015-07-16
  *
  *  @brief  清空View所子控件
@@ -53,5 +62,14 @@
  *  @since 1.0
  */
 - (void)removeAllSubviews;
+
+/**
+ *  @author CC, 16-02-26
+ *  
+ *  @brief 删除某项类型
+ *
+ *  @param cls 视图类型
+ */
+- (void)removeSubviewsWithSubviewClass:(Class)cls;
 
 @end

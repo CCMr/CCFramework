@@ -164,6 +164,23 @@
 		4213FAFD1C13D860006918AC /* CCJPsuh.m in Sources */ = {isa = PBXBuildFile; fileRef = 4213FAFB1C13D860006918AC /* CCJPsuh.m */; };
 		4219A78B1C40B145007804A7 /* CCDropDownMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 4219A7891C40B145007804A7 /* CCDropDownMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4219A78C1C40B145007804A7 /* CCDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4219A78A1C40B145007804A7 /* CCDropDownMenu.m */; };
+		4219EE081C7FF93F00F1EE76 /* NSString+MLLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 4219EDF11C7FF93F00F1EE76 /* NSString+MLLabel.h */; };
+		4219EE091C7FF93F00F1EE76 /* NSString+MLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4219EDF21C7FF93F00F1EE76 /* NSString+MLLabel.m */; };
+		4219EE0A1C7FF93F00F1EE76 /* MLExpressionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4219EDF41C7FF93F00F1EE76 /* MLExpressionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4219EE0B1C7FF93F00F1EE76 /* MLExpressionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4219EDF51C7FF93F00F1EE76 /* MLExpressionManager.m */; };
+		4219EE0C1C7FF93F00F1EE76 /* MLTextAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = 4219EDF61C7FF93F00F1EE76 /* MLTextAttachment.h */; };
+		4219EE0D1C7FF93F00F1EE76 /* MLTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 4219EDF71C7FF93F00F1EE76 /* MLTextAttachment.m */; };
+		4219EE0E1C7FF93F00F1EE76 /* NSAttributedString+MLExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 4219EDF81C7FF93F00F1EE76 /* NSAttributedString+MLExpression.h */; };
+		4219EE0F1C7FF93F00F1EE76 /* NSAttributedString+MLExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 4219EDF91C7FF93F00F1EE76 /* NSAttributedString+MLExpression.m */; };
+		4219EE101C7FF93F00F1EE76 /* NSString+MLExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 4219EDFA1C7FF93F00F1EE76 /* NSString+MLExpression.h */; };
+		4219EE111C7FF93F00F1EE76 /* NSString+MLExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 4219EDFB1C7FF93F00F1EE76 /* NSString+MLExpression.m */; };
+		4219EE121C7FF93F00F1EE76 /* MLLabel+Override.h in Headers */ = {isa = PBXBuildFile; fileRef = 4219EDFD1C7FF93F00F1EE76 /* MLLabel+Override.h */; };
+		4219EE131C7FF93F00F1EE76 /* MLLabelLayoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4219EDFE1C7FF93F00F1EE76 /* MLLabelLayoutManager.h */; };
+		4219EE141C7FF93F00F1EE76 /* MLLabelLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4219EDFF1C7FF93F00F1EE76 /* MLLabelLayoutManager.m */; };
+		4219EE151C7FF93F00F1EE76 /* MLLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 4219EE001C7FF93F00F1EE76 /* MLLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4219EE161C7FF93F00F1EE76 /* MLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4219EE011C7FF93F00F1EE76 /* MLLabel.m */; };
+		4219EE171C7FF93F00F1EE76 /* MLLinkLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 4219EE021C7FF93F00F1EE76 /* MLLinkLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4219EE181C7FF93F00F1EE76 /* MLLinkLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4219EE031C7FF93F00F1EE76 /* MLLinkLabel.m */; };
 		421E7A721C3D173D00C31AD0 /* CCDrawerController+Subclass.h in Headers */ = {isa = PBXBuildFile; fileRef = 421E7A641C3D173D00C31AD0 /* CCDrawerController+Subclass.h */; };
 		421E7A731C3D173D00C31AD0 /* CCDrawerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 421E7A651C3D173D00C31AD0 /* CCDrawerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		421E7A741C3D173D00C31AD0 /* CCDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 421E7A661C3D173D00C31AD0 /* CCDrawerController.m */; };
@@ -1279,6 +1296,23 @@
 		4213FAFB1C13D860006918AC /* CCJPsuh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCJPsuh.m; sourceTree = "<group>"; };
 		4219A7891C40B145007804A7 /* CCDropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDropDownMenu.h; sourceTree = "<group>"; };
 		4219A78A1C40B145007804A7 /* CCDropDownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDropDownMenu.m; sourceTree = "<group>"; };
+		4219EDF11C7FF93F00F1EE76 /* NSString+MLLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MLLabel.h"; sourceTree = "<group>"; };
+		4219EDF21C7FF93F00F1EE76 /* NSString+MLLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MLLabel.m"; sourceTree = "<group>"; };
+		4219EDF41C7FF93F00F1EE76 /* MLExpressionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLExpressionManager.h; sourceTree = "<group>"; };
+		4219EDF51C7FF93F00F1EE76 /* MLExpressionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLExpressionManager.m; sourceTree = "<group>"; };
+		4219EDF61C7FF93F00F1EE76 /* MLTextAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTextAttachment.h; sourceTree = "<group>"; };
+		4219EDF71C7FF93F00F1EE76 /* MLTextAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTextAttachment.m; sourceTree = "<group>"; };
+		4219EDF81C7FF93F00F1EE76 /* NSAttributedString+MLExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+MLExpression.h"; sourceTree = "<group>"; };
+		4219EDF91C7FF93F00F1EE76 /* NSAttributedString+MLExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+MLExpression.m"; sourceTree = "<group>"; };
+		4219EDFA1C7FF93F00F1EE76 /* NSString+MLExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MLExpression.h"; sourceTree = "<group>"; };
+		4219EDFB1C7FF93F00F1EE76 /* NSString+MLExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MLExpression.m"; sourceTree = "<group>"; };
+		4219EDFD1C7FF93F00F1EE76 /* MLLabel+Override.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MLLabel+Override.h"; sourceTree = "<group>"; };
+		4219EDFE1C7FF93F00F1EE76 /* MLLabelLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLabelLayoutManager.h; sourceTree = "<group>"; };
+		4219EDFF1C7FF93F00F1EE76 /* MLLabelLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLabelLayoutManager.m; sourceTree = "<group>"; };
+		4219EE001C7FF93F00F1EE76 /* MLLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLabel.h; sourceTree = "<group>"; };
+		4219EE011C7FF93F00F1EE76 /* MLLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLabel.m; sourceTree = "<group>"; };
+		4219EE021C7FF93F00F1EE76 /* MLLinkLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLinkLabel.h; sourceTree = "<group>"; };
+		4219EE031C7FF93F00F1EE76 /* MLLinkLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLinkLabel.m; sourceTree = "<group>"; };
 		421E7A641C3D173D00C31AD0 /* CCDrawerController+Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCDrawerController+Subclass.h"; sourceTree = "<group>"; };
 		421E7A651C3D173D00C31AD0 /* CCDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDrawerController.h; sourceTree = "<group>"; };
 		421E7A661C3D173D00C31AD0 /* CCDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDrawerController.m; sourceTree = "<group>"; };
@@ -2591,6 +2625,54 @@
 				4213FAFB1C13D860006918AC /* CCJPsuh.m */,
 			);
 			path = JPush;
+			sourceTree = "<group>";
+		};
+		4219EDEB1C7FF93F00F1EE76 /* MLLabel */ = {
+			isa = PBXGroup;
+			children = (
+				4219EDEC1C7FF93F00F1EE76 /* Category */,
+				4219EDF31C7FF93F00F1EE76 /* Expression */,
+				4219EDFC1C7FF93F00F1EE76 /* Helper */,
+				4219EE001C7FF93F00F1EE76 /* MLLabel.h */,
+				4219EE011C7FF93F00F1EE76 /* MLLabel.m */,
+				4219EE021C7FF93F00F1EE76 /* MLLinkLabel.h */,
+				4219EE031C7FF93F00F1EE76 /* MLLinkLabel.m */,
+			);
+			path = MLLabel;
+			sourceTree = "<group>";
+		};
+		4219EDEC1C7FF93F00F1EE76 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				4219EDF11C7FF93F00F1EE76 /* NSString+MLLabel.h */,
+				4219EDF21C7FF93F00F1EE76 /* NSString+MLLabel.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		4219EDF31C7FF93F00F1EE76 /* Expression */ = {
+			isa = PBXGroup;
+			children = (
+				4219EDF41C7FF93F00F1EE76 /* MLExpressionManager.h */,
+				4219EDF51C7FF93F00F1EE76 /* MLExpressionManager.m */,
+				4219EDF61C7FF93F00F1EE76 /* MLTextAttachment.h */,
+				4219EDF71C7FF93F00F1EE76 /* MLTextAttachment.m */,
+				4219EDF81C7FF93F00F1EE76 /* NSAttributedString+MLExpression.h */,
+				4219EDF91C7FF93F00F1EE76 /* NSAttributedString+MLExpression.m */,
+				4219EDFA1C7FF93F00F1EE76 /* NSString+MLExpression.h */,
+				4219EDFB1C7FF93F00F1EE76 /* NSString+MLExpression.m */,
+			);
+			path = Expression;
+			sourceTree = "<group>";
+		};
+		4219EDFC1C7FF93F00F1EE76 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				4219EDFD1C7FF93F00F1EE76 /* MLLabel+Override.h */,
+				4219EDFE1C7FF93F00F1EE76 /* MLLabelLayoutManager.h */,
+				4219EDFF1C7FF93F00F1EE76 /* MLLabelLayoutManager.m */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		421E7A631C3D173D00C31AD0 /* CCDrawerController */ = {
@@ -3919,6 +4001,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E51BDE025300C76004 /* UI.h */,
+				4219EDEB1C7FF93F00F1EE76 /* MLLabel */,
 				420CB14D1C7D854300A0EC25 /* CCSegmentedView */,
 				42E953191C589D8C001C93CB /* CCBannerView */,
 				4268CED21C43420000434D65 /* CCStarRatingView */,
@@ -5255,6 +5338,7 @@
 				42B647411BEDA9DA00B2F6FD /* Core.h in Headers */,
 				42F411F01C2150E500814E7B /* UIImage+Resize.h in Headers */,
 				42068EFD1C573E33005DFB01 /* POPDecayAnimation.h in Headers */,
+				4219EE0C1C7FF93F00F1EE76 /* MLTextAttachment.h in Headers */,
 				42B647401BEDA9C600B2F6FD /* CCProperty.h in Headers */,
 				4229668D1C75926B005E1C03 /* UIView+CCFlipImageView.h in Headers */,
 				42F411FE1C2150E500814E7B /* UISearchBar+Addition.h in Headers */,
@@ -5397,6 +5481,7 @@
 				42786E751C40ACD000C011FB /* CCDropDownListMenuItemView.h in Headers */,
 				426979431BA695BA00C3E93C /* UIImageView+AFNetworking.h in Headers */,
 				42068F0F1C573E33005DFB01 /* POPAnimationTracer.h in Headers */,
+				4219EE0E1C7FF93F00F1EE76 /* NSAttributedString+MLExpression.h in Headers */,
 				4269793F1BA695BA00C3E93C /* UIAlertView+AFNetworking.h in Headers */,
 				42B30DDF1BBD72AD0039BB94 /* SDWebImageDownloader.h in Headers */,
 				42B30DD91BBD72AD0039BB94 /* UIImageView+HighlightedWebCache.h in Headers */,
@@ -5540,6 +5625,7 @@
 				423C12791C0ECACB009FBA17 /* CCTool.h in Headers */,
 				42068F211C573E33005DFB01 /* POPVector.h in Headers */,
 				42F4113F1C214C5400814E7B /* CCLineBrush.h in Headers */,
+				4219EE0A1C7FF93F00F1EE76 /* MLExpressionManager.h in Headers */,
 				42F411341C214C5400814E7B /* CCBaseBrush.h in Headers */,
 				42DEB2BA1C254A6800734E09 /* CCColorPickerController.h in Headers */,
 				422966941C75AB28005E1C03 /* UISearchController+Addition.h in Headers */,
@@ -5578,6 +5664,7 @@
 				42068F161C573E33005DFB01 /* POPAction.h in Headers */,
 				429CA1091B9EF8BF0013A44A /* CCVideoOutputSampleBufferFactory.h in Headers */,
 				42068F0D1C573E33005DFB01 /* POPAnimationRuntime.h in Headers */,
+				4219EE131C7FF93F00F1EE76 /* MLLabelLayoutManager.h in Headers */,
 				429C9F5C1B9EF8BF0013A44A /* CCDropzone.h in Headers */,
 				4254775D1BD2AEC20071BBC5 /* rc4.h in Headers */,
 				42B30DCF1BBD72AD0039BB94 /* NSData+ImageContentType.h in Headers */,
@@ -5589,6 +5676,7 @@
 				429CA0871B9EF8BF0013A44A /* CCLabel.h in Headers */,
 				42068F171C573E33005DFB01 /* POPCGUtils.h in Headers */,
 				4230E1961BBB8F7C0001E68F /* CCRadarScanViewController.h in Headers */,
+				4219EE151C7FF93F00F1EE76 /* MLLabel.h in Headers */,
 				4254775E1BD2AEC20071BBC5 /* ripemd.h in Headers */,
 				428B5C3B1C22609C001B8584 /* rscode.h in Headers */,
 				422E91701C5F38BE008F7DDA /* PRTween.h in Headers */,
@@ -5678,6 +5766,7 @@
 				42DEB2A01C25495000734E09 /* CCColorComparator.h in Headers */,
 				429CA0011B9EF8BF0013A44A /* CCActionSheet.h in Headers */,
 				42F411CE1C2150E500814E7B /* NSDictionary+Additions.h in Headers */,
+				4219EE121C7FF93F00F1EE76 /* MLLabel+Override.h in Headers */,
 				42F412061C2150E500814E7B /* UIView+CCBadgeView.h in Headers */,
 				42F411F81C2150E500814E7B /* UILabel+Addition.h in Headers */,
 				429C9FFF1B9EF8BF0013A44A /* CCRourRotation.h in Headers */,
@@ -5709,11 +5798,13 @@
 				420CD8BB1C59F9B9009578D4 /* UIScrollView+CCInputDodger.h in Headers */,
 				429C9FA81B9EF8BF0013A44A /* SmoothViewController.h in Headers */,
 				42F24C6B1BEA5091008CDEDC /* PNScatterChart.h in Headers */,
+				4219EE081C7FF93F00F1EE76 /* NSString+MLLabel.h in Headers */,
 				429CA1031B9EF8BF0013A44A /* CCMessageBubbleFactory.h in Headers */,
 				429CA0731B9EF8BF0013A44A /* CCPopMenuItem.h in Headers */,
 				42068F031C573E33005DFB01 /* POPSpringAnimation.h in Headers */,
 				429CA03A1B9EF8BF0013A44A /* CCPhotoView.h in Headers */,
 				420CB13D1C7D788500A0EC25 /* Masonry.h in Headers */,
+				4219EE101C7FF93F00F1EE76 /* NSString+MLExpression.h in Headers */,
 				420CB1391C7D788500A0EC25 /* MASConstraintMaker.h in Headers */,
 				4225113E1C72F795003B3623 /* CCProperty.h in Headers */,
 				4254774D1BD2AEC20071BBC5 /* md5.h in Headers */,
@@ -5787,6 +5878,7 @@
 				42F412001C2150E500814E7B /* UITabBarController+Additional.h in Headers */,
 				429C9FE61B9EF8BF0013A44A /* SREventSourceStreamReader.h in Headers */,
 				42F411F21C2150E500814E7B /* UIImage+RoundedCorner.h in Headers */,
+				4219EE171C7FF93F00F1EE76 /* MLLinkLabel.h in Headers */,
 				425477721BD2AEC20071BBC5 /* x509_vfy.h in Headers */,
 				4254774F1BD2AEC20071BBC5 /* modes.h in Headers */,
 				4206A51E1C783CFA001A1CF3 /* CCPhotoPickerController.h in Headers */,
@@ -6057,6 +6149,7 @@
 				429CA09A1B9EF8BF0013A44A /* SEConstants.m in Sources */,
 				4206A5271C783CFA001A1CF3 /* CCAssetModel.m in Sources */,
 				42F4113C1C214C5400814E7B /* CCArrowBrush.m in Sources */,
+				4219EE181C7FF93F00F1EE76 /* MLLinkLabel.m in Sources */,
 				42F411E11C2150E500814E7B /* UIButton+CCButtonTitlePosition.m in Sources */,
 				42F411C91C2150E500814E7B /* NSArray+BNSArray.m in Sources */,
 				428B5C381C22609C001B8584 /* qrspec.c in Sources */,
@@ -6091,6 +6184,7 @@
 				4298C77E1BDCAB3D00A3581D /* CoreDataMasterSlave.m in Sources */,
 				429CA08A1B9EF8BF0013A44A /* CCAutoTextView.m in Sources */,
 				428B5C331C22609C001B8584 /* QRCodeGenerator.m in Sources */,
+				4219EE0B1C7FF93F00F1EE76 /* MLExpressionManager.m in Sources */,
 				42068F1D1C573E33005DFB01 /* POPLayerExtras.mm in Sources */,
 				42DEB2A71C25495000734E09 /* CCDragChip.m in Sources */,
 				4298C78C1BDCBB0300A3581D /* CoreDataMasterSlave+Queries.m in Sources */,
@@ -6111,6 +6205,7 @@
 				42F411D71C2150E500814E7B /* UIColor+BUIColor.m in Sources */,
 				42F24C661BEA5091008CDEDC /* PNPieChartDataItem.m in Sources */,
 				422966811C756480005E1C03 /* CCLaunchAnimation.m in Sources */,
+				4219EE111C7FF93F00F1EE76 /* NSString+MLExpression.m in Sources */,
 				422E91731C5F38BE008F7DDA /* PRTweenTimingFunctions.m in Sources */,
 				429CA0611B9EF8BF0013A44A /* CCPickerAssetsViewController.m in Sources */,
 				429C9FF61B9EF8BF0013A44A /* SRWebSocketConnectionInfo.m in Sources */,
@@ -6146,13 +6241,16 @@
 				4206A52F1C783CFA001A1CF3 /* CCPhotoPicker.m in Sources */,
 				42F411D51C2150E500814E7B /* NSString+BNSString.m in Sources */,
 				429CA0371B9EF8BF0013A44A /* CCPhotoProgressView.m in Sources */,
+				4219EE141C7FF93F00F1EE76 /* MLLabelLayoutManager.m in Sources */,
 				424492991C0D90F500488AA2 /* VoiceConverter.m in Sources */,
 				42F411C61C2150E500814E7B /* CALayer+Transition.m in Sources */,
 				429CA0FC1B9EF8BF0013A44A /* CCMessageTableViewController.m in Sources */,
 				429CA1211B9EF8BF0013A44A /* CCEmotionManagerView.m in Sources */,
+				4219EE161C7FF93F00F1EE76 /* MLLabel.m in Sources */,
 				422511431C72F795003B3623 /* CCPropertyType.m in Sources */,
 				4225113B1C72F795003B3623 /* CCExtensionConst.m in Sources */,
 				42E953211C589E9E001C93CB /* CCBannerFooter.m in Sources */,
+				4219EE0F1C7FF93F00F1EE76 /* NSAttributedString+MLExpression.m in Sources */,
 				429C9FE01B9EF8BF0013A44A /* SRKeepAliveData.m in Sources */,
 				4226FC421C327BE0003EAEFE /* CCInfoBanner.m in Sources */,
 				429CA0FA1B9EF8BF0013A44A /* CCVoiceRecordHelper.m in Sources */,
@@ -6171,6 +6269,7 @@
 				42B30DE21BBD72AD0039BB94 /* SDWebImageDownloaderOperation.m in Sources */,
 				429C9FA31B9EF8BF0013A44A /* CCSignatureView.m in Sources */,
 				425A4F391C11C466009A7E77 /* CCXML.m in Sources */,
+				4219EE0D1C7FF93F00F1EE76 /* MLTextAttachment.m in Sources */,
 				429C9F5D1B9EF8BF0013A44A /* CCDropzone.m in Sources */,
 				426979441BA695BA00C3E93C /* UIImageView+AFNetworking.m in Sources */,
 				42A58A5A1BCCA23C0027429C /* CCWebView.m in Sources */,
@@ -6247,6 +6346,7 @@
 				429CA02E1B9EF8BF0013A44A /* CCNumericKeypadView.m in Sources */,
 				429CA1191B9EF8BF0013A44A /* CCMessageTableView.m in Sources */,
 				428B5C301C22609C001B8584 /* mask.c in Sources */,
+				4219EE091C7FF93F00F1EE76 /* NSString+MLLabel.m in Sources */,
 				42B30DE71BBD72AD0039BB94 /* SDWebImageDecoder.m in Sources */,
 				420CD8B21C59F788009578D4 /* CCInputDodger.m in Sources */,
 				42DEB2BB1C254A6800734E09 /* CCColorPickerController.m in Sources */,
