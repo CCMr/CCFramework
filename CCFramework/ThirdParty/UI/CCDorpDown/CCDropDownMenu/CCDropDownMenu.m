@@ -187,11 +187,11 @@
  *  
  *  @brief 控制父类滚动效果
  */
-- (void)scrollEnabled
+- (void)scrollEnabled:(BOOL)scrollEnabled
 {
     if ([self.superview isKindOfClass:[UIScrollView class]]) {
         UIScrollView *scrollView = (UIScrollView *)self.superview;
-        scrollView.scrollEnabled = !_show;
+        scrollView.scrollEnabled = !scrollEnabled;
     }
     
     if (!_show) {
@@ -249,7 +249,7 @@
     [self animateBackGroundView:forward complete:^{
         [self animateGalleryView:forward complete:^{
             _show = !_show;
-            [self scrollEnabled];
+            [self scrollEnabled:forward];
             
             if (complete)
                 complete();
