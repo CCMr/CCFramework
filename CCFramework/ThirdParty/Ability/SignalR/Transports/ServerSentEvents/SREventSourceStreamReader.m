@@ -80,13 +80,9 @@ typedef enum {
     dispatch_async(dispatch_get_main_queue(), ^{
         switch (eventCode) {
             case NSStreamEventOpenCompleted: {
-//                SRLogServerSentEvents(@"Opened");
-                
                 _reading = processing;
                 [self onOpened];
             } case NSStreamEventHasSpaceAvailable: {
-                _reading = processing;
-                [self onOpened];
                 if (![self processing]) {
                     return;
                 }
@@ -116,7 +112,6 @@ typedef enum {
                         if(![SRServerSentEvent tryParseEvent:line sseEvent:&sseEvent]) {
                             continue;
                         }
-//                        SRLogServerSentEvents(@"SSE READ: %@",sseEvent);
                         
                         [self onMessage:sseEvent];
                     }
@@ -156,8 +151,6 @@ typedef enum {
     _reading = stopped;
     
     if (previousState != stopped){
-//        SRLogServerSentEvents(@"Closed");
-
         if(self.closed) {
             self.closed(error);
         }

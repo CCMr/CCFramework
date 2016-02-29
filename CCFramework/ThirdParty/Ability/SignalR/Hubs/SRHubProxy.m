@@ -85,9 +85,9 @@
         NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
         NSUInteger numberOfArguments = [signature numberOfArguments] - 2;
         
-        if (args.count != numberOfArguments) {
-//            SRLogConnection(@"Callback for event '%@' is configured with %ld arguments, received %ld parameters instead.",eventName, (unsigned long)numberOfArguments, (unsigned long)args.count);
-        }
+//        if (args.count != numberOfArguments) {
+//            SRLogConnectionInfo(@"Callback for event '%@' is configured with %ld arguments, received %ld parameters instead.",eventName, (unsigned long)numberOfArguments, (unsigned long)args.count);
+//        }
         
         [invocation setSelector:eventObj.selector];
         [invocation setTarget:eventObj.object];

@@ -73,7 +73,7 @@
 }
 
 - (void)lostConnection:(id<SRConnectionInterface>)connection {
-    
+
 }
 
 #pragma mark -
@@ -114,6 +114,7 @@
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:url parameters:parameters error:nil];
     [connection prepareRequest:request]; //TODO: prepareRequest
     [request setTimeoutInterval:240];
+    
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setResponseSerializer:[AFJSONResponseSerializer serializer]];
     //operation.shouldUseCredentialStorage = self.shouldUseCredentialStorage;
@@ -125,8 +126,6 @@
 
         BOOL shouldReconnect = NO;
         BOOL disconnectedReceived = NO;
-        
-//        SRLogLongPolling(@"LP Receive: %@", operation.responseString);
         
         [strongSelf processResponse:strongConnection response:operation.responseString shouldReconnect:&shouldReconnect disconnected:&disconnectedReceived];
         if (block) {
@@ -153,12 +152,12 @@
             canReconnect = @(YES);
             [strongSelf poll:strongConnection connectionData:connectionData completionHandler:nil];
         } else {
-//            SRLogLongPolling(@"LongPolling has shutdown due to abort");
+            
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         __strong __typeof(&*weakSelf)strongSelf = weakSelf;
         __strong __typeof(&*weakConnection)strongConnection = weakConnection;
-
+        
         canReconnect = @(NO);
         
         // Transition into reconnecting state
@@ -167,8 +166,6 @@
         if (![strongSelf tryCompleteAbort] &&
             ![SRExceptionHelper isRequestAborted:error]) {
             [strongConnection didReceiveError:error];
-            
-//            SRLogLongPolling(@"will poll again in %ld seconds",(long)[_errorDelay integerValue]);
             
             canReconnect = @(YES);
             
@@ -191,6 +188,7 @@
         __weak __typeof(&*self)weakSelf = self;
         __weak __typeof(&*connection)weakConnection = connection;
         __weak __typeof(&*canReconnect)weakCanReconnect = canReconnect;
+
         [[NSBlockOperation blockOperationWithBlock:^{
             __strong __typeof(&*weakSelf)strongSelf = weakSelf;
             __strong __typeof(&*weakConnection)strongConnection = weakConnection;

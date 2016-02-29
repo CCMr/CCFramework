@@ -54,6 +54,7 @@
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:[connection.url stringByAppendingString:@"negotiate"] parameters:parameters error:nil];
     [connection prepareRequest:request]; //TODO: prepareRequest
     [request setTimeoutInterval:30];
+    
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setResponseSerializer:[AFJSONResponseSerializer serializer]];
     //operation.shouldUseCredentialStorage = self.shouldUseCredentialStorage;
@@ -124,14 +125,13 @@
 - (void)abort:(id<SRConnectionInterface>)connection timeout:(NSNumber *)timeout connectionData:(NSString *)connectionData {
 
     if (timeout <= 0) {
-//        SRLogHTTPTransport(@"stopping transport without informing server");
+
         return;
     }
     
     // Ensure that an abort request is only made once
     if (!_startedAbort)
     {
-//        SRLogHTTPTransport(@"will stop transport");
         _startedAbort = YES;
         
         id parameters = [self connectionParameters:connection connectionData:connectionData];
@@ -147,7 +147,6 @@
         //operation.securityPolicy = self.securityPolicy;
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            SRLogHTTPTransport(@"Clean disconnect failed. %@",error);
             [self completeAbort];
         }];
         [operation start];

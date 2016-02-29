@@ -97,7 +97,6 @@
         __strong __typeof(&*transport)strongTransport = transport;
 
         if (error) {
-//            SRLogAutoTransport(@"will switch to next transport");
             
             // If that transport fails to initialize then fallback
             int next = index + 1;
@@ -112,13 +111,11 @@
                 NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:NSLocalizedString(@"com.SignalR.SignalR-ObjC.%@",@""),NSStringFromClass([strongSelf class])]
                                                      code:0
                                                  userInfo:userInfo];
-                
                 if(block) {
                     block(nil, error);
                 }
             }
         } else {
-//            SRLogAutoTransport(@"did set active transport");
             
             //Set the active transport
             strongSelf.transport = strongTransport;
@@ -132,17 +129,14 @@
 
 
 - (void)send:(id <SRConnectionInterface>)connection data:(NSString *)data connectionData:(NSString *)connectionData completionHandler:(void (^)(id response, NSError *error))block {
-//    SRLogAutoTransport(@"will send data from active transport");
     [self.transport send:connection data:data connectionData:connectionData completionHandler:block];
 }
 
 - (void)lostConnection:(id<SRConnectionInterface>)connection {
-//    SRLogAutoTransport(@"lost connection");
     [self.transport lostConnection:connection];
 }
 
 - (void)abort:(id <SRConnectionInterface>)connection timeout:(NSNumber *)timeout connectionData:(NSString *)connectionData {
-//    SRLogAutoTransport(@"will stop transport");
     [self.transport abort:connection timeout:timeout connectionData:connectionData];
 }
 

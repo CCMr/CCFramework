@@ -120,9 +120,7 @@ typedef void (^SRWebSocketStartBlock)(id response, NSError *error);
     
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:[_connectionInfo.connection.url stringByAppendingString:reconnecting ? @"reconnect" : @"connect"] parameters:parameters error:nil];
     [_connectionInfo.connection prepareRequest:request]; //TODO: prepareRequest
-    
-//    SRLogWebSockets(@"WS: %@",[request.URL absoluteString]);
-    
+
     [self setStartBlock:block];
     if (self.startBlock) {
         __weak __typeof(&*self)weakSelf = self;
@@ -153,7 +151,6 @@ typedef void (^SRWebSocketStartBlock)(id response, NSError *error);
         __strong __typeof(&*weakSelf)strongSelf = weakSelf;
         
         if ([SRConnection ensureReconnecting:connection]) {
-//            SRLogWebSockets(@"reconnecting");
             [strongSelf performConnect:nil reconnecting:YES];
         }
         
@@ -164,7 +161,6 @@ typedef void (^SRWebSocketStartBlock)(id response, NSError *error);
 #pragma mark SRWebSocketDelegate
 
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket {
-//    SRLogWebSockets(@"Websocket Connected");
     
     // This will noop if we're not in the reconnecting state
     if ([[_connectionInfo connection] changeState:reconnecting toState:connected]) {
@@ -173,7 +169,6 @@ typedef void (^SRWebSocketStartBlock)(id response, NSError *error);
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message {
-//    SRLogWebSockets(@"WS Receive: %@", message);
     
     BOOL timedOut = NO;
     BOOL disconnected = NO;
@@ -197,7 +192,6 @@ typedef void (^SRWebSocketStartBlock)(id response, NSError *error);
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error {
-//    SRLogWebSockets(@"Websocket Failed With Error %@, %@", [[_connectionInfo connection] connectionId], error);
     
     if (self.startBlock) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self.connectTimeoutOperation
@@ -209,17 +203,18 @@ typedef void (^SRWebSocketStartBlock)(id response, NSError *error);
         self.startBlock = nil;
         callback(nil,error);
     } else if ([[_connectionInfo connection] state] == reconnecting) {
-//        SRLogWebSockets(@"Websocket Already Reconnecting");
+//        SRLogWSWarn(@"transport already reconnecting");
     }else if (!self.startedAbort) {
-        //[[_connectionInfo connection] didReceiveError:error];
-//        SRLogWebSockets("reconnect from errors: %@", error);
-        //willReconnect encapsulated inside the ensureReconnecting
         [self reconnect:[_connectionInfo connection]];
     }
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
-//    SRLogWebSockets(@"WebSocket closed");
+//    if (wasClean) {
+//        SRLogWSWarn(@"websocket did close cleanly with %ld reason %@", (long)code, reason);
+//    } else {
+//        SRLogWSError(@"websocket did close with %ld reason %@", (long)code, reason);
+//    }
     
     if ([self tryCompleteAbort]) {
         return;

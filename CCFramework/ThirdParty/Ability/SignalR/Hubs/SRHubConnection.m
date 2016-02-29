@@ -75,8 +75,6 @@
     if (self.state != disconnected) {
         [NSException raise:NSInternalInconsistencyException format:NSLocalizedString(@"Proxies cannot be added after the connection has been started.",@"NSInternalInconsistencyException")];
     }
-    
-//    SRLogConnection(@"will create proxy %@",hubName);
 
     SRHubProxy *hubProxy;
     if(_hubs[[hubName lowercaseString]] == nil) {
