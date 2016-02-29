@@ -24,7 +24,7 @@
 //
 
 #import "CCPagesContainer.h"
-
+#import "config.h"
 #import "CCPagesContainerTopBar.h"
 #import "CCPageIndicatorView.h"
 
@@ -103,7 +103,7 @@
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.,
                                                                      _isBarTop ? self.topBarHeight : 0,
-                                                                     CGRectGetWidth(self.view.frame),
+                                                                     winsize.width,
                                                                      CGRectGetHeight(self.view.frame) - self.topBarHeight)];
     self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.scrollView.delegate = self;
@@ -116,7 +116,7 @@
     
     self.topBar = [[CCPagesContainerTopBar alloc] initWithFrame:CGRectMake(0.,
                                                                            _isBarTop ? 0 : CGRectGetHeight(self.view.frame) - self.topBarHeight,
-                                                                           CGRectGetWidth(self.view.frame),
+                                                                           winsize.width,
                                                                            self.topBarHeight)];
     self.topBar.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
     self.topBar.itemTitleColor = self.pageItemsTitleColor;
@@ -190,7 +190,13 @@
                 break;
         }
         
-    } completion:nil];
+    } completion:^(BOOL finished){
+        for (NSUInteger i = 0; i < self.viewControllers.count; i++) {
+            UIViewController *viewController = self.viewControllers[i];
+            viewController.view.frame = CGRectMake(i * self.scrollWidth, 0., self.scrollWidth, self.scrollHeight);
+            [self.scrollView addSubview:viewController.view];
+        }
+    }];
     _selectedIndex = selectedIndex;
     [self slidingCallback];
 }
@@ -278,15 +284,14 @@
         self.topBar.itemTitles = [viewControllers valueForKey:@"title"];
         for (UIViewController *viewController in viewControllers) {
             [viewController willMoveToParentViewController:self];
-            viewController.view.frame = CGRectMake(0., 0., CGRectGetWidth(self.scrollView.frame), self.scrollHeight);
+            viewController.view.frame = CGRectMake(0., 0, CGRectGetWidth(self.scrollView.frame), self.scrollHeight);
             [self.scrollView addSubview:viewController.view];
             [viewController didMoveToParentViewController:self];
         }
-        
+        [self layoutSubviews];
         self.selectedIndex = 0;
         self.pageIndicatorView.center = CGPointMake([self.topBar centerForSelectedItemAtIndex:self.selectedIndex].x,
                                                     [self pageIndicatorCenterY]);
-        [self layoutSubviews];
     }
 }
 
@@ -404,8 +409,8 @@
     
     CGFloat x = 0.;
     for (UIViewController *viewController in self.viewControllers) {
-        viewController.view.frame = CGRectMake(x, 0, CGRectGetWidth(self.scrollView.frame), self.scrollHeight);
-        x += CGRectGetWidth(self.scrollView.frame);
+        viewController.view.frame = CGRectMake(x, 0, winsize.width, self.scrollHeight);
+        x += winsize.width;
     }
     
     self.scrollView.contentSize = CGSizeMake(x, 0);
