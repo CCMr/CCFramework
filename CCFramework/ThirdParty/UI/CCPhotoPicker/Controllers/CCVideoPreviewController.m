@@ -121,7 +121,7 @@
 
 - (void)_setupBottomBar {
     CCBottomBar *bottomBar = [[CCBottomBar alloc] initWithBarType:CCVideoPreviewBottomBar];
-    [bottomBar setFrame:CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44)];
+    [bottomBar setFrame:CGRectMake(0, winsize.height - 44, winsize.width, 44)];
     __weak typeof(*&self) wSelf = self;
     self.selectedVideoEnable ? [bottomBar setConfirmBlock:^{
         __weak typeof(*&self) self = wSelf;

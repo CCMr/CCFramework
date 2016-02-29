@@ -88,14 +88,14 @@
         self.containerView.bounds = CGRectMake(0, 0, image.size.width / screenScale, image.size.height / screenScale);
         self.containerView.center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
     } else if (widthPercent > 1.0f && heightPercent < 1.0f) {
-        self.containerView.frame = CGRectMake(0, 0, self.frame.size.width, heightPercent * self.frame.size.width);
+        self.containerView.frame = CGRectMake((winsize.width - self.frame.size.width) / 2, (winsize.height - heightPercent * self.frame.size.height) / 2, self.frame.size.width, heightPercent * self.frame.size.width);
     } else if (widthPercent <= 1.0f && heightPercent > 1.0f) {
-        self.containerView.frame = CGRectMake(0, 0, self.frame.size.height * widthPercent, self.frame.size.height);
+        self.containerView.frame = CGRectMake(0, (winsize.height - self.frame.size.height) / 2, self.frame.size.height * widthPercent, self.frame.size.height);
     } else {
         if (widthPercent > heightPercent) {
-            self.containerView.frame = CGRectMake(0, 0, self.frame.size.width, heightPercent * self.frame.size.width);
+            self.containerView.frame = CGRectMake(0,  (winsize.height - heightPercent * self.frame.size.height) / 2, self.frame.size.width, heightPercent * self.frame.size.width);
         } else {
-            self.containerView.frame = CGRectMake(0, 0, self.frame.size.height * widthPercent, self.frame.size.height);
+            self.containerView.frame = CGRectMake(0, (winsize.height - self.frame.size.height) / 2, self.frame.size.height * widthPercent, self.frame.size.height);
         }
     }
     

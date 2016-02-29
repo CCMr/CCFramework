@@ -181,6 +181,10 @@
 		4219EE161C7FF93F00F1EE76 /* MLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4219EE011C7FF93F00F1EE76 /* MLLabel.m */; };
 		4219EE171C7FF93F00F1EE76 /* MLLinkLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 4219EE021C7FF93F00F1EE76 /* MLLinkLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4219EE181C7FF93F00F1EE76 /* MLLinkLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4219EE031C7FF93F00F1EE76 /* MLLinkLabel.m */; };
+		421C643D1C83E18700696B63 /* SREventSourceRequestSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 421C64391C83E18700696B63 /* SREventSourceRequestSerializer.h */; };
+		421C643E1C83E18700696B63 /* SREventSourceRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 421C643A1C83E18700696B63 /* SREventSourceRequestSerializer.m */; };
+		421C643F1C83E18700696B63 /* SREventSourceResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 421C643B1C83E18700696B63 /* SREventSourceResponseSerializer.h */; };
+		421C64401C83E18700696B63 /* SREventSourceResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 421C643C1C83E18700696B63 /* SREventSourceResponseSerializer.m */; };
 		421E7A721C3D173D00C31AD0 /* CCDrawerController+Subclass.h in Headers */ = {isa = PBXBuildFile; fileRef = 421E7A641C3D173D00C31AD0 /* CCDrawerController+Subclass.h */; };
 		421E7A731C3D173D00C31AD0 /* CCDrawerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 421E7A651C3D173D00C31AD0 /* CCDrawerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		421E7A741C3D173D00C31AD0 /* CCDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 421E7A661C3D173D00C31AD0 /* CCDrawerController.m */; };
@@ -1313,6 +1317,10 @@
 		4219EE011C7FF93F00F1EE76 /* MLLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLabel.m; sourceTree = "<group>"; };
 		4219EE021C7FF93F00F1EE76 /* MLLinkLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLinkLabel.h; sourceTree = "<group>"; };
 		4219EE031C7FF93F00F1EE76 /* MLLinkLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLinkLabel.m; sourceTree = "<group>"; };
+		421C64391C83E18700696B63 /* SREventSourceRequestSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SREventSourceRequestSerializer.h; sourceTree = "<group>"; };
+		421C643A1C83E18700696B63 /* SREventSourceRequestSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SREventSourceRequestSerializer.m; sourceTree = "<group>"; };
+		421C643B1C83E18700696B63 /* SREventSourceResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SREventSourceResponseSerializer.h; sourceTree = "<group>"; };
+		421C643C1C83E18700696B63 /* SREventSourceResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SREventSourceResponseSerializer.m; sourceTree = "<group>"; };
 		421E7A641C3D173D00C31AD0 /* CCDrawerController+Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCDrawerController+Subclass.h"; sourceTree = "<group>"; };
 		421E7A651C3D173D00C31AD0 /* CCDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDrawerController.h; sourceTree = "<group>"; };
 		421E7A661C3D173D00C31AD0 /* CCDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDrawerController.m; sourceTree = "<group>"; };
@@ -3931,6 +3939,10 @@
 		429C9DB91B9EF8BE0013A44A /* ServerSentEvents */ = {
 			isa = PBXGroup;
 			children = (
+				421C64391C83E18700696B63 /* SREventSourceRequestSerializer.h */,
+				421C643A1C83E18700696B63 /* SREventSourceRequestSerializer.m */,
+				421C643B1C83E18700696B63 /* SREventSourceResponseSerializer.h */,
+				421C643C1C83E18700696B63 /* SREventSourceResponseSerializer.m */,
 				429C9DBA1B9EF8BE0013A44A /* SRChunkBuffer.h */,
 				429C9DBB1B9EF8BE0013A44A /* SRChunkBuffer.m */,
 				429C9DBC1B9EF8BE0013A44A /* SREventSourceStreamReader.h */,
@@ -5413,6 +5425,7 @@
 				425477651BD2AEC20071BBC5 /* ssl.h in Headers */,
 				42F24C6D1BEA5091008CDEDC /* PNScatterChartData.h in Headers */,
 				425477791BD2AEC20071BBC5 /* DataVerifier.h in Headers */,
+				421C643F1C83E18700696B63 /* SREventSourceResponseSerializer.h in Headers */,
 				4269794A1BA695BA00C3E93C /* UIWebView+AFNetworking.h in Headers */,
 				42F411411C214C5400814E7B /* CCCircleBrush.h in Headers */,
 				42B30DE81BBD72AD0039BB94 /* SDWebImageManager.h in Headers */,
@@ -5768,6 +5781,7 @@
 				42F411CE1C2150E500814E7B /* NSDictionary+Additions.h in Headers */,
 				4219EE121C7FF93F00F1EE76 /* MLLabel+Override.h in Headers */,
 				42F412061C2150E500814E7B /* UIView+CCBadgeView.h in Headers */,
+				421C643D1C83E18700696B63 /* SREventSourceRequestSerializer.h in Headers */,
 				42F411F81C2150E500814E7B /* UILabel+Addition.h in Headers */,
 				429C9FFF1B9EF8BF0013A44A /* CCRourRotation.h in Headers */,
 				429CA06F1B9EF8BF0013A44A /* CCPickerCollectionViewCell.h in Headers */,
@@ -6201,6 +6215,7 @@
 				42B6474B1BEDDA8200B2F6FD /* CCHTTPManager+GET.m in Sources */,
 				426979321BA695BA00C3E93C /* AFURLConnectionOperation.m in Sources */,
 				42648C881C01AC960085A07D /* SEViewCaptureHelper.m in Sources */,
+				421C643E1C83E18700696B63 /* SREventSourceRequestSerializer.m in Sources */,
 				429CA0741B9EF8BF0013A44A /* CCPopMenuItem.m in Sources */,
 				42F411D71C2150E500814E7B /* UIColor+BUIColor.m in Sources */,
 				42F24C661BEA5091008CDEDC /* PNPieChartDataItem.m in Sources */,
@@ -6330,6 +6345,7 @@
 				42A356381BF4399800B6F1F2 /* CCRefreshConst.m in Sources */,
 				429C9F9B1B9EF8BF0013A44A /* CCLanguage.m in Sources */,
 				4298C77A1BDCA5D700A3581D /* CCTableViewFetchResultController.m in Sources */,
+				421C64401C83E18700696B63 /* SREventSourceResponseSerializer.m in Sources */,
 				421E7A761C3D173D00C31AD0 /* CCDrawerVisualState.m in Sources */,
 				42A356361BF4399800B6F1F2 /* CCRefreshBaseView.m in Sources */,
 				42F411FB1C2150E500814E7B /* UIScrollView+CCExtension.m in Sources */,

@@ -89,7 +89,8 @@
         video_icon.image = CCResourceImage(@"VideoSendIcon");
         [videoView addSubview:video_icon];
         
-        UILabel *videoTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(videoView.frame.size.width - 27, 0, 24, 18)];
+        UILabel *videoTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(22, 0, videoView.frame.size.width - 25, 18)];
+        videoTimeLabel.textAlignment = NSTextAlignmentRight;
         videoTimeLabel.backgroundColor = [UIColor clearColor];
         videoTimeLabel.textColor = [UIColor whiteColor];
         videoTimeLabel.font = [UIFont systemFontOfSize:12];

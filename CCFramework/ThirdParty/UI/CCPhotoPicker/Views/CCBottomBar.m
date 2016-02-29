@@ -105,14 +105,14 @@
     }
     if (!_confirmButton) {
         UIButton *confirmButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        confirmButton.frame = CGRectMake(winsize.width - 66, 0, 44, 44);
+        confirmButton.frame = CGRectMake(winsize.width - 50, 0, 44, 44);
         confirmButton.titleLabel.font = [UIFont systemFontOfSize:16];
         [self addSubview:_confirmButton = confirmButton];
     }
     if (!_numberImageView) {
         UIImageView *numberImageView = [[UIImageView alloc] initWithImage:CCResourceImage(@"photo_number_icon")];
         numberImageView.backgroundColor = [UIColor clearColor];
-        numberImageView.frame = CGRectMake(winsize.width - 66 - 24, 9, 26, 26);
+        numberImageView.frame = CGRectMake(winsize.width - 50 - 24, 9, 26, 26);
         numberImageView.hidden = YES;
         [self addSubview:_numberImageView = numberImageView];
     }

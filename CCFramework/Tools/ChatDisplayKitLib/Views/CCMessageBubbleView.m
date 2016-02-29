@@ -212,7 +212,9 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             CGRect frame = [CCTool neededSizeForPhoto:photo Size:CGSizeMake(width, height)];
             width = frame.size.width > kCCMaxWidth ? kCCMaxWidth : frame.size.width;
             height = frame.size.height > 200 ? 200 : frame.size.height;
-        } else {
+        } else if (photo.size.width > kCCMaxWidth) {
+            width = kCCMaxWidth;
+        }else {
             width = photo.size.width < 30 ? 30 : photo.size.width;
             height = photo.size.height < 30 ? 30 : photo.size.height;
         }

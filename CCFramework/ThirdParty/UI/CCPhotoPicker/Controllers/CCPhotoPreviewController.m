@@ -241,7 +241,7 @@ static NSString *const kCCPhotoPreviewIdentifier = @"CCPhotoPreviewCell";
 {
     if (!_bottomBar) {
         _bottomBar = [[CCBottomBar alloc] initWithBarType:CCPreviewBottomBar];
-        _bottomBar.frame = CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44);
+        _bottomBar.frame = CGRectMake(0, winsize.height - 44, winsize.width, 44);
         [_bottomBar updateBottomBarWithAssets:self.selectedAssets];
         
         __weak typeof(*&self) wSelf = self;

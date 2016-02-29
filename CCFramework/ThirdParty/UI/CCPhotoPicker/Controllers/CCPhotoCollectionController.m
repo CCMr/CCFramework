@@ -33,6 +33,7 @@
 #import "CCBottomBar.h"
 #import "UIViewController+CCPhotoHUD.h"
 #import "CCPhotoPreviewViewLayout.h"
+#import "config.h"
 
 @interface CCPhotoCollectionController ()
 
@@ -114,7 +115,7 @@ static NSString *const kCCAssetCellIdentifier = @"CCAssetCell";
     [self.collectionView registerClass:[CCAssetCell class] forCellWithReuseIdentifier:kCCAssetCellIdentifier];
     
     CCBottomBar *bottomBar = [[CCBottomBar alloc] initWithBarType:CCCollectionBottomBar];
-    bottomBar.frame = CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44);
+    bottomBar.frame = CGRectMake(0, winsize.height - 44, winsize.width, 44);
     __weak typeof(*&self) wSelf = self;
     [bottomBar setConfirmBlock:^{
         __weak typeof(*&self) self = wSelf;
