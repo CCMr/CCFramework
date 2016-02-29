@@ -229,6 +229,21 @@ static char OperationKey;
 }
 
 /**
+ *  @author CC, 16-02-29
+ *  
+ *  @brief 设置返回按钮图片
+ *
+ *  @param backImage 返回图片
+ */
+- (void)setNavigationBarBackImage:(UIImage *)backImage
+{
+    if (backImage) {
+        [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[backImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, backImage.size.width, 0, 0)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(5, 0) forBarMetrics:UIBarMetricsDefault];
+    }
+}
+
+/**
  *  @author C C, 2015-07-30
  *
  *  @brief  动画消失启动页

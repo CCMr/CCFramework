@@ -39,6 +39,15 @@
 - (void)NavigationBarColor:(UIColor *)color;
 
 /**
+ *  @author CC, 16-02-29
+ *  
+ *  @brief 设置返回按钮图片
+ *
+ *  @param backImage 返回图片
+ */
+- (void)setNavigationBarBackImage:(UIImage *)backImage;
+
+/**
  *  @author CC, 2015-07-30
  *
  *  @brief  动画消失启动页
