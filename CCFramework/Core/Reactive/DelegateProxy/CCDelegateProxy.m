@@ -32,10 +32,14 @@
 
 #pragma mark API
 
-//- (RACSignal *)signalForSelector:(SEL)selector
-//{
+- (id)signalForSelector:(SEL)selector
+{
 //    return [self rac_signalForSelector:selector fromProtocol:_protocol];
-//}
+    
+    NSMethodSignature *signature = [super methodSignatureForSelector:selector];
+
+    return signature;
+}
 
 #pragma mark NSObject
 

@@ -441,8 +441,11 @@ const static NSUInteger MMScrollIndicatorTag = 12345;
     NSInteger maxRows = [_dataSource numberOfRowsInSpreadsheetView:self];
     NSInteger maxCols = [_dataSource numberOfColumnsInSpreadsheetView:self];
     
-    NSAssert(self.headerColumnCount < maxCols, @"Invalid configuration: number of header columns must be less than (dataSource) numberOfColumnsInSpreadsheetView");
-    NSAssert(self.headerRowCount < maxRows, @"Invalid configuration: number of header rows must be less than (dataSource) numberOfRowsInSpreadsheetView");
+    if (self.headerColumnCount < maxCols)
+        NSAssert(self.headerColumnCount < maxCols, @"Invalid configuration: number of header columns must be less than (dataSource) numberOfColumnsInSpreadsheetView");
+    
+    if (self.headerRowCount < maxRows)
+        NSAssert(self.headerRowCount < maxRows, @"Invalid configuration: number of header rows must be less than (dataSource) numberOfRowsInSpreadsheetView");
 }
 
 - (void)initializeCollectionViewLayoutItemSize:(UICollectionView *)collectionView

@@ -19,5 +19,6 @@
 @property (nonatomic, strong, readonly) CCDelegateProxy *cc_delegateProxy;
 
 
+-(void)sssssss;
 
 @end

@@ -29,4 +29,11 @@ static void CCUseDelegateProxy(UITextView *self) {
     return proxy;
 }
 
+-(void)sssssss
+{
+    CCUseDelegateProxy(self);
+    BOOL (^ han)(UITextField *, NSRange, NSString *) = [self.cc_delegateProxy signalForSelector:@selector(textViewDidChange:)];
+    
+}
+
 @end

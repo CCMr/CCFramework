@@ -447,7 +447,8 @@ CLLocationAgeFilter const kCLLocationAgeFilterNone = 0.0;
     if ([CLLocationManager instancesRespondToSelector:@selector(requestWhenInUseAuthorization)]) {
         NSString *alwaysDescription = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationAlwaysUsageDescription"];
         NSString *whenInUseDescription = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationWhenInUseUsageDescription"];
-        NSAssert([alwaysDescription length] || [whenInUseDescription length], @"NSLocationAlwaysUsageDescription or NSLocationWhenInUseUsageDescription key not present in the info.plist. Please add it in order to recieve location updates");
+        if ([alwaysDescription length] || [whenInUseDescription length])
+            NSAssert([alwaysDescription length] || [whenInUseDescription length], @"NSLocationAlwaysUsageDescription or NSLocationWhenInUseUsageDescription key not present in the info.plist. Please add it in order to recieve location updates");
     }
     
 #if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000

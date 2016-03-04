@@ -23,4 +23,6 @@
 
 @property(nonatomic, unsafe_unretained) id cc_proxiedDelegate;
 
+- (id)signalForSelector:(SEL)selector;
+
 @end
