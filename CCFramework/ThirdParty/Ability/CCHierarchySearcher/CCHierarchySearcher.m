@@ -74,6 +74,10 @@
 - (UIViewController *)topmostViewControllerFrom:(UIViewController *)viewController
                                    includeModal:(BOOL)includeModal
 {
+    
+    if ([viewController isKindOfClass:[CCDrawerController class]])
+        return viewController;
+    
     if (includeModal && viewController.presentedViewController)
         return [self topmostViewControllerFrom:viewController.presentedViewController
                                   includeModal:includeModal];
