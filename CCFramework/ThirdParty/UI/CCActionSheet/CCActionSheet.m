@@ -184,6 +184,7 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
 - (instancetype)initWithAdvancedExample:(NSString *)title
 {
     CCActionSheet *appearance = [self initWithTitle:title];
+    appearance.titleBackgroundColor = [UIColor whiteColor];
     appearance.blurTintColor = [UIColor colorWithWhite:0.0f alpha:0.75f];
     appearance.blurRadius = 8.0f;
     appearance.buttonHeight = 50.0f;
@@ -194,15 +195,15 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
     appearance.selectedBackgroundColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
     UIFont *defaultFont = [UIFont fontWithName:@"Avenir" size:17.0f];
     appearance.buttonTextAttributes = @{NSFontAttributeName : defaultFont,
-                                        NSForegroundColorAttributeName : [UIColor whiteColor]};
+                                        NSForegroundColorAttributeName : [UIColor darkGrayColor]};
     appearance.disabledButtonTextAttributes = @{NSFontAttributeName : defaultFont,
                                                 NSForegroundColorAttributeName : [UIColor grayColor]};
     appearance.destructiveButtonTextAttributes = @{NSFontAttributeName : defaultFont,
                                                    NSForegroundColorAttributeName : [UIColor redColor]};
     appearance.cancelButtonTextAttributes = @{NSFontAttributeName : defaultFont,
-                                              NSForegroundColorAttributeName : [UIColor whiteColor]};
+                                              NSForegroundColorAttributeName : [UIColor grayColor]};
     appearance.titleTextAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:14.0f],
-                                       NSForegroundColorAttributeName : [UIColor whiteColor]};
+                                       NSForegroundColorAttributeName : [UIColor grayColor]};
     return appearance;
 }
 
