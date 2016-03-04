@@ -101,53 +101,67 @@
     return error;
 }
 
+static char UIB_PROPERTY_KEY;
+
+- (void)setTraversed:(BOOL)traversed
+{
+    objc_setAssociatedObject(self, &UIB_PROPERTY_KEY, @(traversed), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)traversed
+{
+    return (BOOL)objc_getAssociatedObject(self, &UIB_PROPERTY_KEY);
+}
+
 - (NSDictionary *)changedDictionary
 {
-    unsigned int count;
+    self.traversed = YES;
+    NSArray *attributes = [[[self entity] attributesByName] allKeys];
+    NSArray *relationships = [[[self entity] relationshipsByName] allKeys];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:[attributes count] + [relationships count] + 1];
+    [dict setObject:self.objectID forKey:@"objectID"];
+    //    [dict setObject:[[self class] description] forKey:@"class"];
     
-    objc_property_t *properties = class_copyPropertyList([self class], &count);
-    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    for (NSString *attr in attributes) {
+        NSObject *value = [self valueForKey:attr];
+        if (value)
+            [dict setObject:value forKey:attr];
+    }
     
-    for (int i = 0; i < count; i++) {
-        objc_property_t property = properties[i];
-        NSString *name = [NSString stringWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
-        id obj = [self valueForKey:name];
-        if (obj) {
+    for (NSString *relationship in relationships) {
+        NSObject *value = [self valueForKey:relationship];
+        
+        if ([value isKindOfClass:[NSSet class]]) {
+            // To-many relationship
+            // The core data set holds a collection of managed objects
+            NSSet *relatedObjects = (NSSet *)value;
             
-            if (![[obj class] isSubclassOfClass:[NSData class]]) {
-                if ([[obj class] isSubclassOfClass:[NSManagedObject class]]) {
-                    
-                    NSArray *relationships = [[obj entity] relationshipsWithDestinationEntity:[self entity]];
-                    if ([relationships count] > 0) {
-                        NSString *relName = [[relationships objectAtIndex:0] name];
-                        
-                        NSDictionary *namedRelationships = [[obj entity] relationshipsByName];
-                        BOOL isParent = [[[(NSRelationshipDescription *)[namedRelationships objectForKey:relName] destinationEntity] name] isEqualToString:NSStringFromClass([self class])];
-                        if (!isParent)
-                            [dictionary setObject:[(NSManagedObject *)obj changedDictionary] forKey:name];
-                    } else {
-                        [dictionary setObject:[(NSManagedObject *)obj changedDictionary] forKey:name];
-                    }
-                } else if ([[obj class] isSubclassOfClass:[NSSet class]]) {
-                    if ([obj count] > 0) {
-                        NSArray *array = [(NSSet *)obj allObjects];
-                        NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:[array count]];
-                        for (id o in array)
-                            [mutableArray addObject:[(NSManagedObject *)o changedDictionary]];
-                        
-                        [dictionary setObject:[NSArray arrayWithArray:mutableArray] forKey:name];
-                    }
-                } else if ([[obj class] isSubclassOfClass:[NSDate class]]) {
-                    [dictionary setObject:[obj description] forKey:name];
-                } else {
-                    [dictionary setObject:obj forKey:name];
-                }
+            NSMutableArray *dicSetArray = [NSMutableArray array];
+            for (NSManagedObject *relatedObject in relatedObjects) {
+                //                if (!relatedObject.traversed)
+                [dicSetArray addObject:[relatedObject changedDictionary]];
+            }
+            [dict setObject:dicSetArray forKey:relationship];
+            /*
+             // Our set holds a collection of dictionaries
+             NSMutableSet* dictSet = [NSMutableSet setWithCapacity:[relatedObjects count]];
+             for (NSManagedObject* relatedObject in relatedObjects) {
+             if (!relatedObject.traversed)
+             [dictSet addObject:[relatedObject toDictionary]];
+             }
+             [dict setObject:dictSet forKey:relationship];
+             */
+        } else if ([value isKindOfClass:[NSManagedObject class]]) {
+            // To-one relationship
+            NSManagedObject *relatedObject = (NSManagedObject *)value;
+            if (!relatedObject.traversed) {
+                // Call toDictionary on the referenced object and put the result back into our dictionary.
+                [dict setObject:[relatedObject changedDictionary] forKey:relationship];
             }
         }
     }
-    free(properties);
     
-    return dictionary;
+    return dict;
 }
 
 - (NSDictionary *)Dictionary
