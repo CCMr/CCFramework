@@ -31,7 +31,7 @@
 #import "CCSwatches.h"
 #import "CCColorSlider.h"
 #import "CCMatrix.h"
-#import "UIView+BUIView.h"
+#import "UIView+Frame.h"
 #import "config.h"
 
 #define bottomToolHeight 44

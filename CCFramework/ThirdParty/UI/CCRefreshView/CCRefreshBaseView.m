@@ -25,7 +25,7 @@
 
 #import "CCRefreshBaseView.h"
 #import "CCRefreshConst.h"
-#import "UIView+BUIView.h"
+#import "UIView+Frame.h"
 #import "config.h"
 #import "Core.h"
 #import <objc/message.h>

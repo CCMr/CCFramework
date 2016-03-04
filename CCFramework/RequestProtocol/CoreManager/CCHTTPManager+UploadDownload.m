@@ -22,10 +22,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #import "CCHTTPManager+Addition.h"
 #import "AFNetworking.h"
-#import "NSDate+BNSDate.h"
-#import "NSString+BNSString.h"
+#import "NSDate+Additions.h"
+#import "NSString+Additions.h"
 
 @implementation CCHTTPManager (UploadDownload)
 
@@ -54,7 +55,7 @@
                                                                                  error:nil];
         
         NSString *expand = [[response suggestedFilename] componentsSeparatedByString:@"."].lastObject;
-        NSURL *downloadURL = [documentsDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@",[NSString uniqueUUID],expand]];
+        NSURL *downloadURL = [documentsDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@",[NSString UUID],expand]];
         
         return downloadURL;
     } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {

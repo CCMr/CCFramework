@@ -24,7 +24,7 @@
 //
 
 #import "CCPagesContainerTopBar.h"
-#import "UIButton+BUIButton.h"
+#import "UIButton+Additions.h"
 
 @interface CCPagesContainerTopBar ()
 

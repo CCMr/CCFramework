@@ -26,10 +26,10 @@
 
 #import "CCMessageTableViewCell.h"
 #import "CCLanguage.h"
-#import "NSDate+BNSDate.h"
+#import "NSDate+Additions.h"
 #import "CCConfigurationHelper.h"
 #import "CCMessageAvatarFactory.h"
-#import "UIView+CCRemoteImage.h"
+#import "UIView+Method.h"
 
 static const CGFloat kCCLabelPadding = 3.0f;
 static const CGFloat kCCTimeStampLabelHeight = 20.0f;

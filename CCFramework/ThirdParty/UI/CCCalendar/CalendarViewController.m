@@ -28,9 +28,9 @@
 #import "CalendarCollectionViewCell.h"
 #import "CalendarHeaderView.h"
 #import "CalendarLogic.h"
-#import "UIButton+BUIButton.h"
-#import "UIControl+BUIControl.h"
-#import "NSDate+BNSDate.h"
+#import "UIButton+Additions.h"
+#import "UIControl+Additions.h"
+#import "NSDate+Additions.h"
 #import "Config.h"
 
 static NSString *CellIdentifier = @"CalendarCell";

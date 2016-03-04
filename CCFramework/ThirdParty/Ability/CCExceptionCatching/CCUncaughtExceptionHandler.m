@@ -28,7 +28,7 @@
 #include <execinfo.h>
 #import "CCUserDefaultsCrash.h"
 #import <UIKit/UIKit.h>
-#import "NSDate+BNSDate.h"
+#import "NSDate+Additions.h"
 
 NSString *const UncaughtExceptionHandlerSignalExceptionName = @"UncaughtExceptionHandlerSignalExceptionName";
 NSString *const UncaughtExceptionHandlerSignalKey = @"UncaughtExceptionHandlerSignalKey";

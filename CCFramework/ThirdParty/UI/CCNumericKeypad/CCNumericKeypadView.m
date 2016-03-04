@@ -25,8 +25,8 @@
 
 #import "CCNumericKeypadView.h"
 #import "Config.h"
-#import "UIButton+BUIButton.h"
-#import "UIControl+BUIControl.h"
+#import "UIButton+Additions.h"
+#import "UIControl+Additions.h"
 
 @implementation CCNumericKeypadView
 

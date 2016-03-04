@@ -24,7 +24,6 @@
 //
 
 #import "CCNSLog.h"
-#import "NSObject+Additions.h"
 
 FOUNDATION_EXPORT void cc_NSLog(const char *file, const char *method, int lineNumber, NSString *format,...)
 {

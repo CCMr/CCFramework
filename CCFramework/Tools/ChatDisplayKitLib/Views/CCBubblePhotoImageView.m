@@ -24,8 +24,8 @@
 //
 
 #import "CCBubblePhotoImageView.h"
-#import "UIView+CCRemoteImage.h"
-#import "UIImage+Resize.h"
+#import "UIView+Method.h"
+#import "UIImage+Additions.h"
 #import "Config.h"
 #import "CCTool.h"
 

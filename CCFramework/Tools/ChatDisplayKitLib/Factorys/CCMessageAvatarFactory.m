@@ -25,8 +25,8 @@
 
 
 #import "CCMessageAvatarFactory.h"
-#import "UIImage+CCRounded.h"
-#import "UIView+CCRemoteImage.h"
+#import "UIImage+Additions.h"
+#import "UIView+Method.h"
 
 @implementation CCMessageAvatarFactory
 

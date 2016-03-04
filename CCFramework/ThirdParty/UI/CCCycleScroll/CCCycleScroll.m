@@ -25,8 +25,9 @@
 
 #import "CCCycleScroll.h"
 #import "Config.h"
-#import "UIView+BUIView.h"
-#import "UIImageView+Additional.h"
+#import "UIView+Frame.h"
+#import "UIView+Method.h"
+#import "UIImageView+Additions.h"
 
 @interface CCCycleScroll()
 

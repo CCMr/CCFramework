@@ -29,7 +29,7 @@
 #import "CCInsetView.h"
 #import "CCShader.h"
 #import "CCUtilities.h"
-#import "UIView+BUIView.h"
+#import "UIView+Frame.h"
 #import "gl_matrix.h"
 #include <OpenGLES/ES2/gl.h>
 #include <OpenGLES/ES2/glext.h>

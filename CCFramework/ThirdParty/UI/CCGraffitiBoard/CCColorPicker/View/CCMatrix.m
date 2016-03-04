@@ -24,7 +24,7 @@
 //
 
 #import "CCMatrix.h"
-#import "UIView+BUIView.h"
+#import "UIView+Frame.h"
 
 @implementation CCMatrix
 

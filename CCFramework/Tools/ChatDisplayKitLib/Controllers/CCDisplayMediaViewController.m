@@ -25,7 +25,7 @@
 
 #import "CCDisplayMediaViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
-#import "UIView+CCRemoteImage.h"
+#import "UIView+Method.h"
 #import "CCLanguage.h"
 
 @interface CCDisplayMediaViewController ()

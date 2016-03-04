@@ -28,8 +28,8 @@
 #import "CCPickerCollectionViewCell.h"
 #import "CCPickerDatas.h"
 #import "CCPhotoBrowser.h"
-#import "UIButton+BUIButton.h"
-#import "UIControl+BUIControl.h"
+#import "UIButton+Additions.h"
+#import "UIControl+Additions.h"
 #import "Config.h"
 
 #define HW ((winsize.width - 20 - 30) / 4)

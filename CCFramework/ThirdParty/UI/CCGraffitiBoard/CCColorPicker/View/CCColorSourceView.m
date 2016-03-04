@@ -26,7 +26,7 @@
 #import "CCColorSourceView.h"
 #import "CCDragChip.h"
 #import "CCUtilities.h"
-#import "UIView+BUIView.h"
+#import "UIView+Frame.h"
 
 #define kChipSize 50
 #define kChipVerticalOffset 1.25

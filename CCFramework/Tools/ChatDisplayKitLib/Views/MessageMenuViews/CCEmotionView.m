@@ -26,9 +26,9 @@
 
 #import "CCEmotionView.h"
 #import "CCEmotion.h"
-#import "UIButton+BUIButton.h"
-#import "UIImageView+WebCache.h"
-#import "UIImage+MultiFormat.h"
+#import "UIButton+Additions.h"
+#import "UIImage+Additions.h"
+#import "UIImageView+Additions.h"
 
 @implementation CCEmotionView
 
@@ -69,7 +69,7 @@
                     [button addSubview:images];
                     
                     NSData *data = [NSData dataWithContentsOfFile:emotion.emotionConverPhoto];
-                    images.image = [UIImage sd_imageWithData:data];
+                    images.image = [UIImage cc_imageWithData:data];
                     if ([emotion.emotionConverPhoto rangeOfString:@"http://"].location != NSNotFound)
                         [images sd_setImageWithURLStr:emotion.emotionConverPhoto];
                     else if (!images.image) {

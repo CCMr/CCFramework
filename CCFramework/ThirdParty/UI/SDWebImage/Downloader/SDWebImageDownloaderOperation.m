@@ -8,7 +8,7 @@
 
 #import "SDWebImageDownloaderOperation.h"
 #import "SDWebImageDecoder.h"
-#import "UIImage+MultiFormat.h"
+#import "UIImage+Additions.h"
 #import <ImageIO/ImageIO.h>
 #import "SDWebImageManager.h"
 
@@ -381,7 +381,7 @@ NSString *const SDWebImageDownloadFinishNotification = @"SDWebImageDownloadFinis
         if (self.options & SDWebImageDownloaderIgnoreCachedResponse && responseFromCached) {
             completionBlock(nil, nil, nil, YES);
         } else if (self.imageData) {
-            UIImage *image = [UIImage sd_imageWithData:self.imageData];
+            UIImage *image = [UIImage cc_imageWithData:self.imageData];
             NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:self.request.URL];
             image = [self scaledImageForKey:key image:image];
             

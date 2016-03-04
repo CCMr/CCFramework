@@ -25,7 +25,7 @@
 
 #import "CCSecurityStrategy.h"
 #import <UIKit/UIKit.h>
-#import "UIImage+BUIImage.h"
+#import "UIImage+Additions.h"
 #import "Config.h"
 
 #define screenScale ([UIScreen mainScreen].scale)

@@ -25,9 +25,8 @@
 
 #import "CoreDataMasterSlave+Manager.h"
 #import "CoreDataMasterSlave+Convenience.h"
-#import "NSManagedObject+Additional.h"
-#import "NSArray+BNSArray.h"
-#import "NSManagedObject+Mapping.h"
+#import "NSManagedObject+Additions.h"
+#import "NSArray+Additions.h"
 
 @implementation CoreDataMasterSlave (Queries)
 

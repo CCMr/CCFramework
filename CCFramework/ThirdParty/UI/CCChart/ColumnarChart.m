@@ -24,8 +24,8 @@
 //
 
 #import "ColumnarChart.h"
-#import "UIControl+BUIControl.h"
-#import "UIButton+BUIButton.h"
+#import "UIControl+Additions.h"
+#import "UIButton+Additions.h"
 
 @implementation ColumnarChart
 @synthesize horizontalArray,DataArray;

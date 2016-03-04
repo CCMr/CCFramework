@@ -26,8 +26,8 @@
 
 #import "CCCacheManager.h"
 #import "CCFileAttribute.h"
-#import "UIImage+Utility.h"
-#import "NSString+BNSString.h"
+#import "UIImage+Additions.h"
+#import "NSString+Additions.h"
 
 @interface CCCacheManager () {
     NSCache *_memoryCache;

@@ -27,7 +27,7 @@
 #import "WXApi.h"
 #import "WXApiObject.h"
 #import "CCXML.h"
-#import "NSString+BNSString.h"
+#import "NSString+Additions.h"
 
 //支付结果回调页面
 #define NOTIFY_URL @"http://wxpay.weixin.qq.com/pub_v2/pay/notify.v2.php"

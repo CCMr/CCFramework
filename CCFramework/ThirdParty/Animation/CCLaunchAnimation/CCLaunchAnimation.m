@@ -26,7 +26,7 @@
 #import "CCLaunchAnimation.h"
 #import "config.h"
 #import "CCBacktrace.h"
-#import "CALayer+Transition.h"
+#import "CALayer+Additions.h"
 #import "UIView+CCFlipImageView.h"
 
 @implementation CCLaunchAnimation

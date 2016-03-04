@@ -1,37 +1,36 @@
-/*
- *  CCPhotoToolbar.m
- *  CCFramework
- *
- * Copyright (c) 2015 CC (http://www.ccskill.com)
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+//
+//  CCPhotoToolbar.m
+//  CCFramework
+//
+// Copyright (c) 2015 CC ( http://www.ccskill.com )
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+//
 
 #import "CCPhotoToolbar.h"
 #import "CCPhoto.h"
 #import "MBProgressHUD+Add.h"
-#import "UIControl+BUIControl.h"
+#import "UIControl+Additions.h"
 #import "Config.h"
-#import "UIButton+BUIButton.h"
+#import "UIButton+Additions.h"
 
-@interface CCPhotoToolbar()
-{
+@interface CCPhotoToolbar () {
     // 显示页码
     UILabel *_indexLabel;
     UIButton *saveImageBtn;
@@ -44,7 +43,8 @@
 
 @implementation CCPhotoToolbar
 
--(id)initWithComplete{
+- (id)initWithComplete
+{
     if (self = [super init]) {
         _IsComlete = YES;
     }
@@ -91,7 +91,7 @@
     
     
     SendCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width - (btnWidth + 30), (btnWidth - 20) / 2, 20, 20)];
-    SendCountLabel.backgroundColor =  cc_ColorRGBA(0, 204, 51, 1);
+    SendCountLabel.backgroundColor = cc_ColorRGBA(0, 204, 51, 1);
     SendCountLabel.layer.cornerRadius = 10;
     SendCountLabel.layer.masksToBounds = YES;
     SendCountLabel.textColor = [UIColor whiteColor];
@@ -106,7 +106,7 @@
         completeBtn.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         [completeBtn setTitleColor:cc_ColorRGBA(0, 204, 51, 1) forState:UIControlStateNormal];
         [completeBtn setTitleColor:cc_ColorRGBA(0, 204, 51, 1) forState:UIControlStateHighlighted];
-//        completeBtn.titleLabel.font = Font19And17(systemFontOfSize, 15);
+        //        completeBtn.titleLabel.font = Font19And17(systemFontOfSize, 15);
         [completeBtn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
             // 通知代理
             if ([self.photoToolbarDelegate respondsToSelector:@selector(didComplete:)])
@@ -116,7 +116,8 @@
     }
 }
 
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
     if (error) {
         [MBProgressHUD showSuccess:@"保存失败" toView:nil];
     } else {
@@ -127,7 +128,8 @@
     }
 }
 
-- (void)setCurrentPhotoIndex:(NSUInteger)currentPhotoIndex{
+- (void)setCurrentPhotoIndex:(NSUInteger)currentPhotoIndex
+{
     _currentPhotoIndex = currentPhotoIndex;
     
     // 更新页码
@@ -138,7 +140,8 @@
     saveImageBtn.enabled = photo.image != nil && !photo.save;
 }
 
--(void)updataSelectd{
+- (void)updataSelectd
+{
     int SelectdCount = 0;
     for (CCPhoto *photo in _photos) {
         if (photo.selectd)
@@ -146,8 +149,8 @@
     }
     
     SendCountLabel.hidden = YES;
-    if(SelectdCount > 0)
-         SendCountLabel.hidden = NO;
-    SendCountLabel.text = [NSString stringWithFormat:@"%d",SelectdCount];
+    if (SelectdCount > 0)
+        SendCountLabel.hidden = NO;
+    SendCountLabel.text = [NSString stringWithFormat:@"%d", SelectdCount];
 }
 @end

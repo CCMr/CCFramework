@@ -1,27 +1,27 @@
-/*
- *  CCPhotoBrowser.m
- *  CCFramework
- *
- * Copyright (c) 2015 CC (http://www.ccskill.com)
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+//
+//  CCPhotoBrowser.m
+//  CCFramework
+//
+// Copyright (c) 2015 CC ( http://www.ccskill.com )
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+//
 
 #import <QuartzCore/QuartzCore.h>
 #import "CCPhotoBrowser.h"
@@ -29,8 +29,8 @@
 #import "CCPhotoView.h"
 #import "CCPhotoToolbar.h"
 #import "Config.h"
-#import "UIControl+BUIControl.h"
-#import "UIButton+BUIButton.h"
+#import "UIControl+Additions.h"
+#import "UIButton+Additions.h"
 #import "SDWebImageDownloader.h"
 
 #define kPadding 10
@@ -140,7 +140,7 @@
 
 - (void)didNavRightSelected:(UIButton *)sender
 {
-    if (self.delegate != nil && [self.delegate  respondsToSelector:@selector(didSelectd:)]){
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(didSelectd:)]) {
         CCPhoto *photo = _photos[_currentPhotoIndex];
         photo.selectd = !photo.selectd;
         [NavRightBtn setImage:CCResourceImage(photo.selectd ? @"AssetsYES" : @"AssetsNO") forState:UIControlStateNormal];
@@ -148,7 +148,7 @@
         CAKeyframeAnimation *scaoleAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
         scaoleAnimation.duration = 0.25;
         scaoleAnimation.autoreverses = YES;
-        scaoleAnimation.values = @[[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.2],[NSNumber numberWithFloat:1.0]];
+        scaoleAnimation.values = @[ [NSNumber numberWithFloat:1.0], [NSNumber numberWithFloat:1.2], [NSNumber numberWithFloat:1.0] ];
         scaoleAnimation.fillMode = kCAFillModeForwards;
         
         [NavRightBtn.layer removeAllAnimations];
@@ -160,7 +160,7 @@
         if (photo.IsIndex)
             indexs = photo.asssetIndex;
         [self.delegate didSelectd:indexs];
-    } 
+    }
 }
 
 #pragma mark 创建工具条

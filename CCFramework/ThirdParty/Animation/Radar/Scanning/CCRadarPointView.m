@@ -24,7 +24,7 @@
 //
 
 #import "CCRadarPointView.h"
-#import "UIView+CCRemoteImage.h"
+#import "UIView+Method.h"
 
 #define Radius 150
 #define ImageRadius 20

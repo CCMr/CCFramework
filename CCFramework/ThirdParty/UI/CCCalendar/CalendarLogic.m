@@ -24,7 +24,7 @@
 //
 
 #import "CalendarLogic.h"
-#import "NSDate+BNSDate.h"
+#import "NSDate+Additions.h"
 
 @interface CalendarLogic()
 

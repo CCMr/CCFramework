@@ -26,9 +26,9 @@
 #import "CCTimePicker.h"
 #import "CCActionSheet.h"
 #import "Config.h"
-#import "UIControl+BUIControl.h"
-#import "UIButton+BUIButton.h"
-#import "UIActionSheet+BUIActionSheet.h"
+#import "UIControl+Additions.h"
+#import "UIButton+Additions.h"
+#import "UIActionSheet+Additions.h"
 
 @interface CCTimePicker()
 

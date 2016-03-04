@@ -24,8 +24,8 @@
 //
 
 #import "CCPickerCollectionViewCell.h"
-#import "UIButton+BUIButton.h"
-#import "UIControl+BUIControl.h"
+#import "UIButton+Additions.h"
+#import "UIControl+Additions.h"
 #import "config.h"
 
 @interface CCPickerCollectionViewCell ()

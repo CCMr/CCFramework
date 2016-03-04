@@ -26,8 +26,8 @@
 #import "CCAlertView.h"
 #import "CustomIOSAlertView.h"
 #import "config.h"
-#import "UIView+BUIView.h"
-#import "NSString+BNSString.h"
+#import "UIView+Frame.h"
+#import "NSString+Additions.h"
 
 @implementation CCAlertView
 

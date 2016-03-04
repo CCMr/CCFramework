@@ -25,7 +25,7 @@
 
 
 #import "CCMessage.h"
-#import "NSString+BNSString.h"
+#import "NSString+Additions.h"
 
 @implementation CCMessage
 

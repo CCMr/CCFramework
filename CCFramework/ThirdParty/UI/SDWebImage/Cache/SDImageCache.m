@@ -8,10 +8,9 @@
 
 #import "SDImageCache.h"
 #import "SDWebImageDecoder.h"
-#import "UIImage+MultiFormat.h"
+#import "UIImage+Additions.h"
 #import <CommonCrypto/CommonDigest.h>
 
-// See https://github.com/rs/SDWebImage/pull/1141 for discussion
 @interface AutoPurgeCache : NSCache
 @end
 
@@ -335,7 +334,7 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
 - (UIImage *)diskImageForKey:(NSString *)key {
     NSData *data = [self diskImageDataBySearchingAllPathsForKey:key];
     if (data) {
-        UIImage *image = [UIImage sd_imageWithData:data];
+        UIImage *image = [UIImage cc_imageWithData:data];
         image = [self scaledImageForKey:key image:image];
         if (self.shouldDecompressImages) {
             image = [UIImage decodedImageWithImage:image];

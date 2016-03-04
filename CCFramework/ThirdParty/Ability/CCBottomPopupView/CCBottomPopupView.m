@@ -24,7 +24,7 @@
 //
 
 #import "CCBottomPopupView.h"
-#import "UIView+BUIView.h"
+#import "UIView+Frame.h"
 
 #define kCCDuration 0.3
 #define kSemiModalModalViewTag 10003

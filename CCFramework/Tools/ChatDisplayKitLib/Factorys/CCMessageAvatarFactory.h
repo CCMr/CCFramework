@@ -25,7 +25,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "UIView+CCRemoteImage.h"
+#import "UIView+Method.h"
 
 // 头像大小以及头像与其他控件的距离
 static CGFloat const kCCAvatarImageSize = 40.0f;

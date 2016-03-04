@@ -25,8 +25,7 @@
 
 #import <UIKit/UIKit.h>
 #import "config.h"
-#import "NSManagedObject+CCManagedObject.h"
-#import "NSManagedObject+FetchRequest.h"
+#import "NSManagedObject+Additions.h"
 #import "BaseManagedObject+Facade.h"
 
 @implementation NSManagedObject (Modify)

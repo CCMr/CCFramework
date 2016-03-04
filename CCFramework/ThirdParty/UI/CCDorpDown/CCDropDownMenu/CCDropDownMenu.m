@@ -25,8 +25,8 @@
 
 #import "CCDropDownMenu.h"
 #import "config.h"
-#import "UIView+BUIView.h"
 #import "CCPagesContainerTopBar.h"
+#import "UIView+Frame.h"
 
 #define kCCDuration 0.3
 

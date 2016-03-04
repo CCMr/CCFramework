@@ -25,7 +25,7 @@
 
 
 #import "BaseSearchTableViewController.h"
-#import "UIView+BUIView.h"
+#import "UIView+Frame.h"
 #import "UITableView+Additions.h"
 
 @interface BaseSearchTableViewController () <UISearchDisplayDelegate, UISearchBarDelegate>

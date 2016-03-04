@@ -28,9 +28,10 @@
 #import "CCVideoOutputSampleBufferFactory.h"
 #import "CCScanningView.h"
 #import "CCFoundationCommon.h"
-#import "UIButton+CCButtonTitlePosition.h"
+#import "UIButton+Additions.h"
 #import "CCCameraViewController.h"
 #import "CCQRCodeDisplayViewController.h"
+#import "UIView+Frame.h"
 
 #define kCCScanningButtonPadding 36
 
@@ -129,7 +130,7 @@ typedef void (^Outcomeblock)(NSString *outcome);
                            forState:UIControlStateSelected];
         _scanQRCodeButton.selected = YES;
         [_scanQRCodeButton setTitle:@"扫码" forState:UIControlStateNormal];
-        [_scanQRCodeButton setTitlePositionWithType:CCButtonTitlePostionTypeBottom];
+//        [_scanQRCodeButton setTitlePositionWithType:CCButtonTitlePostionTypeBottom];
     }
     return _scanQRCodeButton;
 }
@@ -146,7 +147,7 @@ typedef void (^Outcomeblock)(NSString *outcome);
         [_scanBookButton setImage:CCResourceImage(@"ScanBook_HL")
                          forState:UIControlStateSelected];
         [_scanBookButton setTitle:@"封面" forState:UIControlStateNormal];
-        [_scanBookButton setTitlePositionWithType:CCButtonTitlePostionTypeBottom];
+//        [_scanBookButton setTitlePositionWithType:CCButtonTitlePostionTypeBottom];
     }
     return _scanBookButton;
 }
@@ -163,7 +164,7 @@ typedef void (^Outcomeblock)(NSString *outcome);
         [_scanStreetButton setImage:CCResourceImage(@"ScanStreet_HL")
                            forState:UIControlStateSelected];
         [_scanStreetButton setTitle:@"街景" forState:UIControlStateNormal];
-        [_scanStreetButton setTitlePositionWithType:CCButtonTitlePostionTypeBottom];
+//        [_scanStreetButton setTitlePositionWithType:CCButtonTitlePostionTypeBottom];
     }
     return _scanStreetButton;
 }
@@ -180,7 +181,7 @@ typedef void (^Outcomeblock)(NSString *outcome);
         [_scanWordButton setImage:CCResourceImage(@"ScanWord_HL")
                          forState:UIControlStateSelected];
         [_scanWordButton setTitle:@"翻译" forState:UIControlStateNormal];
-        [_scanWordButton setTitlePositionWithType:CCButtonTitlePostionTypeBottom];
+//        [_scanWordButton setTitlePositionWithType:CCButtonTitlePostionTypeBottom];
     }
     return _scanWordButton;
 }

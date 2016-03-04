@@ -27,7 +27,7 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "NSData+Additions.h"
-#import "UIImage+Data.h"
+#import "UIImage+Additions.h"
 
 @interface BaseEntity ()
 

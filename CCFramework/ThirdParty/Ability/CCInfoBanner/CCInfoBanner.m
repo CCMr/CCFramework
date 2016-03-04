@@ -24,11 +24,11 @@
 //
 
 #import "CCInfoBanner.h"
-#import "UIView+BUIView.h"
-#import "NSString+BNSString.h"
+#import "UIView+Frame.h"
+#import "NSString+Additions.h"
 #import "CCHierarchySearcher.h"
 #import "config.h"
-#import "UIImage+MultiFormat.h"
+#import "UIImage+Additions.h"
 
 static const NSTimeInterval kAnimationDuration = 0.3;
 
@@ -314,7 +314,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
     CCInfoBanner *banner = [self initializationShow];
     if (icon) {
         NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:icon ofType:@"gif"]];
-        banner.iconImageView.image = [UIImage sd_imageWithData:data];
+        banner.iconImageView.image = [UIImage cc_imageWithData:data];
     }
     banner.titleLabel.text = title;
     banner.detailsLabel.text = detailsText;

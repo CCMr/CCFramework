@@ -27,7 +27,7 @@
 #import "CCUtilities.h"
 #import "CCColorIndicator.h"
 #import "CCColor.h"
-#import "UIView+BUIView.h"
+#import "UIView+Frame.h"
 
 #define kCornerRadius 10
 #define kIndicatorInset 10

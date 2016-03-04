@@ -26,7 +26,7 @@
 #import "CCMessageInputView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Config.h"
-#import "NSString+BNSString.h"
+#import "NSString+Additions.h"
 
 @interface CCMessageInputView () <CCMessageTextViewDelegate>
 

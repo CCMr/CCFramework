@@ -24,7 +24,7 @@
 //
 
 #import "CoreDataMasterSlave+Convenience.h"
-#import "NSManagedObject+Additional.h"
+#import "NSManagedObject+Additions.h"
 
 @implementation CoreDataMasterSlave (Convenience)
 

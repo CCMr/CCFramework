@@ -27,7 +27,7 @@
 #import "BaseNavigationController.h"
 #import "Config.h"
 #import "CCNSLog.h"
-#import "UIBarButtonItem+Addition.h"
+#import "UIBarButtonItem+Additions.h"
 
 @interface BaseViewController ()
 

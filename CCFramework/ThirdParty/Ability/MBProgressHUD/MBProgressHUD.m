@@ -6,7 +6,7 @@
 
 #import "MBProgressHUD.h"
 #import "CCLoadLogoView.h"
-#import "UIImage+GIF.h"
+#import "UIImage+Additions.h"
 #import <tgmath.h>
 #import "CCLoadingView.h"
 
@@ -545,7 +545,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
         [indicator removeFromSuperview];
         NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:self.IndeterminateGIF ofType:@"gif"]];
         
-        UIImage *image = [UIImage sd_animatedGIFWithData:data];
+        UIImage *image = [UIImage cc_animatedGIFWithData:data];
         
         UIImageView *imageViewGIF = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
         imageViewGIF.image = image;

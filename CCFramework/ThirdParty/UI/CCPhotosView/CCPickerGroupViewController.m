@@ -26,8 +26,8 @@
 #import "CCPickerGroupViewController.h"
 #import "CCPickerAssetsViewController.h"
 #import "CCPickerDatas.h"
-#import "UIControl+BUIControl.h"
-#import "UIButton+BUIButton.h"
+#import "UIControl+Additions.h"
+#import "UIButton+Additions.h"
 
 @interface CCPickerGroupViewController () <UITableViewDataSource, UITableViewDelegate>
 

@@ -24,9 +24,9 @@
 //
 
 #import "CCBrushView.h"
-#import "UIButton+BUIButton.h"
-#import "UIView+BUIView.h"
-#import "UIControl+BUIControl.h"
+#import "UIButton+Additions.h"
+#import "UIView+Frame.h"
+#import "UIControl+Additions.h"
 #import "CCBarSlider.h"
 #import "config.h"
 

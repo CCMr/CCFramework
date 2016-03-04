@@ -28,8 +28,8 @@
 #import "CCAnimatedImage.h"
 #import "Config.h"
 #import "CCTool.h"
-#import "UIButton+BUIButton.h"
-#import "UIImageView+WebCache.h"
+#import "UIButton+Additions.h"
+#import "UIImageView+Additions.h"
 #import "CCMessagePhotoImageView.h"
 //Factorys
 #import "CCMessageBubbleFactory.h"

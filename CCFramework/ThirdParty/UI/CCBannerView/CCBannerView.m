@@ -25,7 +25,7 @@
 
 #import "CCBannerView.h"
 #import "CCBannerFooter.h"
-#import "UIImageView+WebCache.h"
+#import "UIImageView+Additions.h"
 #import "config.h"
 
 // 总共的item数

@@ -22,9 +22,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #import "CCMessagePhotoImageView.h"
-#import "UIImage+MultiFormat.h"
-#import "UIImageView+WebCache.h"
+#import "UIImage+Additions.h"
+#import "UIImageView+Additions.h"
 
 @interface CCMessagePhotoImageView ()
 
@@ -90,7 +91,7 @@
     if ([imageFilePath rangeOfString:@"http://"].location != NSNotFound) {
         [self.imageView sd_setImageWithURLStr:imageFilePath placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
     } else {
-        self.image = [UIImage sd_imageWithData:[NSData dataWithContentsOfFile:imageFilePath]];
+        self.image = [UIImage cc_imageWithData:[NSData dataWithContentsOfFile:imageFilePath]];
     }
 }
 

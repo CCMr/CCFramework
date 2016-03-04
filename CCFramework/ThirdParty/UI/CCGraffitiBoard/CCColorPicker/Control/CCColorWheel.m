@@ -27,7 +27,7 @@
 #import "CCColor.h"
 #import "CCColorIndicator.h"
 #import "CCUtilities.h"
-#import "UIView+BUIView.h"
+#import "UIView+Frame.h"
 #import "config.h"
 
 #define wheelWidth 35

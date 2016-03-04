@@ -24,8 +24,8 @@
 //
 
 #import "CalendarDay.h"
-#import "NSString+BNSString.h"
-#import "NSDate+BNSDate.h"
+#import "NSString+Additions.h"
+#import "NSDate+Additions.h"
 
 @implementation CalendarDay
 
