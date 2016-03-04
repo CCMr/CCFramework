@@ -812,7 +812,7 @@ static char UIScrollViewParallaxView;
         view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         view.hidden = YES;
         
-        view.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dzn_didTapContentView:)];
+        view.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cc_didTapContentView:)];
         view.tapGesture.delegate = self;
         [view addGestureRecognizer:view.tapGesture];
         
@@ -821,7 +821,7 @@ static char UIScrollViewParallaxView;
     return view;
 }
 
-- (BOOL)dzn_canDisplay
+- (BOOL)cc_canDisplay
 {
     if (self.emptyDataSetSource && [self.emptyDataSetSource conformsToProtocol:@protocol(CCNEmptyDataSetSource)]) {
         if ([self isKindOfClass:[UITableView class]] || [self isKindOfClass:[UICollectionView class]] || [self isKindOfClass:[UIScrollView class]]) {
@@ -832,7 +832,7 @@ static char UIScrollViewParallaxView;
     return NO;
 }
 
-- (NSInteger)dzn_itemsCount
+- (NSInteger)cc_itemsCount
 {
     NSInteger items = 0;
     
@@ -874,7 +874,7 @@ static char UIScrollViewParallaxView;
 
 #pragma mark--- Data Source Getters
 
-- (NSAttributedString *)dzn_titleLabelString
+- (NSAttributedString *)cc_titleLabelString
 {
     if (self.emptyDataSetSource && [self.emptyDataSetSource respondsToSelector:@selector(titleForEmptyDataSet:)]) {
         NSAttributedString *string = [self.emptyDataSetSource titleForEmptyDataSet:self];
@@ -884,7 +884,7 @@ static char UIScrollViewParallaxView;
     return nil;
 }
 
-- (NSAttributedString *)dzn_detailLabelString
+- (NSAttributedString *)cc_detailLabelString
 {
     if (self.emptyDataSetSource && [self.emptyDataSetSource respondsToSelector:@selector(descriptionForEmptyDataSet:)]) {
         NSAttributedString *string = [self.emptyDataSetSource descriptionForEmptyDataSet:self];
@@ -894,7 +894,7 @@ static char UIScrollViewParallaxView;
     return nil;
 }
 
-- (UIImage *)dzn_image
+- (UIImage *)cc_image
 {
     if (self.emptyDataSetSource && [self.emptyDataSetSource respondsToSelector:@selector(imageForEmptyDataSet:)]) {
         UIImage *image = [self.emptyDataSetSource imageForEmptyDataSet:self];
@@ -904,7 +904,7 @@ static char UIScrollViewParallaxView;
     return nil;
 }
 
-- (CAAnimation *)dzn_imageAnimation
+- (CAAnimation *)cc_imageAnimation
 {
     if (self.emptyDataSetSource && [self.emptyDataSetSource respondsToSelector:@selector(imageAnimationForEmptyDataSet:)]) {
         CAAnimation *imageAnimation = [self.emptyDataSetSource imageAnimationForEmptyDataSet:self];
@@ -914,7 +914,7 @@ static char UIScrollViewParallaxView;
     return nil;
 }
 
-- (UIColor *)dzn_imageTintColor
+- (UIColor *)cc_imageTintColor
 {
     if (self.emptyDataSetSource && [self.emptyDataSetSource respondsToSelector:@selector(imageTintColorForEmptyDataSet:)]) {
         UIColor *color = [self.emptyDataSetSource imageTintColorForEmptyDataSet:self];
@@ -924,7 +924,7 @@ static char UIScrollViewParallaxView;
     return nil;
 }
 
-- (NSAttributedString *)dzn_buttonTitleForState:(UIControlState)state
+- (NSAttributedString *)cc_buttonTitleForState:(UIControlState)state
 {
     if (self.emptyDataSetSource && [self.emptyDataSetSource respondsToSelector:@selector(buttonTitleForEmptyDataSet:forState:)]) {
         NSAttributedString *string = [self.emptyDataSetSource buttonTitleForEmptyDataSet:self forState:state];
@@ -934,7 +934,7 @@ static char UIScrollViewParallaxView;
     return nil;
 }
 
-- (UIImage *)dzn_buttonImageForState:(UIControlState)state
+- (UIImage *)cc_buttonImageForState:(UIControlState)state
 {
     if (self.emptyDataSetSource && [self.emptyDataSetSource respondsToSelector:@selector(buttonImageForEmptyDataSet:forState:)]) {
         UIImage *image = [self.emptyDataSetSource buttonImageForEmptyDataSet:self forState:state];
@@ -944,7 +944,7 @@ static char UIScrollViewParallaxView;
     return nil;
 }
 
-- (UIImage *)dzn_buttonBackgroundImageForState:(UIControlState)state
+- (UIImage *)cc_buttonBackgroundImageForState:(UIControlState)state
 {
     if (self.emptyDataSetSource && [self.emptyDataSetSource respondsToSelector:@selector(buttonBackgroundImageForEmptyDataSet:forState:)]) {
         UIImage *image = [self.emptyDataSetSource buttonBackgroundImageForEmptyDataSet:self forState:state];
@@ -954,7 +954,7 @@ static char UIScrollViewParallaxView;
     return nil;
 }
 
-- (UIColor *)dzn_dataSetBackgroundColor
+- (UIColor *)cc_dataSetBackgroundColor
 {
     if (self.emptyDataSetSource && [self.emptyDataSetSource respondsToSelector:@selector(backgroundColorForEmptyDataSet:)]) {
         UIColor *color = [self.emptyDataSetSource backgroundColorForEmptyDataSet:self];
@@ -964,7 +964,7 @@ static char UIScrollViewParallaxView;
     return [UIColor clearColor];
 }
 
-- (UIView *)dzn_customView
+- (UIView *)cc_customView
 {
     if (self.emptyDataSetSource && [self.emptyDataSetSource respondsToSelector:@selector(customViewForEmptyDataSet:)]) {
         UIView *view = [self.emptyDataSetSource customViewForEmptyDataSet:self];
@@ -974,7 +974,7 @@ static char UIScrollViewParallaxView;
     return nil;
 }
 
-- (CGFloat)dzn_verticalOffset
+- (CGFloat)cc_verticalOffset
 {
     CGFloat offset = 0.0;
     
@@ -984,7 +984,7 @@ static char UIScrollViewParallaxView;
     return offset;
 }
 
-- (CGFloat)dzn_verticalSpace
+- (CGFloat)cc_verticalSpace
 {
     if (self.emptyDataSetSource && [self.emptyDataSetSource respondsToSelector:@selector(spaceHeightForEmptyDataSet:)]) {
         return [self.emptyDataSetSource spaceHeightForEmptyDataSet:self];
@@ -995,7 +995,7 @@ static char UIScrollViewParallaxView;
 
 #pragma mark--- Delegate Getters & Events (Private)
 
-- (BOOL)dzn_shouldFadeIn
+- (BOOL)cc_shouldFadeIn
 {
     if (self.emptyDataSetDelegate && [self.emptyDataSetDelegate respondsToSelector:@selector(emptyDataSetShouldFadeIn:)]) {
         return [self.emptyDataSetDelegate emptyDataSetShouldFadeIn:self];
@@ -1003,7 +1003,7 @@ static char UIScrollViewParallaxView;
     return YES;
 }
 
-- (BOOL)dzn_shouldDisplay
+- (BOOL)cc_shouldDisplay
 {
     if (self.emptyDataSetDelegate && [self.emptyDataSetDelegate respondsToSelector:@selector(emptyDataSetShouldDisplay:)]) {
         return [self.emptyDataSetDelegate emptyDataSetShouldDisplay:self];
@@ -1011,7 +1011,7 @@ static char UIScrollViewParallaxView;
     return YES;
 }
 
-- (BOOL)dzn_isTouchAllowed
+- (BOOL)cc_isTouchAllowed
 {
     if (self.emptyDataSetDelegate && [self.emptyDataSetDelegate respondsToSelector:@selector(emptyDataSetShouldAllowTouch:)]) {
         return [self.emptyDataSetDelegate emptyDataSetShouldAllowTouch:self];
@@ -1019,7 +1019,7 @@ static char UIScrollViewParallaxView;
     return YES;
 }
 
-- (BOOL)dzn_isScrollAllowed
+- (BOOL)cc_isScrollAllowed
 {
     if (self.emptyDataSetDelegate && [self.emptyDataSetDelegate respondsToSelector:@selector(emptyDataSetShouldAllowScroll:)]) {
         return [self.emptyDataSetDelegate emptyDataSetShouldAllowScroll:self];
@@ -1027,7 +1027,7 @@ static char UIScrollViewParallaxView;
     return NO;
 }
 
-- (BOOL)dzn_isImageViewAnimateAllow
+- (BOOL)cc_isImageViewAnimateAllow
 {
     if (self.emptyDataSetDelegate && [self.emptyDataSetDelegate respondsToSelector:@selector(emptyDataSetShouldAnimateImageView:)]) {
         return [self.emptyDataSetDelegate emptyDataSetShouldAnimateImageView:self];
@@ -1035,35 +1035,35 @@ static char UIScrollViewParallaxView;
     return NO;
 }
 
-- (void)dzn_willAppear
+- (void)cc_willAppear
 {
     if (self.emptyDataSetDelegate && [self.emptyDataSetDelegate respondsToSelector:@selector(emptyDataSetWillAppear:)]) {
         [self.emptyDataSetDelegate emptyDataSetWillAppear:self];
     }
 }
 
-- (void)dzn_didAppear
+- (void)cc_didAppear
 {
     if (self.emptyDataSetDelegate && [self.emptyDataSetDelegate respondsToSelector:@selector(emptyDataSetDidAppear:)]) {
         [self.emptyDataSetDelegate emptyDataSetDidAppear:self];
     }
 }
 
-- (void)dzn_willDisappear
+- (void)cc_willDisappear
 {
     if (self.emptyDataSetDelegate && [self.emptyDataSetDelegate respondsToSelector:@selector(emptyDataSetWillDisappear:)]) {
         [self.emptyDataSetDelegate emptyDataSetWillDisappear:self];
     }
 }
 
-- (void)dzn_didDisappear
+- (void)cc_didDisappear
 {
     if (self.emptyDataSetDelegate && [self.emptyDataSetDelegate respondsToSelector:@selector(emptyDataSetDidDisappear:)]) {
         [self.emptyDataSetDelegate emptyDataSetDidDisappear:self];
     }
 }
 
-- (void)dzn_didTapContentView:(id)sender
+- (void)cc_didTapContentView:(id)sender
 {
     if (self.emptyDataSetDelegate && [self.emptyDataSetDelegate respondsToSelector:@selector(emptyDataSet:didTapView:)]) {
         [self.emptyDataSetDelegate emptyDataSet:self didTapView:sender];
@@ -1076,7 +1076,7 @@ static char UIScrollViewParallaxView;
 #pragma clang diagnostic pop
 }
 
-- (void)dzn_didTapDataButton:(id)sender
+- (void)cc_didTapDataButton:(id)sender
 {
     if (self.emptyDataSetDelegate && [self.emptyDataSetDelegate respondsToSelector:@selector(emptyDataSet:didTapButton:)]) {
         [self.emptyDataSetDelegate emptyDataSet:self didTapButton:sender];
@@ -1094,16 +1094,16 @@ static char UIScrollViewParallaxView;
 
 - (void)setEmptyDataSetSource:(id<CCNEmptyDataSetSource>)datasource
 {
-    if (!datasource || ![self dzn_canDisplay]) {
-        [self dzn_invalidate];
+    if (!datasource || ![self cc_canDisplay]) {
+        [self cc_invalidate];
     }
     
     objc_setAssociatedObject(self, kEmptyDataSetSource, datasource, OBJC_ASSOCIATION_ASSIGN);
     
-    // We add method sizzling for injecting -dzn_reloadData implementation to the native -reloadData implementation
+    // We add method sizzling for injecting -cc_reloadData implementation to the native -reloadData implementation
     [self swizzleIfPossible:@selector(reloadData)];
     
-    // Exclusively for UITableView, we also inject -dzn_reloadData to -endUpdates
+    // Exclusively for UITableView, we also inject -cc_reloadData to -endUpdates
     if ([self isKindOfClass:[UITableView class]]) {
         [self swizzleIfPossible:@selector(endUpdates)];
     }
@@ -1112,7 +1112,7 @@ static char UIScrollViewParallaxView;
 - (void)setEmptyDataSetDelegate:(id<CCNEmptyDataSetDelegate>)delegate
 {
     if (!delegate) {
-        [self dzn_invalidate];
+        [self cc_invalidate];
     }
     
     objc_setAssociatedObject(self, kEmptyDataSetDelegate, delegate, OBJC_ASSOCIATION_ASSIGN);
@@ -1131,21 +1131,21 @@ static char UIScrollViewParallaxView;
 
 - (void)reloadEmptyDataSet
 {
-    [self dzn_reloadEmptyDataSet];
+    [self cc_reloadEmptyDataSet];
 }
 
 
 #pragma mark--- Reload APIs (Private)
 
-- (void)dzn_reloadEmptyDataSet
+- (void)cc_reloadEmptyDataSet
 {
-    if (![self dzn_canDisplay]) {
+    if (![self cc_canDisplay]) {
         return;
     }
     
-    if ([self dzn_shouldDisplay] && [self dzn_itemsCount] == 0) {
+    if ([self cc_shouldDisplay] && [self cc_itemsCount] == 0) {
         // Notifies that the empty dataset view will appear
-        [self dzn_willAppear];
+        [self cc_willAppear];
         
         CCNEmptyDataSetView *view = self.emptyDataSetView;
         
@@ -1161,24 +1161,24 @@ static char UIScrollViewParallaxView;
         // Removing view resetting the view and its constraints it very important to guarantee a good state
         [view prepareForReuse];
         
-        UIView *customView = [self dzn_customView];
+        UIView *customView = [self cc_customView];
         
         // If a non-nil custom view is available, let's configure it instead
         if (customView) {
             view.customView = customView;
         } else {
             // Get the data from the data source
-            NSAttributedString *titleLabelString = [self dzn_titleLabelString];
-            NSAttributedString *detailLabelString = [self dzn_detailLabelString];
+            NSAttributedString *titleLabelString = [self cc_titleLabelString];
+            NSAttributedString *detailLabelString = [self cc_detailLabelString];
             
-            UIImage *buttonImage = [self dzn_buttonImageForState:UIControlStateNormal];
-            NSAttributedString *buttonTitle = [self dzn_buttonTitleForState:UIControlStateNormal];
+            UIImage *buttonImage = [self cc_buttonImageForState:UIControlStateNormal];
+            NSAttributedString *buttonTitle = [self cc_buttonTitleForState:UIControlStateNormal];
             
-            UIImage *image = [self dzn_image];
-            UIColor *imageTintColor = [self dzn_imageTintColor];
+            UIImage *image = [self cc_image];
+            UIColor *imageTintColor = [self cc_imageTintColor];
             UIImageRenderingMode renderingMode = imageTintColor ? UIImageRenderingModeAlwaysTemplate : UIImageRenderingModeAlwaysOriginal;
             
-            view.verticalSpace = [self dzn_verticalSpace];
+            view.verticalSpace = [self cc_verticalSpace];
             
             // Configure Image
             if (image) {
@@ -1204,28 +1204,28 @@ static char UIScrollViewParallaxView;
             // Configure button
             if (buttonImage) {
                 [view.button setImage:buttonImage forState:UIControlStateNormal];
-                [view.button setImage:[self dzn_buttonImageForState:UIControlStateHighlighted] forState:UIControlStateHighlighted];
+                [view.button setImage:[self cc_buttonImageForState:UIControlStateHighlighted] forState:UIControlStateHighlighted];
             } else if (buttonTitle) {
                 [view.button setAttributedTitle:buttonTitle forState:UIControlStateNormal];
-                [view.button setAttributedTitle:[self dzn_buttonTitleForState:UIControlStateHighlighted] forState:UIControlStateHighlighted];
-                [view.button setBackgroundImage:[self dzn_buttonBackgroundImageForState:UIControlStateNormal] forState:UIControlStateNormal];
-                [view.button setBackgroundImage:[self dzn_buttonBackgroundImageForState:UIControlStateHighlighted] forState:UIControlStateHighlighted];
+                [view.button setAttributedTitle:[self cc_buttonTitleForState:UIControlStateHighlighted] forState:UIControlStateHighlighted];
+                [view.button setBackgroundImage:[self cc_buttonBackgroundImageForState:UIControlStateNormal] forState:UIControlStateNormal];
+                [view.button setBackgroundImage:[self cc_buttonBackgroundImageForState:UIControlStateHighlighted] forState:UIControlStateHighlighted];
             }
         }
         
         // Configure offset
-        view.verticalOffset = [self dzn_verticalOffset];
+        view.verticalOffset = [self cc_verticalOffset];
         
         // Configure the empty dataset view
-        view.backgroundColor = [self dzn_dataSetBackgroundColor];
+        view.backgroundColor = [self cc_dataSetBackgroundColor];
         view.hidden = NO;
         view.clipsToBounds = YES;
         
         // Configure empty dataset userInteraction permission
-        view.userInteractionEnabled = [self dzn_isTouchAllowed];
+        view.userInteractionEnabled = [self cc_isTouchAllowed];
         
         // Configure empty dataset fade in display
-        view.fadeInOnDisplay = [self dzn_shouldFadeIn];
+        view.fadeInOnDisplay = [self cc_shouldFadeIn];
         
         [view setupConstraints];
         
@@ -1234,11 +1234,11 @@ static char UIScrollViewParallaxView;
         }];
         
         // Configure scroll permission
-        self.scrollEnabled = [self dzn_isScrollAllowed];
+        self.scrollEnabled = [self cc_isScrollAllowed];
         
         // Configure image view animation
-        if ([self dzn_isImageViewAnimateAllow]) {
-            CAAnimation *animation = [self dzn_imageAnimation];
+        if ([self cc_isImageViewAnimateAllow]) {
+            CAAnimation *animation = [self cc_imageAnimation];
             
             if (animation) {
                 [self.emptyDataSetView.imageView.layer addAnimation:animation forKey:kEmptyImageViewAnimationKey];
@@ -1248,16 +1248,16 @@ static char UIScrollViewParallaxView;
         }
         
         // Notifies that the empty dataset view did appear
-        [self dzn_didAppear];
+        [self cc_didAppear];
     } else if (self.isEmptyDataSetVisible) {
-        [self dzn_invalidate];
+        [self cc_invalidate];
     }
 }
 
-- (void)dzn_invalidate
+- (void)cc_invalidate
 {
     // Notifies that the empty dataset view will disappear
-    [self dzn_willDisappear];
+    [self cc_willDisappear];
     
     if (self.emptyDataSetView) {
         [self.emptyDataSetView prepareForReuse];
@@ -1269,7 +1269,7 @@ static char UIScrollViewParallaxView;
     self.scrollEnabled = YES;
     
     // Notifies that the empty dataset view did disappear
-    [self dzn_didDisappear];
+    [self cc_didDisappear];
 }
 
 
@@ -1280,13 +1280,10 @@ static NSString *const DZNSwizzleInfoPointerKey = @"pointer";
 static NSString *const DZNSwizzleInfoOwnerKey = @"owner";
 static NSString *const DZNSwizzleInfoSelectorKey = @"selector";
 
-// Based on Bryce Buchanan's swizzling technique http://blog.newrelic.com/2014/04/16/right-way-to-swizzle/
-// And Juzzin's ideas https://github.com/juzzin/JUSEmptyViewController
-
-void dzn_original_implementation(id self, SEL _cmd)
+void cc_original_implementation(id self, SEL _cmd)
 {
     // Fetch original implementation from lookup table
-    NSString *key = dzn_implementationKey(self, _cmd);
+    NSString *key = cc_implementationKey(self, _cmd);
     
     NSDictionary *swizzleInfo = [_impLookupTable objectForKey:key];
     NSValue *impValue = [swizzleInfo valueForKey:DZNSwizzleInfoPointerKey];
@@ -1295,7 +1292,7 @@ void dzn_original_implementation(id self, SEL _cmd)
     
     // We then inject the additional implementation for reloading the empty dataset
     // Doing it before calling the original implementation does update the 'isEmptyDataSetVisible' flag on time.
-    [self dzn_reloadEmptyDataSet];
+    [self cc_reloadEmptyDataSet];
     
     // If found, call original implementation
     if (impPointer) {
@@ -1303,7 +1300,7 @@ void dzn_original_implementation(id self, SEL _cmd)
     }
 }
 
-NSString *dzn_implementationKey(id target, SEL selector)
+NSString *cc_implementationKey(id target, SEL selector)
 {
     if (!target || !selector) {
         return nil;
@@ -1349,7 +1346,7 @@ NSString *dzn_implementationKey(id target, SEL selector)
         }
     }
     
-    NSString *key = dzn_implementationKey(self, selector);
+    NSString *key = cc_implementationKey(self, selector);
     NSValue *impValue = [[_impLookupTable objectForKey:key] valueForKey:DZNSwizzleInfoPointerKey];
     
     // If the implementation for this class already exist, skip!!
@@ -1359,12 +1356,12 @@ NSString *dzn_implementationKey(id target, SEL selector)
     
     // Swizzle by injecting additional implementation
     Method method = class_getInstanceMethod([self class], selector);
-    IMP dzn_newImplementation = method_setImplementation(method, (IMP)dzn_original_implementation);
+    IMP cc_newImplementation = method_setImplementation(method, (IMP)cc_original_implementation);
     
     // Store the new implementation in the lookup table
     NSDictionary *swizzledInfo = @{DZNSwizzleInfoOwnerKey : [self class],
                                    DZNSwizzleInfoSelectorKey : NSStringFromSelector(selector),
-                                   DZNSwizzleInfoPointerKey : [NSValue valueWithPointer:dzn_newImplementation]};
+                                   DZNSwizzleInfoPointerKey : [NSValue valueWithPointer:cc_newImplementation]};
     
     [_impLookupTable setObject:swizzledInfo forKey:key];
 }
@@ -1375,7 +1372,7 @@ NSString *dzn_implementationKey(id target, SEL selector)
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     if ([gestureRecognizer.view isEqual:self.emptyDataSetView]) {
-        return [self dzn_isTouchAllowed];
+        return [self cc_isTouchAllowed];
     }
     
     return [super gestureRecognizerShouldBegin:gestureRecognizer];
@@ -1736,7 +1733,7 @@ NSString *dzn_implementationKey(id target, SEL selector)
 
 - (void)didTapButton:(id)sender
 {
-    SEL selector = NSSelectorFromString(@"dzn_didTapDataButton:");
+    SEL selector = NSSelectorFromString(@"cc_didTapDataButton:");
     
     if ([self.superview respondsToSelector:selector]) {
         [self.superview performSelector:selector withObject:sender afterDelay:0.0f];

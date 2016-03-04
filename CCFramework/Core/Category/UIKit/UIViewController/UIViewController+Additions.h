@@ -65,13 +65,6 @@ typedef NS_ENUM(NSInteger, CCPopupViewAnimation) {
 - (void)dismissPopupViewControllerWithanimationType:(CCPopupViewAnimation)animationType;
 
 #pragma mark -
-#pragma mark :. ScrollingStatusBar
-
-- (void)enableStatusBarScrollingAlongScrollView:(UIScrollView *)scrollView;
-- (void)disableStatusBarScrollingAlongScrollView:(UIScrollView *)scrollView;
-
-
-#pragma mark -
 #pragma makk :.StoreKit
 
 @property NSString *campaignToken;
