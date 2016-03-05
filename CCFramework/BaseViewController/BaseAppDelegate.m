@@ -31,6 +31,7 @@
 #import "NSObject+Additions.h"
 #import <objc/runtime.h>
 #import "CCLaunchAnimation.h"
+#import "CCDebugTool.h"
 
 static char OperationKey;
 
@@ -56,15 +57,15 @@ static char OperationKey;
  *
  *  @param application   应用
  *  @param launchOptions 完成启动使用选项
- *
- *  @return <#return value description#>
- *
- *  @since 1.0
  */
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //全局crash捕获
     InstallUncaughtExceptionHandler();
+    
+#if DEBUG
+    [[CCDebugTool manager] enableDebugMode];
+#endif
     
     [self uploadCrashLog];
     

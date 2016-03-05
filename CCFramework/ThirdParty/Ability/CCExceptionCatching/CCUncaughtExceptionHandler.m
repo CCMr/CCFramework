@@ -29,6 +29,7 @@
 #import "CCUserDefaultsCrash.h"
 #import <UIKit/UIKit.h>
 #import "NSDate+Additions.h"
+#import "CCDebugCrashHelper.h"
 
 NSString *const UncaughtExceptionHandlerSignalExceptionName = @"UncaughtExceptionHandlerSignalExceptionName";
 NSString *const UncaughtExceptionHandlerSignalKey = @"UncaughtExceptionHandlerSignalKey";
@@ -79,7 +80,7 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
     [self validateAndSaveCriticalApplicationData];
     //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"抱歉，程序出现了异常", nil) message:[NSString stringWithFormat:NSLocalizedString( @"如果点击继续，程序有可能会出现其他的问题，建议您还是点击退出按钮并重新打开\n\n" @"异常原因如下:\n%@\n%@", nil), [exception reason], [[exception userInfo] objectForKey:UncaughtExceptionHandlerAddressesKey]] delegate:self cancelButtonTitle:NSLocalizedString(@"退出", nil) otherButtonTitles:NSLocalizedString(@"继续", nil), nil];
     //    [alert show];
-    //            dismissed = YES;
+    dismissed = YES;
     
     NSMutableString *errorStr = [NSMutableString string];
     [errorStr appendFormat:@"Name of the device owner: %@ \n", [[UIDevice currentDevice] name]];
@@ -97,10 +98,12 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
     NSMutableArray *crashArray = [NSMutableArray arrayWithArray:[CCUserDefaultsCrash manager].crashArray];
     
     NSMutableDictionary *carsDic = [NSMutableDictionary dictionary];
+    [carsDic setObject:exception.name forKey:@"type"];
     [carsDic setObject:[NSDate date] forKey:@"ErrDate"];
     [carsDic setObject:errorStr forKey:@"ErrMsg"];
     [crashArray addObject:carsDic];
     
+    [[CCDebugCrashHelper manager] saveCrashException:carsDic];
     [CCUserDefaultsCrash manager].crashArray = crashArray;
     
     CFRunLoopRef runLoop = CFRunLoopGetCurrent();
