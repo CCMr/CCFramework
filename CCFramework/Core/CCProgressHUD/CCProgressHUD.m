@@ -42,7 +42,8 @@
         hud = [MBProgressHUD showHUDAddedTo:windowView animated:YES];
         hud.removeFromSuperViewOnHide = YES;
         hud.dimBackground = NO;
-//        hud.IndeterminateLogo = @"";
+        hud.coveredNavigationBar = YES;
+        //        hud.IndeterminateLogo = @"";
         hud.tag = 999999;
     }
     
@@ -176,7 +177,7 @@ whileExecutingBlock:(dispatch_block_t)block
  *
  *  @param animated 动画
  */
-+(void)showWithCoveredNavigationBar:(BOOL)animated
++ (void)showWithCoveredNavigationBar:(BOOL)animated
 {
     MBProgressHUD *hud = [self initialization];
     hud.coveredNavigationBar = YES;
