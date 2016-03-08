@@ -419,15 +419,6 @@
 /**
  *  @author CC, 16-03-03
  *  
- *  @brief 改变背景颜色
- *
- *  @param color 颜色
- */
-- (void)setBackgroundColor:(UIColor *)color;
-
-/**
- *  @author CC, 16-03-03
- *  
  *  @brief 为所有图片添加点击事件(网页中有些图片添加无效)
  */
 - (void)addClickEventOnImg;

@@ -301,8 +301,6 @@
 		421DC7631C85750E009E825B /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 421DC5BA1C85750E009E825B /* UIViewController+Additions.m */; };
 		421DC7741C85750E009E825B /* UIWebView+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 421DC5CC1C85750E009E825B /* UIWebView+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		421DC7751C85750E009E825B /* UIWebView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 421DC5CD1C85750E009E825B /* UIWebView+Additions.m */; };
-		421DC7861C85750E009E825B /* WebView+Debug.h in Headers */ = {isa = PBXBuildFile; fileRef = 421DC5DE1C85750E009E825B /* WebView+Debug.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		421DC7871C85750E009E825B /* WebView+Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = 421DC5DF1C85750E009E825B /* WebView+Debug.m */; };
 		421DC7881C85750E009E825B /* UIWindow+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 421DC5E11C85750E009E825B /* UIWindow+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		421DC7891C85750E009E825B /* UIWindow+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 421DC5E21C85750E009E825B /* UIWindow+Additions.m */; };
 		421DC7AF1C8595AB009E825B /* UIActionSheet+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 421DC7AD1C8595AB009E825B /* UIActionSheet+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -461,6 +459,14 @@
 		424492971C0D90F500488AA2 /* if_rom.h in Headers */ = {isa = PBXBuildFile; fileRef = 4244928B1C0D90F500488AA2 /* if_rom.h */; };
 		424492981C0D90F500488AA2 /* VoiceConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 4244928C1C0D90F500488AA2 /* VoiceConverter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		424492991C0D90F500488AA2 /* VoiceConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4244928D1C0D90F500488AA2 /* VoiceConverter.m */; };
+		424BD58C1C8ECA3E005722F6 /* WebViewJavascriptBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 424BD5841C8ECA3E005722F6 /* WebViewJavascriptBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		424BD58D1C8ECA3E005722F6 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 424BD5851C8ECA3E005722F6 /* WebViewJavascriptBridge.m */; };
+		424BD58E1C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.h in Headers */ = {isa = PBXBuildFile; fileRef = 424BD5861C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.h */; };
+		424BD58F1C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 424BD5871C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.m */; };
+		424BD5901C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 424BD5881C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		424BD5911C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 424BD5891C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.m */; };
+		424BD5921C8ECA3E005722F6 /* WKWebViewJavascriptBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 424BD58A1C8ECA3E005722F6 /* WKWebViewJavascriptBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		424BD5931C8ECA3E005722F6 /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 424BD58B1C8ECA3E005722F6 /* WKWebViewJavascriptBridge.m */; };
 		425476BD1BD2A9DC0071BBC5 /* CCAliPayEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 425476BB1BD2A9DC0071BBC5 /* CCAliPayEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		425476BE1BD2A9DC0071BBC5 /* CCAliPayEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 425476BC1BD2A9DC0071BBC5 /* CCAliPayEngine.m */; };
 		425477271BD2AEC20071BBC5 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 425476C51BD2AEC20071BBC5 /* libcrypto.a */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -1524,8 +1530,6 @@
 		421DC5BA1C85750E009E825B /* UIViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Additions.m"; sourceTree = "<group>"; };
 		421DC5CC1C85750E009E825B /* UIWebView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+Additions.h"; sourceTree = "<group>"; };
 		421DC5CD1C85750E009E825B /* UIWebView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+Additions.m"; sourceTree = "<group>"; };
-		421DC5DE1C85750E009E825B /* WebView+Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WebView+Debug.h"; sourceTree = "<group>"; };
-		421DC5DF1C85750E009E825B /* WebView+Debug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WebView+Debug.m"; sourceTree = "<group>"; };
 		421DC5E11C85750E009E825B /* UIWindow+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+Additions.h"; sourceTree = "<group>"; };
 		421DC5E21C85750E009E825B /* UIWindow+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+Additions.m"; sourceTree = "<group>"; };
 		421DC7AD1C8595AB009E825B /* UIActionSheet+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Additions.h"; sourceTree = "<group>"; };
@@ -1684,6 +1688,14 @@
 		4244928B1C0D90F500488AA2 /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
 		4244928C1C0D90F500488AA2 /* VoiceConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceConverter.h; sourceTree = "<group>"; };
 		4244928D1C0D90F500488AA2 /* VoiceConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceConverter.m; sourceTree = "<group>"; };
+		424BD5841C8ECA3E005722F6 /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
+		424BD5851C8ECA3E005722F6 /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge.m; sourceTree = "<group>"; };
+		424BD5861C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge_JS.h; sourceTree = "<group>"; };
+		424BD5871C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge_JS.m; sourceTree = "<group>"; };
+		424BD5881C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridgeBase.h; sourceTree = "<group>"; };
+		424BD5891C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
+		424BD58A1C8ECA3E005722F6 /* WKWebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKWebViewJavascriptBridge.h; sourceTree = "<group>"; };
+		424BD58B1C8ECA3E005722F6 /* WKWebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewJavascriptBridge.m; sourceTree = "<group>"; };
 		425476BB1BD2A9DC0071BBC5 /* CCAliPayEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCAliPayEngine.h; path = Pay/Alipay/CCAliPayEngine.h; sourceTree = "<group>"; };
 		425476BC1BD2A9DC0071BBC5 /* CCAliPayEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCAliPayEngine.m; path = Pay/Alipay/CCAliPayEngine.m; sourceTree = "<group>"; };
 		425476C51BD2AEC20071BBC5 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
@@ -3527,8 +3539,6 @@
 			children = (
 				421DC5CC1C85750E009E825B /* UIWebView+Additions.h */,
 				421DC5CD1C85750E009E825B /* UIWebView+Additions.m */,
-				421DC5DE1C85750E009E825B /* WebView+Debug.h */,
-				421DC5DF1C85750E009E825B /* WebView+Debug.m */,
 			);
 			path = UIWebView;
 			sourceTree = "<group>";
@@ -3898,6 +3908,21 @@
 				4244928B1C0D90F500488AA2 /* if_rom.h */,
 			);
 			path = "opencore-amrwb";
+			sourceTree = "<group>";
+		};
+		424BD5831C8ECA3E005722F6 /* WebViewJavascriptBridge */ = {
+			isa = PBXGroup;
+			children = (
+				424BD5841C8ECA3E005722F6 /* WebViewJavascriptBridge.h */,
+				424BD5851C8ECA3E005722F6 /* WebViewJavascriptBridge.m */,
+				424BD5861C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.h */,
+				424BD5871C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.m */,
+				424BD5881C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.h */,
+				424BD5891C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.m */,
+				424BD58A1C8ECA3E005722F6 /* WKWebViewJavascriptBridge.h */,
+				424BD58B1C8ECA3E005722F6 /* WKWebViewJavascriptBridge.m */,
+			);
+			path = WebViewJavascriptBridge;
 			sourceTree = "<group>";
 		};
 		425475F71BD29C0A0071BBC5 /* Pay */ = {
@@ -4547,6 +4572,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E31BDE021900C76004 /* Ability.h */,
+				424BD5831C8ECA3E005722F6 /* WebViewJavascriptBridge */,
 				42A1F6151C8A71C800A20F64 /* CCDebugTool */,
 				420CB11A1C7D788500A0EC25 /* Masonry */,
 				420CD8AE1C59F76E009578D4 /* CCInputDodger */,
@@ -6129,7 +6155,6 @@
 				422511401C72F795003B3623 /* CCPropertyKey.h in Headers */,
 				42F945871BC8ED5D008882AE /* CCDisplayMediaViewController.h in Headers */,
 				42068F061C573E33005DFB01 /* POPAnimatableProperty.h in Headers */,
-				421DC7861C85750E009E825B /* WebView+Debug.h in Headers */,
 				42C208E61BDE025300C76004 /* UI.h in Headers */,
 				425477761BD2AEC20071BBC5 /* config.h in Headers */,
 				4298C7751BDCA4C100A3581D /* CCCollectionViewFetchResultController.h in Headers */,
@@ -6154,6 +6179,7 @@
 				4254776A1BD2AEC20071BBC5 /* symhacks.h in Headers */,
 				42F24C531BEA5091008CDEDC /* PNChart.h in Headers */,
 				421DC6161C85750E009E825B /* NSFileHandle+Additions.h in Headers */,
+				424BD58C1C8ECA3E005722F6 /* WebViewJavascriptBridge.h in Headers */,
 				425477441BD2AEC20071BBC5 /* engine.h in Headers */,
 				420CB1451C7D788500A0EC25 /* NSArray+MASShorthandAdditions.h in Headers */,
 				42A1F6641C8A8E4000A20F64 /* FMDatabaseQueue.h in Headers */,
@@ -6504,6 +6530,7 @@
 				425477341BD2AEC20071BBC5 /* cms.h in Headers */,
 				424492971C0D90F500488AA2 /* if_rom.h in Headers */,
 				429C9F631B9EF8BF0013A44A /* EnumConfig.h in Headers */,
+				424BD58E1C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.h in Headers */,
 				4254772C1BD2AEC20071BBC5 /* asn1t.h in Headers */,
 				421DC6761C85750E009E825B /* NSURLConnection+Additions.h in Headers */,
 				429C9F701B9EF8BF0013A44A /* CCHTTPManager.h in Headers */,
@@ -6602,6 +6629,7 @@
 				420CD8BB1C59F9B9009578D4 /* UIScrollView+CCInputDodger.h in Headers */,
 				421DC6181C85750E009E825B /* NSFileManager+Additions.h in Headers */,
 				429C9FA81B9EF8BF0013A44A /* SmoothViewController.h in Headers */,
+				424BD5921C8ECA3E005722F6 /* WKWebViewJavascriptBridge.h in Headers */,
 				42F24C6B1BEA5091008CDEDC /* PNScatterChart.h in Headers */,
 				4219EE081C7FF93F00F1EE76 /* NSString+MLLabel.h in Headers */,
 				429CA1031B9EF8BF0013A44A /* CCMessageBubbleFactory.h in Headers */,
@@ -6698,6 +6726,7 @@
 				421DC7AF1C8595AB009E825B /* UIActionSheet+Additions.h in Headers */,
 				4219EE171C7FF93F00F1EE76 /* MLLinkLabel.h in Headers */,
 				425477721BD2AEC20071BBC5 /* x509_vfy.h in Headers */,
+				424BD5901C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.h in Headers */,
 				4254774F1BD2AEC20071BBC5 /* modes.h in Headers */,
 				4206A51E1C783CFA001A1CF3 /* CCPhotoPickerController.h in Headers */,
 				42068F1C1C573E33005DFB01 /* POPLayerExtras.h in Headers */,
@@ -6966,7 +6995,6 @@
 				42B6474D1BEDE00200B2F6FD /* CCHTTPManager+POST.m in Sources */,
 				429CA09A1B9EF8BF0013A44A /* SEConstants.m in Sources */,
 				4206A5271C783CFA001A1CF3 /* CCAssetModel.m in Sources */,
-				421DC7871C85750E009E825B /* WebView+Debug.m in Sources */,
 				421DC6771C85750E009E825B /* NSURLConnection+Additions.m in Sources */,
 				421DC66F1C85750E009E825B /* NSTimer+Additions.m in Sources */,
 				42F4113C1C214C5400814E7B /* CCArrowBrush.m in Sources */,
@@ -7142,6 +7170,7 @@
 				420CB1511C7D856F00A0EC25 /* CCSegmentedView.m in Sources */,
 				4206A5211C783CFA001A1CF3 /* CCPhotoPreviewController.m in Sources */,
 				429C9FA71B9EF8BF0013A44A /* SmoothScrollView.m in Sources */,
+				424BD5931C8ECA3E005722F6 /* WKWebViewJavascriptBridge.m in Sources */,
 				425477881BD2AF6A0071BBC5 /* AliOrderFormEntity.m in Sources */,
 				421DC6791C85750E009E825B /* NSURLRequest+Additions.m in Sources */,
 				429CA0781B9EF8BF0013A44A /* CCPopMenuView.m in Sources */,
@@ -7238,6 +7267,7 @@
 				4225116E1C7306AD003B3623 /* NSObject+CCClass.m in Sources */,
 				42A1F6631C8A8E4000A20F64 /* FMDatabasePool.m in Sources */,
 				429C9F9D1B9EF8BF0013A44A /* CCQRCodeViewController.m in Sources */,
+				424BD58D1C8ECA3E005722F6 /* WebViewJavascriptBridge.m in Sources */,
 				420CD8BE1C59F9B9009578D4 /* UIView+CCInputDodger.m in Sources */,
 				429C9FEE1B9EF8BF0013A44A /* SRHttpBasedTransport.m in Sources */,
 				421DC7F01C859E0E009E825B /* UILabel+Additions.m in Sources */,
@@ -7255,6 +7285,7 @@
 				4206A52B1C783CFA001A1CF3 /* CCAssetCell.m in Sources */,
 				42F24C5C1BEA5091008CDEDC /* PNGenericChart.m in Sources */,
 				422E91711C5F38BE008F7DDA /* PRTween.m in Sources */,
+				424BD58F1C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.m in Sources */,
 				429C9F571B9EF8BF0013A44A /* BaseTableViewController.m in Sources */,
 				42E9531D1C589DB3001C93CB /* CCBannerView.m in Sources */,
 				421DC6251C85750E009E825B /* NSDecimalNumber+Additions.m in Sources */,
@@ -7357,6 +7388,7 @@
 				429CA1041B9EF8BF0013A44A /* CCMessageBubbleFactory.m in Sources */,
 				42063E791C892E7D003348EB /* NSManagedObjectContext+Additions.m in Sources */,
 				428A12D11BC8A433005D904D /* ContactRead.m in Sources */,
+				424BD5911C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.m in Sources */,
 				428B5C3C1C22609C001B8584 /* split.c in Sources */,
 				429CA0671B9EF8BF0013A44A /* CCPickerDatas.m in Sources */,
 				429CA1171B9EF8BF0013A44A /* CCMessageBubbleView.m in Sources */,

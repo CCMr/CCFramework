@@ -183,7 +183,7 @@ static void CCExceptionHandler(NSException *ex)
         
         // Don't install our handlers if we're not actually intercepting function
         // calls.
-        if ([libraries rangeOfString:@"ReactiveCocoa"].length == 0) return;
+        if ([libraries rangeOfString:@"CCFramework"].length == 0) return;
         
         NSLog(@"*** Enabling asynchronous backtraces");
         
