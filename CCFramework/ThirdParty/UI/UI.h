@@ -27,22 +27,14 @@
 #define CCFramework_UI_h
 
 #import <CCFramework/MKAnnotationView+WebCache.h>
-//#import <CCFramework/NSData+ImageContentType.h>
-//#import <CCFramework/UIButton+WebCache.h>
+#import <CCFramework/CCSegmentedView.h>
 #import <CCFramework/CCBarSlider.h>
-//#import <CCFramework/UIImage+GIF.h>
-//#import <CCFramework/UIImage+MultiFormat.h>
-//#import <CCFramework/UIImage+WebP.h>
-//#import <CCFramework/UIImageView+HighlightedWebCache.h>
-//#import <CCFramework/UIImageView+WebCache.h>
-//#import <CCFramework/UIView+WebCacheOperation.h>
 #import <CCFramework/CCRadarScanViewController.h>
 #import <CCFramework/CCPagesContainer.h>
 #import <CCFramework/CCActionSheet.h>
 #import <CCFramework/CCActionSheetViewController.h>
 #import <CCFramework/CCAnimatedImage.h>
 #import <CCFramework/CCAnimatedImageView.h>
-//#import <CCFramework/UIView+CCBadgeView.h>
 #import <CCFramework/CalendarViewController.h>
 #import <CCFramework/CCLineChartView.h>
 #import <CCFramework/CCPieChart.h>

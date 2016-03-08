@@ -179,7 +179,23 @@ whileExecutingBlock:(dispatch_block_t)block
  */
 + (void)showWithCoveredNavigationBar:(BOOL)animated
 {
+    [self showWithCoveredNavigationBar:nil
+                              Animated:animated];
+}
+
+/**
+ *  @author CC, 16-03-07
+ *  
+ *  @brief 预留导航栏并显示提示信息
+ *
+ *  @param labeText 提示信息
+ *  @param animated 动画
+ */
++ (void)showWithCoveredNavigationBar:(NSString *)labeText
+                            Animated:(BOOL)animated
+{
     MBProgressHUD *hud = [self initialization];
+    hud.detailsLabelText = labeText;
     hud.coveredNavigationBar = YES;
     [hud show:YES];
 }
