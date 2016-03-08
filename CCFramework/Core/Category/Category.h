@@ -86,7 +86,6 @@
 #import <CCFramework/UIView+Frame.h>
 #import <CCFramework/UIViewController+Additions.h>
 #import <CCFramework/UIWebView+Additions.h>
-#import <CCFramework/WebView+Debug.h>
 #import <CCFramework/UIWindow+Additions.h>
 
 #pragma mark CoreData
