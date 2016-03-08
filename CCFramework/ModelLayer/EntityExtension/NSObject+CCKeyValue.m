@@ -168,7 +168,20 @@ static NSNumberFormatter *numberFormatter_;
                         // NSURL -> NSString
                         value = [value absoluteString];
                     }
-                } else if ([value isKindOfClass:[NSString class]]) {
+                }else if (propertyClass == [NSDate class]){ 
+                    
+                    if(![value isKindOfClass:[NSDate class]]){
+                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                        NSRange range = [[NSString stringWithFormat:@"%@",value] rangeOfString:@"T"];
+                        if (range.location != NSNotFound) {
+                            [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+                        }else if([value isKindOfClass:[NSDate class]]){
+                            [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+                            [formatter setLocale:[NSLocale currentLocale]];
+                        }
+                        value = [formatter dateFromString:value];
+                    }
+                }else if ([value isKindOfClass:[NSString class]]) {
                     if (propertyClass == [NSURL class]) {
                         // NSString -> NSURL
                         // 字符串转码
@@ -265,13 +278,13 @@ static NSNumberFormatter *numberFormatter_;
     // 如果数组里面放的是NSString、NSNumber等数据
     if ([CCFoundation isClassFromFoundation:self]) return [NSMutableArray arrayWithArray:keyValuesArray];
     
-
+    
     // 2.创建数组
     NSMutableArray *modelArray = [NSMutableArray array];
     
     // 3.遍历
     for (NSDictionary *keyValues in keyValuesArray) {
-        if ([keyValues isKindOfClass:[NSArray class]]){
+        if ([keyValues isKindOfClass:[NSArray class]]) {
             [modelArray addObject:[self cc_objectArrayWithKeyValuesArray:keyValues context:context]];
         } else {
             id model = [self cc_objectWithKeyValues:keyValues context:context];
@@ -415,20 +428,20 @@ static NSNumberFormatter *numberFormatter_;
     return [self cc_keyValuesArrayWithObjectArray:objectArray keys:nil ignoredKeys:nil];
 }
 
-+ (NSMutableArray *)cc_keyValuesArrayWithObjectArray:(NSArray *)objectArray 
++ (NSMutableArray *)cc_keyValuesArrayWithObjectArray:(NSArray *)objectArray
                                                 keys:(NSArray *)keys
 {
     return [self cc_keyValuesArrayWithObjectArray:objectArray keys:keys ignoredKeys:nil];
 }
 
-+ (NSMutableArray *)cc_keyValuesArrayWithObjectArray:(NSArray *)objectArray 
++ (NSMutableArray *)cc_keyValuesArrayWithObjectArray:(NSArray *)objectArray
                                          ignoredKeys:(NSArray *)ignoredKeys
 {
     return [self cc_keyValuesArrayWithObjectArray:objectArray keys:nil ignoredKeys:ignoredKeys];
 }
 
-+ (NSMutableArray *)cc_keyValuesArrayWithObjectArray:(NSArray *)objectArray 
-                                                keys:(NSArray *)keys 
++ (NSMutableArray *)cc_keyValuesArrayWithObjectArray:(NSArray *)objectArray
+                                                keys:(NSArray *)keys
                                          ignoredKeys:(NSArray *)ignoredKeys
 {
     // 0.判断真实性
@@ -450,7 +463,7 @@ static NSNumberFormatter *numberFormatter_;
 - (NSData *)cc_JSONData
 {
     if ([self isKindOfClass:[NSString class]]) {
-        return [((NSString *)self) dataUsingEncoding:NSUTF8StringEncoding];
+        return [((NSString *)self)dataUsingEncoding:NSUTF8StringEncoding];
     } else if ([self isKindOfClass:[NSData class]]) {
         return (NSData *)self;
     }
@@ -461,7 +474,7 @@ static NSNumberFormatter *numberFormatter_;
 - (id)cc_JSONObject
 {
     if ([self isKindOfClass:[NSString class]]) {
-        return [NSJSONSerialization JSONObjectWithData:[((NSString *)self) dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+        return [NSJSONSerialization JSONObjectWithData:[((NSString *)self)dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
     } else if ([self isKindOfClass:[NSData class]]) {
         return [NSJSONSerialization JSONObjectWithData:(NSData *)self options:kNilOptions error:nil];
     }
@@ -487,30 +500,29 @@ static NSNumberFormatter *numberFormatter_;
     return [self cc_setKeyValues:keyValues];
 }
 
-- (instancetype)setKeyValues:(id)keyValues 
+- (instancetype)setKeyValues:(id)keyValues
                        error:(NSError **)error
 {
     id value = [self cc_setKeyValues:keyValues];
     if (error != NULL) {
-    *error = [self.class cc_error];
+        *error = [self.class cc_error];
     }
     return value;
-    
 }
 
-- (instancetype)setKeyValues:(id)keyValues 
+- (instancetype)setKeyValues:(id)keyValues
                      context:(NSManagedObjectContext *)context
 {
     return [self cc_setKeyValues:keyValues context:context];
 }
 
-- (instancetype)setKeyValues:(id)keyValues 
-                     context:(NSManagedObjectContext *)context 
+- (instancetype)setKeyValues:(id)keyValues
+                     context:(NSManagedObjectContext *)context
                        error:(NSError **)error
 {
     id value = [self cc_setKeyValues:keyValues context:context];
     if (error != NULL) {
-    *error = [self.class cc_error];
+        *error = [self.class cc_error];
     }
     return value;
 }
@@ -529,7 +541,7 @@ static NSNumberFormatter *numberFormatter_;
 {
     id value = [self cc_keyValues];
     if (error != NULL) {
-    *error = [self.class cc_error];
+        *error = [self.class cc_error];
     }
     return value;
 }
@@ -539,12 +551,12 @@ static NSNumberFormatter *numberFormatter_;
     return [self cc_keyValuesWithKeys:keys];
 }
 
-- (NSMutableDictionary *)keyValuesWithKeys:(NSArray *)keys 
+- (NSMutableDictionary *)keyValuesWithKeys:(NSArray *)keys
                                      error:(NSError **)error
 {
     id value = [self cc_keyValuesWithKeys:keys];
     if (error != NULL) {
-    *error = [self.class cc_error];
+        *error = [self.class cc_error];
     }
     return value;
 }
@@ -559,7 +571,7 @@ static NSNumberFormatter *numberFormatter_;
 {
     id value = [self cc_keyValuesWithIgnoredKeys:ignoredKeys];
     if (error != NULL) {
-    *error = [self.class cc_error];
+        *error = [self.class cc_error];
     }
     return value;
 }
@@ -569,46 +581,46 @@ static NSNumberFormatter *numberFormatter_;
     return [self cc_keyValuesArrayWithObjectArray:objectArray];
 }
 
-+ (NSMutableArray *)keyValuesArrayWithObjectArray:(NSArray *)objectArray 
++ (NSMutableArray *)keyValuesArrayWithObjectArray:(NSArray *)objectArray
                                             error:(NSError **)error
 {
     id value = [self cc_keyValuesArrayWithObjectArray:objectArray];
     if (error != NULL) {
-    *error = [self cc_error];
+        *error = [self cc_error];
     }
     return value;
 }
 
-+ (NSMutableArray *)keyValuesArrayWithObjectArray:(NSArray *)objectArray 
++ (NSMutableArray *)keyValuesArrayWithObjectArray:(NSArray *)objectArray
                                              keys:(NSArray *)keys
 {
     return [self cc_keyValuesArrayWithObjectArray:objectArray keys:keys];
 }
 
-+ (NSMutableArray *)keyValuesArrayWithObjectArray:(NSArray *)objectArray 
-                                             keys:(NSArray *)keys 
++ (NSMutableArray *)keyValuesArrayWithObjectArray:(NSArray *)objectArray
+                                             keys:(NSArray *)keys
                                             error:(NSError **)error
 {
     id value = [self cc_keyValuesArrayWithObjectArray:objectArray keys:keys];
     if (error != NULL) {
-    *error = [self cc_error];
+        *error = [self cc_error];
     }
     return value;
 }
 
-+ (NSMutableArray *)keyValuesArrayWithObjectArray:(NSArray *)objectArray 
++ (NSMutableArray *)keyValuesArrayWithObjectArray:(NSArray *)objectArray
                                       ignoredKeys:(NSArray *)ignoredKeys
 {
     return [self cc_keyValuesArrayWithObjectArray:objectArray ignoredKeys:ignoredKeys];
 }
 
-+ (NSMutableArray *)keyValuesArrayWithObjectArray:(NSArray *)objectArray 
-                                      ignoredKeys:(NSArray *)ignoredKeys 
++ (NSMutableArray *)keyValuesArrayWithObjectArray:(NSArray *)objectArray
+                                      ignoredKeys:(NSArray *)ignoredKeys
                                             error:(NSError **)error
 {
     id value = [self cc_keyValuesArrayWithObjectArray:objectArray ignoredKeys:ignoredKeys];
     if (error != NULL) {
-    *error = [self cc_error];
+        *error = [self cc_error];
     }
     return value;
 }
@@ -618,12 +630,12 @@ static NSNumberFormatter *numberFormatter_;
     return [self cc_objectWithKeyValues:keyValues];
 }
 
-+ (instancetype)objectWithKeyValues:(id)keyValues 
++ (instancetype)objectWithKeyValues:(id)keyValues
                               error:(NSError **)error
 {
     id value = [self cc_objectWithKeyValues:keyValues];
     if (error != NULL) {
-    *error = [self cc_error];
+        *error = [self cc_error];
     }
     return value;
 }
@@ -634,13 +646,13 @@ static NSNumberFormatter *numberFormatter_;
     return [self cc_objectWithKeyValues:keyValues context:context];
 }
 
-+ (instancetype)objectWithKeyValues:(id)keyValues 
++ (instancetype)objectWithKeyValues:(id)keyValues
                             context:(NSManagedObjectContext *)context
                               error:(NSError **)error
 {
     id value = [self cc_objectWithKeyValues:keyValues context:context];
     if (error != NULL) {
-    *error = [self cc_error];
+        *error = [self cc_error];
     }
     return value;
 }
@@ -650,12 +662,12 @@ static NSNumberFormatter *numberFormatter_;
     return [self cc_objectWithFilename:filename];
 }
 
-+ (instancetype)objectWithFilename:(NSString *)filename 
++ (instancetype)objectWithFilename:(NSString *)filename
                              error:(NSError **)error
 {
     id value = [self cc_objectWithFilename:filename];
     if (error != NULL) {
-    *error = [self cc_error];
+        *error = [self cc_error];
     }
     return value;
 }
@@ -665,12 +677,12 @@ static NSNumberFormatter *numberFormatter_;
     return [self cc_objectWithFile:file];
 }
 
-+ (instancetype)objectWithFile:(NSString *)file 
++ (instancetype)objectWithFile:(NSString *)file
                          error:(NSError **)error
 {
     id value = [self cc_objectWithFile:file];
     if (error != NULL) {
-    *error = [self cc_error];
+        *error = [self cc_error];
     }
     return value;
 }
@@ -680,17 +692,17 @@ static NSNumberFormatter *numberFormatter_;
     return [self cc_objectArrayWithKeyValuesArray:keyValuesArray];
 }
 
-+ (NSMutableArray *)objectArrayWithKeyValuesArray:(id)keyValuesArray 
++ (NSMutableArray *)objectArrayWithKeyValuesArray:(id)keyValuesArray
                                             error:(NSError **)error
 {
     id value = [self cc_objectArrayWithKeyValuesArray:keyValuesArray];
     if (error != NULL) {
-    *error = [self cc_error];
+        *error = [self cc_error];
     }
     return value;
 }
 
-+ (NSMutableArray *)objectArrayWithKeyValuesArray:(id)keyValuesArray 
++ (NSMutableArray *)objectArrayWithKeyValuesArray:(id)keyValuesArray
                                           context:(NSManagedObjectContext *)context
 {
     return [self cc_objectArrayWithKeyValuesArray:keyValuesArray context:context];
@@ -702,7 +714,7 @@ static NSNumberFormatter *numberFormatter_;
 {
     id value = [self cc_objectArrayWithKeyValuesArray:keyValuesArray context:context];
     if (error != NULL) {
-    *error = [self cc_error];
+        *error = [self cc_error];
     }
     return value;
 }
@@ -712,12 +724,12 @@ static NSNumberFormatter *numberFormatter_;
     return [self cc_objectArrayWithFilename:filename];
 }
 
-+ (NSMutableArray *)objectArrayWithFilename:(NSString *)filename 
++ (NSMutableArray *)objectArrayWithFilename:(NSString *)filename
                                       error:(NSError **)error
 {
     id value = [self cc_objectArrayWithFilename:filename];
     if (error != NULL) {
-    *error = [self cc_error];
+        *error = [self cc_error];
     }
     return value;
 }
@@ -732,7 +744,7 @@ static NSNumberFormatter *numberFormatter_;
 {
     id value = [self cc_objectArrayWithFile:file];
     if (error != NULL) {
-    *error = [self cc_error];
+        *error = [self cc_error];
     }
     return value;
 }

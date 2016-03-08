@@ -207,7 +207,7 @@ static NSMutableDictionary *cachedPropertiesDict_;
     objc_setAssociatedObject(self, &CCNewValueFromOldValueKey, newValueFormOldValue, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-+ (id)CC_getNewValueFromObject:(__unsafe_unretained id)object oldValue:(__unsafe_unretained id)oldValue property:(CCProperty *__unsafe_unretained)property{
++ (id)cc_getNewValueFromObject:(__unsafe_unretained id)object oldValue:(__unsafe_unretained id)oldValue property:(CCProperty *__unsafe_unretained)property{
     // 如果有实现方法
     if ([object respondsToSelector:@selector(CC_newValueFromOldValue:property:)]) {
         return [object cc_newValueFromOldValue:oldValue property:property];
@@ -266,7 +266,7 @@ static NSMutableDictionary *cachedPropertiesDict_;
 
 + (id)getNewValueFromObject:(__unsafe_unretained id)object oldValue:(__unsafe_unretained id)oldValue property:(__unsafe_unretained CCProperty *)property
 {
-    return [self CC_getNewValueFromObject:object oldValue:oldValue property:property];
+    return [self cc_getNewValueFromObject:object oldValue:oldValue property:property];
 }
 
 + (void)setupReplacedKeyFromPropertyName:(CCReplacedKeyFromPropertyName)replacedKeyFromPropertyName
