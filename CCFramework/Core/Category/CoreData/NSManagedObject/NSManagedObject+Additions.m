@@ -531,9 +531,12 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
 NSDate *dateFromString(NSString *value)
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    //    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-    //    [formatter setLocale:[NSLocale currentLocale]];
-    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+    if ([value rangeOfString:@"T"].location != NSNotFound) {
+        [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+    }else{
+        [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        [formatter setLocale:[NSLocale currentLocale]];
+    }
     
     NSDate *parsedDate = [formatter dateFromString:value];
     

@@ -173,7 +173,7 @@
 		420CB14A1C7D788500A0EC25 /* View+MASShorthandAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CB1311C7D788500A0EC25 /* View+MASShorthandAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		420CB14B1C7D788500A0EC25 /* ViewController+MASAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CB1321C7D788500A0EC25 /* ViewController+MASAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		420CB14C1C7D788500A0EC25 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 420CB1331C7D788500A0EC25 /* ViewController+MASAdditions.m */; };
-		420CB1501C7D856F00A0EC25 /* CCSegmentedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CB14E1C7D856F00A0EC25 /* CCSegmentedView.h */; };
+		420CB1501C7D856F00A0EC25 /* CCSegmentedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CB14E1C7D856F00A0EC25 /* CCSegmentedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		420CB1511C7D856F00A0EC25 /* CCSegmentedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 420CB14F1C7D856F00A0EC25 /* CCSegmentedView.m */; };
 		420CD8B11C59F788009578D4 /* CCInputDodger.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CD8AF1C59F788009578D4 /* CCInputDodger.h */; };
 		420CD8B21C59F788009578D4 /* CCInputDodger.m in Sources */ = {isa = PBXBuildFile; fileRef = 420CD8B01C59F788009578D4 /* CCInputDodger.m */; };
