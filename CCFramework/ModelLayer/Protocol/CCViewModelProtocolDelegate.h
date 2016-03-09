@@ -1,5 +1,5 @@
 //
-//  ModelLayer.h
+//  CCViewModelProtocolDelegate.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,19 +23,40 @@
 // THE SOFTWARE.
 //
 
-#ifndef CCFramework_ModelLayer_h
-#define CCFramework_ModelLayer_h
+#ifndef CCViewModelProtocolDelegate_h
+#define CCViewModelProtocolDelegate_h
 
-#import <CCFramework/BaseEntity.h>
-#import <CCFramework/BaseViewModel.h>
-#import <CCFramework/CCUserDefaultsCrash.h>
-#import <CCFramework/CCExtension.h>
+@protocol CCViewModelProtocolDelegate <NSObject>
 
-#pragma mark -
-#pragma mark :.  viewModel
-#import <CCFramework/CCTableViewManger.h>
-#import <CCFramework/CCCollectionViewManger.h>
-#import <CCFramework/CCViewModelProtocolDelegate.h>
+@optional
 
+/**
+ *  @author CC, 16-03-09
+ *  
+ *  @brief 返回指定indexPath的item
+ *
+ *  @param indexPath 下标
+ */
+- (instancetype)cc_viewModelWithIndexPath:(NSIndexPath *)indexPath;
 
-#endif
+/**
+ *  @author CC, 16-03-09
+ *  
+ *  @brief 每组中显示多少行 (用于tableView)
+ *
+ *  @param section 分组下标
+ */
+- (NSUInteger)cc_viewModelWithNumberOfRowsInSection:(NSUInteger)section;
+
+/**
+ *  @author CC, 16-03-09
+ *  
+ *  @brief 每组中显示多少个 (用于collectionView)
+ *
+ *  @param section 分组下标
+ */
+- (NSUInteger)cc_viewModelWithNumberOfItemsInSection:(NSUInteger)section;
+
+@end
+
+#endif /* CCViewModelProtocolDelegate_h */
