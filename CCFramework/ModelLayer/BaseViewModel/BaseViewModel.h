@@ -27,8 +27,11 @@
 #import <Foundation/Foundation.h>
 #import "CCHTTPRequest.h"
 #import "Config.h"
+#import "CCMessage.h"
+#import "SETextView.h"
+#import "CCViewModelProtocolDelegate.h"
 
-@interface BaseViewModel : NSObject
+@interface BaseViewModel : NSObject <CCViewModelProtocolDelegate>
 
 /**
  *  @author CC, 2015-10-22
@@ -71,6 +74,33 @@
  *
  *  @since 1.0
  */
-- (void) fetchDataSource;
+- (void)fetchDataSource;
+
+/**
+ *  @author CC, 16-03-09
+ *  
+ *  @brief 分析图片
+ *
+ *  @param sendMessage 消息体
+ */
+- (SETextView *)analysisTeletext:(CCMessage *)sendMessage;
+
+/**
+ *  @author CC, 16-03-09
+ *  
+ *  @brief  懒加载存放请求到的数据数组
+ */
+@property(nonatomic, strong) NSMutableArray *cc_dataArray;
+
+/**
+ *  @author CC, 16-03-09
+ *  
+ *  @brief 视图模型获取数据成功处理
+ *         用来判断是否加载成功,方便外部根据不同需求处理 (外部使用)
+ *
+ *  @param successHandler 回调函数
+ */
+-(void)cc_viewModelWithGetDataSuccessHandler:(dispatch_block_t)successHandler;
+
 
 @end
