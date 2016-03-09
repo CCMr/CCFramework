@@ -36,6 +36,39 @@
     return [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
 }
 
++ (UINib *)nibWithIdentifier:(NSString *)identifier
+{
+    return [UINib nibWithNibName:identifier bundle:nil];
+}
+
++ (void)registerTable:(UITableView *)tableView
+        nibIdentifier:(NSString *)identifier
+{
+    UINib *nib = [self nibWithIdentifier:identifier];
+    if (nib)
+        [tableView registerNib:nib forCellReuseIdentifier:identifier];
+    else
+        [tableView registerClass:NSClassFromString(identifier) forCellReuseIdentifier:identifier];
+}
+
+- (void)configure:(UITableViewCell *)tableViewCell
+        customObj:(id)obj
+        indexPath:(NSIndexPath *)indexPath
+{
+    // Rewrite this func in SubClass !
+}
+
++ (CGFloat)obtainCellHeightWithCustomObj:(id)obj
+                               indexPath:(NSIndexPath *)indexPath
+{
+    // Rewrite this func in SubClass if necessary
+    if (!obj) {
+        return 0.0f; // if obj is null .
+    }
+    return 44.0f; // default cell height
+}
+
+
 - (UIScrollView *)cc_scrollView
 {
     id sv = self.contentView.superview;

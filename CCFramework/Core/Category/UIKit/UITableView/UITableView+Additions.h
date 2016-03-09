@@ -25,7 +25,9 @@
 
 #import <UIKit/UIKit.h>
 
-#pragma mark-
+@class CCTableViewManger;
+
+#pragma mark -
 #pragma mark :. CCIndexPathHeightCache
 
 @interface CCIndexPathHeightCache : NSObject
@@ -42,7 +44,7 @@
 
 @end
 
-#pragma mark-
+#pragma mark -
 #pragma mark :. CCKeyedHeightCache
 @interface CCKeyedHeightCache : NSObject
 
@@ -56,10 +58,12 @@
 
 @end
 
-#pragma mark-
+#pragma mark -
 #pragma mark :. Additions
 
 @interface UITableView (Additions)
+
+@property(nonatomic, strong) CCTableViewManger *tabelHander;
 
 /**
  *  @author CC, 2015-07-23
@@ -79,20 +83,20 @@
 - (void)applyiOS7SettingsStyleGrouping:(UITableViewCell *)cell
                      forRowAtIndexPath:(NSIndexPath *)indexPath;
 
-#pragma mark-
+#pragma mark -
 #pragma mark :. CCIndexPathHeightCache
 
 /// Height cache by index path. Generally, you don't need to use it directly.
 @property(nonatomic, strong, readonly) CCIndexPathHeightCache *cc_indexPathHeightCache;
 
 
-#pragma mark-
+#pragma mark -
 #pragma mark :. CCKeyedHeightCache
 
 /// Height cache by key. Generally, you don't need to use it directly.
-@property (nonatomic, strong, readonly) CCKeyedHeightCache *cc_keyedHeightCache;
+@property(nonatomic, strong, readonly) CCKeyedHeightCache *cc_keyedHeightCache;
 
-#pragma mark-
+#pragma mark -
 #pragma mark :. CCTemplateLayoutCell
 
 /// Returns height of cell of type specifed by a reuse identifier and configured
@@ -157,7 +161,7 @@
 @end
 
 
-#pragma mark-
+#pragma mark -
 #pragma mark :. CCIndexPathHeightCacheInvalidation
 
 @interface UITableView (CCIndexPathHeightCacheInvalidation)

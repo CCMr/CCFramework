@@ -1,5 +1,5 @@
 //
-//  UITableViewCell+Additions.h
+//  UICollectionViewCell+Additions.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -25,9 +25,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UITableViewCell (Additions)
-
-@property(nonatomic, assign) BOOL cc_delaysContentTouches;
+@interface UICollectionViewCell (Additions)
 
 /**
  *  @brief  加载同类名的nib
@@ -37,16 +35,16 @@
 + (UINib *)nib;
 
 /**
- *  登记tableView的Cell
+ *  登记UICollectionView的Cell
  *  1. nib读取    （优先）
  *  2. 文件名获取
  */
-+ (void)registerTable:(UITableView *)tableView
++ (void)registerCollect:(UICollectionView *)collectionView
         nibIdentifier:(NSString *)identifier;
 /**
  *  配置UITableViewCell，设置UITableViewCell内容
  */
-- (void)configure:(UITableViewCell *)tableViewCell
+- (void)configure:(UICollectionViewCell *)collectionViewCell
         customObj:(id)obj
         indexPath:(NSIndexPath *)indexPath;
 /**

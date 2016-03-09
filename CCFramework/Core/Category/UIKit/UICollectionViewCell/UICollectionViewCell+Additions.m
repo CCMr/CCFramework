@@ -1,5 +1,5 @@
 //
-//  UITableViewCell+Additions.h
+//  UICollectionViewCell+Additions.m
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,36 +23,51 @@
 // THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+#import "UICollectionViewCell+Additions.h"
 
-@interface UITableViewCell (Additions)
-
-@property(nonatomic, assign) BOOL cc_delaysContentTouches;
+@implementation UICollectionViewCell (Additions)
 
 /**
  *  @brief  加载同类名的nib
  *
  *  @return nib
  */
-+ (UINib *)nib;
++ (UINib *)nib
+{
+    return [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
+}
 
-/**
- *  登记tableView的Cell
- *  1. nib读取    （优先）
- *  2. 文件名获取
- */
-+ (void)registerTable:(UITableView *)tableView
-        nibIdentifier:(NSString *)identifier;
-/**
- *  配置UITableViewCell，设置UITableViewCell内容
- */
-- (void)configure:(UITableViewCell *)tableViewCell
++ (UINib *)nibWithIdentifier:(NSString *)identifier
+{
+    return [UINib nibWithNibName:identifier bundle:nil];
+}
+
++ (void)registerCollect:(UICollectionView *)collectionView
+          nibIdentifier:(NSString *)identifier
+{
+    UINib *nib = [self nibWithIdentifier:identifier];
+    if (nib)
+        [collectionView registerNib:nib forCellWithReuseIdentifier:identifier];
+    else
+        [collectionView registerClass:NSClassFromString(identifier) forCellWithReuseIdentifier:identifier];
+}
+
+- (void)configure:(UICollectionViewCell *)collectionViewCell
         customObj:(id)obj
-        indexPath:(NSIndexPath *)indexPath;
-/**
- *  获取自定义对象的cell高度 (已集成UITableView+Additions，现在创建的cell自动计算高度)
- */
+        indexPath:(NSIndexPath *)indexPath
+{
+    // Rewrite this func in SubClass !
+}
+
 + (CGFloat)obtainCellHeightWithCustomObj:(id)obj
-                               indexPath:(NSIndexPath *)indexPath;
+                               indexPath:(NSIndexPath *)indexPath
+{
+    // Rewrite this func in SubClass if necessary
+    if (!obj) {
+        return 0.0f; // if obj is null .
+    }
+    return 44.0f; // default cell height
+}
+
 
 @end

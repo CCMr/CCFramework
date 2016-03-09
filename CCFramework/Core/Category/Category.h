@@ -60,6 +60,7 @@
 #import <CCFramework/UIBezierPath+Additions.h>
 #import <CCFramework/UIButton+Additions.h>
 #import <CCFramework/UIColor+Additions.h>
+#import <CCFramework/UICollectionViewCell+Additions.h>
 #import <CCFramework/UIControl+Additions.h>
 #import <CCFramework/UIDevice+Additions.h>
 #import <CCFramework/UIFont+Additions.h>

@@ -25,6 +25,7 @@
 
 #import "UITableView+Additions.h"
 #import <objc/runtime.h>
+#import "CCTableViewManger.h"
 
 #pragma mark -
 #pragma mark :. CCIndexPathHeightCache
@@ -137,6 +138,20 @@
 #pragma mark :. Additions
 
 @implementation UITableView (Additions)
+
+- (CCTableViewManger *)tabelHander
+{
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setTabelHander:(CCTableViewManger *)tabelHander
+{
+    if (tabelHander)
+        [tabelHander handleTableViewDatasourceAndDelegate:self];
+    
+    objc_setAssociatedObject(self, @selector(tabelHander), tabelHander, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 
 /**
  *  @author CC, 2015-07-23
@@ -359,19 +374,23 @@
 
 @implementation UITableViewCell (CCTemplateLayoutCell)
 
-- (BOOL)cc_isTemplateLayoutCell {
+- (BOOL)cc_isTemplateLayoutCell
+{
     return [objc_getAssociatedObject(self, _cmd) boolValue];
 }
 
-- (void)setCc_isTemplateLayoutCell:(BOOL)isTemplateLayoutCell {
+- (void)setCc_isTemplateLayoutCell:(BOOL)isTemplateLayoutCell
+{
     objc_setAssociatedObject(self, @selector(cc_isTemplateLayoutCell), @(isTemplateLayoutCell), OBJC_ASSOCIATION_RETAIN);
 }
 
-- (BOOL)cc_enforceFrameLayout {
+- (BOOL)cc_enforceFrameLayout
+{
     return [objc_getAssociatedObject(self, _cmd) boolValue];
 }
 
-- (void)setCc_enforceFrameLayout:(BOOL)enforceFrameLayout {
+- (void)setCc_enforceFrameLayout:(BOOL)enforceFrameLayout
+{
     objc_setAssociatedObject(self, @selector(cc_enforceFrameLayout), @(enforceFrameLayout), OBJC_ASSOCIATION_RETAIN);
 }
 
