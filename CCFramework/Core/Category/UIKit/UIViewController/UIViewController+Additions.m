@@ -231,7 +231,7 @@ static void *const keypath = (void *)&keypath;
                  dismissed:nil];
 }
 
-- (UIViewController *)topViewController
+- (UIViewController *)topViewControllers
 {
     return [self topViewControllerWithRootViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
 }
@@ -338,7 +338,7 @@ static void *const keypath = (void *)&keypath;
 - (UIView *)topView
 {
     
-    return [self topViewController].view;
+    return [self topViewControllers].view;
 }
 
 - (void)dismissPopupViewControllerWithanimation:(id)sender

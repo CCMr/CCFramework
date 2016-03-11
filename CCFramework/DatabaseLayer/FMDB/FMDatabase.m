@@ -778,9 +778,9 @@ static int FMDBDatabaseBusyHandler(void *f, int count) {
         
         if (SQLITE_OK != rc) {
             if (_logsErrors) {
-                NSLog(@"DB Error: %d \"%@\"", [self lastErrorCode], [self lastErrorMessage]);
-                NSLog(@"DB Query: %@", sql);
-                NSLog(@"DB Path: %@", _databasePath);
+//                NSLog(@"DB Error: %d \"%@\"", [self lastErrorCode], [self lastErrorMessage]);
+//                NSLog(@"DB Query: %@", sql);
+//                NSLog(@"DB Path: %@", _databasePath);
             }
             
             if (_crashOnErrors) {
@@ -963,9 +963,9 @@ static int FMDBDatabaseBusyHandler(void *f, int count) {
         
         if (SQLITE_OK != rc) {
             if (_logsErrors) {
-                NSLog(@"DB Error: %d \"%@\"", [self lastErrorCode], [self lastErrorMessage]);
-                NSLog(@"DB Query: %@", sql);
-                NSLog(@"DB Path: %@", _databasePath);
+//                NSLog(@"DB Error: %d \"%@\"", [self lastErrorCode], [self lastErrorMessage]);
+//                NSLog(@"DB Query: %@", sql);
+//                NSLog(@"DB Path: %@", _databasePath);
             }
             
             if (_crashOnErrors) {
