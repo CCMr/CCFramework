@@ -27,8 +27,8 @@
 #import "CCAudioPlayerHelper.h"
 #import "CCVoiceCommonHelper.h"
 #import "VoiceConverter.h"
-#import "CCHTTPManager+Addition.h"
 #import "Config.h"
+#import "CCHTTPManager.h"
 
 @implementation CCAudioPlayerHelper
 
@@ -143,11 +143,11 @@
     NSString *fileName = [[path componentsSeparatedByString:@"/"].lastObject componentsSeparatedByString:@"."].firstObject;
     self.dFileName = fileName;
     @weakify(self);
-    [[CCHTTPManager manager] NetRequestDownloadWithRequestURL:path WithRequestBacktrack:^(id responseObject, NSError *error) {
+    [CCHTTPManager Download:path success:^(id response, NSError *error) {
         @strongify(self);
         
         NSString *path = [self.dFileName stringByAppendingString:@"amrToWav"];
-        [VoiceConverter amrToWav:responseObject wavSavePath:[CCVoiceCommonHelper getPathByFileName:path ofType:@"wav"]];
+        [VoiceConverter amrToWav:response wavSavePath:[CCVoiceCommonHelper getPathByFileName:path ofType:@"wav"]];
         
         [self playAudioWithFileName:path];
         

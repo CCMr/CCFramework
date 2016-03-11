@@ -26,160 +26,179 @@
 #import <Foundation/Foundation.h>
 #import "CCHTTPManager.h"
 
+/**
+ *  @author CC, 16-03-10
+ *  
+ *  @brief 请求响应结果
+ */
+typedef void (^responseBlock)(id responseObj, NSError *error);
+
 @interface CCHTTPRequest : NSObject
 
 /**
- *  @author C C, 2015-11-07
- *
- *  @brief  创建并返回一个'CCHTTPRequest'对象。
- *
- *  @return 返回'CCHTTPRequest'
- */
-+ (instancetype)manager;
-
-/**
- *  @author C C, 2015-11-07
- *
- *  @brief  初始化对象
- *
- *  @return 返回'CCHTTPRequest'
- */
-- (instancetype)initWithBase;
-
-#pragma mark - 参数设置
-
-/**
- *  @author CC, 2015-07-23
+ *  @author CC, 2016-3-10
  *
  *  @brief  设定固定请求参数
  *
  *  @param postData 请求参数
- *
- *  @return 返回请求参数
  */
-- (NSMutableDictionary *)fixedParameters:(NSDictionary *)postData;
++ (NSMutableDictionary *)fixedParameters:(NSDictionary *)postData;
 
 /**
- *  @author CC, 2015-07-23
+ *  @author CC, 2016-3-10
  *
- *  @brief 追加网络请求地址(必须继承该类实现该方法)
+ *  @brief 追加网络请求地址
  *
  *  @param MethodName API地址
- *
- *  @return 返回服务器API地址
  */
-- (NSString *)appendingServerURLWithString:(NSString *)MethodName;
++ (NSString *)appendingServerURLWithString:(NSString *)MethodName;
 
 /**
- *  @author CC, 2015-10-12
+ *  @author CC, 2016-3-10
  *
- *  @brief  追加扩展网络请求地址(用于多个服务器地址)
+ *  @brief  追加扩展网络请求地址
  *
  *  @param MethodName API地址
- *
- *  @return 返回服务器API地址
  */
-- (NSString *)appendingExpandServerURLWithString:(NSString *)MethodName;
++ (NSString *)appendingExpandServerURLWithString:(NSString *)MethodName;
 
 /**
- *  @author CC, 2015-10-12
+ *  @author CC, 2016-3-10
  *
  *  @brief  拼接请求网络地址
  *
  *  @param serviceAddres 服务器地址
  *  @param methodName    API地址
- *
- *  @return 返回服务器API地址
  */
-- (NSString *)appendingServerURLWithString:(NSString *)serviceAddres
++ (NSString *)appendingServerURLWithString:(NSString *)serviceAddres
                                 MethodName:(NSString *)methodName;
 
-#pragma mark - 回调函数设置
-/**
- *  @author C C, 2015-11-07
- *
- *  @brief  设置响应回调
- *
- *  @param requestBacktrack 回调函数
- */
-- (void)setRequestBacktrack:(CCRequestBacktrack)requestBacktrack;
 
+#pragma mark :. 网络请求并解析
 /**
- *  @author C C, 2015-11-07
- *
- *  @brief  设置响应进度回调
- *
- *  @param requestProgressBacktrack 回调函数
- */
-- (void)setRequestProgressBacktrack:(RequestProgressBacktrack)requestProgressBacktrack;
-
-/**
- *  @author C C, 2015-11-07
- *
- *  @brief  设置响应完成回调
- *
- *  @param requestCompletionBacktrack 回调函数
- */
-- (void)setRequestCompletionBacktrack:(RequestCompletionBacktrack)requestCompletionBacktrack;
-
-#pragma mark - 回调时间处理
-/**
- *  @author C C, 2015-11-07
- *
- *  @brief  响应处理函数
- *
- *  @param responseData 响应数据
- */
-- (void)responseProcessEvent:(id)responseData;
-
-/**
- *  @author CC, 2015-07-23
- *
- *  @brief  响应处理错误函数
- *
- *  @param errorDic 错误信息
- */
-- (void)errorProcessEvent:(id)error;
-
-/**
- *  @author CC, 2016-01-21
+ *  @author CC, 16-03-10
  *  
- *  @brief 对ErrorCode进行处理
+ *  @brief GET请求
  *
- *  @param responseData 回调响应数据
- *  @param error        错误消息
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param modelClass       模型Class
+ *  @param cachePolicy      缓存类型
+ *  @param response         请求响应结果
+ *  @param failure          故障处理回调
  */
-- (void)errorProcessEvent:(id)responseData
-                    Error:(id)error;
++ (void)GET:(NSString *)requestURLString
+ parameters:(NSDictionary *)parameter
+ modelClass:(Class)modelClass
+cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+   response:(responseBlock)response
+    failure:(requestFailureBlock)failure;
 
 /**
- *  @author CC, 2015-07-23
+ *  @author CC, 16-03-10
+ *  
+ *  @brief POST请求
  *
- *  @brief  响应故障处理函数
- *
- *  @param error 故障信息
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param modelClass       模型Class
+ *  @param cachePolicy      缓存类型
+ *  @param response         请求响应结果
+ *  @param failure          故障处理回调
  */
-- (void)netFailure:(id)error;
++ (void)POST:(NSString *)requestURLString
+  parameters:(NSDictionary *)parameter
+  modelClass:(Class)modelClass
+ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+    response:(responseBlock)response
+     failure:(requestFailureBlock)failure;
 
 /**
- *  @author CC, 2016-02-15
+ *  @author CC, 16-03-10
+ *  
+ *  @brief DELETE请求
  *
- *  @brief  对网路异常进行处理
- *
- *  @param error 错误消息
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param modelClass       模型Class
+ *  @param cachePolicy      缓存类型
+ *  @param response         请求响应结果
+ *  @param failure          故障处理回调
  */
-- (void)netFailure:(id)responseData
-             Error:(id)error;
++ (void)DELETE:(NSString *)requestURLString
+    parameters:(NSDictionary *)parameter
+    modelClass:(Class)modelClass
+   cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+      response:(responseBlock)response
+       failure:(requestFailureBlock)failure;
 
 /**
- *  @author CC, 2015-10-22
+ *  @author CC, 16-03-10
+ *  
+ *  @brief HEAD请求
  *
- *  @brief  响应完成处理函数
- *
- *  @param completionData 响应数据
- *  @param userInfo       字典接收
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param modelClass       模型Class
+ *  @param cachePolicy      缓存类型
+ *  @param response         请求响应结果
+ *  @param failure          故障处理回调
  */
-- (void)completion:(id)completionData
-      withUserInfo:(NSDictionary *)userInfo;
++ (void)HEAD:(NSString *)requestURLString
+  parameters:(NSDictionary *)parameter
+  modelClass:(Class)modelClass
+ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+    response:(responseBlock)response
+     failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *  
+ *  @brief PUT请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param modelClass       模型Class
+ *  @param cachePolicy      缓存类型
+ *  @param response         请求响应结果
+ *  @param failure          故障处理回调
+ */
++ (void)PUT:(NSString *)requestURLString
+ parameters:(NSDictionary *)parameter
+ modelClass:(Class)modelClass
+cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+   response:(responseBlock)response
+    failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *  
+ *  @brief PATCH请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param modelClass       模型Class
+ *  @param cachePolicy      缓存类型
+ *  @param response         请求响应结果
+ *  @param failure          故障处理回调
+ */
++ (void)PATCH:(NSString *)requestURLString
+   parameters:(NSDictionary *)parameter
+   modelClass:(Class)modelClass
+  cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+     response:(responseBlock)response
+      failure:(requestFailureBlock)failure;
+
+
+/**
+ *  @author CC, 16-03-10
+ *  
+ *  @brief 数组、字典转模型，提供给子类的接口
+ *
+ *  @param responseObject 响应结果
+ *  @param modelClass     模型对象
+ */
++ (id)modelTransformationWithResponseObj:(CCResponseObject *)responseObject 
+                              modelClass:(Class)modelClass;
 
 @end

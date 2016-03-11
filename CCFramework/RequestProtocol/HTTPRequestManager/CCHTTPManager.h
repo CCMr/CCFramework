@@ -28,6 +28,62 @@
 #import "Config.h"
 #import "CCResponseObject.h"
 
+typedef NS_ENUM(NSUInteger, CCHTTPRequestCachePolicy) {
+    /** 不作任何处理，只请求数据 */
+    CCHTTPReturnDefault = 0,
+    /** 有缓存就先返回缓存，同步请求数据 */
+    CCHTTPReturnCacheDataThenLoad,
+    /** 忽略缓存，重新请求 */
+    CCHTTPReloadIgnoringLocalCacheData,
+    /** 有缓存就用缓存，没有缓存就重新请求(用于数据不变时) */
+    CCHTTPReturnCacheDataElseLoad,
+    /** 有缓存就用缓存，没有缓存就不发请求，当做请求出错处理（用于离线模式）*/
+    CCHTTPReturnCacheDataDontLoad
+};
+
+/**
+ *  @author CC, 16-03-10
+ *  
+ *  @brief 请求成功Block
+ */
+typedef void (^requestSuccessBlock)(CCResponseObject *responseObject);
+
+/**
+ *  @author CC, 16-03-10
+ *  
+ *  @brief 请求失败Block
+ */
+typedef void (^requestFailureBlock)(NSError *error);
+
+/**
+ *  @author CC, 16-03-10
+ *  
+ *  @brief 请求进度Block
+ */
+typedef void (^requestProgressBlock)(NSProgress *progress);
+
+/**
+ *  @author C C, 16-03-10
+ *
+ *  @brief  请求响应结果
+ *
+ *  @param data  下载数据
+ *  @param error 错误信息
+ */
+typedef void (^requestDownloadBacktrack)(NSData *data, NSError *error);
+
+/**
+ *  @author CC, 16-03-10
+ *  
+ *  @brief 请求下载文件回调
+ *
+ *  @param response 响应结果
+ *  @param error    错误信息
+ */
+typedef void (^requestDownloadsuccess)(id response, NSError *error);
+
+@class HttpFileConfig;
+
 @interface CCHTTPManager : NSObject
 
 /**
@@ -40,14 +96,14 @@
 /**
  *  @author CC, 2015-11-25
  *  
- *  @brief  超时时间间隔，以秒为单位创建的请求。默认的超时时间间隔为60秒。
+ *  @brief  超时时间间隔，以秒为单位创建的请求。默认的超时时间间隔为30秒。
  */
 @property(nonatomic, assign) NSTimeInterval timeoutInterval;
 
 /**
  *  @author CC, 16-01-28
  *  
- *  @brief 设置数据传输格式
+ *  @brief 设置请求ContentType
  */
 @property(nonatomic, copy) NSSet *acceptableContentTypes;
 
@@ -55,10 +111,8 @@
  *  @author CC, 2015-07-23
  *
  *  @brief  单列模式
- *
- *  @return 当前对象
  */
-+ (id)sharedlnstance;
++ (instancetype)defaultHttp;
 
 /**
  *  @author CC, 16-01-28
@@ -83,7 +137,7 @@
  *
  *  @return 返回网络是否可用
  */
-- (BOOL)netWorkReachabilityWithURLString:(NSString *)strUrl;
++ (BOOL)netWorkReachabilityWithURLString:(NSString *)strUrl;
 
 /**
  *  @author CC, 16-01-28
@@ -92,35 +146,245 @@
  *
  *  @param status 网络状态
  */
-- (void)netWorkReachability:(void (^)(NSInteger status))success;
++ (void)netWorkReachability:(void (^)(NSInteger status))success;
 
 /**
  *  @author CC, 16-01-28
  *  
  *  @brief 请求检查网络
  */
-- (BOOL)requestBeforeCheckNetWork;
++ (BOOL)requestBeforeCheckNetWork;
+
+#pragma mark :. 请求
 
 /**
- *  @author CC, 16-01-28
+ *  @author CC, 16-03-10
  *  
- *  @brief 处理响应对象
+ *  @brief GET请求 
+ *         默认 CCHTTPReloadIgnoringLocalCacheData的缓存方式
  *
- *  @param responseData 响应数据
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
  */
-- (CCResponseObject *)dealwithResponseObject:(NSData *)responseData;
++ (void)GET:(NSString *)requestURLString
+ parameters:(NSDictionary *)parameter
+    success:(requestSuccessBlock)success
+    failure:(requestFailureBlock)failure;
 
 /**
- *  @author CC, 16-02-15
+ *  @author CC, 16-03-10
  *  
- *  @brief 错误处理
+ *  @brief GET请求
  *
- *  @param userInfo  传递对象
- *  @param error     错误消息
- *  @param errorBooL 错误类型
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param cachePolicy      缓存类型
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
  */
-- (id)dealwithError:(NSDictionary *)userInfo
-              Error:(NSError *)error 
-      withErrorBooL:(BOOL *)errorBooL;
++ (void)GET:(NSString *)requestURLString
+ parameters:(NSDictionary *)parameter
+cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+    success:(requestSuccessBlock)success
+    failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *  
+ *  @brief POST请求
+ *         默认 CCHTTPReloadIgnoringLocalCacheData的缓存方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)POST:(NSString *)requestURLString
+  parameters:(NSDictionary *)parameter
+     success:(requestSuccessBlock)success
+     failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *  
+ *  @brief POST请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param cachePolicy      缓存类型
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)POST:(NSString *)requestURLString
+  parameters:(NSDictionary *)parameter
+ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+     success:(requestSuccessBlock)success
+     failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *  
+ *  @brief DELETE请求
+ *         默认 CCHTTPReloadIgnoringLocalCacheData的缓存方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)DELETE:(NSString *)requestURLString
+    parameters:(NSDictionary *)parameter
+       success:(requestSuccessBlock)success
+       failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *  
+ *  @brief DELETE请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param cachePolicy      缓存类型
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)DELETE:(NSString *)requestURLString
+    parameters:(NSDictionary *)parameter
+   cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+       success:(requestSuccessBlock)success
+       failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *  
+ *  @brief HEAD请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param cachePolicy      缓存类型
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)HEAD:(NSString *)requestURLString
+  parameters:(NSDictionary *)parameter
+ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+     success:(requestSuccessBlock)success
+     failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *  
+ *  @brief PUT请求
+ *         默认 CCHTTPReloadIgnoringLocalCacheData的缓存方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)PUT:(NSString *)requestURLString
+ parameters:(NSDictionary *)parameter
+    success:(requestSuccessBlock)success
+    failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *  
+ *  @brief PUT请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param cachePolicy      缓存类型
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)PUT:(NSString *)requestURLString
+ parameters:(NSDictionary *)parameter
+cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+    success:(requestSuccessBlock)success
+    failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *  
+ *  @brief PATCH请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param cachePolicy      缓存类型
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)PATCH:(NSString *)requestURLString
+   parameters:(NSDictionary *)parameter
+  cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+      success:(requestSuccessBlock)success
+      failure:(requestFailureBlock)failure;
+
+#pragma mark :. 上下传文件
+
+/**
+ *  @author CC, 16-03-10
+ *  
+ *  @brief 上传文件(表单提交)
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        发送阐述
+ *  @param fileConfig       文件对象
+ *  @param success          完成回调
+ *  @param failure          故障回调
+ */
++ (void)Upload:(NSString *)requestURLString
+    parameters:(NSDictionary *)parameter
+    fileConfig:(HttpFileConfig *)fileConfig
+       success:(requestSuccessBlock)success
+       failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *  
+ *  @brief 上传文件（流）
+ *
+ *  @param requestURLString 请求地址
+ *  @param filePath         文件地址
+ *  @param progress         进度
+ *  @param success          完成回调
+ *  @param failure          故障回调
+ */
++ (void)Upload:(NSString *)requestURLString
+      filePath:(NSString *)filePath
+      progress:(NSProgress *__autoreleasing *)progress
+       success:(requestSuccessBlock)success
+       failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *  
+ *  @brief 下载文件
+ *
+ *  @param requestURLString      请求地址
+ *  @param fileName              文件名
+ *  @param downloadProgressBlock 进度回调
+ *  @param success               完成回调
+ *  @param failure               故障回调
+ */
++ (void)Download:(NSString *)requestURLString
+        fileName:(NSString *)fileName
+downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead))downloadProgressBlock
+         success:(requestDownloadBacktrack)success
+         failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *  
+ *  @brief 下载文件缓存
+ *
+ *  @param requestURLString 请求地址
+ *  @param success          完成回调
+ */
++ (void)Download:(NSString *)requestURLString
+         success:(requestDownloadsuccess)success;
 
 @end
