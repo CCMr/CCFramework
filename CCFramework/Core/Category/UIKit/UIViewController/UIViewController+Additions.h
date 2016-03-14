@@ -24,8 +24,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CCViewControllerProtocolDelegate.h"
 
-@interface UIViewController (Additions)
+@interface UIViewController (Additions) <CCViewControllerProtocolDelegate>
+
+@property(nonatomic, strong) __kindof NSObject *cc_viewModel;
+@property(nonatomic, strong) __kindof NSObject *cc_viewManger;
+
 
 - (void)backButtonTouched:(void (^)(UIViewController *vc))backButtonHandler;
 

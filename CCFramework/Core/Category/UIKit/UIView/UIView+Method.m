@@ -128,6 +128,30 @@
 }
 
 #pragma mark -
+#pragma mark :. Configure
+
+- (id<CCViewProtocolDelegate>)delegate {
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setDelegate:(id<CCViewProtocolDelegate>)delegate {
+    objc_setAssociatedObject(self, @selector(delegate), delegate, OBJC_ASSOCIATION_ASSIGN);
+}
+
+- (ViewEventsBlock)viewEventsBlock {
+    return objc_getAssociatedObject(self, @selector(viewEventsBlock));
+}
+
+- (void)setViewEventsBlock:(ViewEventsBlock)viewEventsBlock {
+    objc_setAssociatedObject(self, @selector(viewEventsBlock), viewEventsBlock, OBJC_ASSOCIATION_COPY);
+}
+
+- (void)configureViewWithCustomObj:(id)obj 
+{
+    // Rewrite this func in SubClass !   
+}
+
+#pragma mark -
 #pragma mark :. Method
 
 /**

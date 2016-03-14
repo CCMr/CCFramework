@@ -137,6 +137,43 @@ static const void *BackButtonHandlerKey = &BackButtonHandlerKey;
     }
 }
 
+#pragma mark :. 操作对象
+- (NSObject *)cc_viewModel
+{
+    NSObject *curVM = objc_getAssociatedObject(self, @selector(cc_viewModel));
+    if (curVM) return curVM;
+    if (![self respondsToSelector:@selector(cc_classOfViewModel)]) {
+        NSException *exp = [NSException exceptionWithName:@"not found cc_classOfViewModel" reason:@"you forgot to add cc_classOfViewModel() in VivewController" userInfo:nil];
+        [exp raise];
+    }
+    curVM = [[[self cc_classOfViewModel] alloc] init];
+    self.cc_viewModel = curVM;
+    return curVM;
+}
+
+- (void)setCc_viewModel:(__kindof NSObject *)cc_viewModel
+{
+    objc_setAssociatedObject(self, @selector(cc_viewModel), cc_viewModel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSObject *)cc_viewManger
+{
+    NSObject *curVM = objc_getAssociatedObject(self, @selector(cc_viewManger));
+    if (curVM) return curVM;
+    if (![self respondsToSelector:@selector(cc_classOfViewManger)]) {
+        NSException *exp = [NSException exceptionWithName:@"not found cc_classOfViewManger" reason:@"you forgot to add cc_classOfViewManger() in VivewController" userInfo:nil];
+        [exp raise];
+    }
+    curVM = [[[self cc_classOfViewManger] alloc] init];
+    self.cc_viewManger = curVM;
+    return curVM;
+}
+
+- (void)setCc_viewManger:(__kindof NSObject *)cc_viewManger
+{
+    objc_setAssociatedObject(self, @selector(cc_viewManger), cc_viewManger, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 #pragma mark -
 #pragma mark :. PopupViewController
 

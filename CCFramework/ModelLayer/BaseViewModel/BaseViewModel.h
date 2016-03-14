@@ -31,6 +31,8 @@
 #import "SETextView.h"
 #import "CCViewModelProtocolDelegate.h"
 
+typedef void (^failureBlock)(NSString *failure);
+
 @interface BaseViewModel : NSObject <CCViewModelProtocolDelegate>
 
 /**
@@ -43,16 +45,9 @@
 /**
  *  @author CC, 2015-10-22
  *
- *  @brief  请求错误回调函数
- */
-@property(nonatomic, copy) ErrorCodeBlock errorBlock;
-
-/**
- *  @author CC, 2015-10-22
- *
  *  @brief  请求故障回调函数
  */
-@property(nonatomic, copy) FailureBlock failureBlock;
+@property(nonatomic, copy) failureBlock failure;
 
 /**
  *  @author CC, 15-08-20
@@ -60,12 +55,10 @@
  *  @brief  传入交互的Block块
  *
  *  @param returnBlock   完成响应回调
- *  @param errorBlock    错误响应函数
- *  @param faiilureBlock 超时或者请求失败响应函数
+ *  @param faiilure      故障信息
  */
 - (void)responseWithBlock:(Completion)returnBlock
-           WithErrorBlock:(ErrorCodeBlock)errorBlock
-         WithFailureBlock:(FailureBlock)failureBlock;
+                  failure:(failureBlock)failure;
 
 /**
  *  @author CC, 15-08-20

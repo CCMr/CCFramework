@@ -24,6 +24,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CCViewProtocolDelegate.h"
 
 @interface CCCircleView : UIView
 
@@ -47,6 +48,22 @@
 + (instancetype)loadInstanceFromNibWithName:(NSString *)nibName;
 + (instancetype)loadInstanceFromNibWithName:(NSString *)nibName owner:(id)owner;
 + (instancetype)loadInstanceFromNibWithName:(NSString *)nibName owner:(id)owner bundle:(NSBundle *)bundle;
+
+#pragma mark -
+#pragma mark :. Configure
+
+typedef void (^ViewEventsBlock)();
+
+@property(nonatomic, weak) id<CCViewProtocolDelegate> delegate;
+
+@property(nonatomic, copy) ViewEventsBlock viewEventsBlock;
+
+/**
+ *  @author CC, 16-03-14
+ *  
+ *  @brief 根据obj配置UIView，设置UIView内容
+ */
+- (void)configureViewWithCustomObj:(id)obj;
 
 #pragma mark -
 #pragma mark :. Method

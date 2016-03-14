@@ -37,19 +37,13 @@
  *  @brief  传入交互的Block块
  *
  *  @param returnBlock   完成响应回调
- *  @param errorBlock    错误响应函数
- *  @param faiilureBlock 超时或者请求失败响应函数
- *
- *  @since <#1.0#>
+ *  @param faiilure      故障信息
  */
 - (void)responseWithBlock:(Completion)returnBlock
-           WithErrorBlock:(ErrorCodeBlock)errorBlock
-         WithFailureBlock:(FailureBlock)failureBlock
+                  failure:(failureBlock)failure
 {
     self.returnBlock = [returnBlock copy];
-    self.returnBlock = [returnBlock copy];
-    self.errorBlock = [errorBlock copy];
-    self.failureBlock = [failureBlock copy];
+    self.failure = [failure copy];
 }
 
 /**
@@ -122,7 +116,7 @@
     return _cc_dataArray;
 }
 
--(void)cc_viewModelWithGetDataSuccessHandler:(dispatch_block_t)successHandler
+- (void)cc_viewModelWithGetDataSuccessHandler:(dispatch_block_t)successHandler
 {
     
 }
