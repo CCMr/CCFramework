@@ -122,11 +122,21 @@ typedef void (^requestDownloadsuccess)(id response, NSError *error);
 + (instancetype)manager;
 
 /**
+ *  @author CC, 16-03-11
+ *  
+ *  @brief 设置传输字典
+ *
+ *  @param userInfo 字典
+ */
++ (void)setUserInfo:(NSDictionary *)userInfo;
+
+/**
  *  @author CC, 16-01-28
  *  
  *  @brief 初始化请求对象
  */
-- (id)requestOperationManager;
+-
+(id)requestOperationManager;
 
 /**
  *  @author CC, 2015-07-23

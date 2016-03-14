@@ -113,6 +113,18 @@ static NSString *const CCCacheTableName = @"CCCacheTable";
 }
 
 /**
+ *  @author CC, 16-03-11
+ *  
+ *  @brief 设置传输字典
+ *
+ *  @param userInfo 字典
+ */
++ (void)setUserInfo:(NSDictionary *)userInfo
+{
+    [CCHTTPManager defaultHttp].userInfo = userInfo;
+}
+
+/**
  *  @author CC, 16-03-10
  *  
  *  @brief 设置请求ContentType
@@ -545,7 +557,8 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
         cacheKey = [requestURLString stringByAppendingString:paramStr];
     }
     
-    id object = [[CCHTTPManager defaultHttp].store getObjectById:cacheKey fromTable:CCCacheTableName];
+    CCKeyValueItem *item = [[CCHTTPManager defaultHttp].store getYTKKeyValueItemById:cacheKey fromTable:CCCacheTableName];
+    id object = item.itemObject;
     
     switch (cachePolicy) {
         case CCHTTPReturnCacheDataThenLoad: { // 先返回缓存，同时请求
