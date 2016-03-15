@@ -27,6 +27,27 @@
 #define CCViewMangerProtocolDelegate_h
 #import <UIKit/UIKit.h>
 
+/**
+ *  @author CC, 16-03-15
+ *  
+ *  @brief 传递事件回调
+ *
+ *  @param eventDic 传递参数
+ *  @param info     描述信息，用于区分调用
+ */
+typedef id (^EventHandle)(NSDictionary *eventDic, NSString *info);
+
+/**
+ *  @author CC, 16-03-15
+ *  
+ *  @brief 传递事件回调
+ *
+ *  @param eventDic      传递参数
+ *  @param info          描述信息，用于区分调用
+ *  @param callbackBlock 回传Block
+ */
+typedef void (^EventHandleBlock)(NSDictionary *eventDic, NSString *info, dispatch_block_t callbackBlock);
+
 @protocol CCViewMangerProtocolDelegate <NSObject>
 
 @optional
@@ -74,7 +95,17 @@
  *
  *  @param modelDictBlock 数据结构
  */
--(void)cc_viewMangerWithModel:(NSDictionary *(^)())modelDictBlock;
+- (void)cc_viewMangerWithModel:(NSDictionary * (^)())modelDictBlock;
+
+/**
+ *  @author CC, 16-03-15
+ *  
+ *  @brief 将View响应事件传递到 ViewManger <-> VC <-> ViewModel
+ *
+ *  @param eventHandleBlock 响应处理
+ */
+- (void)cc_viewMangerWithEventHandle:(EventHandle)eventHandleBlock;
+- (void)cc_viewMangerWithEventHandleBlock:(EventHandleBlock)eventHandleBlock;
 
 @end
 

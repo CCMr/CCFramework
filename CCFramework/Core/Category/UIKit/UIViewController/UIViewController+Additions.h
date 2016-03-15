@@ -28,6 +28,13 @@
 
 @interface UIViewController (Additions) <CCViewControllerProtocolDelegate>
 
+/**
+ *  @author CC, 16-03-15
+ *  
+ *  @brief 是否隐藏底部TabBar
+ */
+@property(nonatomic, assign) BOOL tabBarHidden;
+
 @property(nonatomic, strong) __kindof NSObject *cc_viewModel;
 @property(nonatomic, strong) __kindof NSObject *cc_viewManger;
 

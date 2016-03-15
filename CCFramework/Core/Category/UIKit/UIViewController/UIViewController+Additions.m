@@ -108,6 +108,39 @@ NSString *const CCScrollingHandlerDidScrollBlock = @"CCScrollingHandlerDidScroll
 
 @implementation UIViewController (Additions)
 
+- (BOOL)tabBarHidden
+{
+    return self.tabBarController.tabBar.hidden;
+}
+
+/**
+ *  @author CC, 16-03-15
+ *  
+ *  @brief 是否隐藏底部TabBar
+ */
+- (void)setTabBarHidden:(BOOL)tabBarHidden
+{
+    if ([self.tabBarController.view.subviews count] < 2) return;
+    
+    UIView *contentView;
+    
+    if ([[self.tabBarController.view.subviews objectAtIndex:0] isKindOfClass:[UITabBar class]])
+        contentView = [self.tabBarController.view.subviews objectAtIndex:1];
+    else
+        contentView = [self.tabBarController.view.subviews objectAtIndex:0];
+    
+    if (tabBarHidden)
+        contentView.frame = self.tabBarController.view.bounds;
+    else {
+        contentView.frame = CGRectMake(self.tabBarController.view.bounds.origin.x,
+                                       self.tabBarController.view.bounds.origin.y,
+                                       self.tabBarController.view.bounds.size.width,
+                                       self.tabBarController.view.bounds.size.height - self.tabBarController.tabBar.frame.size.height);
+    }
+    
+    self.tabBarController.tabBar.hidden = tabBarHidden;
+}
+
 static const void *BackButtonHandlerKey = &BackButtonHandlerKey;
 
 - (void)backButtonTouched:(void (^)(UIViewController *vc))backButtonHandler
@@ -225,7 +258,7 @@ static const void *BackButtonHandlerKey = &BackButtonHandlerKey;
     
     if (self.navigationController) {
         __block BOOL curFlag = NO;
-        [self.navigationController.viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.navigationController.viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof UIViewController *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
             if (curFlag) {
                 curVC = obj;
                 self.cc_sourceVC = curVC;

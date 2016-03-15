@@ -52,8 +52,30 @@
  */
 - (void)initLoadData
 {
-    
 }
 
+/**
+ *  @author CC, 16-03-15
+ *  
+ *  @brief 将（model或数据源）数据传递到viewManger
+ *
+ *  @param eventHandleBlock 数据结构
+ */
+- (void)cc_viewMangerWithEventHandle:(EventHandle)eventHandleBlock
+{
+    self.eventHandle = eventHandleBlock;
+}
+
+/**
+ *  @author CC, 16-03-15
+ *  
+ *  @brief 将（model或数据源）数据传递到viewManger
+ *
+ *  @param eventHandleBlock 数据结构
+ */
+- (void)cc_viewMangerWithEventHandleBlock:(EventHandleBlock)eventHandleBlock
+{
+    self.eventHandelBlock = eventHandleBlock;
+}
 
 @end

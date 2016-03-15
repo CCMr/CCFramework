@@ -35,6 +35,14 @@
  */
 @property(nonatomic, strong) NSObject *cc_model;
 
+/**
+ *  @author CC, 16-03-15
+ *  
+ *  @brief 将View响应事件传递到 ViewManger <-> VC <-> ViewModel
+ */
+@property(nonatomic, copy) EventHandle eventHandle;
+@property(nonatomic, copy) EventHandleBlock eventHandelBlock;
+
 
 /**
  *  @author CC, 2016-03-14
