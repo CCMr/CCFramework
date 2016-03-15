@@ -49,6 +49,11 @@
 - (void)configure:(UITableViewCell *)tableViewCell
         customObj:(id)obj
         indexPath:(NSIndexPath *)indexPath;
+
+
+- (void)cc_cellWillDisplayWithModel:(id)cModel
+                          indexPath:(NSIndexPath *)cIndexPath;
+
 /**
  *  获取自定义对象的cell高度 (已集成UITableView+Additions，现在创建的cell自动计算高度)
  */

@@ -26,6 +26,10 @@
 #import "UITableView+Additions.h"
 #import <objc/runtime.h>
 #import "CCTableViewManger.h"
+#import "NSObject+Additions.h"
+#import "UIView+Method.h"
+#import "CCTableViewHelper.h"
+#import "NSObject+Additions.h"
 
 #pragma mark -
 #pragma mark :. CCIndexPathHeightCache
@@ -150,6 +154,50 @@
         [tabelHander handleTableViewDatasourceAndDelegate:self];
     
     objc_setAssociatedObject(self, @selector(tabelHander), tabelHander, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (UIViewController *)cc_vc
+{
+    UIViewController *curVC = [self associatedValueForKey:@selector(cc_vc)];
+    if (curVC) return curVC;
+    
+    curVC = [self viewController];
+    if (curVC) {
+        self.cc_vc = curVC;
+    }
+    return curVC;
+}
+
+- (void)setCc_vc:(UIViewController *)cc_vc
+{
+    [self associateValue:cc_vc withKey:@selector(cc_vc)];
+}
+
+- (CCTableViewHelper *)cc_tableViewHelper
+{
+    CCTableViewHelper *curTableHelper = [self associatedValueForKey:@selector(cc_tableViewHelper)];
+    if (curTableHelper) return curTableHelper;
+    
+    curTableHelper = [CCTableViewHelper new];
+    self.cc_tableViewHelper = curTableHelper;
+    return curTableHelper;
+}
+- (void)setCc_tableViewHelper:(CCTableViewHelper *)cc_tableViewHelper
+{
+    [self associateValue:cc_tableViewHelper withKey:@selector(cc_tableViewHelper)];
+    self.delegate = cc_tableViewHelper;
+    self.dataSource = cc_tableViewHelper;
+    cc_tableViewHelper.cc_tableView = self;
+}
+
+
+- (BOOL)cc_autoSizingCell
+{
+    return [[self associatedValueForKey:@selector(cc_autoSizingCell)] boolValue];
+}
+- (void)setCc_autoSizingCell:(BOOL)cc_autoSizingCell
+{
+    [self associateValue:@(cc_autoSizingCell) withKey:@selector(cc_autoSizingCell)];
 }
 
 

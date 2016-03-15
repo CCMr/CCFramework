@@ -116,7 +116,11 @@
     return _cc_dataArray;
 }
 
-- (void)cc_viewModelWithGetDataSuccessHandler:(dispatch_block_t)successHandler
+- (void)cc_viewModelWithGetDataSuccessHandler:(void (^)(NSArray *array))successHandler
+{
+}
+
+- (void)cc_viewModelWithDataSuccessHandler:(void (^)())successHandler
 {
     
 }

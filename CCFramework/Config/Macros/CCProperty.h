@@ -84,6 +84,13 @@
 /** 屏幕大小 */
 #define winsize                             [[UIScreen mainScreen] bounds].size
 
+#pragma mark-
+#pragma mark :. 常用
+
+#define cc_NilOrNull(__ref) (((__ref) == nil) || ([(__ref) isEqual:[NSNull null]]))
+
+#define cc_Font(__fontSize) [UIFont systemFontOfSize:__fontSize]
+#define cc_BFont(__fontSize) [UIFont boldSystemFontOfSize:__fontSize]
 
 /** 设置颜色RGB */
 #define cc_ColorRGB(r, g, b)                [UIColor colorWithRed:(r) / 255.f green:(g) / 255.f blue:(b) / 255.f alpha:1.f]
@@ -100,11 +107,41 @@
 #define cc_SafeString(str)                   (str == nil ? @"" : str)//判断字符串
 #define cc_ServiceString(str)                ([str isKindOfClass:[NSNull class]] ? @"" : str)
 
+/** 字符串拼接 */
+#define cc_Format(__format, ...)             [NSString stringWithFormat:__format, ##__VA_ARGS__]
+#define cc_FormatObj(__obj)                  [NSString stringWithFormat:@"%@", __obj]
+#define cc_FormatInteger(__integer)          [NSString stringWithFormat:@"%zi", __integer]
+#define cc_FormatFloat(__float)              [NSString stringWithFormat:@"%lf", __float]
+#define cc_Predicate(__format, ...)          [NSPredicate predicateWithFormat:__format, ##__VA_ARGS__]
+
 /** 图片调整 */
 #define cc_Stretch_Image(image, edgeInsets) \
 (CURRENT_SYS_VERSION < 6.0 ? [image stretchableImageWithLeftCapWidth:edgeInsets.left topCapHeight:edgeInsets.top] :\
                              [image resizableImageWithCapInsets:edgeInsets resizingMode:UIImageResizingModeStretch])
 
+
+#define CCAssert(condition, format, ...) \
+do { \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wformat-extra-args\"") \
+if ((condition) == NO) \
+NSLog(format, ##__VA_ARGS__); \
+_Pragma("clang diagnostic pop") \
+} while (0);
+
+
+#define cc_MainQueue(__stuff) \
+if ([NSThread isMainThread]) { \
+__stuff \
+} else { \
+dispatch_async(dispatch_get_main_queue(), ^{ \
+__stuff \
+}); \
+}
+
+
+#pragma mark-
+#pragma mark :. 注册事件
 /*************************  注册事件  *************************/
 /** 注册通知 */
 #define cc_NoticeObserver(TARGET,SELECTOR,NAME,OBJECT)  [[NSNotificationCenter defaultCenter] addObserver:TARGET selector:SELECTOR name:NAME object:OBJECT];
@@ -113,6 +150,8 @@
 #define cc_NoticePost(NAME,OBJECT)                      [[NSNotificationCenter defaultCenter] postNotificationName:NAME object:OBJECT];
 #define cc_NoticePostInfo(NAME,OBJECT,USERINFO)         [[NSNotificationCenter defaultCenter] postNotificationName:NAME object:OBJECT userInfo:USERINFO];
 
+#pragma mark-
+#pragma mark :. 设备
 /*************************  设备  *************************/
 /** 判断是否为iPhone */
 #define isiPhone (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
@@ -138,7 +177,8 @@
 /** 设备是否为iPhone 6 Plus 分辨率414x736，像素1242x2208，@3x */
 #define iPhone6P ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)
 
-
+#pragma mark-
+#pragma mark :. 本地文档相关
 /*************************  本地文档相关  *************************/
 
 /** 定义UIImage对象 */
@@ -171,7 +211,8 @@
 /** NSRunLoop 实例化 */
 #define cc_MainRunLoop                          [NSRunLoop mainRunLoop]
 
-
+#pragma mark -
+#pragma mark :. View
 /*************************  View  *************************/
 /** view 圆角 */
 #define cc_View_Radius(view, radius) \

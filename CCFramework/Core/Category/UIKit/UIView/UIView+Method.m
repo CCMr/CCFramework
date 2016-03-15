@@ -155,18 +155,29 @@
 #pragma mark :. Method
 
 /**
+ *  @author CC, 16-03-14
+ *  
+ *  @brief 找到指定类名的view对象
+ *
+ *  @param className View名称
+ */
+-(id)findSubViewWithSubViewNSString:(NSString *)className
+{
+    return [self findSubViewWithSubViewClass:NSClassFromString(className)];
+}
+
+/**
  *  @brief  找到指定类名的view对象
  *
  *  @param clazz view类名
  *
- *  @return view对象
+ *  @return view对
  */
 - (id)findSubViewWithSubViewClass:(Class)clazz
 {
     for (id subView in self.subviews) {
-        if ([subView isKindOfClass:clazz]) {
+        if ([subView isKindOfClass:clazz])
             return subView;
-        }
     }
     
     return nil;

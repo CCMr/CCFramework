@@ -58,6 +58,12 @@
     // Rewrite this func in SubClass !
 }
 
+- (void)cc_cellWillDisplayWithModel:(id)cModel
+                          indexPath:(NSIndexPath *)cIndexPath
+{
+    // Rewrite this func in SubClass !
+}
+
 + (CGFloat)obtainCellHeightWithCustomObj:(id)obj
                                indexPath:(NSIndexPath *)indexPath
 {

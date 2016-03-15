@@ -27,4 +27,33 @@
 
 @implementation BaseViewManger
 
+/**
+ *  @author CC, 2016-03-14
+ *  
+ *  @brief 初始化控件
+ */
+- (void)initControl
+{
+}
+
+/**
+ *  @author CC, 2016-03-14
+ *  
+ *  @brief 初始化数据
+ */
+- (void)initWithData
+{
+}
+
+/**
+ *  @author CC, 2016-03-14
+ *  
+ *  @brief 初始化加载数据
+ */
+- (void)initLoadData
+{
+    
+}
+
+
 @end

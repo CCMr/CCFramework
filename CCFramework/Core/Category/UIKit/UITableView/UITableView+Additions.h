@@ -26,6 +26,7 @@
 #import <UIKit/UIKit.h>
 
 @class CCTableViewManger;
+@class CCTableViewHelper;
 
 #pragma mark -
 #pragma mark :. CCIndexPathHeightCache
@@ -63,7 +64,13 @@
 
 @interface UITableView (Additions)
 
+@property (nonatomic,weak) UIViewController *cc_vc;
+
 @property(nonatomic, strong) CCTableViewManger *tabelHander;
+
+@property (nonatomic,strong) CCTableViewHelper *cc_tableViewHelper;
+
+@property (nonatomic) IBInspectable BOOL cc_autoSizingCell;
 
 /**
  *  @author CC, 2015-07-23

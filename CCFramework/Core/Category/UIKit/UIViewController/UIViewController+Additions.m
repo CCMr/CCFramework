@@ -24,6 +24,12 @@
 //
 
 #import "UIViewController+Additions.h"
+#import "BaseNavigationController.h"
+#import "NSObject+Additions.h"
+#import "NSString+Additions.h"
+#import "CCProperty.h"
+#import "UIView+Method.h"
+#import "UITableView+Additions.h"
 #import <objc/runtime.h>
 
 @import StoreKit;
@@ -172,6 +178,209 @@ static const void *BackButtonHandlerKey = &BackButtonHandlerKey;
 - (void)setCc_viewManger:(__kindof NSObject *)cc_viewManger
 {
     objc_setAssociatedObject(self, @selector(cc_viewManger), cc_viewManger, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+#pragma mark -
+#pragma mark :. Relationship
+
+- (NSString *)cc_identifier
+{
+    NSString *curIdentifier = [self associatedValueForKey:_cmd];
+    if (curIdentifier) return curIdentifier;
+    
+    NSString *curClassName = NSStringFromClass([self class]);
+    curIdentifier = [curClassName matchWithRegex:@"(?<=^CC)\\S+(?=VC$)" atIndex:0];
+    CCAssert(curIdentifier, @"className should prefix with 'SUI' and suffix with 'VC'");
+    
+    if (!cc_NilOrNull(curClassName)) {
+        [self copyAssociateValue:curClassName withKey:_cmd];
+    }
+    return curIdentifier;
+}
+
+- (UITableView *)cc_tableView
+{
+    UITableView *curTableView = [self associatedValueForKey:@selector(cc_tableView)];
+    if (curTableView) return curTableView;
+    
+    if ([self isKindOfClass:[UITableViewController class]]) {
+        curTableView = (UITableView *)self.view;
+    } else {
+        curTableView = [self.view findSubViewWithSubViewNSString:@"UITableView"];
+    }
+    
+    if (curTableView) self.cc_tableView = curTableView;
+    return curTableView;
+}
+- (void)setCc_tableView:(UITableView *)cc_tableView
+{
+    cc_tableView.cc_vc = self;
+    [self associateValue:cc_tableView withKey:@selector(cc_tableView)];
+}
+
+- (UIViewController *)cc_sourceVC
+{
+    __block UIViewController *curVC = [self associatedValueForKey:@selector(cc_sourceVC)];
+    if (curVC) return curVC;
+    
+    if (self.navigationController) {
+        __block BOOL curFlag = NO;
+        [self.navigationController.viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (curFlag) {
+                curVC = obj;
+                self.cc_sourceVC = curVC;
+                *stop = YES;
+            }
+            if (obj == self) {
+                curFlag = YES;
+            }
+        }];
+    }
+    return curVC;
+}
+- (void)setCc_sourceVC:(UIViewController *)cc_sourceVC
+{
+    [self associateValue:cc_sourceVC withKey:@selector(cc_sourceVC)];
+}
+
+#pragma mark -
+#pragma mark :. PushViewController
+
+/**
+ *  @author CC, 2016-03-14
+ *
+ *  @brief  push新的控制器到导航控制器
+ *
+ *  @param newViewController 目标新的控制器对象
+ */
+- (void)pushNewViewController:(UIViewController *)newViewController
+{
+    [self pushNewViewController:newViewController Animated:YES];
+}
+
+/**
+ *  @author CC, 2016-03-14
+ *  
+ *  @brief  push新的控制器到导航控制器
+ *
+ *  @param newViewController 目标新的控制器对象
+ *  @param animated          动画
+ */
+- (void)pushNewViewController:(UIViewController *)newViewController
+                     Animated:(BOOL)animated
+{
+    [self.navigationController pushViewController:newViewController animated:animated];
+}
+
+/**
+ *  @author CC, 2016-03-14
+ *  
+ *  @brief  push新的控制器到导航控制器(返回按钮无文字)
+ *
+ *  @param newViewController 目标新的控制器对象
+ */
+- (void)pushNewViewControllerWithBack:(UIViewController *)newViewController
+{
+    [self pushNewViewControllerWithBackTitle:newViewController
+                                   BackTitle:@""];
+}
+
+/**
+ *  @author CC, 2016-03-14
+ *  
+ *  @brief  push新的控制器到导航控制器(返回按钮无文字)
+ *
+ *  @param newViewController 目标新的控制器对象
+ *  @param animated          动画
+ */
+- (void)pushNewViewControllerWithBack:(UIViewController *)newViewController
+                             Animated:(BOOL)animated
+{
+    [self pushNewViewControllerWithBackTitle:newViewController
+                                   BackTitle:@""
+                                    Animated:animated];
+}
+
+
+/**
+ *  @author CC, 2016-03-14
+ *  
+ *  @brief  push新的控制器到导航控制器 并设置返回文字
+ *
+ *  @param newViewController 目标新的控制器对象
+ *  @param title             标题
+ */
+- (void)pushNewViewControllerWithBackTitle:(UIViewController *)newViewController
+                                 BackTitle:(NSString *)title
+{
+    [self pushNewViewControllerWithBackTitle:newViewController
+                                   BackTitle:title
+                                    Animated:YES];
+}
+
+/**
+ *  @author CC, 2016-03-14
+ *  
+ *  @brief  push新的控制器到导航控制器 并设置返回文字
+ *
+ *  @param newViewController 目标新的控制器对象
+ *  @param title             标题
+ *  @param animated          动画
+ */
+- (void)pushNewViewControllerWithBackTitle:(UIViewController *)newViewController
+                                 BackTitle:(NSString *)title
+                                  Animated:(BOOL)animated
+{
+    self.navigationController.topViewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleBordered target:self action:nil];
+    [self.navigationController pushViewController:newViewController animated:animated];
+}
+
+/**
+ *  @author CC, 2015-11-17
+ *  
+ *  @brief  push多个新的控制器
+ *  @param newViewController 多个控制器
+ */
+- (void)pushMultipleNewViewController:(UIViewController *)newViewController, ... NS_REQUIRES_NIL_TERMINATION
+{
+    NSMutableArray *array = [NSMutableArray array];
+    if (newViewController) {
+        va_list arguments;
+        id eachObject;
+        va_start(arguments, newViewController);
+        while ((eachObject = va_arg(arguments, id))) {
+            [array addObject:eachObject];
+        }
+        va_end(arguments);
+    }
+    
+    __block UIViewController *selfViewControler = newViewController;
+    [array enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        UIViewController *objViewController = obj;
+        BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:objViewController];
+        nav.view.frame = selfViewControler.view.bounds;
+        [selfViewControler addChildViewController:nav];
+        [selfViewControler.view addSubview:nav.view];
+        [nav didMoveToParentViewController:selfViewControler];
+        
+        selfViewControler = nav;
+    }];
+    [self pushNewViewController:newViewController];
+}
+
+/**
+ *  @author CC, 15-09-25
+ *
+ *  @brief  返回到指定页面
+ *
+ *  @param viewControllerClass 指定页面
+ */
+- (void)popToViewController:(Class)viewControllerClass
+{
+    [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:viewControllerClass])
+            [self.navigationController popToViewController:obj animated:YES];
+    }];
 }
 
 #pragma mark -

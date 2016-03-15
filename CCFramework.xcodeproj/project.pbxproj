@@ -471,11 +471,13 @@
 		424BD5911C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 424BD5891C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.m */; };
 		424BD5921C8ECA3E005722F6 /* WKWebViewJavascriptBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 424BD58A1C8ECA3E005722F6 /* WKWebViewJavascriptBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		424BD5931C8ECA3E005722F6 /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 424BD58B1C8ECA3E005722F6 /* WKWebViewJavascriptBridge.m */; };
-		4253305F1C96419D00375ED0 /* BaseViewManger.h in Headers */ = {isa = PBXBuildFile; fileRef = 4253305D1C96419D00375ED0 /* BaseViewManger.h */; };
-		425330601C96419D00375ED0 /* BaseViewManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4253305E1C96419D00375ED0 /* BaseViewManger.m */; };
 		425330631C96507F00375ED0 /* CCViewMangerProtocolDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 425330611C96467400375ED0 /* CCViewMangerProtocolDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		425330641C96508500375ED0 /* CCViewControllerProtocolDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 425330621C964FA300375ED0 /* CCViewControllerProtocolDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		425330661C96561800375ED0 /* CCViewProtocolDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 425330651C96545100375ED0 /* CCViewProtocolDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4253306E1C96B14800375ED0 /* CCTableViewHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 4253306C1C96B14800375ED0 /* CCTableViewHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4253306F1C96B14800375ED0 /* CCTableViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4253306D1C96B14800375ED0 /* CCTableViewHelper.m */; };
+		425330731C96B1A000375ED0 /* BaseViewManger.h in Headers */ = {isa = PBXBuildFile; fileRef = 425330711C96B1A000375ED0 /* BaseViewManger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		425330741C96B1A000375ED0 /* BaseViewManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 425330721C96B1A000375ED0 /* BaseViewManger.m */; };
 		425476BD1BD2A9DC0071BBC5 /* CCAliPayEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 425476BB1BD2A9DC0071BBC5 /* CCAliPayEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		425476BE1BD2A9DC0071BBC5 /* CCAliPayEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 425476BC1BD2A9DC0071BBC5 /* CCAliPayEngine.m */; };
 		425477271BD2AEC20071BBC5 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 425476C51BD2AEC20071BBC5 /* libcrypto.a */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -1710,11 +1712,13 @@
 		424BD5891C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
 		424BD58A1C8ECA3E005722F6 /* WKWebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKWebViewJavascriptBridge.h; sourceTree = "<group>"; };
 		424BD58B1C8ECA3E005722F6 /* WKWebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewJavascriptBridge.m; sourceTree = "<group>"; };
-		4253305D1C96419D00375ED0 /* BaseViewManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseViewManger.h; path = ViewManger/BaseViewManger.h; sourceTree = "<group>"; };
-		4253305E1C96419D00375ED0 /* BaseViewManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseViewManger.m; path = ViewManger/BaseViewManger.m; sourceTree = "<group>"; };
 		425330611C96467400375ED0 /* CCViewMangerProtocolDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCViewMangerProtocolDelegate.h; sourceTree = "<group>"; };
 		425330621C964FA300375ED0 /* CCViewControllerProtocolDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCViewControllerProtocolDelegate.h; sourceTree = "<group>"; };
 		425330651C96545100375ED0 /* CCViewProtocolDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCViewProtocolDelegate.h; sourceTree = "<group>"; };
+		4253306C1C96B14800375ED0 /* CCTableViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCTableViewHelper.h; path = ViewManger/CCTableViewHelper.h; sourceTree = "<group>"; };
+		4253306D1C96B14800375ED0 /* CCTableViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCTableViewHelper.m; path = ViewManger/CCTableViewHelper.m; sourceTree = "<group>"; };
+		425330711C96B1A000375ED0 /* BaseViewManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewManger.h; sourceTree = "<group>"; };
+		425330721C96B1A000375ED0 /* BaseViewManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewManger.m; sourceTree = "<group>"; };
 		425476BB1BD2A9DC0071BBC5 /* CCAliPayEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCAliPayEngine.h; path = Pay/Alipay/CCAliPayEngine.h; sourceTree = "<group>"; };
 		425476BC1BD2A9DC0071BBC5 /* CCAliPayEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCAliPayEngine.m; path = Pay/Alipay/CCAliPayEngine.m; sourceTree = "<group>"; };
 		425476C51BD2AEC20071BBC5 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
@@ -3957,6 +3961,15 @@
 			path = WebViewJavascriptBridge;
 			sourceTree = "<group>";
 		};
+		425330701C96B1A000375ED0 /* BaseViewManger */ = {
+			isa = PBXGroup;
+			children = (
+				425330711C96B1A000375ED0 /* BaseViewManger.h */,
+				425330721C96B1A000375ED0 /* BaseViewManger.m */,
+			);
+			path = BaseViewManger;
+			sourceTree = "<group>";
+		};
 		425475F71BD29C0A0071BBC5 /* Pay */ = {
 			isa = PBXGroup;
 			children = (
@@ -4537,6 +4550,7 @@
 				42FB014D1C8FD5BE0048B5E0 /* ViewManger */,
 				422511231C72F719003B3623 /* EntityExtension */,
 				429C9D1D1B9EF8BE0013A44A /* BaseEntity */,
+				425330701C96B1A000375ED0 /* BaseViewManger */,
 				429C9D201B9EF8BE0013A44A /* BaseViewModel */,
 				429C9D231B9EF8BE0013A44A /* UserDefaultsEntity */,
 			);
@@ -6145,8 +6159,8 @@
 				42FB014F1C8FEC480048B5E0 /* CCTableViewManger.m */,
 				42FB01551C90088B0048B5E0 /* CCCollectionViewManger.h */,
 				42FB01561C90088B0048B5E0 /* CCCollectionViewManger.m */,
-				4253305D1C96419D00375ED0 /* BaseViewManger.h */,
-				4253305E1C96419D00375ED0 /* BaseViewManger.m */,
+				4253306C1C96B14800375ED0 /* CCTableViewHelper.h */,
+				4253306D1C96B14800375ED0 /* CCTableViewHelper.m */,
 			);
 			name = ViewManger;
 			sourceTree = "<group>";
@@ -6294,7 +6308,6 @@
 				429CA0971B9EF8BF0013A44A /* SECompatibility.h in Headers */,
 				42DEB2A21C25495000734E09 /* CCColorIndicator.h in Headers */,
 				429CA0A11B9EF8BF0013A44A /* SETextAttachment.h in Headers */,
-				4253305F1C96419D00375ED0 /* BaseViewManger.h in Headers */,
 				429CA09D1B9EF8BF0013A44A /* SELinkText.h in Headers */,
 				421DC7381C85750E009E825B /* UIView+Animation.h in Headers */,
 				425477331BD2AEC20071BBC5 /* cmac.h in Headers */,
@@ -6376,6 +6389,7 @@
 				4298C7791BDCA5D700A3581D /* CCTableViewFetchResultController.h in Headers */,
 				4206A5241C783CFA001A1CF3 /* CCAlbumModel.h in Headers */,
 				429CA00F1B9EF8BF0013A44A /* CalendarFlowLayout.h in Headers */,
+				4253306E1C96B14800375ED0 /* CCTableViewHelper.h in Headers */,
 				429CA0381B9EF8BF0013A44A /* CCPhotoToolbar.h in Headers */,
 				42068F2A1C5746A1005DFB01 /* CCPopMenuButton.h in Headers */,
 				429C9F6C1B9EF8BF0013A44A /* CCUserDefaultsCrash.h in Headers */,
@@ -6592,6 +6606,7 @@
 				4254772C1BD2AEC20071BBC5 /* asn1t.h in Headers */,
 				421DC6761C85750E009E825B /* NSURLConnection+Additions.h in Headers */,
 				429C9F701B9EF8BF0013A44A /* CCHTTPManager.h in Headers */,
+				425330731C96B1A000375ED0 /* BaseViewManger.h in Headers */,
 				428B5C391C22609C001B8584 /* qrspec.h in Headers */,
 				42A1F6291C8A761D00A20F64 /* CCDebugCrashViewController.h in Headers */,
 				42E9531C1C589DB3001C93CB /* CCBannerView.h in Headers */,
@@ -7070,6 +7085,7 @@
 				429C9FE71B9EF8BF0013A44A /* SREventSourceStreamReader.m in Sources */,
 				42F24C6A1BEA5091008CDEDC /* PNRadarChartDataItem.m in Sources */,
 				42B6473E1BEDA8C100B2F6FD /* CCBacktrace.m in Sources */,
+				4253306F1C96B14800375ED0 /* CCTableViewHelper.m in Sources */,
 				42786E761C40ACD000C011FB /* CCDropDownListMenuItemView.m in Sources */,
 				421DC7F81C85A03A009E825B /* UISearchBar+Additions.m in Sources */,
 				429C9FAD1B9EF8BF0013A44A /* CCUserDefaults.m in Sources */,
@@ -7171,7 +7187,6 @@
 				42063ED71C893BCF003348EB /* CLLocation+CH1903.m in Sources */,
 				421DC6F31C85750E009E825B /* UINavigationBar+Additions.m in Sources */,
 				429CA0371B9EF8BF0013A44A /* CCPhotoProgressView.m in Sources */,
-				425330601C96419D00375ED0 /* BaseViewManger.m in Sources */,
 				4219EE141C7FF93F00F1EE76 /* MLLabelLayoutManager.m in Sources */,
 				424492991C0D90F500488AA2 /* VoiceConverter.m in Sources */,
 				429CA0FC1B9EF8BF0013A44A /* CCMessageTableViewController.m in Sources */,
@@ -7302,6 +7317,7 @@
 				42A58A411BCC94320027429C /* CCQRCodeDisplayViewController.m in Sources */,
 				425476BE1BD2A9DC0071BBC5 /* CCAliPayEngine.m in Sources */,
 				429CA0EA1B9EF8BF0013A44A /* CCAudioPlayerHelper.m in Sources */,
+				425330741C96B1A000375ED0 /* BaseViewManger.m in Sources */,
 				428B0C3F1BA7C2DF00F89879 /* AFHTTPRequestOperation.m in Sources */,
 				421E7A7E1C3D173D00C31AD0 /* UIViewController+CCSideMenu.m in Sources */,
 				42F24C681BEA5091008CDEDC /* PNRadarChart.m in Sources */,

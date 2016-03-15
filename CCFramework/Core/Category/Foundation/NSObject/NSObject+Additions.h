@@ -133,6 +133,16 @@
 - (void)weaklyAssociateValue:(id)value withKey:(void *)key;
 
 /**
+ *  @author CC, 16-03-14
+ *  
+ *  @brief  附加一个copy对象
+ *
+ *  @param value 被附加的对象
+ *  @param key   被附加对象的key
+ */
+-(void)copyAssociateValue:(id)value withKey:(void *)key;
+
+/**
  *  @brief  根据附加对象的key取出附加对象
  *
  *  @param key 附加对象的key

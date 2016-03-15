@@ -42,6 +42,99 @@
 - (NSString *)recursiveDescription;
 
 #pragma mark -
+#pragma mark :. Relationship
+
+@property(readonly, copy) NSString *cc_identifier;
+@property(nonatomic, strong) __kindof UITableView *cc_tableView;
+@property(nonatomic, weak) __kindof UIViewController *cc_sourceVC;
+
+
+#pragma mark -
+#pragma mark :. pushViewController
+
+/**
+ *  @author CC, 2016-03-14
+ *
+ *  @brief  push新的控制器到导航控制器
+ *
+ *  @param newViewController 目标新的控制器对象
+ */
+- (void)pushNewViewController:(UIViewController *)newViewController;
+
+/**
+ *  @author CC, 2016-03-14
+ *  
+ *  @brief  push新的控制器到导航控制器
+ *
+ *  @param newViewController 目标新的控制器对象
+ *  @param animated          动画
+ */
+- (void)pushNewViewController:(UIViewController *)newViewController
+                     Animated:(BOOL)animated;
+
+/**
+ *  @author CC, 2016-03-14
+ *  
+ *  @brief  push新的控制器到导航控制器(返回按钮无文字)
+ *
+ *  @param newViewController 目标新的控制器对象
+ */
+- (void)pushNewViewControllerWithBack:(UIViewController *)newViewController;
+
+/**
+ *  @author CC, 2016-03-14
+ *  
+ *  @brief  push新的控制器到导航控制器(返回按钮无文字)
+ *
+ *  @param newViewController 目标新的控制器对象
+ *  @param animated          动画
+ */
+- (void)pushNewViewControllerWithBack:(UIViewController *)newViewController
+                             Animated:(BOOL)animated;
+
+
+/**
+ *  @author CC, 2016-03-14
+ *  
+ *  @brief  push新的控制器到导航控制器 并设置返回文字
+ *
+ *  @param newViewController 目标新的控制器对象
+ *  @param title             标题
+ */
+- (void)pushNewViewControllerWithBackTitle:(UIViewController *)newViewController
+                                 BackTitle:(NSString *)title;
+
+/**
+ *  @author CC, 2016-03-14
+ *  
+ *  @brief  push新的控制器到导航控制器 并设置返回文字
+ *
+ *  @param newViewController 目标新的控制器对象
+ *  @param title             标题
+ *  @param animated          动画
+ */
+- (void)pushNewViewControllerWithBackTitle:(UIViewController *)newViewController
+                                 BackTitle:(NSString *)title
+                                  Animated:(BOOL)animated;
+
+/**
+ *  @author CC, 2016-03-14
+ *  
+ *  @brief  push多个新的控制器
+ *  @param newViewController 多个控制器
+ */
+- (void)pushMultipleNewViewController:(UIViewController *)newViewController, ... NS_REQUIRES_NIL_TERMINATION;
+
+/**
+ *  @author CC, 2016-03-14
+ *
+ *  @brief  返回到指定页面
+ *
+ *  @param viewControllerClass 指定页面
+ */
+- (void)popToViewController:(Class)viewControllerClass;
+
+#pragma mark -
 #pragma mark :. PopupViewController
 
 typedef NS_ENUM(NSInteger, CCPopupViewAnimation) {

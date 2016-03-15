@@ -47,7 +47,7 @@
  *
  *  @param updateBlock 更新布局完成的block
  */
-- (void)cc_viewMangerWithLayoutSubViews:(void (^)( ))updateBlock;
+- (void)cc_viewMangerWithLayoutSubViews:(void (^)())updateBlock;
 
 /**
  *  @author CC, 16-03-14
@@ -66,6 +66,15 @@
  */
 - (void)cc_viewMangerWithHandleOfSubView:(UIView *)subView
                                     info:(NSString *)info;
+
+/**
+ *  @author CC, 16-03-15
+ *  
+ *  @brief 将（model或数据源）数据传递到viewManger
+ *
+ *  @param modelDictBlock 数据结构
+ */
+-(void)cc_viewMangerWithModel:(NSDictionary *(^)())modelDictBlock;
 
 @end
 

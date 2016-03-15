@@ -93,7 +93,9 @@ typedef void (^failureBlock)(NSString *failure);
  *
  *  @param successHandler 回调函数
  */
--(void)cc_viewModelWithGetDataSuccessHandler:(dispatch_block_t)successHandler;
+-(void)cc_viewModelWithGetDataSuccessHandler:(void (^)(NSArray *array))successHandler;
+
+-(void)cc_viewModelWithDataSuccessHandler:(void (^)())successHandler;
 
 
 @end

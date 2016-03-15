@@ -77,7 +77,7 @@
     
     if (self.viewModel) {
         __weak typeof(collectionView) weakCollectiionView = collectionView;
-        [self.viewModel cc_viewModelWithGetDataSuccessHandler:^{
+        [self.viewModel cc_viewModelWithDataSuccessHandler:^{
             [weakCollectiionView reloadData];
         }];
     }

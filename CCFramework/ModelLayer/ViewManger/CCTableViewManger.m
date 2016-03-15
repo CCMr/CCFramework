@@ -96,7 +96,7 @@
     
     if (self.viewModel) {
         __weak typeof(tableView) weakTable = tableView;
-        [self.viewModel cc_viewModelWithGetDataSuccessHandler:^{
+        [self.viewModel cc_viewModelWithDataSuccessHandler:^{
             [weakTable reloadData];
         }];
     }

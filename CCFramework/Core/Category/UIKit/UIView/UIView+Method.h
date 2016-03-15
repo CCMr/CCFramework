@@ -69,6 +69,15 @@ typedef void (^ViewEventsBlock)();
 #pragma mark :. Method
 
 /**
+ *  @author CC, 16-03-14
+ *  
+ *  @brief 找到指定类名的view对象
+ *
+ *  @param className View名称
+ */
+-(id)findSubViewWithSubViewNSString:(NSString *)className;
+
+/**
  *  @brief  找到指定类名的SubVie对象
  *
  *  @param clazz SubVie类名
