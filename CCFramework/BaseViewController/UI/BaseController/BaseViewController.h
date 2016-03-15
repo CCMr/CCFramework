@@ -240,16 +240,6 @@
           didOnButtonTouchUpInside:(void (^)(UIButton *sender))onButtonTouchUpInside;
 
 #pragma mark - 隐藏显示TabBar
-/**
- *  @author CC, 15-09-16
- *
- *  @brief  隐藏显示TabBar
- *
- *  @param IsHide 是否隐藏
- *
- *  @since 1.0
- */
-- (void)setTabBarHideShow:(BOOL)IsHide;
 
 /**
  *  @author C C, 2015-10-11

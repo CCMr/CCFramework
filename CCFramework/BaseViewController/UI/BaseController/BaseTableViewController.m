@@ -43,29 +43,33 @@
 
 @end
 
-@implementation BaseTableViewController 
+@implementation BaseTableViewController
 
 #pragma mark - Publish Method
 
-- (void)configuraTableViewNormalSeparatorInset {
+- (void)configuraTableViewNormalSeparatorInset
+{
     if ([self validateSeparatorInset]) {
         [_tableView setSeparatorInset:UIEdgeInsetsZero];
     }
 }
 
-- (void)configuraSectionIndexBackgroundColorWithTableView:(UITableView *)tableView {
+- (void)configuraSectionIndexBackgroundColorWithTableView:(UITableView *)tableView
+{
     if ([tableView respondsToSelector:@selector(setSectionIndexBackgroundColor:)]) {
         tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     }
 }
 
-- (void)loadDataSource {
+- (void)loadDataSource
+{
     // subClasse
 }
 
 #pragma mark - Propertys
 
-- (UITableView *)tableView {
+- (UITableView *)tableView
+{
     if (!_tableView) {
         CGRect tableViewFrame = self.view.bounds;
         tableViewFrame.size.height -= (self.navigationController.viewControllers.count > 1 ? 0 : (CGRectGetHeight(self.tabBarController.tabBar.bounds))) + [CCFoundationCommon getAdapterHeight];
@@ -94,31 +98,28 @@
 
 #pragma mark - Life cycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.view addSubview:self.tableView];
 }
 
--(void)setExtraCellLineHidden:(UITableView *)tableView{
-    UIView *v = [[UIView alloc] initWithFrame:CGRectZero];
-    v.backgroundColor = [UIColor clearColor];
-    [tableView setTableFooterView:v];
-}
-
-- (void)dealloc {
+- (void)dealloc
+{
     self.ArrayDataSource = nil;
     self.tableView = nil;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - TableView Helper Method
 
-- (BOOL)validateSeparatorInset {
+- (BOOL)validateSeparatorInset
+{
     if ([_tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         return YES;
     }
@@ -127,15 +128,18 @@
 
 #pragma mark - UITableView DataSource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return self.ArrayDataSource.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     // in subClass
     return nil;
 }

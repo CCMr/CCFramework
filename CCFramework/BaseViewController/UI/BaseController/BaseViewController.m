@@ -445,37 +445,6 @@
 }
 
 #pragma mark - 隐藏显示TabBar
-/**
- *  @author CC, 15-09-16
- *
- *  @brief  隐藏显示TabBar
- *
- *  @param IsHide 是否隐藏
- *
- *  @since 1.0
- */
-- (void)setTabBarHideShow:(BOOL)IsHide
-{
-    if ([self.tabBarController.view.subviews count] < 2) return;
-    
-    UIView *contentView;
-    
-    if ([[self.tabBarController.view.subviews objectAtIndex:0] isKindOfClass:[UITabBar class]])
-        contentView = [self.tabBarController.view.subviews objectAtIndex:1];
-    else
-        contentView = [self.tabBarController.view.subviews objectAtIndex:0];
-    
-    if (IsHide)
-        contentView.frame = self.tabBarController.view.bounds;
-    else {
-        contentView.frame = CGRectMake(self.tabBarController.view.bounds.origin.x,
-                                       self.tabBarController.view.bounds.origin.y,
-                                       self.tabBarController.view.bounds.size.width,
-                                       self.tabBarController.view.bounds.size.height - self.tabBarController.tabBar.frame.size.height);
-    }
-    
-    self.tabBarController.tabBar.hidden = IsHide;
-}
 
 /**
  *  @author C C, 2015-10-11
