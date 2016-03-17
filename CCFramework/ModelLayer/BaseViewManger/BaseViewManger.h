@@ -38,9 +38,10 @@
 /**
  *  @author CC, 16-03-15
  *  
- *  @brief 将View响应事件传递到 ViewManger <-> VC <-> ViewModel
+ *  @brief 将View响应事件传递到 ViewManger <-> ViewController <-> ViewModel
  */
 @property(nonatomic, copy) EventHandle eventHandle;
+@property(nonatomic, copy) EventHandleReturn eventHandleReturn;
 @property(nonatomic, copy) EventHandleBlock eventHandelBlock;
 
 

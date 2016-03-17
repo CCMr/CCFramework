@@ -35,18 +35,30 @@
  *  @param eventDic 传递参数
  *  @param info     描述信息，用于区分调用
  */
-typedef id (^EventHandle)(NSDictionary *eventDic, NSString *info);
+typedef void (^EventHandle)(NSDictionary *eventDic, NSString *info);
+
+/**
+ *  @author CC, 16-03-16
+ *  
+ *  @brief 传递事件回调（返回参数）
+ *
+ *  @param eventDic 传递参数
+ *  @param info     描述信息，用于区分调用
+ */
+typedef id (^EventHandleReturn)(NSDictionary *eventDic, NSString *info);
 
 /**
  *  @author CC, 16-03-15
  *  
- *  @brief 传递事件回调
+ *  @brief 传递事件回调（回传Block）
  *
  *  @param eventDic      传递参数
  *  @param info          描述信息，用于区分调用
  *  @param callbackBlock 回传Block
  */
-typedef void (^EventHandleBlock)(NSDictionary *eventDic, NSString *info, dispatch_block_t callbackBlock);
+typedef void (^CallbackBlock)(id response);
+typedef void (^EventHandleBlock)(NSDictionary *eventDic, NSString *info, CallbackBlock callbackBlock);
+
 
 @protocol CCViewMangerProtocolDelegate <NSObject>
 
@@ -104,7 +116,8 @@ typedef void (^EventHandleBlock)(NSDictionary *eventDic, NSString *info, dispatc
  *
  *  @param eventHandleBlock 响应处理
  */
-- (void)cc_viewMangerWithEventHandle:(EventHandle)eventHandleBlock;
+- (void)cc_viewMangerWithEventHandle:(EventHandle)eventHandle;
+- (void)cc_viewMangerWithEventHandleReturn:(EventHandleReturn)eventHandleReturn;
 - (void)cc_viewMangerWithEventHandleBlock:(EventHandleBlock)eventHandleBlock;
 
 @end

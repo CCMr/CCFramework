@@ -55,21 +55,33 @@
 }
 
 /**
- *  @author CC, 16-03-15
+ *  @author CC, 16-03-16
  *  
- *  @brief 将（model或数据源）数据传递到viewManger
+ *  @brief 将viewManger事件传递到ViewModel
  *
- *  @param eventHandleBlock 数据结构
+ *  @param eventHandle 响应处理回调
  */
-- (void)cc_viewMangerWithEventHandle:(EventHandle)eventHandleBlock
+- (void)cc_viewMangerWithEventHandle:(EventHandle)eventHandle
 {
-    self.eventHandle = eventHandleBlock;
+    self.eventHandle = eventHandle;
 }
 
 /**
  *  @author CC, 16-03-15
  *  
- *  @brief 将（model或数据源）数据传递到viewManger
+ *  @brief 将viewManger事件传递到ViewModel并带返回参数
+ *
+ *  @param eventHandleBlock 响应处理回调
+ */
+- (void)cc_viewMangerWithEventHandleReturn:(EventHandleReturn)eventHandleReturn
+{
+    self.eventHandleReturn = eventHandleReturn;
+}
+
+/**
+ *  @author CC, 16-03-15
+ *  
+ *  @brief 将viewManger事件传递到ViewModel并回传Block
  *
  *  @param eventHandleBlock 数据结构
  */
