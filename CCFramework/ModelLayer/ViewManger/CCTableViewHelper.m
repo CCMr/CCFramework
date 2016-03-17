@@ -56,7 +56,11 @@
 {
     if (cellNibNames.count > 0) {
         [cellNibNames enumerateObjectsUsingBlock:^(NSString *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-            [self.cc_tableView registerNib:[UINib nibWithNibName:obj bundle:nil] forCellReuseIdentifier:obj];
+            UINib *nib = [UINib nibWithNibName:obj bundle:nil];
+            if (nib)
+                [self.cc_tableView registerNib:nib forCellReuseIdentifier:obj];
+            else
+                [self.cc_tableView registerClass:NSClassFromString(obj) forCellReuseIdentifier:obj];
         }];
         if (cellNibNames.count == 1) {
             self.cellIdentifier = cellNibNames[0];

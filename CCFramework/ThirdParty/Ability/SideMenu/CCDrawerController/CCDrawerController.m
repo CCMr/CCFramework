@@ -107,8 +107,7 @@ static NSString *CCDrawerOpenSideKey = @"CCDrawerOpenSide";
 {
     UIView *hitView = [super hitTest:point
                            withEvent:event];
-    if (hitView &&
-        self.openSide != CCDrawerSideNone) {
+    if (hitView && self.openSide != CCDrawerSideNone) {
         UINavigationBar *navBar = [self navigationBarContainedWithinSubviewsOfView:self];
         CGRect navBarFrame = [navBar convertRect:navBar.bounds toView:self];
         if ((self.centerInteractionMode == CCDrawerOpenCenterInteractionModeNavigationBarOnly &&

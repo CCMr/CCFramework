@@ -131,6 +131,15 @@
 }
 
 /**
+ *  @author CC, 16-03-17
+ *  
+ *  @brief 初始化事件处理
+ */
+- (void)initEventhandler
+{
+}
+
+/**
  *  @author CC, 2016-01-25
  *  
  *  @brief 初始化数据
