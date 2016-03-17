@@ -29,9 +29,9 @@
 @class CCTableViewCell;
 
 typedef NS_ENUM(NSInteger, CCCellState) {
-    kCellStateCenter,
-    kCellStateLeft,
-    kCellStateRight,
+    kCCCellStateCenter,
+    kCCCellStateLeft,
+    kCCCellStateRight,
 };
 
 @protocol CCTableViewCellDelegate <NSObject>
@@ -45,7 +45,7 @@ typedef NS_ENUM(NSInteger, CCCellState) {
  *  @param cell  当前Cell
  *  @param index 按钮下标
  */
-- (void)CCipeableTableViewCell:(CCTableViewCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index;
+- (void)ccipeableTableViewCell:(CCTableViewCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index;
 /**
  *  @author CC, 2015-10-16
  *
@@ -54,10 +54,10 @@ typedef NS_ENUM(NSInteger, CCCellState) {
  *  @param cell  当前Cell
  *  @param index 按钮下标
  */
-- (void)CCipeableTableViewCell:(CCTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index;
+- (void)ccipeableTableViewCell:(CCTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index;
 
-- (void)CCipeableTableViewCell:(CCTableViewCell *)cell scrollingToState:(CCCellState)state;
-- (BOOL)CCipeableTableViewCellShouldHideUtilityButtonsOnSwipe:(CCTableViewCell *)cell;
+- (void)ccipeableTableViewCell:(CCTableViewCell *)cell scrollingToState:(CCCellState)state;
+- (BOOL)ccipeableTableViewCellShouldHideUtilityButtonsOnSwipe:(CCTableViewCell *)cell;
 
 /**
  *  @author CC, 2015-10-16
@@ -69,9 +69,9 @@ typedef NS_ENUM(NSInteger, CCCellState) {
  *
  *  @return 返回是否关闭菜单栏
  */
-- (BOOL)CCipeableTableViewCell:(CCTableViewCell *)cell canSwipeToState:(CCCellState)state;
-- (void)CCipeableTableViewCellDidEndScrolling:(CCTableViewCell *)cell;
-- (void)CCipeableTableViewCell:(CCTableViewCell *)cell didScroll:(UIScrollView *)scrollView;
+- (BOOL)ccipeableTableViewCell:(CCTableViewCell *)cell canSwipeToState:(CCCellState)state;
+- (void)ccipeableTableViewCellDidEndScrolling:(CCTableViewCell *)cell;
+- (void)ccipeableTableViewCell:(CCTableViewCell *)cell didScroll:(UIScrollView *)scrollView;
 
 @end
 
