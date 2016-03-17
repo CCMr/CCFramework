@@ -49,6 +49,11 @@
 
 - (UINavigationController *)topmostNavigationControllerFrom:(UIViewController *)vc
 {
+    if ([vc isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *tabbar = (UITabBarController *)vc;
+        return (UINavigationController *)[tabbar.viewControllers objectAtIndex:tabbar.selectedIndex];
+    }
+    
     if ([vc isKindOfClass:[UINavigationController class]])
         return (UINavigationController *)vc;
     if ([vc navigationController])
