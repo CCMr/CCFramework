@@ -30,9 +30,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NSString *__nonnull (^CCTableHelperCellIdentifierBlock)(NSIndexPath *cIndexPath, id cModel);
 typedef void (^CCTableHelperDidSelectBlock)(NSIndexPath *cIndexPath, id cModel);
+typedef void (^CCTableHelperDidWillDisplayBlock)(UITableViewCell *Cell, id cModel);
 
 @interface CCTableViewHelper : NSObject <UITableViewDataSource, UITableViewDelegate>
 
+/**
+ *  @author CC, 16-03-19
+ *  
+ *  @brief 是否补齐线(默认不补齐)
+ */
+@property(nonatomic, assign) BOOL paddedSeparator;
 
 /**
  *  When using the storyboard and a single cell, set the property inspector same identifier 
@@ -53,6 +60,13 @@ typedef void (^CCTableHelperDidSelectBlock)(NSIndexPath *cIndexPath, id cModel);
  *  If you override tableView:didSelectRowAtIndexPath: method, it will be invalid
  */
 - (void)didSelect:(CCTableHelperDidSelectBlock)cb;
+
+/**
+ *  @author CC, 16-03-19
+ *  
+ *  @brief 设置Cell显示
+ */
+- (void)cellWillDisplay:(CCTableHelperDidWillDisplayBlock)cb;
 
 @property(nonatomic, weak) UITableView *cc_tableView;
 @property(nonatomic, strong) NSIndexPath *cc_indexPath;

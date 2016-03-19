@@ -24,10 +24,12 @@
 //
 
 #import "CCTextViewPlaceholder.h"
+#import "NSString+Additions.h"
+#import "UIView+Frame.h"
 
-@interface CCTextViewPlaceholder()
+@interface CCTextViewPlaceholder ()
 
-@property (nonatomic, strong) UILabel *placeholderLabel;
+@property(nonatomic, strong) UILabel *placeholderLabel;
 
 @end
 
@@ -44,7 +46,7 @@
  *
  *  @since 1.0
  */
--(instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -64,7 +66,7 @@
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didTextViewChange:) name:UITextViewTextDidChangeNotification object:nil];
     
-    float left = 5,top = 2,hegiht = 30;
+    float left = 5, top = 2, hegiht = 30;
     
     _placeholderColor = [UIColor lightGrayColor];
     _placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(left, top, CGRectGetWidth(self.frame) - 2 * left, hegiht)];
@@ -74,17 +76,18 @@
     _placeholderLabel.text = _placeholder;
 }
 
--(void)setPlaceholder:(NSString *)placeholder
+- (void)setPlaceholder:(NSString *)placeholder
 {
+    _placeholderLabel.width = [placeholder widthWithFont:_placeholderLabel.font constrainedToHeight:30];
     _placeholderLabel.text = placeholder;
 }
 
--(void)setPlaceholderColor:(UIColor *)placeholderColor
+- (void)setPlaceholderColor:(UIColor *)placeholderColor
 {
     _placeholderLabel.textColor = placeholderColor;
 }
 
--(void)setPlaceholderFont:(UIFont *)placeholderFont
+- (void)setPlaceholderFont:(UIFont *)placeholderFont
 {
     _placeholderLabel.font = placeholderFont ? placeholderFont : self.font;
 }

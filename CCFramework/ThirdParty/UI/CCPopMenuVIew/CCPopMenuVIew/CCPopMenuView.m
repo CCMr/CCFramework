@@ -111,6 +111,31 @@
     _realTimeBlur.hasTapGestureEnable = YES;
 }
 
+- (void)setBackgroundType:(CCStyle)backgroundType
+{
+    _backgroundType = backgroundType;
+    CCBlurStyle style = CCBlurStyleBlackTranslucent;
+    switch (backgroundType) {
+        case CCBlackGradient: {
+            style = CCBlurStyleBlackGradient;
+            break;
+        }
+        case CCTranslucent: {
+            style = CCBlurStyleTranslucent;
+            break;
+        }
+        case CCBlackTranslucent: {
+            style = CCBlurStyleBlackTranslucent;
+            break;
+        }
+        case CCWhite: {
+            style = CCBlurStyleWhite;
+            break;
+        }
+    }
+    self.realTimeBlur.blurStyle = style;
+}
+
 #pragma mark - 公开方法
 
 - (void)showMenuAtView:(UIView *)containerView
@@ -204,6 +229,9 @@
         if (!menuButton) {
             menuButton = [[CCPopMenuButton alloc] initWithFrame:fromRect menuItem:menuItem];
             menuButton.tag = kMenuButtonBaseTag + index;
+            if (self.backgroundType == CCWhite)
+                menuButton.TextColor = [UIColor blackColor];
+            
             menuButton.didSelctedItemCompleted = ^(CCPopMenuItem *menuItem) {
                 weakSelf.selectedItem = menuItem;
                 [weakSelf dismissMenu];

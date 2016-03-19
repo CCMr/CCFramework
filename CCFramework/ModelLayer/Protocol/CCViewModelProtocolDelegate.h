@@ -57,6 +57,20 @@
  */
 - (NSUInteger)cc_viewModelWithNumberOfItemsInSection:(NSUInteger)section;
 
+/**
+ *  @author CC, 16-03-09
+ *  
+ *  @brief 视图模型获取数据成功处理
+ *         用来判断是否加载成功,方便外部根据不同需求处理 (外部使用)
+ *
+ *  @param successHandler 回调函数
+ */
+- (void)cc_viewModelWithGetDataSuccessHandler:(void (^)(NSArray *array))successHandler;
+- (void)cc_viewModelWithGetData:(NSDictionary *)parameters SuccessHandler:(void (^)(NSArray *))successHandler;
+
+- (void)cc_viewModelWithDataSuccessHandler:(void (^)())successHandler;
+- (void)cc_viewModelWithData:(NSDictionary *)parameters SuccessHandler:(void (^)())successHandler;
+
 @end
 
 #endif /* CCViewModelProtocolDelegate_h */

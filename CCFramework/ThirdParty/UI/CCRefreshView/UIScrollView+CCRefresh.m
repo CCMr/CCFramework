@@ -28,9 +28,19 @@
 #import "CCRefreshFooterView.h"
 #import <objc/runtime.h>
 
+#import "CCTransformRefresh.h"
+
 @interface UIScrollView ()
 @property(weak, nonatomic) CCRefreshHeaderView *header;
 @property(weak, nonatomic) CCRefreshFooterView *footer;
+
+/**
+ *  @author CC, 16-03-18
+ *  
+ *  @brief 旋转刷新
+ */
+@property(nonatomic, weak) CCTransformRefresh *transformHeader;
+
 @end
 
 
@@ -39,6 +49,8 @@
 #pragma mark - 运行时相关
 static char CCRefreshHeaderViewKey;
 static char CCRefreshFooterViewKey;
+
+static char CCTransformRefreshKey;
 
 - (void)setHeader:(CCRefreshHeaderView *)header
 {
@@ -65,6 +77,41 @@ static char CCRefreshFooterViewKey;
 {
     return objc_getAssociatedObject(self, &CCRefreshFooterViewKey);
 }
+
+- (CCTransformRefresh *)transformHeader
+{
+    return objc_getAssociatedObject(self, &CCTransformRefreshKey);
+}
+
+- (void)setTransformHeader:(CCTransformRefresh *)transformHeader
+{
+    [self willChangeValueForKey:@"CCTransformRefreshKey"];
+    objc_setAssociatedObject(self, &CCTransformRefreshKey, transformHeader, OBJC_ASSOCIATION_ASSIGN);
+    [self didChangeValueForKey:@"CCTransformRefreshKey"];
+}
+
+#pragma mark :. 下拉旋转刷新
+- (void)addTransformRefresh:(NSString *)trasImageName
+                   Callback:(void (^)())callback
+{
+    if (!self.transformHeader) {
+        CCTransformRefresh *transformHeader = [CCTransformRefresh Transformheader:trasImageName];
+        [self addSubview:transformHeader];
+        self.transformHeader = transformHeader;
+    }
+    self.transformHeader.beginRefreshingCallback = callback;
+}
+
+- (void)startTransform
+{
+    [self.transformHeader beginTransformRefreshing];
+}
+
+- (void)endTransform
+{
+    [self.transformHeader endTransformRefreshing];
+}
+
 
 #pragma mark - 下拉刷新
 /**
@@ -108,7 +155,7 @@ static char CCRefreshFooterViewKey;
 }
 
 - (void)addHeaderWithTargetIndicatorView:(id)target
-                     action:(SEL)action
+                                  action:(SEL)action
 {
     [self addHeaderWithTarget:target
                        action:action

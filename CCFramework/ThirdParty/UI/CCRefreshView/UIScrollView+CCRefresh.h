@@ -51,6 +51,25 @@
 #import <UIKit/UIKit.h>
 
 @interface UIScrollView (CCRefresh)
+
+#pragma mark :. 下拉旋转刷新
+- (void)addTransformRefresh:(NSString *)trasImageName
+                   Callback:(void (^)())callback;
+
+/**
+ *  @author CC, 16-03-18
+ *  
+ *  @brief 开始刷新
+ */
+- (void)startTransform;
+
+/**
+ *  @author CC, 16-03-18
+ *  
+ *  @brief 结束刷新
+ */
+- (void)endTransform;
+
 #pragma mark - 下拉刷新
 /**
  *  添加一个下拉刷新头部控件

@@ -143,8 +143,7 @@
 - (UIView *)whiteBackgroundView {
     if (!_whiteBackgroundView) {
         _whiteBackgroundView = [[UIView alloc] initWithFrame:self.bounds];
-        _whiteBackgroundView.backgroundColor = [UIColor clearColor];
-        _whiteBackgroundView.tintColor = [UIColor colorWithWhite:0.2 alpha:1.0];
+        _whiteBackgroundView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.93];
     }
     return _whiteBackgroundView;
 }

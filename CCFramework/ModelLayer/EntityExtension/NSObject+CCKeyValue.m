@@ -146,8 +146,11 @@ static NSNumberFormatter *numberFormatter_;
             }
             
             if (!type.isFromFoundation && propertyClass) { // 模型属性
-                if (propertyClass != [NSManagedObjectID class])
-                    value = [propertyClass cc_objectWithKeyValues:value context:context];
+                if (propertyClass != [NSManagedObjectID class]){
+                    id values = [propertyClass cc_objectWithKeyValues:value context:context];
+                    if (values)
+                        value = values;
+                }
             } else if (objectClass) {
                 if (objectClass == [NSURL class] && [value isKindOfClass:[NSArray class]]) {
                     // string array -> url array

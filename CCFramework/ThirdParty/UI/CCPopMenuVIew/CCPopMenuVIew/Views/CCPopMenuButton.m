@@ -68,6 +68,12 @@
     return self;
 }
 
+- (void)setTextColor:(UIColor *)TextColor
+{
+    _TextColor = TextColor;
+    self.titleLabel.textColor = TextColor;
+}
+
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event
 {

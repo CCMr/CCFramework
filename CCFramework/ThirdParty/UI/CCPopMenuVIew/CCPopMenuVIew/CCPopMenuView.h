@@ -33,6 +33,17 @@ typedef NS_ENUM(NSInteger, PopMenuAnimationType) {
     kPopMenuAnimationTypeNetEase = 1,
 };
 
+typedef NS_ENUM(NSInteger, CCStyle) {
+    // 垂直梯度背景从黑色到半透明的。
+    CCBlackGradient = 0,
+    // 类似UIToolbar的半透明背景
+    CCTranslucent,
+    // 黑色半透明背景
+    CCBlackTranslucent,
+    // 纯白色
+    CCWhite
+};
+
 /**
  *  选中菜单按钮 操作
  *
@@ -65,6 +76,13 @@ typedef void (^DidSelectedItemBlock)(CCPopMenuItem *selectedItem);
  *  点击菜单元素,Block会把点击的菜单元素当成参数返回给用户，用户可以拿到菜单元素对点击，做相应的操作
  */
 @property(nonatomic, copy) DidSelectedItemBlock didSelectedItemCompletion;
+
+/**
+ *  @author CC, 16-03-18
+ *  
+ *  @brief 背景颜色类型
+ */
+@property(nonatomic, assign) CCStyle backgroundType;
 
 #pragma mark - init 初始化
 

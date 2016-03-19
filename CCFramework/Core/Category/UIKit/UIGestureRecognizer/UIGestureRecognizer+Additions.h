@@ -1,5 +1,5 @@
 //
-//  CCPopMenuButton.h
+//  UIGestureRecognizer+Additions.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -25,21 +25,18 @@
 
 #import <UIKit/UIKit.h>
 
-@class CCPopMenuItem;
+typedef void (^UIGestureRecognizerActionBlock)(UIGestureRecognizer *sender);
 
-typedef void (^DidSelctedItemCompletedBlock)(CCPopMenuItem *menuItem);
+@interface UIGestureRecognizerActionBlockWrapper : NSObject
 
-@interface CCPopMenuButton : UIView
+@property(nonatomic, copy) UIGestureRecognizerActionBlock actionBlock;
 
-@property(nonatomic, copy) UIColor *TextColor;
+- (void)invokeBlock:(UIGestureRecognizer *)sender;
 
-/**
- *  点击操作
- */
-@property(nonatomic, copy) DidSelctedItemCompletedBlock didSelctedItemCompleted;
+@end
 
-#pragma mark - init
-- (instancetype)initWithFrame:(CGRect)frame
-                     menuItem:(CCPopMenuItem *)menuItem;
+@interface UIGestureRecognizer (Additions)
+
+- (void)handleGestureRecognizerEvent:(UIGestureRecognizerActionBlock)actionBlock;
 
 @end

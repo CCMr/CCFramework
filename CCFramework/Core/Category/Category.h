@@ -64,6 +64,7 @@
 #import <CCFramework/UIControl+Additions.h>
 #import <CCFramework/UIDevice+Additions.h>
 #import <CCFramework/UIFont+Additions.h>
+#import <CCFramework/UIGestureRecognizer+Additions.h>
 #import <CCFramework/UIImage+Additions.h>
 #import <CCFramework/UIImage+WebP.h>
 #import <CCFramework/UIImageView+Additions.h>

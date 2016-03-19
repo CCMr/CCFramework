@@ -417,6 +417,18 @@ static const void *BackButtonHandlerKey = &BackButtonHandlerKey;
 }
 
 #pragma mark -
+#pragma mark :. presentViewController
+- (void)presentViewController:(UIViewController *)newViewController
+{
+    [self presentViewController:newViewController Animated:YES];
+}
+
+- (void)presentViewController:(UIViewController *)newViewController Animated:(BOOL)animated
+{
+    [[[[UIApplication sharedApplication].windows firstObject] rootViewController] presentViewController:newViewController animated:animated completion:nil];
+}
+
+#pragma mark -
 #pragma mark :. PopupViewController
 
 #define kPopupModalAnimationDuration 0.35

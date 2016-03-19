@@ -85,17 +85,5 @@ typedef void (^failureBlock)(NSString *failure);
  */
 @property(nonatomic, strong) NSMutableArray *cc_dataArray;
 
-/**
- *  @author CC, 16-03-09
- *  
- *  @brief 视图模型获取数据成功处理
- *         用来判断是否加载成功,方便外部根据不同需求处理 (外部使用)
- *
- *  @param successHandler 回调函数
- */
--(void)cc_viewModelWithGetDataSuccessHandler:(void (^)(NSArray *array))successHandler;
-
--(void)cc_viewModelWithDataSuccessHandler:(void (^)())successHandler;
-
 
 @end

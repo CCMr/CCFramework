@@ -61,6 +61,7 @@
     
     [self initNavigation];
     [self initWithData];
+    [self initEventhandler];
 }
 
 - (void)setIsNotKeyboard:(BOOL)isNotKeyboard

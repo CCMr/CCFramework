@@ -35,6 +35,7 @@
 @property(nonatomic, strong) NSMutableArray<NSMutableArray *> *dataArray;
 @property(nonatomic, copy) CCTableHelperCellIdentifierBlock cellIdentifierBlock;
 @property(nonatomic, copy) CCTableHelperDidSelectBlock didSelectBlock;
+@property(nonatomic, copy) CCTableHelperDidWillDisplayBlock didWillDisplayBlock;
 
 @end
 
@@ -78,7 +79,27 @@
     self.didSelectBlock = cb;
 }
 
+- (void)cellWillDisplay:(CCTableHelperDidWillDisplayBlock)cb
+{
+    self.didWillDisplayBlock = cb;
+}
+
 #pragma mark :. TableView DataSource Delegate
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.paddedSeparator) {
+        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+            [cell setSeparatorInset:UIEdgeInsetsZero];
+        }
+        if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+            [cell setPreservesSuperviewLayoutMargins:NO];
+        }
+        if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+            [cell setLayoutMargins:UIEdgeInsetsZero];
+        }
+    }
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -103,6 +124,10 @@
     NSString *curCellIdentifier = [self cellIdentifierForRowAtIndexPath:indexPath model:curModel];
     curCell = [tableView dequeueReusableCellWithIdentifier:curCellIdentifier forIndexPath:indexPath];
     CCAssert(curCell, @"cell is nil Identifier ⤭ %@ ⤪", curCellIdentifier);
+    
+    if (self.didWillDisplayBlock) {
+        self.didWillDisplayBlock(curCell, curModel);
+    }
     
     if ([curCell respondsToSelector:@selector(cc_cellWillDisplayWithModel:indexPath:)]) {
         [curCell cc_cellWillDisplayWithModel:curModel indexPath:indexPath];

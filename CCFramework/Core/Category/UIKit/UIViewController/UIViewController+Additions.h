@@ -142,6 +142,12 @@
 - (void)popToViewController:(Class)viewControllerClass;
 
 #pragma mark -
+#pragma mark :. presentViewController
+- (void)presentViewController:(UIViewController *)newViewController;
+
+- (void)presentViewController:(UIViewController *)newViewController  Animated:(BOOL)animated;;
+
+#pragma mark -
 #pragma mark :. PopupViewController
 
 typedef NS_ENUM(NSInteger, CCPopupViewAnimation) {

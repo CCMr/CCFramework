@@ -205,8 +205,8 @@
     [UIApplication sharedApplication].statusBarHidden = NO;
     
     if (iOS7Later) {
-        self.navigationBar.barTintColor = [UIColor colorWithRed:(34 / 255.0)green:(34 / 255.0)blue:(34 / 255.0)alpha:1.0];
-        self.navigationBar.tintColor = [UIColor whiteColor];
+        self.navigationBar.barTintColor = [UINavigationBar appearance].barTintColor; //  [UIColor colorWithRed:(34 / 255.0)green:(34 / 255.0)blue:(34 / 255.0)alpha:1.0];
+        self.navigationBar.tintColor = [UINavigationBar appearance].tintColor;       //[UIColor whiteColor];
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
