@@ -67,6 +67,18 @@
 }
 
 /**
+ *  @author CC, 16-03-21
+ *  
+ *  @brief 提示消息
+ *
+ *  @param detailsLabelText 消息内容
+ */
++ (void)hudMessages:(NSString *)detailsLabelText
+{
+    [self hudMessages:nil DetailsLabelText:detailsLabelText];
+}
+
+/**
  *  @author CC, 2016-12-29
  *  
  *  @brief  提示消息

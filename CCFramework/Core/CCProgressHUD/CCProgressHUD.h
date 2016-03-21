@@ -28,6 +28,15 @@
 @interface CCProgressHUD : NSObject
 
 /**
+ *  @author CC, 16-03-21
+ *  
+ *  @brief 提示消息
+ *
+ *  @param detailsLabelText 消息内容
+ */
++ (void)hudMessages:(NSString *)detailsLabelText;
+
+/**
  *  @author CC, 2016-12-29
  *  
  *  @brief  提示消息

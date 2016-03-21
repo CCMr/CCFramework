@@ -120,6 +120,17 @@ typedef void (^EventHandleBlock)(NSDictionary *eventDic, NSString *info, Callbac
 - (void)cc_viewMangerWithEventHandleReturn:(EventHandleReturn)eventHandleReturn;
 - (void)cc_viewMangerWithEventHandleBlock:(EventHandleBlock)eventHandleBlock;
 
+/**
+ *  @author CC, 16-03-21
+ *  
+ *  @brief 将（ViewManger的数据源）数据传递到ViewModel
+ *
+ *  @param info           附带信息，用于区分调用
+ *  @param successHandler 响应数据
+ */
+-(void)cc_viewMangerWithGetData:(NSString *)info 
+                 SuccessHandler:(void (^)(NSDictionary *))successHandler;
+
 @end
 
 #endif /* CCViewMangerProtocolDelegate_h */
