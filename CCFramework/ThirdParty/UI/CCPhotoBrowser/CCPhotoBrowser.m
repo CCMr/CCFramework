@@ -32,27 +32,28 @@
 #import "UIControl+Additions.h"
 #import "UIButton+Additions.h"
 #import "SDWebImageDownloader.h"
+#import "UIViewController+Additions.h"
+#import "UIView+Method.h"
 
 #define kPadding 10
 #define kPhotoViewTagOffset 1000
 #define kPhotoViewIndex(photoView) ([photoView tag] - kPhotoViewTagOffset)
 
-@interface CCPhotoBrowser () <CCPhotoViewDelegate, CCPhotoToolbarDelegate> {
-    // 滚动的view
-    UIScrollView *_photoScrollView;
-    // 所有的图片view
-    NSMutableSet *_visiblePhotoViews;
-    NSMutableSet *_reusablePhotoViews;
-    // 工具条
-    CCPhotoToolbar *_toolbar;
-    // 导航栏
-    UIView *_NavigationBar;
-    
-    //选中按钮
-    UIButton *NavRightBtn;
-    
-    BOOL _NavigationBarHiddenInited;
-}
+@interface CCPhotoBrowser () <CCPhotoViewDelegate, CCPhotoToolbarDelegate>
+
+@property(nonatomic, strong) UIScrollView *photoScrollView;
+@property(nonatomic, strong) NSMutableSet *visiblePhotoViews;
+@property(nonatomic, strong) NSMutableSet *reusablePhotoViews;
+@property(nonatomic, strong) CCPhotoToolbar *toolbar;
+@property(nonatomic, strong) UIView *NavigationBarView;
+@property(nonatomic, strong) UIButton *NavRightBtn;
+
+@property(nonatomic, assign) BOOL NavigationBarHiddenInited;
+
+@property(nonatomic, assign) BOOL isshow;
+
+@property(nonatomic, assign) BOOL isPush;
+
 @end
 
 @implementation CCPhotoBrowser
@@ -74,6 +75,14 @@
     return self;
 }
 
+- (instancetype)initWithPusth
+{
+    if (self = [super init]) {
+        _isPush = YES;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -81,11 +90,50 @@
     // 1.创建UIScrollView
     [self createScrollView];
     
-    // 2.创建工具条
-    [self createToolbar];
+    if (_isPush) {
+        [self pushNavigationTool];
+    } else {
+        // 2.创建工具条
+        [self createToolbar];
+        
+        if (_NavigationBarHiddenInited)
+            [self NavigationBar];
+    }
+}
+
+- (void)pushNavigationTool
+{
+    [self backButtonTouched:^(UIViewController *vc) {
+        CCPhotoBrowser *viewController = (CCPhotoBrowser *)vc;
+        if (viewController.backPhotoBlock) {
+            NSMutableArray *array = [NSMutableArray array];
+            [viewController.photos enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                CCPhoto *photo = obj;
+                [array addObject:photo.image];
+            }];
+            viewController.backPhotoBlock(array);
+        }
+    }];
     
-    if (_NavigationBarHiddenInited)
-        [self NavigationBar];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deletePhoto)];
+}
+
+- (void)deletePhoto
+{
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.photos];
+    [array removeObjectAtIndex:self.currentPhotoIndex];
+    self.photos = array;
+    if (array.count) {
+        NSInteger index = self.currentPhotoIndex - 1;
+        if (index < 0)
+            index = 0;
+        
+        [_photoScrollView removeAllSubviews];
+        self.currentPhotoIndex = index;
+    } else {
+        self.backPhotoBlock(@[]);
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -98,28 +146,25 @@
     [super viewWillAppear:animated];
     CCPhoto *photo = _photos[_currentPhotoIndex];
     
-    [NavRightBtn setImage:CCResourceImage(photo.selectd ? @"AssetsYES" : @"AssetsNO") forState:UIControlStateNormal];
+    [_NavRightBtn setImage:CCResourceImage(photo.selectd ? @"AssetsYES" : @"AssetsNO") forState:UIControlStateNormal];
+    [self showPhotos];
 }
 
 - (void)show
 {
+    _isshow = YES;
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self.view];
     [window.rootViewController addChildViewController:self];
     window.windowLevel = UIWindowLevelAlert;
-    
-    if (_currentPhotoIndex == 0) {
-        [self showPhotos];
-    }
 }
 
 #pragma mark - 创建导航栏
 - (void)NavigationBar
 {
-    _NavigationBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, winsize.width, 44)];
-    //    _NavigationBar.backgroundColor = Color(0, 0, 0, .5);
-    _NavigationBar.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:_NavigationBar];
+    _NavigationBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, winsize.width, 44)];
+    _NavigationBarView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:_NavigationBarView];
     
     UIButton *NavLeftBtn = [UIButton buttonWith];
     NavLeftBtn.frame = CGRectMake(10, 10, 15, 25);
@@ -128,14 +173,14 @@
         [self photoViewSingleTap:nil];
         [self photoViewDidEndZoom:nil];
     }];
-    [_NavigationBar addSubview:NavLeftBtn];
+    [_NavigationBarView addSubview:NavLeftBtn];
     
     
-    NavRightBtn = [UIButton buttonWith];
-    NavRightBtn.frame = CGRectMake(winsize.width - 50, 5, 35, 35);
-    [NavRightBtn setImage:CCResourceImage(@"AssetsNO") forState:UIControlStateNormal];
-    [NavRightBtn addTarget:self action:@selector(didNavRightSelected:) forControlEvents:UIControlEventTouchUpInside];
-    [_NavigationBar addSubview:NavRightBtn];
+    _NavRightBtn = [UIButton buttonWith];
+    _NavRightBtn.frame = CGRectMake(winsize.width - 50, 5, 35, 35);
+    [_NavRightBtn setImage:CCResourceImage(@"AssetsNO") forState:UIControlStateNormal];
+    [_NavRightBtn addTarget:self action:@selector(didNavRightSelected:) forControlEvents:UIControlEventTouchUpInside];
+    [_NavigationBarView addSubview:_NavRightBtn];
 }
 
 - (void)didNavRightSelected:(UIButton *)sender
@@ -143,7 +188,7 @@
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(didSelectd:)]) {
         CCPhoto *photo = _photos[_currentPhotoIndex];
         photo.selectd = !photo.selectd;
-        [NavRightBtn setImage:CCResourceImage(photo.selectd ? @"AssetsYES" : @"AssetsNO") forState:UIControlStateNormal];
+        [_NavRightBtn setImage:CCResourceImage(photo.selectd ? @"AssetsYES" : @"AssetsNO") forState:UIControlStateNormal];
         
         CAKeyframeAnimation *scaoleAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
         scaoleAnimation.duration = 0.25;
@@ -151,8 +196,8 @@
         scaoleAnimation.values = @[ [NSNumber numberWithFloat:1.0], [NSNumber numberWithFloat:1.2], [NSNumber numberWithFloat:1.0] ];
         scaoleAnimation.fillMode = kCAFillModeForwards;
         
-        [NavRightBtn.layer removeAllAnimations];
-        [NavRightBtn.layer addAnimation:scaoleAnimation forKey:@"transform.rotate"];
+        [_NavRightBtn.layer removeAllAnimations];
+        [_NavRightBtn.layer addAnimation:scaoleAnimation forKey:@"transform.rotate"];
         
         [_toolbar updataSelectd];
         
@@ -194,7 +239,7 @@
     _photoScrollView.showsHorizontalScrollIndicator = NO;
     _photoScrollView.showsVerticalScrollIndicator = NO;
     _photoScrollView.backgroundColor = [UIColor clearColor];
-    _photoScrollView.contentSize = CGSizeMake(frame.size.width * _photos.count, 0);
+    _photoScrollView.contentSize = CGSizeMake(_photoScrollView.frame.size.width * _photos.count, 0);
     [self.view addSubview:_photoScrollView];
     _photoScrollView.contentOffset = CGPointMake(_currentPhotoIndex * frame.size.width, 0);
 }
@@ -220,6 +265,8 @@
 {
     _currentPhotoIndex = currentPhotoIndex;
     
+    self.title = [NSString stringWithFormat:@"%zi/%zi", _currentPhotoIndex + 1, self.photos.count];
+    
     for (int i = 0; i < _photos.count; i++) {
         CCPhoto *photo = _photos[i];
         photo.firstShow = i == currentPhotoIndex;
@@ -236,19 +283,23 @@
 #pragma mark - CCPhotoView代理
 - (void)photoViewSingleTap:(CCPhotoView *)photoView
 {
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    window.windowLevel = UIWindowLevelNormal;
-    self.view.backgroundColor = [UIColor clearColor];
-    
-    // 移除工具条
-    [_toolbar removeFromSuperview];
-    [_NavigationBar removeFromSuperview];
+    if (_isshow) {
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        window.windowLevel = UIWindowLevelNormal;
+        self.view.backgroundColor = [UIColor clearColor];
+        
+        // 移除工具条
+        [_toolbar removeFromSuperview];
+        [_NavigationBarView removeFromSuperview];
+    }
 }
 
 - (void)photoViewDidEndZoom:(CCPhotoView *)photoView
 {
-    [self.view removeFromSuperview];
-    [self removeFromParentViewController];
+    if (_isshow) {
+        [self.view removeFromSuperview];
+        [self removeFromParentViewController];
+    }
 }
 
 - (void)photoViewImageFinishLoad:(CCPhotoView *)photoView
@@ -361,6 +412,7 @@
 - (CCPhotoView *)dequeueReusablePhotoView
 {
     CCPhotoView *photoView = [_reusablePhotoViews anyObject];
+    photoView.isHandleSingle = _isshow;
     if (photoView) {
         [_reusablePhotoViews removeObject:photoView];
     }
@@ -370,10 +422,13 @@
 #pragma mark 更新toolbar状态
 - (void)updateTollbarState
 {
+    _photoScrollView.contentSize = CGSizeMake(_photoScrollView.frame.size.width * _photos.count, 0);
     _currentPhotoIndex = _photoScrollView.contentOffset.x / _photoScrollView.frame.size.width;
     _toolbar.currentPhotoIndex = _currentPhotoIndex;
     CCPhoto *photo = _photos[_currentPhotoIndex];
-    [NavRightBtn setImage:CCResourceImage(photo.selectd ? @"AssetsYES" : @"AssetsNO") forState:UIControlStateNormal];
+    [_NavRightBtn setImage:CCResourceImage(photo.selectd ? @"AssetsYES" : @"AssetsNO") forState:UIControlStateNormal];
+    
+    self.title = [NSString stringWithFormat:@"%zi/%zi", _currentPhotoIndex + 1, self.photos.count];
 }
 
 #pragma mark - UIScrollView Delegate

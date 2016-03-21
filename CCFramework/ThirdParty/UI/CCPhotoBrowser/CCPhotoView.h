@@ -34,6 +34,9 @@
 @end
 
 @interface CCPhotoView : UIScrollView <UIScrollViewDelegate>
+
+@property(nonatomic, assign) BOOL isHandleSingle;
+
 // 图片
 @property(nonatomic, strong) CCPhoto *photo;
 // 代理

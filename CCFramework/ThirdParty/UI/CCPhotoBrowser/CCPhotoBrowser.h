@@ -31,12 +31,16 @@
 
 - (id)initWithNavigationBar;
 
+- (instancetype)initWithPusth;
+
 // 代理
 @property(nonatomic, weak) id<CCPhotoBrowserDelegate> delegate;
 // 所有的图片对象
 @property(nonatomic, strong) NSArray *photos;
 // 当前展示的图片索引
 @property(nonatomic, assign) NSUInteger currentPhotoIndex;
+
+@property(nonatomic, copy) void (^backPhotoBlock)(NSArray *photoAry);
 
 // 显示
 - (void)show;

@@ -249,8 +249,10 @@
 #pragma mark - 手势处理
 - (void)handleSingleTap:(UITapGestureRecognizer *)tap
 {
-    _doubleTap = NO;
-    [self performSelector:@selector(hide) withObject:nil afterDelay:0.2];
+    if (_isHandleSingle) {
+        _doubleTap = NO;
+        [self performSelector:@selector(hide) withObject:nil afterDelay:0.2];
+    }
 }
 - (void)hide
 {
