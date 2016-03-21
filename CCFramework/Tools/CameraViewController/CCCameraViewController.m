@@ -118,7 +118,11 @@
     [photoPickerC setDidFinishPickingPhotosBlock:^(NSArray<UIImage *> *_Nullable images, NSArray<CCAssetModel *> *_Nullable assets) {
         self.callBackBlock(images);
     }];
-    [[[[UIApplication sharedApplication].windows firstObject] rootViewController] presentViewController:photoPickerC animated:YES completion:nil];
+    
+    if (_currentViewController.parentViewController)
+        [_currentViewController.parentViewController presentViewController:photoPickerC animated:YES completion:nil];
+    else
+        [[[[UIApplication sharedApplication].windows firstObject] rootViewController] presentViewController:photoPickerC animated:YES completion:nil];
 }
 
 /**

@@ -423,9 +423,13 @@ static const void *BackButtonHandlerKey = &BackButtonHandlerKey;
     [self presentViewController:newViewController Animated:YES];
 }
 
-- (void)presentViewController:(UIViewController *)newViewController Animated:(BOOL)animated
+- (void)presentViewController:(UIViewController *)newViewController
+                     Animated:(BOOL)animated
 {
-    [[[[UIApplication sharedApplication].windows firstObject] rootViewController] presentViewController:newViewController animated:animated completion:nil];
+    if (self.parentViewController)
+        [self.parentViewController presentViewController:newViewController animated:animated completion:nil];
+    else
+        [[[[UIApplication sharedApplication].windows firstObject] rootViewController] presentViewController:newViewController animated:animated completion:nil];
 }
 
 #pragma mark -
@@ -965,7 +969,8 @@ NSString *const iTunesAppleString = @"itunes.apple.com";
     void (^handler)(UIViewController *vc) = [vc backButtonHandler];
     if (handler) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            handler(self);
+            handler(vc);
+            [self popViewControllerAnimated:YES];
         });
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{

@@ -27,6 +27,7 @@
 #import "BaseViewModel.h"
 #import "UITableViewCell+Additions.h"
 #import "UITableView+Additions.h"
+#import "CCProgressHUD.h"
 
 @interface CCTableViewManger () <UITableViewDelegate, UITableViewDataSource>
 
@@ -96,8 +97,12 @@
     
     if (self.viewModel) {
         __weak typeof(tableView) weakTable = tableView;
-        [self.viewModel cc_viewModelWithDataSuccessHandler:^{
-            [weakTable reloadData];
+        [self.viewModel cc_viewModelWithDataSuccessHandler:^(BOOL isSuccess, NSString *info){
+            if (isSuccess)
+                [weakTable reloadData];
+            else
+                [CCProgressHUD hudMessages:nil DetailsLabelText:info];
+
         }];
     }
 }

@@ -30,10 +30,11 @@
 @implementation CCAlbumCell
 
 
-- (void)configCellWithItem:(CCAlbumModel * _Nonnull)item {
+- (void)configCellWithItem:(CCAlbumModel *_Nonnull)item
+{
     
-    NSMutableAttributedString *nameString = [[NSMutableAttributedString alloc] initWithString:item.name attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[UIColor blackColor]}];
-    NSAttributedString *countString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"  (%zd)",item.count] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
+    NSMutableAttributedString *nameString = [[NSMutableAttributedString alloc] initWithString:item.name attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    NSAttributedString *countString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"  (%zd)", item.count] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16], NSForegroundColorAttributeName : [UIColor lightGrayColor]}];
     [nameString appendAttributedString:countString];
     self.textLabel.attributedText = nameString;
     
@@ -41,8 +42,15 @@
     [[CCPhotoManager sharedManager] getThumbnailWithAsset:[item.fetchResult lastObject] size:kCCThumbnailSize completionBlock:^(UIImage *image) {
         __weak typeof(*&self) self = wSelf;
         self.imageView.image = image;
+        
+        CGSize itemSize = CGSizeMake(70, 70);
+        UIGraphicsBeginImageContext(itemSize);
+        CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+        [self.imageView.image drawInRect:imageRect];
+        
+        self.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
     }];
-    
 }
 
 @end

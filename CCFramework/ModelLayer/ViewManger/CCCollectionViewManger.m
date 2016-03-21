@@ -26,6 +26,7 @@
 #import "CCCollectionViewManger.h"
 #import "BaseViewModel.h"
 #import "UICollectionViewCell+Additions.h"
+#import "CCProgressHUD.h"
 
 @interface CCCollectionViewManger () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -77,8 +78,11 @@
     
     if (self.viewModel) {
         __weak typeof(collectionView) weakCollectiionView = collectionView;
-        [self.viewModel cc_viewModelWithDataSuccessHandler:^{
-            [weakCollectiionView reloadData];
+        [self.viewModel cc_viewModelWithDataSuccessHandler:^(BOOL isSuccess, NSString *info) {
+            if (isSuccess)
+                [weakCollectiionView reloadData];
+            else
+                [CCProgressHUD hudMessages:nil DetailsLabelText:info];
         }];
     }
 }
