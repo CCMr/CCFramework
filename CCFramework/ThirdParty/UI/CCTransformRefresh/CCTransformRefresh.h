@@ -28,7 +28,7 @@
 @interface CCTransformRefresh : UIView
 
 #pragma mark - 父控件
-@property(nonatomic, weak, readonly) UIScrollView *scrollView;
+@property(nonatomic, strong) UIScrollView *scrollView;
 @property(nonatomic, assign, readonly) UIEdgeInsets scrollViewOriginalInset;
 
 + (instancetype)Transformheader:(NSString *)traImage;
