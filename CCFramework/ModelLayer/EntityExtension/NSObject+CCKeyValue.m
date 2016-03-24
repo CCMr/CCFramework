@@ -34,6 +34,8 @@
 #import "NSObject+CCClass.h"
 #import "CCNSLog.h"
 
+#import <UIKit/UIKit.h>
+
 @implementation NSObject (CCKeyValue)
 
 #pragma mark - 错误
@@ -146,11 +148,9 @@ static NSNumberFormatter *numberFormatter_;
             }
             
             if (!type.isFromFoundation && propertyClass) { // 模型属性
-                if (propertyClass != [NSManagedObjectID class]){
-                    id values = [propertyClass cc_objectWithKeyValues:value context:context];
-                    if (values)
-                        value = values;
-                }
+                id values = [propertyClass cc_objectWithKeyValues:value context:context];
+                if (values)
+                    value = values;
             } else if (objectClass) {
                 if (objectClass == [NSURL class] && [value isKindOfClass:[NSArray class]]) {
                     // string array -> url array
@@ -356,7 +356,13 @@ static NSNumberFormatter *numberFormatter_;
             CCPropertyType *type = property.type;
             Class propertyClass = type.typeClass;
             if (!type.isFromFoundation && propertyClass) {
-                value = [value cc_keyValues];
+                if (![propertyClass isSubclassOfClass:[UIImage class]] && 
+                    ![propertyClass isKindOfClass:[NSData class]] &&
+                    ![propertyClass isKindOfClass:[NSDate class]] && 
+                    ![propertyClass isKindOfClass:[NSManagedObjectID class]]) {
+                    value = [value cc_keyValues];
+                }
+                
             } else if ([value isKindOfClass:[NSArray class]]) {
                 // 3.处理数组里面有模型的情况
                 value = [NSObject cc_keyValuesArrayWithObjectArray:value];

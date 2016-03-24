@@ -57,9 +57,8 @@
 {
     if (cellNibNames.count > 0) {
         [cellNibNames enumerateObjectsUsingBlock:^(NSString *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-            UINib *nib = [UINib nibWithNibName:obj bundle:nil];
-            if (nib)
-                [self.cc_tableView registerNib:nib forCellReuseIdentifier:obj];
+            if (self.cc_CellXIB)
+                [self.cc_tableView registerNib:[UINib nibWithNibName:obj bundle:nil] forCellReuseIdentifier:obj];
             else
                 [self.cc_tableView registerClass:NSClassFromString(obj) forCellReuseIdentifier:obj];
         }];
@@ -158,7 +157,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (self.didSelectBlock) {
         id curModel = [self currentModelAtIndexPath:indexPath];
-        self.didSelectBlock(indexPath, curModel);
+        self.didSelectBlock(tableView,indexPath, curModel);
     }
 }
 

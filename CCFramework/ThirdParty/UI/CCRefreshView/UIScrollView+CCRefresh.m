@@ -96,7 +96,8 @@ static char CCTransformRefreshKey;
 {
     if (!self.transformHeader) {
         CCTransformRefresh *transformHeader = [CCTransformRefresh Transformheader:trasImageName];
-        [self addSubview:transformHeader];
+        transformHeader.scrollView = self;
+        [self.superview addSubview:transformHeader];
         self.transformHeader = transformHeader;
     }
     self.transformHeader.beginRefreshingCallback = callback;

@@ -366,6 +366,8 @@
         photoView.photoViewDelegate = self;
     }
     
+    photoView.isHandleSingle = _isshow;
+    
     // 调整当期页的frame
     CGRect bounds = _photoScrollView.bounds;
     CGRect photoViewFrame = bounds;
@@ -412,7 +414,6 @@
 - (CCPhotoView *)dequeueReusablePhotoView
 {
     CCPhotoView *photoView = [_reusablePhotoViews anyObject];
-    photoView.isHandleSingle = _isshow;
     if (photoView) {
         [_reusablePhotoViews removeObject:photoView];
     }

@@ -288,6 +288,22 @@
     }
 }
 
+/**
+ *  @author CC, 16-03-23
+ *  
+ *  @brief 添加一组子View
+ *
+ *  @param subviews 子View集合
+ */
+-(void)cc_addSubviews:(NSArray *)subviews
+{
+    [subviews enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
+        if ([view isKindOfClass:[UIView class]]) {
+            [self addSubview:view];
+        }
+    }];
+}
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
 /**

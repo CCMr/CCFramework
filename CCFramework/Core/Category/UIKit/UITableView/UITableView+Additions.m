@@ -34,10 +34,12 @@
 #pragma mark -
 #pragma mark :. CCIndexPathHeightCache
 
+typedef NSMutableArray<NSMutableArray<NSNumber *> *> CCIndexPathHeightsBySection;
+
 @interface CCIndexPathHeightCache ()
 
-@property(nonatomic, strong) NSMutableArray *heightsBySectionForPortrait;
-@property(nonatomic, strong) NSMutableArray *heightsBySectionForLandscape;
+@property(nonatomic, strong) CCIndexPathHeightsBySection *heightsBySectionForPortrait;
+@property(nonatomic, strong) CCIndexPathHeightsBySection *heightsBySectionForLandscape;
 
 @end
 
@@ -53,12 +55,12 @@
     return self;
 }
 
-- (NSMutableArray *)heightsBySectionForCurrentOrientation
+- (CCIndexPathHeightsBySection *)heightsBySectionForCurrentOrientation
 {
     return UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation) ? self.heightsBySectionForPortrait : self.heightsBySectionForLandscape;
 }
 
-- (void)enumerateAllOrientationsUsingBlock:(void (^)(NSMutableArray *heightsBySection))block
+- (void)enumerateAllOrientationsUsingBlock:(void (^)(CCIndexPathHeightsBySection *heightsBySection))block
 {
     block(self.heightsBySectionForPortrait);
     block(self.heightsBySectionForLandscape);
@@ -92,14 +94,14 @@
 - (void)invalidateHeightAtIndexPath:(NSIndexPath *)indexPath
 {
     [self buildCachesAtIndexPathsIfNeeded:@[ indexPath ]];
-    [self enumerateAllOrientationsUsingBlock:^(NSMutableArray *heightsBySection) {
+    [self enumerateAllOrientationsUsingBlock:^(CCIndexPathHeightsBySection *heightsBySection) {
         heightsBySection[indexPath.section][indexPath.row] = @-1;
     }];
 }
 
 - (void)invalidateAllHeightCache
 {
-    [self enumerateAllOrientationsUsingBlock:^(NSMutableArray *heightsBySection) {
+    [self enumerateAllOrientationsUsingBlock:^(CCIndexPathHeightsBySection *heightsBySection) {
         [heightsBySection removeAllObjects];
     }];
 }
@@ -115,7 +117,7 @@
 
 - (void)buildSectionsIfNeeded:(NSInteger)targetSection
 {
-    [self enumerateAllOrientationsUsingBlock:^(NSMutableArray *heightsBySection) {
+    [self enumerateAllOrientationsUsingBlock:^(CCIndexPathHeightsBySection *heightsBySection) {
         for (NSInteger section = 0; section <= targetSection; ++section) {
             if (section >= heightsBySection.count) {
                 heightsBySection[section] = [NSMutableArray array];
@@ -126,8 +128,8 @@
 
 - (void)buildRowsIfNeeded:(NSInteger)targetRow inExistSection:(NSInteger)section
 {
-    [self enumerateAllOrientationsUsingBlock:^(NSMutableArray *heightsBySection) {
-        NSMutableArray *heightsByRow = heightsBySection[section];
+    [self enumerateAllOrientationsUsingBlock:^(CCIndexPathHeightsBySection *heightsBySection) {
+        NSMutableArray<NSNumber *> *heightsByRow = heightsBySection[section];
         for (NSInteger row = 0; row <= targetRow; ++row) {
             if (row >= heightsByRow.count) {
                 heightsByRow[row] = @-1;
@@ -296,11 +298,79 @@
 #pragma mark -
 #pragma mark :. CCTemplateLayoutCell
 
-- (id)cc_templateCellForReuseIdentifier:(NSString *)identifier
+- (CGFloat)cc_systemFittingHeightForConfiguratedCell:(UITableViewCell *)cell
+{
+    CGFloat contentViewWidth = CGRectGetWidth(self.frame);
+    
+    // If a cell has accessory view or system accessory type, its content view's width is smaller
+    // than cell's by some fixed values.
+    if (cell.accessoryView) {
+        contentViewWidth -= 16 + CGRectGetWidth(cell.accessoryView.frame);
+    } else {
+        static const CGFloat systemAccessoryWidths[] = {
+            [UITableViewCellAccessoryNone] = 0,
+            [UITableViewCellAccessoryDisclosureIndicator] = 34,
+            [UITableViewCellAccessoryDetailDisclosureButton] = 68,
+            [UITableViewCellAccessoryCheckmark] = 40,
+            [UITableViewCellAccessoryDetailButton] = 48};
+        contentViewWidth -= systemAccessoryWidths[cell.accessoryType];
+    }
+    
+    // If not using auto layout, you have to override "-sizeThatFits:" to provide a fitting size by yourself.
+    // This is the same height calculation passes used in iOS8 self-sizing cell's implementation.
+    //
+    // 1. Try "- systemLayoutSizeFittingSize:" first. (skip this step if 'cc_enforceFrameLayout' set to YES.)
+    // 2. Warning once if step 1 still returns 0 when using AutoLayout
+    // 3. Try "- sizeThatFits:" if step 1 returns 0
+    // 4. Use a valid height or default row height (44) if not exist one
+    
+    CGFloat fittingHeight = 0;
+    
+    if (!cell.cc_enforceFrameLayout && contentViewWidth > 0) {
+        // Add a hard width constraint to make dynamic content views (like labels) expand vertically instead
+        // of growing horizontally, in a flow-layout manner.
+        NSLayoutConstraint *widthFenceConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:contentViewWidth];
+        [cell.contentView addConstraint:widthFenceConstraint];
+        
+        // Auto layout engine does its math
+        fittingHeight = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+        [cell.contentView removeConstraint:widthFenceConstraint];
+    }
+    
+    if (fittingHeight == 0) {
+#if DEBUG
+        // Warn if using AutoLayout but get zero height.
+        if (cell.contentView.constraints.count > 0) {
+            if (!objc_getAssociatedObject(self, _cmd)) {
+                NSLog(@"[CCTemplateLayoutCell] Warning once only: Cannot get a proper cell height (now 0) from '- systemFittingSize:'(AutoLayout). You should check how constraints are built in cell, making it into 'self-sizing' cell.");
+                objc_setAssociatedObject(self, _cmd, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            }
+        }
+#endif
+        // Try '- sizeThatFits:' for frame layout.
+        // Note: fitting height should not include separator view.
+        fittingHeight = [cell sizeThatFits:CGSizeMake(contentViewWidth, 0)].height;
+    }
+    
+    // Still zero height after all above.
+    if (fittingHeight == 0) {
+        // Use default row height.
+        fittingHeight = 44;
+    }
+    
+    // Add 1px extra space for separator line if needed, simulating default UITableViewCell.
+    if (self.separatorStyle != UITableViewCellSeparatorStyleNone) {
+        fittingHeight += 1.0 / [UIScreen mainScreen].scale;
+    }
+    
+    return fittingHeight;
+}
+
+- (__kindof UITableViewCell *)cc_templateCellForReuseIdentifier:(NSString *)identifier
 {
     NSAssert(identifier.length > 0, @"Expect a valid identifier - %@", identifier);
     
-    NSMutableDictionary *templateCellsByIdentifiers = objc_getAssociatedObject(self, _cmd);
+    NSMutableDictionary<NSString *, UITableViewCell *> *templateCellsByIdentifiers = objc_getAssociatedObject(self, _cmd);
     if (!templateCellsByIdentifiers) {
         templateCellsByIdentifiers = @{}.mutableCopy;
         objc_setAssociatedObject(self, _cmd, templateCellsByIdentifiers, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -325,61 +395,17 @@
         return 0;
     }
     
-    UITableViewCell *cell = [self cc_templateCellForReuseIdentifier:identifier];
+    UITableViewCell *templateLayoutCell = [self cc_templateCellForReuseIdentifier:identifier];
     
-    // Manually calls to ensure consistent behavior with actual cells (that are displayed on screen).
-    [cell prepareForReuse];
+    // Manually calls to ensure consistent behavior with actual cells. (that are displayed on screen)
+    [templateLayoutCell prepareForReuse];
     
     // Customize and provide content for our template cell.
     if (configuration) {
-        configuration(cell);
+        configuration(templateLayoutCell);
     }
     
-    CGFloat contentViewWidth = CGRectGetWidth(self.frame);
-    
-    // If a cell has accessory view or system accessory type, its content view's width is smaller
-    // than cell's by some fixed values.
-    if (cell.accessoryView) {
-        contentViewWidth -= 16 + CGRectGetWidth(cell.accessoryView.frame);
-    } else {
-        static const CGFloat systemAccessoryWidths[] = {
-            [UITableViewCellAccessoryNone] = 0,
-            [UITableViewCellAccessoryDisclosureIndicator] = 34,
-            [UITableViewCellAccessoryDetailDisclosureButton] = 68,
-            [UITableViewCellAccessoryCheckmark] = 40,
-            [UITableViewCellAccessoryDetailButton] = 48};
-        contentViewWidth -= systemAccessoryWidths[cell.accessoryType];
-    }
-    
-    CGSize fittingSize = CGSizeZero;
-    
-    if (cell.cc_enforceFrameLayout) {
-        // If not using auto layout, you have to override "-sizeThatFits:" to provide a fitting size by yourself.
-        // This is the same method used in iOS8 self-sizing cell's implementation.
-        // Note: fitting height should not include separator view.
-        SEL selector = @selector(sizeThatFits:);
-        BOOL inherited = ![cell isMemberOfClass:UITableViewCell.class];
-        BOOL overrided = [cell.class instanceMethodForSelector:selector] != [UITableViewCell instanceMethodForSelector:selector];
-        if (inherited && !overrided) {
-            NSAssert(NO, @"Customized cell must override '-sizeThatFits:' method if not using auto layout.");
-        }
-        fittingSize = [cell sizeThatFits:CGSizeMake(contentViewWidth, 0)];
-    } else {
-        // Add a hard width constraint to make dynamic content views (like labels) expand vertically instead
-        // of growing horizontally, in a flow-layout manner.
-        NSLayoutConstraint *tempWidthConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:contentViewWidth];
-        [cell.contentView addConstraint:tempWidthConstraint];
-        // Auto layout engine does its math
-        fittingSize = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-        [cell.contentView removeConstraint:tempWidthConstraint];
-    }
-    
-    // Add 1px extra space for separator line if needed, simulating default UITableViewCell.
-    if (self.separatorStyle != UITableViewCellSeparatorStyleNone) {
-        fittingSize.height += 1.0 / [UIScreen mainScreen].scale;
-    }
-    
-    return fittingSize.height;
+    return [self cc_systemFittingHeightForConfiguratedCell:templateLayoutCell];
 }
 
 - (CGFloat)cc_heightForCellWithIdentifier:(NSString *)identifier cacheByIndexPath:(NSIndexPath *)indexPath configuration:(void (^)(id cell))configuration
@@ -417,6 +443,48 @@
     return height;
 }
 
+
+@end
+
+@implementation UITableView (CCTemplateLayoutHeaderFooterView)
+
+- (__kindof UITableViewHeaderFooterView *)cc_templateHeaderFooterViewForReuseIdentifier:(NSString *)identifier
+{
+    NSAssert(identifier.length > 0, @"Expect a valid identifier - %@", identifier);
+    
+    NSMutableDictionary<NSString *, UITableViewHeaderFooterView *> *templateHeaderFooterViews = objc_getAssociatedObject(self, _cmd);
+    if (!templateHeaderFooterViews) {
+        templateHeaderFooterViews = @{}.mutableCopy;
+        objc_setAssociatedObject(self, _cmd, templateHeaderFooterViews, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    
+    UITableViewHeaderFooterView *templateHeaderFooterView = templateHeaderFooterViews[identifier];
+    
+    if (!templateHeaderFooterView) {
+        templateHeaderFooterView = [self dequeueReusableHeaderFooterViewWithIdentifier:identifier];
+        NSAssert(templateHeaderFooterView != nil, @"HeaderFooterView must be registered to table view for identifier - %@", identifier);
+        templateHeaderFooterView.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+        templateHeaderFooterViews[identifier] = templateHeaderFooterView;
+    }
+    
+    return templateHeaderFooterView;
+}
+
+- (CGFloat)cc_heightForHeaderFooterViewWithIdentifier:(NSString *)identifier configuration:(void (^)(id))configuration
+{
+    UITableViewHeaderFooterView *templateHeaderFooterView = [self cc_templateHeaderFooterViewForReuseIdentifier:identifier];
+    
+    NSLayoutConstraint *widthFenceConstraint = [NSLayoutConstraint constraintWithItem:templateHeaderFooterView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:CGRectGetWidth(self.frame)];
+    [templateHeaderFooterView addConstraint:widthFenceConstraint];
+    CGFloat fittingHeight = [templateHeaderFooterView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    [templateHeaderFooterView removeConstraint:widthFenceConstraint];
+    
+    if (fittingHeight == 0) {
+        fittingHeight = [templateHeaderFooterView sizeThatFits:CGSizeMake(CGRectGetWidth(self.frame), 0)].height;
+    }
+    
+    return fittingHeight;
+}
 
 @end
 
@@ -507,11 +575,25 @@
 
 #pragma mark -
 #pragma mark :. CCIndexPathHeightCacheInvalidation
+
+// We just forward primary call, in crash report, top most method in stack maybe FD's,
+// but it's really not our bug, you should check whether your table view's data source and
+// displaying cells are not matched when reloading.
+static void __CC_TEMPLATE_LAYOUT_CELL_PRIMARY_CALL_IF_CRASH_NOT_OUR_BUG__(void (^callout)(void))
+{
+    callout();
+}
+#define CCPrimaryCall(...)                                                             \
+do {                                                                               \
+__CC_TEMPLATE_LAYOUT_CELL_PRIMARY_CALL_IF_CRASH_NOT_OUR_BUG__(^{__VA_ARGS__}); \
+} while (0)
+
+
 @implementation UITableView (CCIndexPathHeightCacheInvalidation)
 
 - (void)cc_reloadDataWithoutInvalidateIndexPathHeightCache
 {
-    [self cc_reloadData]; // Primary call only
+    CCPrimaryCall([self cc_reloadData];);
 }
 
 + (void)load
@@ -541,11 +623,11 @@
 - (void)cc_reloadData
 {
     if (self.cc_indexPathHeightCache.automaticallyInvalidateEnabled) {
-        [self.cc_indexPathHeightCache enumerateAllOrientationsUsingBlock:^(NSMutableArray *heightsBySection) {
+        [self.cc_indexPathHeightCache enumerateAllOrientationsUsingBlock:^(CCIndexPathHeightsBySection *heightsBySection) {
             [heightsBySection removeAllObjects];
         }];
     }
-    [self cc_reloadData]; // Primary call
+    CCPrimaryCall([self cc_reloadData];);
 }
 
 - (void)cc_insertSections:(NSIndexSet *)sections withRowAnimation:(UITableViewRowAnimation)animation
@@ -553,12 +635,12 @@
     if (self.cc_indexPathHeightCache.automaticallyInvalidateEnabled) {
         [sections enumerateIndexesUsingBlock:^(NSUInteger section, BOOL *stop) {
             [self.cc_indexPathHeightCache buildSectionsIfNeeded:section];
-            [self.cc_indexPathHeightCache enumerateAllOrientationsUsingBlock:^(NSMutableArray *heightsBySection) {
+            [self.cc_indexPathHeightCache enumerateAllOrientationsUsingBlock:^(CCIndexPathHeightsBySection *heightsBySection) {
                 [heightsBySection insertObject:[NSMutableArray array] atIndex:section];
             }];
         }];
     }
-    [self cc_insertSections:sections withRowAnimation:animation]; // Primary call
+    CCPrimaryCall([self cc_insertSections:sections withRowAnimation:animation];);
 }
 
 - (void)cc_deleteSections:(NSIndexSet *)sections withRowAnimation:(UITableViewRowAnimation)animation
@@ -566,12 +648,12 @@
     if (self.cc_indexPathHeightCache.automaticallyInvalidateEnabled) {
         [sections enumerateIndexesUsingBlock:^(NSUInteger section, BOOL *stop) {
             [self.cc_indexPathHeightCache buildSectionsIfNeeded:section];
-            [self.cc_indexPathHeightCache enumerateAllOrientationsUsingBlock:^(NSMutableArray *heightsBySection) {
+            [self.cc_indexPathHeightCache enumerateAllOrientationsUsingBlock:^(CCIndexPathHeightsBySection *heightsBySection) {
                 [heightsBySection removeObjectAtIndex:section];
             }];
         }];
     }
-    [self cc_deleteSections:sections withRowAnimation:animation]; // Primary call
+    CCPrimaryCall([self cc_deleteSections:sections withRowAnimation:animation];);
 }
 
 - (void)cc_reloadSections:(NSIndexSet *)sections withRowAnimation:(UITableViewRowAnimation)animation
@@ -579,13 +661,13 @@
     if (self.cc_indexPathHeightCache.automaticallyInvalidateEnabled) {
         [sections enumerateIndexesUsingBlock:^(NSUInteger section, BOOL *stop) {
             [self.cc_indexPathHeightCache buildSectionsIfNeeded:section];
-            [self.cc_indexPathHeightCache enumerateAllOrientationsUsingBlock:^(NSMutableArray *heightsBySection) {
+            [self.cc_indexPathHeightCache enumerateAllOrientationsUsingBlock:^(CCIndexPathHeightsBySection *heightsBySection) {
                 [heightsBySection[section] removeAllObjects];
             }];
             
         }];
     }
-    [self cc_reloadSections:sections withRowAnimation:animation]; // Primary call
+    CCPrimaryCall([self cc_reloadSections:sections withRowAnimation:animation];);
 }
 
 - (void)cc_moveSection:(NSInteger)section toSection:(NSInteger)newSection
@@ -593,33 +675,32 @@
     if (self.cc_indexPathHeightCache.automaticallyInvalidateEnabled) {
         [self.cc_indexPathHeightCache buildSectionsIfNeeded:section];
         [self.cc_indexPathHeightCache buildSectionsIfNeeded:newSection];
-        [self.cc_indexPathHeightCache enumerateAllOrientationsUsingBlock:^(NSMutableArray *heightsBySection) {
+        [self.cc_indexPathHeightCache enumerateAllOrientationsUsingBlock:^(CCIndexPathHeightsBySection *heightsBySection) {
             [heightsBySection exchangeObjectAtIndex:section withObjectAtIndex:newSection];
         }];
     }
-    [self cc_moveSection:section toSection:newSection]; // Primary call
+    CCPrimaryCall([self cc_moveSection:section toSection:newSection];);
 }
 
-- (void)cc_insertRowsAtIndexPaths:(NSArray *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation
+- (void)cc_insertRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation
 {
     if (self.cc_indexPathHeightCache.automaticallyInvalidateEnabled) {
         [self.cc_indexPathHeightCache buildCachesAtIndexPathsIfNeeded:indexPaths];
         [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath *indexPath, NSUInteger idx, BOOL *stop) {
-            [self.cc_indexPathHeightCache enumerateAllOrientationsUsingBlock:^(NSMutableArray *heightsBySection) {
-                NSMutableArray *rows = heightsBySection[indexPath.section];
-                [rows insertObject:@-1 atIndex:indexPath.row];
+            [self.cc_indexPathHeightCache enumerateAllOrientationsUsingBlock:^(CCIndexPathHeightsBySection *heightsBySection) {
+                [heightsBySection[indexPath.section] insertObject:@-1 atIndex:indexPath.row];
             }];
         }];
     }
-    [self cc_insertRowsAtIndexPaths:indexPaths withRowAnimation:animation]; // Primary call
+    CCPrimaryCall([self cc_insertRowsAtIndexPaths:indexPaths withRowAnimation:animation];);
 }
 
-- (void)cc_deleteRowsAtIndexPaths:(NSArray *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation
+- (void)cc_deleteRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation
 {
     if (self.cc_indexPathHeightCache.automaticallyInvalidateEnabled) {
         [self.cc_indexPathHeightCache buildCachesAtIndexPathsIfNeeded:indexPaths];
         
-        NSMutableDictionary *mutableIndexSetsToRemove = [NSMutableDictionary dictionary];
+        NSMutableDictionary<NSNumber *, NSMutableIndexSet *> *mutableIndexSetsToRemove = [NSMutableDictionary dictionary];
         [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath *indexPath, NSUInteger idx, BOOL *stop) {
             NSMutableIndexSet *mutableIndexSet = mutableIndexSetsToRemove[@(indexPath.section)];
             if (!mutableIndexSet) {
@@ -630,43 +711,41 @@
         }];
         
         [mutableIndexSetsToRemove enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, NSIndexSet *indexSet, BOOL *stop) {
-            [self.cc_indexPathHeightCache enumerateAllOrientationsUsingBlock:^(NSMutableArray *heightsBySection) {
-                NSMutableArray *rows = heightsBySection[key.integerValue];
-                [rows removeObjectsAtIndexes:indexSet];
+            [self.cc_indexPathHeightCache enumerateAllOrientationsUsingBlock:^(CCIndexPathHeightsBySection *heightsBySection) {
+                [heightsBySection[key.integerValue] removeObjectsAtIndexes:indexSet];
             }];
         }];
     }
-    [self cc_deleteRowsAtIndexPaths:indexPaths withRowAnimation:animation]; // Primary call
+    CCPrimaryCall([self cc_deleteRowsAtIndexPaths:indexPaths withRowAnimation:animation];);
 }
 
-- (void)cc_reloadRowsAtIndexPaths:(NSArray *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation
+- (void)cc_reloadRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation
 {
     if (self.cc_indexPathHeightCache.automaticallyInvalidateEnabled) {
         [self.cc_indexPathHeightCache buildCachesAtIndexPathsIfNeeded:indexPaths];
         [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath *indexPath, NSUInteger idx, BOOL *stop) {
-            [self.cc_indexPathHeightCache enumerateAllOrientationsUsingBlock:^(NSMutableArray *heightsBySection) {
-                NSMutableArray *rows = heightsBySection[indexPath.section];
-                rows[indexPath.row] = @-1;
+            [self.cc_indexPathHeightCache enumerateAllOrientationsUsingBlock:^(CCIndexPathHeightsBySection *heightsBySection) {
+                heightsBySection[indexPath.section][indexPath.row] = @-1;
             }];
         }];
     }
-    [self cc_reloadRowsAtIndexPaths:indexPaths withRowAnimation:animation]; // Primary call
+    CCPrimaryCall([self cc_reloadRowsAtIndexPaths:indexPaths withRowAnimation:animation];);
 }
 
 - (void)cc_moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
 {
     if (self.cc_indexPathHeightCache.automaticallyInvalidateEnabled) {
         [self.cc_indexPathHeightCache buildCachesAtIndexPathsIfNeeded:@[ sourceIndexPath, destinationIndexPath ]];
-        [self.cc_indexPathHeightCache enumerateAllOrientationsUsingBlock:^(NSMutableArray *heightsBySection) {
-            NSMutableArray *sourceRows = heightsBySection[sourceIndexPath.section];
-            NSMutableArray *destinationRows = heightsBySection[destinationIndexPath.section];
+        [self.cc_indexPathHeightCache enumerateAllOrientationsUsingBlock:^(CCIndexPathHeightsBySection *heightsBySection) {
+            NSMutableArray<NSNumber *> *sourceRows = heightsBySection[sourceIndexPath.section];
+            NSMutableArray<NSNumber *> *destinationRows = heightsBySection[destinationIndexPath.section];
             NSNumber *sourceValue = sourceRows[sourceIndexPath.row];
             NSNumber *destinationValue = destinationRows[destinationIndexPath.row];
             sourceRows[sourceIndexPath.row] = destinationValue;
             destinationRows[destinationIndexPath.row] = sourceValue;
         }];
     }
-    [self cc_moveRowAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath]; // Primary call
+    CCPrimaryCall([self cc_moveRowAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];);
 }
 
 @end

@@ -29,7 +29,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NSString *__nonnull (^CCTableHelperCellIdentifierBlock)(NSIndexPath *cIndexPath, id cModel);
-typedef void (^CCTableHelperDidSelectBlock)(NSIndexPath *cIndexPath, id cModel);
+typedef void (^CCTableHelperDidSelectBlock)(UITableView *tableView, NSIndexPath *cIndexPath, id cModel);
 typedef void (^CCTableHelperDidWillDisplayBlock)(UITableViewCell *Cell, id cModel);
 
 @interface CCTableViewHelper : NSObject <UITableViewDataSource, UITableViewDelegate>
@@ -45,6 +45,8 @@ typedef void (^CCTableHelperDidWillDisplayBlock)(UITableViewCell *Cell, id cMode
  *  When using the storyboard and a single cell, set the property inspector same identifier 
  */
 @property(nullable, nonatomic, copy) NSString *cellIdentifier;
+
+@property(nonatomic, assign) BOOL cc_CellXIB;
 
 /**
  *  When using xib, all incoming nib names

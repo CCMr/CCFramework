@@ -120,4 +120,37 @@
     return image;
 }
 
+/*
+ - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+ {
+ id view = [super hitTest:point withEvent:event];
+ if (![view isKindOfClass:[UITextField class]] && ![view isKindOfClass:[UITextView class]]) {
+ [self hideKeyBoard];
+ }
+ return view;
+ }
+ 
+ - (void)hideKeyBoard
+ {
+ for (UIWindow *window in [UIApplication sharedApplication].windows) {
+ for (UIView *view in window.subviews)
+ [self dismissAllKeyBoardInView:view];
+ }
+ }
+ 
+ - (BOOL)dismissAllKeyBoardInView:(UIView *)view
+ {
+ if ([view isFirstResponder]) {
+ [view resignFirstResponder];
+ return YES;
+ }
+ 
+ for (UIView *subView in view.subviews) {
+ if ([self dismissAllKeyBoardInView:subView])
+ return YES;
+ }
+ return NO;
+ }
+ */
+
 @end

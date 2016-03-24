@@ -92,7 +92,7 @@ static NSString *const CCCacheTableName = @"CCCacheTable";
 - (void)initialization
 {
     self.manager = [AFHTTPRequestOperationManager manager];
-    self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    self.manager.requestSerializer = [AFJSONRequestSerializer serializer];
     self.manager.requestSerializer.timeoutInterval = 30;
     self.manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", nil];
 }
@@ -750,7 +750,7 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
  *  @param results     响应结果
  *  @param cachePolicy 缓存类型
  */
-+ (CCResponseObject *)requestResultsHandler:(NSData *)results UserInfo:(NSDictionary *)userInfo
++ (CCResponseObject *)requestResultsHandler:(NSDictionary *)results UserInfo:(NSDictionary *)userInfo
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;// 关闭网络指示器
@@ -758,9 +758,9 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
     
     CCResponseObject *entity = nil;
     if (results) {
-        NSDictionary *resultsDic = [NSJSONSerialization JSONObjectWithData:results options:NSJSONReadingAllowFragments error:nil];
+//        NSDictionary *resultsDic = [NSJSONSerialization JSONObjectWithData:results options:NSJSONReadingAllowFragments error:nil];
         
-        entity = [CCResponseObject cc_objectWithKeyValues:resultsDic];
+        entity = [CCResponseObject cc_objectWithKeyValues:results];
         
         if (userInfo)
             entity.userInfo = userInfo;

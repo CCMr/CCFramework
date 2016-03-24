@@ -223,6 +223,7 @@
 		421C64501C84437500696B63 /* CCSpreadsheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 421C644A1C84437500696B63 /* CCSpreadsheetView.m */; };
 		421C64551C8444BB00696B63 /* NSIndexPath+CCSpreadsheetView.h in Headers */ = {isa = PBXBuildFile; fileRef = 421C64531C8444BB00696B63 /* NSIndexPath+CCSpreadsheetView.h */; };
 		421C64561C8444BB00696B63 /* NSIndexPath+CCSpreadsheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 421C64541C8444BB00696B63 /* NSIndexPath+CCSpreadsheetView.m */; };
+		421DB6C81CA0E6AB006E74EF /* wechat_moment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 421DB6C71CA0E6AB006E74EF /* wechat_moment@2x.png */; };
 		421DC5E71C85750E009E825B /* NSBundle+AppIcon.h in Headers */ = {isa = PBXBuildFile; fileRef = 421DC40C1C85750E009E825B /* NSBundle+AppIcon.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		421DC5E81C85750E009E825B /* NSBundle+AppIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 421DC40D1C85750E009E825B /* NSBundle+AppIcon.m */; };
 		421DC6061C85750E009E825B /* NSDateFormatter+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 421DC42E1C85750E009E825B /* NSDateFormatter+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1468,6 +1469,7 @@
 		421C644A1C84437500696B63 /* CCSpreadsheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCSpreadsheetView.m; sourceTree = "<group>"; };
 		421C64531C8444BB00696B63 /* NSIndexPath+CCSpreadsheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+CCSpreadsheetView.h"; sourceTree = "<group>"; };
 		421C64541C8444BB00696B63 /* NSIndexPath+CCSpreadsheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+CCSpreadsheetView.m"; sourceTree = "<group>"; };
+		421DB6C71CA0E6AB006E74EF /* wechat_moment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wechat_moment@2x.png"; sourceTree = "<group>"; };
 		421DC40C1C85750E009E825B /* NSBundle+AppIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+AppIcon.h"; sourceTree = "<group>"; };
 		421DC40D1C85750E009E825B /* NSBundle+AppIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+AppIcon.m"; sourceTree = "<group>"; };
 		421DC42E1C85750E009E825B /* NSDateFormatter+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Additions.h"; sourceTree = "<group>"; };
@@ -5823,6 +5825,7 @@
 				422754661C29371F0099B653 /* PhotosViewImage */,
 				422754511C2932640099B653 /* GraffitiBoard */,
 				4268CED71C4356CE00434D65 /* icon_star_gray@2x.png */,
+				421DB6C71CA0E6AB006E74EF /* wechat_moment@2x.png */,
 				42E953221C58A9FC001C93CB /* banner_arrow@2x.png */,
 				4268CED81C4356CE00434D65 /* icon_star_yellow@2x.png */,
 				4227547A1C2938E30099B653 /* arrow@2x.png */,
@@ -6987,6 +6990,7 @@
 				4227546A1C29371F0099B653 /* Back@2x.png in Resources */,
 				42E953231C58A9FC001C93CB /* banner_arrow@2x.png in Resources */,
 				422E914B1C5F0D9C008F7DDA /* success.png in Resources */,
+				421DB6C81CA0E6AB006E74EF /* wechat_moment@2x.png in Resources */,
 				4227546B1C29371F0099B653 /* KeyboardNumericBg@2x.png in Resources */,
 				42255E081C7BEA4B00C0A057 /* ScanWord@2x.png in Resources */,
 				42255E031C7BEA4B00C0A057 /* ScanQRCode_HL@2x.png in Resources */,

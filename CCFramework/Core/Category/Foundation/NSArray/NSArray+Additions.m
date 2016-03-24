@@ -24,6 +24,7 @@
 //
 
 #import "NSArray+Additions.h"
+#import "CCExtension.h"
 
 @implementation NSArray (Additions)
 
@@ -638,7 +639,11 @@
     array = [[NSMutableArray alloc] initWithArray:[array filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         [PropertyName enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            [dic setObject:[evaluatedObject objectForKey:obj] forKey:obj];
+            NSDictionary *oDic = evaluatedObject;
+            if ([evaluatedObject isKindOfClass:[NSObject class]]) {
+                oDic = [evaluatedObject cc_keyValues];
+            }
+            [dic setObject:[oDic objectForKey:obj] forKey:obj];
         }];
         BOOL seen = [seenObject containsObject:dic];
         if (!seen)

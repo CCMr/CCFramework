@@ -75,7 +75,7 @@ typedef void (^ViewEventsBlock)();
  *
  *  @param className View名称
  */
--(id)findSubViewWithSubViewNSString:(NSString *)className;
+- (id)findSubViewWithSubViewNSString:(NSString *)className;
 
 /**
  *  @brief  找到指定类名的SubVie对象
@@ -133,6 +133,15 @@ typedef void (^ViewEventsBlock)();
  *  @param cls 视图类型
  */
 - (void)removeSubviewsWithSubviewClass:(Class)cls;
+
+/**
+ *  @author CC, 16-03-23
+ *  
+ *  @brief 添加一组子View
+ *
+ *  @param subviews 子View集合
+ */
+- (void)cc_addSubviews:(NSArray *)subviews;
 
 /**
  *  @brief  打印视图层级
