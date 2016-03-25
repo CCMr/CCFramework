@@ -93,6 +93,9 @@ static NSString *const CCCacheTableName = @"CCCacheTable";
 {
     self.manager = [AFHTTPRequestOperationManager manager];
     self.manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    //使用AFNetworking，默认HTTPMethodsEncodingParametersInURI里面包含的只有`GET`, `HEAD`, 和 `DELETE` 将参数放入URL链接中
+    // self.HTTPMethodsEncodingParametersInURI = [NSSet setWithObjects:@"GET", @"HEAD", @"DELETE", nil];
+    self.manager.requestSerializer.HTTPMethodsEncodingParametersInURI = [NSSet setWithObjects:@"GET", @"HEAD", nil];
     self.manager.requestSerializer.timeoutInterval = 30;
     self.manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", nil];
 }
@@ -758,7 +761,7 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
     
     CCResponseObject *entity = nil;
     if (results) {
-//        NSDictionary *resultsDic = [NSJSONSerialization JSONObjectWithData:results options:NSJSONReadingAllowFragments error:nil];
+        //        NSDictionary *resultsDic = [NSJSONSerialization JSONObjectWithData:results options:NSJSONReadingAllowFragments error:nil];
         
         entity = [CCResponseObject cc_objectWithKeyValues:results];
         
