@@ -681,7 +681,8 @@ static NSArray *kStylePropertyNames()
 }
 
 #pragma mark - UIResponder
-- (BOOL)canBecomeFirstResponder {
+- (BOOL)canBecomeFirstResponder
+{
     return YES;
 }
 
@@ -692,16 +693,17 @@ static NSArray *kStylePropertyNames()
 }
 
 #pragma mark - UIResponderStandardEditActions
-- (void)copy:(__unused id)sender {
+- (void)copy:(__unused id)sender
+{
     [[UIPasteboard generalPasteboard] setString:self.text];
 }
 
 #pragma mark -
 #pragma mark :. 扩展
 
-+ (instancetype)attributedStringWithHTML:(NSString*)htmlString
++ (instancetype)attributedStringWithHTML:(NSString *)htmlString
 {
-    NSData* htmlData = [htmlString dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *htmlData = [htmlString dataUsingEncoding:NSUTF8StringEncoding];
     if (htmlData) {
         __block id attributedString = nil;
         dispatch_block_t block = ^{
@@ -744,6 +746,32 @@ static NSArray *kStylePropertyNames()
         [attString removeAttribute:name range:range];
     }
     self.attributedText = attString;
+}
+
++ (CGSize)sizeThatFitsString:(NSString *)text maxWidth:(CGFloat)maxWidth font:(UIFont *)font lineHeight:(CGFloat)lineHeight lines:(NSUInteger)lines
+{
+    if ([text isEqualToString:@""])
+        return CGSizeMake(0, 0.0);
+    
+    MLLabel *label = [MLLabel new];
+    label.font = font;
+    label.numberOfLines = lines;
+    label.adjustsFontSizeToFitWidth = NO;
+    label.textInsets = UIEdgeInsetsZero;
+    label.lineHeightMultiple = lineHeight;
+    label.text = text;
+    [label sizeToFit];
+    return [label preferredSizeWithMaxWidth:maxWidth];
+}
+
++ (CGSize)sizeThatFitsString:(NSString *)text maxWidth:(CGFloat)maxWidth font:(UIFont *)font
+{
+    return [MLLabel sizeThatFitsString:text maxWidth:maxWidth font:font lineHeight:1.0 lines:1];
+}
+
++ (CGSize)sizeThatFitsString:(NSString *)text font:(UIFont *)font
+{
+    return [MLLabel sizeThatFitsString:text maxWidth:320.0f font:font lineHeight:1.0 lines:1];
 }
 
 @end

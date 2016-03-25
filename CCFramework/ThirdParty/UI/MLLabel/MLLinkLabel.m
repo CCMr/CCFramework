@@ -10,41 +10,40 @@
 #import "MLLabel+Override.h"
 #import "MLLabelLayoutManager.h"
 
-#define REGULAREXPRESSION_OPTION(regularExpression,regex,option) \
+#define REGULAREXPRESSION_OPTION(regularExpression, regex, option)                                                                              \
 \
-static NSRegularExpression * k##regularExpression() { \
-static NSRegularExpression *_##regularExpression = nil; \
-static dispatch_once_t onceToken; \
-dispatch_once(&onceToken, ^{ \
-_##regularExpression = [[NSRegularExpression alloc] initWithPattern:(regex) options:(option) error:nil];\
-});\
+static NSRegularExpression *k##regularExpression()                                                                                          \
+{                                                                                                                                           \
+static NSRegularExpression *_##regularExpression = nil;                                                                                 \
+static dispatch_once_t onceToken;                                                                                                       \
+dispatch_once(&onceToken, ^{ _##regularExpression = [[NSRegularExpression alloc] initWithPattern:(regex)options:(option)error:nil]; }); \
 \
-return _##regularExpression;\
-}\
+return _##regularExpression;                                                                                                            \
+}
 
-#define REGULAREXPRESSION(regularExpression,regex) REGULAREXPRESSION_OPTION(regularExpression,regex,NSRegularExpressionCaseInsensitive)
+#define REGULAREXPRESSION(regularExpression, regex) REGULAREXPRESSION_OPTION(regularExpression, regex, NSRegularExpressionCaseInsensitive)
 
 
-REGULAREXPRESSION(URLRegularExpression,@"((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)")
+REGULAREXPRESSION(URLRegularExpression, @"((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)")
 REGULAREXPRESSION(PhoneNumerRegularExpression, @"\\d{3}-\\d{8}|\\d{3}-\\d{7}|\\d{4}-\\d{8}|\\d{4}-\\d{7}|1+[358]+\\d{9}|\\d{8}|\\d{7}")
 REGULAREXPRESSION(EmailRegularExpression, @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}")
 REGULAREXPRESSION(UserHandleRegularExpression, @"@[\\u4e00-\\u9fa5\\w\\-]+")
 REGULAREXPRESSION(HashtagRegularExpression, @"#([\\u4e00-\\u9fa5\\w\\-]+)")
 
-@interface MLLink()
+@interface MLLink ()
 
-@property (nonatomic, assign) NSRange linkRange;
+@property(nonatomic, assign) NSRange linkRange;
 
 @end
 
 @implementation MLLink
 
-+ (instancetype)linkWithType:(MLLinkType)type value:(NSString*)value range:(NSRange)range
++ (instancetype)linkWithType:(MLLinkType)type value:(NSString *)value range:(NSRange)range
 {
     return [MLLink linkWithType:type value:value range:range linkTextAttributes:nil activeLinkTextAttributes:nil];
 }
 
-+ (instancetype)linkWithType:(MLLinkType)type value:(NSString*)value range:(NSRange)range linkTextAttributes:(NSDictionary*)linkTextAttributes activeLinkTextAttributes:(NSDictionary*)activeLinkTextAttributes
++ (instancetype)linkWithType:(MLLinkType)type value:(NSString *)value range:(NSRange)range linkTextAttributes:(NSDictionary *)linkTextAttributes activeLinkTextAttributes:(NSDictionary *)activeLinkTextAttributes
 {
     MLLink *link = [MLLink new];
     link.linkType = type;
@@ -58,13 +57,13 @@ REGULAREXPRESSION(HashtagRegularExpression, @"#([\\u4e00-\\u9fa5\\w\\-]+)")
 @end
 
 
-@interface MLLinkLabel()<UIGestureRecognizerDelegate>
+@interface MLLinkLabel () <UIGestureRecognizerDelegate>
 
-@property (nonatomic, strong) NSMutableArray *links;
-@property (nonatomic, strong) MLLink *activeLink;
-@property (nonatomic, assign) BOOL dontReCreateLinks;
+@property(nonatomic, strong) NSMutableArray *links;
+@property(nonatomic, strong) MLLink *activeLink;
+@property(nonatomic, assign) BOOL dontReCreateLinks;
 
-@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
+@property(nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
 
 @end
 
@@ -82,7 +81,7 @@ REGULAREXPRESSION(HashtagRegularExpression, @"#([\\u4e00-\\u9fa5\\w\\-]+)")
 - (UILongPressGestureRecognizer *)longPressGestureRecognizer
 {
     if (!_longPressGestureRecognizer) {
-        _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressGestureDidFire:)];
+        _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureDidFire:)];
         _longPressGestureRecognizer.delegate = self;
     }
     return _longPressGestureRecognizer;
@@ -92,7 +91,7 @@ REGULAREXPRESSION(HashtagRegularExpression, @"#([\\u4e00-\\u9fa5\\w\\-]+)")
 #pragma mark - setter
 - (void)setActiveLink:(MLLink *)activeLink
 {
-    BOOL isUnChanged = (!activeLink&&!_activeLink)||[activeLink isEqual:_activeLink];
+    BOOL isUnChanged = (!activeLink && !_activeLink) || [activeLink isEqual:_activeLink];
     
     _activeLink = activeLink;
     
@@ -107,7 +106,7 @@ REGULAREXPRESSION(HashtagRegularExpression, @"#([\\u4e00-\\u9fa5\\w\\-]+)")
 
 - (void)setAllowLineBreakInsideLinks:(BOOL)allowLineBreakInsideLinks
 {
-    if (allowLineBreakInsideLinks==_allowLineBreakInsideLinks) return;
+    if (allowLineBreakInsideLinks == _allowLineBreakInsideLinks) return;
     
     _allowLineBreakInsideLinks = allowLineBreakInsideLinks;
     [self reSetText];
@@ -157,7 +156,7 @@ REGULAREXPRESSION(HashtagRegularExpression, @"#([\\u4e00-\\u9fa5\\w\\-]+)")
     self.activeLinkToNilDelay = 0.3f;
     
     //默认除了话题和@都检测
-    _dataDetectorTypes = MLDataDetectorTypeURL|MLDataDetectorTypePhoneNumber|MLDataDetectorTypeEmail|MLDataDetectorTypeAttributedLink;
+    _dataDetectorTypes = MLDataDetectorTypeURL | MLDataDetectorTypePhoneNumber | MLDataDetectorTypeEmail | MLDataDetectorTypeAttributedLink;
     _dataDetectorTypesOfAttributedLinkValue = MLDataDetectorTypeNone;
     _allowLineBreakInsideLinks = YES;
     
@@ -186,7 +185,7 @@ REGULAREXPRESSION(HashtagRegularExpression, @"#([\\u4e00-\\u9fa5\\w\\-]+)")
     [super setAttributedText:attributedText];
 }
 
-- (NSMutableAttributedString*)attributedTextForTextStorageFromLabelProperties
+- (NSMutableAttributedString *)attributedTextForTextStorageFromLabelProperties
 {
     NSMutableAttributedString *attributedString = [super attributedTextForTextStorageFromLabelProperties];
     
@@ -197,14 +196,14 @@ REGULAREXPRESSION(HashtagRegularExpression, @"#([\\u4e00-\\u9fa5\\w\\-]+)")
     for (MLLink *link in self.links) {
         NSDictionary *attributes = nil;
         if ([link isEqual:self.activeLink]) {
-            attributes = link.activeLinkTextAttributes?link.activeLinkTextAttributes:self.activeLinkTextAttributes;
+            attributes = link.activeLinkTextAttributes ? link.activeLinkTextAttributes : self.activeLinkTextAttributes;
             if (!attributes) {
-                attributes = @{NSForegroundColorAttributeName:kDefaultLinkColorForMLLinkLabel,NSBackgroundColorAttributeName:kDefaultActiveLinkBackgroundColorForMLLinkLabel};
+                attributes = @{NSForegroundColorAttributeName : kDefaultLinkColorForMLLinkLabel, NSBackgroundColorAttributeName : kDefaultActiveLinkBackgroundColorForMLLinkLabel};
             }
-        }else{
-            attributes = link.linkTextAttributes?link.linkTextAttributes:self.linkTextAttributes;
+        } else {
+            attributes = link.linkTextAttributes ? link.linkTextAttributes : self.linkTextAttributes;
             if (!attributes) {
-                attributes = @{NSForegroundColorAttributeName:kDefaultLinkColorForMLLinkLabel};
+                attributes = @{NSForegroundColorAttributeName : kDefaultLinkColorForMLLinkLabel};
             }
         }
         //        [attributedString removeAttributes:[attributes allKeys] range:link.linkRange];
@@ -212,11 +211,11 @@ REGULAREXPRESSION(HashtagRegularExpression, @"#([\\u4e00-\\u9fa5\\w\\-]+)")
     }
     
     return attributedString;
-    
 }
 
 #pragma mark - 正则匹配相关
-static NSArray * kAllRegexps() {
+static NSArray *kAllRegexps()
+{
     static NSArray *_allRegexps = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -225,22 +224,22 @@ static NSArray * kAllRegexps() {
     return _allRegexps;
 }
 
-- (NSArray*)regexpsWithDataDetectorTypes:(MLDataDetectorTypes)dataDetectorTypes
+- (NSArray *)regexpsWithDataDetectorTypes:(MLDataDetectorTypes)dataDetectorTypes
 {
-    MLDataDetectorTypes const allDataDetectorTypes[] = {MLDataDetectorTypeURL,MLDataDetectorTypePhoneNumber,MLDataDetectorTypeEmail,MLDataDetectorTypeUserHandle,MLDataDetectorTypeHashtag};
+    MLDataDetectorTypes const allDataDetectorTypes[] = {MLDataDetectorTypeURL, MLDataDetectorTypePhoneNumber, MLDataDetectorTypeEmail, MLDataDetectorTypeUserHandle, MLDataDetectorTypeHashtag};
     NSArray *allRegexps = kAllRegexps();
     
     NSMutableArray *regexps = [NSMutableArray array];
-    for (NSInteger i=0; i<allRegexps.count; i++) {
-        if (dataDetectorTypes&(allDataDetectorTypes[i])) {
+    for (NSInteger i = 0; i < allRegexps.count; i++) {
+        if (dataDetectorTypes & (allDataDetectorTypes[i])) {
             [regexps addObject:allRegexps[i]];
         }
     }
-    return regexps.count>0?regexps:nil;
+    return regexps.count > 0 ? regexps : nil;
 }
 
 //根据dataDetectorTypes和string获取其linkType
-- (MLLinkType)linkTypeOfString:(NSString*)string withDataDetectorTypes:(MLDataDetectorTypes)dataDetectorTypes
+- (MLLinkType)linkTypeOfString:(NSString *)string withDataDetectorTypes:(MLDataDetectorTypes)dataDetectorTypes
 {
     if (dataDetectorTypes == MLDataDetectorTypeNone) {
         return MLLinkTypeOther;
@@ -252,9 +251,9 @@ static NSArray * kAllRegexps() {
     NSRange textRange = NSMakeRange(0, string.length);
     for (NSRegularExpression *regexp in regexps) {
         NSTextCheckingResult *result = [regexp firstMatchInString:string options:NSMatchingAnchored range:textRange];
-        if (result&&NSEqualRanges(result.range, textRange)) {
+        if (result && NSEqualRanges(result.range, textRange)) {
             //这个type确定
-            MLLinkType linkType = [allRegexps indexOfObject:regexp]+1;
+            MLLinkType linkType = [allRegexps indexOfObject:regexp] + 1;
             return linkType;
         }
     }
@@ -262,21 +261,21 @@ static NSArray * kAllRegexps() {
     return MLLinkTypeOther;
 }
 
-- (NSMutableArray*)linksWithString:(id)string
+- (NSMutableArray *)linksWithString:(id)string
 {
-    if (self.dataDetectorTypes == MLDataDetectorTypeNone||!string) {
+    if (self.dataDetectorTypes == MLDataDetectorTypeNone || !string) {
         return nil;
     }
     
-    NSString *plainText = [string isKindOfClass:[NSAttributedString class]]?((NSAttributedString*)string).string:string;
-    if (plainText.length<=0) {
+    NSString *plainText = [string isKindOfClass:[NSAttributedString class]] ? ((NSAttributedString *)string).string : string;
+    if (plainText.length <= 0) {
         return nil;
     }
     
     NSMutableArray *links = [NSMutableArray array];
     
-    if ((self.dataDetectorTypes&MLDataDetectorTypeAttributedLink)&&[string isKindOfClass:[NSAttributedString class]]) {
-        NSAttributedString *attributedString = ((NSAttributedString*)string);
+    if ((self.dataDetectorTypes & MLDataDetectorTypeAttributedLink) && [string isKindOfClass:[NSAttributedString class]]) {
+        NSAttributedString *attributedString = ((NSAttributedString *)string);
         [attributedString enumerateAttribute:NSLinkAttributeName inRange:NSMakeRange(0, attributedString.length) options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
             if (value) {
                 NSString *linkValue = nil;
@@ -323,15 +322,13 @@ static NSArray * kAllRegexps() {
         }];
     }
     
-    return links.count>0?links:nil;
-    
+    return links.count > 0 ? links : nil;
 }
 
 #pragma mark - 链接点击交互相关
 - (MLLink *)linkAtPoint:(CGPoint)location
 {
-    if (self.links.count<=0||self.text.length == 0||self.textContainer.size.width<=0||self.textContainer.size.height<=0)
-    {
+    if (self.links.count <= 0 || self.text.length == 0 || self.textContainer.size.width <= 0 || self.textContainer.size.height <= 0) {
         return nil;
     }
     
@@ -357,7 +354,7 @@ static NSArray * kAllRegexps() {
     
     //找到了charIndex，然后去寻找是否这个字处于链接内部
     for (MLLink *link in self.links) {
-        if (NSLocationInRange(charIndex,link.linkRange)) {
+        if (NSLocationInRange(charIndex, link.linkRange)) {
             return link;
         }
     }
@@ -390,7 +387,6 @@ static NSArray * kAllRegexps() {
     } else {
         [super touchesMoved:touches withEvent:event];
     }
-    
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -400,10 +396,10 @@ static NSArray * kAllRegexps() {
         
         //告诉外面已经点击了某链接
         if (self.activeLink.didClickLinkBlock) {
-            self.activeLink.didClickLinkBlock(self.activeLink,linkText,self);
-        }else if (self.didClickLinkBlock) {
-            self.didClickLinkBlock(self.activeLink,linkText,self);
-        }else if(self.delegate&&[self.delegate respondsToSelector:@selector(didClickLink:linkText:linkLabel:)]){
+            self.activeLink.didClickLinkBlock(self.activeLink, linkText, self);
+        } else if (self.didClickLinkBlock) {
+            self.didClickLinkBlock(self.activeLink, linkText, self);
+        } else if (self.delegate && [self.delegate respondsToSelector:@selector(didClickLink:linkText:linkLabel:)]) {
             [self.delegate didClickLink:self.activeLink linkText:linkText linkLabel:self];
         }
         
@@ -411,7 +407,6 @@ static NSArray * kAllRegexps() {
     } else {
         [super touchesEnded:touches withEvent:event];
     }
-    
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
@@ -424,13 +419,12 @@ static NSArray * kAllRegexps() {
 }
 
 #pragma mark - 长按相关
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
     MLLink *link = [self linkAtPoint:[touch locationInView:self]];
     if (link) {
         //检测是否有长按回调，没的话就不继续
-        if ((self.delegate&&[self.delegate respondsToSelector:@selector(didLongPressLink:linkText:linkLabel:)])
-            ||self.didLongPressLinkBlock
-            ||link.didLongPressLinkBlock) {
+        if ((self.delegate && [self.delegate respondsToSelector:@selector(didLongPressLink:linkText:linkLabel:)]) || self.didLongPressLinkBlock || link.didLongPressLinkBlock) {
             return YES;
         }
     }
@@ -438,18 +432,19 @@ static NSArray * kAllRegexps() {
     return NO;
 }
 
-- (void)longPressGestureDidFire:(UILongPressGestureRecognizer *)sender {
-    if (sender.state==UIGestureRecognizerStateBegan) {
+- (void)longPressGestureDidFire:(UILongPressGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateBegan) {
         MLLink *link = [self linkAtPoint:[sender locationInView:self]];
         if (link) {
             NSString *linkText = [self.text substringWithRange:link.linkRange];
             
             //告诉外面已经长按了某链接
             if (link.didLongPressLinkBlock) {
-                link.didLongPressLinkBlock(link,linkText,self);
-            }else if (self.didLongPressLinkBlock) {
-                self.didLongPressLinkBlock(link,linkText,self);
-            }else if (self.delegate&&[self.delegate respondsToSelector:@selector(didLongPressLink:linkText:linkLabel:)]){
+                link.didLongPressLinkBlock(link, linkText, self);
+            } else if (self.didLongPressLinkBlock) {
+                self.didLongPressLinkBlock(link, linkText, self);
+            } else if (self.delegate && [self.delegate respondsToSelector:@selector(didLongPressLink:linkText:linkLabel:)]) {
                 [self.delegate didLongPressLink:link linkText:linkText linkLabel:self];
             }
         }
@@ -458,28 +453,28 @@ static NSArray * kAllRegexps() {
 
 
 #pragma mark - 外部调用相关
-- (BOOL)addLink:(MLLink*)link
+- (BOOL)addLink:(MLLink *)link
 {
-    return [self addLinks:@[link]].count>0;
+    return [self addLinks:@[ link ]].count > 0;
 }
 
-- (MLLink*)addLinkWithType:(MLLinkType)type value:(NSString*)value range:(NSRange)range
+- (MLLink *)addLinkWithType:(MLLinkType)type value:(NSString *)value range:(NSRange)range
 {
     MLLink *link = [MLLink linkWithType:type value:value range:range];
-    return [self addLink:link]?link:nil;
+    return [self addLink:link] ? link : nil;
 }
 
-- (NSArray*)addLinks:(NSArray*)links
+- (NSArray *)addLinks:(NSArray *)links
 {
     NSMutableArray *validLinks = [NSMutableArray arrayWithCapacity:links.count];
     for (MLLink *link in links) {
-        if (!link||NSMaxRange(link.linkRange)>self.text.length) {
+        if (!link || NSMaxRange(link.linkRange) > self.text.length) {
             continue;
         }
         
         //检测是否此位置已经有东西占用
-        for (MLLink *aLink in self.links){
-            if (NSMaxRange(NSIntersectionRange(aLink.linkRange, link.linkRange))>0){
+        for (MLLink *aLink in self.links) {
+            if (NSMaxRange(NSIntersectionRange(aLink.linkRange, link.linkRange)) > 0) {
                 continue;
             }
         }
@@ -506,7 +501,7 @@ static NSArray * kAllRegexps() {
 }
 
 #pragma mark - 布局相关
--(BOOL)layoutManager:(NSLayoutManager *)layoutManager shouldBreakLineByWordBeforeCharacterAtIndex:(NSUInteger)charIndex
+- (BOOL)layoutManager:(NSLayoutManager *)layoutManager shouldBreakLineByWordBeforeCharacterAtIndex:(NSUInteger)charIndex
 {
     if (self.lineBreakMode == NSLineBreakByCharWrapping) {
         return NO;
@@ -518,11 +513,40 @@ static NSArray * kAllRegexps() {
     
     //让在链接区间下，尽量不break
     for (MLLink *link in self.links) {
-        if (NSLocationInRange(charIndex,link.linkRange)) {
+        if (NSLocationInRange(charIndex, link.linkRange)) {
             return NO;
         }
     }
     return YES;
+}
+
+#pragma mark -
+#pragma mark :. Size
+
++ (CGSize)sizeThatFits:(NSAttributedString *)attributedText
+              maxWidth:(CGFloat)maxWidth
+                  font:(UIFont *)font
+            lineHeight:(CGFloat)lineHeight
+                 lines:(NSUInteger)lines
+{
+    if ([attributedText.string isEqualToString:@""])
+        return CGSizeMake(0, 0.0);
+    
+    MLLinkLabel *label = [MLLinkLabel new];
+    label.font = font;
+    label.numberOfLines = lines;
+    label.adjustsFontSizeToFitWidth = NO;
+    label.textInsets = UIEdgeInsetsZero;
+    label.lineHeightMultiple = lineHeight;
+    
+    label.dataDetectorTypes = MLDataDetectorTypeAll;
+    label.allowLineBreakInsideLinks = NO;
+    label.linkTextAttributes = nil;
+    label.activeLinkTextAttributes = nil;
+    label.attributedText = attributedText;
+    [label sizeToFit];
+    return [label preferredSizeWithMaxWidth:maxWidth];
+    
 }
 
 @end

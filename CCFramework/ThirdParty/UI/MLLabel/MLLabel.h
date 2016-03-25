@@ -16,27 +16,33 @@ typedef NS_ENUM(NSUInteger, MLLastTextType) {
 
 @interface MLLabel : UILabel
 
-@property (nonatomic, assign) CGFloat lineHeightMultiple; //行高的multiple
-@property (nonatomic, assign) CGFloat lineSpacing; //行间距
+@property(nonatomic, assign) CGFloat lineHeightMultiple; //行高的multiple
+@property(nonatomic, assign) CGFloat lineSpacing;	//行间距
 
-@property (nonatomic, assign) UIEdgeInsets textInsets;
+@property(nonatomic, assign) UIEdgeInsets textInsets;
 
-@property (nonatomic, copy) void(^doBeforeDrawingTextBlock)(CGRect rect,CGPoint beginOffset,CGSize drawSize);
+@property(nonatomic, copy) void (^doBeforeDrawingTextBlock)(CGRect rect, CGPoint beginOffset, CGSize drawSize);
 
 - (CGSize)preferredSizeWithMaxWidth:(CGFloat)maxWidth;
 
 
 //方便码代码
-- (void)setDoBeforeDrawingTextBlock:(void (^)(CGRect rect,CGPoint beginOffset,CGSize drawSize))doBeforeDrawingTextBlock;
+- (void)setDoBeforeDrawingTextBlock:(void (^)(CGRect rect, CGPoint beginOffset, CGSize drawSize))doBeforeDrawingTextBlock;
 
 
 #pragma mark -
 #pragma mark :. 扩展
 
-+ (instancetype)attributedStringWithHTML:(NSString*)htmlString;
++ (instancetype)attributedStringWithHTML:(NSString *)htmlString;
 
 - (void)removeAllNSOriginalFontAttributes;
 
 - (void)removeAttributes:(NSArray *)names range:(NSRange)range;
+
++ (CGSize)sizeThatFitsString:(NSString *)text maxWidth:(CGFloat)maxWidth font:(UIFont *)font lineHeight:(CGFloat)lineHeight lines:(NSUInteger)lines;
+
++ (CGSize)sizeThatFitsString:(NSString *)text maxWidth:(CGFloat)maxWidth font:(UIFont *)font;
+
++ (CGSize)sizeThatFitsString:(NSString *)text font:(UIFont *)font;
 
 @end
