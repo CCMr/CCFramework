@@ -72,9 +72,11 @@
         [self addGestureRecognizer:singleTap];
         
         UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
+        doubleTap.delaysTouchesBegan = YES;
         doubleTap.numberOfTapsRequired = 2;
         [self addGestureRecognizer:doubleTap];
         
+         [singleTap requireGestureRecognizerToFail:doubleTap];
         // 旋转手势
         UIRotationGestureRecognizer *rotationGestureRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotateView:)];
         [_imageView addGestureRecognizer:rotationGestureRecognizer];
@@ -252,6 +254,10 @@
     if (_isHandleSingle) {
         _doubleTap = NO;
         [self performSelector:@selector(hide) withObject:nil afterDelay:0.2];
+    } else {
+        // 通知代理
+        if ([self.photoViewDelegate respondsToSelector:@selector(photoViewSingleTap:)])
+            [self.photoViewDelegate photoViewSingleTap:self];
     }
 }
 - (void)hide
