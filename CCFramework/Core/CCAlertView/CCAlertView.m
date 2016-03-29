@@ -114,7 +114,9 @@
     
     [self showWithContainerView:containerView
            withButtonTitleArray:buttonTitles
-          OnButtonTouchUpInside:onButtonTouchUpInside];
+          OnButtonTouchUpInside:^(UIView *containerView, NSInteger buttonIndex) {
+              onButtonTouchUpInside(buttonIndex);
+          }];
 }
 
 /**
@@ -147,14 +149,14 @@
  */
 + (void)showWithContainerView:(UIView *)containerView
          withButtonTitleArray:(NSArray *)buttonTitles
-        OnButtonTouchUpInside:(void (^)(NSInteger buttonIndex))onButtonTouchUpInside
+        OnButtonTouchUpInside:(void (^)(UIView *containerView, NSInteger buttonIndex))onButtonTouchUpInside
 {
     CustomIOSAlertView *alertView = [self alertView];
     [alertView setContainerView:containerView];
     [alertView setButtonTitles:buttonTitles];
     [alertView setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
         if (onButtonTouchUpInside)
-            onButtonTouchUpInside(buttonIndex);
+            onButtonTouchUpInside(alertView.containerView,buttonIndex);
         [alertView close];
     }];
     [alertView show];

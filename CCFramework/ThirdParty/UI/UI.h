@@ -49,7 +49,7 @@
 #import <CCFramework/CCPhotoBrowser.h>
 #import <CCFramework/CCBadgeView.h>
 #import <CCFramework/CCDatePicker.h>
-#import <CCFramework/CCPickerViewController.h>
+//#import <CCFramework/CCPickerViewController.h>
 #import <CCFramework/CCPopMenuView.h>
 #import <CCFramework/CCPopMenu.h>
 #import <CCFramework/CCPopMenuItem.h>

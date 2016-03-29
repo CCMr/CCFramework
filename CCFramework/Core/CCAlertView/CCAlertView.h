@@ -79,6 +79,6 @@
  */
 + (void)showWithContainerView:(UIView *)containerView
          withButtonTitleArray:(NSArray *)buttonTitles
-        OnButtonTouchUpInside:(void (^)(NSInteger buttonIndex))onButtonTouchUpInside;
+        OnButtonTouchUpInside:(void (^)(UIView *containerView, NSInteger buttonIndex))onButtonTouchUpInside;
 
 @end
