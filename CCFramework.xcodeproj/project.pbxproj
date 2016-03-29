@@ -886,20 +886,6 @@
 		429CA03B1B9EF8BF0013A44A /* CCPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E251B9EF8BF0013A44A /* CCPhotoView.m */; };
 		429CA03C1B9EF8BF0013A44A /* MBProgressHUD+Add.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E271B9EF8BF0013A44A /* MBProgressHUD+Add.h */; };
 		429CA03D1B9EF8BF0013A44A /* MBProgressHUD+Add.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E281B9EF8BF0013A44A /* MBProgressHUD+Add.m */; };
-		429CA0601B9EF8BF0013A44A /* CCPickerAssetsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E4D1B9EF8BF0013A44A /* CCPickerAssetsViewController.h */; };
-		429CA0611B9EF8BF0013A44A /* CCPickerAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E4E1B9EF8BF0013A44A /* CCPickerAssetsViewController.m */; };
-		429CA0621B9EF8BF0013A44A /* CCPickerGroupViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E4F1B9EF8BF0013A44A /* CCPickerGroupViewController.h */; };
-		429CA0631B9EF8BF0013A44A /* CCPickerGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E501B9EF8BF0013A44A /* CCPickerGroupViewController.m */; };
-		429CA0641B9EF8BF0013A44A /* CCPickerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E511B9EF8BF0013A44A /* CCPickerViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		429CA0651B9EF8BF0013A44A /* CCPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E521B9EF8BF0013A44A /* CCPickerViewController.m */; };
-		429CA0661B9EF8BF0013A44A /* CCPickerDatas.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E541B9EF8BF0013A44A /* CCPickerDatas.h */; };
-		429CA0671B9EF8BF0013A44A /* CCPickerDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E551B9EF8BF0013A44A /* CCPickerDatas.m */; };
-		429CA0681B9EF8BF0013A44A /* CCPickerGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E561B9EF8BF0013A44A /* CCPickerGroup.h */; };
-		429CA0691B9EF8BF0013A44A /* CCPickerGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E571B9EF8BF0013A44A /* CCPickerGroup.m */; };
-		429CA06D1B9EF8BF0013A44A /* CCPickerCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E5D1B9EF8BF0013A44A /* CCPickerCollectionView.h */; };
-		429CA06E1B9EF8BF0013A44A /* CCPickerCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E5E1B9EF8BF0013A44A /* CCPickerCollectionView.m */; };
-		429CA06F1B9EF8BF0013A44A /* CCPickerCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E5F1B9EF8BF0013A44A /* CCPickerCollectionViewCell.h */; };
-		429CA0701B9EF8BF0013A44A /* CCPickerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E601B9EF8BF0013A44A /* CCPickerCollectionViewCell.m */; };
 		429CA0711B9EF8BF0013A44A /* CCPopMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E631B9EF8BF0013A44A /* CCPopMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA0721B9EF8BF0013A44A /* CCPopMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9E641B9EF8BF0013A44A /* CCPopMenu.m */; };
 		429CA0731B9EF8BF0013A44A /* CCPopMenuItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9E651B9EF8BF0013A44A /* CCPopMenuItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2135,20 +2121,6 @@
 		429C9E251B9EF8BF0013A44A /* CCPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPhotoView.m; sourceTree = "<group>"; };
 		429C9E271B9EF8BF0013A44A /* MBProgressHUD+Add.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Add.h"; sourceTree = "<group>"; };
 		429C9E281B9EF8BF0013A44A /* MBProgressHUD+Add.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Add.m"; sourceTree = "<group>"; };
-		429C9E4D1B9EF8BF0013A44A /* CCPickerAssetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPickerAssetsViewController.h; sourceTree = "<group>"; };
-		429C9E4E1B9EF8BF0013A44A /* CCPickerAssetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPickerAssetsViewController.m; sourceTree = "<group>"; };
-		429C9E4F1B9EF8BF0013A44A /* CCPickerGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPickerGroupViewController.h; sourceTree = "<group>"; };
-		429C9E501B9EF8BF0013A44A /* CCPickerGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPickerGroupViewController.m; sourceTree = "<group>"; };
-		429C9E511B9EF8BF0013A44A /* CCPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPickerViewController.h; sourceTree = "<group>"; };
-		429C9E521B9EF8BF0013A44A /* CCPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPickerViewController.m; sourceTree = "<group>"; };
-		429C9E541B9EF8BF0013A44A /* CCPickerDatas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPickerDatas.h; sourceTree = "<group>"; };
-		429C9E551B9EF8BF0013A44A /* CCPickerDatas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPickerDatas.m; sourceTree = "<group>"; };
-		429C9E561B9EF8BF0013A44A /* CCPickerGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPickerGroup.h; sourceTree = "<group>"; };
-		429C9E571B9EF8BF0013A44A /* CCPickerGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPickerGroup.m; sourceTree = "<group>"; };
-		429C9E5D1B9EF8BF0013A44A /* CCPickerCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPickerCollectionView.h; sourceTree = "<group>"; };
-		429C9E5E1B9EF8BF0013A44A /* CCPickerCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPickerCollectionView.m; sourceTree = "<group>"; };
-		429C9E5F1B9EF8BF0013A44A /* CCPickerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPickerCollectionViewCell.h; sourceTree = "<group>"; };
-		429C9E601B9EF8BF0013A44A /* CCPickerCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPickerCollectionViewCell.m; sourceTree = "<group>"; };
 		429C9E631B9EF8BF0013A44A /* CCPopMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPopMenu.h; sourceTree = "<group>"; };
 		429C9E641B9EF8BF0013A44A /* CCPopMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPopMenu.m; sourceTree = "<group>"; };
 		429C9E651B9EF8BF0013A44A /* CCPopMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPopMenuItem.h; sourceTree = "<group>"; };
@@ -5001,7 +4973,6 @@
 				429C9E041B9EF8BF0013A44A /* CCMessageView */,
 				429C9E0E1B9EF8BF0013A44A /* CCNumericKeypad */,
 				429C9E181B9EF8BF0013A44A /* CCPhotoBrowser */,
-				429C9E4C1B9EF8BF0013A44A /* CCPhotosView */,
 				4206A4D81C783BB7001A1CF3 /* CCPhotoPicker */,
 				429C9E611B9EF8BF0013A44A /* CCPopMenuVIew */,
 				429C9E6C1B9EF8BF0013A44A /* CCRefreshView */,
@@ -5173,43 +5144,6 @@
 				429C9E281B9EF8BF0013A44A /* MBProgressHUD+Add.m */,
 			);
 			path = MBProgressHUD;
-			sourceTree = "<group>";
-		};
-		429C9E4C1B9EF8BF0013A44A /* CCPhotosView */ = {
-			isa = PBXGroup;
-			children = (
-				429C9E531B9EF8BF0013A44A /* Models */,
-				429C9E5C1B9EF8BF0013A44A /* VIews */,
-				429C9E4D1B9EF8BF0013A44A /* CCPickerAssetsViewController.h */,
-				429C9E4E1B9EF8BF0013A44A /* CCPickerAssetsViewController.m */,
-				429C9E4F1B9EF8BF0013A44A /* CCPickerGroupViewController.h */,
-				429C9E501B9EF8BF0013A44A /* CCPickerGroupViewController.m */,
-				429C9E511B9EF8BF0013A44A /* CCPickerViewController.h */,
-				429C9E521B9EF8BF0013A44A /* CCPickerViewController.m */,
-			);
-			path = CCPhotosView;
-			sourceTree = "<group>";
-		};
-		429C9E531B9EF8BF0013A44A /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				429C9E541B9EF8BF0013A44A /* CCPickerDatas.h */,
-				429C9E551B9EF8BF0013A44A /* CCPickerDatas.m */,
-				429C9E561B9EF8BF0013A44A /* CCPickerGroup.h */,
-				429C9E571B9EF8BF0013A44A /* CCPickerGroup.m */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		429C9E5C1B9EF8BF0013A44A /* VIews */ = {
-			isa = PBXGroup;
-			children = (
-				429C9E5D1B9EF8BF0013A44A /* CCPickerCollectionView.h */,
-				429C9E5E1B9EF8BF0013A44A /* CCPickerCollectionView.m */,
-				429C9E5F1B9EF8BF0013A44A /* CCPickerCollectionViewCell.h */,
-				429C9E601B9EF8BF0013A44A /* CCPickerCollectionViewCell.m */,
-			);
-			path = VIews;
 			sourceTree = "<group>";
 		};
 		429C9E611B9EF8BF0013A44A /* CCPopMenuVIew */ = {
@@ -6363,11 +6297,9 @@
 				42A58A591BCCA23C0027429C /* CCWebView.h in Headers */,
 				426979451BA695BA00C3E93C /* UIKit+AFNetworking.h in Headers */,
 				429CA01D1B9EF8BF0013A44A /* CCCycleScroll.h in Headers */,
-				429CA0621B9EF8BF0013A44A /* CCPickerGroupViewController.h in Headers */,
 				421E7A721C3D173D00C31AD0 /* CCDrawerController+Subclass.h in Headers */,
 				429C9FA21B9EF8BF0013A44A /* CCSignatureView.h in Headers */,
 				425477431BD2AEC20071BBC5 /* ecdsa.h in Headers */,
-				429CA0681B9EF8BF0013A44A /* CCPickerGroup.h in Headers */,
 				42F24C571BEA5091008CDEDC /* PNCircleChart.h in Headers */,
 				429CA0F91B9EF8BF0013A44A /* CCVoiceRecordHelper.h in Headers */,
 				4254772B1BD2AEC20071BBC5 /* asn1_mac.h in Headers */,
@@ -6425,7 +6357,6 @@
 				42068F2A1C5746A1005DFB01 /* CCPopMenuButton.h in Headers */,
 				429C9F6C1B9EF8BF0013A44A /* CCUserDefaultsCrash.h in Headers */,
 				42068F231C573E33005DFB01 /* FloatConversion.h in Headers */,
-				429CA0641B9EF8BF0013A44A /* CCPickerViewController.h in Headers */,
 				429C9F721B9EF8BF0013A44A /* CCHTTPRequest.h in Headers */,
 				421DC7B91C859697009E825B /* UIButton+Additions.h in Headers */,
 				4223593F1C867FDA005207B9 /* NSString+Additions.h in Headers */,
@@ -6508,7 +6439,6 @@
 				4225116D1C7306AD003B3623 /* NSObject+CCClass.h in Headers */,
 				42A3563B1BF4399800B6F1F2 /* CCRefreshHeaderView.h in Headers */,
 				42FB01541C8FFF940048B5E0 /* CCViewModelProtocolDelegate.h in Headers */,
-				429CA0661B9EF8BF0013A44A /* CCPickerDatas.h in Headers */,
 				429CA0211B9EF8BF0013A44A /* CCMessageInputView.h in Headers */,
 				421DC6F21C85750E009E825B /* UINavigationBar+Additions.h in Headers */,
 				425477601BD2AEC20071BBC5 /* safestack.h in Headers */,
@@ -6625,7 +6555,6 @@
 				421DC7061C85750E009E825B /* UIPopoverController+Additions.h in Headers */,
 				4254775B1BD2AEC20071BBC5 /* rand.h in Headers */,
 				427E1D411C10709F004B257C /* CCWxPayEngine.h in Headers */,
-				429CA06D1B9EF8BF0013A44A /* CCPickerCollectionView.h in Headers */,
 				4206A52E1C783CFA001A1CF3 /* CCPhotoPicker.h in Headers */,
 				42063E721C892E7D003348EB /* NSFetchRequest+Additions.h in Headers */,
 				421DC7EF1C859E0E009E825B /* UILabel+Additions.h in Headers */,
@@ -6683,7 +6612,6 @@
 				420CB13B1C7D788500A0EC25 /* MASLayoutConstraint.h in Headers */,
 				429C9F501B9EF8BF0013A44A /* NavMainViewController.h in Headers */,
 				429CA0051B9EF8BF0013A44A /* CCAnimatedImage.h in Headers */,
-				429CA0601B9EF8BF0013A44A /* CCPickerAssetsViewController.h in Headers */,
 				42FB01501C8FEC480048B5E0 /* CCTableViewManger.h in Headers */,
 				429CA0891B9EF8BF0013A44A /* CCAutoTextView.h in Headers */,
 				4230E18D1BBB83CE0001E68F /* CCRadarPointView.h in Headers */,
@@ -6709,7 +6637,6 @@
 				421C643D1C83E18700696B63 /* SREventSourceRequestSerializer.h in Headers */,
 				42063EC41C8936F1003348EB /* CAShapeLayer+Additions.h in Headers */,
 				429C9FFF1B9EF8BF0013A44A /* CCRourRotation.h in Headers */,
-				429CA06F1B9EF8BF0013A44A /* CCPickerCollectionViewCell.h in Headers */,
 				42DEB2921C25495000734E09 /* CCColor.h in Headers */,
 				422978601BEE3A1100CECBBF /* CCResponseObject.h in Headers */,
 				421DC72E1C85750E009E825B /* UITextField+Additions.h in Headers */,
@@ -7177,7 +7104,6 @@
 				422966811C756480005E1C03 /* CCLaunchAnimation.m in Sources */,
 				4219EE111C7FF93F00F1EE76 /* NSString+MLExpression.m in Sources */,
 				422E91731C5F38BE008F7DDA /* PRTweenTimingFunctions.m in Sources */,
-				429CA0611B9EF8BF0013A44A /* CCPickerAssetsViewController.m in Sources */,
 				429C9FF61B9EF8BF0013A44A /* SRWebSocketConnectionInfo.m in Sources */,
 				42F411311C214C5400814E7B /* CCImageManger.m in Sources */,
 				42A1F66C1C8AA94C00A20F64 /* CCDebugCrashHelper.m in Sources */,
@@ -7413,7 +7339,6 @@
 				4244928F1C0D90F500488AA2 /* amrFileCodec.m in Sources */,
 				42F967891C3A5FBC0047FC15 /* CCBottomPopupView.m in Sources */,
 				4268CED61C43421E00434D65 /* CCStarRatingView.m in Sources */,
-				429CA0691B9EF8BF0013A44A /* CCPickerGroup.m in Sources */,
 				422359241C866FDC005207B9 /* UITableView+Additions.m in Sources */,
 				429CA1251B9EF8BF0013A44A /* CCShareMenuView.m in Sources */,
 				429CA10E1B9EF8BF0013A44A /* CCEmotionManager.m in Sources */,
@@ -7423,7 +7348,6 @@
 				420CD8BC1C59F9B9009578D4 /* UIScrollView+CCInputDodger.m in Sources */,
 				429CA0331B9EF8BF0013A44A /* CCPhotoBrowser.m in Sources */,
 				42F411401C214C5400814E7B /* CCLineBrush.m in Sources */,
-				429CA0651B9EF8BF0013A44A /* CCPickerViewController.m in Sources */,
 				4268CEDF1C4381A100434D65 /* CCExpandHeader.m in Sources */,
 				4206A52D1C783CFA001A1CF3 /* CCBottomBar.m in Sources */,
 				4298C7871BDCB33D00A3581D /* CoreDataMasterSlave+Convenience.m in Sources */,
@@ -7439,7 +7363,6 @@
 				42068F241C573E33005DFB01 /* TransformationMatrix.cpp in Sources */,
 				429C9F991B9EF8BF0013A44A /* CCUncaughtExceptionHandler.m in Sources */,
 				429C9FE51B9EF8BF0013A44A /* SRChunkBuffer.m in Sources */,
-				429CA0631B9EF8BF0013A44A /* CCPickerGroupViewController.m in Sources */,
 				429C9FCE1B9EF8BF0013A44A /* NSObject+SRJSON.m in Sources */,
 				42F4121B1C21639B00814E7B /* CCPaintingView.m in Sources */,
 				420CB1351C7D788500A0EC25 /* MASCompositeConstraint.m in Sources */,
@@ -7490,7 +7413,6 @@
 				42D900A31BF4817000B8B01F /* UITextView+CCSignalSupport.m in Sources */,
 				429C9FD41B9EF8BF0013A44A /* SRVersion.m in Sources */,
 				429CA12D1B9EF8BF0013A44A /* SignalRManager.m in Sources */,
-				429CA06E1B9EF8BF0013A44A /* CCPickerCollectionView.m in Sources */,
 				425477801BD2AEC20071BBC5 /* openssl_wrapper.m in Sources */,
 				425477751BD2AEC20071BBC5 /* base64.m in Sources */,
 				429CA1151B9EF8BF0013A44A /* CCBubblePhotoImageView.m in Sources */,
@@ -7500,14 +7422,12 @@
 				4264D7431BA2C19100E83159 /* CCPagesContainerTopBar.m in Sources */,
 				4269792A1BA695BA00C3E93C /* AFHTTPSessionManager.m in Sources */,
 				42F24C7A1BEA5A10008CDEDC /* CCChart.m in Sources */,
-				429CA0701B9EF8BF0013A44A /* CCPickerCollectionViewCell.m in Sources */,
 				42DEB2931C25495000734E09 /* CCColor.m in Sources */,
 				429CA1041B9EF8BF0013A44A /* CCMessageBubbleFactory.m in Sources */,
 				42063E791C892E7D003348EB /* NSManagedObjectContext+Additions.m in Sources */,
 				428A12D11BC8A433005D904D /* ContactRead.m in Sources */,
 				424BD5911C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.m in Sources */,
 				428B5C3C1C22609C001B8584 /* split.c in Sources */,
-				429CA0671B9EF8BF0013A44A /* CCPickerDatas.m in Sources */,
 				429CA1171B9EF8BF0013A44A /* CCMessageBubbleView.m in Sources */,
 				429C9FA51B9EF8BF0013A44A /* CCIntroductionViewController.m in Sources */,
 				42063EDB1C893BCF003348EB /* MKMapView+Additions.m in Sources */,

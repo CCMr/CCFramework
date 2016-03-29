@@ -25,13 +25,23 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ *  @author CC, 16-03-18
+ *  
+ *  @brief 朋友圈说说权限
+ */
+typedef NS_ENUM(NSInteger, PhotoBrowserType) {
+    /** 弹出 */
+    PhotoBrowserTypeShow = 0,
+    /** Psuh */
+    PhotoBrowserTypePush,
+    /** Psuh显示系统导航栏 */
+    PhotoBrowserTypePushNavigationBar,
+};
+
 @protocol CCPhotoBrowserDelegate;
 
 @interface CCPhotoBrowser : UIViewController <UIScrollViewDelegate>
-
-- (id)initWithNavigationBar;
-
-- (instancetype)initWithPusth;
 
 // 代理
 @property(nonatomic, weak) id<CCPhotoBrowserDelegate> delegate;
@@ -42,15 +52,26 @@
 
 @property(nonatomic, copy) void (^backPhotoBlock)(NSArray *photoAry);
 
+/**
+ *  @author CC, 16-03-29
+ *  
+ *  @brief 底部工具条提供自定义
+ */
+@property(nonatomic, weak) UIView *bottomBar;
+
+- (instancetype)initWithBarType:(PhotoBrowserType)type;
+
 // 显示
 - (void)show;
 @end
 
 @protocol CCPhotoBrowserDelegate <NSObject>
+
 @optional
 // 切换到某一页图片
 - (void)photoBrowser:(CCPhotoBrowser *)photoBrowser didChangedToPageAtIndex:(NSUInteger)index;
 
 - (void)didSelectd:(NSUInteger)index; //选中或取消对象委托
--(void)didComplete:(NSUInteger)index;//如已有选中的对象，index不使用。
+- (void)didComplete:(NSUInteger)index;//如已有选中的对象，index不使用。
+
 @end
