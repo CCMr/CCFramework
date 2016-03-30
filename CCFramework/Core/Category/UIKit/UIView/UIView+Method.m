@@ -70,7 +70,36 @@
 
 @end
 
+static char BUTTONCARRYOBJECTS;
+
 @implementation UIView (Method)
+
+-(CGSize)LayoutSizeFittingSize
+{
+    CGFloat contentViewWidth = CGRectGetWidth(self.frame);
+    
+    CGSize viewSize = CGSizeMake(contentViewWidth, 0);
+    
+    // Add a hard width constraint to make dynamic content views (like labels) expand vertically instead
+    // of growing horizontally, in a flow-layout manner.
+    NSLayoutConstraint *widthFenceConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:contentViewWidth];
+    [self addConstraint:widthFenceConstraint];
+    
+    // Auto layout engine does its math
+    viewSize = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    [self removeConstraint:widthFenceConstraint];
+    return viewSize;
+}
+
+- (void)setCarryObjects:(id)carryObjects
+{
+    objc_setAssociatedObject(self, &BUTTONCARRYOBJECTS, carryObjects, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (id)carryObjects
+{
+    return objc_getAssociatedObject(self, &BUTTONCARRYOBJECTS);
+}
 
 #pragma mark -
 #pragma mark :. NIB

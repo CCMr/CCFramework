@@ -32,6 +32,8 @@ typedef NSString *__nonnull (^CCTableHelperCellIdentifierBlock)(NSIndexPath *cIn
 typedef void (^CCTableHelperDidSelectBlock)(UITableView *tableView, NSIndexPath *cIndexPath, id cModel);
 typedef void (^CCTableHelperDidWillDisplayBlock)(UITableViewCell *Cell, id cModel);
 
+typedef void (^CCScrollViewWillBeginDragging)(UIScrollView *scrollView);
+
 @interface CCTableViewHelper : NSObject <UITableViewDataSource, UITableViewDelegate>
 
 /**
@@ -69,6 +71,8 @@ typedef void (^CCTableHelperDidWillDisplayBlock)(UITableViewCell *Cell, id cMode
  *  @brief 设置Cell显示
  */
 - (void)cellWillDisplay:(CCTableHelperDidWillDisplayBlock)cb;
+
+- (void)ccScrollViewWillBeginDragging:(CCScrollViewWillBeginDragging)block;
 
 @property(nonatomic, weak) UITableView *cc_tableView;
 @property(nonatomic, strong) NSIndexPath *cc_indexPath;

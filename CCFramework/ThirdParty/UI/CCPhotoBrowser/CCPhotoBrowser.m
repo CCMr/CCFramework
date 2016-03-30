@@ -125,6 +125,22 @@
     }
 }
 
+- (void)setBottomBar:(UIView *)bottomBar
+{
+    if (_bottomBar)
+        [self.bottomBar removeFromSuperview];
+    
+    _bottomBar = bottomBar;
+    if (_toolbar)
+        [self.toolbar removeFromSuperview];
+    
+    CGRect frame = self.bottomBar.frame;
+    frame.origin.y = winsize.height - _bottomBar.height;
+    self.bottomBar.frame = frame;
+    self.bottomBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    [self.view addSubview:self.bottomBar];
+}
+
 #pragma mark :. 保留系统导航栏
 - (void)pushNavigationTool
 {
@@ -197,7 +213,7 @@
         [stateButton sizeToFit];
         stateButton.frame = CGRectMake(_topBar.frame.size.width - 12 - stateButton.frame.size.width, _topBar.frame.size.height / 2 - stateButton.frame.size.height / 2 + originY / 2, stateButton.frame.size.width, stateButton.frame.size.height);
         [stateButton addTarget:self action:@selector(handleStateChangeAction:) forControlEvents:UIControlEventTouchUpInside];
-//        [_topBar addSubview:self.stateButton = stateButton];
+        //        [_topBar addSubview:self.stateButton = stateButton];
     }
     return _topBar;
 }
@@ -337,7 +353,7 @@
         if (hidden)
             self.bottomBar.y += 40;
         else
-             self.bottomBar.y -= 40;
+            self.bottomBar.y -= 40;
     } completion:^(BOOL finished) {
         self.topBar.hidden = self.toolbar.hidden = hidden;
         [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationFade];

@@ -76,14 +76,7 @@
  */
 - (void)setImage:(NSString *)imagePath;
 
-/**
- *  @author CC, 2015-07-16
- *
- *  @brief  扩展属性
- *
- *  @since 1.0
- */
-@property(nonatomic, retain) id carryObjects;
+
 
 /**
  *  @author CC, 2015-07-16

@@ -37,6 +37,8 @@
 @property(nonatomic, copy) CCTableHelperDidSelectBlock didSelectBlock;
 @property(nonatomic, copy) CCTableHelperDidWillDisplayBlock didWillDisplayBlock;
 
+@property(nonatomic, copy) CCScrollViewWillBeginDragging scrollViewBdBlock;
+
 @end
 
 @implementation CCTableViewHelper
@@ -81,6 +83,11 @@
 - (void)cellWillDisplay:(CCTableHelperDidWillDisplayBlock)cb
 {
     self.didWillDisplayBlock = cb;
+}
+
+- (void)ccScrollViewWillBeginDragging:(CCScrollViewWillBeginDragging)block
+{
+    self.scrollViewBdBlock = block;
 }
 
 #pragma mark :. TableView DataSource Delegate
@@ -157,8 +164,14 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (self.didSelectBlock) {
         id curModel = [self currentModelAtIndexPath:indexPath];
-        self.didSelectBlock(tableView,indexPath, curModel);
+        self.didSelectBlock(tableView, indexPath, curModel);
     }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    if (self.scrollViewBdBlock)
+        self.scrollViewBdBlock(scrollView);
 }
 
 #pragma mark :. Handler

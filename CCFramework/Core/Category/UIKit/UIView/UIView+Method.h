@@ -33,6 +33,22 @@
 
 @interface UIView (Method)
 
+/**
+ *  @author CC, 16-03-30
+ *  
+ *  @brief 自动获取高度
+ */
+@property(nonatomic, assign, readonly) CGSize LayoutSizeFittingSize;
+
+/**
+ *  @author CC, 2015-07-16
+ *
+ *  @brief  扩展属性
+ *
+ *  @since 1.0
+ */
+@property(nonatomic, retain) id carryObjects;
+
 #pragma mark -
 #pragma mark :. NIB
 

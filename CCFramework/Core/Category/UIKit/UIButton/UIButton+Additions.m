@@ -28,19 +28,7 @@
 #import "UIImageView+Additions.h"
 #import "UIView+Method.h"
 
-static char BUTTONCARRYOBJECTS;
-
 @implementation UIButton (Additions)
-
-- (void)setCarryObjects:(id)carryObjects
-{
-    objc_setAssociatedObject(self, &BUTTONCARRYOBJECTS, carryObjects, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (id)carryObjects
-{
-    return objc_getAssociatedObject(self, &BUTTONCARRYOBJECTS);
-}
 
 /**
  *  @author C C, 2015-10-01

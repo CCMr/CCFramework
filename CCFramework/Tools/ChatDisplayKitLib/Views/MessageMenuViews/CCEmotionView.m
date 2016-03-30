@@ -27,6 +27,7 @@
 #import "CCEmotionView.h"
 #import "CCEmotion.h"
 #import "UIButton+Additions.h"
+#import "UIView+Method.h"
 #import "UIImage+Additions.h"
 #import "UIImageView+Additions.h"
 
