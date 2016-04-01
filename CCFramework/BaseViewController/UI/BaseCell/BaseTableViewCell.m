@@ -45,24 +45,24 @@
  *  @author CC, 2015-07-29
  *
  *  @brief  使用XIB初始化
- *
- *  @return <#return value description#>
- *
- *  @since 1.0
  */
 - (id)init
 {
     self = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self.class) owner:self options:nil].lastObject;
-
+    
     if (!self) {
         self = [self initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellIdentifier"];
-
     }
     return self;
 }
 
 - (void)initTabelViewCell
 {
+    //取消选中颜色
+    UIView *backView = [[UIView alloc] initWithFrame:self.frame];
+    self.selectedBackgroundView = backView;
+    self.selectedBackgroundView.backgroundColor = [UIColor clearColor];
+    
     self.layer.masksToBounds = YES;
     self.contentView.layer.masksToBounds = YES;
     self.backgroundView.layer.masksToBounds = YES;
@@ -81,10 +81,6 @@
  *  @author CC, 2015-07-29
  *
  *  @brief  初始化Cell  子类必须重载
- *
- *  @return <#return value description#>
- *
- *  @since 1.0
  */
 + (id)initView
 {
@@ -112,8 +108,6 @@
  *
  *  @param data       当前数据对象
  *  @param completion 回调函数
- *
- *  @since 1.0
  */
 - (void)setData:(id)data
     CompletionL:(Completion)completion
@@ -126,17 +120,13 @@
  *  @author CC, 2015-07-29
  *
  *  @brief  适配器选择状态
- *
- *  @param selected <#selected description#>
- *  @param animated <#animated description#>
- *
- *  @since 1.0
  */
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
     
-    [self performSelector:@selector(cancelSelectedCell) withObject:nil afterDelay:0.5];
+    if (self.isAutomaticallyCanceled)
+        [self performSelector:@selector(cancelSelectedCell) withObject:nil afterDelay:0.5];
 }
 
 - (void)cancelSelectedCell

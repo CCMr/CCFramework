@@ -35,30 +35,33 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, strong) Completion completion;
+@property(nonatomic, strong) Completion completion;
 
 /**
  *  @author CC, 2015-10-21
  *
  *  @brief  当前Cell数据源
  */
-@property (nonatomic, strong) id dataSources;
+@property(nonatomic, strong) id dataSources;
 
 /**
  *  @author C C, 2015-10-01
  *
  *  @brief  Cell 获取下标
  */
-@property (nonatomic, strong) NSIndexPath *indexPath;
+@property(nonatomic, strong) NSIndexPath *indexPath;
+
+/**
+ *  @author CC, 16-03-31
+ *  
+ *  @brief 是否自动取消选中状态(默认不自动取消)
+ */
+@property(nonatomic, assign) BOOL isAutomaticallyCanceled;
 
 /**
  *  @author CC, 2015-07-29
  *
  *  @brief  使用XIB初始化
- *
- *  @return <#return value description#>
- *
- *  @since 1.0
  */
 - (id)init;
 
@@ -66,10 +69,6 @@
  *  @author CC, 2015-07-29
  *
  *  @brief  初始化Cell  子类必须重载
- *
- *  @return <#return value description#>
- *
- *  @since 1.0
  */
 + (id)initView;
 
@@ -81,8 +80,6 @@
  *  @brief  赋值数据
  *
  *  @param data 当前数据对象
- *
- *  @since <#1.0#>
  */
 - (void)setData:(id)data;
 
@@ -93,8 +90,6 @@
  *
  *  @param data       当前数据对象
  *  @param completion 回调函数
- *
- *  @since 1.0
  */
 - (void)setData:(id)data
     CompletionL:(Completion)completion;
