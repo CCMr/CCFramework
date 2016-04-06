@@ -73,7 +73,7 @@ typedef void (^responseBlock)(id responseObj, NSError *error);
 + (NSString *)appendingServerURLWithString:(NSString *)serviceAddres
                                 MethodName:(NSString *)methodName;
 
-
+#pragma mark -
 #pragma mark :. 网络请求并解析
 /**
  *  @author CC, 16-03-10
@@ -189,6 +189,8 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
      response:(responseBlock)response
       failure:(requestFailureBlock)failure;
 
+#pragma mark -
+#pragma mark :. 网络请求解析处理   PS:如需使用必须在子类实现该函数
 
 /**
  *  @author CC, 16-03-10
@@ -198,7 +200,85 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param responseObject 响应结果
  *  @param modelClass     模型对象
  */
-+ (id)modelTransformationWithResponseObj:(CCResponseObject *)responseObject 
++ (id)modelTransformationWithResponseObj:(CCResponseObject *)responseObject
                               modelClass:(Class)modelClass;
+
+/**
+ *  @author CC, 16-04-06
+ *  
+ *  @brief GET请求处理
+ *
+ *  @param api           API地址
+ *  @param parameter     发送参数
+ *  @param responseBlock 回调函数
+ */
++ (void)handleGET:(NSString *)api
+       parameters:(NSDictionary *)parameter
+    responseBlock:(CCRequestBacktrack)responseBlock;
+
+/**
+ *  @author CC, 16-04-06
+ *  
+ *  @brief POST请求处理
+ *
+ *  @param api           API地址
+ *  @param parameter     发送参数
+ *  @param responseBlock 回调函数
+ */
++ (void)handlePOST:(NSString *)api
+        parameters:(NSDictionary *)parameter
+     responseBlock:(CCRequestBacktrack)responseBlock;
+
+/**
+ *  @author CC, 16-04-06
+ *  
+ *  @brief ELETE请求处理
+ *
+ *  @param api           API地址
+ *  @param parameter     发送参数
+ *  @param responseBlock 回调函数
+ */
++ (void)handleDELETE:(NSString *)api
+          parameters:(NSDictionary *)parameter
+       responseBlock:(CCRequestBacktrack)responseBlock;
+
+/**
+ *  @author CC, 16-04-06
+ *  
+ *  @brief HEAD请求处理
+ *
+ *  @param api           API地址
+ *  @param parameter     发送参数
+ *  @param responseBlock 回调函数
+ */
++ (void)handleHEAD:(NSString *)api
+        parameters:(NSDictionary *)parameter
+     responseBlock:(CCRequestBacktrack)responseBlock;
+
+/**
+ *  @author CC, 16-04-06
+ *  
+ *  @brief PUT请求处理
+ *
+ *  @param api           API地址
+ *  @param parameter     发送参数
+ *  @param responseBlock 回调函数
+ */
++ (void)handlePUT:(NSString *)api
+       parameters:(NSDictionary *)parameter
+    responseBlock:(CCRequestBacktrack)responseBlock;
+
+/**
+ *  @author CC, 16-04-06
+ *  
+ *  @brief PATCH请求处理
+ *
+ *  @param api           API地址
+ *  @param parameter     发送参数
+ *  @param responseBlock 回调函数
+ */
++ (void)handlePATCH:(NSString *)api
+         parameters:(NSDictionary *)parameter
+      responseBlock:(CCRequestBacktrack)responseBlock;
 
 @end

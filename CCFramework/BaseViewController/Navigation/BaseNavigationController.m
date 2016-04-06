@@ -66,6 +66,26 @@
     __weak typeof(self) weakSelf = self;
     if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
         self.interactivePopGestureRecognizer.delegate = weakSelf;
+    
+    //    [self initializeBarButtonItem];
+}
+
+- (void)initializeBarButtonItem
+{
+    //设置整个项目的item状态
+    UIBarButtonItem *item = [UIBarButtonItem appearance];
+    
+    //设置item普通状态
+    NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
+    attrs[NSFontAttributeName] = [UIFont systemFontOfSize:15];
+    attrs[NSForegroundColorAttributeName] = [[UINavigationBar appearance].titleTextAttributes objectForKey:NSForegroundColorAttributeName];
+    [item setTitleTextAttributes:attrs forState:UIControlStateNormal];
+    
+    //设置item不可用状态
+    NSMutableDictionary *disabledAttrs = [NSMutableDictionary dictionary];
+    disabledAttrs[NSFontAttributeName] = [UIFont systemFontOfSize:15];
+    disabledAttrs[NSForegroundColorAttributeName] = [UIColor lightGrayColor];
+    [item setTitleTextAttributes:disabledAttrs forState:UIControlStateDisabled];
 }
 
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated

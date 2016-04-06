@@ -40,7 +40,7 @@
 
 @interface CCMessageTextView : UITextView
 
-@property(nonatomic,weak) id<CCMessageTextViewDelegate> cc_delegate;
+@property(nonatomic, weak) id<CCMessageTextViewDelegate> cc_delegate;
 
 /**
  *  @author CC, 2015-08-13
@@ -76,7 +76,7 @@
  *
  *  @brief  获取每行的高度
  *
- *  @return 任辉iPhone或者iPad来获取每行文字的高度
+ *  @return iPhone或者iPad来获取每行文字的高度
  *
  *  @since 1.0
  */
