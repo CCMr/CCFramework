@@ -38,6 +38,7 @@
 @property(nonatomic, copy) CCTableHelperDidWillDisplayBlock didWillDisplayBlock;
 
 @property(nonatomic, copy) CCScrollViewWillBeginDragging scrollViewBdBlock;
+@property(nonatomic, copy) CCTableHelperHeaderBlock headerBlock;
 
 @end
 
@@ -90,7 +91,29 @@
     self.scrollViewBdBlock = block;
 }
 
+- (void)headerView:(CCTableHelperHeaderBlock)cb
+{
+    self.headerBlock = cb;
+}
+
 #pragma mark :. TableView DataSource Delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    CGFloat height = 0;
+    if (self.headerBlock)
+        height = self.headerBlock(tableView, section).LayoutSizeFittingSize.height;
+    return height;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *hederView = nil;
+    if (self.headerBlock)
+        hederView = self.headerBlock(tableView, section);
+    return hederView;
+}
+
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -133,11 +156,13 @@
     
     if (self.didWillDisplayBlock) {
         self.didWillDisplayBlock(curCell, curModel);
-    }
-    
-    if ([curCell respondsToSelector:@selector(cc_cellWillDisplayWithModel:indexPath:)]) {
+    } else if ([curCell respondsToSelector:@selector(cc_cellWillDisplayWithModel:indexPath:)]) {
         [curCell cc_cellWillDisplayWithModel:curModel indexPath:indexPath];
     }
+    
+    if (self.cellDelegate)
+        curCell.delegate = self.cellDelegate;
+    
     return curCell;
 }
 

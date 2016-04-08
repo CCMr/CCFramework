@@ -432,20 +432,6 @@
     }];
 }
 
-- (void)SlideFrame:(BOOL)Up
-{
-    const int movementDistance = 20;     // tweak as needed
-    const float movementDuration = 0.3f; // tweak as needed
-    
-    int movement = (Up ? -movementDistance : movementDistance);
-    
-    [UIView beginAnimations:@"anim" context:nil];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:movementDuration];
-    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
-    [UIView commitAnimations];
-}
-
 - (void)BasekeyboardWillShow:(CGRect)keyboardRect
 {
 }

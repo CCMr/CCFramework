@@ -101,6 +101,17 @@ typedef void (^EventHandleBlock)(NSDictionary *eventDic, NSString *info, Callbac
                                     info:(NSString *)info;
 
 /**
+ *  @author CC, 16-04-08
+ *  
+ *  @brief 将(ViewController或者Model)事物传递到viewManger
+ *
+ *  @param affairsDic 处理事务参数
+ *  @param info       附带信息，用于区分调用
+ */
+- (void)cc_viewMangerWithHandleAffairs:(NSDictionary *)affairsDic
+                                  info:(NSString *)info;
+
+/**
  *  @author CC, 16-03-15
  *  
  *  @brief 将（model或数据源）数据传递到viewManger

@@ -120,6 +120,7 @@
     
     if (self.photoType == PhotoBrowserTypePushNavigationBar) {
         [self pushNavigationTool];
+        [self.toolbar removeFromSuperview];
     } else if (self.photoType == PhotoBrowserTypePush) {
         [self.view addSubview:self.topBar];
     }

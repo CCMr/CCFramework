@@ -25,6 +25,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "CCViewProtocolDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,6 +34,8 @@ typedef void (^CCTableHelperDidSelectBlock)(UITableView *tableView, NSIndexPath 
 typedef void (^CCTableHelperDidWillDisplayBlock)(UITableViewCell *Cell, id cModel);
 
 typedef void (^CCScrollViewWillBeginDragging)(UIScrollView *scrollView);
+
+typedef UIView *__nonnull (^CCTableHelperHeaderBlock)(UITableView *tableView, NSInteger section);
 
 @interface CCTableViewHelper : NSObject <UITableViewDataSource, UITableViewDelegate>
 
@@ -49,6 +52,13 @@ typedef void (^CCScrollViewWillBeginDragging)(UIScrollView *scrollView);
 @property(nullable, nonatomic, copy) NSString *cellIdentifier;
 
 @property(nonatomic, assign) BOOL cc_CellXIB;
+
+/**
+ *  @author CC, 16-04-07
+ *  
+ *  @brief Cell委托
+ */
+@property(nonatomic, weak) id<CCViewProtocolDelegate> cellDelegate;
 
 /**
  *  When using xib, all incoming nib names
@@ -73,6 +83,8 @@ typedef void (^CCScrollViewWillBeginDragging)(UIScrollView *scrollView);
 - (void)cellWillDisplay:(CCTableHelperDidWillDisplayBlock)cb;
 
 - (void)ccScrollViewWillBeginDragging:(CCScrollViewWillBeginDragging)block;
+
+- (void)headerView:(CCTableHelperHeaderBlock)cb;
 
 @property(nonatomic, weak) UITableView *cc_tableView;
 @property(nonatomic, strong) NSIndexPath *cc_indexPath;

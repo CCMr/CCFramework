@@ -33,13 +33,6 @@
 @optional
 
 /**
- *  将view中的事件通过代理传递出去
- *
- *  @param view   view自己
- *  @param events 所触发事件的一些描述信息
- */
-
-/**
  *  @author CC, 16-03-14
  *  
  *  @brief 将view中的事件通过代理传递出去
