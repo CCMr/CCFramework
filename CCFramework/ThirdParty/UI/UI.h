@@ -57,6 +57,7 @@
 #import <CCFramework/UIScrollView+CCRefresh.h>
 #import <CCFramework/CCTableViewCell.h>
 #import <CCFramework/CCTextViewPlaceholder.h>
+#import <CCFramework/CCTextView.h>
 #import <CCFramework/BUILabel.h>
 #import <CCFramework/CCLabel.h>
 #import <CCFramework/CCAutoTextView.h>

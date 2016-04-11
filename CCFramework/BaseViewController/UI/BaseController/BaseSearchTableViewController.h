@@ -33,16 +33,14 @@
  *
  *  @brief  键值数据源
  */
-@property (nonatomic, strong) NSMutableDictionary *dicDataSource;
+@property(nonatomic, strong) NSMutableDictionary *dicDataSource;
 
 /**
  *  @author CC, 15-08-21
  *
  *  @brief  搜索结果数据源
- *
- *  @since <#1.0#>
  */
-@property (nonatomic, strong) NSMutableArray *filteredDataSource;
+@property(nonatomic, strong) NSMutableArray *filteredDataSource;
 
 /**
  *  @author CC, 15-08-21
@@ -52,8 +50,6 @@
  *  @param tableView 被判断的目标TableView对象
  *
  *  @return 返回是否为预想结果
- *
- *  @since <#1.0#>
  */
 - (BOOL)enableForSearchTableView:(UITableView *)tableView;
 
@@ -63,8 +59,6 @@
  *  @brief  获取搜索框的文本
  *
  *  @return 返回文本对象
- *
- *  @since 1.0
  */
 - (NSString *)getSearchBarText;
 
@@ -75,11 +69,9 @@
  *
  *  @param searchText 搜索框的文本
  *  @param scope      搜索范围
- *
- *  @since 1.0
  */
-- (void)filterContentForSearchText: (NSString *)searchText
-                             scope: (NSString *)scope;
+- (void)filterContentForSearchText:(NSString *)searchText
+                             scope:(NSString *)scope;
 
 /**
  *  @author CC, 15-09-10
@@ -88,8 +80,6 @@
  *
  *  @param title 索引标题
  *  @param index 插入下标
- *
- *  @since 1.0
  */
 - (void)insetSectionIndexTitles: (NSString *)title
                           Index: (int)index;

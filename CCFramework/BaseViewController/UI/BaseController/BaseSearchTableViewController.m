@@ -27,6 +27,7 @@
 #import "BaseSearchTableViewController.h"
 #import "UIView+Frame.h"
 #import "UITableView+Additions.h"
+#import "UISearchBar+Additions.h"
 
 @interface BaseSearchTableViewController () <UISearchDisplayDelegate, UISearchBarDelegate>
 
@@ -34,37 +35,29 @@
  *  @author CC, 15-08-21
  *
  *  @brief  搜索框
- *
- *  @since <#1.0#>
  */
-@property (nonatomic, strong) UISearchBar *searchBar;
+@property(nonatomic, strong) UISearchBar *searchBar;
 
 /**
  *  @author CC, 15-08-21
  *
  *  @brief  TableView右边的IndexTitles数据源
- *
- *  @since 1.0
  */
-@property (nonatomic, strong) NSMutableArray *sectionIndexTitles;
+@property(nonatomic, strong) NSMutableArray *sectionIndexTitles;
 
 /**
  *  @author CC, 15-08-21
  *
  *  @brief  搜索框绑定的控制器
- *
- *  @since <#1.0#>
  */
-@property (nonatomic) UISearchDisplayController *searchController;
+@property(nonatomic) UISearchDisplayController *searchController;
 
 /**
  *  @author CC, 15-09-10
  *
  *  @brief  索引集合
- *
- *  @since 1.0
  */
-@property (nonatomic, strong) UILocalizedIndexedCollation *theCollation;
+@property(nonatomic, strong) UILocalizedIndexedCollation *theCollation;
 
 @end
 
@@ -72,11 +65,13 @@
 
 #pragma mark - Action
 
-- (void)voiceButtonClicked:(UIButton *)sender {
+- (void)voiceButtonClicked:(UIButton *)sender
+{
     [self.searchDisplayController setActive:YES animated:YES];
 }
 
-- (void)configureSearchBarLeftIconButton {
+- (void)configureSearchBarLeftIconButton
+{
     UITextField *searchField;
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)
         searchField = [_searchBar.subviews objectAtIndex:1];
@@ -92,18 +87,21 @@
         searchField.rightView = leftIconButton;
         searchField.rightViewMode = UITextFieldViewModeAlways;
     }
+    [self.searchBar setCancelTitle:@"取消"];
 }
 
 #pragma mark - Propertys
 
-- (NSMutableArray *)filteredDataSource {
+- (NSMutableArray *)filteredDataSource
+{
     if (!_filteredDataSource) {
         _filteredDataSource = [[NSMutableArray alloc] initWithCapacity:1];
     }
     return _filteredDataSource;
 }
 
-- (UISearchBar *)searchBar {
+- (UISearchBar *)searchBar
+{
     if (!_searchBar) {
         _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
         _searchBar.delegate = self;
@@ -116,11 +114,12 @@
     return _searchBar;
 }
 
-- (NSString *)getSearchBarText {
+- (NSString *)getSearchBarText
+{
     return self.searchDisplayController.searchBar.text.lowercaseString;
 }
 
--(NSMutableDictionary *)DicDataSource
+- (NSMutableDictionary *)DicDataSource
 {
     if (!_dicDataSource) {
         _dicDataSource = [NSMutableDictionary dictionary];
@@ -137,7 +136,7 @@
  *
  *  @since 1.0
  */
--(NSArray *)sectionIndexTitles
+- (NSArray *)sectionIndexTitles
 {
     if (!_sectionIndexTitles) {
         NSMutableArray *sectionIndex = [NSMutableArray array];
@@ -158,21 +157,32 @@
  *
  *  @since 1.0
  */
-- (void)insetSectionIndexTitles: (NSString *)title
-                          Index: (int)index
+- (void)insetSectionIndexTitles:(NSString *)title
+                          Index:(int)index
 {
     [self.sectionIndexTitles insertObject:title atIndex:index];
 }
 
+- (void)setDicDataSource:(NSMutableDictionary *)dicDataSource
+{
+    _dicDataSource = dicDataSource;
+    
+    [self.sectionIndexTitles removeAllObjects];
+    [self.sectionIndexTitles addObject:UITableViewIndexSearch];
+    [self.sectionIndexTitles addObjectsFromArray:[dicDataSource allKeys]];
+}
+
 #pragma mark - Life Cycle
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     
     [self configureSearchBarLeftIconButton];
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _theCollation = [UILocalizedIndexedCollation currentCollation];
@@ -185,7 +195,8 @@
     //    [self.tableView setTableHeaderView:views];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -199,16 +210,16 @@
  *
  *  @param searchText 检索关键字
  *  @param scope      <#scope description#>
- *
- *  @since 1.0
  */
-- (void)filterContentForSearchText:(NSString *)searchText scope:(NSString *)scope {
+- (void)filterContentForSearchText:(NSString *)searchText scope:(NSString *)scope
+{
     [self.filteredDataSource removeAllObjects];
 }
 
 #pragma mark - SearchTableView Helper Method
 
-- (BOOL)enableForSearchTableView:(UITableView *)tableView {
+- (BOOL)enableForSearchTableView:(UITableView *)tableView
+{
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         return YES;
     }
@@ -217,14 +228,14 @@
 
 #pragma mark - UISearchDisplayController Delegate Methods
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-    [self filterContentForSearchText:searchString scope:
-     [self.searchDisplayController.searchBar scopeButtonTitles][[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
-    
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    [self filterContentForSearchText:searchString scope:[self.searchDisplayController.searchBar scopeButtonTitles][[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
     return YES;
 }
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
+{
     [self filterContentForSearchText:[self.searchDisplayController.searchBar text] scope:
      [self.searchDisplayController.searchBar scopeButtonTitles][searchOption]];
     
@@ -232,8 +243,8 @@
 }
 #pragma mark - SearchBar Delegate
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-    
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
 }
 
 #pragma mark - UITableView DataSource
@@ -248,10 +259,9 @@
  *  @param index     当前位置
  *
  *  @return 返回索引位置
- *
- *  @since 1.0
  */
-- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
     NSInteger indexs = self.sectionIndexTitles.count == [[_theCollation sectionTitles] count] ? index : index - 1;
     if ([title isEqualToString:@"{search}"]) {
         [tableView scrollRectToVisible:_searchBar.frame animated:NO];
@@ -261,15 +271,16 @@
     return indexs;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     if ([self enableForSearchTableView:tableView]) {
         return 1;
     }
     return self.ArrayDataSource.count > 0 ? self.ArrayDataSource.count : self.dicDataSource.count;
 }
 
-- (NSInteger)tableView: (UITableView *)tableView
- numberOfRowsInSection: (NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section
 {
     if ([self enableForSearchTableView:tableView]) {
         return self.filteredDataSource.count;
@@ -277,18 +288,21 @@
     return self.ArrayDataSource.count > 0 ? [self.ArrayDataSource[section] count] : [[self.dicDataSource objectForKey:[self.dicDataSource.allKeys objectAtIndex:section]] count];
 }
 
-- (CGFloat)tableView: (UITableView *)tableView heightForHeaderInSection :(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
     return 22;
 }
 
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
     return self.sectionIndexTitles;
 }
 
 #pragma mark - UITableView Delegate
 
 //section 头部,为了IOS6的美化
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
     if ([self enableForSearchTableView:tableView]) {
         return nil;
     }
@@ -296,15 +310,15 @@
     BOOL showSection = NO;
     if (self.ArrayDataSource.count) {
         showSection = [[self.ArrayDataSource objectAtIndex:section] count] != 0;
-    }else if (self.dicDataSource.count)
+    } else if (self.dicDataSource.count)
         showSection = [[self.dicDataSource objectForKey:[self.dicDataSource.allKeys objectAtIndex:section]] count] != 0;
     
     //only show the section title if there are rows in the sections
     
-    UIView *customHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 22.0f)];
+    UIView *customHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 22.0f)];
     customHeaderView.backgroundColor = [UIColor colorWithRed:0.926 green:0.920 blue:0.956 alpha:1.000];
     
-    UILabel *headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(15.0f, 0, CGRectGetWidth(customHeaderView.bounds) - 15.0f, 22.0f)];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0f, 0, CGRectGetWidth(customHeaderView.bounds) - 15.0f, 22.0f)];
     headerLabel.text = (showSection) ? (self.sectionIndexTitles.count == [[_theCollation sectionTitles] count] ? [_sectionIndexTitles objectAtIndex:section] : [_sectionIndexTitles objectAtIndex:section + 1]) : nil;
     headerLabel.backgroundColor = [UIColor clearColor];
     headerLabel.font = [UIFont boldSystemFontOfSize:14.0f];

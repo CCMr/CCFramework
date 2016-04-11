@@ -213,6 +213,8 @@
 		4219EE161C7FF93F00F1EE76 /* MLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4219EE011C7FF93F00F1EE76 /* MLLabel.m */; };
 		4219EE171C7FF93F00F1EE76 /* MLLinkLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 4219EE021C7FF93F00F1EE76 /* MLLinkLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4219EE181C7FF93F00F1EE76 /* MLLinkLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4219EE031C7FF93F00F1EE76 /* MLLinkLabel.m */; };
+		421C08D51CBB88DF00402EB9 /* CCTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 421C08D31CBB88DF00402EB9 /* CCTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		421C08D61CBB88DF00402EB9 /* CCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 421C08D41CBB88DF00402EB9 /* CCTextView.m */; };
 		421C643D1C83E18700696B63 /* SREventSourceRequestSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 421C64391C83E18700696B63 /* SREventSourceRequestSerializer.h */; };
 		421C643E1C83E18700696B63 /* SREventSourceRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 421C643A1C83E18700696B63 /* SREventSourceRequestSerializer.m */; };
 		421C643F1C83E18700696B63 /* SREventSourceResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 421C643B1C83E18700696B63 /* SREventSourceResponseSerializer.h */; };
@@ -1445,6 +1447,8 @@
 		4219EE011C7FF93F00F1EE76 /* MLLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLabel.m; sourceTree = "<group>"; };
 		4219EE021C7FF93F00F1EE76 /* MLLinkLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLinkLabel.h; sourceTree = "<group>"; };
 		4219EE031C7FF93F00F1EE76 /* MLLinkLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLinkLabel.m; sourceTree = "<group>"; };
+		421C08D31CBB88DF00402EB9 /* CCTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTextView.h; sourceTree = "<group>"; };
+		421C08D41CBB88DF00402EB9 /* CCTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTextView.m; sourceTree = "<group>"; };
 		421C64391C83E18700696B63 /* SREventSourceRequestSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SREventSourceRequestSerializer.h; sourceTree = "<group>"; };
 		421C643A1C83E18700696B63 /* SREventSourceRequestSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SREventSourceRequestSerializer.m; sourceTree = "<group>"; };
 		421C643B1C83E18700696B63 /* SREventSourceResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SREventSourceResponseSerializer.h; sourceTree = "<group>"; };
@@ -5237,6 +5241,8 @@
 			children = (
 				429C9E811B9EF8BF0013A44A /* CCAutoTextView.h */,
 				429C9E821B9EF8BF0013A44A /* CCAutoTextView.m */,
+				421C08D31CBB88DF00402EB9 /* CCTextView.h */,
+				421C08D41CBB88DF00402EB9 /* CCTextView.m */,
 			);
 			path = CCUITextView;
 			sourceTree = "<group>";
@@ -6254,6 +6260,7 @@
 				42A1F6601C8A8E4000A20F64 /* FMDatabaseAdditions.h in Headers */,
 				425477791BD2AEC20071BBC5 /* DataVerifier.h in Headers */,
 				421C643F1C83E18700696B63 /* SREventSourceResponseSerializer.h in Headers */,
+				421C08D51CBB88DF00402EB9 /* CCTextView.h in Headers */,
 				4269794A1BA695BA00C3E93C /* UIWebView+AFNetworking.h in Headers */,
 				42F411411C214C5400814E7B /* CCCircleBrush.h in Headers */,
 				42B30DE81BBD72AD0039BB94 /* SDWebImageManager.h in Headers */,
@@ -7410,6 +7417,7 @@
 				428B5C3A1C22609C001B8584 /* rscode.c in Sources */,
 				4225113D1C72F795003B3623 /* CCFoundation.m in Sources */,
 				421DC6B71C85750E009E825B /* UIFont+Additions.m in Sources */,
+				421C08D61CBB88DF00402EB9 /* CCTextView.m in Sources */,
 				42D900A31BF4817000B8B01F /* UITextView+CCSignalSupport.m in Sources */,
 				429C9FD41B9EF8BF0013A44A /* SRVersion.m in Sources */,
 				429CA12D1B9EF8BF0013A44A /* SignalRManager.m in Sources */,
