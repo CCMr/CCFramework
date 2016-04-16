@@ -74,6 +74,8 @@ typedef void (^DropDownMenuDidSelectedCompledBlock)(NSInteger index, CCDropDownL
  */
 @property(nonatomic, copy) UIColor *menuItemTextColor;
 
+@property(nonatomic, assign) NSTextAlignment menuItemTextAlignment;
+
 @property(nonatomic, copy) DropDownMenuDidSelectedCompledBlock dropDownMenuDidSelectedCompled;
 
 @property(nonatomic, copy) DropDownMenuDidSelectedCompledBlock dropDownMenuDidDismissCompled;

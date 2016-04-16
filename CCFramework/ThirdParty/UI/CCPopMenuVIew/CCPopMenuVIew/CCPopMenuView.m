@@ -106,6 +106,9 @@
                 weakSelf.selectedItem = nil;
             }
         }
+        if (weakSelf.didDismissMenuCompletion)
+            weakSelf.didDismissMenuCompletion(weakSelf);
+        
         [weakSelf removeFromSuperview];
     };
     _realTimeBlur.hasTapGestureEnable = YES;
@@ -179,6 +182,9 @@
         return;
     }
     [self.realTimeBlur disMiss];
+    
+    if (self.didDismissMenuCompletion)
+        self.didDismissMenuCompletion(self);
 }
 
 #pragma mark - 私有方法
@@ -198,7 +204,7 @@
         
         CCPopMenuItem *menuItem = items[index];
         // 如果没有自定义index，就按照正常流程，从0开始
-        if (menuItem.index < 0) {
+        if (menuItem.index <= 0) {
             menuItem.index = index;
         }
         CCPopMenuButton *menuButton = (CCPopMenuButton *)[self viewWithTag:kMenuButtonBaseTag + index];

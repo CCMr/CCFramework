@@ -82,18 +82,18 @@
     return self;
 }
 
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    
-    CGRect frame = _separatorLineImageView.frame;
-    frame.origin.y = CGRectGetHeight(self.bounds) - .5;
-    _separatorLineImageView.frame = frame;
-    
-    CGRect textLabelFrame = self.textLabel.frame;
-    textLabelFrame.origin.x = CGRectGetMaxX(self.imageView.frame) + 5;
-    self.textLabel.frame = textLabelFrame;
-}
+//- (void)layoutSubviews
+//{
+//    [super layoutSubviews];
+//    
+//    CGRect frame = _separatorLineImageView.frame;
+//    frame.origin.y = CGRectGetHeight(self.bounds) - .5;
+//    _separatorLineImageView.frame = frame;
+//    
+//    CGRect textLabelFrame = self.textLabel.frame;
+//    textLabelFrame.origin.x = CGRectGetMaxX(self.imageView.frame) + 5;
+//    self.textLabel.frame = textLabelFrame;
+//}
 
 
 @end

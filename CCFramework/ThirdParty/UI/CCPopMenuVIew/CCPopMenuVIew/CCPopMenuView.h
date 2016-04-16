@@ -77,6 +77,8 @@ typedef void (^DidSelectedItemBlock)(CCPopMenuItem *selectedItem);
  */
 @property(nonatomic, copy) DidSelectedItemBlock didSelectedItemCompletion;
 
+@property(nonatomic, copy) void (^didDismissMenuCompletion)(CCPopMenuView *popMenuView);
+
 /**
  *  @author CC, 16-03-18
  *  

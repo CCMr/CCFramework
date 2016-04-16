@@ -97,10 +97,13 @@
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.alpha = 1.0;
             
+             CGFloat x = self.targetPoint.x + self.viewSender.frame.origin.x;
             if (self.animationDirection == DorpDownListTypeDown) {
-                self.menuContainerView.frame = CGRectMake(self.viewSender.frame.origin.x, self.viewSender.frame.origin.y + self.viewSender.frame.size.height, self.viewSender.frame.size.width, self.fromTheHeight);
+                CGFloat y = self.targetPoint.y + self.viewSender.frame.origin.y + self.viewSender.frame.size.height;
+                self.menuContainerView.frame = CGRectMake(x, y, self.viewSender.frame.size.width, self.fromTheHeight);
             }else if (self.animationDirection == DorpDownListTypeUP){
-                self.menuContainerView.frame = CGRectMake(self.viewSender.frame.origin.x, self.viewSender.frame.origin.y - self.fromTheHeight, self.viewSender.frame.size.width, self.fromTheHeight);
+                CGFloat y = self.viewSender.frame.origin.y - self.fromTheHeight - self.targetPoint.y;
+                self.menuContainerView.frame = CGRectMake(x, y, self.viewSender.frame.size.width, self.fromTheHeight);
             }
             self.menuTableView.frame = CGRectMake(0, 0, self.viewSender.frame.size.width, self.fromTheHeight);
         } completion:^(BOOL finished){
@@ -273,6 +276,7 @@
     }
     
     dropDownMenuItemView.textLabel.textColor = self.menuItemTextColor;
+    dropDownMenuItemView.textLabel.textAlignment = self.menuItemTextAlignment;
     
     return dropDownMenuItemView;
 }

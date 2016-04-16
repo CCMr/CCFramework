@@ -25,7 +25,8 @@ return _##regularExpression;                                                    
 
 
 REGULAREXPRESSION(URLRegularExpression, @"((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)")
-REGULAREXPRESSION(PhoneNumerRegularExpression, @"\\d{3}-\\d{8}|\\d{3}-\\d{7}|\\d{4}-\\d{8}|\\d{4}-\\d{7}|1+[358]+\\d{9}|\\d{8}|\\d{7}")
+REGULAREXPRESSION(PhoneNumerRegularExpression, @"^1[3|4|5|7|8][0-9]\\d{8}$")
+REGULAREXPRESSION(TelephoneNumber, @"^(\\d{3,4}-)\\d{7,8}$")
 REGULAREXPRESSION(EmailRegularExpression, @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}")
 REGULAREXPRESSION(UserHandleRegularExpression, @"@[\\u4e00-\\u9fa5\\w\\-]+")
 REGULAREXPRESSION(HashtagRegularExpression, @"#([\\u4e00-\\u9fa5\\w\\-]+)")
@@ -219,7 +220,7 @@ static NSArray *kAllRegexps()
     static NSArray *_allRegexps = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _allRegexps = @[kURLRegularExpression(),kPhoneNumerRegularExpression(),kEmailRegularExpression(),kUserHandleRegularExpression(),kHashtagRegularExpression()];
+        _allRegexps = @[kURLRegularExpression(),kTelephoneNumber(),kPhoneNumerRegularExpression(),kEmailRegularExpression(),kUserHandleRegularExpression(),kHashtagRegularExpression()];
     });
     return _allRegexps;
 }

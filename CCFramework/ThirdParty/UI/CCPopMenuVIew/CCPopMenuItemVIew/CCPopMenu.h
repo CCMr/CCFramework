@@ -27,11 +27,18 @@
 #import <UIKit/UIKit.h>
 #import "CCPopMenuItem.h"
 
-typedef void(^PopMenuDidSlectedCompledBlock)(NSInteger index, CCPopMenuItem *menuItem);
+typedef NS_ENUM(NSInteger, CCPopMenuAlignment) {
+    CCPopMenuAlignmentLeft,
+    CCPopMenuAlignmentCenter,
+    CCPopMenuAlignmentRight,
+};
+
+typedef void (^PopMenuDidSlectedCompledBlock)(NSInteger index, CCPopMenuItem *menuItem);
 
 @interface CCPopMenu : UIView
 
-- (instancetype)initWithMenus:(NSArray *)menus;
+- (instancetype)initWithMenus:(NSArray *)menus
+                    Alignment:(CCPopMenuAlignment)alignment;
 
 - (instancetype)initWithObjects:(id)firstObj, ... NS_REQUIRES_NIL_TERMINATION;
 
@@ -44,18 +51,25 @@ typedef void(^PopMenuDidSlectedCompledBlock)(NSInteger index, CCPopMenuItem *men
  *
  *  @brief  菜单背景颜色
  */
-@property (nonatomic, copy) UIColor *menuBackgroundColor;
+@property(nonatomic, copy) UIColor *menuBackgroundColor;
+
+/**
+ *  @author CC, 16-04-14
+ *  
+ *  @brief 对准位置
+ */
+@property(nonatomic, assign) CCPopMenuAlignment CCAlignment;
 
 /**
  *  @author CC, 2015-10-16
  *
  *  @brief  菜单文字颜色
  */
-@property (nonatomic, copy) UIColor *menuItemTextColor;
+@property(nonatomic, copy) UIColor *menuItemTextColor;
 
-@property (nonatomic, copy) PopMenuDidSlectedCompledBlock popMenuDidSlectedCompled;
+@property(nonatomic, copy) PopMenuDidSlectedCompledBlock popMenuDidSlectedCompled;
 
-@property (nonatomic, copy) PopMenuDidSlectedCompledBlock popMenuDidDismissCompled;
+@property(nonatomic, copy) PopMenuDidSlectedCompledBlock popMenuDidDismissCompled;
 
 
 @end

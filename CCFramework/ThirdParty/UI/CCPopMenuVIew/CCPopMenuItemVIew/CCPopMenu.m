@@ -74,7 +74,16 @@
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.alpha = 1.0;
             
-            self.menuContainerView.frame = CGRectMake(CGRectGetWidth(self.bounds) - kCCMenuTableViewWidth - 6, _fromTheTop + 8, kCCMenuTableViewWidth, self.menus.count * (kCCMenuItemViewHeight + kCCSeparatorLineImageViewHeight) + kCCMenuTableViewSapcing);
+            CGFloat x = 0;
+            if (self.CCAlignment == CCPopMenuAlignmentLeft) {
+                x = 6;
+            } else if (self.CCAlignment == CCPopMenuAlignmentCenter) {
+                x = (CGRectGetWidth(self.bounds) - kCCMenuTableViewWidth) / 2;
+            } else if (self.CCAlignment == CCPopMenuAlignmentRight) {
+                x = CGRectGetWidth(self.bounds) - kCCMenuTableViewWidth - 6;
+            }
+            
+            self.menuContainerView.frame = CGRectMake(x, _fromTheTop + 8, kCCMenuTableViewWidth, self.menus.count * (kCCMenuItemViewHeight + kCCSeparatorLineImageViewHeight) + kCCMenuTableViewSapcing);
             self.menuTableView.frame = CGRectMake(0, kCCMenuTableViewSapcing, CGRectGetWidth(_menuContainerView.bounds), CGRectGetHeight(_menuContainerView.bounds) - kCCMenuTableViewSapcing);
             
         } completion:^(BOOL finished){
@@ -89,7 +98,15 @@
 {
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.alpha = 0.0;
-        self.menuContainerView.frame = CGRectMake(CGRectGetWidth(self.bounds) - kCCMenuTableViewWidth - 6, _fromTheTop + 8, kCCMenuTableViewWidth, 0);
+        CGFloat x = 0;
+        if (self.CCAlignment == CCPopMenuAlignmentLeft) {
+            x = 6;
+        } else if (self.CCAlignment == CCPopMenuAlignmentCenter) {
+            x = (CGRectGetWidth(self.bounds) - kCCMenuTableViewWidth) / 2;
+        } else if (self.CCAlignment == CCPopMenuAlignmentRight) {
+            x = CGRectGetWidth(self.bounds) - kCCMenuTableViewWidth - 6;
+        }
+        self.menuContainerView.frame = CGRectMake(x, _fromTheTop + 8, kCCMenuTableViewWidth, 0);
         self.menuTableView.frame = CGRectMake(0, kCCMenuTableViewSapcing, CGRectGetWidth(_menuContainerView.bounds), 0);
     } completion:^(BOOL finished) {
         if (selected) {
@@ -116,7 +133,17 @@
 - (UIView *)menuContainerView
 {
     if (!_menuContainerView) {
-        _menuContainerView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - kCCMenuTableViewWidth - 6, _fromTheTop + 8, kCCMenuTableViewWidth, 0)];
+        
+        CGFloat x = 0;
+        if (self.CCAlignment == CCPopMenuAlignmentLeft) {
+            x = 6;
+        } else if (self.CCAlignment == CCPopMenuAlignmentCenter) {
+            x = (CGRectGetWidth(self.bounds) - kCCMenuTableViewWidth) / 2;
+        } else if (self.CCAlignment == CCPopMenuAlignmentRight) {
+            x = CGRectGetWidth(self.bounds) - kCCMenuTableViewWidth - 6;
+        }
+        
+        _menuContainerView = [[UIView alloc] initWithFrame:CGRectMake(x, _fromTheTop + 8, kCCMenuTableViewWidth, 0)];
         _menuContainerView.backgroundColor = [UIColor whiteColor];
         _menuContainerView.layer.cornerRadius = 5;
         _menuContainerView.layer.masksToBounds = YES;
@@ -130,7 +157,17 @@
 - (CCPageIndicatorView *)indicatorView
 {
     if (!_indicatorView) {
-        _indicatorView = [[CCPageIndicatorView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 35, _fromTheTop, 20, 8)];
+        
+        CGFloat x = 0;
+        if (self.CCAlignment == CCPopMenuAlignmentLeft) {
+            x = 35;
+        } else if (self.CCAlignment == CCPopMenuAlignmentCenter) {
+            x = (CGRectGetWidth(self.bounds) - 20) / 2;
+        } else if (self.CCAlignment == CCPopMenuAlignmentRight) {
+            x = CGRectGetWidth(self.bounds) - 35;
+        }
+        
+        _indicatorView = [[CCPageIndicatorView alloc] initWithFrame:CGRectMake(x, _fromTheTop, 20, 8)];
         _indicatorView.color = [UIColor whiteColor];
         _indicatorView.indicatorType = CCPageIndicatorViewTypeTriangle;
     }
@@ -189,10 +226,12 @@
     [self addSubview:self.menuContainerView];
 }
 
-- (id)initWithMenus:(NSArray *)menus
+- (id)initWithMenus:(NSArray *)menus 
+          Alignment:(CCPopMenuAlignment)alignment
 {
     self = [super init];
     if (self) {
+        self.CCAlignment = alignment;
         self.menus = [[NSMutableArray alloc] initWithArray:menus];
         [self setup];
     }
@@ -247,8 +286,8 @@
     }
     
     if (indexPath.row < self.menus.count) {
-        [popMenuItemView setupPopMenuItem:self.menus[indexPath.row] 
-                              atIndexPath:indexPath 
+        [popMenuItemView setupPopMenuItem:self.menus[indexPath.row]
+                              atIndexPath:indexPath
                                  isBottom:(indexPath.row == self.menus.count - 1)];
     }
     
