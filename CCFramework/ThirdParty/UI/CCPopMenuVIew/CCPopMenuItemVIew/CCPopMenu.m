@@ -43,6 +43,8 @@
 
 @property(nonatomic, assign) CGFloat fromTheTop;
 
+@property(nonatomic, assign) BOOL isShow;
+
 @end
 
 @implementation CCPopMenu
@@ -64,6 +66,7 @@
 - (void)showMenu
 {
     if (![self.currentSuperView.subviews containsObject:self]) {
+        self.isShow = YES;
         self.alpha = 0.0;
         
         if ([self.currentSuperView isKindOfClass:[UIWindow class]]) {
@@ -96,6 +99,7 @@
 
 - (void)dissMissPopMenuAnimatedOnMenuSelected:(BOOL)selected
 {
+    self.isShow = NO;
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.alpha = 0.0;
         CGFloat x = 0;
@@ -116,6 +120,12 @@
         }
         [super removeFromSuperview];
     }];
+    
+}
+
+- (BOOL)isShowed
+{
+    return self.isShow;
 }
 
 #pragma mark - Propertys
@@ -226,7 +236,7 @@
     [self addSubview:self.menuContainerView];
 }
 
-- (id)initWithMenus:(NSArray *)menus 
+- (id)initWithMenus:(NSArray *)menus
           Alignment:(CCPopMenuAlignment)alignment
 {
     self = [super init];
@@ -266,7 +276,7 @@
     if (CGRectContainsPoint(_menuContainerView.frame, localPoint)) {
         [self hitTest:localPoint withEvent:event];
     } else {
-        [self dissMissPopMenuAnimatedOnMenuSelected:NO];
+        [self dissMissPopMenuAnimatedOnMenuSelected:YES];
     }
 }
 

@@ -30,6 +30,7 @@
 #import <CCFramework/CCSegmentedView.h>
 #import <CCFramework/CCBarSlider.h>
 #import <CCFramework/CCRadarScanViewController.h>
+#import <CCFramework/CCButton.h>
 #import <CCFramework/CCPagesContainer.h>
 #import <CCFramework/CCActionSheet.h>
 #import <CCFramework/CCActionSheetViewController.h>
@@ -49,7 +50,6 @@
 #import <CCFramework/CCPhotoBrowser.h>
 #import <CCFramework/CCBadgeView.h>
 #import <CCFramework/CCDatePicker.h>
-//#import <CCFramework/CCPickerViewController.h>
 #import <CCFramework/CCPopMenuView.h>
 #import <CCFramework/CCPopMenu.h>
 #import <CCFramework/CCPopMenuItem.h>

@@ -47,6 +47,11 @@ typedef void (^PopMenuDidSlectedCompledBlock)(NSInteger index, CCPopMenuItem *me
 - (void)showMenuOnView:(UIView *)view atPoint:(CGPoint)point;
 
 /**
+ *  是否显示
+ */
+@property(nonatomic, assign, readonly) BOOL isShowed;
+
+/**
  *  @author CC, 2015-10-16
  *
  *  @brief  菜单背景颜色

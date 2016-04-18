@@ -345,6 +345,8 @@
 		421E7A861C3DFCE300C31AD0 /* CCSystemSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 421E7A841C3DFCE300C31AD0 /* CCSystemSound.m */; };
 		4220B6181BFAB95A006145FD /* CustomIOSAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4220B6161BFAB95A006145FD /* CustomIOSAlertView.h */; };
 		4220B6191BFAB95A006145FD /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4220B6171BFAB95A006145FD /* CustomIOSAlertView.m */; };
+		4220E9EA1CC4DD19002B5FF0 /* CCButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 4220E9E81CC4DD19002B5FF0 /* CCButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4220E9EB1CC4DD19002B5FF0 /* CCButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4220E9E91CC4DD19002B5FF0 /* CCButton.m */; };
 		4223591F1C866F78005207B9 /* UITabBarController+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4223591D1C866F78005207B9 /* UITabBarController+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		422359201C866F78005207B9 /* UITabBarController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4223591E1C866F78005207B9 /* UITabBarController+Additions.m */; };
 		422359231C866FDC005207B9 /* UITableView+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 422359211C866FDC005207B9 /* UITableView+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1579,6 +1581,8 @@
 		421E7A841C3DFCE300C31AD0 /* CCSystemSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCSystemSound.m; path = Core/CCSystemSound/CCSystemSound.m; sourceTree = "<group>"; };
 		4220B6161BFAB95A006145FD /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
 		4220B6171BFAB95A006145FD /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
+		4220E9E81CC4DD19002B5FF0 /* CCButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCButton.h; path = CCButton/CCButton.h; sourceTree = "<group>"; };
+		4220E9E91CC4DD19002B5FF0 /* CCButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCButton.m; path = CCButton/CCButton.m; sourceTree = "<group>"; };
 		4223591D1C866F78005207B9 /* UITabBarController+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+Additions.h"; sourceTree = "<group>"; };
 		4223591E1C866F78005207B9 /* UITabBarController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+Additions.m"; sourceTree = "<group>"; };
 		422359211C866FDC005207B9 /* UITableView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Additions.h"; sourceTree = "<group>"; };
@@ -3638,6 +3642,15 @@
 			name = CCSystemSound;
 			sourceTree = "<group>";
 		};
+		4220E9E71CC4DCFC002B5FF0 /* CCButton */ = {
+			isa = PBXGroup;
+			children = (
+				4220E9E81CC4DD19002B5FF0 /* CCButton.h */,
+				4220E9E91CC4DD19002B5FF0 /* CCButton.m */,
+			);
+			name = CCButton;
+			sourceTree = "<group>";
+		};
 		4223591C1C866F78005207B9 /* UITabBarController */ = {
 			isa = PBXGroup;
 			children = (
@@ -4953,6 +4966,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E51BDE025300C76004 /* UI.h */,
+				4220E9E71CC4DCFC002B5FF0 /* CCButton */,
 				421546C61C9C010100996C8E /* CCTransformRefresh */,
 				421C64461C84437500696B63 /* CCSpreadsheetView */,
 				4219EDEB1C7FF93F00F1EE76 /* MLLabel */,
@@ -6406,6 +6420,7 @@
 				4213943C1BF2D9F50046062B /* SRLog.h in Headers */,
 				421DC7081C85750E009E825B /* UIResponder+Additions.h in Headers */,
 				421DC6881C85750E009E825B /* UIApplication+Additions.h in Headers */,
+				4220E9EA1CC4DD19002B5FF0 /* CCButton.h in Headers */,
 				429C9F561B9EF8BF0013A44A /* BaseTableViewController.h in Headers */,
 				420CB1371C7D788500A0EC25 /* MASConstraint.h in Headers */,
 				4298C7821BDCAC3100A3581D /* CoreDataMasterSlave+Manager.h in Headers */,
@@ -7318,6 +7333,7 @@
 				4225116E1C7306AD003B3623 /* NSObject+CCClass.m in Sources */,
 				42A1F6631C8A8E4000A20F64 /* FMDatabasePool.m in Sources */,
 				429C9F9D1B9EF8BF0013A44A /* CCQRCodeViewController.m in Sources */,
+				4220E9EB1CC4DD19002B5FF0 /* CCButton.m in Sources */,
 				424BD58D1C8ECA3E005722F6 /* WebViewJavascriptBridge.m in Sources */,
 				420CD8BE1C59F9B9009578D4 /* UIView+CCInputDodger.m in Sources */,
 				429C9FEE1B9EF8BF0013A44A /* SRHttpBasedTransport.m in Sources */,
