@@ -78,7 +78,10 @@
     Protocol *protocol = @protocol(NSURLSessionTaskDelegate);
     
     struct objc_method_description methodDescription = protocol_getMethodDescription(protocol, selector, NO, YES);
-    [self replaceImplementationOfSelector:selector withSelector:swizzledSelector forClass:cls withMethodDescription:methodDescription];
+    [self replaceImplementationOfSelector:selector
+                             withSelector:swizzledSelector
+                                 forClass:cls
+                    withMethodDescription:methodDescription];
 }
 
 + (void)swizzling_TaskDidSendBodyDataIntoDelegateClass:(Class)cls
@@ -88,7 +91,10 @@
     Protocol *protocol = @protocol(NSURLSessionTaskDelegate);
     
     struct objc_method_description methodDescription = protocol_getMethodDescription(protocol, selector, NO, YES);
-    [self replaceImplementationOfSelector:selector withSelector:swizzledSelector forClass:cls withMethodDescription:methodDescription];
+    [self replaceImplementationOfSelector:selector
+                             withSelector:swizzledSelector
+                                 forClass:cls
+                    withMethodDescription:methodDescription];
 }
 
 + (void)swizzling_TaskDidReceiveChallengeIntoDelegateClass:(Class)cls
@@ -98,7 +104,10 @@
     Protocol *protocol = @protocol(NSURLSessionTaskDelegate);
     
     struct objc_method_description methodDescription = protocol_getMethodDescription(protocol, selector, NO, YES);
-    [self replaceImplementationOfSelector:selector withSelector:swizzledSelector forClass:cls withMethodDescription:methodDescription];
+    [self replaceImplementationOfSelector:selector
+                             withSelector:swizzledSelector
+                                 forClass:cls
+                    withMethodDescription:methodDescription];
 }
 
 + (void)swizzling_TaskNeedNewBodyStreamIntoDelegateClass:(Class)cls
@@ -108,7 +117,10 @@
     Protocol *protocol = @protocol(NSURLSessionTaskDelegate);
     
     struct objc_method_description methodDescription = protocol_getMethodDescription(protocol, selector, NO, YES);
-    [self replaceImplementationOfSelector:selector withSelector:swizzledSelector forClass:cls withMethodDescription:methodDescription];
+    [self replaceImplementationOfSelector:selector
+                             withSelector:swizzledSelector
+                                 forClass:cls
+                    withMethodDescription:methodDescription];
 }
 
 + (void)swizzling_TaskDidCompleteWithErrorIntoDelegateClass:(Class)cls
@@ -118,34 +130,65 @@
     Protocol *protocol = @protocol(NSURLSessionTaskDelegate);
     
     struct objc_method_description methodDescription = protocol_getMethodDescription(protocol, selector, NO, YES);
-    [self replaceImplementationOfSelector:selector withSelector:swizzledSelector forClass:cls withMethodDescription:methodDescription];
+    [self replaceImplementationOfSelector:selector
+                             withSelector:swizzledSelector
+                                 forClass:cls
+                    withMethodDescription:methodDescription];
 }
 
 #pragma mark - NSURLSession task delegate
-- (void)URLSession_swizzling:(NSURLSession *)session task:(NSURLSessionTask *)task willPerformHTTPRedirection:(NSHTTPURLResponse *)response newRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLRequest *__nullable))completionHandler
+- (void)URLSession_swizzling:(NSURLSession *)session
+                        task:(NSURLSessionTask *)task
+  willPerformHTTPRedirection:(NSHTTPURLResponse *)response
+                  newRequest:(NSURLRequest *)request
+           completionHandler:(void (^)(NSURLRequest *__nullable))completionHandler
 {
-    [self URLSession_swizzling:session task:task willPerformHTTPRedirection:response newRequest:request completionHandler:completionHandler];
+    [self URLSession_swizzling:session
+                          task:task
+    willPerformHTTPRedirection:response
+                    newRequest:request
+             completionHandler:completionHandler];
 }
 
-- (void)URLSession_swizzling:(NSURLSession *)session task:(NSURLSessionTask *)task didSendBodyData:(int64_t)bytesSent totalBytesSent:(int64_t)totalBytesSent totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend
+- (void)URLSession_swizzling:(NSURLSession *)session
+                        task:(NSURLSessionTask *)task
+             didSendBodyData:(int64_t)bytesSent
+              totalBytesSent:(int64_t)totalBytesSent
+    totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend
 {
     NSURLRequest *req = task.originalRequest;
     req.requestId = [[NSUUID UUID] UUIDString];
     req.startTime = @([[NSDate date] timeIntervalSince1970]);
-    [self URLSession_swizzling:session task:task didSendBodyData:bytesSent totalBytesSent:totalBytesSent totalBytesExpectedToSend:totalBytesExpectedToSend];
+    [self URLSession_swizzling:session
+                          task:task
+               didSendBodyData:bytesSent
+                totalBytesSent:totalBytesSent
+      totalBytesExpectedToSend:totalBytesExpectedToSend];
 }
 
-- (void)URLSession_swizzling:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *__nullable credential))completionHandler
+- (void)URLSession_swizzling:(NSURLSession *)session
+                        task:(NSURLSessionTask *)task
+         didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
+           completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *__nullable credential))completionHandler
 {
-    [self URLSession_swizzling:session task:task didReceiveChallenge:challenge completionHandler:completionHandler];
+    [self URLSession_swizzling:session
+                          task:task
+           didReceiveChallenge:challenge
+             completionHandler:completionHandler];
 }
 
-- (void)URLSession_swizzling:(NSURLSession *)session task:(NSURLSessionTask *)task needNewBodyStream:(void (^)(NSInputStream *__nullable bodyStream))completionHandler
+- (void)URLSession_swizzling:(NSURLSession *)session
+                        task:(NSURLSessionTask *)task
+           needNewBodyStream:(void (^)(NSInputStream *__nullable bodyStream))completionHandler
 {
-    [self URLSession_swizzling:session task:task needNewBodyStream:completionHandler];
+    [self URLSession_swizzling:session
+                          task:task
+             needNewBodyStream:completionHandler];
 }
 
-- (void)URLSession_swizzling:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error
+- (void)URLSession_swizzling:(NSURLSession *)session
+                        task:(NSURLSessionTask *)task
+        didCompleteWithError:(nullable NSError *)error
 {
     [self URLSession_swizzling:session task:task didCompleteWithError:error];
     
@@ -208,7 +251,10 @@
     Protocol *protocol = @protocol(NSURLSessionDataDelegate);
     
     struct objc_method_description methodDescription = protocol_getMethodDescription(protocol, selector, NO, YES);
-    [self replaceImplementationOfSelector:selector withSelector:swizzledSelector forClass:cls withMethodDescription:methodDescription];
+    [self replaceImplementationOfSelector:selector
+                             withSelector:swizzledSelector
+                                 forClass:cls
+                    withMethodDescription:methodDescription];
 }
 
 + (void)swizzling_TaskDidReceiveDataIntoDelegateClass:(Class)cls
@@ -218,7 +264,10 @@
     Protocol *protocol = @protocol(NSURLSessionDataDelegate);
     
     struct objc_method_description methodDescription = protocol_getMethodDescription(protocol, selector, NO, YES);
-    [self replaceImplementationOfSelector:selector withSelector:swizzledSelector forClass:cls withMethodDescription:methodDescription];
+    [self replaceImplementationOfSelector:selector
+                             withSelector:swizzledSelector
+                                 forClass:cls
+                    withMethodDescription:methodDescription];
 }
 
 + (void)swizzling_TaskDidBecomeDownloadTaskIntoDelegateClass:(Class)cls
@@ -228,7 +277,10 @@
     Protocol *protocol = @protocol(NSURLSessionDataDelegate);
     
     struct objc_method_description methodDescription = protocol_getMethodDescription(protocol, selector, NO, YES);
-    [self replaceImplementationOfSelector:selector withSelector:swizzledSelector forClass:cls withMethodDescription:methodDescription];
+    [self replaceImplementationOfSelector:selector
+                             withSelector:swizzledSelector
+                                 forClass:cls
+                    withMethodDescription:methodDescription];
 }
 + (void)swizzling_TaskDidBecomeStreamTaskIntoDelegateClass:(Class)cls
 {
@@ -237,7 +289,10 @@
     Protocol *protocol = @protocol(NSURLSessionDataDelegate);
     
     struct objc_method_description methodDescription = protocol_getMethodDescription(protocol, selector, NO, YES);
-    [self replaceImplementationOfSelector:selector withSelector:swizzledSelector forClass:cls withMethodDescription:methodDescription];
+    [self replaceImplementationOfSelector:selector
+                             withSelector:swizzledSelector
+                                 forClass:cls
+                    withMethodDescription:methodDescription];
 }
 
 + (void)swizzling_TaskWillCacheResponseIntoDelegateClass:(Class)cls
@@ -247,10 +302,16 @@
     Protocol *protocol = @protocol(NSURLSessionDataDelegate);
     
     struct objc_method_description methodDescription = protocol_getMethodDescription(protocol, selector, NO, YES);
-    [self replaceImplementationOfSelector:selector withSelector:swizzledSelector forClass:cls withMethodDescription:methodDescription];
+    [self replaceImplementationOfSelector:selector
+                             withSelector:swizzledSelector
+                                 forClass:cls
+                    withMethodDescription:methodDescription];
 }
 
-+ (void)replaceImplementationOfSelector:(SEL)selector withSelector:(SEL)swizzledSelector forClass:(Class)cls withMethodDescription:(struct objc_method_description)methodDescription
++ (void)replaceImplementationOfSelector:(SEL)selector
+                           withSelector:(SEL)swizzledSelector
+                               forClass:(Class)cls
+                  withMethodDescription:(struct objc_method_description)methodDescription
 {
     IMP implementation = class_getMethodImplementation([self class], swizzledSelector);
     Method oldMethod = class_getInstanceMethod(cls, selector);
@@ -270,12 +331,20 @@
     return [self dataTaskWithRequest_swizzling:request];
 }
 
-- (void)URLSession_swizzling:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveResponse:(NSURLResponse *)response completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler
+- (void)URLSession_swizzling:(NSURLSession *)session
+                    dataTask:(NSURLSessionDataTask *)dataTask
+          didReceiveResponse:(NSURLResponse *)response
+           completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler
 {
-    [self URLSession_swizzling:session dataTask:dataTask didReceiveResponse:response completionHandler:completionHandler];
+    [self URLSession_swizzling:session
+                      dataTask:dataTask
+            didReceiveResponse:response
+             completionHandler:completionHandler];
 }
 
-- (void)URLSession_swizzling:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data
+- (void)URLSession_swizzling:(NSURLSession *)session
+                    dataTask:(NSURLSessionDataTask *)dataTask
+              didReceiveData:(NSData *)data
 {
     if (!dataTask.responseDatas) {
         dataTask.responseDatas = [NSMutableData data];
@@ -286,19 +355,33 @@
     [self URLSession_swizzling:session dataTask:dataTask didReceiveData:data];
 }
 
-- (void)URLSession_swizzling:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didBecomeDownloadTask:(NSURLSessionDownloadTask *)downloadTask
+- (void)URLSession_swizzling:(NSURLSession *)session
+                    dataTask:(NSURLSessionDataTask *)dataTask
+       didBecomeDownloadTask:(NSURLSessionDownloadTask *)downloadTask
 {
-    [self URLSession_swizzling:session dataTask:dataTask didBecomeDownloadTask:downloadTask];
+    [self URLSession_swizzling:session
+                      dataTask:dataTask
+         didBecomeDownloadTask:downloadTask];
 }
 
-- (void)URLSession_swizzling:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didBecomeStreamTask:(NSURLSessionStreamTask *)streamTask
+- (void)URLSession_swizzling:(NSURLSession *)session
+                    dataTask:(NSURLSessionDataTask *)dataTask
+         didBecomeStreamTask:(NSURLSessionStreamTask *)streamTask
 {
-    [self URLSession_swizzling:session dataTask:dataTask didBecomeStreamTask:streamTask];
+    [self URLSession_swizzling:session
+                      dataTask:dataTask
+           didBecomeStreamTask:streamTask];
 }
 
-- (void)URLSession_swizzling:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask willCacheResponse:(NSCachedURLResponse *)proposedResponse completionHandler:(void (^)(NSCachedURLResponse *__nullable cachedResponse))completionHandler
+- (void)URLSession_swizzling:(NSURLSession *)session
+                    dataTask:(NSURLSessionDataTask *)dataTask
+           willCacheResponse:(NSCachedURLResponse *)proposedResponse
+           completionHandler:(void (^)(NSCachedURLResponse *__nullable cachedResponse))completionHandler
 {
-    [self URLSession_swizzling:session dataTask:dataTask willCacheResponse:proposedResponse completionHandler:completionHandler];
+    [self URLSession_swizzling:session
+                      dataTask:dataTask
+             willCacheResponse:proposedResponse
+             completionHandler:completionHandler];
 }
 
 

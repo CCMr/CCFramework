@@ -66,7 +66,7 @@
     httpViewTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.httpViewTableView = httpViewTableView];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:kCCNotifyKeyReloadHttp object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(initLoadData) name:kCCNotifyKeyReloadHttp object:nil];
 }
 
 - (void)clearAction

@@ -32,6 +32,7 @@
 #import "CCDebugMemoryHelper.h"
 #import "CCDebugHttpProtocol.h"
 #import "CCDebugCrashHelper.h"
+#import "Config.h"
 
 @interface CCDebugWindow : UIWindow
 
@@ -74,7 +75,7 @@
 {
     self = [super init];
     if (self) {
-        self.mainColor = [UIColor redColor];
+        self.mainColor = cc_ColorRGB(245, 116, 91);
         self.maxCrashCount = 20;
         self.maxLogsCount = 50;
         self.debugWindow = [[CCDebugWindow alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20)];
@@ -181,7 +182,7 @@
  */
 - (void)timerMonitor
 {
-    [self.debugButton setTitle:[NSString stringWithFormat:@"Debug（%@）", [CCDebugMemoryHelper usedMemory]] forState:UIControlStateNormal];
+    [self.debugButton setTitle:[NSString stringWithFormat:@"Debug（%@）", [CCDebugMemoryHelper bytesOfUsedMemory]] forState:UIControlStateNormal];
 }
 
 @end

@@ -139,25 +139,27 @@ static NSString *const kCCAssetCellIdentifier = @"CCAssetCell";
 
 - (void)preView:(NSUInteger)currentIndex Assets:(NSArray *)assets
 {
-    CCPhotoPreviewController *previewC = [[CCPhotoPreviewController alloc] initWithCollectionViewLayout:[[CCPhotoPreviewViewLayout alloc] init]];
-    previewC.assets = assets;
-    previewC.selectedAssets = [NSMutableArray arrayWithArray:self.selectedAssets];
-    previewC.currentIndex = currentIndex;
-    previewC.maxCount = [(CCPhotoPickerController *)self.navigationController maxCount];
-    __weak typeof(*&self) wSelf = self;
-    [previewC setDidFinishPreviewBlock:^(NSArray<CCAssetModel *> *selectedAssets) {
-        __weak typeof(*&self) self = wSelf;
-        self.selectedAssets = [NSMutableArray arrayWithArray:selectedAssets];
-        [self.bottomBar updateBottomBarWithAssets:self.selectedAssets];
-        [self.collectionView reloadData];
-    }];
-    
-    [previewC setDidFinishPickingBlock:^(NSArray<UIImage *> *images, NSArray<CCAssetModel *> *selectedAssets) {
-        __weak typeof(*&self) self = wSelf;
-        [(CCPhotoPickerController *)self.navigationController didFinishPickingPhoto:selectedAssets];
-    }];
-    
-    [self.navigationController pushViewController:previewC animated:YES];
+    if (assets.count) {
+        CCPhotoPreviewController *previewC = [[CCPhotoPreviewController alloc] initWithCollectionViewLayout:[[CCPhotoPreviewViewLayout alloc] init]];
+        previewC.assets = assets;
+        previewC.selectedAssets = [NSMutableArray arrayWithArray:self.selectedAssets];
+        previewC.currentIndex = currentIndex;
+        previewC.maxCount = [(CCPhotoPickerController *)self.navigationController maxCount];
+        __weak typeof(*&self) wSelf = self;
+        [previewC setDidFinishPreviewBlock:^(NSArray<CCAssetModel *> *selectedAssets) {
+            __weak typeof(*&self) self = wSelf;
+            self.selectedAssets = [NSMutableArray arrayWithArray:selectedAssets];
+            [self.bottomBar updateBottomBarWithAssets:self.selectedAssets];
+            [self.collectionView reloadData];
+        }];
+        
+        [previewC setDidFinishPickingBlock:^(NSArray<UIImage *> *images, NSArray<CCAssetModel *> *selectedAssets) {
+            __weak typeof(*&self) self = wSelf;
+            [(CCPhotoPickerController *)self.navigationController didFinishPickingPhoto:selectedAssets];
+        }];
+        
+        [self.navigationController pushViewController:previewC animated:YES];
+    }
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -230,7 +232,7 @@ static NSString *const kCCAssetCellIdentifier = @"CCAssetCell";
         }];
         [self.navigationController pushViewController:videoPreviewC animated:YES];
     } else {
-        [self preView:indexPath.row 
+        [self preView:indexPath.row
                Assets:self.assets];
     }
     
