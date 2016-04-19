@@ -385,6 +385,51 @@
 }
 
 /**
+ *  @author CC, 16-04-19
+ *  
+ *  @brief 比较时间并转换时间格式
+ *         多少(秒or分or时or今天or明天or星期or年月日时分)+前 (比如，刚刚、10分钟前)
+ */
+- (NSString *)comparcCurrentTimeAndConvertingDataFormat
+{
+    NSDate *currentDate = [NSDate date];
+    
+    NSCalendar *currentCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    
+    NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    
+    NSDateComponents *currentComps = [currentCalendar components:unitFlags fromDate:currentDate];
+    NSDateComponents *otherComps = [currentCalendar components:unitFlags fromDate:self];
+    
+    NSString *strDate;
+    NSInteger weekIntValue = [self weekIntValueWithDate] - 1; //获取星期对应的数字
+    NSInteger days = currentComps.day - otherComps.day;
+    
+    if (currentComps.year == otherComps.year && currentComps.month == otherComps.month && currentComps.day == otherComps.day && currentComps.hour == otherComps.hour && currentComps.minute == otherComps.minute && otherComps.second < 60) {
+        strDate = @"刚刚";
+    } else if (currentComps.year == otherComps.year && currentComps.month == otherComps.month && currentComps.day == otherComps.day && currentComps.hour == otherComps.hour && otherComps.minute < 60) {
+        strDate = [NSString stringWithFormat:@"%zi 分钟前", currentComps.minute - otherComps.minute];
+    } else if (currentComps.year == otherComps.year && currentComps.month == otherComps.month && currentComps.day == otherComps.day && otherComps.hour < 24) {
+        NSInteger hour = currentComps.hour - otherComps.hour;
+        strDate = [NSString stringWithFormat:@"%zi 小时前", hour];
+        if (hour > 3) {
+            strDate = [NSString stringWithFormat:@"今天 %@", [self timeFormat:@"HH:mm"]];
+        }
+    }else if (currentComps.year == otherComps.year && currentComps.month == otherComps.month && currentComps.day == otherComps.day)
+        strDate = [NSString stringWithFormat:@"今天 %@", [self timeFormat:@"HH:mm"]];
+    else if (currentComps.year == otherComps.year && currentComps.month == otherComps.month && days == 1)
+        strDate = [NSString stringWithFormat:@"昨天 %@", [self timeFormat:@"HH:mm"]];
+    else if (currentComps.year == otherComps.year && currentComps.month == otherComps.month && days < 7)
+        strDate = [NSString stringWithFormat:@"%@ %@", [NSDate getWeekStringFromInteger:(int)weekIntValue], [self timeFormat:@"HH:mm"]];
+    else if (currentComps.year == otherComps.year)
+        strDate = [self timeFormat:@"MM月dd日"];
+    else
+        strDate = [self timeFormat:@"yyyy年MM月dd HH:mm"];
+    
+    return strDate;
+}
+
+/**
  *  @author CC, 2015-11-04
  *  
  *  @brief  比较时间相隔
@@ -1442,7 +1487,7 @@ static NSDateFormatter *_internetDateTimeFormatter = nil;
     return date;
 }
 
-#pragma mark-
+#pragma mark -
 #pragma mark :. Reporting
 
 + (NSDate *)midnightOfDate:(NSDate *)date
@@ -1758,7 +1803,7 @@ static NSDateFormatter *_internetDateTimeFormatter = nil;
     return [gregorianCalendar dateFromComponents:components];
 }
 
-#pragma mark-
+#pragma mark -
 #pragma mark :. Utilities
 
 #define D_MINUTE 60
@@ -1822,7 +1867,7 @@ static NSDateFormatter *_internetDateTimeFormatter = nil;
     return newDate;
 }
 
-#pragma mark --- String Properties
+#pragma mark--- String Properties
 
 - (NSString *)stringWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle
 {
@@ -2077,7 +2122,7 @@ static NSDateFormatter *_internetDateTimeFormatter = nil;
     return dTime;
 }
 
-#pragma mark --- Retrieving Intervals
+#pragma mark--- Retrieving Intervals
 - (NSInteger)minutesAfterDate:(NSDate *)aDate
 {
     NSTimeInterval ti = [self timeIntervalSinceDate:aDate];

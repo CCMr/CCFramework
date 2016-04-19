@@ -180,6 +180,14 @@
 - (NSString *)convertingDataFormat;
 
 /**
+ *  @author CC, 16-04-19
+ *  
+ *  @brief 比较时间并转换时间格式
+ *         多少(秒or分or时or今天or明天or星期or年月日时分)+前 (比如，刚刚、10分钟前)
+ */
+- (NSString *)comparcCurrentTimeAndConvertingDataFormat;
+
+/**
  *  @author CC, 2015-11-04
  *  
  *  @brief  比较时间相隔
@@ -455,7 +463,7 @@
 + (NSString *)hmsFormat;
 
 
-#pragma mark-
+#pragma mark -
 #pragma mark :. Formatter
 
 + (NSDateFormatter *)formatter;
@@ -482,7 +490,7 @@
 + (NSDate *)dateWithSecondsFromNow:(NSInteger)seconds;
 - (NSString *)dateWithFormat:(NSString *)format;
 
-#pragma mark-
+#pragma mark -
 #pragma mark :. InternetDateTime
 
 typedef enum {
@@ -501,7 +509,7 @@ typedef enum {
 + (NSDate *)dateFromRFC3339String:(NSString *)dateString;
 + (NSDate *)dateFromRFC822String:(NSString *)dateString;
 
-#pragma mark-
+#pragma mark -
 #pragma mark :. Reporting
 
 // Return a date with a specified year, month and day.
@@ -566,7 +574,7 @@ typedef enum {
 #endif
 
 
-#pragma mark-
+#pragma mark -
 #pragma mark :. Utilities
 
 + (NSCalendar *)currentCalendar; // avoid bottlenecks
