@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  UIView+CCKit.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,18 +23,42 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import <UIKit/UIKit.h>
+#import "CCViewProtocol.h"
+#import "CCViewMangerProtocol.h"
+#import "CCViewModelProtocol.h"
 
-#import <CCFramework/CCUtilities.h>
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
-#import <CCFramework/CCProgressHUD.h>
-#import <CCFramework/CCAlertView.h>
-#import <CCFramework/CCSystemSound.h>
-#import <CCFramework/CCKit.h>
+NS_ASSUME_NONNULL_BEGIN
 
-#endif /* Core_h */
+typedef void (^ViewEventsBlock)(NSString *info, NSDictionary *eventDic);
+
+@interface UIView (CCKit)
+
+/**
+ *  viewDelegate 传递事件
+ */
+@property(nullable, nonatomic, weak) id<CCViewProtocol> viewDelegate;
+
+/**
+ *  block 传递事件
+ */
+@property(nonatomic, copy) ViewEventsBlock viewEventsBlock;
+
+/**
+ *  将view中的事件交由viewManger处理
+ */
+- (void)cc_viewWithViewManger:(id<CCViewProtocol>)viewManger;
+
+/**
+ *  根据model配置UIView，设置UIView内容
+ */
+- (void)cc_configureViewWithModel:(id)model;
+
+/**
+ *  根据viewModel配置UIView，设置UIView内容
+ */
+- (void)cc_configureViewWithViewModel:(id<CCViewModelProtocol>)viewModel;
+
+@end
+
+NS_ASSUME_NONNULL_END

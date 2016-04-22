@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  CCKit.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,18 +23,14 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#ifndef CCKit_h
+#define CCKit_h
 
-#import <CCFramework/CCUtilities.h>
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
-#import <CCFramework/CCProgressHUD.h>
-#import <CCFramework/CCAlertView.h>
-#import <CCFramework/CCSystemSound.h>
-#import <CCFramework/CCKit.h>
+#import <CCFramework/CCViewModelProtocol.h>
+#import <CCFramework/CCViewProtocol.h>
+#import <CCFramework/CCViewMangerProtocol.h>
+#import <CCFramework/NSObject+CCProperties.h>
+#import <CCFramework/UIView+CCKit.h>
+#import <CCFramework/CCMediator.h>
 
-#endif /* Core_h */
+#endif /* CCKit_h */

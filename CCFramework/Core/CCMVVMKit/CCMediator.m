@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  CCMediator.m
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,18 +23,33 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import "CCMediator.h"
+#import "NSObject+CCProperties.h"
 
-#import <CCFramework/CCUtilities.h>
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
-#import <CCFramework/CCProgressHUD.h>
-#import <CCFramework/CCAlertView.h>
-#import <CCFramework/CCSystemSound.h>
-#import <CCFramework/CCKit.h>
+@implementation CCMediator
 
-#endif /* Core_h */
+- (instancetype)initWithViewModel:(id<CCViewModelProtocol>)viewModel viewManger:(id<CCViewMangerProtocol>)viewManger
+{
+    if (self = [super init]) {
+        self.viewModel = (NSObject<CCViewModelProtocol> *)viewModel;
+        self.viewManger = (NSObject<CCViewMangerProtocol> *)viewManger;
+    }
+    return self;
+}
+
++ (instancetype)mediatorWithViewModel:(id<CCViewModelProtocol>)viewModel viewManger:(id<CCViewMangerProtocol>)viewManger
+{
+    return [[self alloc] initWithViewModel:viewModel viewManger:viewManger];
+}
+
+- (void)noticeViewModelWithInfos:(NSDictionary *)infos
+{
+    self.viewModel.cc_viewModelInfos = infos;
+}
+
+- (void)noticeViewMangerWithInfos:(NSDictionary *)infos
+{
+    self.viewManger.cc_viewMangerInfos = infos;
+}
+
+@end

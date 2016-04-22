@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  CCViewProtocol.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,18 +23,24 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
 
-#import <CCFramework/CCUtilities.h>
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
-#import <CCFramework/CCProgressHUD.h>
-#import <CCFramework/CCAlertView.h>
-#import <CCFramework/CCSystemSound.h>
-#import <CCFramework/CCKit.h>
+#import <UIKit/UIKit.h>
 
-#endif /* Core_h */
+@protocol CCViewProtocol <NSObject>
+
+@optional
+
+/**
+ *  @author CC, 16-04-20
+ *  
+ *  @brief 将view中的事件通过代理传递出去
+ *
+ *  @param view   view自己
+ *  @param events 所触发事件的一些描述信息
+ */
+- (void)cc_viewEvent:(__kindof UIView *)view
+          withEvents:(NSDictionary *)events;
+
+
+@end
+

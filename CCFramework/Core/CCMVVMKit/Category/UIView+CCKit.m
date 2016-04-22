@@ -1,5 +1,5 @@
 //
-//  Core.h
+//  UIView+CCKit.m
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,18 +23,48 @@
 // THE SOFTWARE.
 //
 
-#ifndef Core_h
-#define Core_h
+#import "UIView+CCKit.h"
+#import <objc/runtime.h>
 
-#import <CCFramework/CCUtilities.h>
-#import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
-#import <CCFramework/CCNSLog.h>
-#import <CCFramework/CCTool.h>
-#import <CCFramework/CCXML.h>
-#import <CCFramework/CCProgressHUD.h>
-#import <CCFramework/CCAlertView.h>
-#import <CCFramework/CCSystemSound.h>
-#import <CCFramework/CCKit.h>
+@implementation UIView (CCKit)
 
-#endif /* Core_h */
+- (id<CCViewProtocol>)viewDelegate
+{
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setViewDelegate:(id<CCViewProtocol>)viewDelegate
+{
+    objc_setAssociatedObject(self, @selector(viewDelegate), viewDelegate, OBJC_ASSOCIATION_ASSIGN);
+}
+
+- (ViewEventsBlock)viewEventsBlock
+{
+    return objc_getAssociatedObject(self, @selector(viewEventsBlock));
+}
+
+- (void)setViewEventsBlock:(ViewEventsBlock)viewEventsBlock
+{
+    objc_setAssociatedObject(self, @selector(viewEventsBlock), viewEventsBlock, OBJC_ASSOCIATION_COPY);
+}
+
+- (void)cc_viewWithViewManger:(id<CCViewProtocol>)viewManger
+{
+    if (viewManger) {
+        self.viewDelegate = viewManger;
+    }
+}
+
+#pragma mark - Rewrite these func in SubClass !
+
+- (void)cc_configureViewWithModel:(id)model
+{
+    // Rewrite this func in SubClass !
+}
+
+- (void)cc_configureViewWithViewModel:(id<CCViewModelProtocol>)viewModel
+{
+    // Rewrite this func in SubClass !
+}
+
+@end
