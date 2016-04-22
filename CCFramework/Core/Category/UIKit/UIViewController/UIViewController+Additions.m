@@ -177,9 +177,9 @@ static const void *BackButtonHandlerKey = &BackButtonHandlerKey;
 }
 
 #pragma mark :. 操作对象
-- (NSObject *)cc_viewModel
+- (BaseViewModel *)cc_viewModel
 {
-    NSObject *curVM = objc_getAssociatedObject(self, @selector(cc_viewModel));
+    BaseViewModel *curVM = objc_getAssociatedObject(self, @selector(cc_viewModel));
     if (curVM) return curVM;
     if (![self respondsToSelector:@selector(cc_classOfViewModel)]) {
         NSException *exp = [NSException exceptionWithName:@"not found cc_classOfViewModel" reason:@"you forgot to add cc_classOfViewModel() in VivewController" userInfo:nil];
@@ -195,9 +195,9 @@ static const void *BackButtonHandlerKey = &BackButtonHandlerKey;
     objc_setAssociatedObject(self, @selector(cc_viewModel), cc_viewModel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (NSObject *)cc_viewManger
+- (BaseViewManger *)cc_viewManger
 {
-    NSObject *curVM = objc_getAssociatedObject(self, @selector(cc_viewManger));
+    BaseViewManger *curVM = objc_getAssociatedObject(self, @selector(cc_viewManger));
     if (curVM) return curVM;
     if (![self respondsToSelector:@selector(cc_classOfViewManger)]) {
         NSException *exp = [NSException exceptionWithName:@"not found cc_classOfViewManger" reason:@"you forgot to add cc_classOfViewManger() in VivewController" userInfo:nil];

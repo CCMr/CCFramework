@@ -31,9 +31,12 @@
 #import "SETextView.h"
 #import "CCViewModelProtocolDelegate.h"
 
+#import "CCViewModelProtocol.h"
+#import "CCViewMangerProtocol.h"
+
 typedef void (^failureBlock)(NSString *failure);
 
-@interface BaseViewModel : NSObject <CCViewModelProtocolDelegate>
+@interface BaseViewModel : NSObject <CCViewModelProtocolDelegate, CCViewModelProtocol, CCViewMangerProtocol>
 
 /**
  *  @author CC, 2015-10-22

@@ -78,7 +78,7 @@ static char BUTTONCARRYOBJECTS;
 {
     CGFloat contentViewWidth = CGRectGetWidth(self.frame);
     
-    CGSize viewSize = CGSizeMake(contentViewWidth, 0);
+    CGSize viewSize = CGSizeMake(contentViewWidth, CGRectGetHeight(self.frame));
 
     if (contentViewWidth > 0) {
         // Add a hard width constraint to make dynamic content views (like labels) expand vertically instead
@@ -181,19 +181,6 @@ static char BUTTONCARRYOBJECTS;
 
 - (void)setDelegate:(id<CCViewProtocolDelegate>)delegate {
     objc_setAssociatedObject(self, @selector(delegate), delegate, OBJC_ASSOCIATION_ASSIGN);
-}
-
-- (ViewEventsBlock)viewEventsBlock {
-    return objc_getAssociatedObject(self, @selector(viewEventsBlock));
-}
-
-- (void)setViewEventsBlock:(ViewEventsBlock)viewEventsBlock {
-    objc_setAssociatedObject(self, @selector(viewEventsBlock), viewEventsBlock, OBJC_ASSOCIATION_COPY);
-}
-
-- (void)configureViewWithCustomObj:(id)obj 
-{
-    // Rewrite this func in SubClass !   
 }
 
 #pragma mark -

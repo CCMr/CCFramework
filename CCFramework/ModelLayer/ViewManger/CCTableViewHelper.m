@@ -29,6 +29,7 @@
 #import "UIViewController+Additions.h"
 #import "CCProperty.h"
 #import "UITableViewCell+Additions.h"
+#import "UIView+CCKit.h"
 
 @interface CCTableViewHelper ()
 
@@ -39,6 +40,8 @@
 
 @property(nonatomic, copy) CCScrollViewWillBeginDragging scrollViewBdBlock;
 @property(nonatomic, copy) CCTableHelperHeaderBlock headerBlock;
+
+@property(nonatomic, copy) CCTableHelperCellBlock cellViewEventsBlock;
 
 @end
 
@@ -60,7 +63,7 @@
 {
     if (cellNibNames.count > 0) {
         [cellNibNames enumerateObjectsUsingBlock:^(NSString *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-            if (self.cc_CellXIB)
+            if ([[self.cc_CellXIB objectAtIndex:idx] boolValue])
                 [self.cc_tableView registerNib:[UINib nibWithNibName:obj bundle:nil] forCellReuseIdentifier:obj];
             else
                 [self.cc_tableView registerClass:NSClassFromString(obj) forCellReuseIdentifier:obj];
@@ -94,6 +97,11 @@
 - (void)headerView:(CCTableHelperHeaderBlock)cb
 {
     self.headerBlock = cb;
+}
+
+- (void)cellViewEventBlock:(CCTableHelperCellBlock)cb
+{
+    self.cellViewEventsBlock = cb;
 }
 
 #pragma mark :. TableView DataSource Delegate
@@ -162,6 +170,9 @@
     
     if (self.cellDelegate)
         curCell.delegate = self.cellDelegate;
+    
+    if (self.cellViewEventsBlock)
+        curCell.viewEventsBlock = self.cellViewEventsBlock;
     
     return curCell;
 }

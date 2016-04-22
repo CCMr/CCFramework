@@ -68,18 +68,7 @@
 #pragma mark -
 #pragma mark :. Configure
 
-typedef void (^ViewEventsBlock)();
-
 @property(nonatomic, weak) id<CCViewProtocolDelegate> delegate;
-
-@property(nonatomic, copy) ViewEventsBlock viewEventsBlock;
-
-/**
- *  @author CC, 16-03-14
- *  
- *  @brief 根据obj配置UIView，设置UIView内容
- */
-- (void)configureViewWithCustomObj:(id)obj;
 
 #pragma mark -
 #pragma mark :. Method

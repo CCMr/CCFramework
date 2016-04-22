@@ -25,6 +25,8 @@
 
 #import <UIKit/UIKit.h>
 #import "CCViewControllerProtocolDelegate.h"
+#import "BaseViewManger.h"
+#import "BaseViewModel.h"
 
 @interface UIViewController (Additions) <CCViewControllerProtocolDelegate>
 
@@ -35,8 +37,8 @@
  */
 @property(nonatomic, assign) BOOL tabBarHidden;
 
-@property(nonatomic, strong) __kindof NSObject *cc_viewModel;
-@property(nonatomic, strong) __kindof NSObject *cc_viewManger;
+@property(nonatomic, strong) __kindof BaseViewModel *cc_viewModel;
+@property(nonatomic, strong) __kindof BaseViewManger *cc_viewManger;
 
 
 - (void)backButtonTouched:(void (^)(UIViewController *vc))backButtonHandler;

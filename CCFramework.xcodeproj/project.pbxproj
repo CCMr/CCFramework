@@ -452,6 +452,16 @@
 		4230E1921BBB83E40001E68F /* CCRadarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E1901BBB83E40001E68F /* CCRadarView.m */; };
 		4230E1961BBB8F7C0001E68F /* CCRadarScanViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4230E1941BBB8F7C0001E68F /* CCRadarScanViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4230E1971BBB8F7C0001E68F /* CCRadarScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E1951BBB8F7C0001E68F /* CCRadarScanViewController.m */; };
+		42387C1E1CC74F5A00E25CEF /* CCViewModelProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 42387C1C1CC74F5A00E25CEF /* CCViewModelProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42387C1F1CC74F5A00E25CEF /* CCViewProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 42387C1D1CC74F5A00E25CEF /* CCViewProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42387C221CC750B800E25CEF /* UIView+CCKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 42387C201CC750B800E25CEF /* UIView+CCKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42387C231CC750B800E25CEF /* UIView+CCKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 42387C211CC750B800E25CEF /* UIView+CCKit.m */; };
+		42387C261CC754B900E25CEF /* NSObject+CCProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 42387C241CC754B900E25CEF /* NSObject+CCProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42387C271CC754B900E25CEF /* NSObject+CCProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 42387C251CC754B900E25CEF /* NSObject+CCProperties.m */; };
+		42387C2A1CC7554400E25CEF /* CCMediator.h in Headers */ = {isa = PBXBuildFile; fileRef = 42387C281CC7554400E25CEF /* CCMediator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42387C2B1CC7554400E25CEF /* CCMediator.m in Sources */ = {isa = PBXBuildFile; fileRef = 42387C291CC7554400E25CEF /* CCMediator.m */; };
+		42387C2C1CC75D5A00E25CEF /* CCViewMangerProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 42387C1B1CC74CD400E25CEF /* CCViewMangerProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42387C2E1CC75DEE00E25CEF /* CCKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 42387C2D1CC75D9500E25CEF /* CCKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		423C12791C0ECACB009FBA17 /* CCTool.h in Headers */ = {isa = PBXBuildFile; fileRef = 423C12771C0ECACB009FBA17 /* CCTool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		423C127A1C0ECACB009FBA17 /* CCTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 423C12781C0ECACB009FBA17 /* CCTool.m */; };
 		423D1DA01C3A00CE008E483A /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 423D1D9F1C3A00CE008E483A /* libWeChatSDK.a */; };
@@ -1688,6 +1698,16 @@
 		4230E1901BBB83E40001E68F /* CCRadarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRadarView.m; path = Radar/Scanning/CCRadarView.m; sourceTree = "<group>"; };
 		4230E1941BBB8F7C0001E68F /* CCRadarScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRadarScanViewController.h; path = CCRadarScan/CCRadarScanViewController.h; sourceTree = "<group>"; };
 		4230E1951BBB8F7C0001E68F /* CCRadarScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRadarScanViewController.m; path = CCRadarScan/CCRadarScanViewController.m; sourceTree = "<group>"; };
+		42387C1B1CC74CD400E25CEF /* CCViewMangerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CCViewMangerProtocol.h; path = Core/CCMVVMKit/Protocol/CCViewMangerProtocol.h; sourceTree = "<group>"; };
+		42387C1C1CC74F5A00E25CEF /* CCViewModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCViewModelProtocol.h; path = Core/CCMVVMKit/Protocol/CCViewModelProtocol.h; sourceTree = "<group>"; };
+		42387C1D1CC74F5A00E25CEF /* CCViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCViewProtocol.h; path = Core/CCMVVMKit/Protocol/CCViewProtocol.h; sourceTree = "<group>"; };
+		42387C201CC750B800E25CEF /* UIView+CCKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+CCKit.h"; path = "Core/CCMVVMKit/Category/UIView+CCKit.h"; sourceTree = "<group>"; };
+		42387C211CC750B800E25CEF /* UIView+CCKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+CCKit.m"; path = "Core/CCMVVMKit/Category/UIView+CCKit.m"; sourceTree = "<group>"; };
+		42387C241CC754B900E25CEF /* NSObject+CCProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+CCProperties.h"; path = "Core/CCMVVMKit/Category/NSObject+CCProperties.h"; sourceTree = "<group>"; };
+		42387C251CC754B900E25CEF /* NSObject+CCProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+CCProperties.m"; path = "Core/CCMVVMKit/Category/NSObject+CCProperties.m"; sourceTree = "<group>"; };
+		42387C281CC7554400E25CEF /* CCMediator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCMediator.h; path = Core/CCMVVMKit/CCMediator.h; sourceTree = "<group>"; };
+		42387C291CC7554400E25CEF /* CCMediator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCMediator.m; path = Core/CCMVVMKit/CCMediator.m; sourceTree = "<group>"; };
+		42387C2D1CC75D9500E25CEF /* CCKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CCKit.h; path = Core/CCMVVMKit/CCKit.h; sourceTree = "<group>"; };
 		423C12771C0ECACB009FBA17 /* CCTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCTool.h; path = Core/Tool/CCTool.h; sourceTree = "<group>"; };
 		423C12781C0ECACB009FBA17 /* CCTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCTool.m; path = Core/Tool/CCTool.m; sourceTree = "<group>"; };
 		423D1D9F1C3A00CE008E483A /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
@@ -3886,6 +3906,39 @@
 			name = CCRadarScan;
 			sourceTree = "<group>";
 		};
+		42387C181CC72CF400E25CEF /* CCMVVMKit */ = {
+			isa = PBXGroup;
+			children = (
+				42387C1A1CC74C2800E25CEF /* Protocol */,
+				42387C191CC74C2100E25CEF /* Category */,
+				42387C281CC7554400E25CEF /* CCMediator.h */,
+				42387C291CC7554400E25CEF /* CCMediator.m */,
+				42387C2D1CC75D9500E25CEF /* CCKit.h */,
+			);
+			name = CCMVVMKit;
+			sourceTree = "<group>";
+		};
+		42387C191CC74C2100E25CEF /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				42387C241CC754B900E25CEF /* NSObject+CCProperties.h */,
+				42387C251CC754B900E25CEF /* NSObject+CCProperties.m */,
+				42387C201CC750B800E25CEF /* UIView+CCKit.h */,
+				42387C211CC750B800E25CEF /* UIView+CCKit.m */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
+		42387C1A1CC74C2800E25CEF /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				42387C1C1CC74F5A00E25CEF /* CCViewModelProtocol.h */,
+				42387C1D1CC74F5A00E25CEF /* CCViewProtocol.h */,
+				42387C1B1CC74CD400E25CEF /* CCViewMangerProtocol.h */,
+			);
+			name = Protocol;
+			sourceTree = "<group>";
+		};
 		423B252D1BE9E86700DAF075 /* CCDorpDown */ = {
 			isa = PBXGroup;
 			children = (
@@ -5744,6 +5797,7 @@
 			isa = PBXGroup;
 			children = (
 				42B6473F1BEDA8DD00B2F6FD /* Core.h */,
+				42387C181CC72CF400E25CEF /* CCMVVMKit */,
 				421E7A821C3DFCAD00C31AD0 /* CCSystemSound */,
 				423D1DA11C3A11C5008E483A /* CCAlertView */,
 				429B9BA81C322DB000ACB250 /* CCProgressHUD */,
@@ -6279,6 +6333,7 @@
 				42F411411C214C5400814E7B /* CCCircleBrush.h in Headers */,
 				42B30DE81BBD72AD0039BB94 /* SDWebImageManager.h in Headers */,
 				421DC6F61C85750E009E825B /* UINavigationController+Additions.h in Headers */,
+				42387C1E1CC74F5A00E25CEF /* CCViewModelProtocol.h in Headers */,
 				426476AA1BD0E3AF00EE191C /* CCUtilityButtonView.h in Headers */,
 				4254772E1BD2AEC20071BBC5 /* blowfish.h in Headers */,
 				4269793B1BA695BA00C3E93C /* AFNetworkActivityIndicatorManager.h in Headers */,
@@ -6298,6 +6353,7 @@
 				421DC7381C85750E009E825B /* UIView+Animation.h in Headers */,
 				425477331BD2AEC20071BBC5 /* cmac.h in Headers */,
 				425477811BD2AEC20071BBC5 /* RSADataSigner.h in Headers */,
+				42387C2C1CC75D5A00E25CEF /* CCViewMangerProtocol.h in Headers */,
 				42A356391BF4399800B6F1F2 /* CCRefreshFooterView.h in Headers */,
 				421DC7481C85750E009E825B /* UIView+Frame.h in Headers */,
 				429CA0B31B9EF8BF0013A44A /* SETextView.h in Headers */,
@@ -6327,6 +6383,7 @@
 				429CA0F51B9EF8BF0013A44A /* CCPhotographyHelper.h in Headers */,
 				42B30DE61BBD72AD0039BB94 /* SDWebImageDecoder.h in Headers */,
 				429CA0FF1B9EF8BF0013A44A /* CCFileAttribute.h in Headers */,
+				42387C2A1CC7554400E25CEF /* CCMediator.h in Headers */,
 				42F24C591BEA5091008CDEDC /* PNColor.h in Headers */,
 				422511391C72F795003B3623 /* CCExtension.h in Headers */,
 				429CA00D1B9EF8BF0013A44A /* CalendarDay.h in Headers */,
@@ -6476,6 +6533,7 @@
 				42A1F61D1C8A740D00A20F64 /* CCDebugTool.h in Headers */,
 				420CD8B11C59F788009578D4 /* CCInputDodger.h in Headers */,
 				42F4E30F1C925DCF0006D847 /* HttpFileConfig.h in Headers */,
+				42387C221CC750B800E25CEF /* UIView+CCKit.h in Headers */,
 				42FCABAE1C7EEFA000DDE2C9 /* UIScrollView+Expand.h in Headers */,
 				4213B0181C91643300BAB28E /* CCHTTPUpDownLoad.h in Headers */,
 				429CA1121B9EF8BF0013A44A /* CCShareMenuItem.h in Headers */,
@@ -6598,6 +6656,7 @@
 				4206A52C1C783CFA001A1CF3 /* CCBottomBar.h in Headers */,
 				42A1F63E1C8A7E5900A20F64 /* NSURLSessionTask+Data.h in Headers */,
 				429C9F521B9EF8BF0013A44A /* BaseTableViewCell.h in Headers */,
+				42387C1F1CC74F5A00E25CEF /* CCViewProtocol.h in Headers */,
 				425477731BD2AEC20071BBC5 /* x509v3.h in Headers */,
 				421E7A7B1C3D173D00C31AD0 /* CCSideMenu.h in Headers */,
 				420CB1411C7D788500A0EC25 /* MASViewConstraint.h in Headers */,
@@ -6610,6 +6669,7 @@
 				429CA0711B9EF8BF0013A44A /* CCPopMenu.h in Headers */,
 				429C9F9C1B9EF8BF0013A44A /* CCQRCodeViewController.h in Headers */,
 				421DC6441C85750E009E825B /* NSRunLoop+Additions.h in Headers */,
+				42387C261CC754B900E25CEF /* NSObject+CCProperties.h in Headers */,
 				429C9FAC1B9EF8BF0013A44A /* CCUserDefaults.h in Headers */,
 				420CB1481C7D788500A0EC25 /* View+MASAdditions.h in Headers */,
 				429CA02D1B9EF8BF0013A44A /* CCNumericKeypadView.h in Headers */,
@@ -6623,6 +6683,7 @@
 				42068F261C573E33005DFB01 /* UnitBezier.h in Headers */,
 				42B30DE31BBD72AD0039BB94 /* SDWebImageCompat.h in Headers */,
 				425330641C96508500375ED0 /* CCViewControllerProtocolDelegate.h in Headers */,
+				42387C2E1CC75DEE00E25CEF /* CCKit.h in Headers */,
 				424492951C0D90F500488AA2 /* interf_enc.h in Headers */,
 				429CA0911B9EF8BF0013A44A /* CCWebViewController.h in Headers */,
 				426476A81BD0E3AF00EE191C /* CCUtilityButtonTapGestureRecognizer.h in Headers */,
@@ -7033,6 +7094,7 @@
 				429CA0A21B9EF8BF0013A44A /* SETextAttachment.m in Sources */,
 				4220B6191BFAB95A006145FD /* CustomIOSAlertView.m in Sources */,
 				426476A51BD0E3AF00EE191C /* CCLongPressGestureRecognizer.m in Sources */,
+				42387C271CC754B900E25CEF /* NSObject+CCProperties.m in Sources */,
 				420CB1421C7D788500A0EC25 /* MASViewConstraint.m in Sources */,
 				42A3563C1BF4399800B6F1F2 /* CCRefreshHeaderView.m in Sources */,
 				42A1F6651C8A8E4000A20F64 /* FMDatabaseQueue.m in Sources */,
@@ -7174,6 +7236,7 @@
 				429CA0FC1B9EF8BF0013A44A /* CCMessageTableViewController.m in Sources */,
 				429CA1211B9EF8BF0013A44A /* CCEmotionManagerView.m in Sources */,
 				4219EE161C7FF93F00F1EE76 /* MLLabel.m in Sources */,
+				42387C2B1CC7554400E25CEF /* CCMediator.m in Sources */,
 				422511431C72F795003B3623 /* CCPropertyType.m in Sources */,
 				4225113B1C72F795003B3623 /* CCExtensionConst.m in Sources */,
 				422359301C867862005207B9 /* NSArray+Additions.m in Sources */,
@@ -7336,6 +7399,7 @@
 				4220E9EB1CC4DD19002B5FF0 /* CCButton.m in Sources */,
 				424BD58D1C8ECA3E005722F6 /* WebViewJavascriptBridge.m in Sources */,
 				420CD8BE1C59F9B9009578D4 /* UIView+CCInputDodger.m in Sources */,
+				42387C231CC750B800E25CEF /* UIView+CCKit.m in Sources */,
 				429C9FEE1B9EF8BF0013A44A /* SRHttpBasedTransport.m in Sources */,
 				421DC7F01C859E0E009E825B /* UILabel+Additions.m in Sources */,
 				429C9FF41B9EF8BF0013A44A /* SRWebSocketTransport.m in Sources */,

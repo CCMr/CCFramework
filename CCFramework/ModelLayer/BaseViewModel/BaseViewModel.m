@@ -27,7 +27,14 @@
 #import "CCMessagePhotoImageView.h"
 #import "CCMessageBubbleHelper.h"
 
+#import "NSObject+CCProperties.h"
+
 @implementation BaseViewModel
+
+- (void)cc_notice
+{
+    [self.cc_mediator noticeViewMangerWithInfos:self.cc_viewModelInfos];
+}
 
 #pragma mark - Public 函数
 

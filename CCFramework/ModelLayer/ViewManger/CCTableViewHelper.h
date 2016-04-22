@@ -34,6 +34,7 @@ typedef void (^CCTableHelperDidSelectBlock)(UITableView *tableView, NSIndexPath 
 typedef void (^CCTableHelperDidWillDisplayBlock)(UITableViewCell *Cell, id cModel);
 
 typedef void (^CCScrollViewWillBeginDragging)(UIScrollView *scrollView);
+typedef void (^CCTableHelperCellBlock)(NSString *info, id event);
 
 typedef UIView *__nonnull (^CCTableHelperHeaderBlock)(UITableView *tableView, NSInteger section);
 
@@ -51,7 +52,7 @@ typedef UIView *__nonnull (^CCTableHelperHeaderBlock)(UITableView *tableView, NS
  */
 @property(nullable, nonatomic, copy) NSString *cellIdentifier;
 
-@property(nonatomic, assign) BOOL cc_CellXIB;
+@property(nonatomic, strong) NSArray *cc_CellXIB;
 
 /**
  *  @author CC, 16-04-07
@@ -85,6 +86,13 @@ typedef UIView *__nonnull (^CCTableHelperHeaderBlock)(UITableView *tableView, NS
 - (void)ccScrollViewWillBeginDragging:(CCScrollViewWillBeginDragging)block;
 
 - (void)headerView:(CCTableHelperHeaderBlock)cb;
+
+/**
+ *  @author CC, 16-04-22
+ *  
+ *  @brief 设置Cell回调Block
+ */
+- (void)cellViewEventBlock:(CCTableHelperCellBlock)cb;
 
 @property(nonatomic, weak) UITableView *cc_tableView;
 @property(nonatomic, strong) NSIndexPath *cc_indexPath;

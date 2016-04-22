@@ -24,8 +24,15 @@
 //
 
 #import "BaseViewManger.h"
+#import "NSObject+CCProperties.h"
+
 
 @implementation BaseViewManger
+
+- (void)cc_notice
+{   
+    [self.cc_mediator noticeViewModelWithInfos:self.cc_viewMangerInfos];
+}
 
 /**
  *  @author CC, 2016-03-14

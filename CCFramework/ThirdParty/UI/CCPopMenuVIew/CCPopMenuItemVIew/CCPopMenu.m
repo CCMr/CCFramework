@@ -100,6 +100,12 @@
 - (void)dissMissPopMenuAnimatedOnMenuSelected:(BOOL)selected
 {
     self.isShow = NO;
+    if (selected) {
+        if (self.popMenuDidDismissCompled) {
+            self.popMenuDidDismissCompled(self.indexPath.row, self.menus[self.indexPath.row]);
+        }
+    }
+    
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.alpha = 0.0;
         CGFloat x = 0;
@@ -113,14 +119,8 @@
         self.menuContainerView.frame = CGRectMake(x, _fromTheTop + 8, kCCMenuTableViewWidth, 0);
         self.menuTableView.frame = CGRectMake(0, kCCMenuTableViewSapcing, CGRectGetWidth(_menuContainerView.bounds), 0);
     } completion:^(BOOL finished) {
-        if (selected) {
-            if (self.popMenuDidDismissCompled) {
-                self.popMenuDidDismissCompled(self.indexPath.row, self.menus[self.indexPath.row]);
-            }
-        }
         [super removeFromSuperview];
     }];
-    
 }
 
 - (BOOL)isShowed

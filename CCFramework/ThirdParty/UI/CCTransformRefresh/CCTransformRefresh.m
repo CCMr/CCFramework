@@ -118,14 +118,14 @@ typedef enum {
 
 - (void)endTransformRefreshing
 {
-    self.state = CCTransformRefreshStateNormal;
     double delayInSeconds = 0.3;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-        
         [self.layer removeAnimationForKey:kCCTransformRefreshAnimationKey];
         [UIView animateWithDuration:0.3 animations:^{
             self.transform = CGAffineTransformIdentity;
+        } completion:^(BOOL finished) {
+            self.state = CCTransformRefreshStateNormal;
         }];
     });
 }

@@ -26,7 +26,11 @@
 #import <Foundation/Foundation.h>
 #import "CCViewMangerProtocolDelegate.h"
 
-@interface BaseViewManger : NSObject <CCViewMangerProtocolDelegate>
+#import "CCViewMangerProtocol.h"
+#import "CCViewModelProtocol.h"
+#import "CCViewProtocol.h"
+
+@interface BaseViewManger : NSObject <CCViewMangerProtocolDelegate, CCViewMangerProtocol, CCViewModelProtocol, CCViewProtocol>
 
 /**
  *  @author CC, 16-03-14
