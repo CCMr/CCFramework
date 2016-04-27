@@ -81,14 +81,16 @@ static char BUTTONCARRYOBJECTS;
     CGSize viewSize = CGSizeMake(contentViewWidth, CGRectGetHeight(self.frame));
 
     if (contentViewWidth > 0) {
-        // Add a hard width constraint to make dynamic content views (like labels) expand vertically instead
-        // of growing horizontally, in a flow-layout manner.
-        NSLayoutConstraint *widthFenceConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:contentViewWidth];
-        [self addConstraint:widthFenceConstraint];
-        
-        // Auto layout engine does its math
-        viewSize = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-        [self removeConstraint:widthFenceConstraint];
+        if (viewSize.height <= 0) {
+            // Add a hard width constraint to make dynamic content views (like labels) expand vertically instead
+            // of growing horizontally, in a flow-layout manner.
+            NSLayoutConstraint *widthFenceConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:contentViewWidth];
+            [self addConstraint:widthFenceConstraint];
+            
+            // Auto layout engine does its math
+            viewSize = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            [self removeConstraint:widthFenceConstraint];
+        }
     }else{
 #if DEBUG
         // Warn if using AutoLayout but get zero height.
@@ -170,6 +172,16 @@ static char BUTTONCARRYOBJECTS;
         responder = responder.nextResponder;
     } while (responder);
     return nil;
+}
+
+/**
+ *  @author CC, 16-04-25
+ *  
+ *  @brief 找到当前View所在的NavigationController
+ */
+-(UINavigationController *)navigationController
+{
+    return self.viewController.navigationController;
 }
 
 #pragma mark -

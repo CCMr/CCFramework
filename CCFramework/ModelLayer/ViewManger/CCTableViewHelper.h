@@ -34,6 +34,7 @@ typedef void (^CCTableHelperDidSelectBlock)(UITableView *tableView, NSIndexPath 
 typedef void (^CCTableHelperDidWillDisplayBlock)(UITableViewCell *Cell, id cModel);
 
 typedef void (^CCScrollViewWillBeginDragging)(UIScrollView *scrollView);
+typedef void (^CCScrollViewDidScroll)(UIScrollView *scrollView);
 typedef void (^CCTableHelperCellBlock)(NSString *info, id event);
 
 typedef UIView *__nonnull (^CCTableHelperHeaderBlock)(UITableView *tableView, NSInteger section);
@@ -84,6 +85,7 @@ typedef UIView *__nonnull (^CCTableHelperHeaderBlock)(UITableView *tableView, NS
 - (void)cellWillDisplay:(CCTableHelperDidWillDisplayBlock)cb;
 
 - (void)ccScrollViewWillBeginDragging:(CCScrollViewWillBeginDragging)block;
+- (void)ccScrollViewDidScroll:(CCScrollViewDidScroll)block;
 
 - (void)headerView:(CCTableHelperHeaderBlock)cb;
 

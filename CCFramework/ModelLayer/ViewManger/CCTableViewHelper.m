@@ -39,6 +39,7 @@
 @property(nonatomic, copy) CCTableHelperDidWillDisplayBlock didWillDisplayBlock;
 
 @property(nonatomic, copy) CCScrollViewWillBeginDragging scrollViewBdBlock;
+@property(nonatomic, copy) CCScrollViewDidScroll scrollViewddBlock;
 @property(nonatomic, copy) CCTableHelperHeaderBlock headerBlock;
 
 @property(nonatomic, copy) CCTableHelperCellBlock cellViewEventsBlock;
@@ -102,6 +103,11 @@
 - (void)cellViewEventBlock:(CCTableHelperCellBlock)cb
 {
     self.cellViewEventsBlock = cb;
+}
+
+- (void)ccScrollViewDidScroll:(CCScrollViewDidScroll)block
+{
+    self.scrollViewddBlock = block;
 }
 
 #pragma mark :. TableView DataSource Delegate
@@ -208,6 +214,12 @@
 {
     if (self.scrollViewBdBlock)
         self.scrollViewBdBlock(scrollView);
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (self.scrollViewddBlock)
+        self.scrollViewddBlock(scrollView);
 }
 
 #pragma mark :. Handler

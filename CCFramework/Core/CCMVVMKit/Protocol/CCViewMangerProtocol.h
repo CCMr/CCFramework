@@ -154,6 +154,17 @@ typedef void (^ViewModelInfosBlock)();
 - (ViewModelInfosBlock)cc_viewMangerWithViewModelBlockOfInfos:(NSDictionary *)infos;
 
 /**
+ *  @author CC, 16-04-26
+ *  
+ *  @brief 将（ViewManger的数据源）数据传递到ViewModel
+ *
+ *  @param info           附带信息，用于区分调用
+ *  @param successHandler 响应数据
+ */
+- (void)cc_viewMangerWithGetData:(NSString *)info
+                  SuccessHandler:(void (^)(NSDictionary *parameter))successHandler;
+
+/**
  *  @author CC, 16-04-20
  *  
  *  @brief 将viewManger中的信息通过代理传递给ViewModel
@@ -161,7 +172,7 @@ typedef void (^ViewModelInfosBlock)();
  *  @param viewManger viewManger自己
  *  @param infos      描述信息
  */
-- (void)cc_viewManger:(id)viewManger 
+- (void)cc_viewManger:(id)viewManger
             withInfos:(NSDictionary *)infos;
 
 /**
@@ -174,5 +185,19 @@ typedef void (^ViewModelInfosBlock)();
  */
 -(void)cc_viewMangerEvent:(NSString *)info 
                 withEvent:(NSDictionary *)eventDic;
+
+/**
+ *  @author CC, 16-04-26
+ *  
+ *  @brief ViewManger事件传递到ViewModel 响应回调
+ *
+ *  @param info     描述信息
+ *  @param eventDic 传递参数
+ *  @param block    回调函数
+ */
+-(void)cc_viewMangerEvent:(NSString *)info 
+                withEvent:(NSDictionary *)eventDic 
+            CallbackBlock:(void(^)(id response))block;
+
 
 @end

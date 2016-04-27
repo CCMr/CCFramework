@@ -57,6 +57,14 @@
  */
 @property(readonly) UIViewController *viewController;
 
+/**
+ *  @author CC, 16-04-25
+ *  
+ *  @brief 找到当前View所在的NavigationController
+ */
+@property(readonly) UINavigationController *navigationController;
+
+
 + (UINib *)loadNib;
 + (UINib *)loadNibNamed:(NSString *)nibName;
 + (UINib *)loadNibNamed:(NSString *)nibName bundle:(NSBundle *)bundle;
