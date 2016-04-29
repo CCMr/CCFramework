@@ -175,7 +175,7 @@
     }
     
     if (self.cellDelegate)
-        curCell.delegate = self.cellDelegate;
+        curCell.viewDelegate = self.cellDelegate;
     
     if (self.cellViewEventsBlock)
         curCell.viewEventsBlock = self.cellViewEventsBlock;

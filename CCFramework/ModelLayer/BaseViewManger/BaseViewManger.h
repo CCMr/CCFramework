@@ -24,13 +24,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CCViewMangerProtocolDelegate.h"
-
 #import "CCViewMangerProtocol.h"
 #import "CCViewModelProtocol.h"
 #import "CCViewProtocol.h"
 
-@interface BaseViewManger : NSObject <CCViewMangerProtocolDelegate, CCViewMangerProtocol, CCViewModelProtocol, CCViewProtocol>
+
+@interface BaseViewManger : NSObject <CCViewMangerProtocol, CCViewModelProtocol, CCViewProtocol>
 
 /**
  *  @author CC, 16-03-14
@@ -39,49 +38,6 @@
  */
 @property(nonatomic, strong) NSObject *cc_model;
 
-/**
- *  @author CC, 16-03-15
- *  
- *  @brief 将View响应事件传递到 ViewManger <-> ViewController <-> ViewModel
- */
-@property(nonatomic, copy) EventHandle eventHandle;
-
-/**
- *  @author CC, 16-04-16
- *  
- *  @brief 将View响应事件传递到 ViewManger <-> ViewController <-> ViewModel
- *         同步等待返回结果
- */
-@property(nonatomic, copy) EventHandleReturn eventHandleReturn;
-
-/**
- *  @author CC, 16-04-16
- *  
- *  @brief 将View响应事件传递到 ViewManger <-> ViewController <-> ViewModel
- *         异步回调
- */
-@property(nonatomic, copy) EventHandleBlock eventHandelBlock;
-
-
-/**
- *  @author CC, 2016-03-14
- *  
- *  @brief 初始化控件
- */
-- (void)initControl;
-
-/**
- *  @author CC, 2016-03-14
- *  
- *  @brief 初始化数据
- */
-- (void)initWithData;
-
-/**
- *  @author CC, 2016-03-14
- *  
- *  @brief 初始化加载数据
- */
-- (void)initLoadData;
+@property(nonatomic, copy) ViewEventHandle eventHandle;
 
 @end

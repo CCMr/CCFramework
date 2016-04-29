@@ -39,6 +39,11 @@ typedef void (^ViewEventsBlock)(NSString *info, NSDictionary *eventDic);
  */
 typedef void (^ViewModelInfosBlock)();
 
+typedef void (^ViewEventHandle)(NSString *info, NSDictionary *eventDic);
+
+typedef void (^ViewEventBlock)(id response);
+typedef void (^ViewEventHandleBlock)(NSString *info, NSDictionary *eventDic, ViewEventBlock block);
+
 @protocol CCViewMangerProtocol <NSObject>
 
 @optional
@@ -134,6 +139,14 @@ typedef void (^ViewModelInfosBlock)();
  *  @brief 将model数据传递给viewManger
  */
 - (void)cc_viewMangerWithModel:(NSDictionary * (^)())dictBlock;
+
+/**
+ *  @author CC, 16-04-29
+ *  
+ *  @brief ViewManger传递事件到ViewController
+ */
+- (void)cc_viewMangerWithEventHandle:(ViewEventHandle)eventHandle;
+- (void)cc_viewMangerWithEventHandleBlock:(ViewEventHandleBlock)eventHandleBlock;
 
 /**
  *  @author CC, 16-04-20

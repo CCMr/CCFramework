@@ -33,13 +33,5 @@
 #import <CCFramework/BaseViewManger.h>
 #import <CCFramework/CCTableViewHelper.h>
 
-#pragma mark -
-#pragma mark :.  viewModel
-#import <CCFramework/CCTableViewManger.h>
-#import <CCFramework/CCCollectionViewManger.h>
-#import <CCFramework/CCViewModelProtocolDelegate.h>
-#import <CCFramework/CCViewMangerProtocolDelegate.h>
-#import <CCFramework/CCViewControllerProtocolDelegate.h>
-#import <CCFramework/CCViewProtocolDelegate.h>
 
 #endif

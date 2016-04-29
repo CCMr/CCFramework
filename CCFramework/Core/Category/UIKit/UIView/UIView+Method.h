@@ -24,7 +24,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CCViewProtocolDelegate.h"
 
 @interface CCCircleView : UIView
 
@@ -73,10 +72,6 @@
 + (instancetype)loadInstanceFromNibWithName:(NSString *)nibName owner:(id)owner;
 + (instancetype)loadInstanceFromNibWithName:(NSString *)nibName owner:(id)owner bundle:(NSBundle *)bundle;
 
-#pragma mark -
-#pragma mark :. Configure
-
-@property(nonatomic, weak) id<CCViewProtocolDelegate> delegate;
 
 #pragma mark -
 #pragma mark :. Method

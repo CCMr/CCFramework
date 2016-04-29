@@ -185,17 +185,6 @@ static char BUTTONCARRYOBJECTS;
 }
 
 #pragma mark -
-#pragma mark :. Configure
-
-- (id<CCViewProtocolDelegate>)delegate {
-    return objc_getAssociatedObject(self, _cmd);
-}
-
-- (void)setDelegate:(id<CCViewProtocolDelegate>)delegate {
-    objc_setAssociatedObject(self, @selector(delegate), delegate, OBJC_ASSOCIATION_ASSIGN);
-}
-
-#pragma mark -
 #pragma mark :. Method
 
 /**

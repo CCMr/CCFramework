@@ -25,7 +25,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "CCViewProtocolDelegate.h"
+#import "CCViewProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -60,7 +60,7 @@ typedef UIView *__nonnull (^CCTableHelperHeaderBlock)(UITableView *tableView, NS
  *  
  *  @brief Cell委托
  */
-@property(nonatomic, weak) id<CCViewProtocolDelegate> cellDelegate;
+@property(nonatomic, weak) id<CCViewProtocol> cellDelegate;
 
 /**
  *  When using xib, all incoming nib names

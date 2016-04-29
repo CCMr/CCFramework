@@ -30,6 +30,12 @@
  */
 typedef void (^ViewMangerInfosBlock)(NSString *info, NSDictionary *eventDic);
 
+/**
+ *  @author CC, 16-04-20
+ *  
+ *  @brief  将自己事件处理通过block方式交互ViewManger
+ */
+typedef void (^ViewModelEventsBlock)(NSString *info, NSDictionary *eventDic);
 
 @protocol CCViewModelProtocol <NSObject>
 
@@ -157,5 +163,12 @@ typedef void (^ViewMangerInfosBlock)(NSString *info, NSDictionary *eventDic);
  */
 - (void)cc_viewModelWithData:(NSDictionary *)parameters 
               SuccessHandler:(void (^)(BOOL isSuccess, NSString *info))successHandler;
+
+/**
+ *  @author CC, 16-04-29
+ *  
+ *  @brief ViewModel传递事件到ViewController
+ */
+- (void)cc_viewModleWithEventHandle:(ViewModelEventsBlock)eventHandle;
 
 @end

@@ -25,7 +25,6 @@
 
 #import "UITableView+Additions.h"
 #import <objc/runtime.h>
-#import "CCTableViewManger.h"
 #import "NSObject+Additions.h"
 #import "UIView+Method.h"
 #import "CCTableViewHelper.h"
@@ -152,8 +151,8 @@ typedef NSMutableArray<NSMutableArray<NSNumber *> *> CCIndexPathHeightsBySection
 
 - (void)setTabelHander:(CCTableViewManger *)tabelHander
 {
-    if (tabelHander)
-        [tabelHander handleTableViewDatasourceAndDelegate:self];
+//    if (tabelHander)
+//        [tabelHander handleTableViewDatasourceAndDelegate:self];
     
     objc_setAssociatedObject(self, @selector(tabelHander), tabelHander, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }

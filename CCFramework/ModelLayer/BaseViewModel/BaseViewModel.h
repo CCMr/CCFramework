@@ -29,14 +29,12 @@
 #import "Config.h"
 #import "CCMessage.h"
 #import "SETextView.h"
-#import "CCViewModelProtocolDelegate.h"
-
 #import "CCViewModelProtocol.h"
 #import "CCViewMangerProtocol.h"
 
 typedef void (^failureBlock)(NSString *failure);
 
-@interface BaseViewModel : NSObject <CCViewModelProtocolDelegate, CCViewModelProtocol, CCViewMangerProtocol>
+@interface BaseViewModel : NSObject <CCViewModelProtocol, CCViewMangerProtocol>
 
 /**
  *  @author CC, 2015-10-22
@@ -62,6 +60,10 @@ typedef void (^failureBlock)(NSString *failure);
  */
 - (void)responseWithBlock:(Completion)returnBlock
                   failure:(failureBlock)failure;
+
+@property(nonatomic, copy) ViewEventHandle eventHandle;
+
+@property(nonatomic, copy) ViewEventHandleBlock eventHandleBlock;
 
 /**
  *  @author CC, 15-08-20
