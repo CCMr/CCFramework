@@ -78,7 +78,7 @@ static char BUTTONCARRYOBJECTS;
 {
     CGFloat contentViewWidth = CGRectGetWidth(self.frame);
     
-    CGSize viewSize = CGSizeMake(contentViewWidth, CGRectGetHeight(self.frame));
+    CGSize viewSize = CGSizeMake(contentViewWidth, 0);
 
     if (contentViewWidth > 0) {
         if (viewSize.height <= 0) {
@@ -105,7 +105,10 @@ static char BUTTONCARRYOBJECTS;
         // Note: fitting height should not include separator view.
         viewSize = [self sizeThatFits:CGSizeMake(contentViewWidth, 0)];
     }
-       
+    
+    if (viewSize.height == 0)
+        viewSize.height = CGRectGetHeight(self.frame);
+    
     return viewSize;
 }
 

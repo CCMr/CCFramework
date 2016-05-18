@@ -38,6 +38,7 @@ typedef void (^CCScrollViewDidScroll)(UIScrollView *scrollView);
 typedef void (^CCTableHelperCellBlock)(NSString *info, id event);
 
 typedef UIView *__nonnull (^CCTableHelperHeaderBlock)(UITableView *tableView, NSInteger section);
+typedef UIView *__nonnull (^CCTableHelperFooterBlock)(UITableView *tableView, NSInteger section);
 
 @interface CCTableViewHelper : NSObject <UITableViewDataSource, UITableViewDelegate>
 
@@ -67,6 +68,8 @@ typedef UIView *__nonnull (^CCTableHelperHeaderBlock)(UITableView *tableView, NS
  */
 - (void)registerNibs:(NSArray<NSString *> *)cellNibNames;
 
+#pragma mark -
+#pragma mark :. Block事件
 /**
  *  When there are multiple cell, returned identifier in block
  */
@@ -87,7 +90,19 @@ typedef UIView *__nonnull (^CCTableHelperHeaderBlock)(UITableView *tableView, NS
 - (void)ccScrollViewWillBeginDragging:(CCScrollViewWillBeginDragging)block;
 - (void)ccScrollViewDidScroll:(CCScrollViewDidScroll)block;
 
+/**
+ *  @author CC, 16-05-18
+ *  
+ *  @brief  Header视图
+ */
 - (void)headerView:(CCTableHelperHeaderBlock)cb;
+
+/**
+ *  @author CC, 16-05-18
+ *  
+ *  @brief  Footer视图
+ */
+- (void)footerView:(CCTableHelperFooterBlock)cb;
 
 /**
  *  @author CC, 16-04-22
@@ -99,13 +114,81 @@ typedef UIView *__nonnull (^CCTableHelperHeaderBlock)(UITableView *tableView, NS
 @property(nonatomic, weak) UITableView *cc_tableView;
 @property(nonatomic, strong) NSIndexPath *cc_indexPath;
 
+#pragma mark -
+#pragma mark :. Handler
+/**
+ *  @author CC, 16-05-18
+ *  
+ *  @brief  显示数据
+ *
+ *  @param newDataAry 数据源
+ */
 - (void)cc_resetDataAry:(NSArray *)newDataAry;
+
+/**
+ *  @author CC, 16-05-18
+ *  
+ *  @brief  显示数据
+ *
+ *  @param newDataAry 数据源
+ *  @param cSection   分组数
+ */
 - (void)cc_resetDataAry:(NSArray *)newDataAry forSection:(NSUInteger)cSection;
+
+/**
+ *  @author CC, 16-05-18
+ *  
+ *  @brief  刷新并加入新数据
+ *
+ *  @param newDataAry 数据源
+ */
 - (void)cc_reloadDataAry:(NSArray *)newDataAry;
+
+/**
+ *  @author CC, 16-05-18
+ *  
+ *  @brief  刷新并加入新数据
+ *
+ *  @param newDataAry 数据源
+ *  @param cSection   分组数
+ */
 - (void)cc_reloadDataAry:(NSArray *)newDataAry forSection:(NSUInteger)cSection;
+
+/**
+ *  @author CC, 16-05-18
+ *  
+ *  @brief  批量添加数据
+ *
+ *  @param newDataAry 数据源
+ */
 - (void)cc_addDataAry:(NSArray *)newDataAry;
+/**
+ *  @author CC, 16-05-18
+ *  
+ *  @brief  批量添加
+ *
+ *  @param newDataAry 数据源
+ *  @param cSection   分组数
+ */
 - (void)cc_addDataAry:(NSArray *)newDataAry forSection:(NSUInteger)cSection;
+
+/**
+ *  @author CC, 16-05-18
+ *  
+ *  @brief  单个添加
+ *
+ *  @param cModel     数据模型
+ *  @param cIndexPath 下标位置
+ */
 - (void)cc_insertData:(id)cModel AtIndex:(NSIndexPath *)cIndexPath;
+
+/**
+ *  @author CC, 16-05-18
+ *  
+ *  @brief  根据下标删除数据
+ *
+ *  @param cIndexPath 下标位置
+ */
 - (void)cc_deleteDataAtIndex:(NSIndexPath *)cIndexPath;
 
 

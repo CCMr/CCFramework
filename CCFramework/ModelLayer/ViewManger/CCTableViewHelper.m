@@ -41,6 +41,7 @@
 @property(nonatomic, copy) CCScrollViewWillBeginDragging scrollViewBdBlock;
 @property(nonatomic, copy) CCScrollViewDidScroll scrollViewddBlock;
 @property(nonatomic, copy) CCTableHelperHeaderBlock headerBlock;
+@property(nonatomic, copy) CCTableHelperFooterBlock footerBlock;
 
 @property(nonatomic, copy) CCTableHelperCellBlock cellViewEventsBlock;
 
@@ -75,6 +76,8 @@
     }
 }
 
+#pragma mark -
+#pragma mark :. Block事件
 - (void)cellMultipleIdentifier:(CCTableHelperCellIdentifierBlock)cb
 {
     self.cellIdentifierBlock = cb;
@@ -98,6 +101,11 @@
 - (void)headerView:(CCTableHelperHeaderBlock)cb
 {
     self.headerBlock = cb;
+}
+
+- (void)footerView:(CCTableHelperFooterBlock)cb
+{
+    self.footerBlock = cb;
 }
 
 - (void)cellViewEventBlock:(CCTableHelperCellBlock)cb
@@ -128,6 +136,22 @@
     return hederView;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    CGFloat height = 0;
+    if (self.footerBlock)
+        height = self.footerBlock(tableView, section).LayoutSizeFittingSize.height;
+    
+    return height;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footerView = nil;
+    if (self.footerBlock)
+        footerView = self.footerBlock(tableView, section);
+    return footerView;
+}
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -254,103 +278,102 @@
 
 - (void)cc_resetDataAry:(NSArray *)newDataAry
 {
-    [self cc_resetDataAry:newDataAry forSection:0];
+    [self cc_resetDataAry:newDataAry forSection:1];
 }
 
 - (void)cc_resetDataAry:(NSArray *)newDataAry forSection:(NSUInteger)cSection
 {
-    cc_MainQueue(
-                 [self cc_makeUpDataAryForSection:cSection];
-                 NSMutableArray *subAry = self.dataArray[cSection];
-                 if (subAry.count)[subAry removeAllObjects];
-                 if (newDataAry.count) {
-                     [subAry addObjectsFromArray:newDataAry];
-                 }
-                 [self.cc_tableView reloadData];)
+    [self cc_makeUpDataAryForSection:cSection];
+    NSMutableArray *subAry = self.dataArray[cSection - 1];
+    if (subAry.count) [subAry removeAllObjects];
+    if (newDataAry.count) {
+        [subAry addObjectsFromArray:newDataAry];
+    }
+    [self.cc_tableView reloadData];
 }
 
 
 - (void)cc_reloadDataAry:(NSArray *)newDataAry
 {
-    [self cc_reloadDataAry:newDataAry forSection:0];
+    [self cc_reloadDataAry:newDataAry forSection:1];
 }
 
 - (void)cc_reloadDataAry:(NSArray *)newDataAry forSection:(NSUInteger)cSection
 {
     if (newDataAry.count == 0) return;
-    cc_MainQueue(
-                 NSIndexSet *curIndexSet = [self cc_makeUpDataAryForSection:cSection];
-                 NSMutableArray *subAry = self.dataArray[cSection];
-                 if (subAry.count)[subAry removeAllObjects];
-                 [subAry addObjectsFromArray:newDataAry];
-                 
-                 [self.cc_tableView beginUpdates];
-                 if (curIndexSet) {
-                     [self.cc_tableView insertSections:curIndexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-                 } else {
-                     [self.cc_tableView reloadSections:[NSIndexSet indexSetWithIndex:cSection] withRowAnimation:UITableViewRowAnimationNone];
-                 }
-                 [self.cc_tableView endUpdates];)
+    
+    NSIndexSet *curIndexSet = [self cc_makeUpDataAryForSection:cSection];
+    NSMutableArray *subAry = self.dataArray[cSection - 1];
+    if (subAry.count) [subAry removeAllObjects];
+    [subAry addObjectsFromArray:newDataAry];
+    
+    [self.cc_tableView beginUpdates];
+    if (curIndexSet) {
+        [self.cc_tableView insertSections:curIndexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    } else {
+        [self.cc_tableView reloadSections:[NSIndexSet indexSetWithIndex:cSection] withRowAnimation:UITableViewRowAnimationNone];
+    }
+    [self.cc_tableView endUpdates];
 }
 
 - (void)cc_addDataAry:(NSArray *)newDataAry
 {
-    [self cc_addDataAry:newDataAry forSection:0];
+    [self cc_addDataAry:newDataAry forSection:1];
 }
 
 - (void)cc_addDataAry:(NSArray *)newDataAry forSection:(NSUInteger)cSection
 {
     if (newDataAry.count == 0) return;
-    cc_MainQueue(
-                 NSIndexSet *curIndexSet = [self cc_makeUpDataAryForSection:cSection];
-                 NSMutableArray *subAry = self.dataArray[cSection];
-                 if (curIndexSet) {
-                     [subAry addObjectsFromArray:newDataAry];
-                     [self.cc_tableView beginUpdates];
-                     [self.cc_tableView insertSections:curIndexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-                     [self.cc_tableView endUpdates];
-                 } else {
-                     __block NSMutableArray *curIndexPaths = [NSMutableArray arrayWithCapacity:newDataAry.count];
-                     [newDataAry enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                         [curIndexPaths addObject:[NSIndexPath indexPathForRow:subAry.count+idx inSection:cSection]];
-                     }];
-                     [subAry addObjectsFromArray:newDataAry];
-                     [self.cc_tableView beginUpdates];
-                     [self.cc_tableView insertRowsAtIndexPaths:curIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-                     [self.cc_tableView endUpdates];
-                 })
+    
+    NSIndexSet *curIndexSet = [self cc_makeUpDataAryForSection:cSection];
+    NSMutableArray *subAry = self.dataArray[cSection - 1];
+    if (curIndexSet) {
+        [subAry addObjectsFromArray:newDataAry];
+        [self.cc_tableView beginUpdates];
+        [self.cc_tableView insertSections:curIndexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.cc_tableView endUpdates];
+    } else {
+        __block NSMutableArray *curIndexPaths = [NSMutableArray arrayWithCapacity:newDataAry.count];
+        [newDataAry enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+            [curIndexPaths addObject:[NSIndexPath indexPathForRow:subAry.count+idx inSection:cSection]];
+        }];
+        [subAry addObjectsFromArray:newDataAry];
+        [self.cc_tableView beginUpdates];
+        [self.cc_tableView insertRowsAtIndexPaths:curIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.cc_tableView endUpdates];
+    }
 }
 
 - (void)cc_insertData:(id)cModel AtIndex:(NSIndexPath *)cIndexPath;
 {
-    cc_MainQueue(
-                 NSIndexSet *curIndexSet = [self cc_makeUpDataAryForSection:cIndexPath.section];
-                 NSMutableArray *subAry = self.dataArray[cIndexPath.section];
-                 if (subAry.count < cIndexPath.row) return;
-                 [subAry insertObject:cModel atIndex:cIndexPath.row];
-                 if (curIndexSet) {
-                     [self.cc_tableView beginUpdates];
-                     [self.cc_tableView insertSections:curIndexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-                     [self.cc_tableView endUpdates];
-                 } else {
-                     [subAry insertObject:cModel atIndex:cIndexPath.row];
-                     [self.cc_tableView beginUpdates];
-                     [self.cc_tableView insertRowsAtIndexPaths:@[cIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-                     [self.cc_tableView endUpdates];
-                 })
+    
+    NSIndexSet *curIndexSet = [self cc_makeUpDataAryForSection:cIndexPath.section];
+    NSMutableArray *subAry = self.dataArray[cIndexPath.section];
+    if (subAry.count < cIndexPath.row) return;
+    [subAry insertObject:cModel atIndex:cIndexPath.row];
+    if (curIndexSet) {
+        [self.cc_tableView beginUpdates];
+        [self.cc_tableView insertSections:curIndexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.cc_tableView endUpdates];
+    } else {
+        [subAry insertObject:cModel atIndex:cIndexPath.row];
+        [self.cc_tableView beginUpdates];
+        [self.cc_tableView insertRowsAtIndexPaths:@[ cIndexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.cc_tableView endUpdates];
+    }
 }
 
 - (void)cc_deleteDataAtIndex:(NSIndexPath *)cIndexPath
 {
-    cc_MainQueue(
-                 if (self.dataArray.count <= cIndexPath.section) return;
-                 NSMutableArray *subAry = self.dataArray[cIndexPath.section];
-                 if (subAry.count <= cIndexPath.row) return;
-                 
-                 [subAry removeObjectAtIndex:cIndexPath.row];
-                 [self.cc_tableView beginUpdates];
-                 [self.cc_tableView deleteRowsAtIndexPaths:@[ cIndexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
-                 [self.cc_tableView endUpdates];)
+    
+    if (self.dataArray.count <= cIndexPath.section) return;
+    NSMutableArray *subAry = self.dataArray[cIndexPath.section];
+    if (subAry.count <= cIndexPath.row) return;
+    
+    [subAry removeObjectAtIndex:cIndexPath.row];
+    [self.cc_tableView beginUpdates];
+    [self.cc_tableView deleteRowsAtIndexPaths:@[ cIndexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.cc_tableView endUpdates];
 }
 
 - (NSIndexSet *)cc_makeUpDataAryForSection:(NSInteger)cSection

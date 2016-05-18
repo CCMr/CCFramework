@@ -97,6 +97,14 @@ typedef void (^ViewModelEventsBlock)(NSString *info, NSDictionary *eventDic);
                 withEvent:(NSDictionary *)eventDic;
 
 /**
+ *  @author CC, 16-05-06
+ *  
+ *  @brief 视图模型获取数据成功处理
+ *         用来判断是否加载成功,方便外部根据不同需求处理 (外部使用)
+ */
+- (void)cc_viewModelWithGetDataSuccessHandler;
+
+/**
  *  @author CC, 16-04-20
  *  
  *  @brief 视图模型获取数据成功处理
