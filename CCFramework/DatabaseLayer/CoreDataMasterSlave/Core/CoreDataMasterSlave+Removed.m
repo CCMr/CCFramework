@@ -25,6 +25,7 @@
 
 #import "CoreDataMasterSlave+Manager.h"
 #import "CoreDataMasterSlave+Convenience.h"
+#import "NSManagedObject+Additions.h"
 
 @implementation CoreDataMasterSlave (Removed)
 
@@ -89,8 +90,8 @@
                   ManagedObjectID:(NSManagedObjectID *)conditionID
                        completion:(void (^)(NSError *error))completion
 {
-    [self cc_RemovedManagedObjectIds:tableName 
-                     ManagedObjectId:@[conditionID] 
+    [self cc_RemovedManagedObjectIds:tableName
+                     ManagedObjectId:@[ conditionID ]
                           completion:completion];
 }
 
@@ -105,8 +106,8 @@
 + (void)cc_RemovedManagedObjectIds:(NSString *)tableName
                    ManagedObjectId:(NSArray *)arrayObjectID
 {
-    [self cc_RemovedManagedObjectIds:tableName 
-                     ManagedObjectId:arrayObjectID 
+    [self cc_RemovedManagedObjectIds:tableName
+                     ManagedObjectId:arrayObjectID
                           completion:nil];
 }
 
@@ -244,6 +245,61 @@
         NSArray *allObjects = [currentContext executeFetchRequest:fetchRequest error:&error];
         [allObjects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [currentContext deleteObject:obj];
+        }];
+        
+    } completion:completion];
+}
+
+/**
+ *  @author CC, 16-05-20
+ *  
+ *  @brief  删除多条数据(根据key与value)
+ *
+ *  @param tableName          表名
+ *  @param conditionKeyValues 属性名与值
+ */
++ (void)cc_RemovedMultipleCondition:(NSString *)tableName
+                     MultiCondition:(NSArray *)conditionKeyValues
+{
+    [self cc_RemovedMultipleCondition:tableName
+                       MultiCondition:conditionKeyValues
+                           completion:nil];
+}
+
+/**
+ *  @author CC, 16-05-20
+ *  
+ *  @brief  删除多条数据(根据key与value)
+ *
+ *  @param tableName          表名
+ *  @param conditionKeyValues 属性名与值
+ *  @param completion         完成回调函数
+ */
++ (void)cc_RemovedMultipleCondition:(NSString *)tableName
+                     MultiCondition:(NSArray *)conditionKeyValues
+                         completion:(void (^)(NSError *error))completion
+{
+    [self cc_saveAndWaitWithContextError:^(NSManagedObjectContext *currentContext) {
+        NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
+        
+        __block NSError *error = nil;
+        NSArray *allObjects = [currentContext executeFetchRequest:fetchRequest error:&error];
+        [allObjects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            [conditionKeyValues enumerateObjectsUsingBlock:^(id  _Nonnull dobj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                NSDictionary *dic = dobj;
+                __block NSInteger bolCount = 0;
+                [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull value, BOOL * _Nonnull stop) {
+                    if ([obj compareKeyValue:key withValue:value])
+                        bolCount++;
+                }];
+                
+                if (dic.allKeys.count == bolCount)
+                    [currentContext deleteObject:obj];   
+            }];
+            
+            
         }];
         
     } completion:completion];

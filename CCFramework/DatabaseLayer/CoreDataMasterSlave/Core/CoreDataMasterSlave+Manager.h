@@ -330,6 +330,30 @@
                   MultiProperty:(NSDictionary *)propertyKeyValues
                      completion:(void (^)(NSError *error))completion;
 
+/**
+ *  @author CC, 16-05-20
+ *  
+ *  @brief  删除多条数据(根据key与value)
+ *
+ *  @param tableName          表名
+ *  @param conditionKeyValues 属性名与值
+ */
++ (void)cc_RemovedMultipleCondition:(NSString *)tableName
+                     MultiCondition:(NSArray *)conditionKeyValues;
+
+/**
+ *  @author CC, 16-05-20
+ *  
+ *  @brief  删除多条数据(根据key与value)
+ *
+ *  @param tableName          表名
+ *  @param conditionKeyValues 属性名与值
+ *  @param completion         完成回调函数
+ */
++ (void)cc_RemovedMultipleCondition:(NSString *)tableName
+                     MultiCondition:(NSArray *)conditionKeyValues
+                         completion:(void (^)(NSError *error))completion;
+
 @end
 
 #pragma mark - Modify 修改对象

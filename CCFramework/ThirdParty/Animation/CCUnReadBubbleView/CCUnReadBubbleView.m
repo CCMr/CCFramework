@@ -24,7 +24,7 @@
 //
 
 #import "CCUnReadBubbleView.h"
-#import "config.h"
+#import "Config.h"
 #import "PRTween.h"
 #import "PRTweenTimingFunctions.h"
 

@@ -30,7 +30,10 @@
 - (id)valueInObject:(id)object
 {
     if ([object isKindOfClass:[NSDictionary class]] && self.type == CCPropertyKeyTypeDictionary) {
-        return object[self.name];
+        id values = object[self.name];
+        if (!values)
+            values = object[[self.name lowercaseString]];
+        return values;
     } else if ([object isKindOfClass:[NSArray class]] && self.type == CCPropertyKeyTypeArray) {
         NSArray *array = object;
         NSUInteger index = self.name.intValue;

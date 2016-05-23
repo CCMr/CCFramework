@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NSString *__nonnull (^CCTableHelperCellIdentifierBlock)(NSIndexPath *cIndexPath, id cModel);
 typedef void (^CCTableHelperDidSelectBlock)(UITableView *tableView, NSIndexPath *cIndexPath, id cModel);
-typedef void (^CCTableHelperDidWillDisplayBlock)(UITableViewCell *Cell, id cModel);
+typedef void (^CCTableHelperDidWillDisplayBlock)(UITableViewCell *Cell, NSIndexPath *cIndexPath, id cModel);
 
 typedef void (^CCScrollViewWillBeginDragging)(UIScrollView *scrollView);
 typedef void (^CCScrollViewDidScroll)(UIScrollView *scrollView);
@@ -39,6 +39,9 @@ typedef void (^CCTableHelperCellBlock)(NSString *info, id event);
 
 typedef UIView *__nonnull (^CCTableHelperHeaderBlock)(UITableView *tableView, NSInteger section);
 typedef UIView *__nonnull (^CCTableHelperFooterBlock)(UITableView *tableView, NSInteger section);
+
+typedef NSInteger (^CCTableHelperNumberRows)(UITableView *tableView, id cModel);
+typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndexPath *cIndexPath);
 
 @interface CCTableViewHelper : NSObject <UITableViewDataSource, UITableViewDelegate>
 
@@ -105,11 +108,25 @@ typedef UIView *__nonnull (^CCTableHelperFooterBlock)(UITableView *tableView, NS
 - (void)footerView:(CCTableHelperFooterBlock)cb;
 
 /**
+ *  @author CC, 16-05-23
+ *  
+ *  @brief  NumberOfRowsInSection
+ */
+- (void)numberOfRowsInSection:(CCTableHelperNumberRows)cb;
+
+/**
  *  @author CC, 16-04-22
  *  
  *  @brief 设置Cell回调Block
  */
 - (void)cellViewEventBlock:(CCTableHelperCellBlock)cb;
+
+/**
+ *  @author CC, 16-05-23
+ *  
+ *  @brief  处理获取当前模型
+ */
+- (void)currentModelIndexPath:(CCTableHelperCurrentModelAtIndexPath)cb;
 
 @property(nonatomic, weak) UITableView *cc_tableView;
 @property(nonatomic, strong) NSIndexPath *cc_indexPath;

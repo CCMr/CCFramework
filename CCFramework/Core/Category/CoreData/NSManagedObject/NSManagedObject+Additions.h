@@ -117,8 +117,8 @@
  *
  *  @return 返回请求条件对象
  */
-+ (NSFetchRequest *)cc_RequestWithFetchLimit: (NSUInteger)limit
-                                   batchSize: (NSUInteger)batchSize;
++ (NSFetchRequest *)cc_RequestWithFetchLimit:(NSUInteger)limit
+                                   batchSize:(NSUInteger)batchSize;
 
 /**
  *  @author CC, 2015-10-24
@@ -131,9 +131,9 @@
  *
  *  @return 返回请求条件对象
  */
-+ (NSFetchRequest *)cc_RequestWithFetchLimit: (NSUInteger)limit
-                                   batchSize: (NSUInteger)batchSize
-                                 fetchOffset: (NSUInteger)fetchOffset;
++ (NSFetchRequest *)cc_RequestWithFetchLimit:(NSUInteger)limit
+                                   batchSize:(NSUInteger)batchSize
+                                 fetchOffset:(NSUInteger)fetchOffset;
 
 #pragma mark -
 #pragma mark :. Mapping
@@ -148,6 +148,17 @@
  */
 - (void)mergeAttributeForKey:(NSString *)attributeName
                    withValue:(id)value;
+
+/**
+ *  @author CC, 16-05-20
+ *  
+ *  @brief  判断当前数据数据是否匹配
+ *
+ *  @param attributeName 属性名
+ *  @param value         属性值
+ */
+- (BOOL)compareKeyValue:(NSString *)attributeName
+              withValue:(id)value;
 
 /**
  *  @author CC, 2015-10-29

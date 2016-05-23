@@ -422,6 +422,65 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
 }
 
 /**
+ *  @author CC, 16-05-20
+ *  
+ *  @brief  判断当前数据数据是否匹配
+ *
+ *  @param attributeName 属性名
+ *  @param value         属性值
+ */
+- (BOOL)compareKeyValue:(NSString *)attributeName
+              withValue:(id)value
+{
+    NSAttributeDescription *attributeDes = [self attributeDescriptionForAttribute:attributeName];
+    
+    BOOL compareBol = NO;
+    if (value != [NSNull null]) {
+        switch (attributeDes.attributeType) {
+            case NSDecimalAttributeType:
+            case NSInteger16AttributeType:
+            case NSInteger32AttributeType:
+            case NSInteger64AttributeType:
+            case NSDoubleAttributeType:
+            case NSFloatAttributeType: {
+                if (numberFromString([value description]) == [self valueForKey:attributeName])
+                    compareBol = YES;
+            } break;
+            case NSBooleanAttributeType:
+                if ([NSNumber numberWithBool:[value boolValue]] == [[self valueForKey:attributeName] integerValue])
+                    compareBol = YES;
+                break;
+            case NSDateAttributeType: {
+                id setvalue = value;
+                
+                if ([value isKindOfClass:[NSString class]])
+                    setvalue = dateFromString(value);
+                
+                if ([setvalue isEqualToDate:[self valueForKey:attributeName]])
+                    compareBol = YES;
+                
+                break;
+            }
+            case NSObjectIDAttributeType:
+            case NSBinaryDataAttributeType:
+                if ([value isEqualToData:[self valueForKey:attributeName]])
+                    compareBol = YES;
+                break;
+            case NSStringAttributeType:
+                if ([[value description] isEqualToString:[self valueForKey:attributeName]])
+                    compareBol = YES;
+                break;
+            case NSTransformableAttributeType:
+            case NSUndefinedAttributeType:
+                break;
+            default:
+                break;
+        }
+    }
+    return compareBol;
+}
+
+/**
  *  @author CC, 2015-10-29
  *  
  *  @brief  关系合并
