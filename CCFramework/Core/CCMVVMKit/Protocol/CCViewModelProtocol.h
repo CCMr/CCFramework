@@ -179,4 +179,15 @@ typedef void (^ViewModelEventsBlock)(NSString *info, NSDictionary *eventDic);
  */
 - (void)cc_viewModleWithEventHandle:(ViewModelEventsBlock)eventHandle;
 
+/**
+ *  @author CC, 16-05-25
+ *  
+ *  @brief  获取model数据
+ *
+ *  @param info      描述信息
+ *  @param obtainDic 传递参数
+ */
+-(id)cc_viewModelObtainData:(NSString *)info 
+                 withObtain:(NSDictionary *)obtainDic;
+
 @end

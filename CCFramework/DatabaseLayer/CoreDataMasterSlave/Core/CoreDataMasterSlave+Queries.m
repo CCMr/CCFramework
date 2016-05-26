@@ -56,19 +56,13 @@
  *  @return 返回数量
  */
 + (NSUInteger)cc_countWhere:(NSString *)tableName
-             WhereCondition:(NSString *)condition, ...
+             WhereCondition:(NSPredicate *)condition
 {
     NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
     fetchRequest.resultType = NSCountResultType;
     [fetchRequest setIncludesSubentities:NO];
-    if (condition) {
-        va_list arguments;
-        va_start(arguments, condition);
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:condition arguments:arguments];
-        va_end(arguments);
-        [fetchRequest setPredicate:predicate];
-        fetchRequest.predicate = predicate;
-    }
+    if (condition)
+        fetchRequest.predicate = condition;
     
     return [self cc_executeQueriesCount:fetchRequest];
 }
@@ -125,11 +119,11 @@
  *  @return 返回结果集
  */
 + (NSArray *)cc_selectCoreData:(NSString *)tableName
-                     Condition:(NSString *)condition
+                     Condition:(NSPredicate *)condition
 {
     NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
     if (condition)
-        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
+        [fetchRequest setPredicate:condition];
     
     return [self ConversionData:[self cc_executeQueriesContext:fetchRequest]];
 }
@@ -185,16 +179,16 @@
  *  @param handler   完成回调函数
  */
 + (void)cc_selectCoreData:(NSString *)tableName
-                Condition:(NSString *)condition
+                Condition:(NSPredicate *)condition
                   Handler:(void (^)(NSError *error,
                                     NSArray *requestResults))handler
 {
     NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
     if (condition)
-        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
+        [fetchRequest setPredicate:condition];
     
     [self cc_executeQueriesContext:fetchRequest
-                        Handler:handler];
+                           Handler:handler];
 }
 
 /**
@@ -308,7 +302,7 @@
                      ascending:(BOOL)ascending
                     fetchLimit:(NSInteger)pageSize
                    fetchOffset:(NSInteger)currentPage
-                     Condition:(NSString *)condition
+                     Condition:(NSPredicate *)condition
 {
     
     NSFetchRequest *fetchRequest = [self cc_Request:tableName
@@ -317,7 +311,7 @@
                                         fetchOffset:currentPage];
     
     if (condition)
-        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
+        [fetchRequest setPredicate:condition];
     
     if (key) {
         NSSortDescriptor *sorted = [NSSortDescriptor sortDescriptorWithKey:key ascending:ascending];
@@ -409,7 +403,7 @@
                    fetchBatchSize:batchSize
                        fetchLimit:fetchLimit
                       fetchOffset:fetchOffset
-                            where:@"%K == %@", property, value];
+                            where:[NSPredicate predicateWithFormat:@"%K == %@", property, value]];
 }
 
 /**
@@ -433,26 +427,18 @@
                fetchBatchSize:(NSUInteger)batchSize
                    fetchLimit:(NSUInteger)fetchLimit
                   fetchOffset:(NSUInteger)fetchOffset
-                        where:(NSString *)condition, ...
+                        where:(NSPredicate *)condition
 {
     NSFetchRequest *fetchRequest = [self cc_Request:tableName
                                          FetchLimit:fetchLimit
                                           batchSize:batchSize
                                         fetchOffset:fetchOffset];
     
-    if (condition != nil) {
-        va_list arguments;
-        va_start(arguments, condition);
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:condition arguments:arguments];
-        va_end(arguments);
-        [fetchRequest setPredicate:predicate];
-    }
+    if (condition)
+        [fetchRequest setPredicate:condition];
     
-    if (keyPath != nil) {
-        NSSortDescriptor *sorted =
-        [NSSortDescriptor sortDescriptorWithKey:keyPath ascending:ascending];
-        [fetchRequest setSortDescriptors:@[ sorted ]];
-    }
+    if (keyPath != nil)
+        [fetchRequest setSortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:keyPath ascending:ascending] ]];
     
     return [self ConversionData:[self cc_executeQueriesContext:fetchRequest]];
 }

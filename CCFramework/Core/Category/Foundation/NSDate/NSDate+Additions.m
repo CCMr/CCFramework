@@ -28,6 +28,21 @@
 @implementation NSDate (Additions)
 
 /**
+ *  @author CC, 16-05-25
+ *  
+ *  @brief  时间戳转换
+ *
+ *  @param timeInterval 时间戳
+ */
++ (NSDate *)timestampConversion:(NSTimeInterval)timeInterval
+{
+    double timestampval = timeInterval;
+    if ([NSString stringWithFormat:@"%.0f",timeInterval].length == 13)
+        timestampval /= 1000;  
+    return [NSDate dateWithTimeIntervalSince1970:timestampval];
+}
+
+/**
  *  @author CC, 2015-07-21
  *
  *  @brief  时间转字符串

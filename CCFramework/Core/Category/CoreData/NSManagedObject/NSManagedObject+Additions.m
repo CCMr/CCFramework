@@ -116,8 +116,8 @@ static char UIB_PROPERTY_KEY;
 - (NSDictionary *)changedDictionary
 {
     self.traversed = YES;
-    NSArray *attributes = [[[self entity] attributesByName] allKeys];
-    NSArray *relationships = [[[self entity] relationshipsByName] allKeys];
+    NSArray *attributes = self.entity.attributesByName.allKeys;
+    NSArray *relationships = self.entity.relationshipsByName.allKeys;
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:[attributes count] + [relationships count] + 1];
     [dict setObject:self.objectID forKey:@"objectID"];
     //    [dict setObject:[[self class] description] forKey:@"class"];
@@ -504,13 +504,13 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
         if ([desClassName isEqualToString:@"NSManagedObject"]) {
             NSString *primaryKey = [relationshipDes.destinationEntity.userInfo objectForKey:@"PrimaryKey"];
             if (primaryKey) {
-                destinationObjs = [CoreDataMasterSlave cc_insertOrUpdateWtihDataArray:relationshipDes.destinationEntity.name
-                                                                           PrimaryKey:primaryKey
-                                                                        WithDataArray:value
-                                                                            inContext:self.managedObjectContext];
+                destinationObjs = [CoreDataMasterSlave cc_insertOrUpdateWtihDataArrayObject:relationshipDes.destinationEntity.name
+                                                                                 PrimaryKey:primaryKey
+                                                                              WithDataArray:value
+                                                                                  inContext:self.managedObjectContext];
             } else {
-                destinationObjs = [CoreDataMasterSlave cc_insertCoreDataWithArray:relationshipDes.destinationEntity.name
-                                                                        DataArray:value];
+                destinationObjs = [CoreDataMasterSlave cc_insertCoreDataWithArrayObject:relationshipDes.destinationEntity.name
+                                                                              DataArray:value];
             }
         } else
             destinationObjs = [NSClassFromString(desClassName) cc_NewOrUpdateWithArray:value inContext:self.managedObjectContext];

@@ -148,7 +148,11 @@ static NSNumberFormatter *numberFormatter_;
             }
             
             if (!type.isFromFoundation && propertyClass) { // 模型属性
-                id values = [propertyClass cc_objectWithKeyValues:value context:context];
+                id values = value;
+                
+                if (propertyClass != [NSManagedObjectID class])
+                    values = [propertyClass cc_objectWithKeyValues:value context:context];
+                
                 if (values)
                     value = values;
             } else if (objectClass) {
@@ -359,7 +363,7 @@ static NSNumberFormatter *numberFormatter_;
                 if (![propertyClass isSubclassOfClass:[UIImage class]] && 
                     ![propertyClass isKindOfClass:[NSData class]] &&
                     ![propertyClass isKindOfClass:[NSDate class]] && 
-                    ![propertyClass isKindOfClass:[NSManagedObjectID class]]) {
+                    propertyClass != [NSManagedObjectID class]) {
                     value = [value cc_keyValues];
                 }
                 

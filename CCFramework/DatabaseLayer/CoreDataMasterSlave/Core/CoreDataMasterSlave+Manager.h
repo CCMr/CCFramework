@@ -110,6 +110,19 @@
                               DataArray:(NSArray *)dataArray;
 
 /**
+ *  @author CC, 16-05-25
+ *  
+ *  @brief   新增对象并且返回当前对象
+ *
+ *  @param tableName 表名
+ *  @param dataArray 新增数据
+ *
+ *  @return 返回对象集合
+ */
++ (NSArray *)cc_insertCoreDataWithArrayObject:(NSString *)tableName
+                                    DataArray:(NSArray *)dataArray;
+
+/**
  *  @author CC, 2015-11-30
  *  
  *  @brief  新增或更新数据
@@ -120,24 +133,9 @@
  *
  *  @return 返回新增或更新对象
  */
-+ (void)cc_insertOrUpdateWtihData:(NSString *)tableName
-                       PrimaryKey:(NSString *)primaryKey
-                         WithData:(NSDictionary *)data;
-
-/**
- *  @author CC, 16-01-29
- *  
- *  @brief 新增或更新数据
- *
- *  @param tableName  表名
- *  @param primaryKey 主键
- *  @param data       数据源
- *  @param completion 完成回调
- */
-+ (void)cc_insertOrUpdateWtihData:(NSString *)tableName
-                       PrimaryKey:(NSString *)primaryKey
-                         WithData:(NSDictionary *)data
-                       Completion:(void (^)(NSError *error))completion;
++ (id)cc_insertOrUpdateWtihData:(NSString *)tableName
+                     PrimaryKey:(NSString *)primaryKey
+                       WithData:(NSDictionary *)data;
 
 /**
  *  @author CC, 2015-11-30
@@ -175,7 +173,7 @@
 /**
  *  @author CC, 2015-11-30
  *  
- *  @brief  新增或更新数据
+ *  @brief  新增或更新数据(字典)
  *
  *  @param tableName  表名
  *  @param primaryKey 主键
@@ -188,6 +186,23 @@
                                  PrimaryKey:(NSString *)primaryKey
                               WithDataArray:(NSArray *)dataArray
                                   inContext:(NSManagedObjectContext *)context;
+
+/**
+ *  @author CC, 16-05-25
+ *  
+ *  @brief  新增或更新数据(返回对象模型)
+ *
+ *  @param tableName  表名
+ *  @param primaryKey 主键
+ *  @param dataArray  数据集合
+ *  @param context    管理对象
+ *
+ *  @return 返回新增或更新对象集
+ */
++ (NSArray *)cc_insertOrUpdateWtihDataArrayObject:(NSString *)tableName
+                                       PrimaryKey:(NSString *)primaryKey
+                                    WithDataArray:(NSArray *)dataArray
+                                        inContext:(NSManagedObjectContext *)context;
 
 /**
  *  @author C C, 2015-10-25
@@ -698,7 +713,7 @@
  *  @return 返回数量
  */
 + (NSUInteger)cc_countWhere:(NSString *)tableName
-             WhereCondition:(NSString *)condition, ...;
+             WhereCondition:(NSPredicate *)condition;
 
 /**
  *  @author CC, 2015-10-30
@@ -735,7 +750,7 @@
  *  @return 返回结果集
  */
 + (NSArray *)cc_selectCoreData:(NSString *)tableName
-                     Condition:(NSString *)condition;
+                     Condition:(NSPredicate *)condition;
 
 /**
  *  @author CC, 2015-11-27
@@ -773,7 +788,7 @@
  *  @param handler   完成回调函数
  */
 + (void)cc_selectCoreData:(NSString *)tableName
-                Condition:(NSString *)condition
+                Condition:(NSPredicate *)condition
                   Handler:(void (^)(NSError *error, NSArray *requestResults))handler;
 
 /**
@@ -806,7 +821,7 @@
 + (NSArray *)cc_selectCoreData:(NSString *)tableName
                    sortWithKey:(NSString *)key
                      ascending:(BOOL)ascending
-                     Condition:(NSString *)condition;
+                     Condition:(NSPredicate *)condition;
 
 /**
  *  @author CC, 2015-10-26
@@ -838,7 +853,7 @@
 + (NSArray *)cc_selectCoreData:(NSString *)tableName
                     fetchLimit:(NSInteger)pageSize
                    fetchOffset:(NSInteger)currentPage
-                     Condition:(NSString *)condition;
+                     Condition:(NSPredicate *)condition;
 
 /**
  *  @author CC, 2015-10-26
@@ -859,7 +874,7 @@
                      ascending:(BOOL)ascending
                     fetchLimit:(NSInteger)pageSize
                    fetchOffset:(NSInteger)currentPage
-                     Condition:(NSString *)condition;
+                     Condition:(NSPredicate *)condition;
 
 /**
  *  @author CC, 2015-10-26
@@ -941,6 +956,6 @@
                fetchBatchSize: (NSUInteger)batchSize
                    fetchLimit: (NSUInteger)fetchLimit
                   fetchOffset: (NSUInteger)fetchOffset
-                        where: (NSString *)condition, ...;
+                        where: (NSPredicate *)condition;
 
 @end

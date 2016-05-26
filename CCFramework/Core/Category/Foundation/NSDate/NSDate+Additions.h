@@ -462,6 +462,14 @@
 + (NSString *)ymdFormat;
 + (NSString *)hmsFormat;
 
+/**
+ *  @author CC, 16-05-25
+ *  
+ *  @brief  时间戳转换
+ *
+ *  @param timeInterval 时间戳
+ */
++ (NSDate *)timestampConversion:(NSTimeInterval)timeInterval;
 
 #pragma mark -
 #pragma mark :. Formatter

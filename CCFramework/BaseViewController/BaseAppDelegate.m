@@ -218,6 +218,8 @@ static char OperationKey;
     if (CURRENT_SYS_VERSION >= 7.0) {
         [[UINavigationBar appearance] setBarTintColor:color];
         [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+        [[UINavigationBar appearance] setBackIndicatorImage:CCResourceImage(@"returns")];
+        [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:CCResourceImage(@"returns")];
     } else {
         [[UINavigationBar appearance] setTintColor:color];
     }

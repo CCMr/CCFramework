@@ -146,7 +146,7 @@
 /**
  *  @author CC, 2015-10-30
  *  
- *  @brief  新增对象并且返回当前对象
+ *  @brief  新增对象并且返回当前对象(字典)
  *
  *  @param tableName 表名
  *  @param dataArray 新增数据
@@ -158,10 +158,35 @@
 {
     __block NSMutableArray *objs = [NSMutableArray array];
     [dataArray enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        NSManagedObject *managedObject =[self objctWithData:tableName 
+                                                       Data:obj 
+                                                  inContext:self.saveCurrentContext];
+        [objs addObject:[managedObject changedDictionary]];
+    }];
+    return objs;
+}
+
+/**
+ *  @author CC, 16-05-25
+ *  
+ *  @brief   新增对象并且返回当前对象
+ *
+ *  @param tableName 表名
+ *  @param dataArray 新增数据
+ *
+ *  @return 返回对象集合
+ */
++ (NSArray *)cc_insertCoreDataWithArrayObject:(NSString *)tableName
+                                    DataArray:(NSArray *)dataArray
+{
+    __block NSMutableArray *objs = [NSMutableArray array];
+    [dataArray enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         
-        [objs addObject:[self objctWithData:tableName 
-                                       Data:obj 
-                                  inContext:self.saveCurrentContext]];
+        NSManagedObject *managedObject = [self objctWithData:tableName 
+                                                        Data:obj 
+                                                   inContext:self.saveCurrentContext];
+        
+        [objs addObject:managedObject];
     }];
     return objs;
 }
@@ -177,37 +202,15 @@
  *
  *  @return 返回新增或更新对象
  */
-+ (void)cc_insertOrUpdateWtihData:(NSString *)tableName
-                       PrimaryKey:(NSString *)primaryKey
-                         WithData:(NSDictionary *)data
++ (id)cc_insertOrUpdateWtihData:(NSString *)tableName
+                     PrimaryKey:(NSString *)primaryKey
+                       WithData:(NSDictionary *)data
 {
-    [self cc_insertOrUpdateWtihData:tableName
-                         PrimaryKey:primaryKey
-                           WithData:data
-                         Completion:nil];
-}
-
-/**
- *  @author CC, 16-01-29
- *  
- *  @brief 新增或更新数据
- *
- *  @param tableName  表名
- *  @param primaryKey 主键
- *  @param data       数据源
- *  @param completion 完成回调
- */
-+ (void)cc_insertOrUpdateWtihData:(NSString *)tableName
-                       PrimaryKey:(NSString *)primaryKey
-                         WithData:(NSDictionary *)data
-                       Completion:(void (^)(NSError *error))completion
-{
-    [self cc_saveAndWaitWithContextError:^(NSManagedObjectContext *currentContext) {
-        [self cc_insertOrUpdateWtihData:tableName 
-                             PrimaryKey:primaryKey
-                               WithData:data
-                              inContext:currentContext];
-    } completion:completion];
+    NSManagedObject *managedObject = [self cc_insertOrUpdateWtihData:tableName
+                                                          PrimaryKey:primaryKey
+                                                            WithData:data
+                                                           inContext:self.currentContext];
+    return [managedObject changedDictionary];
 }
 
 /**
@@ -270,7 +273,7 @@
 /**
  *  @author CC, 2015-11-30
  *  
- *  @brief  新增或更新数据
+ *  @brief  新增或更新数据(字典)
  *
  *  @param tableName  表名
  *  @param primaryKey 主键
@@ -287,12 +290,42 @@
     __block NSMutableArray *array = [NSMutableArray array];
     [dataArray enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         
-        id objData = [self cc_insertOrUpdateWtihData:tableName 
-                                          PrimaryKey:primaryKey 
-                                            WithData:obj 
-                                           inContext:context];
+        NSManagedObject *managedObject = [self cc_insertOrUpdateWtihData:tableName 
+                                                              PrimaryKey:primaryKey 
+                                                                WithData:obj 
+                                                               inContext:context];
         
-        [array addObject:objData];
+        [array addObject:[managedObject changedDictionary]];
+    }];
+    return array;
+}
+
+/**
+ *  @author CC, 16-05-25
+ *  
+ *  @brief  新增或更新数据(返回对象模型)
+ *
+ *  @param tableName  表名
+ *  @param primaryKey 主键
+ *  @param dataArray  数据集合
+ *  @param context    管理对象
+ *
+ *  @return 返回新增或更新对象集
+ */
++ (NSArray *)cc_insertOrUpdateWtihDataArrayObject:(NSString *)tableName
+                                       PrimaryKey:(NSString *)primaryKey
+                                    WithDataArray:(NSArray *)dataArray
+                                        inContext:(NSManagedObjectContext *)context
+{
+    __block NSMutableArray *array = [NSMutableArray array];
+    [dataArray enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        
+        NSManagedObject *managedObject = [self cc_insertOrUpdateWtihData:tableName 
+                                                              PrimaryKey:primaryKey 
+                                                                WithData:obj 
+                                                               inContext:context];
+        
+        [array addObject:managedObject];
     }];
     return array;
 }
