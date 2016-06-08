@@ -671,6 +671,8 @@
 		426979491BA695BA00C3E93C /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 426979251BA695BA00C3E93C /* UIRefreshControl+AFNetworking.m */; };
 		4269794A1BA695BA00C3E93C /* UIWebView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 426979261BA695BA00C3E93C /* UIWebView+AFNetworking.h */; };
 		4269794B1BA695BA00C3E93C /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 426979271BA695BA00C3E93C /* UIWebView+AFNetworking.m */; };
+		427565641CFC0A84002E317D /* NSAttributedString+Teletext.h in Headers */ = {isa = PBXBuildFile; fileRef = 427565621CFC0A84002E317D /* NSAttributedString+Teletext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		427565651CFC0A84002E317D /* NSAttributedString+Teletext.m in Sources */ = {isa = PBXBuildFile; fileRef = 427565631CFC0A84002E317D /* NSAttributedString+Teletext.m */; };
 		42786E731C40ACD000C011FB /* CCDropDownList.h in Headers */ = {isa = PBXBuildFile; fileRef = 42786E6E1C40ACD000C011FB /* CCDropDownList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42786E741C40ACD000C011FB /* CCDropDownList.m in Sources */ = {isa = PBXBuildFile; fileRef = 42786E6F1C40ACD000C011FB /* CCDropDownList.m */; };
 		42786E751C40ACD000C011FB /* CCDropDownListMenuItemView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42786E701C40ACD000C011FB /* CCDropDownListMenuItemView.h */; };
@@ -1911,6 +1913,8 @@
 		426979251BA695BA00C3E93C /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		426979261BA695BA00C3E93C /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		426979271BA695BA00C3E93C /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		427565621CFC0A84002E317D /* NSAttributedString+Teletext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Teletext.h"; sourceTree = "<group>"; };
+		427565631CFC0A84002E317D /* NSAttributedString+Teletext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Teletext.m"; sourceTree = "<group>"; };
 		42786E6E1C40ACD000C011FB /* CCDropDownList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDropDownList.h; sourceTree = "<group>"; };
 		42786E6F1C40ACD000C011FB /* CCDropDownList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDropDownList.m; sourceTree = "<group>"; };
 		42786E701C40ACD000C011FB /* CCDropDownListMenuItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDropDownListMenuItemView.h; sourceTree = "<group>"; };
@@ -3245,6 +3249,8 @@
 			children = (
 				4223593D1C867FDA005207B9 /* NSString+Additions.h */,
 				4223593E1C867FDA005207B9 /* NSString+Additions.m */,
+				427565621CFC0A84002E317D /* NSAttributedString+Teletext.h */,
+				427565631CFC0A84002E317D /* NSAttributedString+Teletext.m */,
 			);
 			path = NSString;
 			sourceTree = "<group>";
@@ -6339,6 +6345,7 @@
 				42A356431BF442F700B6F1F2 /* UIScrollView+CCRefresh.h in Headers */,
 				429CA12C1B9EF8BF0013A44A /* SignalRManager.h in Headers */,
 				42C208EB1BDE14F200C76004 /* Tools.h in Headers */,
+				427565641CFC0A84002E317D /* NSAttributedString+Teletext.h in Headers */,
 				42786E731C40ACD000C011FB /* CCDropDownList.h in Headers */,
 				429CA0EF1B9EF8BF0013A44A /* CCFoundationCommon.h in Headers */,
 				42068F411C576D26005DFB01 /* CCPulsingHaloLayer.h in Headers */,
@@ -7420,6 +7427,7 @@
 				426979471BA695BA00C3E93C /* UIProgressView+AFNetworking.m in Sources */,
 				42DEB29B1C25495000734E09 /* CCShader.m in Sources */,
 				42068F0E1C573E33005DFB01 /* POPAnimationRuntime.mm in Sources */,
+				427565651CFC0A84002E317D /* NSAttributedString+Teletext.m in Sources */,
 				42A1F6261C8A760600A20F64 /* CCDebugHttpViewController.m in Sources */,
 				42068F241C573E33005DFB01 /* TransformationMatrix.cpp in Sources */,
 				429C9F991B9EF8BF0013A44A /* CCUncaughtExceptionHandler.m in Sources */,

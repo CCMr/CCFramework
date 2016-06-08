@@ -25,7 +25,6 @@
 
 #import <UIKit/UIKit.h>
 #import "CCDropzone.h"
-#import "CCSideMenu.h"
 
 @interface BaseAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -125,5 +124,12 @@
  *  @since 1.0
  */
 - (void)initAPService:(NSDictionary *)launchOptions;
+
+/**
+ *  @author CC, 16-06-07
+ *  
+ *  @brief  初始化调试模式
+ */
+-(void)initEnableDebugMode;
 
 @end

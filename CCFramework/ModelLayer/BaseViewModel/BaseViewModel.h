@@ -27,8 +27,6 @@
 #import <Foundation/Foundation.h>
 #import "CCHTTPRequest.h"
 #import "Config.h"
-#import "CCMessage.h"
-#import "SETextView.h"
 #import "CCViewModelProtocol.h"
 #import "CCViewMangerProtocol.h"
 
@@ -74,14 +72,6 @@ typedef void (^failureBlock)(NSString *failure);
  */
 - (void)fetchDataSource;
 
-/**
- *  @author CC, 16-03-09
- *  
- *  @brief 分析图片
- *
- *  @param sendMessage 消息体
- */
-- (SETextView *)analysisTeletext:(CCMessage *)sendMessage;
 
 /**
  *  @author CC, 16-03-09

@@ -25,12 +25,14 @@
 
 #import "BaseViewManger.h"
 #import "NSObject+CCProperties.h"
+#import "CCMessagePhotoImageView.h"
+#import "CCMessageBubbleHelper.h"
 
 
 @implementation BaseViewManger
 
 - (void)cc_notice
-{   
+{
     [self.cc_mediator noticeViewModelWithInfos:self.cc_viewMangerInfos];
 }
 

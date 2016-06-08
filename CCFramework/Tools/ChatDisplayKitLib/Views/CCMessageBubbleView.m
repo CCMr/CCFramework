@@ -43,9 +43,9 @@
 
 #define kCCArrowMarginWidth 5.2f // 箭头宽度
 
-#define kCCTopAndBottomBubbleMargin 10.0f	  // 文本在气泡内部的上下间隙
-#define kCCLeftTextHorizontalBubblePadding 10.0f  // 文本的水平间隙
-#define kCCRightTextHorizontalBubblePadding 10.0f // 文本的水平间隙
+#define kCCTopAndBottomBubbleMargin 8.0f	 // 文本在气泡内部的上下间隙
+#define kCCLeftTextHorizontalBubblePadding 5.0f  // 文本的水平间隙
+#define kCCRightTextHorizontalBubblePadding 5.0f // 文本的水平间隙
 
 #define kCCUnReadDotSize 10.0f // 语音未读的红点大小
 
@@ -214,7 +214,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             height = frame.size.height > 200 ? 200 : frame.size.height;
         } else if (photo.size.width > kCCMaxWidth) {
             width = kCCMaxWidth;
-        }else {
+        } else {
             width = photo.size.width < 30 ? 30 : photo.size.width;
             height = photo.size.height < 30 ? 30 : photo.size.height;
         }
@@ -816,9 +816,9 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             } else {
                 //小表情与文字消息时设置气泡框
                 
-                CGFloat textX = -(kCCArrowMarginWidth / 2.0);
+                CGFloat textX = 0;
                 if (self.message.bubbleMessageType == CCBubbleMessageTypeReceiving)
-                    textX = kCCArrowMarginWidth / 2.0;
+                    textX = kCCArrowMarginWidth;
                 
                 CGRect viewFrame = CGRectZero;
                 viewFrame.size.width = CGRectGetWidth(bubbleFrame) - kCCLeftTextHorizontalBubblePadding - kCCRightTextHorizontalBubblePadding - kCCArrowMarginWidth;

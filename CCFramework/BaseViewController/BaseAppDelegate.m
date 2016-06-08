@@ -63,10 +63,6 @@ static char OperationKey;
     //全局crash捕获
     InstallUncaughtExceptionHandler();
     
-#if DEBUG
-    [[CCDebugTool manager] enableDebugMode];
-#endif
-    
     [self uploadCrashLog];
     
     float sysVersion = [[UIDevice currentDevice] systemVersion].floatValue;
@@ -210,8 +206,6 @@ static char OperationKey;
  *  @author C C, 15-08-18
  *
  *  @brief  修改导航栏颜色
- *
- *  @since <#1.0#>
  */
 - (void)NavigationBarColor:(UIColor *)color
 {
@@ -250,12 +244,22 @@ static char OperationKey;
  *  @author C C, 2015-07-30
  *
  *  @brief  动画消失启动页
- *
- *  @since 1.0
  */
 - (void)AnimationStartPage
 {
     [CCLaunchAnimation animationWithWindow:self.window];
+}
+
+/**
+ *  @author CC, 16-06-07
+ *  
+ *  @brief  初始化调试模式
+ */
+- (void)initEnableDebugMode
+{
+#if DEBUG
+    [[CCDebugTool manager] enableDebugMode];
+#endif
 }
 
 /**

@@ -738,8 +738,6 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
         }
     }
     
-    [CCHTTPManager defaultHttp].userInfo = nil;
-    
     [requestOperation start];
 }
 
@@ -758,6 +756,8 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;// 关闭网络指示器
     });
+    
+    [CCHTTPManager defaultHttp].userInfo = nil;
     
     CCResponseObject *entity = nil;
     if (results) {

@@ -95,6 +95,16 @@
 + (id)cc_insertCoreDataWithDic:(NSString *)tableName
                        DataDic:(NSDictionary *)dataDic;
 
+/**
+ *  @author CC, 16-06-07
+ *  
+ *  @brief  新增对象并且返回数据库对象
+ *
+ *  @param tableName 表名
+ *  @param dataDic   新增数据
+ */
++ (id)cc_insertCoreDataWithObject:(NSString *)tableName
+                          DataDic:(NSDictionary *)dataDic;
 
 /**
  *  @author CC, 2015-10-30

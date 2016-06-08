@@ -142,6 +142,21 @@
                                   DataArray:@[ dataDic ]].lastObject;
 }
 
+/**
+ *  @author CC, 16-06-07
+ *  
+ *  @brief  新增对象并且返回数据库对象
+ *
+ *  @param tableName 表名
+ *  @param dataDic   新增数据
+ */
++ (id)cc_insertCoreDataWithObject:(NSString *)tableName
+                          DataDic:(NSDictionary *)dataDic
+{
+    return [self cc_insertCoreDataWithArrayObject:tableName
+                                        DataArray:@[ dataDic ]].lastObject;
+}
+
 
 /**
  *  @author CC, 2015-10-30
@@ -235,7 +250,7 @@
     id remoteValue = [data valueForKeyPath:primaryKey];
     if (attributeDes.attributeType == NSStringAttributeType) {
         remoteValue = [remoteValue description];
-    } else {
+    } else if (attributeDes.attributeType == NSInteger64AttributeType) {
         remoteValue = [NSNumber numberWithLongLong:[remoteValue longLongValue]];
     }
     

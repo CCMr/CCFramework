@@ -24,6 +24,7 @@
 //
 
 #import "UITableViewCell+Additions.h"
+#import <objc/runtime.h>
 
 @implementation UITableViewCell (Additions)
 /**
@@ -97,6 +98,26 @@
 - (BOOL)cc_delaysContentTouches
 {
     return [[self cc_scrollView] delaysContentTouches];
+}
+
+- (void)setCc_dataSources:(id)cc_dataSources
+{
+    objc_setAssociatedObject(self, @selector(cc_dataSources), cc_dataSources, OBJC_ASSOCIATION_RETAIN);
+}
+
+- (id)cc_dataSources
+{
+    return objc_getAssociatedObject(self, @selector(cc_dataSources));
+}
+
+-(void)setCc_indexPath:(NSIndexPath *)cc_indexPath
+{
+    objc_setAssociatedObject(self, @selector(cc_indexPath), cc_indexPath, OBJC_ASSOCIATION_RETAIN);
+}
+
+-(NSIndexPath *)cc_indexPath
+{
+   return objc_getAssociatedObject(self, @selector(cc_indexPath)); 
 }
 
 @end

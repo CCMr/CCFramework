@@ -414,6 +414,7 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
                 break;
             case NSTransformableAttributeType:
             case NSUndefinedAttributeType:
+                [self setValue:value forKey:attributeName];
                 break;
             default:
                 break;
@@ -541,7 +542,7 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
         id destinationObjs;
         
         if ([desClassName isEqualToString:@"NSManagedObject"])
-            destinationObjs = [CoreDataMasterSlave cc_insertCoreDataWithDic:relationshipDes.destinationEntity.name DataDic:value];
+            destinationObjs = [CoreDataMasterSlave cc_insertCoreDataWithObject:relationshipDes.destinationEntity.name DataDic:value];
         else
             destinationObjs = [NSClassFromString(desClassName) cc_NewOrUpdateWithData:value inContext:self.managedObjectContext];
         

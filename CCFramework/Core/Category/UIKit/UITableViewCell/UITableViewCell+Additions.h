@@ -30,6 +30,20 @@
 @property(nonatomic, assign) BOOL cc_delaysContentTouches;
 
 /**
+ *  @author CC, 16-06-08
+ *  
+ *  @brief  当前Cell数据源
+ */
+@property(nonatomic, strong) id cc_dataSources;
+
+/**
+ *  @author C C, 16-06-08
+ *
+ *  @brief  Cell 获取下标
+ */
+@property(nonatomic, strong) NSIndexPath *cc_indexPath;
+
+/**
  *  @brief  加载同类名的nib
  *
  *  @return nib

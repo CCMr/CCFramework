@@ -46,6 +46,7 @@
 #import <CCFramework/NSRunLoop+Additions.h>
 #import <CCFramework/NSSet+Additions.h>
 #import <CCFramework/NSString+Additions.h>
+#import <CCFramework/NSAttributedString+Teletext.h>
 #import <CCFramework/NSTimer+Additions.h>
 #import <CCFramework/NSURL+Additions.h>
 #import <CCFramework/NSURLConnection+Additions.h>
