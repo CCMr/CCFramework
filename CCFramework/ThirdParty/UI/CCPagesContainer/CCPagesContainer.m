@@ -190,7 +190,7 @@
                 break;
         }
         
-    } completion:^(BOOL finished){
+    } completion:^(BOOL finished) {
         for (NSUInteger i = 0; i < self.viewControllers.count; i++) {
             UIViewController *viewController = self.viewControllers[i];
             viewController.view.frame = CGRectMake(i * self.scrollWidth, 0., self.scrollWidth, self.scrollHeight);
@@ -270,6 +270,10 @@
 - (void)setIndicatorType:(CCPageIndicatorViewType)indicatorType
 {
     _indicatorType = indicatorType;
+    
+    CCPageIndicatorView *indicatorView = (CCPageIndicatorView *)self.pageIndicatorView;
+    indicatorView.indicatorType = _indicatorType;
+    
     [self layoutSubviews];
 }
 
@@ -428,6 +432,7 @@
             frame = CGRectMake(0, _isBarTop ? 44 : CGRectGetHeight(self.view.frame) - self.topBarHeight - self.pageIndicatorViewSize.height, self.pageIndicatorViewSize.width, self.pageIndicatorViewSize.height);
             break;
         case CCPageIndicatorViewTypeHorizontalLine:
+        case CCPageIndicatorViewTypeLine:
             frame = CGRectMake(0, _isBarTop ? self.topBarHeight - .5 : CGRectGetHeight(self.view.frame) - self.topBarHeight, CGRectGetWidth([UIScreen mainScreen].bounds) / (_viewControllers.count * 1.0), .5);
             break;
         default:
@@ -435,6 +440,9 @@
     }
     _pageIndicatorView.frame = frame;
     [(CCPageIndicatorView *)_pageIndicatorView setColor:_topIndicatiorColor];
+    if (_indicatorType == CCPageIndicatorViewTypeLine) {
+        self.pageIndicatorView.backgroundColor = _topIndicatiorColor;
+    }
 }
 
 - (CGFloat)pageIndicatorCenterY

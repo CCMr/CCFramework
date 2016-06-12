@@ -39,6 +39,8 @@ typedef NS_ENUM(NSInteger, CCPageIndicatorViewType) {
     CCPageIndicatorViewTypeHorizontalLine,
     /** 正三角 */
     CCPageIndicatorViewTypeTriangle,
+    /** 横粗线 */
+    CCPageIndicatorViewTypeLine,
 };
 
 /**

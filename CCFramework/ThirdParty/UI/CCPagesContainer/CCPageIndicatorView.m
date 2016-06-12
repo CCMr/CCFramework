@@ -49,7 +49,7 @@
 {
     _indicatorType = CCPageIndicatorViewTypeInvertedTriangle;
     self.opaque = NO;
-    _color = [UIColor blackColor];
+    _color = [UIColor clearColor];
 }
 
 #pragma mark - Public
@@ -62,7 +62,7 @@
     }
 }
 
--(void)setIndicatorType: (CCPageIndicatorViewType)indicatorType
+- (void)setIndicatorType:(CCPageIndicatorViewType)indicatorType
 {
     _indicatorType = indicatorType;
 }
@@ -71,24 +71,27 @@
 
 - (void)drawRect:(CGRect)rect
 {
-
-    if (_indicatorType == CCPageIndicatorViewTypeInvertedTriangle || _indicatorType == CCPageIndicatorViewTypeTriangle) {
+    if (_indicatorType != CCPageIndicatorViewTypeLine) {
         CGContextRef context = UIGraphicsGetCurrentContext();
-
+        
         CGContextClearRect(context, rect);
-
+        
         CGContextBeginPath(context);
-        if (_indicatorType == CCPageIndicatorViewTypeInvertedTriangle) {
-            CGContextMoveToPoint   (context, CGRectGetMinX(rect), CGRectGetMinY(rect));
+        if (_indicatorType == CCPageIndicatorViewTypeInvertedTriangle || _indicatorType == CCPageIndicatorViewTypeHorizontalLine) {
+            CGContextMoveToPoint(context, CGRectGetMinX(rect), CGRectGetMinY(rect));
             CGContextAddLineToPoint(context, CGRectGetMidX(rect), CGRectGetMaxY(rect));
             CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMinY(rect));
-        }else{
-            CGContextMoveToPoint   (context, CGRectGetMinX(rect), CGRectGetMaxY(rect));
+        } else if (_indicatorType == CCPageIndicatorViewTypeTriangle) {
+            CGContextMoveToPoint(context, CGRectGetMinX(rect), CGRectGetMaxY(rect));
             CGContextAddLineToPoint(context, CGRectGetMidX(rect), CGRectGetMinY(rect));
+            CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMaxY(rect));
+        } else if (_indicatorType == CCPageIndicatorViewTypeLine) {
+            CGContextMoveToPoint(context, CGRectGetMinX(rect), CGRectGetMinY(rect));
+            //        CGContextAddLineToPoint(context, 0, 0);
             CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMaxY(rect));
         }
         CGContextClosePath(context);
-
+        
         CGContextSetFillColorWithColor(context, self.color.CGColor);
         CGContextFillPath(context);
     }

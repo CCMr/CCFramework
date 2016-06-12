@@ -53,7 +53,7 @@
         self.popMenuTitles = @[ CCLocalization(@"复制"),
                                 CCLocalization(@"转发"),
                                 CCLocalization(@"收藏"),
-                                CCLocalization(@"撤回"),
+//                                CCLocalization(@"撤回"),
                                 CCLocalization(@"删除"),
                                 CCLocalization(@"更多") ];
     }
