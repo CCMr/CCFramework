@@ -38,6 +38,11 @@
 @property(nonatomic, copy) CCTableHelperDidSelectBlock didSelectBlock;
 @property(nonatomic, copy) CCTableHelperDidWillDisplayBlock didWillDisplayBlock;
 
+@property(nonatomic, copy) CCTableHelperDidEditingBlock didEditingBlock;
+@property(nonatomic, copy) CCTableHelperDidEditTitleBlock didEditTileBlock;
+
+@property(nonatomic, copy) CCTableHelperDidEditActionsBlock didEditActionsBlock;
+
 @property(nonatomic, copy) CCScrollViewWillBeginDragging scrollViewBdBlock;
 @property(nonatomic, copy) CCScrollViewDidScroll scrollViewddBlock;
 @property(nonatomic, copy) CCTableHelperHeaderBlock headerBlock;
@@ -90,6 +95,21 @@
 - (void)didSelect:(CCTableHelperDidSelectBlock)cb
 {
     self.didSelectBlock = cb;
+}
+
+- (void)didEnditing:(CCTableHelperDidEditingBlock)cb
+{
+    self.didEditingBlock = cb;
+}
+
+- (void)didEnditTitle:(CCTableHelperDidEditTitleBlock)cb
+{
+    self.didEditTileBlock = cb;
+}
+
+- (void)didEditActions:(CCTableHelperDidEditActionsBlock)cb
+{
+    self.didEditActionsBlock = cb;
 }
 
 - (void)cellWillDisplay:(CCTableHelperDidWillDisplayBlock)cb
@@ -205,6 +225,30 @@
             curNumOfRows = subDataAry.count;
     }
     return curNumOfRows;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.didEditingBlock)
+        self.didEditingBlock(tableView, editingStyle, indexPath, [self currentModelAtIndexPath:indexPath]);
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *title = nil;
+    if (self.didEditTileBlock)
+        title = self.didEditTileBlock(tableView, indexPath, [self currentModelAtIndexPath:indexPath]);
+    
+    return title;
+}
+
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *ary = [NSArray array];
+    if (self.didEditActionsBlock)
+        ary = self.didEditActionsBlock(tableView, indexPath, [self currentModelAtIndexPath:indexPath]);
+    
+    return ary;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

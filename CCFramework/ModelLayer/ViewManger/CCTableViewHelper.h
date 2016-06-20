@@ -33,9 +33,15 @@ typedef NSString *__nonnull (^CCTableHelperCellIdentifierBlock)(NSIndexPath *cIn
 typedef void (^CCTableHelperDidSelectBlock)(UITableView *tableView, NSIndexPath *cIndexPath, id cModel);
 typedef void (^CCTableHelperDidWillDisplayBlock)(UITableViewCell *Cell, NSIndexPath *cIndexPath, id cModel);
 
+typedef void (^CCTableHelperDidEditingBlock)(UITableView *tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath *cIndexPath, id cModel);
+typedef NSString *__nonnull (^CCTableHelperDidEditTitleBlock)(UITableView *tableView, NSIndexPath *cIndexPath, id cModel);
+
+typedef NSArray<UITableViewRowAction *> *__nonnull (^CCTableHelperDidEditActionsBlock)(UITableView *tableView, NSIndexPath *cIndexPath, id cModel);
+
 typedef void (^CCScrollViewWillBeginDragging)(UIScrollView *scrollView);
 typedef void (^CCScrollViewDidScroll)(UIScrollView *scrollView);
 typedef void (^CCTableHelperCellBlock)(NSString *info, id event);
+
 
 typedef UIView *__nonnull (^CCTableHelperHeaderBlock)(UITableView *tableView, NSInteger section);
 typedef UIView *__nonnull (^CCTableHelperFooterBlock)(UITableView *tableView, NSInteger section);
@@ -82,6 +88,27 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
  *  If you override tableView:didSelectRowAtIndexPath: method, it will be invalid
  */
 - (void)didSelect:(CCTableHelperDidSelectBlock)cb;
+
+
+/**
+ *  @author CC, 16-06-20
+ *  
+ *  @brief  cell侧滑编辑事件
+ */
+- (void)didEnditing:(CCTableHelperDidEditingBlock)cb;
+/**
+ *  @author CC, 16-06-20
+ *  
+ *  @brief  cell侧滑标题
+ */
+- (void)didEnditTitle:(CCTableHelperDidEditTitleBlock)cb;
+
+/**
+ *  @author CC, 16-06-20
+ *  
+ *  @brief  cell侧滑菜单
+ */
+- (void)didEditActions:(CCTableHelperDidEditActionsBlock)cb;
 
 /**
  *  @author CC, 16-03-19
