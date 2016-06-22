@@ -346,6 +346,7 @@
 {
     
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.messages];
+    oldMessages = [[oldMessages reverseObjectEnumerator] allObjects];
     for (CCMessage *ms in oldMessages)
         [array insertObject:ms atIndex:0];
     
