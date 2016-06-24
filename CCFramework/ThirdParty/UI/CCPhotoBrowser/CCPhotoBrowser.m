@@ -77,14 +77,14 @@
 {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
+
     [self initialization];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+
     CCPhoto *photo = _photos[_currentPhotoIndex];
     self.stateButton.selected = photo.selectd;
     [self showPhotos];
@@ -117,12 +117,14 @@
     } else {
         [self.view addSubview:self.toolbar];
     }
-    
+
     if (self.photoType == PhotoBrowserTypePushNavigationBar) {
-        [self pushNavigationTool];
         [self.toolbar removeFromSuperview];
     } else if (self.photoType == PhotoBrowserTypePush) {
         [self.view addSubview:self.topBar];
+    } else if (self.photoType == PhotoBrowserTypePushNavigationBarDelete) {
+        [self pushNavigationTool];
+        [self.toolbar removeFromSuperview];
     }
 }
 
@@ -130,11 +132,11 @@
 {
     if (_bottomBar)
         [self.bottomBar removeFromSuperview];
-    
+
     _bottomBar = bottomBar;
     if (_toolbar)
         [self.toolbar removeFromSuperview];
-    
+
     CGRect frame = self.bottomBar.frame;
     frame.origin.y = winsize.height - _bottomBar.height;
     self.bottomBar.frame = frame;
@@ -156,7 +158,7 @@
             viewController.backPhotoBlock(array);
         }
     }];
-    
+
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deletePhoto)];
 }
 
@@ -169,7 +171,7 @@
         NSInteger index = self.currentPhotoIndex - 1;
         if (index < 0)
             index = 0;
-        
+
         [_photoScrollView removeAllSubviews];
         self.currentPhotoIndex = index;
     } else {
@@ -198,7 +200,7 @@
         CGFloat originY = iOS7Later ? 20 : 0;
         _topBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, originY + 44)];
         _topBar.backgroundColor = [UIColor colorWithRed:34 / 255.0f green:34 / 255.0f blue:34 / 255.0f alpha:.7f];
-        
+
         UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [backButton setImage:CCResourceImage(@"navi_back") forState:UIControlStateNormal];
         [backButton setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 10)];
@@ -206,7 +208,7 @@
         backButton.frame = CGRectMake(12, _topBar.frame.size.height / 2 - backButton.frame.size.height / 2 + originY / 2, backButton.frame.size.width, backButton.frame.size.height);
         [backButton addTarget:self action:@selector(handleBackAction) forControlEvents:UIControlEventTouchUpInside];
         [_topBar addSubview:backButton];
-        
+
         UIButton *stateButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [stateButton setImage:CCResourceImage(@"photo_def_previewVc") forState:UIControlStateNormal];
         [stateButton setImage:CCResourceImage(@"photo_sel_photoPickerVc") forState:UIControlStateSelected];
@@ -233,18 +235,18 @@
         CCPhoto *photo = _photos[_currentPhotoIndex];
         photo.selectd = !photo.selectd;
         sender.selected = !sender.selected;
-        
+
         CAKeyframeAnimation *scaoleAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
         scaoleAnimation.duration = 0.25;
         scaoleAnimation.autoreverses = YES;
         scaoleAnimation.values = @[ [NSNumber numberWithFloat:1.0], [NSNumber numberWithFloat:1.2], [NSNumber numberWithFloat:1.0] ];
         scaoleAnimation.fillMode = kCAFillModeForwards;
-        
+
         [sender.layer removeAllAnimations];
         [sender.layer addAnimation:scaoleAnimation forKey:@"transform.rotate"];
-        
+
         [_toolbar updataSelectd];
-        
+
         NSUInteger indexs = _currentPhotoIndex;
         if (photo.IsIndex)
             indexs = photo.asssetIndex;
@@ -291,12 +293,12 @@
 - (void)setPhotos:(NSArray *)photos
 {
     _photos = photos;
-    
+
     if (photos.count > 1) {
         _visiblePhotoViews = [NSMutableSet set];
         _reusablePhotoViews = [NSMutableSet set];
     }
-    
+
     for (int i = 0; i < _photos.count; i++) {
         CCPhoto *photo = _photos[i];
         photo.index = i;
@@ -308,17 +310,17 @@
 - (void)setCurrentPhotoIndex:(NSUInteger)currentPhotoIndex
 {
     _currentPhotoIndex = currentPhotoIndex;
-    
+
     self.title = [NSString stringWithFormat:@"%zi/%zi", _currentPhotoIndex + 1, self.photos.count];
-    
+
     for (int i = 0; i < _photos.count; i++) {
         CCPhoto *photo = _photos[i];
         photo.firstShow = i == currentPhotoIndex;
     }
-    
+
     if ([self isViewLoaded]) {
         _photoScrollView.contentOffset = CGPointMake(_currentPhotoIndex * _photoScrollView.frame.size.width, 0);
-        
+
         // 显示所有的相片
         [self showPhotos];
     }
@@ -331,7 +333,7 @@
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         window.windowLevel = UIWindowLevelNormal;
         self.view.backgroundColor = [UIColor clearColor];
-        
+
         // 移除工具条
         [_toolbar removeFromSuperview];
         [self.topBar removeFromSuperview];
@@ -379,7 +381,7 @@
 {
     [self photoViewSingleTap:nil];
     [self photoViewDidEndZoom:nil];
-    
+
     // 通知代理
     if ([self.delegate respondsToSelector:@selector(didComplete:)])
         [self.delegate didComplete:_currentPhotoIndex];
@@ -393,7 +395,7 @@
         [self showPhotoViewAtIndex:0];
         return;
     }
-    
+
     CGRect visibleBounds = _photoScrollView.bounds;
     int firstIndex = (int)floorf((CGRectGetMinX(visibleBounds) + kPadding * 2) / CGRectGetWidth(visibleBounds));
     int lastIndex = (int)floorf((CGRectGetMaxX(visibleBounds) - kPadding * 2 - 1) / CGRectGetWidth(visibleBounds));
@@ -401,7 +403,7 @@
     if (firstIndex >= _photos.count) firstIndex = (int)_photos.count - 1;
     if (lastIndex < 0) lastIndex = 0;
     if (lastIndex >= _photos.count) lastIndex = (int)_photos.count - 1;
-    
+
     // 回收不再显示的ImageView
     NSInteger photoViewIndex;
     for (CCPhotoView *photoView in _visiblePhotoViews) {
@@ -411,12 +413,12 @@
             [photoView removeFromSuperview];
         }
     }
-    
+
     [_visiblePhotoViews minusSet:_reusablePhotoViews];
     while (_reusablePhotoViews.count > 2) {
         [_reusablePhotoViews removeObject:[_reusablePhotoViews anyObject]];
     }
-    
+
     for (NSUInteger index = firstIndex; index <= lastIndex; index++) {
         if (![self isShowingPhotoViewAtIndex:index]) {
             [self showPhotoViewAtIndex:index];
@@ -432,23 +434,23 @@
         photoView = [[CCPhotoView alloc] init];
         photoView.photoViewDelegate = self;
     }
-    
+
     photoView.isHandleSingle = self.photoType == PhotoBrowserTypeShow;
-    
+
     // 调整当期页的frame
     CGRect bounds = _photoScrollView.bounds;
     CGRect photoViewFrame = bounds;
     photoViewFrame.size.width -= (2 * kPadding);
     photoViewFrame.origin.x = (bounds.size.width * index) + kPadding;
     photoView.tag = kPhotoViewTagOffset + index;
-    
+
     CCPhoto *photo = _photos[index];
     photoView.frame = photoViewFrame;
     photoView.photo = photo;
-    
+
     [_visiblePhotoViews addObject:photoView];
     [_photoScrollView addSubview:photoView];
-    
+
     [self loadImageNearIndex:index];
 }
 
@@ -459,7 +461,7 @@
         CCPhoto *photo = _photos[index - 1];
         [SDWebImageDownloader.sharedDownloader downloadImageWithURL:photo.url options:0 progress:nil completed:nil];
     }
-    
+
     if (index < _photos.count - 1) {
         CCPhoto *photo = _photos[index + 1];
         [SDWebImageDownloader.sharedDownloader downloadImageWithURL:photo.url options:0 progress:nil completed:nil];
@@ -495,9 +497,9 @@
     if (!self.bottomBar)
         _toolbar.currentPhotoIndex = _currentPhotoIndex;
     CCPhoto *photo = _photos[_currentPhotoIndex];
-    
+
     self.stateButton.selected = photo.selectd;
-    
+
     self.title = [NSString stringWithFormat:@"%zi/%zi", _currentPhotoIndex + 1, self.photos.count];
 }
 

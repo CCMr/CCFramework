@@ -227,7 +227,7 @@
 + (NSArray *)cc_selectCoreData:(NSString *)tableName
                    sortWithKey:(NSString *)key
                      ascending:(BOOL)ascending
-                     Condition:(NSString *)condition
+                     Condition:(NSPredicate *)condition
 {
     return [self cc_selectCoreData:tableName
                        sortWithKey:key
@@ -280,7 +280,7 @@
                          ascending:NO
                         fetchLimit:pageSize
                        fetchOffset:currentPage
-                         Condition:condition];
+                         Condition:[NSPredicate predicateWithFormat:condition]];
 }
 
 /**

@@ -226,7 +226,7 @@
     CGContextAddLineToPoint(context, 0, radius + margin);
     CGContextAddLineToPoint(context, margin, radius + margin);
     
-    if (!self.bubbleMessageType == CCBubbleMessageTypeSending) {
+    if (self.bubbleMessageType != CCBubbleMessageTypeSending) {
         float arcStartY = margin + radius + triangleMarginTop + (triangleSize - arcSize / margin * triangleSize) / 2;		  //圆弧起始Y值
         float arcStartX = arcSize;												  //圆弧起始X值
         float centerOfCycleX = arcSize + pow(arcSize / margin * triangleSize / 2, 2) / arcSize;					  //圆心的X值

@@ -171,7 +171,7 @@
  */
 - (void)loadRequest:(NSString *)baseURL
 {
-    if (![baseURL rangeOfString:@"http://"].location != NSNotFound)
+    if ([baseURL rangeOfString:@"http://"].location != NSNotFound)
         baseURL = [NSString stringWithFormat:@"http://%@", baseURL];
     
     NSURL *url = [NSURL URLWithString:[baseURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];

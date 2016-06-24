@@ -623,7 +623,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     CGRect avatarButtonFrame = self.avatarButton.frame;
     avatarButtonFrame.origin.y = layoutOriginY;
     avatarButtonFrame.origin.x = kCCAvatarPaddingX;
-    if (![self bubbleMessageType] == CCBubbleMessageTypeReceiving) {
+    if ([self bubbleMessageType] != CCBubbleMessageTypeReceiving) {
         CGFloat x = (CGRectGetWidth(self.bounds) - kCCAvatarPaddingX - kCCAvatarImageSize);
         if (self.editing)
             x -= kCCAvatarImageSize;

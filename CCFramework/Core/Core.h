@@ -28,7 +28,7 @@
 
 #import <CCFramework/CCUtilities.h>
 #import <CCFramework/Category.h>
-#import <CCFramework/CCBacktrace.h>
+//#import <CCFramework/CCBacktrace.h>
 #import <CCFramework/CCNSLog.h>
 #import <CCFramework/CCTool.h>
 #import <CCFramework/CCXML.h>

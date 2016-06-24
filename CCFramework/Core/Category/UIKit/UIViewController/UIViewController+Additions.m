@@ -964,7 +964,10 @@ NSString *const iTunesAppleString = @"itunes.apple.com";
 {
     if ([self.viewControllers count] < [navigationBar.items count])
         return YES;
-    
+
+    UIWindow *windowView = [UIApplication sharedApplication].keyWindow;
+    [[windowView viewWithTag:999999] removeFromSuperview];
+
     UIViewController *vc = [self topViewController];
     void (^handler)(UIViewController *vc) = [vc backButtonHandler];
     if (handler) {
