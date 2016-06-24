@@ -310,7 +310,6 @@
  *  @brief 替换对象
  *
  *  @param messageData 消息实体
- *  @param newMessage  新消息实体
  */
 - (void)replaceMessages:(CCMessage *)messageData
              Replaceobj:(CCMessage *)newMessage
