@@ -41,30 +41,55 @@
 - (instancetype)initWithTitle:(NSString *)title
                      iconName:(NSString *)iconName
 {
-    return [self initWithTitle:title iconName:iconName glowColor:nil];
+    return [self initWithTitle:title
+                 TextAlignment:NSTextAlignmentLeft
+                      iconName:iconName];
 }
 
 - (instancetype)initWithTitle:(NSString *)title
+                TextAlignment:(NSTextAlignment)textAlignment
+{
+    return [self initWithTitle:title
+                 TextAlignment:textAlignment
+                      iconName:@""];
+}
+
+- (instancetype)initWithTitle:(NSString *)title
+                TextAlignment:(NSTextAlignment)textAlignment
+                     iconName:(NSString *)iconName
+{
+    return [self initWithTitle:title
+                 TextAlignment:textAlignment
+                      iconName:iconName
+                     glowColor:nil];
+}
+
+- (instancetype)initWithTitle:(NSString *)title
+                TextAlignment:(NSTextAlignment)textAlignment
                      iconName:(NSString *)iconName
                     glowColor:(UIColor *)glowColor
 {
     return [self initWithTitle:title
+                 TextAlignment:textAlignment
                       iconName:iconName
                      glowColor:glowColor
                          index:-1];
 }
 
 - (instancetype)initWithTitle:(NSString *)title
+                TextAlignment:(NSTextAlignment)textAlignment
                      iconName:(NSString *)iconName
                         index:(NSInteger)index
 {
     return [self initWithTitle:title
+                 TextAlignment:textAlignment
                       iconName:iconName
                      glowColor:nil
                          index:index];
 }
 
 - (instancetype)initWithTitle:(NSString *)title
+                TextAlignment:(NSTextAlignment)textAlignment
                      iconName:(NSString *)iconName
                     glowColor:(UIColor *)glowColor
                         index:(NSInteger)index
@@ -74,46 +99,70 @@
         self.iconImage = [UIImage imageNamed:iconName];
         self.glowColor = glowColor;
         self.index = index;
+        self.textAlignment = textAlignment;
     }
     return self;
 }
 
-
 + (instancetype)itemWithTitle:(NSString *)title
                      iconName:(NSString *)iconName
 {
+    return [self itemWithTitle:title
+                 TextAlignment:NSTextAlignmentLeft
+                      iconName:iconName];
+}
+
++ (instancetype)itemWithTitle:(NSString *)title
+                TextAlignment:(NSTextAlignment)textAlignment
+{
+    return [self itemWithTitle:title
+                 TextAlignment:textAlignment
+                      iconName:@""];
+}
+
++ (instancetype)itemWithTitle:(NSString *)title
+                TextAlignment:(NSTextAlignment)textAlignment
+                     iconName:(NSString *)iconName
+{
     return [self initWithTitle:title
+                 TextAlignment:NSTextAlignmentLeft
                       iconName:iconName
                      glowColor:nil
                          index:-1];
 }
 
 + (instancetype)itemWithTitle:(NSString *)title
+                TextAlignment:(NSTextAlignment)textAlignment
                      iconName:(NSString *)iconName
                     glowColor:(UIColor *)glowColor
 {
     return [self initWithTitle:title
+                 TextAlignment:textAlignment
                       iconName:iconName
                      glowColor:glowColor
                          index:-1];
 }
 
 + (instancetype)initWithTitle:(NSString *)title
+                TextAlignment:(NSTextAlignment)textAlignment
                      iconName:(NSString *)iconName
                         index:(NSInteger)index
 {
     return [self initWithTitle:title
+                 TextAlignment:(NSTextAlignment)textAlignment
                       iconName:iconName
                      glowColor:nil
                          index:index];
 }
 
 + (instancetype)initWithTitle:(NSString *)title
+                TextAlignment:(NSTextAlignment)textAlignment
                      iconName:(NSString *)iconName
                     glowColor:(UIColor *)glowColor
                         index:(NSInteger)index
 {
     CCPopMenuItem *item = [[self alloc] initWithTitle:title
+                                        TextAlignment:textAlignment
                                              iconName:iconName
                                             glowColor:glowColor
                                                 index:index];

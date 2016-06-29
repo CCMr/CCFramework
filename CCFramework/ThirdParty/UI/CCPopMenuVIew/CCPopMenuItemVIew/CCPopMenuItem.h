@@ -36,6 +36,8 @@
 
 @interface CCPopMenuItem : NSObject
 
+@property(nonatomic, assign) NSTextAlignment textAlignment;
+
 @property(nonatomic, strong) UIImage *iconImage;
 
 @property(nonatomic, copy) NSString *title;
@@ -53,30 +55,51 @@
                      iconName:(NSString *)iconName NS_AVAILABLE_IOS(2_0);
 
 - (instancetype)initWithTitle:(NSString *)title
+                TextAlignment:(NSTextAlignment)textAlignment NS_AVAILABLE_IOS(2_0);
+
+- (instancetype)initWithTitle:(NSString *)title
+                TextAlignment:(NSTextAlignment)textAlignment
+                     iconName:(NSString *)iconName NS_AVAILABLE_IOS(2_0);
+
+- (instancetype)initWithTitle:(NSString *)title
+                TextAlignment:(NSTextAlignment)textAlignment
                      iconName:(NSString *)iconName
                     glowColor:(UIColor *)glowColor NS_AVAILABLE_IOS(2_0);
 
 - (instancetype)initWithTitle:(NSString *)title
+                TextAlignment:(NSTextAlignment)textAlignment
                      iconName:(NSString *)iconName
                         index:(NSInteger)index NS_AVAILABLE_IOS(2_0);
 
 - (instancetype)initWithTitle:(NSString *)title
+                TextAlignment:(NSTextAlignment)textAlignment
                      iconName:(NSString *)iconName
                     glowColor:(UIColor *)glowColor
                         index:(NSInteger)index NS_AVAILABLE_IOS(2_0);
+
 
 + (instancetype)itemWithTitle:(NSString *)title
                      iconName:(NSString *)iconName NS_AVAILABLE_IOS(2_0);
 
 + (instancetype)itemWithTitle:(NSString *)title
+                TextAlignment:(NSTextAlignment)textAlignment NS_AVAILABLE_IOS(2_0);
+
++ (instancetype)itemWithTitle:(NSString *)title
+                TextAlignment:(NSTextAlignment)textAlignment
+                     iconName:(NSString *)iconName NS_AVAILABLE_IOS(2_0);
+
++ (instancetype)itemWithTitle:(NSString *)title
+                TextAlignment:(NSTextAlignment)textAlignment
                      iconName:(NSString *)iconName
                     glowColor:(UIColor *)glowColor NS_AVAILABLE_IOS(2_0);
 
 + (instancetype)initWithTitle:(NSString *)title
+                TextAlignment:(NSTextAlignment)textAlignment
                      iconName:(NSString *)iconName
                         index:(NSInteger)index NS_AVAILABLE_IOS(2_0);
 
 + (instancetype)initWithTitle:(NSString *)title
+                TextAlignment:(NSTextAlignment)textAlignment
                      iconName:(NSString *)iconName
                     glowColor:(UIColor *)glowColor
                         index:(NSInteger)index NS_AVAILABLE_IOS(2_0);

@@ -40,6 +40,7 @@
                 isBottom:(BOOL)isBottom
 {
     self.popMenuItem = popMenuItem;
+    self.textLabel.textAlignment = popMenuItem.textAlignment;
     self.textLabel.text = popMenuItem.title;
     self.imageView.image = popMenuItem.iconImage;
     self.separatorLineImageView.hidden = isBottom;
@@ -76,7 +77,6 @@
         self.backgroundColor = [UIColor clearColor];
         self.textLabel.textColor = [UIColor blackColor];
         self.textLabel.font = [UIFont systemFontOfSize:12];
-        
         //        self.selectedBackgroundView = self.menuSelectedBackgroundView;
         [self.contentView addSubview:self.separatorLineImageView];
     }
@@ -87,8 +87,14 @@
 {
     [super layoutSubviews];
     CGRect textLabelFrame = self.textLabel.frame;
-    textLabelFrame.origin.x = CGRectGetMaxX(self.imageView.frame) + 5;
-    textLabelFrame.size.width += textLabelFrame.origin.x;
+    CGFloat ix = CGRectGetMaxX(self.imageView.frame);
+    if (ix)
+        ix += 5;
+    else
+        ix = textLabelFrame.origin.x;
+
+    textLabelFrame.origin.x = ix;
+    //    textLabelFrame.size.width += textLabelFrame.origin.x;
     self.textLabel.frame = textLabelFrame;
 }
 
