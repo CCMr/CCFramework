@@ -181,7 +181,7 @@
         if (footerView)
             height = footerView.LayoutSizeFittingSize.height;
     }
-    
+
     return height;
 }
 
@@ -238,7 +238,7 @@
     NSString *title = nil;
     if (self.didEditTileBlock)
         title = self.didEditTileBlock(tableView, indexPath, [self currentModelAtIndexPath:indexPath]);
-    
+
     return title;
 }
 
@@ -247,7 +247,7 @@
     NSArray *ary = [NSArray array];
     if (self.didEditActionsBlock)
         ary = self.didEditActionsBlock(tableView, indexPath, [self currentModelAtIndexPath:indexPath]);
-    
+
     return ary;
 }
 
@@ -258,19 +258,19 @@
     NSString *curCellIdentifier = [self cellIdentifierForRowAtIndexPath:indexPath model:curModel];
     curCell = [tableView dequeueReusableCellWithIdentifier:curCellIdentifier forIndexPath:indexPath];
     CCAssert(curCell, @"cell is nil Identifier ⤭ %@ ⤪", curCellIdentifier);
-    
+
     if (self.didWillDisplayBlock) {
         self.didWillDisplayBlock(curCell, indexPath, curModel);
     } else if ([curCell respondsToSelector:@selector(cc_cellWillDisplayWithModel:indexPath:)]) {
         [curCell cc_cellWillDisplayWithModel:curModel indexPath:indexPath];
     }
-    
+
     if (self.cellDelegate)
         curCell.viewDelegate = self.cellDelegate;
-    
+
     if (self.cellViewEventsBlock)
         curCell.viewEventsBlock = self.cellViewEventsBlock;
-    
+
     return curCell;
 }
 
@@ -349,6 +349,20 @@
     return nil;
 }
 
+- (void)cc_reloadGroupDataAry:(NSArray *)newDataAry
+{
+    for (NSInteger i = 0; i < newDataAry.count; i++)
+        [self cc_makeUpDataAryForSection:i];
+
+    for (int idx = 0; idx < self.dataArray.count; idx++) {
+        NSMutableArray *subAry = self.dataArray[idx];
+        if (subAry.count) [subAry removeAllObjects];
+
+        [subAry addObject:[newDataAry objectAtIndex:idx]];
+    }
+    [self.cc_tableView reloadData];
+}
+
 - (void)cc_resetDataAry:(NSArray *)newDataAry
 {
     [self cc_resetDataAry:newDataAry forSection:0];
@@ -374,12 +388,12 @@
 - (void)cc_reloadDataAry:(NSArray *)newDataAry forSection:(NSUInteger)cSection
 {
     if (newDataAry.count == 0) return;
-    
+
     NSIndexSet *curIndexSet = [self cc_makeUpDataAryForSection:cSection];
     NSMutableArray *subAry = self.dataArray[cSection];
     if (subAry.count) [subAry removeAllObjects];
     [subAry addObjectsFromArray:newDataAry];
-    
+
     [self.cc_tableView beginUpdates];
     if (curIndexSet) {
         [self.cc_tableView insertSections:curIndexSet withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -397,7 +411,7 @@
 - (void)cc_addDataAry:(NSArray *)newDataAry forSection:(NSUInteger)cSection
 {
     if (newDataAry.count == 0) return;
-    
+
     NSIndexSet *curIndexSet = [self cc_makeUpDataAryForSection:cSection];
     NSMutableArray *subAry = self.dataArray[cSection];
     if (curIndexSet) {
@@ -419,7 +433,7 @@
 
 - (void)cc_insertData:(id)cModel AtIndex:(NSIndexPath *)cIndexPath;
 {
-    
+
     NSIndexSet *curIndexSet = [self cc_makeUpDataAryForSection:cIndexPath.section];
     NSMutableArray *subAry = self.dataArray[cIndexPath.section];
     if (subAry.count < cIndexPath.row) return;
@@ -438,11 +452,11 @@
 
 - (void)cc_deleteDataAtIndex:(NSIndexPath *)cIndexPath
 {
-    
+
     if (self.dataArray.count <= cIndexPath.section) return;
     NSMutableArray *subAry = self.dataArray[cIndexPath.section];
     if (subAry.count <= cIndexPath.row) return;
-    
+
     [subAry removeObjectAtIndex:cIndexPath.row];
     [self.cc_tableView beginUpdates];
     [self.cc_tableView deleteRowsAtIndexPaths:@[ cIndexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];

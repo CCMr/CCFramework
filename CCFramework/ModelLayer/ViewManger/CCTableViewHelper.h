@@ -53,13 +53,13 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
 
 /**
  *  @author CC, 16-03-19
- *  
+ *
  *  @brief 是否补齐线(默认不补齐)
  */
 @property(nonatomic, assign) BOOL paddedSeparator;
 
 /**
- *  When using the storyboard and a single cell, set the property inspector same identifier 
+ *  When using the storyboard and a single cell, set the property inspector same identifier
  */
 @property(nullable, nonatomic, copy) NSString *cellIdentifier;
 
@@ -67,7 +67,7 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
 
 /**
  *  @author CC, 16-04-07
- *  
+ *
  *  @brief Cell委托
  */
 @property(nonatomic, weak) id<CCViewProtocol> cellDelegate;
@@ -92,27 +92,27 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
 
 /**
  *  @author CC, 16-06-20
- *  
+ *
  *  @brief  cell侧滑编辑事件
  */
 - (void)didEnditing:(CCTableHelperDidEditingBlock)cb;
 /**
  *  @author CC, 16-06-20
- *  
+ *
  *  @brief  cell侧滑标题
  */
 - (void)didEnditTitle:(CCTableHelperDidEditTitleBlock)cb;
 
 /**
  *  @author CC, 16-06-20
- *  
+ *
  *  @brief  cell侧滑菜单
  */
 - (void)didEditActions:(CCTableHelperDidEditActionsBlock)cb;
 
 /**
  *  @author CC, 16-03-19
- *  
+ *
  *  @brief 设置Cell显示
  */
 - (void)cellWillDisplay:(CCTableHelperDidWillDisplayBlock)cb;
@@ -122,35 +122,35 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
 
 /**
  *  @author CC, 16-05-18
- *  
+ *
  *  @brief  Header视图
  */
 - (void)headerView:(CCTableHelperHeaderBlock)cb;
 
 /**
  *  @author CC, 16-05-18
- *  
+ *
  *  @brief  Footer视图
  */
 - (void)footerView:(CCTableHelperFooterBlock)cb;
 
 /**
  *  @author CC, 16-05-23
- *  
+ *
  *  @brief  NumberOfRowsInSection
  */
 - (void)numberOfRowsInSection:(CCTableHelperNumberRows)cb;
 
 /**
  *  @author CC, 16-04-22
- *  
+ *
  *  @brief 设置Cell回调Block
  */
 - (void)cellViewEventBlock:(CCTableHelperCellBlock)cb;
 
 /**
  *  @author CC, 16-05-23
- *  
+ *
  *  @brief  处理获取当前模型
  */
 - (void)currentModelIndexPath:(CCTableHelperCurrentModelAtIndexPath)cb;
@@ -160,9 +160,19 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
 
 #pragma mark -
 #pragma mark :. Handler
+
+/**
+ *  @author CC, 16-07-02
+ *
+ *  @brief 显示分组数据
+ *
+ *  @param newDataAry 数据源
+ */
+- (void)cc_reloadGroupDataAry:(NSArray *)newDataAry;
+
 /**
  *  @author CC, 16-05-18
- *  
+ *
  *  @brief  显示数据
  *
  *  @param newDataAry 数据源
@@ -171,7 +181,7 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
 
 /**
  *  @author CC, 16-05-18
- *  
+ *
  *  @brief  显示数据
  *
  *  @param newDataAry 数据源
@@ -181,7 +191,7 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
 
 /**
  *  @author CC, 16-05-18
- *  
+ *
  *  @brief  刷新并加入新数据
  *
  *  @param newDataAry 数据源
@@ -190,7 +200,7 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
 
 /**
  *  @author CC, 16-05-18
- *  
+ *
  *  @brief  刷新并加入新数据
  *
  *  @param newDataAry 数据源
@@ -200,7 +210,7 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
 
 /**
  *  @author CC, 16-05-18
- *  
+ *
  *  @brief  批量添加数据
  *
  *  @param newDataAry 数据源
@@ -208,7 +218,7 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
 - (void)cc_addDataAry:(NSArray *)newDataAry;
 /**
  *  @author CC, 16-05-18
- *  
+ *
  *  @brief  批量添加
  *
  *  @param newDataAry 数据源
@@ -218,7 +228,7 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
 
 /**
  *  @author CC, 16-05-18
- *  
+ *
  *  @brief  单个添加
  *
  *  @param cModel     数据模型
@@ -228,7 +238,7 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
 
 /**
  *  @author CC, 16-05-18
- *  
+ *
  *  @brief  根据下标删除数据
  *
  *  @param cIndexPath 下标位置

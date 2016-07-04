@@ -1095,7 +1095,7 @@
 		42B30DE91BBD72AD0039BB94 /* SDWebImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B30DC81BBD72AD0039BB94 /* SDWebImageManager.m */; };
 		42B30DEA1BBD72AD0039BB94 /* SDWebImagePrefetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 42B30DC91BBD72AD0039BB94 /* SDWebImagePrefetcher.h */; };
 		42B30DEB1BBD72AD0039BB94 /* SDWebImagePrefetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B30DCA1BBD72AD0039BB94 /* SDWebImagePrefetcher.m */; };
-		42B6473D1BEDA8C100B2F6FD /* CCBacktrace.h in Headers */ = {isa = PBXBuildFile; fileRef = 42B6473B1BEDA8C100B2F6FD /* CCBacktrace.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42B6473D1BEDA8C100B2F6FD /* CCBacktrace.h in Headers */ = {isa = PBXBuildFile; fileRef = 42B6473B1BEDA8C100B2F6FD /* CCBacktrace.h */; };
 		42B6473E1BEDA8C100B2F6FD /* CCBacktrace.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B6473C1BEDA8C100B2F6FD /* CCBacktrace.m */; };
 		42B647401BEDA9C600B2F6FD /* CCProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 426529CB1BED95960096C0EF /* CCProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42B647411BEDA9DA00B2F6FD /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 42B6473F1BEDA8DD00B2F6FD /* Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -7715,7 +7715,7 @@
 				MACH_O_TYPE = staticlib;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.runzhou.TimeToEat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Byron.RemitChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -7759,7 +7759,7 @@
 				MACH_O_TYPE = staticlib;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.runzhou.TimeToEat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Byron.RemitChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;

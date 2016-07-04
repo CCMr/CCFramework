@@ -32,7 +32,7 @@ typedef void (^ViewMangerInfosBlock)(NSString *info, NSDictionary *eventDic);
 
 /**
  *  @author CC, 16-04-20
- *  
+ *
  *  @brief  将自己事件处理通过block方式交互ViewManger
  */
 typedef void (^ViewModelEventsBlock)(NSString *info, NSDictionary *eventDic);
@@ -43,14 +43,14 @@ typedef void (^ViewModelEventsBlock)(NSString *info, NSDictionary *eventDic);
 
 /**
  *  @author CC, 16-04-20
- *  
+ *
  *  @brief 中介者传值
  */
 - (void)cc_notice;
 
 /**
  *  @author CC, 16-04-20
- *  
+ *
  *  @brief 返回指定viewModel的所引用的控制器
  *
  *  @param viewController 控制器
@@ -59,7 +59,7 @@ typedef void (^ViewModelEventsBlock)(NSString *info, NSDictionary *eventDic);
 
 /**
  *  @author CC, 16-04-20
- *  
+ *
  *  @brief 传递模型给view
  *
  *  @param modelBlock 数据模型
@@ -68,7 +68,7 @@ typedef void (^ViewModelEventsBlock)(NSString *info, NSDictionary *eventDic);
 
 /**
  *  @author CC, 16-04-20
- *  
+ *
  *  @brief 处理ViewMangerInfosBlock
  *
  *  @param infos 传递值
@@ -77,7 +77,7 @@ typedef void (^ViewModelEventsBlock)(NSString *info, NSDictionary *eventDic);
 
 /**
  *  @author CC, 16-04-20
- *  
+ *
  *  @brief 将viewModel中的信息通过代理传递给ViewManger
  *
  *  @param viewModel viewModel自己
@@ -87,7 +87,7 @@ typedef void (^ViewModelEventsBlock)(NSString *info, NSDictionary *eventDic);
 
 /**
  *  @author CC, 16-04-20
- *  
+ *
  *  @brief 将ViewModel事件传递到viewManger
  *
  *  @param info     描述信息
@@ -98,7 +98,7 @@ typedef void (^ViewModelEventsBlock)(NSString *info, NSDictionary *eventDic);
 
 /**
  *  @author CC, 16-05-06
- *  
+ *
  *  @brief 视图模型获取数据成功处理
  *         用来判断是否加载成功,方便外部根据不同需求处理 (外部使用)
  */
@@ -106,7 +106,7 @@ typedef void (^ViewModelEventsBlock)(NSString *info, NSDictionary *eventDic);
 
 /**
  *  @author CC, 16-04-20
- *  
+ *
  *  @brief 视图模型获取数据成功处理
  *         用来判断是否加载成功,方便外部根据不同需求处理 (外部使用)
  *
@@ -117,7 +117,7 @@ typedef void (^ViewModelEventsBlock)(NSString *info, NSDictionary *eventDic);
 
 /**
  *  @author CC, 16-04-20
- *  
+ *
  *  @brief 视图模型获取数据成功处理
  *         用来判断是否加载成功,方便外部根据不同需求处理 (外部使用)
  *
@@ -127,7 +127,7 @@ typedef void (^ViewModelEventsBlock)(NSString *info, NSDictionary *eventDic);
 
 /**
  *  @author CC, 16-04-20
- *  
+ *
  *  @brief 视图模型获取数据成功处理
  *         用来判断是否加载成功,方便外部根据不同需求处理 (外部使用)
  *
@@ -140,7 +140,7 @@ typedef void (^ViewModelEventsBlock)(NSString *info, NSDictionary *eventDic);
 
 /**
  *  @author CC, 16-04-20
- *  
+ *
  *  @brief 视图模型获取数据成功处理
  *         用来判断是否加载成功,方便外部根据不同需求处理 (外部使用)
  *
@@ -151,7 +151,7 @@ typedef void (^ViewModelEventsBlock)(NSString *info, NSDictionary *eventDic);
 
 /**
  *  @author CC, 16-04-20
- *  
+ *
  *  @brief 视图模型获取数据成功处理
  *         用来判断是否加载成功,方便外部根据不同需求处理 (外部使用)
  *
@@ -161,7 +161,7 @@ typedef void (^ViewModelEventsBlock)(NSString *info, NSDictionary *eventDic);
 
 /**
  *  @author CC, 16-04-20
- *  
+ *
  *  @brief 视图模型获取数据成功处理
  *         用来判断是否加载成功,方便外部根据不同需求处理 (外部使用)
  *
@@ -169,25 +169,37 @@ typedef void (^ViewModelEventsBlock)(NSString *info, NSDictionary *eventDic);
  *  @param successHandler 回调函数
  *                        一般用于请求返回结果告知
  */
-- (void)cc_viewModelWithData:(NSDictionary *)parameters 
+- (void)cc_viewModelWithData:(NSDictionary *)parameters
               SuccessHandler:(void (^)(BOOL isSuccess, NSString *info))successHandler;
 
 /**
  *  @author CC, 16-04-29
- *  
+ *
  *  @brief ViewModel传递事件到ViewController
  */
 - (void)cc_viewModleWithEventHandle:(ViewModelEventsBlock)eventHandle;
 
 /**
  *  @author CC, 16-05-25
- *  
+ *
  *  @brief  获取model数据
  *
  *  @param info      描述信息
  *  @param obtainDic 传递参数
  */
--(id)cc_viewModelObtainData:(NSString *)info 
+-(id)cc_viewModelObtainData:(NSString *)info
                  withObtain:(NSDictionary *)obtainDic;
+
+/**
+ *  @author CC, 16-07-02
+ *
+ *  @brief 传递事件到Model并把处理结果回调Block
+ *
+ *  @param info             描述信息
+ *  @param parameters       传递参数
+ *  @param EventHandleBlock 回调Block
+ */
+-(void)cc_viewModelWithEvent:(NSString *)info Parameters:(NSDictionary *)parameters
+            EventHandleBlock:(void(^)(BOOL isSuccess, NSString *info))EventHandleBlock;
 
 @end

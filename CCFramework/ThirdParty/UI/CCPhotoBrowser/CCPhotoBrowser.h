@@ -27,7 +27,7 @@
 
 /**
  *  @author CC, 16-03-18
- *  
+ *
  *  @brief 朋友圈说说权限
  */
 typedef NS_ENUM(NSInteger, PhotoBrowserType) {
@@ -56,12 +56,19 @@ typedef NS_ENUM(NSInteger, PhotoBrowserType) {
 
 /**
  *  @author CC, 16-03-29
- *  
+ *
  *  @brief 底部工具条提供自定义
  */
 @property(nonatomic, weak) UIView *bottomBar;
 
 - (instancetype)initWithBarType:(PhotoBrowserType)type;
+
+/**
+ *  @author CC, 16-07-01
+ *
+ *  @brief 设置右按钮
+ */
+- (void)setRightButton:(UIButton *)button;
 
 // 显示
 - (void)show;

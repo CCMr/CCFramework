@@ -221,6 +221,15 @@
     return _topBar;
 }
 
+- (void)setRightButton:(UIButton *)button
+{
+    if (button) {
+        CGFloat originY = iOS7Later ? 20 : 0;
+        button.frame = CGRectMake(_topBar.frame.size.width - 12 - button.frame.size.width, _topBar.frame.size.height / 2 - button.frame.size.height / 2 + originY / 2, button.frame.size.width, button.frame.size.height);
+        [_topBar addSubview:button];
+    }
+}
+
 - (void)handleBackAction
 {
     [self photoViewSingleTap:nil];
