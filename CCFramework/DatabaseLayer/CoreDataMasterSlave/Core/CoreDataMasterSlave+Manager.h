@@ -307,7 +307,7 @@
  *  @param condition 条件
  */
 + (void)cc_RemovedWithCondition:(NSString *)tableName
-                      Condition:(NSString *)condition;
+                      Condition:(NSPredicate *)condition;
 
 /**
  *  @author CC, 2015-10-26
@@ -318,7 +318,7 @@
  *  @param condition 条件
  */
 + (void)cc_RemovedWithCondition:(NSString *)tableName
-                      Condition:(NSString *)condition
+                      Condition:(NSPredicate *)condition
                      Completion:(void (^)(NSError *error))completion;
 
 /**

@@ -146,7 +146,7 @@ static NSNumberFormatter *numberFormatter_;
             } else if (propertyClass == [NSMutableData class] && [value isKindOfClass:[NSData class]]) {
                 value = [NSMutableData dataWithData:value];
             }
-            
+
             if (!type.isFromFoundation && propertyClass) { // 模型属性
                 id values = value;
                 
@@ -155,6 +155,11 @@ static NSNumberFormatter *numberFormatter_;
                 
                 if (values)
                     value = values;
+
+                if (propertyClass == [UIImage class] && [value isKindOfClass:[NSData class]]){
+                    value = [UIImage imageWithData:value];
+                }
+
             } else if (objectClass) {
                 if (objectClass == [NSURL class] && [value isKindOfClass:[NSArray class]]) {
                     // string array -> url array

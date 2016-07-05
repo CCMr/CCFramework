@@ -152,7 +152,7 @@
  *  @param condition 条件
  */
 + (void)cc_RemovedWithCondition:(NSString *)tableName
-                      Condition:(NSString *)condition
+                      Condition:(NSPredicate *)condition
 {
     [self cc_RemovedWithCondition:tableName
                         Condition:condition
@@ -168,14 +168,14 @@
  *  @param condition 条件
  */
 + (void)cc_RemovedWithCondition:(NSString *)tableName
-                      Condition:(NSString *)condition
+                      Condition:(NSPredicate *)condition
                      Completion:(void (^)(NSError *error))completion
 {
     [self cc_saveAndWaitWithContextError:^(NSManagedObjectContext *currentContext) {
         
         NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
         if (condition)
-            [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
+            [fetchRequest setPredicate:condition];
         
         __block NSError *error = nil;
         NSArray *allObjects = [currentContext executeFetchRequest:fetchRequest error:&error];

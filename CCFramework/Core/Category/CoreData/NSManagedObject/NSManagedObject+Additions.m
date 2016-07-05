@@ -89,7 +89,7 @@
     NSFetchRequest *req = [[NSFetchRequest alloc] init];
     [req setEntity:[NSEntityDescription entityForName:[self entityName] inManagedObjectContext:context]];
     [req setIncludesPropertyValues:NO]; //only fetch the managedObjectID
-    
+
     NSError *error = nil;
     NSArray *objects = [context executeFetchRequest:req error:&error];
     //error handling goes here
@@ -121,21 +121,21 @@ static char UIB_PROPERTY_KEY;
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:[attributes count] + [relationships count] + 1];
     [dict setObject:self.objectID forKey:@"objectID"];
     //    [dict setObject:[[self class] description] forKey:@"class"];
-    
+
     for (NSString *attr in attributes) {
         NSObject *value = [self valueForKey:attr];
         if (value)
             [dict setObject:value forKey:attr];
     }
-    
+
     for (NSString *relationship in relationships) {
         NSObject *value = [self valueForKey:relationship];
-        
+
         if ([value isKindOfClass:[NSSet class]]) {
             // To-many relationship
             // The core data set holds a collection of managed objects
             NSSet *relatedObjects = (NSSet *)value;
-            
+
             NSMutableArray *dicSetArray = [NSMutableArray array];
             for (NSManagedObject *relatedObject in relatedObjects) {
                 //                if (!relatedObject.traversed)
@@ -160,7 +160,7 @@ static char UIB_PROPERTY_KEY;
             }
         }
     }
-    
+
     return dict;
 }
 
@@ -184,22 +184,22 @@ static char UIB_PROPERTY_KEY;
     for (NSString *key in dict) {
         if ([key isEqualToString:@"class"])
             continue;
-        
+
         NSObject *value = [dict objectForKey:key];
         if ([value isKindOfClass:[NSDictionary class]]) {
             // This is a to-one relationship
             NSManagedObject *relatedObject =
             [NSManagedObject createManagedObjectFromDictionary:(NSDictionary *)value inContext:context];
-            
+
             [self setValue:relatedObject forKey:key];
         } else if ([value isKindOfClass:[NSSet class]]) {
             // This is a to-many relationship
             NSSet *relatedObjectDictionaries = (NSSet *)value;
-            
+
             // Get a proxy set that represents the relationship, and add related objects to it.
             // (Note: this is provided by Core Data)
             NSMutableSet *relatedObjects = [self mutableSetValueForKey:key];
-            
+
             for (NSDictionary *relatedObjectDict in relatedObjectDictionaries) {
                 NSManagedObject *relatedObject =
                 [NSManagedObject createManagedObjectFromDictionary:relatedObjectDict inContext:context];
@@ -226,10 +226,10 @@ static char UIB_PROPERTY_KEY;
                                              inContext:(NSManagedObjectContext *)context
 {
     NSString *class = [dict objectForKey:@"class"];
-    
+
     NSManagedObject *newObject = (NSManagedObject *)[NSEntityDescription insertNewObjectForEntityForName:class inManagedObjectContext:context];
     [newObject populateFromDictionary:dict];
-    
+
     return newObject;
 }
 
@@ -273,10 +273,10 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
 {
     if ([NSThread isMainThread])
         return [self defaultMainContext];
-    
+
     NSMutableDictionary *threadDict = [[NSThread currentThread] threadDictionary];
     NSManagedObjectContext *context = [threadDict objectForKey:CoreDataCurrentThreadContext];
-    
+
     if (!context) {
         context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         [context setParentContext:[self defaultPrivateContext]];
@@ -284,7 +284,7 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
         context.undoManager = nil;
         [threadDict setObject:context forKey:CoreDataCurrentThreadContext];
     }
-    
+
     return context;
 }
 
@@ -372,7 +372,7 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
 
 /**
  *  @author CC, 2015-10-29
- *  
+ *
  *  @brief  属性合并
  *
  *  @param attributeName 属性名
@@ -382,7 +382,7 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
                    withValue:(id)value
 {
     NSAttributeDescription *attributeDes = [self attributeDescriptionForAttribute:attributeName];
-    
+
     if (value != [NSNull null]) {
         switch (attributeDes.attributeType) {
             case NSDecimalAttributeType:
@@ -398,15 +398,26 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
                 break;
             case NSDateAttributeType: {
                 id setvalue = value;
-                
+
                 if ([value isKindOfClass:[NSString class]])
                     setvalue = dateFromString(value);
-                
+
                 [self setValue:setvalue forKey:attributeName];
                 break;
             }
             case NSObjectIDAttributeType:
+                [self setValue:value forKey:attributeName];
+                break;
             case NSBinaryDataAttributeType:
+                if ([value isKindOfClass:[UIImage class]]) {
+                    NSData *datas;
+                    if (UIImagePNGRepresentation(value))
+                        datas = UIImagePNGRepresentation(value);
+                    else
+                        datas = UIImageJPEGRepresentation(value, 1.0f);
+                    value = datas;
+                }
+
                 [self setValue:value forKey:attributeName];
                 break;
             case NSStringAttributeType:
@@ -424,7 +435,7 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
 
 /**
  *  @author CC, 16-05-20
- *  
+ *
  *  @brief  判断当前数据数据是否匹配
  *
  *  @param attributeName 属性名
@@ -434,7 +445,7 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
               withValue:(id)value
 {
     NSAttributeDescription *attributeDes = [self attributeDescriptionForAttribute:attributeName];
-    
+
     BOOL compareBol = NO;
     if (value != [NSNull null]) {
         switch (attributeDes.attributeType) {
@@ -453,13 +464,13 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
                 break;
             case NSDateAttributeType: {
                 id setvalue = value;
-                
+
                 if ([value isKindOfClass:[NSString class]])
                     setvalue = dateFromString(value);
-                
+
                 if ([setvalue isEqualToDate:[self valueForKey:attributeName]])
                     compareBol = YES;
-                
+
                 break;
             }
             case NSObjectIDAttributeType:
@@ -483,7 +494,7 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
 
 /**
  *  @author CC, 2015-10-29
- *  
+ *
  *  @brief  关系合并
  *
  *  @param relationshipName 关系对象名
@@ -495,13 +506,13 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
                           IsAdd:(BOOL)isAdd
 {
     if ([value isEqual:[NSNull null]]) return;
-    
+
     NSRelationshipDescription *relationshipDes = [self relationshipDescriptionForRelationship:relationshipName];
     NSString *desClassName = relationshipDes.destinationEntity.managedObjectClassName;
-    
+
     if (relationshipDes.isToMany) {
         NSArray *destinationObjs;
-        
+
         if ([desClassName isEqualToString:@"NSManagedObject"]) {
             NSString *primaryKey = [relationshipDes.destinationEntity.userInfo objectForKey:@"PrimaryKey"];
             if (primaryKey) {
@@ -515,7 +526,7 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
             }
         } else
             destinationObjs = [NSClassFromString(desClassName) cc_NewOrUpdateWithArray:value inContext:self.managedObjectContext];
-        
+
         if (destinationObjs != nil && destinationObjs.count > 0) {
             if (isAdd) { //添加数据
                 if (relationshipDes.isOrdered) {
@@ -540,12 +551,12 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
         }
     } else {
         id destinationObjs;
-        
+
         if ([desClassName isEqualToString:@"NSManagedObject"])
             destinationObjs = [CoreDataMasterSlave cc_insertCoreDataWithObject:relationshipDes.destinationEntity.name DataDic:value];
         else
             destinationObjs = [NSClassFromString(desClassName) cc_NewOrUpdateWithData:value inContext:self.managedObjectContext];
-        
+
         [self setValue:destinationObjs forKey:relationshipName];
     }
 }
@@ -554,7 +565,7 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
 
 /**
  *  @author CC, 2015-10-29
- *  
+ *
  *  @brief  对象属性
  *
  *  @return 返回对象所有属性
@@ -566,7 +577,7 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
 
 /**
  *  @author CC, 2015-10-29
- *  
+ *
  *  @brief  对象关系
  *
  *  @return 返回对象所有关系集合
@@ -597,9 +608,9 @@ NSDate *dateFromString(NSString *value)
         [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
         [formatter setLocale:[NSLocale currentLocale]];
     }
-    
+
     NSDate *parsedDate = [formatter dateFromString:value];
-    
+
     return parsedDate;
 }
 
