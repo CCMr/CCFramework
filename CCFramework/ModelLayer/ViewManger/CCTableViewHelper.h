@@ -31,7 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NSString *__nonnull (^CCTableHelperCellIdentifierBlock)(NSIndexPath *cIndexPath, id cModel);
 typedef void (^CCTableHelperDidSelectBlock)(UITableView *tableView, NSIndexPath *cIndexPath, id cModel);
-typedef void (^CCTableHelperDidWillDisplayBlock)(UITableViewCell *Cell, NSIndexPath *cIndexPath, id cModel);
+typedef void (^CCTableHelperDidDeSelectBlock)(UITableView *tableView, NSIndexPath *cIndexPath, id cModel);
+typedef void (^CCTableHelperDidWillDisplayBlock)(UITableViewCell *Cell, NSIndexPath *cIndexPath, id cModel, BOOL IsCelldisplay);
 
 typedef void (^CCTableHelperDidEditingBlock)(UITableView *tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath *cIndexPath, id cModel);
 typedef NSString *__nonnull (^CCTableHelperDidEditTitleBlock)(UITableView *tableView, NSIndexPath *cIndexPath, id cModel);
@@ -89,6 +90,10 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
  */
 - (void)didSelect:(CCTableHelperDidSelectBlock)cb;
 
+/**
+ *  If you override tableView:didDeselectRowAtIndexPath: method, it will be invalid
+ */
+- (void)didDeSelect:(CCTableHelperDidDeSelectBlock)cb;
 
 /**
  *  @author CC, 16-06-20

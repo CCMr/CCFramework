@@ -467,6 +467,10 @@
 		423D1DA01C3A00CE008E483A /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 423D1D9F1C3A00CE008E483A /* libWeChatSDK.a */; };
 		423D1DA41C3A11F0008E483A /* CCAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 423D1DA21C3A11F0008E483A /* CCAlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		423D1DA51C3A11F0008E483A /* CCAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 423D1DA31C3A11F0008E483A /* CCAlertView.m */; };
+		423E39CF1D333A500011ECD2 /* CCTeletTextLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 423E39CD1D333A500011ECD2 /* CCTeletTextLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		423E39D01D333A500011ECD2 /* CCTeletTextLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 423E39CE1D333A500011ECD2 /* CCTeletTextLabel.m */; };
+		423E39D41D333AC80011ECD2 /* CCLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 423E39D21D333AC80011ECD2 /* CCLink.h */; };
+		423E39D51D333AC80011ECD2 /* CCLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 423E39D31D333AC80011ECD2 /* CCLink.m */; };
 		424255141C310CCA00D94E04 /* CCMessagePhotoImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 424255121C310CCA00D94E04 /* CCMessagePhotoImageView.h */; };
 		424255151C310CCA00D94E04 /* CCMessagePhotoImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 424255131C310CCA00D94E04 /* CCMessagePhotoImageView.m */; };
 		424255171C31255E00D94E04 /* placeholderImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 424255161C31255E00D94E04 /* placeholderImage@2x.png */; };
@@ -1708,6 +1712,10 @@
 		423D1D9F1C3A00CE008E483A /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		423D1DA21C3A11F0008E483A /* CCAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCAlertView.h; path = Core/CCAlertView/CCAlertView.h; sourceTree = "<group>"; };
 		423D1DA31C3A11F0008E483A /* CCAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCAlertView.m; path = Core/CCAlertView/CCAlertView.m; sourceTree = "<group>"; };
+		423E39CD1D333A500011ECD2 /* CCTeletTextLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTeletTextLabel.h; sourceTree = "<group>"; };
+		423E39CE1D333A500011ECD2 /* CCTeletTextLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTeletTextLabel.m; sourceTree = "<group>"; };
+		423E39D21D333AC80011ECD2 /* CCLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLink.h; sourceTree = "<group>"; };
+		423E39D31D333AC80011ECD2 /* CCLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLink.m; sourceTree = "<group>"; };
 		424255121C310CCA00D94E04 /* CCMessagePhotoImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMessagePhotoImageView.h; sourceTree = "<group>"; };
 		424255131C310CCA00D94E04 /* CCMessagePhotoImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCMessagePhotoImageView.m; sourceTree = "<group>"; };
 		424255161C31255E00D94E04 /* placeholderImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholderImage@2x.png"; sourceTree = "<group>"; };
@@ -3958,6 +3966,15 @@
 			name = CCAlertView;
 			sourceTree = "<group>";
 		};
+		423E39D11D333AC80011ECD2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				423E39D21D333AC80011ECD2 /* CCLink.h */,
+				423E39D31D333AC80011ECD2 /* CCLink.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		4244927D1C0D90F500488AA2 /* VoiceConvert */ = {
 			isa = PBXGroup;
 			children = (
@@ -5287,10 +5304,13 @@
 		429C9E7B1B9EF8BF0013A44A /* CCUILable */ = {
 			isa = PBXGroup;
 			children = (
+				423E39D11D333AC80011ECD2 /* Model */,
 				429C9E7C1B9EF8BF0013A44A /* BUILabel.h */,
 				429C9E7D1B9EF8BF0013A44A /* BUILabel.m */,
 				429C9E7E1B9EF8BF0013A44A /* CCLabel.h */,
 				429C9E7F1B9EF8BF0013A44A /* CCLabel.m */,
+				423E39CD1D333A500011ECD2 /* CCTeletTextLabel.h */,
+				423E39CE1D333A500011ECD2 /* CCTeletTextLabel.m */,
 			);
 			path = CCUILable;
 			sourceTree = "<group>";
@@ -6578,6 +6598,7 @@
 				42D566FC1BEDFA4E00DCE44D /* CCExtScope.h in Headers */,
 				4230E1851BBB83000001E68F /* CCRadarIndicatorView.h in Headers */,
 				429CA01F1B9EF8BF0013A44A /* CCLoadLogoView.h in Headers */,
+				423E39D41D333AC80011ECD2 /* CCLink.h in Headers */,
 				421E7A771C3D173D00C31AD0 /* UIViewController+CCDrawerController.h in Headers */,
 				429CA0831B9EF8BF0013A44A /* CCTextViewPlaceholder.h in Headers */,
 				429CA0F11B9EF8BF0013A44A /* CCLocationHelper.h in Headers */,
@@ -6744,6 +6765,7 @@
 				420CB1391C7D788500A0EC25 /* MASConstraintMaker.h in Headers */,
 				4225113E1C72F795003B3623 /* CCProperty.h in Headers */,
 				4254774D1BD2AEC20071BBC5 /* md5.h in Headers */,
+				423E39CF1D333A500011ECD2 /* CCTeletTextLabel.h in Headers */,
 				425A4F381C11C466009A7E77 /* CCXML.h in Headers */,
 				42063ED81C893BCF003348EB /* CLLocationManager+Additions.h in Headers */,
 				42DEB2941C25495000734E09 /* CCColorSlider.h in Headers */,
@@ -7242,6 +7264,7 @@
 				421DC6AF1C85750E009E825B /* UIControl+Additions.m in Sources */,
 				429C9FA31B9EF8BF0013A44A /* CCSignatureView.m in Sources */,
 				425A4F391C11C466009A7E77 /* CCXML.m in Sources */,
+				423E39D01D333A500011ECD2 /* CCTeletTextLabel.m in Sources */,
 				4219EE0D1C7FF93F00F1EE76 /* MLTextAttachment.m in Sources */,
 				421DC7471C85750E009E825B /* UIView+Method.m in Sources */,
 				429C9F5D1B9EF8BF0013A44A /* CCDropzone.m in Sources */,
@@ -7422,6 +7445,7 @@
 				42F412161C215BC400814E7B /* CCGraffitiBoardView.m in Sources */,
 				4206A5291C783CFA001A1CF3 /* CCAlbumCell.m in Sources */,
 				4298C78D1BDCBB0300A3581D /* CoreDataMasterSlave+Removed.m in Sources */,
+				423E39D51D333AC80011ECD2 /* CCLink.m in Sources */,
 				429CA0EC1B9EF8BF0013A44A /* CCCaptureHelper.m in Sources */,
 				429C9FAB1B9EF8BF0013A44A /* CCThemeManager.m in Sources */,
 				426979471BA695BA00C3E93C /* UIProgressView+AFNetworking.m in Sources */,

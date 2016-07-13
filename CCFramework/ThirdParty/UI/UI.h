@@ -60,6 +60,7 @@
 #import <CCFramework/CCTextView.h>
 #import <CCFramework/BUILabel.h>
 #import <CCFramework/CCLabel.h>
+#import <CCFramework/CCTeletTextLabel.h>
 #import <CCFramework/CCAutoTextView.h>
 #import <CCFramework/CCWaterfallsFlow.h>
 #import <CCFramework/CCWebViewController.h>

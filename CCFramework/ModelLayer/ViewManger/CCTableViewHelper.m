@@ -36,6 +36,7 @@
 @property(nonatomic, strong) NSMutableArray<NSMutableArray *> *dataArray;
 @property(nonatomic, copy) CCTableHelperCellIdentifierBlock cellIdentifierBlock;
 @property(nonatomic, copy) CCTableHelperDidSelectBlock didSelectBlock;
+@property(nonatomic, copy) CCTableHelperDidDeSelectBlock didDeSelectBlock;
 @property(nonatomic, copy) CCTableHelperDidWillDisplayBlock didWillDisplayBlock;
 
 @property(nonatomic, copy) CCTableHelperDidEditingBlock didEditingBlock;
@@ -95,6 +96,11 @@
 - (void)didSelect:(CCTableHelperDidSelectBlock)cb
 {
     self.didSelectBlock = cb;
+}
+
+- (void)didDeSelect:(CCTableHelperDidDeSelectBlock)cb
+{
+    self.didDeSelectBlock = cb;
 }
 
 - (void)didEnditing:(CCTableHelperDidEditingBlock)cb
@@ -260,7 +266,7 @@
     CCAssert(curCell, @"cell is nil Identifier ⤭ %@ ⤪", curCellIdentifier);
 
     if (self.didWillDisplayBlock) {
-        self.didWillDisplayBlock(curCell, indexPath, curModel);
+        self.didWillDisplayBlock(curCell, indexPath, curModel, YES);
     } else if ([curCell respondsToSelector:@selector(cc_cellWillDisplayWithModel:indexPath:)]) {
         [curCell cc_cellWillDisplayWithModel:curModel indexPath:indexPath];
     }
@@ -284,7 +290,7 @@
         curHeight = [tableView cc_heightForCellWithIdentifier:curCellIdentifier cacheByIndexPath:indexPath configuration:^(id cell) {
             @strongify(self);
             if (self.didWillDisplayBlock) {
-                self.didWillDisplayBlock(cell, indexPath, curModel);
+                self.didWillDisplayBlock(cell, indexPath, curModel,NO);
             } else if ([cell respondsToSelector:@selector(cc_cellWillDisplayWithModel:indexPath:)]) {
                 [cell cc_cellWillDisplayWithModel:curModel indexPath:indexPath];
             }
@@ -298,10 +304,18 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.cc_indexPath = indexPath;
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (self.didSelectBlock) {
         id curModel = [self currentModelAtIndexPath:indexPath];
         self.didSelectBlock(tableView, indexPath, curModel);
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.cc_indexPath = indexPath;
+    if (self.didDeSelectBlock) {
+        id curModel = [self currentModelAtIndexPath:indexPath];
+        self.didDeSelectBlock(tableView, indexPath, curModel);
     }
 }
 

@@ -139,23 +139,4 @@ typedef NS_ENUM(NSInteger, UILabelCCBlinkingMode) {
  */
 - (UILabel *)resizeLabelVertical:(CGFloat)minimumHeigh;
 
-#pragma mark -
-#pragma mark :. 图文混排
-
-/**
- *  @author CC, 16-05-27
- *  
- *  @brief  图文混排
- *
- *  @param text         文本内容
- *  @param replaceAry   替换标签
- *  @param teletextPath 图片地址
- *  @param teletextSize 图片大小 
- *                      命名规则 @[@{ @"width" : 20, @"height" : 20}]
- */
-- (void)coreTeletext:(NSString *)text
-          ReplaceAry:(NSArray<NSString *> *)replaceAry
-        TeletextPath:(NSArray<NSString *> *)teletextPath
-        teletextSize:(NSArray<NSDictionary *> *)teletextSize;
-
 @end

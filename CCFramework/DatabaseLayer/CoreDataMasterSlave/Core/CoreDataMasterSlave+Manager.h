@@ -47,7 +47,7 @@
 
 /**
  *  @author CC, 2015-10-30
- *  
+ *
  *  @brief  数据库新增
  *
  *  @param tableName  表名
@@ -84,7 +84,7 @@
 
 /**
  *  @author CC, 2015-10-30
- *  
+ *
  *  @brief  新增对象并且返回
  *
  *  @param tableName 表名
@@ -97,7 +97,7 @@
 
 /**
  *  @author CC, 16-06-07
- *  
+ *
  *  @brief  新增对象并且返回数据库对象
  *
  *  @param tableName 表名
@@ -108,7 +108,7 @@
 
 /**
  *  @author CC, 2015-10-30
- *  
+ *
  *  @brief  新增对象并且返回当前对象
  *
  *  @param tableName 表名
@@ -121,7 +121,7 @@
 
 /**
  *  @author CC, 16-05-25
- *  
+ *
  *  @brief   新增对象并且返回当前对象
  *
  *  @param tableName 表名
@@ -134,7 +134,7 @@
 
 /**
  *  @author CC, 2015-11-30
- *  
+ *
  *  @brief  新增或更新数据
  *
  *  @param tableName  表名
@@ -149,7 +149,7 @@
 
 /**
  *  @author CC, 2015-11-30
- *  
+ *
  *  @brief  新增或更新数据
  *
  *  @param tableName  表名
@@ -166,7 +166,7 @@
 
 /**
  *  @author CC, 2015-11-30
- *  
+ *
  *  @brief  新增或更新数据
  *
  *  @param tableName  表名
@@ -182,7 +182,7 @@
 
 /**
  *  @author CC, 2015-11-30
- *  
+ *
  *  @brief  新增或更新数据(字典)
  *
  *  @param tableName  表名
@@ -199,7 +199,7 @@
 
 /**
  *  @author CC, 16-05-25
- *  
+ *
  *  @brief  新增或更新数据(返回对象模型)
  *
  *  @param tableName  表名
@@ -276,7 +276,7 @@
 
 /**
  *  @author CC, 2015-11-16
- *  
+ *
  *  @brief  删除对象
  *
  *  @param tableName     表名
@@ -287,7 +287,7 @@
 
 /**
  *  @author CC, 2015-11-16
- *  
+ *
  *  @brief  删除对象
  *
  *  @param tableName     表名
@@ -357,7 +357,7 @@
 
 /**
  *  @author CC, 16-05-20
- *  
+ *
  *  @brief  删除多条数据(根据key与value)
  *
  *  @param tableName          表名
@@ -368,7 +368,7 @@
 
 /**
  *  @author CC, 16-05-20
- *  
+ *
  *  @brief  删除多条数据(根据key与value)
  *
  *  @param tableName          表名
@@ -446,7 +446,7 @@
  *  @since 1.0
  */
 + (void)cc_updateCoreData:(NSString *)tableName
-                Condition:(NSString *)condition
+                Condition:(NSPredicate *)condition
                  EditData:(NSDictionary *)editData;
 
 /**
@@ -460,7 +460,7 @@
  *  @param completion 完成回调函数
  */
 + (void)cc_updateCoreData:(NSString *)tableName
-                Condition:(NSString *)condition
+                Condition:(NSPredicate *)condition
                  EditData:(NSDictionary *)editData
                completion:(void (^)(NSError *error))completion;
 
@@ -475,7 +475,7 @@
  *  @param attributeValue 属性值
  */
 + (void)cc_updateCoreData:(NSString *)tableName
-                Condition:(NSString *)condition
+                Condition:(NSPredicate *)condition
             AttributeName:(NSString *)attributeName
            AttributeValue:(id)attributeValue;
 
@@ -491,7 +491,7 @@
  *  @param completion     完成回调函数
  */
 + (void)cc_updateCoreData:(NSString *)tableName
-                Condition:(NSString *)condition
+                Condition:(NSPredicate *)condition
             AttributeName:(NSString *)attributeName
            AttributeValue:(id)attributeValue
                completion:(void (^)(NSError *error))completion;
@@ -527,7 +527,7 @@
 
 /**
  *  @author CC, 2015-11-05
- *  
+ *
  *  @brief  更新或者添加数据
  *
  *  @param tableName   表名
@@ -542,7 +542,7 @@
 
 /**
  *  @author CC, 2015-11-05
- *  
+ *
  *  @brief  更新或者添加数据
  *
  *  @param tableName   表名
@@ -559,7 +559,7 @@
 
 /**
  *  @author CC, 2015-11-05
- *  
+ *
  *  @brief  更新或者添加数据
  *
  *  @param tableName   表名
@@ -574,7 +574,7 @@
 
 /**
  *  @author CC, 2015-11-05
- *  
+ *
  *  @brief  更新或者添加数据
  *
  *  @param tableName   表名
@@ -591,7 +591,7 @@
 
 /**
  *  @author CC, 2015-11-23
- *  
+ *
  *  @brief   更新或添加数据
  *
  *  @param tableName    表名
@@ -609,7 +609,7 @@
 
 /**
  *  @author CC, 2015-11-23
- *  
+ *
  *  @brief   更新或添加数据
  *
  *  @param tableName    表名
@@ -626,7 +626,7 @@
                                DataAry:(NSArray *)dataAry;
 /**
  *  @author CC, 2015-11-23
- *  
+ *
  *  @brief   更新或添加数据
  *
  *  @param tableName    表名
@@ -645,7 +645,7 @@
 
 /**
  *  @author CC, 2015-11-23
- *  
+ *
  *  @brief  更新或新增数据
  *
  *  @param tableName    表名
@@ -664,7 +664,7 @@
 
 /**
  *  @author CC, 2015-11-05
- *  
+ *
  *  @brief  更新或新增数据
  *
  *  @param tableName   表名
@@ -681,7 +681,7 @@
 
 /**
  *  @author CC, 2015-11-23
- *  
+ *
  *  @brief  更新或新增数据
  *
  *  @param tableName     表名
@@ -727,7 +727,7 @@
 
 /**
  *  @author CC, 2015-10-30
- *  
+ *
  *  @brief  自增长ID
  *
  *  @param tableName    表名
@@ -764,7 +764,7 @@
 
 /**
  *  @author CC, 2015-11-27
- *  
+ *
  *  @brief  查询数据跟对象ID
  *
  *  @param tableName       表名
@@ -777,7 +777,7 @@
 
 /**
  *  @author CC, 2015-11-27
- *  
+ *
  *  @brief  查询数据根据对象ID
  *
  *  @param tableName     表名

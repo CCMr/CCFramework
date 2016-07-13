@@ -43,29 +43,29 @@
 {
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:tableName
                                                          inManagedObjectContext:self.currentContext];
-    
+
     // Initialize Batch Update Request
     NSBatchUpdateRequest *batchUpdateRequest = [[NSBatchUpdateRequest alloc] initWithEntity:entityDescription];
-    
+
     // Configure Batch Update Request
     [batchUpdateRequest setResultType:NSUpdatedObjectIDsResultType];
     [batchUpdateRequest setPropertiesToUpdate:columnDic];
-    
+
     // Execute Batch Request
     NSError *batchUpdateRequestError = nil;
     NSBatchUpdateResult *batchUpdateResult = (NSBatchUpdateResult *)[self.currentContext executeRequest:batchUpdateRequest
                                                                                                   error:&batchUpdateRequestError];
-    
+
     if (batchUpdateRequestError) {
         NSLog(@"%@, %@", batchUpdateRequestError, batchUpdateRequestError.localizedDescription);
     } else {
         // Extract Object IDs
         NSArray *objectIDs = batchUpdateResult.result;
-        
+
         for (NSManagedObjectID *objectID in objectIDs) {
             // Turn Managed Objects into Faults
             NSManagedObject *managedObject = [self.currentContext objectWithID:objectID];
-            
+
             if (managedObject) {
                 [self.currentContext refreshObject:managedObject mergeChanges:NO];
             }
@@ -93,7 +93,7 @@
 {
     if (!editDataArray.count)
         return;
-    
+
     [self cc_updateCoreData:tableName
                ConditionKey:conditionKey
                   Condition:condition
@@ -123,28 +123,28 @@
 {
     if (!editDataArray.count)
         return;
-    
+
     [self cc_saveAndWaitWithContextError:^(NSManagedObjectContext *currentContext) {
         for (NSDictionary *endtDic in editDataArray) {
             NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
             [fetchRequest setPredicate:[NSPredicate predicateWithFormat: [NSString stringWithFormat: @"%@ %@ '%@'", conditionKey, condition, [endtDic objectForKey:conditionValue]]]];
             [fetchRequest setReturnsObjectsAsFaults:NO];
-            
+
             NSError *error = nil;
             NSArray *datas = [currentContext executeFetchRequest:fetchRequest error:&error];
             if (!error && datas && [datas count]) {
                 [datas enumerateObjectsUsingBlock:^(id entity, NSUInteger idx, BOOL *stop) {
-                    
+
                     NSArray *attributes = [entity allAttributeNames];
                     NSArray *relationships = [entity allRelationshipNames];
-                    
+
                     [endtDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
                         id remoteValue = obj;
                         if (remoteValue) {
                             if ([attributes containsObject:key]) {
                                 [entity mergeAttributeForKey:key
                                                    withValue:remoteValue];
-                                
+
                             }else if ([relationships containsObject:key]) {
                                 [entity mergeRelationshipForKey:key
                                                       withValue:remoteValue
@@ -170,7 +170,7 @@
  *  @since 1.0
  */
 + (void)cc_updateCoreData:(NSString *)tableName
-                Condition:(NSString *)condition
+                Condition:(NSPredicate *)condition
                  EditData:(NSDictionary *)editData
 {
     [self cc_updateCoreData:tableName
@@ -190,30 +190,30 @@
  *  @param completion 完成回调函数
  */
 + (void)cc_updateCoreData:(NSString *)tableName
-                Condition:(NSString *)condition
+                Condition:(NSPredicate *)condition
                  EditData:(NSDictionary *)editData
                completion:(void (^)(NSError *error))completion
 {
     [self cc_saveAndWaitWithContextError:^(NSManagedObjectContext *currentContext) {
-        
+
         NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
-        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
+        [fetchRequest setPredicate:condition];
         [fetchRequest setReturnsObjectsAsFaults:NO];
-        
+
         NSError *error = nil;
         NSArray *datas = [currentContext executeFetchRequest:fetchRequest error:&error];
         if (!error && datas && [datas count]) {
             [datas enumerateObjectsUsingBlock:^(id entity, NSUInteger idx, BOOL *stop) {
                 NSArray *attributes = [entity allAttributeNames];
                 NSArray *relationships = [entity allRelationshipNames];
-                
+
                 [editData enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
                     id remoteValue = obj;
                     if (remoteValue) {
                         if ([attributes containsObject:key]) {
                             [entity mergeAttributeForKey:key
                                                withValue:remoteValue];
-                            
+
                         }else if ([relationships containsObject:key]) {
                             [entity mergeRelationshipForKey:key
                                                   withValue:remoteValue
@@ -223,7 +223,7 @@
                 }];
             }];
         }
-        
+
     } completion:completion];
 }
 
@@ -238,7 +238,7 @@
  *  @param attributeValue 属性值
  */
 + (void)cc_updateCoreData:(NSString *)tableName
-                Condition:(NSString *)condition
+                Condition:(NSPredicate *)condition
             AttributeName:(NSString *)attributeName
            AttributeValue:(id)attributeValue
 {
@@ -261,27 +261,27 @@
  *  @param completion     完成回调函数
  */
 + (void)cc_updateCoreData:(NSString *)tableName
-                Condition:(NSString *)condition
+                Condition:(NSPredicate *)condition
             AttributeName:(NSString *)attributeName
            AttributeValue:(id)attributeValue
                completion:(void (^)(NSError *error))completion
 {
     [self cc_saveAndWaitWithContextError:^(NSManagedObjectContext *currentContext) {
         NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
-        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:condition]];
+        [fetchRequest setPredicate:condition];
         NSError *error = nil;
         NSArray *datas = [currentContext executeFetchRequest:fetchRequest error:&error];
         if (!error && datas && [datas count]) {
             [datas enumerateObjectsUsingBlock:^(id entity, NSUInteger idx, BOOL *stop) {
-                
+
                 NSArray *attributes = [entity allAttributeNames];
                 NSArray *relationships = [entity allRelationshipNames];
-                
+
                 if (attributeValue) {
                     if ([attributes containsObject:attributeName]) {
                         [entity mergeAttributeForKey:attributeName
                                            withValue:attributeValue];
-                        
+
                     }else if ([relationships containsObject:attributeName]) {
                         [entity mergeRelationshipForKey:attributeName
                                               withValue:attributeValue
@@ -329,7 +329,7 @@
                completion:(void (^)(NSError *error))completion
 {
     [self cc_saveAndWaitWithContextError:^(NSManagedObjectContext *currentContext) {
-        
+
         NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
         NSError *error = nil;
         NSArray *datas =
@@ -337,17 +337,17 @@
         if (!error && datas && [datas count]) {
             [datas enumerateObjectsUsingBlock:^(id entity, NSUInteger idx, BOOL *stop) {
                 if ([((NSManagedObject *)entity).objectID isEqual:conditionID]) {
-                    
+
                     NSArray *attributes = [entity allAttributeNames];
                     NSArray *relationships = [entity allRelationshipNames];
-                    
+
                     [editData enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
                         id remoteValue = obj;
                         if (remoteValue) {
                             if ([attributes containsObject:key]) {
                                 [entity mergeAttributeForKey:key
                                                    withValue:remoteValue];
-                                
+
                             }else if ([relationships containsObject:key]) {
                                 [entity mergeRelationshipForKey:key
                                                       withValue:remoteValue
@@ -358,13 +358,13 @@
                 }
             }];
         }
-        
+
     } completion:completion];
 }
 
 /**
  *  @author CC, 2015-11-05
- *  
+ *
  *  @brief  更新或者添加数据
  *
  *  @param tableName   表名
@@ -385,7 +385,7 @@
 
 /**
  *  @author CC, 2015-11-05
- *  
+ *
  *  @brief  更新或者添加数据
  *
  *  @param tableName   表名
@@ -408,7 +408,7 @@
 
 /**
  *  @author CC, 2015-11-05
- *  
+ *
  *  @brief  更新或者添加数据
  *
  *  @param tableName   表名
@@ -429,7 +429,7 @@
 
 /**
  *  @author CC, 2015-11-05
- *  
+ *
  *  @brief  更新或者添加数据
  *
  *  @param tableName   表名
@@ -446,26 +446,26 @@
 {
     __block NSMutableArray *objs = [NSMutableArray array];
     [dataAry enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        
-        NSManagedObject *managedObject = [self objctWithData:tableName 
-                                                 PrimaryKeys:primaryKeys 
-                                                        Data:obj 
+
+        NSManagedObject *managedObject = [self objctWithData:tableName
+                                                 PrimaryKeys:primaryKeys
+                                                        Data:obj
                                                    inContext:self.saveCurrentContext];
-        
+
         if (managedObject)
             [objs addObject:[managedObject changedDictionary]];
     }];
-    
+
     if (completion) {
         completion(nil);
     }
-    
+
     return objs;
 }
 
 /**
  *  @author CC, 2015-11-23
- *  
+ *
  *  @brief   更新或添加数据
  *
  *  @param tableName    表名
@@ -490,7 +490,7 @@
 
 /**
  *  @author CC, 2015-11-23
- *  
+ *
  *  @brief   更新或添加数据
  *
  *  @param tableName    表名
@@ -515,7 +515,7 @@
 
 /**
  *  @author CC, 2015-11-23
- *  
+ *
  *  @brief   更新或添加数据
  *
  *  @param tableName    表名
@@ -534,26 +534,26 @@
 {
     __block NSMutableArray *objs = [NSMutableArray array];
     [dataAry enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        
+
         NSManagedObject *managedObject = [self objctWithData:tableName
-                                                  PrimaryKey:primaryKey 
-                                                PrimaryValue:primaryValue 
-                                                        Data:obj 
+                                                  PrimaryKey:primaryKey
+                                                PrimaryValue:primaryValue
+                                                        Data:obj
                                                    inContext:self.saveCurrentContext];
-        
+
         [objs addObject:[managedObject changedDictionary]];
     }];
-    
+
     if (completion) {
         completion(nil);
     }
-    
+
     return objs;
 }
 
 /**
  *  @author CC, 2015-11-23
- *  
+ *
  *  @brief  更新或新增数据
  *
  *  @param tableName    表名
@@ -571,7 +571,7 @@
           inContext:(NSManagedObjectContext *)context
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", primaryKey, primaryValue ? primaryValue : @""];
-    
+
     return [self objctWithData:tableName
                  SubPredicates:@[ predicate ]
                           Data:data
@@ -580,7 +580,7 @@
 
 /**
  *  @author CC, 2015-11-05
- *  
+ *
  *  @brief  更新或新增数据
  *
  *  @param tableName   表名
@@ -595,7 +595,7 @@
                Data:(NSDictionary *)data
           inContext:(NSManagedObjectContext *)context
 {
-    
+
     NSMutableArray *subPredicates = [NSMutableArray array];
     NSAttributeDescription *attributeDes = [[[NSEntityDescription entityForName:tableName inManagedObjectContext:context] attributesByName] objectForKey:primaryKeys];
     id remoteValue = [data valueForKeyPath:primaryKeys];
@@ -604,10 +604,10 @@
     } else {
         remoteValue = [NSNumber numberWithLongLong:[remoteValue longLongValue]];
     }
-    
+
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", primaryKeys, remoteValue];
     [subPredicates addObject:predicate];
-    
+
     return [self objctWithData:tableName
                  SubPredicates:subPredicates
                           Data:data
@@ -616,7 +616,7 @@
 
 /**
  *  @author CC, 2015-11-23
- *  
+ *
  *  @brief  更新或新增数据
  *
  *  @param tableName     表名
@@ -635,12 +635,12 @@
     @autoreleasepool
     {
         NSCompoundPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:subPredicates];
-        
+
         NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:tableName];
         fetchRequest.fetchLimit = 1;
         fetchRequest.resultType = NSManagedObjectIDResultType;
         [fetchRequest setPredicate:compoundPredicate];
-        
+
         NSManagedObjectID *objectID = [[context executeFetchRequest:fetchRequest error:nil] firstObject];
         BOOL IsAdd;
         if (objectID) {
@@ -648,21 +648,21 @@
             entity = [context existingObjectWithID:objectID
                                              error:nil];
         } else {
-            entity = [NSEntityDescription insertNewObjectForEntityForName:tableName 
+            entity = [NSEntityDescription insertNewObjectForEntityForName:tableName
                                                    inManagedObjectContext:context];
             IsAdd = YES;
         }
-        
+
         NSArray *attributes = [entity allAttributeNames];
         NSArray *relationships = [entity allRelationshipNames];
-        
+
         [data enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL *stop) {
             id remoteValue = obj;
             if (remoteValue) {
                 if ([attributes containsObject:key]) {
                     [entity mergeAttributeForKey:key
                                        withValue:remoteValue];
-                    
+
                 }else if ([relationships containsObject:key]) {
                     [entity mergeRelationshipForKey:key
                                           withValue:remoteValue

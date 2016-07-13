@@ -24,11 +24,6 @@
 //
 
 #import "UILabel+Additions.h"
-#import "CCMessagePhotoImageView.h"
-#import "SETextAttachment.h"
-#import "SETextLayout.h"
-#import "SELineLayout.h"
-//#import "CCMessageBubbleHelper.h"
 #include <objc/runtime.h>
 
 @implementation UILabel (Additions)
@@ -86,9 +81,6 @@ static char kAutomaticWritingEdgeInsetsKey;
 - (void)drawAutomaticWritingTextInRect:(CGRect)rect
 {
     [self drawAutomaticWritingTextInRect:UIEdgeInsetsInsetRect(rect, self.edgeInsets)];
-    if (self.attachments.count) {
-        [self drawTextAttachmentsInContext:UIGraphicsGetCurrentContext()];
-    }
 }
 
 - (CGRect)automaticWritingTextRectForBounds:(CGRect)bounds limitedToNumberOfLines:(NSInteger)numberOfLines
@@ -105,15 +97,15 @@ static char kAutomaticWritingEdgeInsetsKey;
 - (UIEdgeInsets)edgeInsets
 {
     NSValue *edgeInsetsValue = objc_getAssociatedObject(self, &kAutomaticWritingEdgeInsetsKey);
-    
+
     if (edgeInsetsValue) {
         return edgeInsetsValue.UIEdgeInsetsValue;
     }
-    
+
     edgeInsetsValue = [NSValue valueWithUIEdgeInsets:UIEdgeInsetsZero];
-    
+
     objc_setAssociatedObject(self, &kAutomaticWritingEdgeInsetsKey, edgeInsetsValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    
+
     return edgeInsetsValue.UIEdgeInsetsValue;
 }
 
@@ -125,17 +117,17 @@ static char kAutomaticWritingEdgeInsetsKey;
 - (NSOperationQueue *)automaticWritingOperationQueue
 {
     NSOperationQueue *operationQueue = objc_getAssociatedObject(self, &kAutomaticWritingOperationQueueKey);
-    
+
     if (operationQueue) {
         return operationQueue;
     }
-    
+
     operationQueue = NSOperationQueue.new;
     operationQueue.name = @"Automatic Writing Operation Queue";
     operationQueue.maxConcurrentOperationCount = 1;
-    
+
     objc_setAssociatedObject(self, &kAutomaticWritingOperationQueueKey, operationQueue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    
+
     return operationQueue;
 }
 
@@ -168,15 +160,15 @@ static char kAutomaticWritingEdgeInsetsKey;
 {
     self.automaticWritingOperationQueue.suspended = YES;
     self.automaticWritingOperationQueue = nil;
-    
+
     self.text = @"";
-    
+
     NSMutableString *automaticWritingText = NSMutableString.new;
-    
+
     if (text) {
         [automaticWritingText appendString:text];
     }
-    
+
     [self.automaticWritingOperationQueue addOperationWithBlock:^{
         [self automaticWriting:automaticWritingText duration:duration mode:blinkingMode character:blinkingCharacter completion:completion];
     }];
@@ -200,7 +192,7 @@ static char kAutomaticWritingEdgeInsetsKey;
                     [text insertString:[self stringWithCharacter:character] atIndex:0];
                 }
             }
-            
+
             if (text.length)
             {
                 [self appendCharacter:[text characterAtIndex:0]];
@@ -210,7 +202,7 @@ static char kAutomaticWritingEdgeInsetsKey;
                     [self appendCharacter:character];
                 }
             }
-            
+
             if (!currentQueue.isSuspended)
             {
                 [currentQueue addOperationWithBlock:^{
@@ -235,11 +227,11 @@ static char kAutomaticWritingEdgeInsetsKey;
 - (NSString *)stringWithCharacters:(NSArray *)characters
 {
     NSMutableString *string = NSMutableString.new;
-    
+
     for (NSNumber *character in characters) {
         [string appendFormat:@"%C", character.unsignedShortValue];
     }
-    
+
     return string.copy;
 }
 
@@ -296,7 +288,7 @@ static char kAutomaticWritingEdgeInsetsKey;
     [self setNumberOfLines:0];
     //    [self setLineBreakMode:UILineBreakModeWordWrap];
     [self setLineBreakMode:NSLineBreakByWordWrapping];
-    
+
     // If maxSize is set to CGSizeZero, then assume the max width
     // is the size of the device screen minus the default
     // recommended edge distances (2 * 20)
@@ -304,12 +296,12 @@ static char kAutomaticWritingEdgeInsetsKey;
         maxSize.width = [[UIScreen mainScreen] bounds].size.width - 40.0;
         maxSize.height = MAXFLOAT; // infinite height
     }
-    
+
     // Now, calculate the size of the label constrained to maxSize
     CGSize tempSize = [[self text] sizeWithFont:[self font]
                               constrainedToSize:maxSize
                                   lineBreakMode:[self lineBreakMode]];
-    
+
     // If minSize is specified (not CGSizeZero) then
     // check if the new calculated size is smaller than
     // the minimum size
@@ -317,19 +309,19 @@ static char kAutomaticWritingEdgeInsetsKey;
         if (tempSize.width <= minSize.width) tempSize.width = minSize.width;
         if (tempSize.height <= minSize.height) tempSize.height = minSize.height;
     }
-    
+
     // Create rect
     CGRect newFrameSize = CGRectMake([self frame].origin.x, [self frame].origin.y, tempSize.width, tempSize.height);
-    
+
     //// 2) Change the font size if necessary
     //// ------------------------------------
     UIFont *labelFont = [self font];	  // temporary label object
     CGFloat fSize = [labelFont pointSize];    // temporary font size value
     CGSize calculatedSizeWithCurrentFontSize; // temporary frame size
-    
+
     // Calculate label size as if there was no constrain
     CGSize unconstrainedSize = CGSizeMake(tempSize.width, MAXFLOAT);
-    
+
     // Keep reducing the font size until the calculated frame size
     // is smaller than the maxSize parameter
     do {
@@ -344,10 +336,10 @@ static char kAutomaticWritingEdgeInsetsKey;
         // Reduce the temporary font size value
         fSize--;
     } while (calculatedSizeWithCurrentFontSize.height > maxSize.height);
-    
+
     // Reset the font size to the last calculated value
     [self setFont:labelFont];
-    
+
     // Reset the frame size
     [self setFrame:newFrameSize];
 }
@@ -392,7 +384,7 @@ static char kAutomaticWritingEdgeInsetsKey;
 {
     if (self.attributedText)
         return [self suggestSizeForAttributedString:self.attributedText width:width];
-    
+
     return [self suggestSizeForString:self.text width:width];
 }
 
@@ -436,7 +428,7 @@ static char kAutomaticWritingEdgeInsetsKey;
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
         NSDictionary *attributes = @{NSFontAttributeName : font, NSParagraphStyleAttributeName : paragraphStyle.copy};
-        
+
         size = [text boundingRectWithSize:constrainedSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
     } else {
 #if (defined(__IPHONE_OS_VERSION_MIN_REQUIRED) && __IPHONE_OS_VERSION_MIN_REQUIRED <= 60000)
@@ -462,7 +454,7 @@ static char kAutomaticWritingEdgeInsetsKey;
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
         NSDictionary *attributes = @{NSFontAttributeName : font, NSParagraphStyleAttributeName : paragraphStyle.copy};
-        
+
         size = [text boundingRectWithSize:constrainedSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
     } else {
 #if (defined(__IPHONE_OS_VERSION_MIN_REQUIRED) && __IPHONE_OS_VERSION_MIN_REQUIRED <= 60000)
@@ -475,227 +467,6 @@ static char kAutomaticWritingEdgeInsetsKey;
     }
     self.frame = newFrame;
     return self;
-}
-
-#pragma mark -
-#pragma mark :. 图文混排
-static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
-
-- (void)setCoreTeletext:(NSString *)coreTeletext
-{
-    objc_setAssociatedObject(self, @selector(coreTeletext), coreTeletext, OBJC_ASSOCIATION_COPY);
-}
-
-- (NSString *)coreTeletext
-{
-    return objc_getAssociatedObject(self, @selector(coreTeletext));
-}
-
-- (void)setCoreTeletextAttributed:(NSAttributedString *)coreTeletextAttributed
-{
-    objc_setAssociatedObject(self, @selector(coreTeletextAttributed), coreTeletextAttributed, OBJC_ASSOCIATION_COPY);
-}
-
-- (NSAttributedString *)coreTeletextAttributed
-{
-    return objc_getAssociatedObject(self, @selector(coreTeletextAttributed));
-}
-
-/**
- *  textLayout
- */
-- (void)setTextLayout:(SETextLayout *)textLayout
-{
-    objc_setAssociatedObject(self, @selector(textLayout), textLayout, OBJC_ASSOCIATION_RETAIN);
-}
-
-- (SETextLayout *)textLayout
-{
-    return objc_getAssociatedObject(self, @selector(textLayout));
-}
-
-/**
- *  attachments
- */
-- (void)setAttachments:(NSMutableSet *)attachments
-{
-    objc_setAssociatedObject(self, @selector(attachments), attachments, OBJC_ASSOCIATION_RETAIN);
-}
-
-- (NSMutableSet *)attachments
-{
-    return objc_getAssociatedObject(self, @selector(attachments));
-}
-
-
-/**
- *  @author CC, 16-05-27
- *  
- *  @brief  图文混排
- *
- *  @param text         文本内容
- *  @param replaceAry   替换标签
- *  @param teletextPath 图片地址
- *  @param teletextSize 图片大小 
- *                      命名规则 @[@{ @"width" : 20, @"height" : 20}]
- */
-- (void)coreTeletext:(NSString *)text
-          ReplaceAry:(NSArray<NSString *> *)replaceAry
-        TeletextPath:(NSArray<NSString *> *)teletextPath
-        teletextSize:(NSArray<NSDictionary *> *)teletextSize
-{
-    if (!self.textLayout)
-        self.textLayout = [[SETextLayout alloc] init];
-    
-    self.textLayout.bounds = self.bounds;
-    
-    NSMutableSet *attachments = [NSMutableSet set];
-    
-    self.coreTeletext = text;
-    
-    for (NSString *replaceStr in replaceAry)
-        self.coreTeletext = [self.coreTeletext stringByReplacingOccurrencesOfString:replaceStr withString:OBJECT_REPLACEMENT_CHARACTER];
-    
-    NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:OBJECT_REPLACEMENT_CHARACTER options:NSRegularExpressionCaseInsensitive error:nil];
-    NSArray *resultArray = [re matchesInString:self.coreTeletext options:0 range:NSMakeRange(0, self.coreTeletext.length)];
-    
-    for (int i = 0; i < resultArray.count; i++) {
-        NSDictionary *sizeDic = [teletextSize objectAtIndex:i];
-        NSTextCheckingResult *match = [resultArray objectAtIndex:i];
-        
-        NSString *path = @"";
-        if (teletextPath.count && i < teletextPath.count)
-            path = [teletextPath objectAtIndex:i];
-        
-        CGSize size = CGSizeMake([[sizeDic objectForKey:@"width"] integerValue], [[sizeDic objectForKey:@"height"] integerValue]);
-        UIImage *Images = [UIImage imageWithContentsOfFile:path];
-        if (Images)
-            size = CGSizeMake(Images.size.width < size.width ? Images.size.width : size.width, Images.size.height < size.height ? Images.size.height : size.height);
-        
-        CCMessagePhotoImageView *messagePhotoImageView = [[CCMessagePhotoImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-        messagePhotoImageView.imageFilePath = path;
-        
-        SETextAttachment *attachment = [[SETextAttachment alloc] initWithObject:messagePhotoImageView size:size range:[match range]];
-        [attachments addObject:attachment];
-    }
-    
-    self.attachments = attachments;
-    
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.coreTeletext];
-    [attributedString addAttributes:@{ NSForegroundColorAttributeName : self.textColor } range:NSMakeRange(0, self.coreTeletext.length)];
-    
-    self.coreTeletextAttributed = attributedString; //[[CCMessageBubbleHelper sharedMessageBubbleHelper] bubbleAttributtedStringWithText:self.coreTeletext];
-}
-
-- (void)updateLayout
-{
-    [self setTextAttachmentAttributes];
-    
-    self.textLayout.bounds = self.bounds;
-    self.textLayout.attributedString = self.coreTeletextAttributed;
-    self.textLayout.lineBreakMode = (CTLineBreakMode)self.lineBreakMode;
-    
-    [self.textLayout update];
-}
-
-- (void)setTextAttachmentAttributes
-{
-    NSString *replacementString = OBJECT_REPLACEMENT_CHARACTER;
-    
-    NSArray *attachments = [self.attachments.allObjects sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        SETextAttachment *attachment1 = obj1;
-        SETextAttachment *attachment2 = obj2;
-        NSRange range1 = attachment1.range;
-        NSRange range2 = attachment2.range;
-        NSUInteger maxRange1 = NSMaxRange(range1);
-        NSUInteger maxRange2 = NSMaxRange(range2);
-        if (maxRange1 < maxRange2) {
-            return NSOrderedDescending;
-        } else if (maxRange1 > maxRange2) {
-            return NSOrderedAscending;
-        } else {
-            return NSOrderedSame;
-        }
-    }];
-    
-    for (SETextAttachment *attachment in attachments) {
-        NSMutableAttributedString *editingAttributedText = self.coreTeletextAttributed.mutableCopy;
-        if (!attachment.replacedString) {
-            if (attachment.range.length > 0) {
-                NSAttributedString *originalAttributedString = [editingAttributedText attributedSubstringFromRange:attachment.range];
-                attachment.originalAttributedString = originalAttributedString;
-                
-                [editingAttributedText replaceCharactersInRange:attachment.range withString:replacementString];
-                attachment.replacedString = replacementString;
-            } else {
-                [editingAttributedText insertAttributedString:[[NSAttributedString alloc] initWithString:replacementString] atIndex:attachment.range.location];
-                attachment.replacedString = replacementString;
-            }
-            
-            CTRunDelegateCallbacks callbacks = attachment.callbacks;
-            CTRunDelegateRef runDelegate = CTRunDelegateCreate(&callbacks, (__bridge void *)attachment);
-            [editingAttributedText addAttributes:@{(id)kCTRunDelegateAttributeName : (__bridge id)runDelegate } range:attachment.range];
-            CFRelease(runDelegate);
-            
-            self.coreTeletextAttributed = editingAttributedText;
-        }
-    }
-}
-
-- (void)drawTextAttachmentsInContext:(CGContextRef)context
-{
-    [self updateLayout];
-    
-    NSMutableSet *attachmentsToLeave = [[NSMutableSet alloc] init];
-    
-    [self.coreTeletextAttributed enumerateAttribute:(id)kCTRunDelegateAttributeName inRange:NSMakeRange(0, self.coreTeletext.length) options:kNilOptions usingBlock:^(id value, NSRange range, BOOL *stop) {
-        if (!value) {
-            return;
-        }
-        
-        CTRunDelegateRef runDelegate = (__bridge CTRunDelegateRef)value;
-        SETextAttachment *attachment = (__bridge SETextAttachment *)CTRunDelegateGetRefCon(runDelegate);
-        if (!attachment) {
-            return;
-        }
-        
-        [attachmentsToLeave addObject:attachment];
-        
-        for (SELineLayout *lineLayout in self.textLayout.lineLayouts) {
-            CGRect lineRect = lineLayout.rect;
-            CGRect rect = [lineLayout rectOfStringWithRange:range];
-            if (!CGRectIsEmpty(rect) && CGRectGetMaxX(rect) <= (CGRectGetMaxX(lineRect) - lineLayout.truncationTokenWidth)) {
-                id object = attachment.object;
-                CGSize size = attachment.size;
-                rect.origin.x += (CGRectGetWidth(rect) - size.width) / 2;
-                rect.origin.y += CGRectGetHeight(rect) - size.height;
-                rect.size = size;
-                rect = CGRectIntegral(rect);
-                if ([object isKindOfClass:[NSView class]]) {
-                    UIView *view = object;
-                    view.frame = rect;
-                    if (!view.superview) {
-                        [self addSubview:view];
-                    }
-                } else if ([object isKindOfClass:[NSImage class]]) {
-                    NSImage *image = object;
-#if TARGET_OS_IPHONE
-                    [image drawInRect:rect];
-#else
-                    [image drawInRect:rect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0f];
-#endif
-                } else if ([object isKindOfClass:NSClassFromString(@"NSBlock")]) {
-                    //                    SETextAttachmentDrawingBlock draw = attachment.object;
-                    //                    CGContextSaveGState(context);
-                    //                    draw(rect, context);
-                    //                    CGContextRestoreGState(context);
-                }
-            }
-        }
-    }];
-    
-    self.attachments = attachmentsToLeave;
-    [self.textLayout drawInContext:context];
 }
 
 @end
