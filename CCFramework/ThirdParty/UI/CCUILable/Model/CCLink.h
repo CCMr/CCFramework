@@ -24,19 +24,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreGraphics/CoreGraphics.h>
+#import <UIKit/UIKit.h>
 
 @interface CCLink : NSObject
 
+@property(nonatomic, strong) UIImage *linkImage;
 @property(nonatomic, copy) NSString *linkURL;
 @property(nonatomic, copy) NSString *linkValue;
-@property(readonly, nonatomic, assign) NSRange linkRange;
-@property(readonly, nonatomic, assign) float linkWidth;
-@property(readonly, nonatomic, assign) float linkHeight;
+@property(nonatomic, assign) NSRange linkRange;
+@property(nonatomic, assign) CGSize linkSize;
 
 + (instancetype)lintWith:(NSString *)linkURL
                LinkValue:(NSString *)linkValue
                LinkRange:(NSRange)linkRange
-               LinkWidth:(float)linkWidth
-              LinkHeight:(float)linkHeight;
+                LinkSize:(CGSize)linkSize;
 
 @end

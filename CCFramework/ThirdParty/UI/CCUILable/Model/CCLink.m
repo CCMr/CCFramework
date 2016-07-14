@@ -25,28 +25,18 @@
 
 #import "CCLink.h"
 
-@interface CCLink ()
-
-@property(nonatomic, assign) NSRange linkRange;
-@property(nonatomic, assign) float linkWidth;
-@property(nonatomic, assign) float linkHeight;
-
-@end
-
 @implementation CCLink
 
 + (instancetype)lintWith:(NSString *)linkURL
                LinkValue:(NSString *)linkValue
                LinkRange:(NSRange)linkRange
-               LinkWidth:(float)linkWidth
-              LinkHeight:(float)linkHeight
+                LinkSize:(CGSize)linkSize
 {
     CCLink *link = [CCLink new];
     link.linkURL = linkURL;
     link.linkValue = linkValue;
     link.linkRange = linkRange;
-    link.linkWidth = linkWidth;
-    link.linkHeight = linkHeight;
+    link.linkSize = linkSize;
     return link;
 }
 

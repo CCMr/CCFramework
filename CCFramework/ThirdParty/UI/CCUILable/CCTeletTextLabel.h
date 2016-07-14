@@ -10,7 +10,7 @@
 
 @interface CCTeletTextLabel : UILabel
 
-@property(nonatomic, copy) void (^didClickLinkBlock)();
+@property(nonatomic, copy) void (^didClickLinkBlock)(CCTeletTextLabel *teletTextLabel, NSDictionary *teletTextEvent);
 
 /**
  *  @author CC, 16-07-11

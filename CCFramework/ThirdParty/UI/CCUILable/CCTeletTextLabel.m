@@ -9,17 +9,16 @@
 #import "CCTeletTextLabel.h"
 #import "SDWebImageManager.h"
 #import "CCLink.h"
+#import "CCTextAttachment.h"
 #include <objc/runtime.h>
 
 @interface CCTeletTextLabel ()
 
-@property(nonatomic, strong) NSMutableSet *teletextAttachments;
 @property(nonatomic, strong) CCLink *activeLink;
 
 @end
 
 @implementation CCTeletTextLabel
-
 
 /**
  *  @author CC, 16-07-11
@@ -39,6 +38,8 @@
         TeletextPath:(NSArray<NSString *> *)teletextPath
         teletextSize:(NSArray<NSDictionary *> *)teletextSize
 {
+    self.userInteractionEnabled = YES;
+
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithData:[text dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType } documentAttributes:nil error:nil];
 
     for (NSString *replaceStr in replaceAry)
@@ -49,6 +50,7 @@
     NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:OBJECT_REPLACEMENT_CHARACTER options:NSRegularExpressionCaseInsensitive error:nil];
     NSArray *resultArray = [re matchesInString:text options:0 range:NSMakeRange(0, text.length)];
 
+    NSMutableSet *teletextAttachments = [NSMutableSet new];
 
     for (int i = 0; i < resultArray.count; i++) {
         NSDictionary *sizeDic = [teletextSize objectAtIndex:i];
@@ -63,153 +65,61 @@
         if (emojiImage)
             size = CGSizeMake(emojiImage.size.width < size.width ? emojiImage.size.width : size.width, emojiImage.size.height < size.height ? emojiImage.size.height : size.height);
 
-        if (!emojiImage) {
+        CCLink *link = [[CCLink alloc] init];
+        link.linkURL = path;
+        link.linkValue = [replaceAry objectAtIndex:i];
+        link.linkSize = size;
+        link.linkRange = [match range];
+        if (!emojiImage)
             emojiImage = defalutImage;
 
-            if ([path rangeOfString:@"http://"].location != NSNotFound) {
-                [self.teletextAttachments addObject:[CCLink lintWith:path
-                                                           LinkValue:path
-                                                           LinkRange:[match range]
-                                                           LinkWidth:size.width
-                                                          LinkHeight:size.height]];
-            }
-        }
+        link.linkImage = emojiImage;
 
-        NSTextAttachment *textAttachment = [NSTextAttachment new];
-        textAttachment.image = emojiImage;
-        textAttachment.bounds = CGRectMake(0, 0, size.width, size.height);
+        if ([path rangeOfString:@"http://"].location != NSNotFound)
+            [teletextAttachments addObject:link];
 
-        NSAttributedString *rep = [NSAttributedString attributedStringWithAttachment:textAttachment];
-        [attributedString replaceCharactersInRange:[match range] withAttributedString:rep];
+        NSAttributedString *rep = [NSAttributedString attributedStringWithAttachment:[CCTextAttachment initAttachmentWihtLink:link]];
+        [attributedString replaceCharactersInRange:[match range]
+                              withAttributedString:rep];
     }
 
     self.attributedText = attributedString;
 
-    for (CCLink *link in self.teletextAttachments)
+    for (CCLink *link in teletextAttachments)
         [self downLoadImage:link];
 }
 
 - (void)downLoadImage:(CCLink *)link
 {
     __weak __typeof(self) wself = self;
-    [SDWebImageManager.sharedManager downloadImageWithURL:link.linkURL options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+    [SDWebImageManager.sharedManager downloadImageWithURL:[NSURL URLWithString:link.linkURL] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
 
     } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-        [wself replaceImage:image
-                      Range:link.linkRange
-                       Size:CGSizeMake(link.linkWidth,link.linkHeight)];
+        link.linkImage = image;
+        [wself replaceImage:link];
     }];
 }
 
-- (void)replaceImage:(UIImage *)image
-               Range:(NSRange)range
-                Size:(CGSize)size
+- (void)replaceImage:(CCLink *)link
 {
-    NSTextAttachment *textAttachment = [NSTextAttachment new];
-    textAttachment.image = image;
-    textAttachment.bounds = CGRectMake(0, 0, size.width, size.height);
-
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
 
-    NSAttributedString *rep = [NSAttributedString attributedStringWithAttachment:textAttachment];
-    [attributedString replaceCharactersInRange:range withAttributedString:rep];
+    CGSize linkSize = link.linkSize;
+    linkSize = CGSizeMake(link.linkImage.size.width < linkSize.width ? link.linkImage.size.width : linkSize.width, link.linkImage.size.height < linkSize.height ? link.linkImage.size.height : linkSize.height);
+    link.linkSize = linkSize;
 
+    NSAttributedString *rep = [NSAttributedString attributedStringWithAttachment:[CCTextAttachment initAttachmentWihtLink:link]];
+
+    [attributedString replaceCharactersInRange:link.linkRange withAttributedString:rep];
     self.attributedText = attributedString;
-}
-
--(void)setAttributedText:(NSAttributedString *)attributedText
-{
-    [super setAttributedText:attributedText];
-
-    [self.attributedText enumerateAttribute:NSAttachmentAttributeName inRange:NSMakeRange(0, self.attributedText.length) options:NSAttributedStringEnumerationReverse usingBlock:^(NSTextAttachment *value, NSRange range, BOOL * _Nonnull stop) {
-        if (value && [value isKindOfClass:[NSTextAttachment class]]) {
-
-        }
-    }];
-}
-
-- (NSMutableSet *)teletextAttachments
-{
-    if (!_teletextAttachments) {
-        _teletextAttachments = [NSMutableSet new];
-    }
-    return _teletextAttachments;
+    [self setNeedsDisplay];
 }
 
 #pragma mark :.
 
-
-- (CCLink *)linkAtPoint:(CGPoint)location
-{
-    if (self.teletextAttachments.count <= 0 || self.text.length == 0) {
-        return nil;
-    }
-
-    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)self.attributedText);
-
-    CGMutablePathRef Path = CGPathCreateMutable();
-
-    CGPathAddRect(Path, NULL, self.bounds);
-
-    CTFrameRef frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, 0), Path, NULL);
-
-    CFArrayRef lines = CTFrameGetLines(frame);
-
-    if (!lines) {
-        return NO;
-    }
-
-    CFIndex count = CFArrayGetCount(lines);
-
-    CGPoint origins[count];
-
-    CTFrameGetLineOrigins(frame, CFRangeMake(0, 0), origins);
-
-    CGAffineTransform transform = [self cc_transformForCoreText];
-
-    CGFloat verticalOffset = 0;
-
-    for (CFIndex i = 0; i < count; i++) {
-        CGPoint linePoint = origins[i];
-
-        CTLineRef line = CFArrayGetValueAtIndex(lines, i);
-
-        CGRect flippedRect = [self cc_getLineBounds:line point:linePoint];
-
-        CGRect rect = CGRectApplyAffineTransform(flippedRect, transform);
-
-        rect = CGRectInset(rect, 0, 0);
-
-        rect = CGRectOffset(rect, 0, verticalOffset);
-
-        if (CGRectContainsPoint(rect, location)) {
-
-            CGPoint relativePoint = CGPointMake(location.x - CGRectGetMinX(rect), location.y - CGRectGetMinY(rect));
-
-            CFIndex index = CTLineGetStringIndexForPosition(line, relativePoint);
-
-            CGFloat offset;
-
-            CTLineGetOffsetForStringIndex(line, index, &offset);
-
-            if (offset > relativePoint.x)
-                index = index - 1;
-
-            for (CCLink *link in self.teletextAttachments) {
-                if (NSLocationInRange(index, link.linkRange)) {
-                    NSLog(@"%d",index);
-                    return link;
-                }
-            }
-        }
-    }
-
-    return nil;
-}
-
 - (CGAffineTransform)cc_transformForCoreText
 {
-    return CGAffineTransformScale(CGAffineTransformMakeTranslation(0, self.bounds.size.height), 1.f, -1.f);
+    return CGAffineTransformScale(CGAffineTransformMakeTranslation(0, CGRectGetHeight(self.bounds)), 1.f, -1.f);
 }
 
 - (CGRect)cc_getLineBounds:(CTLineRef)line point:(CGPoint)point
@@ -217,12 +127,54 @@
     CGFloat ascent = 0.0f;
     CGFloat descent = 0.0f;
     CGFloat leading = 0.0f;
-    CGFloat width = (CGFloat)CTLineGetTypographicBounds(line, &ascent, &descent, &leading);
+    CGFloat width =
+    (CGFloat)CTLineGetTypographicBounds(line, &ascent, &descent, &leading);
     CGFloat height = ascent + descent;
 
     return CGRectMake(point.x, point.y - descent, width, height);
 }
 
+- (CCLink *)linkAtPoint:(CGPoint)location
+{
+    // 创建CTFramesetter
+    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)self.attributedText);
+    // 这里你需要创建一个用于绘制文本的路径区域,通过 self.bounds 使用整个视图矩形区域创建 CGPath 引用。
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathAddRect(path, NULL, self.bounds);
+
+    CTFrameRef frameRef = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, [self.attributedText length]), path, NULL);
+    CFRelease(path);
+
+
+    CFArrayRef lines = CTFrameGetLines(frameRef);
+    CGPoint lineOrigins[CFArrayGetCount(lines)];
+    CTFrameGetLineOrigins(frameRef, CFRangeMake(0, 0), lineOrigins);
+
+    for (int i = 0; i < CFArrayGetCount(lines); i++) {
+        CTLineRef line = CFArrayGetValueAtIndex(lines, i);
+        CGFloat lineAscent;
+        CGFloat lineDescent;
+        CGFloat lineLeading;
+        CTLineGetTypographicBounds(line, &lineAscent, &lineDescent, &lineLeading);
+
+        CFArrayRef runs = CTLineGetGlyphRuns(line);
+        for (int j = 0; j < CFArrayGetCount(runs); j++) {
+            CTRunRef run = CFArrayGetValueAtIndex(runs, j);
+            NSDictionary *runAttributes = (NSDictionary *)CTRunGetAttributes(run);
+
+            CCTextAttachment *attachment = [runAttributes objectForKey:@"NSAttachment"];
+            if (attachment) {
+                CGRect imgRect = attachment.imageBounds;
+                CGRect rect = CGRectApplyAffineTransform(imgRect, [self cc_transformForCoreText]);
+                if (CGRectContainsPoint(rect, location)) {
+                    return attachment.link;
+                }
+            }
+        }
+    }
+
+    return nil;
+}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -238,7 +190,8 @@
     if (self.activeLink) {
         UITouch *touch = [touches anyObject];
 
-        if (![self.activeLink isEqual:[self linkAtPoint:[touch locationInView:self]]])
+        if (![self.activeLink
+              isEqual:[self linkAtPoint:[touch locationInView:self]]])
             self.activeLink = nil;
     } else {
         [super touchesMoved:touches withEvent:event];
@@ -248,10 +201,8 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if (self.activeLink) {
-        NSString *linkText = [self.text substringWithRange:self.activeLink.linkRange];
-        if (self.didClickLinkBlock) {
-            self.didClickLinkBlock(self.activeLink, linkText, self);
-        }
+        if (self.didClickLinkBlock)
+            self.didClickLinkBlock(self, [self.activeLink cc_keyValues]);
     } else {
         [super touchesEnded:touches withEvent:event];
     }

@@ -499,6 +499,8 @@
 		4253306F1C96B14800375ED0 /* CCTableViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4253306D1C96B14800375ED0 /* CCTableViewHelper.m */; };
 		425330731C96B1A000375ED0 /* BaseViewManger.h in Headers */ = {isa = PBXBuildFile; fileRef = 425330711C96B1A000375ED0 /* BaseViewManger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		425330741C96B1A000375ED0 /* BaseViewManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 425330721C96B1A000375ED0 /* BaseViewManger.m */; };
+		4253E8491D371E7600BACED6 /* CCTextAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = 4253E8471D371E7600BACED6 /* CCTextAttachment.h */; };
+		4253E84A1D371E7600BACED6 /* CCTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 4253E8481D371E7600BACED6 /* CCTextAttachment.m */; };
 		425476BD1BD2A9DC0071BBC5 /* CCAliPayEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 425476BB1BD2A9DC0071BBC5 /* CCAliPayEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		425476BE1BD2A9DC0071BBC5 /* CCAliPayEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 425476BC1BD2A9DC0071BBC5 /* CCAliPayEngine.m */; };
 		425477271BD2AEC20071BBC5 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 425476C51BD2AEC20071BBC5 /* libcrypto.a */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -1744,6 +1746,8 @@
 		4253306D1C96B14800375ED0 /* CCTableViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCTableViewHelper.m; path = ViewManger/CCTableViewHelper.m; sourceTree = "<group>"; };
 		425330711C96B1A000375ED0 /* BaseViewManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewManger.h; sourceTree = "<group>"; };
 		425330721C96B1A000375ED0 /* BaseViewManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewManger.m; sourceTree = "<group>"; };
+		4253E8471D371E7600BACED6 /* CCTextAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTextAttachment.h; sourceTree = "<group>"; };
+		4253E8481D371E7600BACED6 /* CCTextAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTextAttachment.m; sourceTree = "<group>"; };
 		425476BB1BD2A9DC0071BBC5 /* CCAliPayEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCAliPayEngine.h; path = Pay/Alipay/CCAliPayEngine.h; sourceTree = "<group>"; };
 		425476BC1BD2A9DC0071BBC5 /* CCAliPayEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCAliPayEngine.m; path = Pay/Alipay/CCAliPayEngine.m; sourceTree = "<group>"; };
 		425476C51BD2AEC20071BBC5 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
@@ -3971,6 +3975,8 @@
 			children = (
 				423E39D21D333AC80011ECD2 /* CCLink.h */,
 				423E39D31D333AC80011ECD2 /* CCLink.m */,
+				4253E8471D371E7600BACED6 /* CCTextAttachment.h */,
+				4253E8481D371E7600BACED6 /* CCTextAttachment.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -6377,6 +6383,7 @@
 				429CA0F31B9EF8BF0013A44A /* CCMessageBubbleHelper.h in Headers */,
 				42068F141C573E33005DFB01 /* POPAnimatorPrivate.h in Headers */,
 				42F4121E1C21648300814E7B /* CCPaintingLayer.h in Headers */,
+				4253E8491D371E7600BACED6 /* CCTextAttachment.h in Headers */,
 				42A58A591BCCA23C0027429C /* CCWebView.h in Headers */,
 				426979451BA695BA00C3E93C /* UIKit+AFNetworking.h in Headers */,
 				429CA01D1B9EF8BF0013A44A /* CCCycleScroll.h in Headers */,
@@ -7307,6 +7314,7 @@
 				421DC6791C85750E009E825B /* NSURLRequest+Additions.m in Sources */,
 				429CA0781B9EF8BF0013A44A /* CCPopMenuView.m in Sources */,
 				421DC7371C85750E009E825B /* UITextView+Additions.m in Sources */,
+				4253E84A1D371E7600BACED6 /* CCTextAttachment.m in Sources */,
 				429CA0121B9EF8BF0013A44A /* CalendarHeaderView.m in Sources */,
 				422359381C867C41005207B9 /* NSDate+Additions.m in Sources */,
 				421DC7B41C85965D009E825B /* UIBarButtonItem+Additions.m in Sources */,
