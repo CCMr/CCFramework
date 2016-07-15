@@ -13,12 +13,33 @@
 #include <objc/runtime.h>
 
 @interface CCTeletTextLabel ()
-
+@property(nonatomic, copy) didClickLinkBlock didClickLinkBlock;
 @property(nonatomic, strong) CCLink *activeLink;
 
 @end
 
 @implementation CCTeletTextLabel
+
+- (instancetype)init
+{
+    if (self = [super init]) {
+        [self initialization];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame]) {
+        [self initialization];
+    }
+    return self;
+}
+
+- (void)initialization
+{
+    self.adjustType = ImageAdjustTypeDefault;
+}
 
 /**
  *  @author CC, 16-07-11
@@ -38,19 +59,17 @@
         TeletextPath:(NSArray<NSString *> *)teletextPath
         teletextSize:(NSArray<NSDictionary *> *)teletextSize
 {
-    self.userInteractionEnabled = YES;
-
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithData:[text dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType } documentAttributes:nil error:nil];
 
     for (NSString *replaceStr in replaceAry)
-        text = [attributedString.string stringByReplacingOccurrencesOfString:replaceStr withString:OBJECT_REPLACEMENT_CHARACTER];
+        text = [text stringByReplacingOccurrencesOfString:replaceStr withString:OBJECT_REPLACEMENT_CHARACTER];
 
     attributedString = [[NSMutableAttributedString alloc] initWithString:text];
 
     NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:OBJECT_REPLACEMENT_CHARACTER options:NSRegularExpressionCaseInsensitive error:nil];
     NSArray *resultArray = [re matchesInString:text options:0 range:NSMakeRange(0, text.length)];
 
-    NSMutableSet *teletextAttachments = [NSMutableSet new];
+    NSMutableArray *teletextAttachments = [NSMutableArray array];
 
     for (int i = 0; i < resultArray.count; i++) {
         NSDictionary *sizeDic = [teletextSize objectAtIndex:i];
@@ -79,7 +98,7 @@
             [teletextAttachments addObject:link];
 
         NSAttributedString *rep = [NSAttributedString attributedStringWithAttachment:[CCTextAttachment initAttachmentWihtLink:link]];
-        [attributedString replaceCharactersInRange:[match range]
+        [attributedString replaceCharactersInRange:link.linkRange
                               withAttributedString:rep];
     }
 
@@ -105,17 +124,39 @@
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
 
     CGSize linkSize = link.linkSize;
-    linkSize = CGSizeMake(link.linkImage.size.width < linkSize.width ? link.linkImage.size.width : linkSize.width, link.linkImage.size.height < linkSize.height ? link.linkImage.size.height : linkSize.height);
+    if (self.adjustType == ImageAdjustTypeImageSize) {
+        linkSize = link.linkImage.size;
+    } else if (self.adjustType == ImageAdjustTypeWidth) { //指定宽度，等比缩放
+        if (link.linkSize.width < link.linkImage.size.width)
+            linkSize.height = (linkSize.width / link.linkImage.size.width) * link.linkImage.size.height;
+        else
+            linkSize.height = link.linkImage.size.height;
+    } else if (self.adjustType == ImageAdjustTypeHeigth) { //指定高度，等比缩放
+        if (link.linkSize.height < link.linkImage.size.height)
+            linkSize.width = (linkSize.height / link.linkImage.size.height) * link.linkImage.size.width;
+        else
+            linkSize.width = link.linkImage.size.width;
+    }
+
     link.linkSize = linkSize;
 
-    NSAttributedString *rep = [NSAttributedString attributedStringWithAttachment:[CCTextAttachment initAttachmentWihtLink:link]];
+    CCTextAttachment *att = [CCTextAttachment initAttachmentWihtLink:link];
+
+    NSAttributedString *rep = [NSAttributedString attributedStringWithAttachment:att];
 
     [attributedString replaceCharactersInRange:link.linkRange withAttributedString:rep];
     self.attributedText = attributedString;
     [self setNeedsDisplay];
 }
 
-#pragma mark :.
+#pragma mark :. getset
+- (void)didClickLinkBlock:(didClickLinkBlock)linkBlock
+{
+    self.userInteractionEnabled = YES;
+    self.didClickLinkBlock = linkBlock;
+}
+
+#pragma mark :. 处理
 
 - (CGAffineTransform)cc_transformForCoreText
 {
@@ -152,21 +193,21 @@
 
     for (int i = 0; i < CFArrayGetCount(lines); i++) {
         CTLineRef line = CFArrayGetValueAtIndex(lines, i);
-        CGFloat lineAscent;
-        CGFloat lineDescent;
-        CGFloat lineLeading;
-        CTLineGetTypographicBounds(line, &lineAscent, &lineDescent, &lineLeading);
 
         CFArrayRef runs = CTLineGetGlyphRuns(line);
         for (int j = 0; j < CFArrayGetCount(runs); j++) {
+            CGFloat runAscent;
+            CGFloat runDescent;
+            CGPoint lineOrigin = lineOrigins[i];
+
             CTRunRef run = CFArrayGetValueAtIndex(runs, j);
             NSDictionary *runAttributes = (NSDictionary *)CTRunGetAttributes(run);
 
             CCTextAttachment *attachment = [runAttributes objectForKey:@"NSAttachment"];
-            if (attachment) {
-                CGRect imgRect = attachment.imageBounds;
+            if (attachment && [attachment isKindOfClass:[CCTextAttachment class]]) {
+                CGRect imgRect = attachment.imageRect;
                 CGRect rect = CGRectApplyAffineTransform(imgRect, [self cc_transformForCoreText]);
-                if (CGRectContainsPoint(rect, location)) {
+                if (CGRectContainsPoint(imgRect, location)) {
                     return attachment.link;
                 }
             }
@@ -190,8 +231,7 @@
     if (self.activeLink) {
         UITouch *touch = [touches anyObject];
 
-        if (![self.activeLink
-              isEqual:[self linkAtPoint:[touch locationInView:self]]])
+        if (![self.activeLink isEqual:[self linkAtPoint:[touch locationInView:self]]])
             self.activeLink = nil;
     } else {
         [super touchesMoved:touches withEvent:event];

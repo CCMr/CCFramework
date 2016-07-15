@@ -8,9 +8,32 @@
 
 #import <CCFramework/CCFramework.h>
 
+typedef NS_ENUM(NSInteger, ImageAdjustType) {
+    /** 默认不调整(显示给予固定大小) */
+    ImageAdjustTypeDefault = 0,
+    /** 自适应(图片大小) */
+    ImageAdjustTypeImageSize = 1,
+    /** 固定宽(显示给予固定宽，高度等比调整) */
+    ImageAdjustTypeWidth = 2,
+    /** 固定高(显示给予固定高，宽度等比调整) */
+    ImageAdjustTypeHeigth = 3,
+};
+
+
+@class CCTeletTextLabel;
+
+typedef void (^didClickLinkBlock)(CCTeletTextLabel *teletTextLabel, NSDictionary *teletTextEvent);
+
 @interface CCTeletTextLabel : UILabel
 
-@property(nonatomic, copy) void (^didClickLinkBlock)(CCTeletTextLabel *teletTextLabel, NSDictionary *teletTextEvent);
+/**
+ *  @author CC, 16-07-15
+ *
+ *  @brief 图片适应类型
+ */
+@property(nonatomic, assign) ImageAdjustType adjustType;
+
+- (void)didClickLinkBlock:(didClickLinkBlock)linkBlock;
 
 /**
  *  @author CC, 16-07-11

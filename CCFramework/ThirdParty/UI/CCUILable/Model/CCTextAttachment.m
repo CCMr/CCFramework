@@ -28,7 +28,11 @@
     if (self.link) {
         UIImage *image = self.link.linkImage;
         imageBounds.size = self.link.linkSize;
-        self.imageBounds = imageBounds;
+
+        CGRect iRect = self.imageRect;
+        iRect.origin.x = imageBounds.origin.x;
+        self.imageRect = iRect;
+
 
         UIGraphicsBeginImageContextWithOptions(self.link.linkSize, NO, 0.0);
         CGRect imageRect = CGRectMake(0.0, 0.0, self.link.linkSize.width, self.link.linkSize.height);
@@ -51,8 +55,14 @@
         UIFont *font = [textContainer.layoutManager.textStorage attribute:NSFontAttributeName
                                                                   atIndex:charIndex
                                                            effectiveRange:nil];
+        CGFloat baseLineHeight = (font ? font.lineHeight : lineFrag.size.height);
 
-        return CGRectMake(0, font.descender, self.link.linkSize.width, self.link.linkSize.height);
+        CGFloat y = font.descender;
+        y -= (self.link.linkSize.height - baseLineHeight) / 2;
+        lineFrag.size = self.link.linkSize;
+        self.imageRect = lineFrag;
+
+        return CGRectMake(0, y, self.link.linkSize.width, self.link.linkSize.height);
     }
 
     // No drawing block so fallback on the original implementation

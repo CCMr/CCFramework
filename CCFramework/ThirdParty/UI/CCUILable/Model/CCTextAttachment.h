@@ -11,7 +11,7 @@
 
 @interface CCTextAttachment : NSTextAttachment
 
-@property(nonatomic, assign) CGRect imageBounds;
+@property(nonatomic, assign) CGRect imageRect;
 
 @property(nonatomic, strong) CCLink *link;
 
