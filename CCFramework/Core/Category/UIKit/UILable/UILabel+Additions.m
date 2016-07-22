@@ -48,6 +48,7 @@
 #pragma mark -
 #pragma mark :. AutomaticWriting
 
+
 NSTimeInterval const UILabelAWDefaultDuration = 0.4f;
 
 unichar const UILabelAWDefaultCharacter = 124;

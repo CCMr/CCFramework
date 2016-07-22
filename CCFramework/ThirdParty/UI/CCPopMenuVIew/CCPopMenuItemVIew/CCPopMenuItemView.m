@@ -31,6 +31,8 @@
 
 @property(nonatomic, strong) UIImageView *separatorLineImageView;
 
+@property(nonatomic, strong) UILabel *badge;
+
 @end
 
 @implementation CCPopMenuItemView
@@ -43,6 +45,16 @@
     self.textLabel.textAlignment = popMenuItem.textAlignment;
     self.textLabel.text = popMenuItem.title;
     self.imageView.image = popMenuItem.iconImage;
+
+    self.badge.text = nil;
+    self.badge.hidden = YES;
+    if (popMenuItem.badgeValue) {
+        self.badge.text = popMenuItem.badgeValue;
+        self.badge.hidden = NO;
+    }
+    if (popMenuItem.badgeBGColor)
+        self.badge.backgroundColor = popMenuItem.badgeBGColor;
+
     self.separatorLineImageView.hidden = isBottom;
 }
 
@@ -78,6 +90,16 @@
         self.textLabel.textColor = [UIColor blackColor];
         self.textLabel.font = [UIFont systemFontOfSize:12];
         //        self.selectedBackgroundView = self.menuSelectedBackgroundView;
+
+        _badge = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+        _badge.font = [UIFont systemFontOfSize:13];
+        _badge.textAlignment = NSTextAlignmentCenter;
+        _badge.textColor = [UIColor whiteColor];
+        _badge.backgroundColor = [UIColor redColor];
+        _badge.layer.cornerRadius = 10;
+        _badge.clipsToBounds = YES;
+        _badge.hidden = YES;
+        self.accessoryView = _badge;
         [self.contentView addSubview:self.separatorLineImageView];
     }
     return self;
@@ -86,16 +108,23 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    CGRect textLabelFrame = self.textLabel.frame;
-    CGFloat ix = CGRectGetMaxX(self.imageView.frame);
-    if (ix)
-        ix += 5;
-    else
-        ix = textLabelFrame.origin.x;
 
-    textLabelFrame.origin.x = ix;
-    //    textLabelFrame.size.width += textLabelFrame.origin.x;
+    CGRect imageViewFrame = self.imageView.frame;
+    imageViewFrame.origin.x = 10;
+    self.imageView.frame = imageViewFrame;
+
+    CGRect textLabelFrame = self.textLabel.frame;
+    textLabelFrame.origin.x = imageViewFrame.origin.x + imageViewFrame.size.width + 10;
+    textLabelFrame.size.width = self.frame.size.width - textLabelFrame.origin.x;
+    if (!self.badge.hidden)
+        textLabelFrame.size.width = textLabelFrame.size.width - 30;
     self.textLabel.frame = textLabelFrame;
+
+    CGFloat y = (self.frame.size.height - 20) / 2;
+    CGRect badgeFrame = self.badge.frame;
+    badgeFrame.origin.x = textLabelFrame.origin.x + textLabelFrame.size.width;
+    badgeFrame.origin.y = y;
+    self.badge.frame = badgeFrame;
 }
 
 @end

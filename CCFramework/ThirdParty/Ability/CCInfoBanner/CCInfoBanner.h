@@ -30,7 +30,7 @@
 #pragma mark :. 设置属性
 /**
  *  @author CC, 2016-01-05
- *  
+ *
  *  @brief  设置标题
  *
  *  @param title 标题
@@ -39,7 +39,7 @@
 
 /**
  *  @author CC, 2016-01-05
- *  
+ *
  *  @brief  设置图标与标题
  *
  *  @param icon  图标
@@ -51,7 +51,7 @@
 #pragma mark :. 静态调用
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  提示
  *
  *  @param text 标题
@@ -60,7 +60,7 @@
 
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  提示
  *
  *  @param title       标题
@@ -71,7 +71,7 @@
 
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  提示图标
  *
  *  @param icon  图标
@@ -82,7 +82,7 @@
 
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  提示图标
  *
  *  @param icon        图标
@@ -95,7 +95,7 @@
 
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  提示GIF图标
  *
  *  @param icon  图标
@@ -106,7 +106,7 @@
 
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  提示GIF图标
  *
  *  @param icon        图标
@@ -119,7 +119,7 @@
 
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  提示加载
  *
  *  @param title           标题
@@ -130,7 +130,7 @@
 
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  提示加载
  *
  *  @param title           标题
@@ -143,7 +143,7 @@
 
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  提示加载
  *
  *  @param title           标题
@@ -158,12 +158,20 @@
 
 /**
  *  @author CC, 2016-01-05
- *  
+ *
  *  @brief  创建指示器视图
  */
 + (CCInfoBanner *)showWithIndicatorView;
 
 #pragma mark :. Show & hide
+
+/**
+ *  @author CC, 16-07-20
+ *
+ *  @brief 底部是否加圆角
+ */
+@property(nonatomic, assign) BOOL IsbottomFillet;
+
 - (void)show;
 
 - (void)show:(BOOL)animated;

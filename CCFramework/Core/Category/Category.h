@@ -58,6 +58,7 @@
 #import <CCFramework/UIAlertView+Additions.h>
 #import <CCFramework/UIApplication+Additions.h>
 #import <CCFramework/UIBarButtonItem+Additions.h>
+#import <CCFramework/UIBarButtonItem+Badge.h>
 #import <CCFramework/UIBezierPath+Additions.h>
 #import <CCFramework/UIButton+Additions.h>
 #import <CCFramework/UIColor+Additions.h>

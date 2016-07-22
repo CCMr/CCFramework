@@ -38,6 +38,46 @@
     return self;
 }
 
+- (instancetype)initWithImage:(UIImage *)iconName
+                        title:(NSString *)title
+                   BadgeValue:(NSString *)badgeValue
+                 BadgeBGColor:(UIColor *)badgeBGColor
+{
+    self = [super init];
+    if (self) {
+        self.iconImage = iconName;
+        self.title = title;
+        self.badgeValue = badgeValue;
+        self.badgeBGColor = badgeBGColor;
+    }
+    return self;
+}
+
+- (instancetype)initWithTitle:(NSString *)title
+                     iconName:(NSString *)iconName
+                   BadgeValue:(NSString *)badgeValue
+{
+    return [self initWithTitle:title
+                      iconName:iconName
+                    BadgeValue:badgeValue
+                  BadgeBGColor:[UIColor redColor]];
+}
+
+- (instancetype)initWithTitle:(NSString *)title
+                     iconName:(NSString *)iconName
+                   BadgeValue:(NSString *)badgeValue
+                 BadgeBGColor:(UIColor *)badgeBGColor
+{
+    self = [super init];
+    if (self) {
+        self.iconImage = iconName;
+        self.title = title;
+        self.badgeValue = badgeValue;
+        self.badgeBGColor = badgeBGColor;
+    }
+    return self;
+}
+
 - (instancetype)initWithTitle:(NSString *)title
                      iconName:(NSString *)iconName
 {
@@ -110,6 +150,30 @@
     return [self itemWithTitle:title
                  TextAlignment:NSTextAlignmentLeft
                       iconName:iconName];
+}
+
++ (instancetype)itemWithTitle:(NSString *)title
+                     iconName:(NSString *)iconName
+                   BadgeValue:(NSString *)badgeValue
+{
+    return [self itemWithTitle:title
+                      iconName:iconName
+                    BadgeValue:badgeValue
+                  BadgeBGColor:[UIColor redColor]];
+}
+
++ (instancetype)itemWithTitle:(NSString *)title
+                     iconName:(NSString *)iconName
+                   BadgeValue:(NSString *)badgeValue
+                 BadgeBGColor:(UIColor *)badgeBGColor
+{
+    CCPopMenuItem *item = [self itemWithTitle:title
+                                TextAlignment:NSTextAlignmentLeft
+                                     iconName:iconName];
+    item.badgeValue = badgeValue;
+    item.badgeBGColor = badgeBGColor;
+
+    return item;
 }
 
 + (instancetype)itemWithTitle:(NSString *)title

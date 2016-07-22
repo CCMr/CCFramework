@@ -214,6 +214,7 @@ static char OperationKey;
         [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
         [[UINavigationBar appearance] setBackIndicatorImage:CCResourceImage(@"returns")];
         [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:CCResourceImage(@"returns")];
+        [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-3, 0) forBarMetrics:UIBarMetricsDefault];
     } else {
         [[UINavigationBar appearance] setTintColor:color];
     }
@@ -236,7 +237,7 @@ static char OperationKey;
 {
     if (backImage) {
         [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[backImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, backImage.size.width, 0, 0)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-        [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(5, 0) forBarMetrics:UIBarMetricsDefault];
+        [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, 0) forBarMetrics:UIBarMetricsDefault];
     }
 }
 

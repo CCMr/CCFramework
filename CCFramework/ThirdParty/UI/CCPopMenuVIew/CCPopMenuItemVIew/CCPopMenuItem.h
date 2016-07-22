@@ -46,6 +46,10 @@
 
 @property(nonatomic, assign) NSInteger index;
 
+@property(nonatomic, copy) NSString *badgeValue;
+
+@property(nonatomic, strong) UIColor *badgeBGColor;
+
 - (instancetype)initWithImage:(UIImage *)iconName
                         title:(NSString *)title;
 
@@ -53,6 +57,15 @@
 
 - (instancetype)initWithTitle:(NSString *)title
                      iconName:(NSString *)iconName NS_AVAILABLE_IOS(2_0);
+
+- (instancetype)initWithTitle:(NSString *)title
+                     iconName:(NSString *)iconName
+                   BadgeValue:(NSString *)badgeValue NS_AVAILABLE_IOS(2_0);
+
+- (instancetype)initWithTitle:(NSString *)title
+                     iconName:(NSString *)iconName
+                   BadgeValue:(NSString *)badgeValue
+                 BadgeBGColor:(UIColor *)badgeBGColor NS_AVAILABLE_IOS(2_0);
 
 - (instancetype)initWithTitle:(NSString *)title
                 TextAlignment:(NSTextAlignment)textAlignment NS_AVAILABLE_IOS(2_0);
@@ -80,6 +93,15 @@
 
 + (instancetype)itemWithTitle:(NSString *)title
                      iconName:(NSString *)iconName NS_AVAILABLE_IOS(2_0);
+
++ (instancetype)itemWithTitle:(NSString *)title
+                     iconName:(NSString *)iconName
+                   BadgeValue:(NSString *)badgeValue NS_AVAILABLE_IOS(2_0);
+
++ (instancetype)itemWithTitle:(NSString *)title
+                     iconName:(NSString *)iconName
+                   BadgeValue:(NSString *)badgeValue
+                 BadgeBGColor:(UIColor *)badgeBGColor NS_AVAILABLE_IOS(2_0);
 
 + (instancetype)itemWithTitle:(NSString *)title
                 TextAlignment:(NSTextAlignment)textAlignment NS_AVAILABLE_IOS(2_0);

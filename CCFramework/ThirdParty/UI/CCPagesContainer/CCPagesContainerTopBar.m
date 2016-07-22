@@ -158,7 +158,7 @@
 - (UIView *)addLine
 {
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 10, 0.5, CGRectGetHeight(self.frame) - 20)];
-    line.backgroundColor = [UIColor lightGrayColor];
+    line.backgroundColor = [UIColor colorWithRed:221 / 255.f green:221 / 255.f blue:221 / 255.f alpha:1.f];
     line.hidden = YES;
     [self.scrollView addSubview:line];
     

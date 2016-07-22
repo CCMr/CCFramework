@@ -433,7 +433,7 @@
             break;
         case CCPageIndicatorViewTypeHorizontalLine:
         case CCPageIndicatorViewTypeLine:
-            frame = CGRectMake(0, _isBarTop ? self.topBarHeight - .5 : CGRectGetHeight(self.view.frame) - self.topBarHeight, CGRectGetWidth([UIScreen mainScreen].bounds) / (_viewControllers.count * 1.0), .5);
+            frame = CGRectMake(0, _isBarTop ? self.topBarHeight - 1 : CGRectGetHeight(self.view.frame) - self.topBarHeight, CGRectGetWidth([UIScreen mainScreen].bounds) / (_viewControllers.count * 1.0), 2);
             break;
         default:
             break;

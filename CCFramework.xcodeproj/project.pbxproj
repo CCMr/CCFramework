@@ -467,8 +467,6 @@
 		423D1DA01C3A00CE008E483A /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 423D1D9F1C3A00CE008E483A /* libWeChatSDK.a */; };
 		423D1DA41C3A11F0008E483A /* CCAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 423D1DA21C3A11F0008E483A /* CCAlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		423D1DA51C3A11F0008E483A /* CCAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 423D1DA31C3A11F0008E483A /* CCAlertView.m */; };
-		423E39CF1D333A500011ECD2 /* CCTeletTextLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 423E39CD1D333A500011ECD2 /* CCTeletTextLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		423E39D01D333A500011ECD2 /* CCTeletTextLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 423E39CE1D333A500011ECD2 /* CCTeletTextLabel.m */; };
 		423E39D41D333AC80011ECD2 /* CCLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 423E39D21D333AC80011ECD2 /* CCLink.h */; };
 		423E39D51D333AC80011ECD2 /* CCLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 423E39D31D333AC80011ECD2 /* CCLink.m */; };
 		424255141C310CCA00D94E04 /* CCMessagePhotoImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 424255121C310CCA00D94E04 /* CCMessagePhotoImageView.h */; };
@@ -683,6 +681,24 @@
 		42786E741C40ACD000C011FB /* CCDropDownList.m in Sources */ = {isa = PBXBuildFile; fileRef = 42786E6F1C40ACD000C011FB /* CCDropDownList.m */; };
 		42786E751C40ACD000C011FB /* CCDropDownListMenuItemView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42786E701C40ACD000C011FB /* CCDropDownListMenuItemView.h */; };
 		42786E761C40ACD000C011FB /* CCDropDownListMenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42786E711C40ACD000C011FB /* CCDropDownListMenuItemView.m */; };
+		427E1A281D3DFD220093281F /* CCTeletTextLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1A261D3DFD220093281F /* CCTeletTextLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		427E1A291D3DFD220093281F /* CCTeletTextLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 427E1A271D3DFD220093281F /* CCTeletTextLabel.m */; };
+		427E1A2C1D3E07D10093281F /* NSMutableAttributedString+Image.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1A2A1D3E07D10093281F /* NSMutableAttributedString+Image.h */; };
+		427E1A2D1D3E07D10093281F /* NSMutableAttributedString+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 427E1A2B1D3E07D10093281F /* NSMutableAttributedString+Image.m */; };
+		427E1A301D3E08670093281F /* CCTeletTextImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1A2E1D3E08670093281F /* CCTeletTextImage.h */; };
+		427E1A311D3E08670093281F /* CCTeletTextImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 427E1A2F1D3E08670093281F /* CCTeletTextImage.m */; };
+		427E1A341D3E12E00093281F /* NSMutableAttributedString+Link.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1A321D3E12E00093281F /* NSMutableAttributedString+Link.h */; };
+		427E1A351D3E12E00093281F /* NSMutableAttributedString+Link.m in Sources */ = {isa = PBXBuildFile; fileRef = 427E1A331D3E12E00093281F /* NSMutableAttributedString+Link.m */; };
+		427E1A381D3E13BA0093281F /* NSMutableAttributedString+FrameRef.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1A361D3E13BA0093281F /* NSMutableAttributedString+FrameRef.h */; };
+		427E1A391D3E13BA0093281F /* NSMutableAttributedString+FrameRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 427E1A371D3E13BA0093281F /* NSMutableAttributedString+FrameRef.m */; };
+		427E1A3C1D3E14D20093281F /* CCTeletTextLabel+Draw.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1A3A1D3E14D20093281F /* CCTeletTextLabel+Draw.h */; };
+		427E1A3D1D3E14D20093281F /* CCTeletTextLabel+Draw.m in Sources */ = {isa = PBXBuildFile; fileRef = 427E1A3B1D3E14D20093281F /* CCTeletTextLabel+Draw.m */; };
+		427E1A401D3E1C1B0093281F /* CCTeletTextLabel+Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1A3E1D3E1C1B0093281F /* CCTeletTextLabel+Utils.h */; };
+		427E1A411D3E1C1B0093281F /* CCTeletTextLabel+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 427E1A3F1D3E1C1B0093281F /* CCTeletTextLabel+Utils.m */; };
+		427E1A441D3E1C4E0093281F /* CCTeletTextLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1A421D3E1C4E0093281F /* CCTeletTextLink.h */; };
+		427E1A451D3E1C4E0093281F /* CCTeletTextLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 427E1A431D3E1C4E0093281F /* CCTeletTextLink.m */; };
+		427E1A481D3F0B710093281F /* NSMutableAttributedString+Attribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1A461D3F0B710093281F /* NSMutableAttributedString+Attribute.h */; };
+		427E1A491D3F0B710093281F /* NSMutableAttributedString+Attribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 427E1A471D3F0B710093281F /* NSMutableAttributedString+Attribute.m */; };
 		427E1D3D1C107066004B257C /* WXApi.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1D3A1C107066004B257C /* WXApi.h */; };
 		427E1D3E1C107066004B257C /* WXApiObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1D3B1C107066004B257C /* WXApiObject.h */; };
 		427E1D411C10709F004B257C /* CCWxPayEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1D3F1C10709F004B257C /* CCWxPayEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -708,6 +724,8 @@
 		428B5C3B1C22609C001B8584 /* rscode.h in Headers */ = {isa = PBXBuildFile; fileRef = 428B5C2B1C22609C001B8584 /* rscode.h */; };
 		428B5C3C1C22609C001B8584 /* split.c in Sources */ = {isa = PBXBuildFile; fileRef = 428B5C2C1C22609C001B8584 /* split.c */; };
 		428B5C3D1C22609C001B8584 /* split.h in Headers */ = {isa = PBXBuildFile; fileRef = 428B5C2D1C22609C001B8584 /* split.h */; };
+		429119601D41FAAB002E9667 /* UIBarButtonItem+Badge.h in Headers */ = {isa = PBXBuildFile; fileRef = 4291195E1D41FAAB002E9667 /* UIBarButtonItem+Badge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		429119611D41FAAB002E9667 /* UIBarButtonItem+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4291195F1D41FAAB002E9667 /* UIBarButtonItem+Badge.m */; };
 		4298C7751BDCA4C100A3581D /* CCCollectionViewFetchResultController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4298C7731BDCA4C100A3581D /* CCCollectionViewFetchResultController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4298C7761BDCA4C100A3581D /* CCCollectionViewFetchResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4298C7741BDCA4C100A3581D /* CCCollectionViewFetchResultController.m */; };
 		4298C7791BDCA5D700A3581D /* CCTableViewFetchResultController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4298C7771BDCA5D700A3581D /* CCTableViewFetchResultController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1714,8 +1732,6 @@
 		423D1D9F1C3A00CE008E483A /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		423D1DA21C3A11F0008E483A /* CCAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCAlertView.h; path = Core/CCAlertView/CCAlertView.h; sourceTree = "<group>"; };
 		423D1DA31C3A11F0008E483A /* CCAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCAlertView.m; path = Core/CCAlertView/CCAlertView.m; sourceTree = "<group>"; };
-		423E39CD1D333A500011ECD2 /* CCTeletTextLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTeletTextLabel.h; sourceTree = "<group>"; };
-		423E39CE1D333A500011ECD2 /* CCTeletTextLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTeletTextLabel.m; sourceTree = "<group>"; };
 		423E39D21D333AC80011ECD2 /* CCLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLink.h; sourceTree = "<group>"; };
 		423E39D31D333AC80011ECD2 /* CCLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLink.m; sourceTree = "<group>"; };
 		424255121C310CCA00D94E04 /* CCMessagePhotoImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMessagePhotoImageView.h; sourceTree = "<group>"; };
@@ -1931,6 +1947,24 @@
 		42786E6F1C40ACD000C011FB /* CCDropDownList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDropDownList.m; sourceTree = "<group>"; };
 		42786E701C40ACD000C011FB /* CCDropDownListMenuItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDropDownListMenuItemView.h; sourceTree = "<group>"; };
 		42786E711C40ACD000C011FB /* CCDropDownListMenuItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDropDownListMenuItemView.m; sourceTree = "<group>"; };
+		427E1A261D3DFD220093281F /* CCTeletTextLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTeletTextLabel.h; sourceTree = "<group>"; };
+		427E1A271D3DFD220093281F /* CCTeletTextLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTeletTextLabel.m; sourceTree = "<group>"; };
+		427E1A2A1D3E07D10093281F /* NSMutableAttributedString+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+Image.h"; sourceTree = "<group>"; };
+		427E1A2B1D3E07D10093281F /* NSMutableAttributedString+Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+Image.m"; sourceTree = "<group>"; };
+		427E1A2E1D3E08670093281F /* CCTeletTextImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTeletTextImage.h; sourceTree = "<group>"; };
+		427E1A2F1D3E08670093281F /* CCTeletTextImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTeletTextImage.m; sourceTree = "<group>"; };
+		427E1A321D3E12E00093281F /* NSMutableAttributedString+Link.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+Link.h"; sourceTree = "<group>"; };
+		427E1A331D3E12E00093281F /* NSMutableAttributedString+Link.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+Link.m"; sourceTree = "<group>"; };
+		427E1A361D3E13BA0093281F /* NSMutableAttributedString+FrameRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+FrameRef.h"; sourceTree = "<group>"; };
+		427E1A371D3E13BA0093281F /* NSMutableAttributedString+FrameRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+FrameRef.m"; sourceTree = "<group>"; };
+		427E1A3A1D3E14D20093281F /* CCTeletTextLabel+Draw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCTeletTextLabel+Draw.h"; sourceTree = "<group>"; };
+		427E1A3B1D3E14D20093281F /* CCTeletTextLabel+Draw.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCTeletTextLabel+Draw.m"; sourceTree = "<group>"; };
+		427E1A3E1D3E1C1B0093281F /* CCTeletTextLabel+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCTeletTextLabel+Utils.h"; sourceTree = "<group>"; };
+		427E1A3F1D3E1C1B0093281F /* CCTeletTextLabel+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCTeletTextLabel+Utils.m"; sourceTree = "<group>"; };
+		427E1A421D3E1C4E0093281F /* CCTeletTextLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTeletTextLink.h; sourceTree = "<group>"; };
+		427E1A431D3E1C4E0093281F /* CCTeletTextLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTeletTextLink.m; sourceTree = "<group>"; };
+		427E1A461D3F0B710093281F /* NSMutableAttributedString+Attribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+Attribute.h"; sourceTree = "<group>"; };
+		427E1A471D3F0B710093281F /* NSMutableAttributedString+Attribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+Attribute.m"; sourceTree = "<group>"; };
 		427E1D3A1C107066004B257C /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		427E1D3B1C107066004B257C /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		427E1D3F1C10709F004B257C /* CCWxPayEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCWxPayEngine.h; path = Pay/Wxpay/CCWxPayEngine.h; sourceTree = "<group>"; };
@@ -1956,6 +1990,8 @@
 		428B5C2B1C22609C001B8584 /* rscode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rscode.h; sourceTree = "<group>"; };
 		428B5C2C1C22609C001B8584 /* split.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = split.c; sourceTree = "<group>"; };
 		428B5C2D1C22609C001B8584 /* split.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = split.h; sourceTree = "<group>"; };
+		4291195E1D41FAAB002E9667 /* UIBarButtonItem+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Badge.h"; sourceTree = "<group>"; };
+		4291195F1D41FAAB002E9667 /* UIBarButtonItem+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Badge.m"; sourceTree = "<group>"; };
 		4298C7731BDCA4C100A3581D /* CCCollectionViewFetchResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCCollectionViewFetchResultController.h; path = CoreDataFactory/FetchController/CCCollectionViewFetchResultController.h; sourceTree = "<group>"; };
 		4298C7741BDCA4C100A3581D /* CCCollectionViewFetchResultController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCCollectionViewFetchResultController.m; path = CoreDataFactory/FetchController/CCCollectionViewFetchResultController.m; sourceTree = "<group>"; };
 		4298C7771BDCA5D700A3581D /* CCTableViewFetchResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCTableViewFetchResultController.h; path = CoreDataFactory/FetchController/CCTableViewFetchResultController.h; sourceTree = "<group>"; };
@@ -3373,6 +3409,8 @@
 		421DC4C71C85750E009E825B /* UIBarButtonItem */ = {
 			isa = PBXGroup;
 			children = (
+				4291195E1D41FAAB002E9667 /* UIBarButtonItem+Badge.h */,
+				4291195F1D41FAAB002E9667 /* UIBarButtonItem+Badge.m */,
 				421DC7B11C85965D009E825B /* UIBarButtonItem+Additions.h */,
 				421DC7B21C85965D009E825B /* UIBarButtonItem+Additions.m */,
 			);
@@ -4395,6 +4433,55 @@
 			path = CCDorpDown/CCDropDownMenu;
 			sourceTree = "<group>";
 		};
+		427E1A221D3DFD220093281F /* CCTeletTextLabel */ = {
+			isa = PBXGroup;
+			children = (
+				427E1A231D3DFD220093281F /* Category */,
+				427E1A241D3DFD220093281F /* Model */,
+				427E1A251D3DFD220093281F /* View */,
+			);
+			path = CCTeletTextLabel;
+			sourceTree = "<group>";
+		};
+		427E1A231D3DFD220093281F /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				427E1A2A1D3E07D10093281F /* NSMutableAttributedString+Image.h */,
+				427E1A2B1D3E07D10093281F /* NSMutableAttributedString+Image.m */,
+				427E1A321D3E12E00093281F /* NSMutableAttributedString+Link.h */,
+				427E1A331D3E12E00093281F /* NSMutableAttributedString+Link.m */,
+				427E1A361D3E13BA0093281F /* NSMutableAttributedString+FrameRef.h */,
+				427E1A371D3E13BA0093281F /* NSMutableAttributedString+FrameRef.m */,
+				427E1A3A1D3E14D20093281F /* CCTeletTextLabel+Draw.h */,
+				427E1A3B1D3E14D20093281F /* CCTeletTextLabel+Draw.m */,
+				427E1A3E1D3E1C1B0093281F /* CCTeletTextLabel+Utils.h */,
+				427E1A3F1D3E1C1B0093281F /* CCTeletTextLabel+Utils.m */,
+				427E1A461D3F0B710093281F /* NSMutableAttributedString+Attribute.h */,
+				427E1A471D3F0B710093281F /* NSMutableAttributedString+Attribute.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		427E1A241D3DFD220093281F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				427E1A2E1D3E08670093281F /* CCTeletTextImage.h */,
+				427E1A2F1D3E08670093281F /* CCTeletTextImage.m */,
+				427E1A421D3E1C4E0093281F /* CCTeletTextLink.h */,
+				427E1A431D3E1C4E0093281F /* CCTeletTextLink.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		427E1A251D3DFD220093281F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				427E1A261D3DFD220093281F /* CCTeletTextLabel.h */,
+				427E1A271D3DFD220093281F /* CCTeletTextLabel.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		427E1D371C106FA2004B257C /* Wxpay */ = {
 			isa = PBXGroup;
 			children = (
@@ -5310,13 +5397,12 @@
 		429C9E7B1B9EF8BF0013A44A /* CCUILable */ = {
 			isa = PBXGroup;
 			children = (
+				427E1A221D3DFD220093281F /* CCTeletTextLabel */,
 				423E39D11D333AC80011ECD2 /* Model */,
 				429C9E7C1B9EF8BF0013A44A /* BUILabel.h */,
 				429C9E7D1B9EF8BF0013A44A /* BUILabel.m */,
 				429C9E7E1B9EF8BF0013A44A /* CCLabel.h */,
 				429C9E7F1B9EF8BF0013A44A /* CCLabel.m */,
-				423E39CD1D333A500011ECD2 /* CCTeletTextLabel.h */,
-				423E39CE1D333A500011ECD2 /* CCTeletTextLabel.m */,
 			);
 			path = CCUILable;
 			sourceTree = "<group>";
@@ -5418,8 +5504,8 @@
 			children = (
 				42C208EA1BDE14F200C76004 /* Tools.h */,
 				42F4120E1C21519300814E7B /* CCGraffitiBoard */,
-				42F24C761BEA59F6008CDEDC /* CCChart */,
 				429C9EB31B9EF8BF0013A44A /* CameraViewController */,
+				42F24C761BEA59F6008CDEDC /* CCChart */,
 				429C9EF21B9EF8BF0013A44A /* ChatDisplayKitLib */,
 				429C9F391B9EF8BF0013A44A /* LocationManager */,
 				429C9F401B9EF8BF0013A44A /* SignalRChat */,
@@ -6480,6 +6566,7 @@
 				429C9FC51B9EF8BF0013A44A /* SRHubProxyInterface.h in Headers */,
 				421E7A731C3D173D00C31AD0 /* CCDrawerController.h in Headers */,
 				428B5C371C22609C001B8584 /* qrinput.h in Headers */,
+				427E1A441D3E1C4E0093281F /* CCTeletTextLink.h in Headers */,
 				429C9FC01B9EF8BF0013A44A /* SRHubConnectionInterface.h in Headers */,
 				429C9FBE1B9EF8BF0013A44A /* SRHubConnection.h in Headers */,
 				421DC6241C85750E009E825B /* NSDecimalNumber+Additions.h in Headers */,
@@ -6488,6 +6575,7 @@
 				429C9FD81B9EF8BF0013A44A /* SRConnectionDelegate.h in Headers */,
 				429C9FD61B9EF8BF0013A44A /* SRConnection.h in Headers */,
 				4213943C1BF2D9F50046062B /* SRLog.h in Headers */,
+				427E1A3C1D3E14D20093281F /* CCTeletTextLabel+Draw.h in Headers */,
 				421DC7081C85750E009E825B /* UIResponder+Additions.h in Headers */,
 				421DC6881C85750E009E825B /* UIApplication+Additions.h in Headers */,
 				4220E9EA1CC4DD19002B5FF0 /* CCButton.h in Headers */,
@@ -6593,6 +6681,7 @@
 				42A1F6501C8A85EC00A20F64 /* CCDebugContentViewController.h in Headers */,
 				42D9009C1BF47B3100B8B01F /* CCDelegateProxy.h in Headers */,
 				426979461BA695BA00C3E93C /* UIProgressView+AFNetworking.h in Headers */,
+				427E1A401D3E1C1B0093281F /* CCTeletTextLabel+Utils.h in Headers */,
 				429CA0F71B9EF8BF0013A44A /* CCVoiceCommonHelper.h in Headers */,
 				429CA0ED1B9EF8BF0013A44A /* CCConfigurationHelper.h in Headers */,
 				429CA0251B9EF8BF0013A44A /* CCVoiceRecordHUD.h in Headers */,
@@ -6668,6 +6757,7 @@
 				4206A5181C783CFA001A1CF3 /* UIViewController+CCPhotoHUD.h in Headers */,
 				4206A52C1C783CFA001A1CF3 /* CCBottomBar.h in Headers */,
 				42A1F63E1C8A7E5900A20F64 /* NSURLSessionTask+Data.h in Headers */,
+				429119601D41FAAB002E9667 /* UIBarButtonItem+Badge.h in Headers */,
 				429C9F521B9EF8BF0013A44A /* BaseTableViewCell.h in Headers */,
 				42387C1F1CC74F5A00E25CEF /* CCViewProtocol.h in Headers */,
 				425477731BD2AEC20071BBC5 /* x509v3.h in Headers */,
@@ -6691,6 +6781,7 @@
 				429C9F9A1B9EF8BF0013A44A /* CCLanguage.h in Headers */,
 				425477561BD2AEC20071BBC5 /* pem.h in Headers */,
 				421C644D1C84437500696B63 /* CCGridLayout.h in Headers */,
+				427E1A2C1D3E07D10093281F /* NSMutableAttributedString+Image.h in Headers */,
 				425477581BD2AEC20071BBC5 /* pkcs12.h in Headers */,
 				421DC6781C85750E009E825B /* NSURLRequest+Additions.h in Headers */,
 				42068F261C573E33005DFB01 /* UnitBezier.h in Headers */,
@@ -6721,6 +6812,7 @@
 				42DEB2B61C254A2100734E09 /* CCBarSlider.h in Headers */,
 				421DC6081C85750E009E825B /* NSDictionary+Additions.h in Headers */,
 				4254776D1BD2AEC20071BBC5 /* txt_db.h in Headers */,
+				427E1A481D3F0B710093281F /* NSMutableAttributedString+Attribute.h in Headers */,
 				421DC70E1C85750E009E825B /* UIScreen+Additions.h in Headers */,
 				429C9F621B9EF8BF0013A44A /* Config.h in Headers */,
 				4213B0141C91016100BAB28E /* CCKeyValueStore.h in Headers */,
@@ -6772,11 +6864,12 @@
 				420CB1391C7D788500A0EC25 /* MASConstraintMaker.h in Headers */,
 				4225113E1C72F795003B3623 /* CCProperty.h in Headers */,
 				4254774D1BD2AEC20071BBC5 /* md5.h in Headers */,
-				423E39CF1D333A500011ECD2 /* CCTeletTextLabel.h in Headers */,
+				427E1A281D3DFD220093281F /* CCTeletTextLabel.h in Headers */,
 				425A4F381C11C466009A7E77 /* CCXML.h in Headers */,
 				42063ED81C893BCF003348EB /* CLLocationManager+Additions.h in Headers */,
 				42DEB2941C25495000734E09 /* CCColorSlider.h in Headers */,
 				4267DD1E1BDB5C5900B0C43F /* CoreDataManager.h in Headers */,
+				427E1A341D3E12E00093281F /* NSMutableAttributedString+Link.h in Headers */,
 				42068F121C573E33005DFB01 /* POPAnimator.h in Headers */,
 				42068EF71C573E33005DFB01 /* POPAnimationPrivate.h in Headers */,
 				425477461BD2AEC20071BBC5 /* evp.h in Headers */,
@@ -6814,6 +6907,7 @@
 				42A58A401BCC94320027429C /* CCQRCodeDisplayViewController.h in Headers */,
 				425477471BD2AEC20071BBC5 /* hmac.h in Headers */,
 				429C9FF31B9EF8BF0013A44A /* SRWebSocketTransport.h in Headers */,
+				427E1A301D3E08670093281F /* CCTeletTextImage.h in Headers */,
 				42068EF61C573E33005DFB01 /* POPAnimationInternal.h in Headers */,
 				429C9FF51B9EF8BF0013A44A /* SRWebSocketConnectionInfo.h in Headers */,
 				429C9FFB1B9EF8BF0013A44A /* SRWebSocket.h in Headers */,
@@ -6883,6 +6977,7 @@
 				4268CED51C43421E00434D65 /* CCStarRatingView.h in Headers */,
 				429CA0A91B9EF8BF0013A44A /* SETextLayout.h in Headers */,
 				429CA0AB1B9EF8BF0013A44A /* SETextMagnifierCaret.h in Headers */,
+				427E1A381D3E13BA0093281F /* NSMutableAttributedString+FrameRef.h in Headers */,
 				426979351BA695BA00C3E93C /* AFSecurityPolicy.h in Headers */,
 				429CA0B11B9EF8BF0013A44A /* SETextSelectionView.h in Headers */,
 				420CB14B1C7D788500A0EC25 /* ViewController+MASAdditions.h in Headers */,
@@ -7131,6 +7226,7 @@
 				4206A5271C783CFA001A1CF3 /* CCAssetModel.m in Sources */,
 				421DC6771C85750E009E825B /* NSURLConnection+Additions.m in Sources */,
 				421DC66F1C85750E009E825B /* NSTimer+Additions.m in Sources */,
+				427E1A411D3E1C1B0093281F /* CCTeletTextLabel+Utils.m in Sources */,
 				42F4113C1C214C5400814E7B /* CCArrowBrush.m in Sources */,
 				4219EE181C7FF93F00F1EE76 /* MLLinkLabel.m in Sources */,
 				428B5C381C22609C001B8584 /* qrspec.c in Sources */,
@@ -7140,6 +7236,7 @@
 				429C9FE71B9EF8BF0013A44A /* SREventSourceStreamReader.m in Sources */,
 				42F24C6A1BEA5091008CDEDC /* PNRadarChartDataItem.m in Sources */,
 				42B6473E1BEDA8C100B2F6FD /* CCBacktrace.m in Sources */,
+				427E1A311D3E08670093281F /* CCTeletTextImage.m in Sources */,
 				4253306F1C96B14800375ED0 /* CCTableViewHelper.m in Sources */,
 				42786E761C40ACD000C011FB /* CCDropDownListMenuItemView.m in Sources */,
 				421DC7F81C85A03A009E825B /* UISearchBar+Additions.m in Sources */,
@@ -7149,6 +7246,7 @@
 				42A1F63B1C8A7DED00A20F64 /* NSURLSession+Swizzling.m in Sources */,
 				422511761C7306AD003B3623 /* NSString+CCExtension.m in Sources */,
 				429C9F551B9EF8BF0013A44A /* BaseSearchTableViewController.m in Sources */,
+				427E1A3D1D3E14D20093281F /* CCTeletTextLabel+Draw.m in Sources */,
 				426979381BA695BA00C3E93C /* AFURLRequestSerialization.m in Sources */,
 				429CA03B1B9EF8BF0013A44A /* CCPhotoView.m in Sources */,
 				420CB13C1C7D788500A0EC25 /* MASLayoutConstraint.m in Sources */,
@@ -7166,6 +7264,7 @@
 				429CA1231B9EF8BF0013A44A /* CCEmotionSectionBar.m in Sources */,
 				42A1F6371C8A7DB600A20F64 /* NSURLResponse+Data.m in Sources */,
 				42A1F6221C8A75F200A20F64 /* CCDebugLogViewController.m in Sources */,
+				427E1A2D1D3E07D10093281F /* NSMutableAttributedString+Image.m in Sources */,
 				429C9F6B1B9EF8BF0013A44A /* BaseViewModel.m in Sources */,
 				42F411441C214C5400814E7B /* CCEllipseBrush.m in Sources */,
 				4298C77E1BDCAB3D00A3581D /* CoreDataMasterSlave.m in Sources */,
@@ -7271,7 +7370,7 @@
 				421DC6AF1C85750E009E825B /* UIControl+Additions.m in Sources */,
 				429C9FA31B9EF8BF0013A44A /* CCSignatureView.m in Sources */,
 				425A4F391C11C466009A7E77 /* CCXML.m in Sources */,
-				423E39D01D333A500011ECD2 /* CCTeletTextLabel.m in Sources */,
+				427E1A291D3DFD220093281F /* CCTeletTextLabel.m in Sources */,
 				4219EE0D1C7FF93F00F1EE76 /* MLTextAttachment.m in Sources */,
 				421DC7471C85750E009E825B /* UIView+Method.m in Sources */,
 				429C9F5D1B9EF8BF0013A44A /* CCDropzone.m in Sources */,
@@ -7295,6 +7394,7 @@
 				42063EC11C8936F1003348EB /* CALayer+Additions.m in Sources */,
 				429CA0021B9EF8BF0013A44A /* CCActionSheet.m in Sources */,
 				42A1F65F1C8A8E4000A20F64 /* FMDatabase.m in Sources */,
+				427E1A391D3E13BA0093281F /* NSMutableAttributedString+FrameRef.m in Sources */,
 				426979361BA695BA00C3E93C /* AFSecurityPolicy.m in Sources */,
 				429C9F731B9EF8BF0013A44A /* CCHTTPRequest.m in Sources */,
 				426979421BA695BA00C3E93C /* UIButton+AFNetworking.m in Sources */,
@@ -7341,6 +7441,7 @@
 				429C9F531B9EF8BF0013A44A /* BaseTableViewCell.m in Sources */,
 				42B30DE91BBD72AD0039BB94 /* SDWebImageManager.m in Sources */,
 				42A1F6491C8A830A00A20F64 /* CCDebugHttpProtocol.m in Sources */,
+				427E1A491D3F0B710093281F /* NSMutableAttributedString+Attribute.m in Sources */,
 				4206A5191C783CFA001A1CF3 /* UIViewController+CCPhotoHUD.m in Sources */,
 				429C9FF01B9EF8BF0013A44A /* SRLongPollingTransport.m in Sources */,
 				429C9FD71B9EF8BF0013A44A /* SRConnection.m in Sources */,
@@ -7398,6 +7499,7 @@
 				429C9F4D1B9EF8BF0013A44A /* BaseNavigationController.m in Sources */,
 				429CA1001B9EF8BF0013A44A /* CCFileAttribute.m in Sources */,
 				42A1F6451C8A7F6400A20F64 /* CCDebugHttpDataSource.m in Sources */,
+				429119611D41FAAB002E9667 /* UIBarButtonItem+Badge.m in Sources */,
 				429CA01A1B9EF8BF0013A44A /* CCPieChart.m in Sources */,
 				429C9FFC1B9EF8BF0013A44A /* SRWebSocket.m in Sources */,
 				4254777E1BD2AEC20071BBC5 /* NSDataEx.m in Sources */,
@@ -7409,6 +7511,7 @@
 				42A1F6631C8A8E4000A20F64 /* FMDatabasePool.m in Sources */,
 				429C9F9D1B9EF8BF0013A44A /* CCQRCodeViewController.m in Sources */,
 				4220E9EB1CC4DD19002B5FF0 /* CCButton.m in Sources */,
+				427E1A451D3E1C4E0093281F /* CCTeletTextLink.m in Sources */,
 				424BD58D1C8ECA3E005722F6 /* WebViewJavascriptBridge.m in Sources */,
 				420CD8BE1C59F9B9009578D4 /* UIView+CCInputDodger.m in Sources */,
 				42387C231CC750B800E25CEF /* UIView+CCKit.m in Sources */,
@@ -7526,6 +7629,7 @@
 				42DEB2931C25495000734E09 /* CCColor.m in Sources */,
 				429CA1041B9EF8BF0013A44A /* CCMessageBubbleFactory.m in Sources */,
 				42063E791C892E7D003348EB /* NSManagedObjectContext+Additions.m in Sources */,
+				427E1A351D3E12E00093281F /* NSMutableAttributedString+Link.m in Sources */,
 				428A12D11BC8A433005D904D /* ContactRead.m in Sources */,
 				424BD5911C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.m in Sources */,
 				428B5C3C1C22609C001B8584 /* split.c in Sources */,

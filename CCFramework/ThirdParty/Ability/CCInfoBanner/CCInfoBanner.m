@@ -41,28 +41,28 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
 
 /**
  *  @author CC, 2016-12-29
- *  
+ *
  *  @brief  图标
  */
 @property(nonatomic, strong) UIImageView *iconImageView;
 
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  加载视图
  */
 @property(nonatomic, strong) UIActivityIndicatorView *indicatorView;
 
 /**
  *  @author CC, 2016-12-29
- *  
+ *
  *  @brief  标题
  */
 @property(nonatomic, strong) UILabel *titleLabel;
 
 /**
  *  @author CC, 2016-12-29
- *  
+ *
  *  @brief  详细信息
  */
 @property(nonatomic, strong) UILabel *detailsLabel;
@@ -97,7 +97,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
 #pragma mark :. 初始化
 /**
  *  @author CC, 2016-12-29
- *  
+ *
  *  @brief  初始化控件
  */
 - (void)initialization
@@ -107,9 +107,9 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
         _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
         [self addSubview:_iconImageView];
     }
-    
+
     CGFloat x = _iconImageView.x + _iconImageView.width + 10;
-    
+
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, self.bounds.size.width - x, 20)];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -117,7 +117,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
         _titleLabel.textColor = [UIColor whiteColor];
         [self addSubview:_titleLabel];
     }
-    
+
     if (!_detailsLabel) {
         _detailsLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, _titleLabel.y + _titleLabel.height, self.bounds.size.width - x, 20)];
         _detailsLabel.font = [UIFont systemFontOfSize:14];
@@ -131,7 +131,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
 
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  加载控件
  */
 - (UIActivityIndicatorView *)indicatorView
@@ -147,15 +147,15 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
+
     CGFloat w;
     CGFloat tw = [self.titleLabel.text calculateTextWidthHeight:self.bounds.size.width Font:self.titleLabel.font].width;
     CGFloat cw = [self.detailsLabel.text calculateTextWidthHeight:self.bounds.size.width Font:self.detailsLabel.font].width;
-    
+
     w = tw;
     if (cw > w)
         w = cw;
-    
+
     CGFloat x = (self.bounds.size.width - w) / 2;
     CGRect frame;
     if (self.iconImageView.image) {
@@ -165,42 +165,44 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
         frame.origin.x = x - 15;
         frame.origin.y = (self.bounds.size.height - frame.size.height) / 2;
         self.iconImageView.frame = frame;
-        
+
         x += frame.size.width;
     } else if (self.indicatorView) {
         x = (self.bounds.size.width - (self.indicatorView.width + w)) / 2;
         x = x < 0 ?: x;
         CGFloat indicatorCenterY = self.frame.size.height * 0.5;
         self.indicatorView.center = CGPointMake(x - 15, indicatorCenterY);
-        
+
         x += self.indicatorView.width;
     }
-    
+
     frame = self.titleLabel.frame;
     frame.origin.x = x;
     frame.size.width = tw;
     frame.size.height = self.bounds.size.height;
     self.titleLabel.frame = frame;
-    
+
     if (self.detailsLabel.text.length) {
         frame.size.height = frame.size.height / 2;
         self.titleLabel.frame = frame;
-        
+
         frame = self.detailsLabel.frame;
         frame.origin.x = x;
         frame.size.width = cw;
         frame.size.height = self.bounds.size.height / 2;
-        
+
         self.detailsLabel.frame = frame;
     }
-    
-    cc_View_SingleFillet(self, UIRectCornerBottomLeft | UIRectCornerBottomRight, 5);
+
+    if (self.IsbottomFillet) {
+        cc_View_SingleFillet(self, UIRectCornerBottomLeft | UIRectCornerBottomRight, 5);
+    }
 }
 
 #pragma mark :. 显示函数
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  初始化设置
  */
 + (instancetype)initializationShow
@@ -212,7 +214,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
 
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  提示
  *
  *  @param text 标题
@@ -227,7 +229,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
 
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  提示
  *
  *  @param title       标题
@@ -243,7 +245,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
 
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  提示图标
  *
  *  @param icon  图标
@@ -259,7 +261,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
 
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  提示图标
  *
  *  @param icon        图标
@@ -275,7 +277,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
         banner.iconImageView.image = [UIImage imageNamed:icon];
         [banner.indicatorView stopAnimating];
     }
-    
+
     banner.titleLabel.text = title;
     banner.detailsLabel.text = detailsText;
     [banner show];
@@ -284,7 +286,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
 
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  提示GIF图标
  *
  *  @param icon  图标
@@ -300,7 +302,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
 
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  提示GIF图标
  *
  *  @param icon        图标
@@ -324,7 +326,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
 
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  提示加载
  *
  *  @param title           标题
@@ -341,7 +343,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
 
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  提示加载
  *
  *  @param title           标题
@@ -360,7 +362,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
 
 /**
  *  @author CC, 2016-12-30
- *  
+ *
  *  @brief  提示加载
  *
  *  @param title           标题
@@ -376,7 +378,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
     CCInfoBanner *banner = [self initializationShow];
     banner.titleLabel.text = title;
     banner.detailsLabel.text = detailsText;
-    
+
     [banner showAnimated:YES
      whileExecutingBlock:executingBlock
          completionBlock:completionBlock];
@@ -384,7 +386,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
 
 /**
  *  @author CC, 2016-01-05
- *  
+ *
  *  @brief  创建指示器视图
  */
 + (CCInfoBanner *)showWithIndicatorView
@@ -398,7 +400,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
 #pragma mark :. 设置属性
 /**
  *  @author CC, 2016-01-05
- *  
+ *
  *  @brief  设置标题
  *
  *  @param title 标题
@@ -414,7 +416,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
 
 /**
  *  @author CC, 2016-01-05
- *  
+ *
  *  @brief  设置图标与标题
  *
  *  @param icon  图标
@@ -427,7 +429,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
     [self.indicatorView stopAnimating];
     self.iconImageView.hidden = NO;
     self.iconImageView.center = self.indicatorView.center;
-    
+
     self.indicatorView.hidden = YES;
     self.titleLabel.text = title;
 }
@@ -442,21 +444,21 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
 {
     [self setupViewsAndFrames];
     [[self.targetView viewWithTag:204517] removeFromSuperview];
-    
+
     // In previously indicated, send subview to be below another view.
     // This is used when showing below navigation bar
     if (self.viewAboveBanner)
         [self.targetView insertSubview:self belowSubview:self.viewAboveBanner];
     else
         [self.targetView addSubview:self];
-    
+
     [self setHidden:NO];
-    
+
     self.frame = CGRectMake(10, self.additionalTopSpacing, CGRectGetWidth(self.targetView.frame) - 20, 30);
     [self layoutSubviews];
     if (animated) {
         [self.superview layoutIfNeeded];
-        
+
         [UIView animateWithDuration:kAnimationDuration animations:^{
             [self.superview layoutIfNeeded];
         }];
@@ -476,7 +478,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
         CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
         // Forget the frame convertions, smallest is the height, no doubt
         CGFloat statusBarHeight = MIN(statusBarFrame.size.width, statusBarFrame.size.height);
-        
+
         self.additionalTopSpacing = statusBarHeight;
         self.targetView = window;
     }

@@ -34,7 +34,6 @@
 @property(nonatomic, strong) CCPageIndicatorView *indicatorView;
 
 @property(nonatomic, strong) UITableView *menuTableView;
-@property(nonatomic, strong) NSMutableArray *menus;
 
 @property(nonatomic, weak) UIView *currentSuperView;
 @property(nonatomic, assign) CGPoint targetPoint;
@@ -68,7 +67,7 @@
     if (![self.currentSuperView.subviews containsObject:self]) {
         self.isShow = YES;
         self.alpha = 0.0;
-        
+
         if ([self.currentSuperView isKindOfClass:[UIWindow class]]) {
             self.fromTheTop = 64;
             [self layoutSubviews];
@@ -76,7 +75,7 @@
         [self.currentSuperView addSubview:self];
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.alpha = 1.0;
-            
+
             CGFloat x = 0;
             if (self.CCAlignment == CCPopMenuAlignmentLeft) {
                 x = 6;
@@ -85,12 +84,12 @@
             } else if (self.CCAlignment == CCPopMenuAlignmentRight) {
                 x = CGRectGetWidth(self.bounds) - kCCMenuTableViewWidth - 6;
             }
-            
-            self.menuContainerView.frame = CGRectMake(x, _fromTheTop + 8, kCCMenuTableViewWidth, self.menus.count * (kCCMenuItemViewHeight + kCCSeparatorLineImageViewHeight) + kCCMenuTableViewSapcing);
+
+            self.menuContainerView.frame = CGRectMake(x, _fromTheTop + 8, kCCMenuTableViewWidth, self.menuItems.count * (kCCMenuItemViewHeight + kCCSeparatorLineImageViewHeight) + kCCMenuTableViewSapcing);
             self.menuTableView.frame = CGRectMake(0, kCCMenuTableViewSapcing, CGRectGetWidth(_menuContainerView.bounds), CGRectGetHeight(_menuContainerView.bounds) - kCCMenuTableViewSapcing);
-            
+
         } completion:^(BOOL finished){
-            
+
         }];
     } else {
         [self dissMissPopMenuAnimatedOnMenuSelected:NO];
@@ -102,10 +101,10 @@
     self.isShow = NO;
     if (selected) {
         if (self.popMenuDidDismissCompled) {
-            self.popMenuDidDismissCompled(self.indexPath.row, self.menus[self.indexPath.row]);
+            self.popMenuDidDismissCompled(self.indexPath.row, self.menuItems[self.indexPath.row]);
         }
     }
-    
+
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.alpha = 0.0;
         CGFloat x = 0;
@@ -129,12 +128,19 @@
 }
 
 #pragma mark - Propertys
+
+- (void)setMenuItems:(NSMutableArray *)menuItems
+{
+    _menuItems = menuItems;
+    [self.menuTableView reloadData];
+}
+
 - (void)layoutSubviews
 {
     CGRect frame = self.indicatorView.frame;
     frame.origin.y = _fromTheTop;
     self.indicatorView.frame = frame;
-    
+
     frame = self.menuContainerView.frame;
     frame.origin.y = _fromTheTop + 8;
     self.menuContainerView.frame = frame;
@@ -143,7 +149,7 @@
 - (UIView *)menuContainerView
 {
     if (!_menuContainerView) {
-        
+
         CGFloat x = 0;
         if (self.CCAlignment == CCPopMenuAlignmentLeft) {
             x = 6;
@@ -152,13 +158,13 @@
         } else if (self.CCAlignment == CCPopMenuAlignmentRight) {
             x = CGRectGetWidth(self.bounds) - kCCMenuTableViewWidth - 6;
         }
-        
+
         _menuContainerView = [[UIView alloc] initWithFrame:CGRectMake(x, _fromTheTop + 8, kCCMenuTableViewWidth, 0)];
         _menuContainerView.backgroundColor = [UIColor whiteColor];
         _menuContainerView.layer.cornerRadius = 5;
         _menuContainerView.layer.masksToBounds = YES;
         _menuContainerView.userInteractionEnabled = YES;
-        
+
         [_menuContainerView addSubview:self.menuTableView];
     }
     return _menuContainerView;
@@ -167,7 +173,7 @@
 - (CCPageIndicatorView *)indicatorView
 {
     if (!_indicatorView) {
-        
+
         CGFloat x = 0;
         if (self.CCAlignment == CCPopMenuAlignmentLeft) {
             x = 35;
@@ -176,7 +182,7 @@
         } else if (self.CCAlignment == CCPopMenuAlignmentRight) {
             x = CGRectGetWidth(self.bounds) - 35;
         }
-        
+
         _indicatorView = [[CCPageIndicatorView alloc] initWithFrame:CGRectMake(x, _fromTheTop, 20, 8)];
         _indicatorView.color = [UIColor whiteColor];
         _indicatorView.indicatorType = CCPageIndicatorViewTypeTriangle;
@@ -242,7 +248,7 @@
     self = [super init];
     if (self) {
         self.CCAlignment = alignment;
-        self.menus = [[NSMutableArray alloc] initWithArray:menus];
+        self.menuItems = [[NSMutableArray alloc] initWithArray:menus];
         [self setup];
     }
     return self;
@@ -263,7 +269,7 @@
             }
             va_end(argumentList);
         }
-        self.menus = menuItems;
+        self.menuItems = menuItems;
         [self setup];
     }
     return self;
@@ -284,7 +290,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.menus.count;
+    return self.menuItems.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -294,15 +300,15 @@
     if (!popMenuItemView) {
         popMenuItemView = [[CCPopMenuItemView alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifer];
     }
-    
-    if (indexPath.row < self.menus.count) {
-        [popMenuItemView setupPopMenuItem:self.menus[indexPath.row]
+
+    if (indexPath.row < self.menuItems.count) {
+        [popMenuItemView setupPopMenuItem:self.menuItems[indexPath.row]
                               atIndexPath:indexPath
-                                 isBottom:(indexPath.row == self.menus.count - 1)];
+                                 isBottom:(indexPath.row == self.menuItems.count - 1)];
     }
-    
+
     popMenuItemView.textLabel.textColor = self.menuItemTextColor;
-    
+
     return popMenuItemView;
 }
 
@@ -314,7 +320,7 @@
     self.indexPath = indexPath;
     [self dissMissPopMenuAnimatedOnMenuSelected:YES];
     if (self.popMenuDidSlectedCompled) {
-        self.popMenuDidSlectedCompled(indexPath.row, self.menus[indexPath.row]);
+        self.popMenuDidSlectedCompled(indexPath.row, self.menuItems[indexPath.row]);
     }
 }
 

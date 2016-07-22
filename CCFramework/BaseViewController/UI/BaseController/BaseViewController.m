@@ -53,12 +53,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.view.backgroundColor = [UIColor whiteColor];
-    
+
     cc_NoticeObserver(self, @selector(receiveLanguageChangedNotification:), CCNotificationLanguageChanged, nil);
     cc_NoticeObserver(self, @selector(receiveLanguageChangedNotification:), CCThemeDidChangeNotification, nil);
-    
+
     [self initNavigation];
     [self initWithData];
     [self initEventhandler];
@@ -78,7 +78,7 @@
 
 /**
  *  @author CC, 2016-01-04
- *  
+ *
  *  @brief  导航左按钮
  *
  *  @param title                 标题
@@ -96,7 +96,7 @@
 
 /**
  *  @author CC, 2016-01-04
- *  
+ *
  *  @brief  导航右按钮
  *
  *  @param title                 标题
@@ -115,7 +115,7 @@
 #pragma mark - 初始化
 /**
  *  @author CC, 2016-01-25
- *  
+ *
  *  @brief 初始化导航栏
  */
 - (void)initNavigation
@@ -124,7 +124,7 @@
 
 /**
  *  @author CC, 2016-01-25
- *  
+ *
  *  @brief 初始化控件
  */
 - (void)initControl
@@ -133,7 +133,7 @@
 
 /**
  *  @author CC, 16-03-17
- *  
+ *
  *  @brief 初始化事件处理
  */
 - (void)initEventhandler
@@ -142,7 +142,7 @@
 
 /**
  *  @author CC, 2016-01-25
- *  
+ *
  *  @brief 初始化数据
  */
 - (void)initWithData
@@ -151,7 +151,7 @@
 
 /**
  *  @author CC, 2016-01-25
- *  
+ *
  *  @brief 初始化加载数据
  */
 - (void)initLoadData
@@ -224,7 +224,7 @@
 
 /**
  *  @author CC, 2016-01-08
- *  
+ *
  *  @brief  push新的控制器到导航控制器
  *
  *  @param newViewController 目标新的控制器对象
@@ -241,7 +241,7 @@
 
 /**
  *  @author CC, 2016-01-08
- *  
+ *
  *  @brief  push新的控制器到导航控制器(返回按钮无文字)
  *
  *  @param newViewController 目标新的控制器对象
@@ -254,7 +254,7 @@
 
 /**
  *  @author CC, 2016-01-08
- *  
+ *
  *  @brief  push新的控制器到导航控制器(返回按钮无文字)
  *
  *  @param newViewController 目标新的控制器对象
@@ -271,7 +271,7 @@
 
 /**
  *  @author CC, 2015-11-06
- *  
+ *
  *  @brief  push新的控制器到导航控制器 并设置返回文字
  *
  *  @param newViewController 目标新的控制器对象
@@ -287,7 +287,7 @@
 
 /**
  *  @author CC, 2016-01-08
- *  
+ *
  *  @brief  push新的控制器到导航控制器 并设置返回文字
  *
  *  @param newViewController 目标新的控制器对象
@@ -309,7 +309,7 @@
 
 /**
  *  @author CC, 2015-11-17
- *  
+ *
  *  @brief  push多个新的控制器
  *  @param newViewController 多个控制器
  */
@@ -325,7 +325,7 @@
         }
         va_end(arguments);
     }
-    
+
     __block UIViewController *selfViewControler = newViewController;
     [array enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         UIViewController *objViewController = obj;
@@ -334,7 +334,7 @@
         [selfViewControler addChildViewController:nav];
         [selfViewControler.view addSubview:nav.view];
         [nav didMoveToParentViewController:selfViewControler];
-        
+
         selfViewControler = nav;
     }];
     [self pushNewViewController:newViewController];
@@ -365,7 +365,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+
     NSString *mClassName = [NSString stringWithUTF8String:object_getClassName(self.navigationController.visibleViewController)];
     CCNSLogger(@"viewDidAppear : %@", mClassName);
 }
@@ -386,7 +386,7 @@
 
 /**
  *  @author CC, 16-01-28
- *  
+ *
  *  @brief 关闭键盘
  *
  *  @param views 对应视图
@@ -419,7 +419,7 @@
 {
     //get the keyboard rect
     CGRect _keyboardRect = [[[notification userInfo] objectForKey:_UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    
+
     //make an animation
     [UIView animateWithDuration:.25f animations:^{
         [self BasekeyboardWillShow:_keyboardRect];
@@ -455,7 +455,7 @@
 
 /**
  *  @author CC, 16-02-24
- *  
+ *
  *  @brief 设置导航栏底部线颜色
  *
  *  @param color 颜色
@@ -468,7 +468,7 @@
 
 /**
  *  @author CC, 16-02-24
- *  
+ *
  *  @brief 导航栏底部线设置
  *
  *  @param hiden 是否隐藏
@@ -484,6 +484,9 @@
                 for (UIView *subVs in subV.subviews) {
                     if ([subVs isKindOfClass:[UIImageView class]]) {
                         subVs.hidden = hiden;
+                        CGRect f = subVs.frame;
+                        f.size.height = 0.5;
+                        subVs.frame = f;
                         if (color)
                             subVs.backgroundColor = color;
                     }
@@ -520,9 +523,9 @@
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
     [coordinator animateAlongsideTransition:^(id context) {
         if (newCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
-            
+
         } else {
-            
+
         }
         self.view.frame = self.view.bounds;
         [self.view setNeedsLayout];
@@ -540,12 +543,12 @@
 
 /**
  *  @author CC, 16-02-19
- *  
+ *
  *  @brief 释放内存
  */
 -(void)deallocs
 {
-    
+
 }
 
 @end

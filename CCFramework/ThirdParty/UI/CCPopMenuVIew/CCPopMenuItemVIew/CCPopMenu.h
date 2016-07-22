@@ -46,6 +46,8 @@ typedef void (^PopMenuDidSlectedCompledBlock)(NSInteger index, CCPopMenuItem *me
 
 - (void)showMenuOnView:(UIView *)view atPoint:(CGPoint)point;
 
+@property(nonatomic, copy) NSMutableArray *menuItems;
+
 /**
  *  是否显示
  */
@@ -60,7 +62,7 @@ typedef void (^PopMenuDidSlectedCompledBlock)(NSInteger index, CCPopMenuItem *me
 
 /**
  *  @author CC, 16-04-14
- *  
+ *
  *  @brief 对准位置
  */
 @property(nonatomic, assign) CCPopMenuAlignment CCAlignment;
