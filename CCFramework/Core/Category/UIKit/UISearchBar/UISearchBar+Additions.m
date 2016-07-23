@@ -38,7 +38,7 @@ typedef void (^UISearchBarScopeIndexBlock)(UISearchBar *searchBar, NSInteger sel
 
 /**
  *  @author CC, 2015-11-06
- *  
+ *
  *  @brief  设置取消按钮标题
  *
  *  @param title 标题
@@ -51,7 +51,7 @@ typedef void (^UISearchBarScopeIndexBlock)(UISearchBar *searchBar, NSInteger sel
 
 /**
  *  @author CC, 2015-11-06
- *  
+ *
  *  @brief  设置取消按钮文字与颜色
  *
  *  @param title 标题
@@ -73,7 +73,7 @@ typedef void (^UISearchBarScopeIndexBlock)(UISearchBar *searchBar, NSInteger sel
 
 /**
  *  @author CC, 16-02-18
- *  
+ *
  *  @brief 设置输入框背景颜色
  *
  *  @param backgroundColor 颜色
@@ -90,7 +90,7 @@ typedef void (^UISearchBarScopeIndexBlock)(UISearchBar *searchBar, NSInteger sel
             }
         }
     }
-    
+
     searchTextField.backgroundColor = backgroundColor;
 }
 
@@ -116,7 +116,7 @@ static const void *UISearchBarSelectedScopeButtonIndexDidChangeKey = &UISearchBa
         return block(searchBar);
     }
     id delegate = objc_getAssociatedObject(self, UISearchBarDelegateKey);
-    
+
     if (delegate && [delegate respondsToSelector:@selector(searchBarShouldBeginEditing:)]) {
         return [delegate searchBarShouldBeginEditing:searchBar];
     }
@@ -130,7 +130,7 @@ static const void *UISearchBarSelectedScopeButtonIndexDidChangeKey = &UISearchBa
         block(searchBar);
     }
     id delegate = objc_getAssociatedObject(self, UISearchBarDelegateKey);
-    
+
     if (delegate && [delegate respondsToSelector:@selector(searchBarTextDidBeginEditing:)]) {
         [delegate searchBarTextDidBeginEditing:searchBar];
     }
@@ -143,7 +143,7 @@ static const void *UISearchBarSelectedScopeButtonIndexDidChangeKey = &UISearchBa
         return block(searchBar);
     }
     id delegate = objc_getAssociatedObject(self, UISearchBarDelegateKey);
-    
+
     if (delegate && [delegate respondsToSelector:@selector(searchBarShouldEndEditing:)]) {
         return [delegate searchBarShouldEndEditing:searchBar];
     }
@@ -157,7 +157,7 @@ static const void *UISearchBarSelectedScopeButtonIndexDidChangeKey = &UISearchBa
         block(searchBar);
     }
     id delegate = objc_getAssociatedObject(self, UISearchBarDelegateKey);
-    
+
     if (delegate && [delegate respondsToSelector:@selector(searchBarTextDidEndEditing:)]) {
         [delegate searchBarTextDidEndEditing:searchBar];
     }
@@ -170,7 +170,7 @@ static const void *UISearchBarSelectedScopeButtonIndexDidChangeKey = &UISearchBa
         block(searchBar, searchText);
     }
     id delegate = objc_getAssociatedObject(self, UISearchBarDelegateKey);
-    
+
     if (delegate && [delegate respondsToSelector:@selector(searchBar:textDidChange:)]) {
         [delegate searchBar:searchBar textDidChange:searchText];
     }
@@ -183,7 +183,7 @@ static const void *UISearchBarSelectedScopeButtonIndexDidChangeKey = &UISearchBa
         return block(searchBar, range, text);
     }
     id delegate = objc_getAssociatedObject(self, UISearchBarDelegateKey);
-    
+
     if (delegate && [delegate respondsToSelector:@selector(searchBar:shouldChangeTextInRange:replacementText:)]) {
         return [delegate searchBar:searchBar shouldChangeTextInRange:range replacementText:text];
     }
@@ -196,7 +196,7 @@ static const void *UISearchBarSelectedScopeButtonIndexDidChangeKey = &UISearchBa
         block(searchBar);
     }
     id delegate = objc_getAssociatedObject(self, UISearchBarDelegateKey);
-    
+
     if (delegate && [delegate respondsToSelector:@selector(searchBarSearchButtonClicked:)]) {
         [delegate searchBarSearchButtonClicked:searchBar];
     }
@@ -209,7 +209,7 @@ static const void *UISearchBarSelectedScopeButtonIndexDidChangeKey = &UISearchBa
         block(searchBar);
     }
     id delegate = objc_getAssociatedObject(self, UISearchBarDelegateKey);
-    
+
     if (delegate && [delegate respondsToSelector:@selector(searchBarBookmarkButtonClicked:)]) {
         [delegate searchBarBookmarkButtonClicked:searchBar];
     }
@@ -222,7 +222,7 @@ static const void *UISearchBarSelectedScopeButtonIndexDidChangeKey = &UISearchBa
         block(searchBar);
     }
     id delegate = objc_getAssociatedObject(self, UISearchBarDelegateKey);
-    
+
     if (delegate && [delegate respondsToSelector:@selector(searchBarCancelButtonClicked:)]) {
         [delegate searchBarCancelButtonClicked:searchBar];
     }
@@ -235,7 +235,7 @@ static const void *UISearchBarSelectedScopeButtonIndexDidChangeKey = &UISearchBa
         block(searchBar);
     }
     id delegate = objc_getAssociatedObject(self, UISearchBarDelegateKey);
-    
+
     if (delegate && [delegate respondsToSelector:@selector(searchBarResultsListButtonClicked:)]) {
         [delegate searchBarResultsListButtonClicked:searchBar];
     }
@@ -248,7 +248,7 @@ static const void *UISearchBarSelectedScopeButtonIndexDidChangeKey = &UISearchBa
         block(searchBar, selectedScope);
     }
     id delegate = objc_getAssociatedObject(self, UISearchBarDelegateKey);
-    
+
     if (delegate && [delegate respondsToSelector:@selector(searchBar:selectedScopeButtonIndexDidChange:)]) {
         [delegate searchBar:searchBar selectedScopeButtonIndexDidChange:selectedScope];
     }

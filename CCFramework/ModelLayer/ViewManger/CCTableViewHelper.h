@@ -47,10 +47,34 @@ typedef void (^CCTableHelperCellBlock)(NSString *info, id event);
 typedef UIView *__nonnull (^CCTableHelperHeaderBlock)(UITableView *tableView, NSInteger section);
 typedef UIView *__nonnull (^CCTableHelperFooterBlock)(UITableView *tableView, NSInteger section);
 
+typedef NSString *__nonnull (^CCTableHelperTitleHeaderBlock)(UITableView *tableView, NSInteger section);
+typedef NSString *__nonnull (^CCTableHelperTitleFooterBlock)(UITableView *tableView, NSInteger section);
+
 typedef NSInteger (^CCTableHelperNumberRows)(UITableView *tableView, id cModel);
 typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndexPath *cIndexPath);
 
 @interface CCTableViewHelper : NSObject <UITableViewDataSource, UITableViewDelegate>
+
+/**
+ *  @author CC, 16-07-23
+ *
+ *  @brief 获取当前数据源
+ */
+@property(nonatomic, weak, readonly) NSMutableArray *dataSource;
+
+/**
+ *  @author CC, 16-07-23
+ *
+ *  @brief 分组顶部高度
+ */
+@property(nonatomic, assign) CGFloat titleHeaderHeight;
+
+/**
+ *  @author CC, 16-07-23
+ *
+ *  @brief 分组底部高度
+ */
+@property(nonatomic, assign) CGFloat titleFooterHeight;
 
 /**
  *  @author CC, 16-03-19
@@ -60,11 +84,21 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
 @property(nonatomic, assign) BOOL paddedSeparator;
 
 /**
+ *  @author CC, 16-07-23
+ *
+ *  @brief 是否显示侧边字母
+ */
+@property(nonatomic, assign) BOOL isSection;
+
+/**
  *  When using the storyboard and a single cell, set the property inspector same identifier
  */
 @property(nullable, nonatomic, copy) NSString *cellIdentifier;
 
 @property(nonatomic, strong) NSArray *cc_CellXIB;
+
+@property(nonatomic, weak) UITableView *cc_tableView;
+@property(nonatomic, strong) NSIndexPath *cc_indexPath;
 
 /**
  *  @author CC, 16-04-07
@@ -131,6 +165,7 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
  *  @brief  Header视图
  */
 - (void)headerView:(CCTableHelperHeaderBlock)cb;
+- (void)headerTitle:(CCTableHelperTitleHeaderBlock)cb;
 
 /**
  *  @author CC, 16-05-18
@@ -138,6 +173,7 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
  *  @brief  Footer视图
  */
 - (void)footerView:(CCTableHelperFooterBlock)cb;
+- (void)footerTitle:(CCTableHelperTitleFooterBlock)cb;
 
 /**
  *  @author CC, 16-05-23
@@ -160,8 +196,6 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
  */
 - (void)currentModelIndexPath:(CCTableHelperCurrentModelAtIndexPath)cb;
 
-@property(nonatomic, weak) UITableView *cc_tableView;
-@property(nonatomic, strong) NSIndexPath *cc_indexPath;
 
 #pragma mark -
 #pragma mark :. Handler

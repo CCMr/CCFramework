@@ -34,6 +34,18 @@
 @interface CCTableViewHelper ()
 
 @property(nonatomic, strong) NSMutableArray<NSMutableArray *> *dataArray;
+
+@property(nonatomic, strong) NSMutableArray *sectionIndexTitles;
+
+@property(nonatomic, strong) UILocalizedIndexedCollation *theCollation;
+
+/**
+ *  @author CC, 16-07-23
+ *
+ *  @brief 头部搜索
+ */
+@property(nonatomic, strong) UISearchBar *searchBar;
+
 @property(nonatomic, copy) CCTableHelperCellIdentifierBlock cellIdentifierBlock;
 @property(nonatomic, copy) CCTableHelperDidSelectBlock didSelectBlock;
 @property(nonatomic, copy) CCTableHelperDidDeSelectBlock didDeSelectBlock;
@@ -46,8 +58,12 @@
 
 @property(nonatomic, copy) CCScrollViewWillBeginDragging scrollViewBdBlock;
 @property(nonatomic, copy) CCScrollViewDidScroll scrollViewddBlock;
+
 @property(nonatomic, copy) CCTableHelperHeaderBlock headerBlock;
+@property(nonatomic, copy) CCTableHelperTitleHeaderBlock headerTitleBlock;
+
 @property(nonatomic, copy) CCTableHelperFooterBlock footerBlock;
+@property(nonatomic, copy) CCTableHelperTitleFooterBlock footerTitleBlock;
 
 @property(nonatomic, copy) CCTableHelperNumberRows numberRow;
 
@@ -59,6 +75,8 @@
 
 @implementation CCTableViewHelper
 
+#pragma mark -
+#pragma mark :. getset
 - (NSString *)cellIdentifier
 {
     if (_cellIdentifier == nil) {
@@ -84,6 +102,41 @@
             self.cellIdentifier = cellNibNames[0];
         }
     }
+}
+
+
+- (NSMutableArray *)dataSource
+{
+    NSMutableArray *array = [NSMutableArray array];
+    if (self.dataArray.count > 1)
+        array = self.dataArray;
+    else
+        array = self.dataArray.firstObject;
+
+    return array;
+}
+
+- (NSArray *)sectionIndexTitles
+{
+    if (!_sectionIndexTitles) {
+        NSMutableArray *sectionIndex = [NSMutableArray array];
+        if (self.cc_tableView.tableHeaderView && [self.cc_tableView.tableHeaderView isKindOfClass:[UISearchBar class]]){
+            self.searchBar = self.cc_tableView.tableHeaderView;
+            [sectionIndex addObject:UITableViewIndexSearch];
+        }
+
+        [sectionIndex addObjectsFromArray:[UILocalizedIndexedCollation.currentCollation sectionIndexTitles]];
+        _sectionIndexTitles = sectionIndex;
+    }
+    return _sectionIndexTitles;
+}
+
+- (UILocalizedIndexedCollation *)theCollation
+{
+    if (!_theCollation) {
+        _theCollation = [UILocalizedIndexedCollation currentCollation];
+    }
+    return _theCollation;
 }
 
 #pragma mark -
@@ -133,9 +186,19 @@
     self.headerBlock = cb;
 }
 
+- (void)headerTitle:(CCTableHelperTitleHeaderBlock)cb
+{
+    self.headerTitleBlock = cb;
+}
+
 - (void)footerView:(CCTableHelperFooterBlock)cb
 {
     self.footerBlock = cb;
+}
+
+- (void)footerTitle:(CCTableHelperTitleFooterBlock)cb
+{
+    self.footerTitleBlock = cb;
 }
 
 - (void)numberOfRowsInSection:(CCTableHelperNumberRows)cb
@@ -158,62 +221,10 @@
     self.currentModelAtIndexPath = cb;
 }
 
-#pragma mark :. TableView DataSource Delegate
+#pragma mark -
+#pragma mark :.TableView DataSource Delegate
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    CGFloat height = 0;
-    if (self.headerBlock) {
-        UIView *headerView = self.headerBlock(tableView, section);
-        if (headerView)
-            height = headerView.LayoutSizeFittingSize.height;
-    }
-    return height;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIView *hederView = nil;
-    if (self.headerBlock)
-        hederView = self.headerBlock(tableView, section);
-    return hederView;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    CGFloat height = 0;
-    if (self.footerBlock) {
-        UIView *footerView = self.footerBlock(tableView, section);
-        if (footerView)
-            height = footerView.LayoutSizeFittingSize.height;
-    }
-
-    return height;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView *footerView = nil;
-    if (self.footerBlock)
-        footerView = self.footerBlock(tableView, section);
-    return footerView;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (self.paddedSeparator) {
-        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-            [cell setSeparatorInset:UIEdgeInsetsZero];
-        }
-        if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
-            [cell setPreservesSuperviewLayoutMargins:NO];
-        }
-        if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-            [cell setLayoutMargins:UIEdgeInsetsZero];
-        }
-    }
-}
-
+#pragma mark :. TableView Gourps Count
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     NSInteger curNumOfSections = self.dataArray.count;
@@ -232,6 +243,113 @@
     }
     return curNumOfRows;
 }
+
+#pragma mark :. GourpsView
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    CGFloat height = self.titleHeaderHeight;
+    if (self.headerBlock) {
+        UIView *headerView = self.headerBlock(tableView, section);
+        if (headerView)
+            height = headerView.LayoutSizeFittingSize.height;
+    }
+    return height;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *hederView = nil;
+    if (self.headerBlock)
+        hederView = self.headerBlock(tableView, section);
+    return hederView;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSString *title = nil;
+    if (self.headerTitleBlock)
+        title = self.headerTitleBlock(tableView, section);
+
+    return title;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    CGFloat height = self.titleFooterHeight;
+    if (self.footerBlock) {
+        UIView *footerView = self.footerBlock(tableView, section);
+        if (footerView)
+            height = footerView.LayoutSizeFittingSize.height;
+    }
+
+    return height;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footerView = nil;
+    if (self.footerBlock)
+        footerView = self.footerBlock(tableView, section);
+    return footerView;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+    NSString *title = nil;
+    if (self.footerTitleBlock)
+        title = self.footerTitleBlock(tableView, section);
+
+    return title;
+}
+
+#pragma mark :. 侧边
+/**
+ *  @author CC, 16-07-23
+ *
+ *  @brief 侧边栏字母
+ */
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    NSArray *sectionArr = nil;
+    if (self.isSection) {
+        sectionArr = self.sectionIndexTitles;
+    }
+    return sectionArr;
+}
+
+/**
+ *  @author CC, 16-07-23
+ *
+ *  @brief 侧边字母点击
+ */
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    NSInteger indexs = self.sectionIndexTitles.count == [[_theCollation sectionTitles] count] ? index : index - 1;
+    if ([title isEqualToString:@"{search}"]) {
+        [tableView scrollRectToVisible:_searchBar.frame animated:NO];
+        indexs = -1;
+    }
+
+    return indexs;
+}
+
+#pragma mark :. delegate
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.paddedSeparator) {
+        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+            [cell setSeparatorInset:UIEdgeInsetsZero];
+        }
+        if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+            [cell setPreservesSuperviewLayoutMargins:NO];
+        }
+        if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+            [cell setLayoutMargins:UIEdgeInsetsZero];
+        }
+    }
+}
+
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -257,6 +375,27 @@
     return ary;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat curHeight = 0;
+    if (tableView.cc_autoSizingCell) {
+        id curModel = [self currentModelAtIndexPath:indexPath];
+        NSString *curCellIdentifier = [self cellIdentifierForRowAtIndexPath:indexPath model:curModel];
+        @weakify(self);
+        curHeight = [tableView cc_heightForCellWithIdentifier:curCellIdentifier cacheByIndexPath:indexPath configuration:^(id cell) {
+            @strongify(self);
+            if (self.didWillDisplayBlock) {
+                self.didWillDisplayBlock(cell, indexPath, curModel,NO);
+            } else if ([cell respondsToSelector:@selector(cc_cellWillDisplayWithModel:indexPath:)]) {
+                [cell cc_cellWillDisplayWithModel:curModel indexPath:indexPath];
+            }
+        }];
+    } else {
+        curHeight = tableView.rowHeight;
+    }
+    return curHeight;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *curCell = nil;
@@ -278,27 +417,6 @@
         curCell.viewEventsBlock = self.cellViewEventsBlock;
 
     return curCell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    CGFloat curHeight = 0;
-    if (tableView.cc_autoSizingCell) {
-        id curModel = [self currentModelAtIndexPath:indexPath];
-        NSString *curCellIdentifier = [self cellIdentifierForRowAtIndexPath:indexPath model:curModel];
-        @weakify(self);
-        curHeight = [tableView cc_heightForCellWithIdentifier:curCellIdentifier cacheByIndexPath:indexPath configuration:^(id cell) {
-            @strongify(self);
-            if (self.didWillDisplayBlock) {
-                self.didWillDisplayBlock(cell, indexPath, curModel,NO);
-            } else if ([cell respondsToSelector:@selector(cc_cellWillDisplayWithModel:indexPath:)]) {
-                [cell cc_cellWillDisplayWithModel:curModel indexPath:indexPath];
-            }
-        }];
-    } else {
-        curHeight = tableView.rowHeight;
-    }
-    return curHeight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -329,6 +447,28 @@
 {
     if (self.scrollViewddBlock)
         self.scrollViewddBlock(scrollView);
+}
+
+#pragma mark :. handle
+
+//section 头部,为了IOS6的美化
+- (UIView *)tableViewSectionView:(UITableView *)tableView section:(NSInteger)section
+{
+    UIView *customHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.cc_tableView.bounds), self.titleHeaderHeight)];
+    customHeaderView.backgroundColor = [UIColor colorWithRed:0.926 green:0.920 blue:0.956 alpha:1.000];
+
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0f, 0, CGRectGetWidth(customHeaderView.bounds) - 15.0f, self.titleHeaderHeight)];
+    headerLabel.backgroundColor = [UIColor clearColor];
+    headerLabel.font = [UIFont boldSystemFontOfSize:14.0f];
+    headerLabel.textColor = [UIColor darkGrayColor];
+    [customHeaderView addSubview:headerLabel];
+
+    if (self.isSection) {
+        BOOL showSection = NO;
+        showSection = [tableView numberOfRowsInSection:section] != 0;
+        headerLabel.text = (showSection) ? (self.sectionIndexTitles.count == [[_theCollation sectionTitles] count] ? [_sectionIndexTitles objectAtIndex:section] : [_sectionIndexTitles objectAtIndex:section + 1]) : nil;
+    }
+    return customHeaderView;
 }
 
 #pragma mark :. Handler

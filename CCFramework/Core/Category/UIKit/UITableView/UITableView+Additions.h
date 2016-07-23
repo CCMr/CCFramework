@@ -64,13 +64,24 @@
 
 @interface UITableView (Additions)
 
-@property (nonatomic,weak) UIViewController *cc_vc;
+@property(nonatomic, weak) UIViewController *cc_vc;
 
 @property(nonatomic, strong) CCTableViewManger *tabelHander;
 
-@property (nonatomic,strong) CCTableViewHelper *cc_tableViewHelper;
+@property(nonatomic, strong) CCTableViewHelper *cc_tableViewHelper;
 
-@property (nonatomic) IBInspectable BOOL cc_autoSizingCell;
+@property(nonatomic) IBInspectable BOOL cc_autoSizingCell;
+
+/**
+ *  @author CC, 16-07-23
+ *
+ *  @brief SectionView
+ *
+ *  @param text   显示值
+ *  @param height 高度
+ */
+- (UIView *)tableViewSectionView:(NSString *)text
+                   SectionHeight:(CGFloat)height;
 
 /**
  *  @author CC, 2015-07-23
@@ -175,14 +186,14 @@
 ///       }
 ///   }
 ///
-@property (nonatomic, assign) BOOL cc_isTemplateLayoutCell;
+@property(nonatomic, assign) BOOL cc_isTemplateLayoutCell;
 
 /// Enable to enforce this template layout cell to use "frame layout" rather than "auto layout",
 /// and will ask cell's height by calling "-sizeThatFits:", so you must override this method.
 /// Use this property only when you want to manually control this template layout cell's height
 /// calculation mode, default to NO.
 ///
-@property (nonatomic, assign) BOOL cc_enforceFrameLayout;
+@property(nonatomic, assign) BOOL cc_enforceFrameLayout;
 
 @end
 
