@@ -54,6 +54,7 @@
 @property(nonatomic, copy) CCTableHelperDidEditingBlock didEditingBlock;
 @property(nonatomic, copy) CCTableHelperDidEditTitleBlock didEditTileBlock;
 
+@property(nonatomic, copy) CCTableHelperEditingStyle didEditingStyle;
 @property(nonatomic, copy) CCTableHelperDidEditActionsBlock didEditActionsBlock;
 
 @property(nonatomic, copy) CCScrollViewWillBeginDragging scrollViewBdBlock;
@@ -120,7 +121,7 @@
 {
     if (!_sectionIndexTitles) {
         NSMutableArray *sectionIndex = [NSMutableArray array];
-        if (self.cc_tableView.tableHeaderView && [self.cc_tableView.tableHeaderView isKindOfClass:[UISearchBar class]]){
+        if (self.cc_tableView.tableHeaderView && [self.cc_tableView.tableHeaderView isKindOfClass:[UISearchBar class]]) {
             self.searchBar = self.cc_tableView.tableHeaderView;
             [sectionIndex addObject:UITableViewIndexSearch];
         }
@@ -164,6 +165,11 @@
 - (void)didEnditTitle:(CCTableHelperDidEditTitleBlock)cb
 {
     self.didEditTileBlock = cb;
+}
+
+- (void)didEditingStyle:(CCTableHelperEditingStyle)cb
+{
+    self.didEditingStyle = cb;
 }
 
 - (void)didEditActions:(CCTableHelperDidEditActionsBlock)cb
@@ -350,6 +356,14 @@
     }
 }
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCellEditingStyle style = UITableViewCellEditingStyleNone;
+    if (self.didEditingStyle)
+        style = self.didEditingStyle(tableView, indexPath, [self currentModelAtIndexPath:indexPath]);
+
+    return style;
+}
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -511,8 +525,12 @@
     for (int idx = 0; idx < self.dataArray.count; idx++) {
         NSMutableArray *subAry = self.dataArray[idx];
         if (subAry.count) [subAry removeAllObjects];
-
-        [subAry addObject:[newDataAry objectAtIndex:idx]];
+        id data = [newDataAry objectAtIndex:idx];
+        if ([data isKindOfClass:[NSArray class]]) {
+            [subAry addObjectsFromArray:data];
+        } else {
+            [subAry addObject:data];
+        }
     }
     [self.cc_tableView reloadData];
 }

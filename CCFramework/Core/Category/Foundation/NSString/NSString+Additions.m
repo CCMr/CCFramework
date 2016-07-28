@@ -445,7 +445,7 @@ NSString *_stringRepresentationOf(id<Concatenatable> object);
                               Font:(UIFont *)font
 {
     return [self sizeWithFont:font
-            constrainedToSize:CGSizeMake([[UIScreen mainScreen] bounds].size.width, MAXFLOAT)
+            constrainedToSize:CGSizeMake(MaxWith, MAXFLOAT)
                 lineBreakMode:NSLineBreakByWordWrapping];
 }
 

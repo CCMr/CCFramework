@@ -67,6 +67,16 @@ typedef void (^ViewModelEventsBlock)(NSString *info, NSDictionary *eventDic);
 - (void)cc_viewModelWithModelBlcok:(void (^)(id model))modelBlock;
 
 /**
+ *  @author CC, 16-07-28
+ *
+ *  @brief 传递事件
+ *
+ *  @param info  标示
+ *  @param block 回调Blcok
+ */
+- (void)cc_viewModelWithEventBlcok:(NSString *)info Block:(void (^)(id results))block;
+
+/**
  *  @author CC, 16-04-20
  *
  *  @brief 处理ViewMangerInfosBlock

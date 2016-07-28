@@ -30,6 +30,10 @@
 
 @property(nonatomic, strong) CCPopMenuItem *popMenuItem;
 
+@property(nonatomic, assign) BOOL paddedSeparator;
+
+@property(nonatomic, copy) UIColor *lineColor;
+
 - (void)setupPopMenuItem:(CCPopMenuItem *)popMenuItem
              atIndexPath:(NSIndexPath *)indexPath
                 isBottom:(BOOL)isBottom;

@@ -288,6 +288,19 @@
 
 #pragma mark - UITableView DataSource
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.menuItems.count;
@@ -306,6 +319,10 @@
                               atIndexPath:indexPath
                                  isBottom:(indexPath.row == self.menuItems.count - 1)];
     }
+
+    popMenuItemView.paddedSeparator = self.paddedSeparator;
+    if (self.lineColor)
+        popMenuItemView.lineColor = self.lineColor;
 
     popMenuItemView.textLabel.textColor = self.menuItemTextColor;
 

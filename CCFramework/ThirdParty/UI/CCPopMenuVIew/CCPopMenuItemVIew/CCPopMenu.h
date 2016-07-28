@@ -74,6 +74,20 @@ typedef void (^PopMenuDidSlectedCompledBlock)(NSInteger index, CCPopMenuItem *me
  */
 @property(nonatomic, copy) UIColor *menuItemTextColor;
 
+/**
+ *  @author CC, 16-07-28
+ *
+ *  @brief 是否补齐线(默认不补齐)
+ */
+@property(nonatomic, assign) BOOL paddedSeparator;
+
+/**
+ *  @author CC, 16-07-28
+ *
+ *  @brief 底部线颜色
+ */
+@property(nonatomic, copy) UIColor *lineColor;
+
 @property(nonatomic, copy) PopMenuDidSlectedCompledBlock popMenuDidSlectedCompled;
 
 @property(nonatomic, copy) PopMenuDidSlectedCompledBlock popMenuDidDismissCompled;

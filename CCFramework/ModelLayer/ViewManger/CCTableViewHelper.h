@@ -37,6 +37,7 @@ typedef void (^CCTableHelperDidWillDisplayBlock)(UITableViewCell *Cell, NSIndexP
 typedef void (^CCTableHelperDidEditingBlock)(UITableView *tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath *cIndexPath, id cModel);
 typedef NSString *__nonnull (^CCTableHelperDidEditTitleBlock)(UITableView *tableView, NSIndexPath *cIndexPath, id cModel);
 
+typedef UITableViewCellEditingStyle (^CCTableHelperEditingStyle)(UITableView *tableView, NSIndexPath *cIndexPath, id cModel);
 typedef NSArray<UITableViewRowAction *> *__nonnull (^CCTableHelperDidEditActionsBlock)(UITableView *tableView, NSIndexPath *cIndexPath, id cModel);
 
 typedef void (^CCScrollViewWillBeginDragging)(UIScrollView *scrollView);
@@ -128,6 +129,13 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
  *  If you override tableView:didDeselectRowAtIndexPath: method, it will be invalid
  */
 - (void)didDeSelect:(CCTableHelperDidDeSelectBlock)cb;
+
+/**
+ *  @author CC, 16-07-27
+ *
+ *  @brief 编辑样式
+ */
+- (void)didEditingStyle:(CCTableHelperEditingStyle)cb;
 
 /**
  *  @author CC, 16-06-20

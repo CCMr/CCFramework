@@ -48,7 +48,7 @@
 
     self.badge.text = nil;
     self.badge.hidden = YES;
-    if (popMenuItem.badgeValue) {
+    if (popMenuItem.badgeValue && [popMenuItem.badgeValue integerValue] != 0) {
         self.badge.text = popMenuItem.badgeValue;
         self.badge.hidden = NO;
     }
@@ -77,6 +77,12 @@
         _separatorLineImageView.backgroundColor = [UIColor colorWithRed:0.468 green:0.519 blue:0.549 alpha:0.900];
     }
     return _separatorLineImageView;
+}
+
+- (void)setLineColor:(UIColor *)lineColor
+{
+    _lineColor = lineColor;
+    self.separatorLineImageView.backgroundColor = lineColor;
 }
 
 #pragma mark - Life Cycle
@@ -114,7 +120,10 @@
     self.imageView.frame = imageViewFrame;
 
     CGRect textLabelFrame = self.textLabel.frame;
-    textLabelFrame.origin.x = imageViewFrame.origin.x + imageViewFrame.size.width + 10;
+    textLabelFrame.origin.x = 0;
+    if (self.imageView.image)
+        textLabelFrame.origin.x = imageViewFrame.origin.x + imageViewFrame.size.width + 10;
+
     textLabelFrame.size.width = self.frame.size.width - textLabelFrame.origin.x;
     if (!self.badge.hidden)
         textLabelFrame.size.width = textLabelFrame.size.width - 30;
@@ -125,6 +134,13 @@
     badgeFrame.origin.x = textLabelFrame.origin.x + textLabelFrame.size.width;
     badgeFrame.origin.y = y;
     self.badge.frame = badgeFrame;
+
+    if (self.paddedSeparator) {
+        CGRect separatorLineFrame = self.separatorLineImageView.frame;
+        separatorLineFrame.origin.x = 0;
+        separatorLineFrame.size.width = self.frame.size.width;
+        self.separatorLineImageView.frame = separatorLineFrame;
+    }
 }
 
 @end

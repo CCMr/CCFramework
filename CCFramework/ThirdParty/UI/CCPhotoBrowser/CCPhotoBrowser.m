@@ -46,7 +46,6 @@
 @property(nonatomic, strong) NSMutableSet *visiblePhotoViews;
 @property(nonatomic, strong) NSMutableSet *reusablePhotoViews;
 @property(nonatomic, strong) CCPhotoToolbar *toolbar;
-@property(nonatomic, strong) UIView *topBar;
 @property(nonatomic, strong) UIButton *stateButton;
 
 @property(nonatomic, assign) PhotoBrowserType photoType;

@@ -61,6 +61,13 @@ typedef NS_ENUM(NSInteger, PhotoBrowserType) {
  */
 @property(nonatomic, weak) UIView *bottomBar;
 
+/**
+ *  @author CC, 16-07-28
+ *
+ *  @brief 顶部工具条
+ */
+@property(nonatomic, strong) UIView *topBar;
+
 - (instancetype)initWithBarType:(PhotoBrowserType)type;
 
 /**
