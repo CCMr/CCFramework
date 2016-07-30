@@ -220,7 +220,7 @@
     [self configRecoding:YES];
     self.remindLabel.backgroundColor = [UIColor clearColor];
     self.remindLabel.text = NSLocalizedStringFromTable(@"SlideToCancel", @"MessageDisplayKitString", nil);
-    CGFloat w = [self.remindLabel.text calculateTextWidthHeight:self.bounds.size.width Font:self.remindLabel.font].width + 20;
+    CGFloat w = [self.remindLabel.text calculateTextWidthWidth:self.bounds.size.width Font:self.remindLabel.font].width + 20;
     self.remindLabel.frame = CGRectMake((CGRectGetWidth(self.bounds) - w) / 2, _beaconView.bottom + 10, w, 20);
 }
 
@@ -229,7 +229,7 @@
     [self configRecoding:NO];
     self.remindLabel.backgroundColor = [UIColor colorWithRed:1.000 green:0.000 blue:0.000 alpha:0.630];
     self.remindLabel.text = NSLocalizedStringFromTable(@"ReleaseToCancel", @"MessageDisplayKitString", nil);
-    CGFloat w = [self.remindLabel.text calculateTextWidthHeight:self.bounds.size.width Font:self.remindLabel.font].width + 20;
+    CGFloat w = [self.remindLabel.text calculateTextWidthWidth:self.bounds.size.width Font:self.remindLabel.font].width + 20;
     self.remindLabel.frame = CGRectMake((CGRectGetWidth(self.bounds) - w) / 2, _beaconView.bottom + 10, w, 20);
 }
 

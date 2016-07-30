@@ -32,14 +32,22 @@
 
 /**
  *  @author CC, 16-03-15
- *  
+ *
  *  @brief 是否隐藏底部TabBar
  */
 @property(nonatomic, assign) BOOL tabBarHidden;
 
+/**
+ *  @author CC, 16-07-30
+ *
+ *  @brief 选项卡红点是否显示
+ */
+@property(nonatomic, assign) BOOL tabBarPoint;
+
 @property(nonatomic, strong) __kindof BaseViewModel *cc_viewModel;
 @property(nonatomic, strong) __kindof BaseViewManger *cc_viewManger;
 
+@property(nonatomic, copy) NSString *badgeValue;
 
 - (void)backButtonTouched:(void (^)(UIViewController *vc))backButtonHandler;
 
@@ -72,7 +80,7 @@
 
 /**
  *  @author CC, 2016-03-14
- *  
+ *
  *  @brief  push新的控制器到导航控制器
  *
  *  @param newViewController 目标新的控制器对象
@@ -83,7 +91,7 @@
 
 /**
  *  @author CC, 2016-03-14
- *  
+ *
  *  @brief  push新的控制器到导航控制器(返回按钮无文字)
  *
  *  @param newViewController 目标新的控制器对象
@@ -92,7 +100,7 @@
 
 /**
  *  @author CC, 2016-03-14
- *  
+ *
  *  @brief  push新的控制器到导航控制器(返回按钮无文字)
  *
  *  @param newViewController 目标新的控制器对象
@@ -104,7 +112,7 @@
 
 /**
  *  @author CC, 2016-03-14
- *  
+ *
  *  @brief  push新的控制器到导航控制器 并设置返回文字
  *
  *  @param newViewController 目标新的控制器对象
@@ -115,7 +123,7 @@
 
 /**
  *  @author CC, 2016-03-14
- *  
+ *
  *  @brief  push新的控制器到导航控制器 并设置返回文字
  *
  *  @param newViewController 目标新的控制器对象
@@ -128,7 +136,7 @@
 
 /**
  *  @author CC, 2016-03-14
- *  
+ *
  *  @brief  push多个新的控制器
  *  @param newViewController 多个控制器
  */
@@ -143,11 +151,26 @@
  */
 - (void)popToViewController:(Class)viewControllerClass;
 
+/**
+ *  @author CC, 16-07-30
+ *
+ *  @brief 返回上级页面
+ */
+- (void)popViewControllerAnimated;
+
+/**
+ *  @author CC, 16-07-30
+ *
+ *  @brief 返回顶级页面
+ */
+- (void)popToRootViewControllerAnimated;
+
 #pragma mark -
 #pragma mark :. presentViewController
 - (void)presentViewController:(UIViewController *)newViewController;
 
-- (void)presentViewController:(UIViewController *)newViewController  Animated:(BOOL)animated;;
+- (void)presentViewController:(UIViewController *)newViewController Animated:(BOOL)animated;
+;
 
 #pragma mark -
 #pragma mark :. PopupViewController
@@ -186,7 +209,7 @@ typedef NS_ENUM(NSInteger, CCPopupViewAnimation) {
 
 /**
  *  @author CC, 16-03-03
- *  
+ *
  *  @brief 跳转商店
  *
  *  @param itemIdentifier 上架Identifier
@@ -195,7 +218,7 @@ typedef NS_ENUM(NSInteger, CCPopupViewAnimation) {
 
 /**
  *  @author CC, 16-03-03
- *  
+ *
  *  @brief 拼接上架地址
  *
  *  @param identifier 商店Identifier
@@ -208,7 +231,7 @@ typedef NS_ENUM(NSInteger, CCPopupViewAnimation) {
 
 /**
  *  @author CC, 16-03-03
- *  
+ *
  *  @brief 校验是否是商店地址
  *
  *  @param URLString 网址
@@ -217,7 +240,7 @@ typedef NS_ENUM(NSInteger, CCPopupViewAnimation) {
 
 /**
  *  @author CC, 16-03-03
- *  
+ *
  *  @brief 商店地址获取Identifier
  *
  *  @param URLString 商店地址

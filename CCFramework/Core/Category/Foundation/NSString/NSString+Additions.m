@@ -441,7 +441,7 @@ NSString *_stringRepresentationOf(id<Concatenatable> object);
  *
  *  @return 返回长宽
  */
-- (CGSize)calculateTextWidthHeight:(CGFloat)MaxWith
+- (CGSize)calculateTextWidthWidth:(CGFloat)MaxWith
                               Font:(UIFont *)font
 {
     return [self sizeWithFont:font

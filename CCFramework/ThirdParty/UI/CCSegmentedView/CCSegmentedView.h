@@ -36,15 +36,15 @@
  或者：
  //初始化并设置标题
  self.segmentedView = [[CCSegmentedView alloc]initWithFrame:CGRectMake(0, 0, 200, 44) titles:@[@"消息",@"电话",@"视频",@"空间",@"游戏"]];
- 
+
  或者在Xib（Storyboard）中拖拽View，设置继承自 CCSegmentedView 类。
  在Xib（Storyboard）中可设置TintColor，改变主体颜色。
- 
+
  设置代理：
  代码与Xib（Storyboard）均使用
  self.segmentedView.delegate = self;
  设置代理
- 
+
  代理方法：
  提供
  - (void)ccSegmentedView:(CCSegmentedView *)CCSegmentedView selectTitleInteger:(NSInteger)integer;
@@ -71,6 +71,13 @@
 //选中的标题
 @property(nonatomic) NSInteger selectNumber;
 
+/**
+ *  @author CC, 16-07-30
+ *
+ *  @brief 圆角值(默认 4)
+ */
+@property(nonatomic, assign) NSInteger cornerRadius;
+
 @property(nonatomic, copy) void (^didSelectRowAtIndex)(CCSegmentedView *segmentedView, NSInteger Index);
 @property(nonatomic, copy) BOOL (^didDeselectRowAtIndex)(CCSegmentedView *segmentedView, NSInteger Index);
 
@@ -91,7 +98,7 @@
 /*
  设置选中的标题
  超出范围，则为最后一个标题
- 
+
  或者使用隐藏的
  - (void)setSelectNumber:(NSInteger)selectNumber
  方法，默认无动画效果。
@@ -112,7 +119,7 @@
 /*
  当滑动CCSegmentedView滑块时，或者CCSegmentedView被点击时，会调用此方法。
  */
-- (void)didSelectRowAtIndex:(CCSegmentedView *)CCSegmentedView 
+- (void)didSelectRowAtIndex:(CCSegmentedView *)CCSegmentedView
          selectTitleInteger:(NSInteger)integer;
 
 /*
@@ -120,7 +127,7 @@
  返回YES可以被选中
  返回NO不可以被选中
  */
-- (BOOL)didDeselectRowAtIndex:(CCSegmentedView *)CCSegmentedView 
+- (BOOL)didDeselectRowAtIndex:(CCSegmentedView *)CCSegmentedView
     didDeseSelectTitleInteger:(NSInteger)integer;
 
 @end

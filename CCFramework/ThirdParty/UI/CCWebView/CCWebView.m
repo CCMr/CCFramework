@@ -29,11 +29,19 @@
 #import "CCWebViewProgress.h"
 #import "CCWebViewProgressView.h"
 #import "config.h"
+#import <JavaScriptCore/JavaScriptCore.h>
 
+typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 
 @interface CCWebView () <WKNavigationDelegate, WKUIDelegate, CCWebViewProgressDelegate, CCWebViewProgressDelegate, UIWebViewDelegate>
 
-@property(nonatomic, strong) UIView *webView;
+@property(nonatomic, strong) JSContext *webViewJSContext;
+
+@property(nonatomic, strong) WKWebViewConfiguration *configuration;
+
+@property(nonatomic, strong) UIWebView *webView;
+
+@property(nonatomic, strong) WKWebView *webWKView;
 
 @property(nonatomic, strong) UILabel *originLable;
 
@@ -42,6 +50,8 @@
 @property(nonatomic, strong) CCWebViewProgress *webViewProgress;
 
 @property(nonatomic, strong) CCWebViewProgressView *progressView;
+
+@property(nonatomic, copy) ResponseBlock responseBlock;
 
 @end
 
@@ -67,7 +77,7 @@
 {
     _backgroundView = [[UIView alloc] initWithFrame:self.bounds];
     [self addSubview:_backgroundView];
-    
+
     _originLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, CGRectGetWidth(self.bounds), 20)];
     _originLable.backgroundColor = [UIColor clearColor];
     _originLable.textAlignment = NSTextAlignmentCenter;
@@ -75,40 +85,45 @@
     _originLable.font = [UIFont systemFontOfSize:12];
     _originLable.text = @"网页由 www.ccskill.com 提供";
     [_backgroundView addSubview:_originLable];
-    
+
+    UIView *view;
     if (NSClassFromString(@"WKWebView"))
-        self.webView = [self InitWKWebView];
+        view = self.webWKView;
     else
-        self.webView = [self InitWebView];
-    
-    [self.webView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-    [self addSubview:self.webView];
+        view = self.webView;
+
+    [view setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+    [self addSubview:view];
 }
 
-/**
- *  @author CC, 2015-10-13
- *
- *  @brief  初始化WKWebView
- *
- *  @return 返回WKWebView
- */
-- (WKWebView *)InitWKWebView
+- (WKWebViewConfiguration *)configuration
 {
-    WKWebViewConfiguration *configuration = [[NSClassFromString(@"WKWebViewConfiguration") alloc] init];
-    configuration.preferences = [NSClassFromString(@"WKPreferences") new];
-    configuration.userContentController = [NSClassFromString(@"WKUserContentController") new];
-    
-    WKWebView *webView = [[NSClassFromString(@"WKWebView") alloc] initWithFrame:self.bounds configuration:configuration];
-    webView.UIDelegate = self;
-    webView.navigationDelegate = self;
-    webView.allowsBackForwardNavigationGestures = YES;
-    webView.scrollView.backgroundColor = [UIColor clearColor];
-    
-    [webView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
-    [webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
-    
-    return webView;
+    if (!_configuration) {
+        _configuration = [[WKWebViewConfiguration alloc] init];
+        _configuration.preferences = [[WKPreferences alloc] init];
+        _configuration.preferences.minimumFontSize = 10;
+        _configuration.preferences.javaScriptEnabled = YES;
+        _configuration.preferences.javaScriptCanOpenWindowsAutomatically = NO;
+        _configuration.processPool = [[WKProcessPool alloc] init];
+        _configuration.userContentController = [[WKUserContentController alloc] init];
+    }
+    return _configuration;
+}
+
+- (WKWebView *)webWKView
+{
+    if (!_webWKView) {
+        _webWKView = [[WKWebView alloc] initWithFrame:self.bounds configuration:self.configuration];
+        _webWKView.UIDelegate = self;
+        _webWKView.navigationDelegate = self;
+        _webWKView.allowsBackForwardNavigationGestures = YES;
+        _webWKView.scrollView.backgroundColor = [UIColor clearColor];
+
+        [_webWKView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [_webWKView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
+        [_webWKView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
+    }
+    return _webWKView;
 }
 
 /**
@@ -118,26 +133,28 @@
  *
  *  @return 返回UIWebView
  */
-- (UIWebView *)InitWebView
+- (UIWebView *)webView
 {
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:self.bounds];
-    webView.backgroundColor = [UIColor whiteColor];
-    webView.opaque = NO;
-    for (UIView *subview in [webView.scrollView subviews]) {
-        if ([subview isKindOfClass:[UIImageView class]]) {
-            ((UIImageView *)subview).image = nil;
-            subview.backgroundColor = [UIColor clearColor];
+    if (!_webView) {
+        _webView = [[UIWebView alloc] initWithFrame:self.bounds];
+        _webView.backgroundColor = [UIColor whiteColor];
+        _webView.opaque = NO;
+        for (UIView *subview in [_webView.scrollView subviews]) {
+            if ([subview isKindOfClass:[UIImageView class]]) {
+                ((UIImageView *)subview).image = nil;
+                subview.backgroundColor = [UIColor clearColor];
+            }
         }
+
+        _webViewProgress = [[CCWebViewProgress alloc] init];
+        _webView.delegate = _webViewProgress;
+        _webViewProgress.webViewProxyDelegate = self;
+        _webViewProgress.progressDelegate = self;
+
+        [_webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
+        self.webViewJSContext = [_webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     }
-    
-    _webViewProgress = [[CCWebViewProgress alloc] init];
-    webView.delegate = _webViewProgress;
-    _webViewProgress.webViewProxyDelegate = self;
-    _webViewProgress.progressDelegate = self;
-    
-    [webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
-    
-    return webView;
+    return _webView;
 }
 
 /**
@@ -171,23 +188,23 @@
  */
 - (void)loadRequest:(NSString *)baseURL
 {
-    if ([baseURL rangeOfString:@"http://"].location != NSNotFound)
+    if ([baseURL rangeOfString:@"http://"].location == NSNotFound)
         baseURL = [NSString stringWithFormat:@"http://%@", baseURL];
-    
+
     NSURL *url = [NSURL URLWithString:[baseURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    
+
     _originLable.text = [NSString stringWithFormat:@"网页由 %@ 提供", url.host];
-    
+
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    if ([self.webView isKindOfClass:[UIWebView class]])
-        [((UIWebView *)self.webView)loadRequest:request];
+    if (NSClassFromString(@"WKWebView"))
+        [self.webWKView loadRequest:request];
     else
-        [((WKWebView *)self.webView)loadRequest:request];
+        [self.webView loadRequest:request];
 }
 
 /**
  *  @author CC, 2016-01-25
- *  
+ *
  *  @brief 加载HTML页面
  *
  *  @param string HTML文件或者字符串
@@ -195,21 +212,19 @@
 - (void)loadHTMLString:(NSString *)string
 {
     _originLable.text = [NSString stringWithFormat:@"网页由 %@ 提供", AppName];
-    if ([self.webView isKindOfClass:[UIWebView class]])
-        [((UIWebView *)self.webView)loadHTMLString:string baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
+    if (NSClassFromString(@"WKWebView"))
+        [self.webWKView loadHTMLString:string baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
     else
-        [((WKWebView *)self.webView)loadHTMLString:string baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
+        [self.webView loadHTMLString:string baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
 }
+
+#pragma mark -
+#pragma mark :. UIWebViewDelegate
 
 /**
  *  @author CC, 2015-10-13
  *
  *  @brief  观察
- *
- *  @param keyPath <#keyPath description#>
- *  @param object  <#object description#>
- *  @param change  <#change description#>
- *  @param context <#context description#>
  */
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
@@ -241,7 +256,7 @@
 - (void)progressChanged:(NSNumber *)newValue
 {
     if (!self.progressView) return;
-    
+
     self.progressView.progress = newValue.floatValue;
     if (self.progressView.progress == 1) {
         self.progressView.progress = 0;
@@ -257,9 +272,78 @@
 
 - (void)dealloc
 {
-    [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
-    [self.webView removeObserver:self forKeyPath:@"title"];
-    [self.progressView removeFromSuperview];
+    if (NSClassFromString(@"WKWebView")) {
+        [self.webWKView removeObserver:self forKeyPath:@"estimatedProgress"];
+        [self.webWKView removeObserver:self forKeyPath:@"title"];
+    } else {
+        [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
+        [self.webView removeObserver:self forKeyPath:@"title"];
+        [self.progressView removeFromSuperview];
+    }
 }
+
+#pragma mark -
+#pragma mark :. WKWebViewDelegate
+
+// 创建新的webview
+// 可以指定配置对象、导航动作对象、window特性
+- (nullable WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
+{
+    return webView;
+}
+
+// webview关闭时回调
+- (void)webViewDidClose:(WKWebView *)webView
+{
+}
+
+// 调用JS的alert()方法
+- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler
+{
+    completionHandler();
+}
+
+// 调用JS的confirm()方法
+- (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL result))completionHandler
+{
+}
+
+// 调用JS的prompt()方法
+- (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(nullable NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString *__nullable result))completionHandler
+{
+}
+
+- (void)evaluateJavaScript:(NSString *)javaScriptString
+         completionHandler:(void (^)(id, NSError *))completionHandler
+{
+}
+
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
+{
+    self.responseBlock ? self.responseBlock(message.name, message.body) : nil;
+}
+
+#pragma mark -
+#pragma mark :. JSBlock
+
+- (void)didCapture:(NSString *)functionName ResponseBlock:(void (^)(NSString *functionName, id arguments))block
+{
+    if (NSClassFromString(@"WKWebView")) {
+        self.responseBlock = block;
+        [self.configuration.userContentController addScriptMessageHandler:self name:functionName];
+
+    } else {
+        self.webViewJSContext[functionName] = ^() {
+            block?block(functionName,[JSContext currentArguments]):nil;
+        };
+    }
+}
+
+- (void)didCaptures:(NSArray<NSString *> *)functionNames ResponseBlock:(void (^)(NSString *functionName, id arguments))block
+{
+    for (NSString *fName in functionNames)
+        [self didCapture:fName ResponseBlock:block];
+}
+
 
 @end

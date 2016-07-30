@@ -63,7 +63,7 @@
     if (self) {
         // Initialization code
         self.items = items;
-        
+
         [self setup];
     }
     return self;
@@ -83,7 +83,7 @@
 {
     self.backgroundColor = [UIColor clearColor];
     self.perRowItemCount = 3;
-    
+
     typeof(self) __weak weakSelf = self;
     _realTimeBlur = [[CCRealTimeBlur alloc] initWithFrame:self.bounds];
     _realTimeBlur.showDuration = 0.3;
@@ -92,7 +92,7 @@
         weakSelf.isShowed = YES;
         [weakSelf showButtons];
     };
-    
+
     _realTimeBlur.willDismissBlurViewCompleted = ^(void) {
         [weakSelf hidenButtons];
         if (weakSelf.didSelectedItemCompletion)
@@ -108,7 +108,7 @@
         }
         if (weakSelf.didDismissMenuCompletion)
             weakSelf.didDismissMenuCompletion(weakSelf);
-        
+
         [weakSelf removeFromSuperview];
     };
     _realTimeBlur.hasTapGestureEnable = YES;
@@ -135,6 +135,10 @@
             style = CCBlurStyleWhite;
             break;
         }
+        case CCFrstedGlass: {
+            style = CCBlurStyleFrstedGlass;
+            break;
+        }
     }
     self.realTimeBlur.blurStyle = style;
 }
@@ -147,7 +151,7 @@
         self.frame = containerView.bounds;
         self.realTimeBlur.frame = containerView.bounds;
     }
-    
+
     CGPoint startPoint = CGPointMake(0, CGRectGetHeight(self.bounds));
     CGPoint endPoint = startPoint;
     switch (self.menuAnimationType) {
@@ -182,7 +186,7 @@
         return;
     }
     [self.realTimeBlur disMiss];
-    
+
     if (self.didDismissMenuCompletion)
         self.didDismissMenuCompletion(self);
 }
@@ -194,21 +198,21 @@
 - (void)showButtons
 {
     NSArray *items = [self menuItems];
-    
+
     NSInteger perRowItemCount = self.perRowItemCount;
-    
+
     CGFloat menuButtonWidth = (CGRectGetWidth(self.bounds) - ((perRowItemCount + 1) * MenuButtonHorizontalMargin)) / perRowItemCount;
-    
+
     typeof(self) __weak weakSelf = self;
     for (int index = 0; index < items.count; index++) {
-        
+
         CCPopMenuItem *menuItem = items[index];
         // 如果没有自定义index，就按照正常流程，从0开始
         if (menuItem.index <= 0) {
             menuItem.index = index;
         }
         CCPopMenuButton *menuButton = (CCPopMenuButton *)[self viewWithTag:kMenuButtonBaseTag + index];
-        
+
         CGRect toRect = [self getFrameWithItemCount:items.count
                                     perRowItemCount:perRowItemCount
                                   perColumItemCount:items.count / perRowItemCount + (items.count % perRowItemCount > 0 ? 1 : 0)
@@ -218,9 +222,9 @@
                                            paddingY:MenuButtonHorizontalMargin
                                             atIndex:index
                                              onPage:0];
-        
+
         CGRect fromRect = toRect;
-        
+
         switch (self.menuAnimationType) {
             case kPopMenuAnimationTypeSina:
                 fromRect.origin.y = self.startPoint.y;
@@ -237,7 +241,7 @@
             menuButton.tag = kMenuButtonBaseTag + index;
             if (self.backgroundType == CCWhite)
                 menuButton.TextColor = [UIColor blackColor];
-            
+
             menuButton.didSelctedItemCompleted = ^(CCPopMenuItem *menuItem) {
                 weakSelf.selectedItem = menuItem;
                 [weakSelf dismissMenu];
@@ -246,9 +250,9 @@
         } else {
             menuButton.frame = fromRect;
         }
-        
+
         double delayInSeconds = index * MenuButtonAnimationInterval;
-        
+
         [self initailzerAnimationWithToPostion:toRect
                                    formPostion:fromRect
                                         atView:menuButton
@@ -261,14 +265,14 @@
 - (void)hidenButtons
 {
     NSArray *items = [self menuItems];
-    
+
     for (int index = 0; index < items.count; index++) {
         CCPopMenuButton *menuButton = (CCPopMenuButton *)[self viewWithTag:kMenuButtonBaseTag + index];
-        
+
         CGRect fromRect = menuButton.frame;
-        
+
         CGRect toRect = fromRect;
-        
+
         switch (self.menuAnimationType) {
             case kPopMenuAnimationTypeSina:
                 toRect.origin.y = self.endPoint.y;
@@ -281,7 +285,7 @@
                 break;
         }
         double delayInSeconds = (items.count - index) * MenuButtonAnimationInterval;
-        
+
         [self initailzerAnimationWithToPostion:toRect
                                    formPostion:fromRect
                                         atView:menuButton
@@ -318,13 +322,13 @@
                         atIndex:(NSInteger)index
                          onPage:(NSInteger)page
 {
-    
+
     NSUInteger rowCount = itemCount / perRowItemCount + (itemCount % perColumItemCount > 0 ? 1 : 0);
     CGFloat insetY = (CGRectGetHeight(self.bounds) - (itemHeight + paddingY) * rowCount) / 2.0;
-    
+
     CGFloat originX = (index % perRowItemCount) * (itemWidth + paddingX) + paddingX + (page * CGRectGetWidth(self.bounds));
     CGFloat originY = ((index / perRowItemCount) - perColumItemCount * page) * (itemHeight + paddingY) + paddingY;
-    
+
     CGRect itemFrame = CGRectMake(originX, originY + insetY, itemWidth, itemHeight);
     return itemFrame;
 }
@@ -342,12 +346,12 @@
     springAnimation.beginTime = beginTime + CACurrentMediaTime();
     CGFloat springBounciness = 10 - beginTime * 2;
     springAnimation.springBounciness = springBounciness; // value between 0-20
-    
+
     CGFloat springSpeed = 12 - beginTime * 2;
     springAnimation.springSpeed = springSpeed; // value between 0-20
     springAnimation.toValue = [NSValue valueWithCGRect:toRect];
     springAnimation.fromValue = [NSValue valueWithCGRect:fromRect];
-    
+
     [view pop_addAnimation:springAnimation forKey:@"POPSpringAnimationKey"];
 }
 

@@ -149,8 +149,8 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
     [super layoutSubviews];
 
     CGFloat w;
-    CGFloat tw = [self.titleLabel.text calculateTextWidthHeight:self.bounds.size.width Font:self.titleLabel.font].width;
-    CGFloat cw = [self.detailsLabel.text calculateTextWidthHeight:self.bounds.size.width Font:self.detailsLabel.font].width;
+    CGFloat tw = [self.titleLabel.text calculateTextWidthWidth:self.bounds.size.width Font:self.titleLabel.font].width;
+    CGFloat cw = [self.detailsLabel.text calculateTextWidthWidth:self.bounds.size.width Font:self.detailsLabel.font].width;
 
     w = tw;
     if (cw > w)

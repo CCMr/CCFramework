@@ -51,7 +51,7 @@ NSString const *UIBarButtonItem_badgeValueKey = @"UIBarButtonItem_badgeValueKey"
     CGFloat defaultOriginX = 0;
     if (self.customView) {
         superview = self.customView;
-        defaultOriginX = superview.frame.size.width - self.badge.frame.size.width / 2;
+        defaultOriginX = superview.frame.size.width - self.badge.frame.size.width;
         // Avoids badge to be clipped when animating its scale
         superview.clipsToBounds = NO;
     } else if ([self respondsToSelector:@selector(view)] && [(id)self view]) {
@@ -63,7 +63,7 @@ NSString const *UIBarButtonItem_badgeValueKey = @"UIBarButtonItem_badgeValueKey"
     // Default design initialization
     self.badgeBGColor = [UIColor redColor];
     self.badgeTextColor = [UIColor whiteColor];
-    self.badgeFont = [UIFont systemFontOfSize:12.0];
+    self.badgeFont = [UIFont systemFontOfSize:10];
     self.badgePadding = 6;
     self.badgeMinSize = 8;
     self.badgeOriginX = defaultOriginX;
@@ -174,7 +174,7 @@ NSString const *UIBarButtonItem_badgeValueKey = @"UIBarButtonItem_badgeValueKey"
 {
     UILabel *lbl = objc_getAssociatedObject(self, &UIBarButtonItem_badgeKey);
     if (lbl == nil) {
-        lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.badgeOriginX, self.badgeOriginY, 20, 20)];
+        lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.badgeOriginX, self.badgeOriginY, 15, 15)];
         [self setBadge:lbl];
         [self badgeInit];
         [self.customView addSubview:lbl];

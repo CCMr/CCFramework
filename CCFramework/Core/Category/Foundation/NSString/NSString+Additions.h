@@ -179,7 +179,7 @@
  *  @param MaxWith 最大宽度
  *  @param font    字体
  */
-- (CGSize)calculateTextWidthHeight:(CGFloat)MaxWith
+- (CGSize)calculateTextWidthWidth:(CGFloat)MaxWith
                               Font:(UIFont *)font;
 
 /**

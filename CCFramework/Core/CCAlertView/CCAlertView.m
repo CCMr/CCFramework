@@ -95,7 +95,7 @@
     }
     
     if (message && ![message isEqualToString:@""]) {
-        CGFloat h = [message calculateTextWidthHeight:containerView.width Font:[UIFont systemFontOfSize:15]].height;
+        CGFloat h = [message calculateTextWidthWidth:containerView.width Font:[UIFont systemFontOfSize:15]].height;
         
         if (h < 50)
             h = 50;

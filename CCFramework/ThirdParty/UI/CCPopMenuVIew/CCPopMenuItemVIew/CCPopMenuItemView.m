@@ -44,6 +44,8 @@
     self.popMenuItem = popMenuItem;
     self.textLabel.textAlignment = popMenuItem.textAlignment;
     self.textLabel.text = popMenuItem.title;
+    if (popMenuItem.titleFont)
+        self.textLabel.font = popMenuItem.titleFont;
     self.imageView.image = popMenuItem.iconImage;
 
     self.badge.text = nil;

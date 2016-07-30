@@ -1,5 +1,5 @@
 //
-//  CCWebView.h
+//  UITabBar+Additional.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -25,68 +25,24 @@
 
 #import <UIKit/UIKit.h>
 
-@class CCWebView;
-
-@protocol CCWebViewDelegate <NSObject>
-
-@optional
-
-/**
- *  @author CC, 2015-10-13
- *
- *  @brief  加载网页标题
- *
- *  @param webView 当前视图
- *  @param title   标示
- */
-- (void)webViewDidFinishLoad:(CCWebView *)webView Title:(NSString *)title;
-
-@end
-
-@interface CCWebView : UIView
-
-@property(nonatomic, weak) id<CCWebViewDelegate> delegate;
-
-@property(nonatomic, assign) UINavigationBar *webViewInitWithProgress;
-
-/**
- *  @author CC, 2015-10-13
- *
- *  @brief  显示网页地址
- *
- *  @param baseURL 网页地址
- */
-- (void)loadRequest:(NSString *)baseURL;
-
-/**
- *  @author CC, 2016-01-25
- *  
- *  @brief 加载HTML页面
- *
- *  @param string HTML文件或者字符串
- */
-- (void)loadHTMLString:(NSString *)string;
+@interface UITabBar (Additional)
 
 /**
  *  @author CC, 16-07-30
  *
- *  @brief JS捕获
+ *  @brief 显示小红点
  *
- *  @param functionName JS函数名
- *  @param block        回调事件
+ *  @param index 选项卡
  */
-- (void)didCapture:(NSString *)functionName
-     ResponseBlock:(void (^)(NSString *functionName, id arguments))block;
+- (void)showBadgePointOnItemIndex:(NSInteger)index;
 
 /**
  *  @author CC, 16-07-30
  *
- *  @brief 多个JS捕获
+ *  @brief 隐藏小红点
  *
- *  @param functionName JS函数名
- *  @param block        回调事件
+ *  @param index 选项卡
  */
-- (void)didCaptures:(NSArray<NSString *> *)functionNames
-      ResponseBlock:(void (^)(NSString *functionName, id arguments))block;
+- (void)hideBadgePointOnItemIndex:(NSInteger)index;
 
 @end

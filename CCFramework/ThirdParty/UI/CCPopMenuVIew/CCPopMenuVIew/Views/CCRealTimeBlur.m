@@ -14,11 +14,13 @@
 
 @implementation CCGradientView
 
-+ (Class)layerClass {
++ (Class)layerClass
+{
     return [CAGradientLayer class];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame
+{
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
@@ -35,30 +37,35 @@
 
 @interface CCRealTimeBlur ()
 
-@property (nonatomic, strong) CCGradientView *gradientBackgroundView;
-@property (nonatomic, strong) UIToolbar *blurBackgroundView;
-@property (nonatomic, strong) UIView *blackTranslucentBackgroundView;
-@property (nonatomic, strong) UIView *whiteBackgroundView;
+@property(nonatomic, strong) CCGradientView *gradientBackgroundView;
+@property(nonatomic, strong) UIToolbar *blurBackgroundView;
+@property(nonatomic, strong) UIView *blackTranslucentBackgroundView;
+@property(nonatomic, strong) UIView *whiteBackgroundView;
+@property(nonatomic, strong) UIView *whiteFrostedGlassBackgroundView;
 
 @end
 
 @implementation CCRealTimeBlur
 
-- (void)showBlurViewAtView:(UIView *)currentView {
+- (void)showBlurViewAtView:(UIView *)currentView
+{
     [self showAnimationAtContainerView:currentView];
 }
 
-- (void)showBlurViewAtViewController:(UIViewController *)currentViewContrller {
+- (void)showBlurViewAtViewController:(UIViewController *)currentViewContrller
+{
     [self showAnimationAtContainerView:currentViewContrller.view];
 }
 
-- (void)disMiss {
+- (void)disMiss
+{
     [self hiddenAnimation];
 }
 
 #pragma mark - Private
 
-- (void)showAnimationAtContainerView:(UIView *)containerView {
+- (void)showAnimationAtContainerView:(UIView *)containerView
+{
     if (self.showed) {
         [self disMiss];
         return;
@@ -79,17 +86,19 @@
     }];
 }
 
-- (void)hiddenAnimation {
-    [self hiddenAnimationCompletion:^(BOOL finished) {
-        
+- (void)hiddenAnimation
+{
+    [self hiddenAnimationCompletion:^(BOOL finished){
+
     }];
 }
 
-- (void)hiddenAnimationCompletion:(void (^)(BOOL finished))completion {
+- (void)hiddenAnimationCompletion:(void (^)(BOOL finished))completion
+{
     if (self.willDismissBlurViewCompleted) {
         self.willDismissBlurViewCompleted();
     }
-    
+
     [UIView animateWithDuration:self.disMissDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.alpha = 0.0;
     } completion:^(BOOL finished) {
@@ -104,27 +113,31 @@
     }];
 }
 
-- (void)handleTapGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
-    [self hiddenAnimationCompletion:^(BOOL finished) {
-        
+- (void)handleTapGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer
+{
+    [self hiddenAnimationCompletion:^(BOOL finished){
+
     }];
 }
 
 #pragma mark - Propertys
 
-- (void)setHasTapGestureEnable:(BOOL)hasTapGestureEnable {
+- (void)setHasTapGestureEnable:(BOOL)hasTapGestureEnable
+{
     _hasTapGestureEnable = hasTapGestureEnable;
     [self setupTapGesture];
 }
 
-- (CCGradientView *)gradientBackgroundView {
+- (CCGradientView *)gradientBackgroundView
+{
     if (!_gradientBackgroundView) {
         _gradientBackgroundView = [[CCGradientView alloc] initWithFrame:self.bounds];
     }
     return _gradientBackgroundView;
 }
 
-- (UIToolbar *)blurBackgroundView {
+- (UIToolbar *)blurBackgroundView
+{
     if (!_blurBackgroundView) {
         _blurBackgroundView = [[UIToolbar alloc] initWithFrame:self.bounds];
         [_blurBackgroundView setBarStyle:UIBarStyleBlackTranslucent];
@@ -132,7 +145,8 @@
     return _blurBackgroundView;
 }
 
-- (UIView *)blackTranslucentBackgroundView {
+- (UIView *)blackTranslucentBackgroundView
+{
     if (!_blackTranslucentBackgroundView) {
         _blackTranslucentBackgroundView = [[UIView alloc] initWithFrame:self.bounds];
         _blackTranslucentBackgroundView.backgroundColor = [UIColor colorWithWhite:0.000 alpha:0.500];
@@ -140,7 +154,8 @@
     return _blackTranslucentBackgroundView;
 }
 
-- (UIView *)whiteBackgroundView {
+- (UIView *)whiteBackgroundView
+{
     if (!_whiteBackgroundView) {
         _whiteBackgroundView = [[UIView alloc] initWithFrame:self.bounds];
         _whiteBackgroundView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.93];
@@ -148,7 +163,17 @@
     return _whiteBackgroundView;
 }
 
-- (UIView *)backgroundView {
+- (UIView *)whiteFrostedGlassBackgroundView
+{
+    if (!_whiteFrostedGlassBackgroundView) {
+        _whiteFrostedGlassBackgroundView = [[UIView alloc] initWithFrame:self.bounds];
+        _whiteFrostedGlassBackgroundView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
+    }
+    return _whiteFrostedGlassBackgroundView;
+}
+
+- (UIView *)backgroundView
+{
     switch (self.blurStyle) {
         case CCBlurStyleBlackGradient:
             return self.gradientBackgroundView;
@@ -161,6 +186,9 @@
         case CCBlurStyleWhite:
             return self.whiteBackgroundView;
             break;
+        case CCBlurStyleFrstedGlass:
+            return self.whiteFrostedGlassBackgroundView;
+            break;
         default:
             break;
     }
@@ -168,15 +196,17 @@
 
 #pragma mark - Life Cycle
 
-- (void)setup {
+- (void)setup
+{
     self.showDuration = self.disMissDuration = 0.3;
     self.blurStyle = CCBlurStyleBlackTranslucent;
     self.backgroundColor = [UIColor clearColor];
-    
+
     _hasTapGestureEnable = NO;
 }
 
-- (void)setupTapGesture {
+- (void)setupTapGesture
+{
     if (self.hasTapGestureEnable) {
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGestureRecognizer:)];
         [self addGestureRecognizer:tapGestureRecognizer];
@@ -193,7 +223,8 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self setup];
@@ -201,7 +232,8 @@
     return self;
 }
 
-- (void)willMoveToSuperview:(UIView *)newSuperview {
+- (void)willMoveToSuperview:(UIView *)newSuperview
+{
     if (newSuperview) {
         UIView *backgroundView = [self backgroundView];
         backgroundView.userInteractionEnabled = NO;
@@ -217,58 +249,70 @@
 
 #pragma mark - Show Block
 
-- (WillShowBlurViewBlcok)willShowBlurViewcomplted {
+- (WillShowBlurViewBlcok)willShowBlurViewcomplted
+{
     return objc_getAssociatedObject(self, &CCRealTimeWillShowBlurViewBlcokBlcokKey);
 }
 
-- (void)setWillShowBlurViewcomplted:(WillShowBlurViewBlcok)willShowBlurViewcomplted {
+- (void)setWillShowBlurViewcomplted:(WillShowBlurViewBlcok)willShowBlurViewcomplted
+{
     objc_setAssociatedObject(self, &CCRealTimeWillShowBlurViewBlcokBlcokKey, willShowBlurViewcomplted, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (DidShowBlurViewBlcok)didShowBlurViewcompleted {
+- (DidShowBlurViewBlcok)didShowBlurViewcompleted
+{
     return objc_getAssociatedObject(self, &CCRealTimeDidShowBlurViewBlcokBlcokKey);
 }
 
-- (void)setDidShowBlurViewcompleted:(DidShowBlurViewBlcok)didShowBlurViewcompleted {
+- (void)setDidShowBlurViewcompleted:(DidShowBlurViewBlcok)didShowBlurViewcompleted
+{
     objc_setAssociatedObject(self, &CCRealTimeDidShowBlurViewBlcokBlcokKey, didShowBlurViewcompleted, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 #pragma mark - dismiss block
 
-- (WillDismissBlurViewBlcok)willDismissBlurViewCompleted {
+- (WillDismissBlurViewBlcok)willDismissBlurViewCompleted
+{
     return objc_getAssociatedObject(self, &CCRealTimeWillDismissBlurViewBlcokKey);
 }
 
-- (void)setWillDismissBlurViewCompleted:(WillDismissBlurViewBlcok)willDismissBlurViewCompleted {
+- (void)setWillDismissBlurViewCompleted:(WillDismissBlurViewBlcok)willDismissBlurViewCompleted
+{
     objc_setAssociatedObject(self, &CCRealTimeWillDismissBlurViewBlcokKey, willDismissBlurViewCompleted, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (DidDismissBlurViewBlcok)didDismissBlurViewCompleted {
+- (DidDismissBlurViewBlcok)didDismissBlurViewCompleted
+{
     return objc_getAssociatedObject(self, &CCRealTimeDidDismissBlurViewBlcokKey);
 }
 
-- (void)setDidDismissBlurViewCompleted:(DidDismissBlurViewBlcok)didDismissBlurViewCompleted {
+- (void)setDidDismissBlurViewCompleted:(DidDismissBlurViewBlcok)didDismissBlurViewCompleted
+{
     objc_setAssociatedObject(self, &CCRealTimeDidDismissBlurViewBlcokKey, didDismissBlurViewCompleted, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 #pragma mark - RealTimeBlur HUD
 
 
-- (CCRealTimeBlur *)realTimeBlur {
+- (CCRealTimeBlur *)realTimeBlur
+{
     return objc_getAssociatedObject(self, &CCRealTimeBlurKey);
 }
 
-- (void)setRealTimeBlur:(CCRealTimeBlur *)realTimeBlur {
+- (void)setRealTimeBlur:(CCRealTimeBlur *)realTimeBlur
+{
     objc_setAssociatedObject(self, &CCRealTimeBlurKey, realTimeBlur, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 #pragma mark - 分类 公开方法
 
-- (void)showRealTimeBlurWithBlurStyle:(CCBlurStyle)blurStyle {
+- (void)showRealTimeBlurWithBlurStyle:(CCBlurStyle)blurStyle
+{
     [self showRealTimeBlurWithBlurStyle:blurStyle hasTapGestureEnable:NO];
 }
 
-- (void)showRealTimeBlurWithBlurStyle:(CCBlurStyle)blurStyle hasTapGestureEnable:(BOOL)hasTapGestureEnable {
+- (void)showRealTimeBlurWithBlurStyle:(CCBlurStyle)blurStyle hasTapGestureEnable:(BOOL)hasTapGestureEnable
+{
     CCRealTimeBlur *realTimeBlur = [self realTimeBlur];
     if (!realTimeBlur) {
         realTimeBlur = [[CCRealTimeBlur alloc] initWithFrame:self.bounds];
@@ -276,17 +320,18 @@
         [self setRealTimeBlur:realTimeBlur];
     }
     realTimeBlur.hasTapGestureEnable = hasTapGestureEnable;
-    
+
     realTimeBlur.willShowBlurViewcomplted = self.willShowBlurViewcomplted;
     realTimeBlur.didShowBlurViewcompleted = self.didShowBlurViewcompleted;
-    
+
     realTimeBlur.willDismissBlurViewCompleted = self.willDismissBlurViewCompleted;
     realTimeBlur.didDismissBlurViewCompleted = self.didDismissBlurViewCompleted;
-    
+
     [realTimeBlur showBlurViewAtView:self];
 }
 
-- (void)disMissRealTimeBlur {
+- (void)disMissRealTimeBlur
+{
     [[self realTimeBlur] disMiss];
 }
 

@@ -27,4 +27,46 @@
 
 @interface CCWebViewController : UIViewController
 
+@property(nonatomic, assign) UINavigationBar *webViewInitWithProgress;
+
+/**
+ *  @author CC, 2015-10-13
+ *
+ *  @brief  显示网页地址
+ *
+ *  @param baseURL 网页地址
+ */
+- (void)loadRequest:(NSString *)baseURL;
+
+/**
+ *  @author CC, 2016-01-25
+ *
+ *  @brief 加载HTML页面
+ *
+ *  @param string HTML文件或者字符串
+ */
+- (void)loadHTMLString:(NSString *)string;
+
+/**
+ *  @author CC, 16-07-30
+ *
+ *  @brief JS捕获
+ *
+ *  @param functionName JS函数名
+ *  @param block        回调事件
+ */
+- (void)didCapture:(NSString *)functionName
+     ResponseBlock:(void (^)(NSString *functionName, id arguments))block;
+
+/**
+ *  @author CC, 16-07-30
+ *
+ *  @brief 多个JS捕获
+ *
+ *  @param functionName JS函数名
+ *  @param block        回调事件
+ */
+- (void)didCaptures:(NSArray<NSString *> *)functionNames
+      ResponseBlock:(void (^)(NSString *functionName, id arguments))block;
+
 @end

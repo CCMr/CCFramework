@@ -41,7 +41,9 @@ typedef NS_ENUM(NSInteger, CCStyle) {
     // 黑色半透明背景
     CCBlackTranslucent,
     // 纯白色
-    CCWhite
+    CCWhite,
+    // 白色毛玻璃
+    CCFrstedGlass,
 };
 
 /**

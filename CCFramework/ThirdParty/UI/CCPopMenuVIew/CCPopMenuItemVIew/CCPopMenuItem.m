@@ -40,6 +40,19 @@
 
 - (instancetype)initWithImage:(UIImage *)iconName
                         title:(NSString *)title
+                    TitleFont:(UIFont *)font
+{
+    self = [super init];
+    if (self) {
+        self.iconImage = iconName;
+        self.title = title;
+        self.titleFont = font;
+    }
+    return self;
+}
+
+- (instancetype)initWithImage:(UIImage *)iconName
+                        title:(NSString *)title
                    BadgeValue:(NSString *)badgeValue
                  BadgeBGColor:(UIColor *)badgeBGColor
 {
@@ -150,6 +163,15 @@
     return [self itemWithTitle:title
                  TextAlignment:NSTextAlignmentLeft
                       iconName:iconName];
+}
+
++ (instancetype)itemWithTitle:(NSString *)title
+                     iconName:(NSString *)iconName
+                    TitleFont:(UIFont *)font
+{
+    return [self itemWithTitle:title
+                      iconName:iconName
+                     TitleFont:font];
 }
 
 + (instancetype)itemWithTitle:(NSString *)title

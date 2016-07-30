@@ -159,7 +159,7 @@ static void *CCSubstitutedViewAssociationKey = &CCSubstitutedViewAssociationKey;
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:type target:self action:nil];
     spacer.width = margin - [self.class systemMargin];
     if (!item.customView) {
-        spacer.width += 8; // a margin of private class `UINavigationButton` is different from custom view
+        spacer.width -= 2; // a margin of private class `UINavigationButton` is different from custom view
     }
     return spacer;
 }

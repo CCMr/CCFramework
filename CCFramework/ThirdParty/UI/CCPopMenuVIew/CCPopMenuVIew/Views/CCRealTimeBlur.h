@@ -32,7 +32,9 @@ typedef NS_ENUM(NSInteger, CCBlurStyle) {
     // 黑色半透明背景
     CCBlurStyleBlackTranslucent,
     // 纯白色
-    CCBlurStyleWhite
+    CCBlurStyleWhite,
+    // 白色毛玻璃
+    CCBlurStyleFrstedGlass
 };
 
 @interface CCRealTimeBlur : UIView

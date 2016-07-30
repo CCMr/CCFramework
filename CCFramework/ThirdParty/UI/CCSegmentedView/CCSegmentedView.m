@@ -73,10 +73,11 @@
 
 - (void)baseInit
 {
+    self.cornerRadius = 4;
     self.backgroundColor = [UIColor clearColor];
     self.layer.borderWidth = 1;
     self.layer.borderColor = [self.tintColor CGColor];
-    self.layer.cornerRadius = 4;
+    self.layer.cornerRadius = self.cornerRadius;
     self.clipsToBounds = YES;
 
     self.botLabelArray = [[NSMutableArray alloc] init];
@@ -117,7 +118,7 @@
     self.shadeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, labelWidht, labelHeight)];
     self.shadeView.backgroundColor = self.tintColor;
     self.shadeView.clipsToBounds = YES;
-    self.shadeView.layer.cornerRadius = 4;
+    self.shadeView.layer.cornerRadius = self.cornerRadius;
 
     [self addSubview:self.shadeView];
 
@@ -165,6 +166,13 @@
     titleLabel.font = [UIFont fontWithName:@"Helvetica" size:13];
 
     return titleLabel;
+}
+
+- (void)setCornerRadius:(NSInteger)cornerRadius
+{
+    _cornerRadius = cornerRadius;
+    self.layer.cornerRadius = cornerRadius;
+    self.shadeView.layer.cornerRadius = cornerRadius;
 }
 
 - (void)setTextColor:(UIColor *)textColor

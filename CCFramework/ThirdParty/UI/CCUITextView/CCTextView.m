@@ -147,7 +147,7 @@
         self.wordCountLabel.textColor = [UIColor colorFromHexCode:@"999999"];
     }
     
-    CGSize size = [self.wordCountLabel.text calculateTextWidthHeight:CGFLOAT_MAX Font:self.wordCountLabel.font];
+    CGSize size = [self.wordCountLabel.text calculateTextWidthWidth:CGFLOAT_MAX Font:self.wordCountLabel.font];
     [self.wordCountLabel setFrame:CGRectMake(self.frame.size.width - size.width, self.frame.size.height - size.height, size.width, size.height)];
 }
 

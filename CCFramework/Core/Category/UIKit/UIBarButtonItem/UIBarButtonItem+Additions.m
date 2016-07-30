@@ -124,7 +124,7 @@ char *const UIBarButtonItemActionBlock = "UIBarButtonItemActionBlock";
                 didOnButtonTouchUpInside:(void (^)(UIButton *sender))onButtonTouchUpInside
 {
     UIButton *button = [UIButton buttonWithTitleBackgroundImage:title BackgroundImage:backgroundImage];
-    button.frame = CGRectMake(0, 0, [title calculateTextWidthHeight:button.bounds.size.width Font:[UIFont systemFontOfSize:[UIFont systemFontSize]]].width + 40, 40);
+    button.frame = CGRectMake(0, 0, [title calculateTextWidthWidth:button.bounds.size.width Font:[UIFont systemFontOfSize:[UIFont systemFontSize]]].width + 40, 40);
     [button handleControlEvent:UIControlEventTouchUpInside withBlock:onButtonTouchUpInside];
     UIBarButtonItem *itme = [[UIBarButtonItem alloc] initWithCustomView:button];
     return itme;
@@ -149,7 +149,7 @@ char *const UIBarButtonItemActionBlock = "UIBarButtonItemActionBlock";
 {
     UIButton *button = [UIButton buttonWithImageTitle:backgroundImage
                                                 Title:title
-                                                Frame:CGRectMake(0, 0, [title calculateTextWidthHeight:100 Font:[UIFont systemFontOfSize:[UIFont systemFontSize]]].width + 40, 40)];
+                                                Frame:CGRectMake(0, 0, [title calculateTextWidthWidth:100 Font:[UIFont systemFontOfSize:[UIFont systemFontSize]]].width + 40, 40)];
     [button setTitleColor:[UIColor whiteColor]];
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *itme = [[UIBarButtonItem alloc] initWithCustomView:button];
@@ -173,7 +173,7 @@ char *const UIBarButtonItemActionBlock = "UIBarButtonItemActionBlock";
 {
     UIButton *button = [UIButton buttonWithImageTitle:backgroundImage
                                                 Title:title
-                                                Frame:CGRectMake(0, 0, [title calculateTextWidthHeight:100 Font:[UIFont systemFontOfSize:[UIFont systemFontSize]]].width + 40, 40)];
+                                                Frame:CGRectMake(0, 0, [title calculateTextWidthWidth:100 Font:[UIFont systemFontOfSize:[UIFont systemFontSize]]].width + 40, 40)];
     
     [button handleControlEvent:UIControlEventTouchUpInside withBlock:onButtonTouchUpInside];
     [button setTitleColor:[UIColor whiteColor]];

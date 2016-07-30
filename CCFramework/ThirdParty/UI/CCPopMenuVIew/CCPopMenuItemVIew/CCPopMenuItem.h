@@ -50,6 +50,8 @@
 
 @property(nonatomic, strong) UIColor *badgeBGColor;
 
+@property(nonatomic, copy) UIFont *titleFont;
+
 - (instancetype)initWithImage:(UIImage *)iconName
                         title:(NSString *)title;
 
@@ -57,6 +59,10 @@
 
 - (instancetype)initWithTitle:(NSString *)title
                      iconName:(NSString *)iconName NS_AVAILABLE_IOS(2_0);
+
+- (instancetype)initWithImage:(UIImage *)iconName
+                        title:(NSString *)title
+                    TitleFont:(UIFont *)font NS_AVAILABLE_IOS(2_0);
 
 - (instancetype)initWithTitle:(NSString *)title
                      iconName:(NSString *)iconName
@@ -93,6 +99,10 @@
 
 + (instancetype)itemWithTitle:(NSString *)title
                      iconName:(NSString *)iconName NS_AVAILABLE_IOS(2_0);
+
++ (instancetype)itemWithTitle:(NSString *)title
+                     iconName:(NSString *)iconName
+                    TitleFont:(UIFont *)font NS_AVAILABLE_IOS(2_0);
 
 + (instancetype)itemWithTitle:(NSString *)title
                      iconName:(NSString *)iconName

@@ -601,6 +601,8 @@
 		425A4F391C11C466009A7E77 /* CCXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A4F371C11C466009A7E77 /* CCXML.m */; };
 		425A4F3C1C11CA42009A7E77 /* CCWXSingleEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 425A4F3A1C11CA42009A7E77 /* CCWXSingleEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		425A4F3D1C11CA42009A7E77 /* CCWXSingleEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A4F3B1C11CA42009A7E77 /* CCWXSingleEntity.m */; };
+		425F0EB81D4C30720025178C /* UITabBar+Additional.h in Headers */ = {isa = PBXBuildFile; fileRef = 425F0EB61D4C30720025178C /* UITabBar+Additional.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		425F0EB91D4C30720025178C /* UITabBar+Additional.m in Sources */ = {isa = PBXBuildFile; fileRef = 425F0EB71D4C30720025178C /* UITabBar+Additional.m */; };
 		4263DEE61C225A54002E1071 /* CCColorWell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4263DEE41C225A54002E1071 /* CCColorWell.h */; };
 		4263DEE71C225A54002E1071 /* CCColorWell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4263DEE51C225A54002E1071 /* CCColorWell.m */; };
 		426476A21BD0E3AF00EE191C /* CCCellScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 426476961BD0E3AF00EE191C /* CCCellScrollView.h */; };
@@ -1866,6 +1868,8 @@
 		425A4F371C11C466009A7E77 /* CCXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCXML.m; path = Core/CCXML/CCXML.m; sourceTree = "<group>"; };
 		425A4F3A1C11CA42009A7E77 /* CCWXSingleEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCWXSingleEntity.h; path = Pay/Wxpay/Model/CCWXSingleEntity.h; sourceTree = "<group>"; };
 		425A4F3B1C11CA42009A7E77 /* CCWXSingleEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCWXSingleEntity.m; path = Pay/Wxpay/Model/CCWXSingleEntity.m; sourceTree = "<group>"; };
+		425F0EB61D4C30720025178C /* UITabBar+Additional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITabBar+Additional.h"; path = "UITabBar/UITabBar+Additional.h"; sourceTree = "<group>"; };
+		425F0EB71D4C30720025178C /* UITabBar+Additional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITabBar+Additional.m"; path = "UITabBar/UITabBar+Additional.m"; sourceTree = "<group>"; };
 		4263DEE41C225A54002E1071 /* CCColorWell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCColorWell.h; path = CCGraffitiBoard/View/CCColorWell.h; sourceTree = "<group>"; };
 		4263DEE51C225A54002E1071 /* CCColorWell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCColorWell.m; path = CCGraffitiBoard/View/CCColorWell.m; sourceTree = "<group>"; };
 		426476961BD0E3AF00EE191C /* CCCellScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCellScrollView.h; sourceTree = "<group>"; };
@@ -3376,6 +3380,7 @@
 				421DC5661C85750E009E825B /* UISearchBar */,
 				421DC5691C85750E009E825B /* UISplitViewController */,
 				4223591C1C866F78005207B9 /* UITabBarController */,
+				425F0EB51D4C303F0025178C /* UITabBar */,
 				421DC56C1C85750E009E825B /* UITableView */,
 				421DC5781C85750E009E825B /* UITableViewCell */,
 				421DC57D1C85750E009E825B /* UITextField */,
@@ -4271,6 +4276,15 @@
 				4264D73D1BA2C19100E83159 /* CCPagesContainerTopBar.m */,
 			);
 			name = CCPagesContainer;
+			sourceTree = "<group>";
+		};
+		425F0EB51D4C303F0025178C /* UITabBar */ = {
+			isa = PBXGroup;
+			children = (
+				425F0EB61D4C30720025178C /* UITabBar+Additional.h */,
+				425F0EB71D4C30720025178C /* UITabBar+Additional.m */,
+			);
+			name = UITabBar;
 			sourceTree = "<group>";
 		};
 		426528971BECA16B0096C0EF /* Loading */ = {
@@ -6946,6 +6960,7 @@
 				42B30DCD1BBD72AD0039BB94 /* MKAnnotationView+WebCache.h in Headers */,
 				4220B6181BFAB95A006145FD /* CustomIOSAlertView.h in Headers */,
 				425477361BD2AEC20071BBC5 /* conf.h in Headers */,
+				425F0EB81D4C30720025178C /* UITabBar+Additional.h in Headers */,
 				429C9FD01B9EF8BF0013A44A /* SRExceptionHelper.h in Headers */,
 				4254777F1BD2AEC20071BBC5 /* openssl_wrapper.h in Headers */,
 				429C9FE61B9EF8BF0013A44A /* SREventSourceStreamReader.h in Headers */,
@@ -7392,6 +7407,7 @@
 				429CA0041B9EF8BF0013A44A /* CCActionSheetViewController.m in Sources */,
 				421DC7B01C8595AB009E825B /* UIActionSheet+Additions.m in Sources */,
 				42063EC11C8936F1003348EB /* CALayer+Additions.m in Sources */,
+				425F0EB91D4C30720025178C /* UITabBar+Additional.m in Sources */,
 				429CA0021B9EF8BF0013A44A /* CCActionSheet.m in Sources */,
 				42A1F65F1C8A8E4000A20F64 /* FMDatabase.m in Sources */,
 				427E1A391D3E13BA0093281F /* NSMutableAttributedString+FrameRef.m in Sources */,

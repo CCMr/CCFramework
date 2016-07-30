@@ -80,6 +80,7 @@
 #import <CCFramework/UIScrollView+Additions.h>
 #import <CCFramework/UISearchBar+Additions.h>
 #import <CCFramework/UISplitViewController+Additions.h>
+#import <CCFramework/UITabBar+Additional.h>
 #import <CCFramework/UITabBarController+Additions.h>
 #import <CCFramework/UITableView+Additions.h>
 #import <CCFramework/UITableViewCell+Additions.h>
