@@ -89,7 +89,7 @@
     for (UIButton *button in self.sectionBarScrollView.subviews) {
         button.backgroundColor = [UIColor clearColor];
         if (button.tag == index) {
-            button.backgroundColor = [UIColor whiteColor];
+            button.backgroundColor = self.superview.backgroundColor; // [UIColor whiteColor];
             [self.sectionBarScrollView scrollRectToVisible:CGRectMake(button.frame.origin.x, 0, self.sectionBarScrollView.frame.size.width, self.sectionBarScrollView.frame.size.height) animated:YES];
         }
     }
@@ -119,7 +119,7 @@
         [sectionButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
         if (_currentIndex == index)
-            sectionButton.backgroundColor = [UIColor whiteColor];
+            sectionButton.backgroundColor = self.superview.backgroundColor;// [UIColor whiteColor];
         
         CGRect sectionButtonFrame = sectionButton.frame;
         sectionButtonFrame.origin.x = index * (CGRectGetWidth(sectionButtonFrame));
@@ -160,7 +160,7 @@
         [storeManagerItemButton setTitle:@"商店" forState:UIControlStateNormal];
         [storeManagerItemButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
         [storeManagerItemButton addTarget:self action:@selector(didStoreClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:storeManagerItemButton];
+//        [self addSubview:storeManagerItemButton];
         _storeManagerItemButton = storeManagerItemButton;
     }
 }

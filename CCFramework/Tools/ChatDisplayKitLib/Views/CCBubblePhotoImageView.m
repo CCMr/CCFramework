@@ -74,7 +74,7 @@
         WEAKSELF;
         [self addSubview:self.activityIndicatorView];
         [self.activityIndicatorView startAnimating];
-        self.messagePhoto = [UIImage imageNamed:@"placeholder"];
+        self.messagePhoto = [UIImage imageNamed:@"placeholderImage"];
         [self setImageWithURL:[NSURL URLWithString:thumbnailUrl]
                    placeholer:nil
     showActivityIndicatorView:NO

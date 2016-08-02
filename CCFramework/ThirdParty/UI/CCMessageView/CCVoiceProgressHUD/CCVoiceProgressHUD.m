@@ -35,42 +35,42 @@
 
 /**
  *  @author CC, 2016-01-26
- *  
+ *
  *  @brief 指示标签
  */
 @property(nonatomic, weak) UILabel *remindLabel;
 
 /**
  *  @author CC, 2016-01-26
- *  
+ *
  *  @brief 时间长
  */
 @property(nonatomic, weak) UILabel *timeLabel;
 
 /**
  *  @author CC, 2016-01-26
- *  
+ *
  *  @brief 麦克风
  */
 @property(nonatomic, weak) UIImageView *microPhoneImageView;
 
 /**
  *  @author CC, 2016-01-26
- *  
+ *
  *  @brief 语音指示图
  */
 @property(nonatomic, weak) UIImageView *recordingHUDImageView;
 
 /**
  *  @author CC, 2016-01-26
- *  
+ *
  *  @brief 计时器
  */
 @property(nonatomic, strong) NSTimer *time;
 
 /**
  *  @author CC, 2016-01-26
- *  
+ *
  *  @brief 脉冲
  */
 @property(nonatomic, weak) CCPulsingHaloLayer *pulsingHaloLayer;
@@ -98,28 +98,31 @@
 - (void)initialization
 {
     self.frame = [[UIScreen mainScreen] bounds];
-    
-    self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-    
+
+    self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
+
     if (!_pulsingHaloLayer) {
         CCPulsingHaloLayer *pulsingHaloLayer = [CCPulsingHaloLayer layer];
-        pulsingHaloLayer.haloLayerNumber = 10;
+        pulsingHaloLayer.haloLayerNumber = 5;
         pulsingHaloLayer.radius = 80;
         pulsingHaloLayer.animationDuration = 5;
         _pulsingHaloLayer = pulsingHaloLayer;
     }
-    
+
     if (!_beaconView) {
-        UIView *beaconView = [[UIView alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.bounds) - 80) / 2, (CGRectGetHeight(self.bounds) - 80) / 2, 80, 80)];
-        cc_View_Border_Radius(beaconView, 40, 0.5, [UIColor whiteColor]);
+        UIImage *image = [UIImage imageNamed:@"microphoneBG"];
+
+        UIImageView *beaconView = [[UIImageView alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.bounds) - image.size.width) / 2, (CGRectGetHeight(self.bounds) - image.size.height) / 2, image.size.width, image.size.height)];
+        beaconView.image = image;
+//        cc_View_Border_Radius(beaconView, 40, 0.5, [UIColor whiteColor]);
         [self addSubview:beaconView];
         [beaconView.superview.layer insertSublayer:_pulsingHaloLayer below:beaconView.layer];
         _pulsingHaloLayer.position = beaconView.center;
         _beaconView = beaconView;
     }
-    
+
     if (!_timeLabel) {
-        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, _beaconView.width, 20)];
+        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, _beaconView.width, 20)];
         timeLabel.textColor = [UIColor whiteColor];
         timeLabel.font = [UIFont systemFontOfSize:13];
         timeLabel.backgroundColor = [UIColor clearColor];
@@ -129,10 +132,10 @@
         [_beaconView addSubview:timeLabel];
         _timeLabel = timeLabel;
     }
-    
+
     if (!_microPhoneImageView) {
-        UIImage *images = CCResourceImage(@"Fill");
-        
+        UIImage *images = [UIImage imageNamed:@"microphone"];
+
         UIImageView *microPhoneImageView = [[UIImageView alloc] initWithFrame:CGRectMake((_beaconView.width - images.size.width) / 2, _timeLabel.bottom + 5, images.size.width, images.size.height)];
         microPhoneImageView.hidden = YES;
         microPhoneImageView.image = images;
@@ -141,10 +144,10 @@
         [_beaconView addSubview:microPhoneImageView];
         _microPhoneImageView = microPhoneImageView;
     }
-    
+
     if (!_recordingHUDImageView) {
-        UIImage *images = CCResourceImage(@"Slice");
-        
+        UIImage *images = [UIImage imageNamed:@"microphoneCancel"];
+
         UIImageView *recordingHUDImageView = [[UIImageView alloc] initWithFrame:CGRectMake((_beaconView.width - images.size.width) / 2, (_beaconView.height - images.size.height) / 2, images.size.width, images.size.height)];
         recordingHUDImageView.image = images;
         recordingHUDImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
@@ -152,7 +155,7 @@
         [_beaconView addSubview:recordingHUDImageView];
         _recordingHUDImageView = recordingHUDImageView;
     }
-    
+
     if (!_remindLabel) {
         UILabel *remindLabel = [[UILabel alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.bounds) - 300) / 2, _beaconView.bottom + 10, 300, 20)];
         remindLabel.textColor = [UIColor whiteColor];
@@ -175,32 +178,43 @@
                                            selector:@selector(startAnimation)
                                            userInfo:nil
                                             repeats:YES];
-    
+
     [view.window addSubview:self];
     [self configRecoding:YES];
+    [self pauseRecord];
 }
 
 - (void)configRecordingHUDImageWithPeakPower:(CGFloat)peakPower
 {
+    NSString *imageName = @"microphone";
     float value = 0;
     if (peakPower >= 0 && peakPower <= 0.1) {
         value = 1;
+        imageName = [imageName stringByAppendingString:@""];
     } else if (peakPower > 0.1 && peakPower <= 0.2) {
         value = 2;
+        imageName = [imageName stringByAppendingString:@"1"];
     } else if (peakPower > 0.3 && peakPower <= 0.4) {
         value = 3;
+        imageName = [imageName stringByAppendingString:@"2"];
     } else if (peakPower > 0.4 && peakPower <= 0.5) {
         value = 4;
+        imageName = [imageName stringByAppendingString:@"3"];
     } else if (peakPower > 0.5 && peakPower <= 0.6) {
         value = 5;
+        imageName = [imageName stringByAppendingString:@"4"];
     } else if (peakPower > 0.7 && peakPower <= 0.8) {
         value = 6;
+        imageName = [imageName stringByAppendingString:@"5"];
     } else if (peakPower > 0.8 && peakPower <= 0.9) {
         value = 7;
+        imageName = [imageName stringByAppendingString:@"6"];
     } else if (peakPower > 0.9 && peakPower <= 1.0) {
         value = 8;
+        imageName = [imageName stringByAppendingString:@"7"];
     }
-    self.pulsingHaloLayer.radius = value * 30;
+    self.microPhoneImageView.image = [UIImage imageNamed:imageName];
+    self.pulsingHaloLayer.radius = value + 80;
 }
 
 - (void)setPeakPower:(CGFloat)peakPower
@@ -212,14 +226,14 @@
 - (void)setColor:(UIColor *)color
 {
     [self.pulsingHaloLayer setBackgroundColor:color.CGColor];
-    [self.beaconView setBackgroundColor:color];
+//    [self.beaconView setBackgroundColor:color];
 }
 
 - (void)pauseRecord
 {
     [self configRecoding:YES];
     self.remindLabel.backgroundColor = [UIColor clearColor];
-    self.remindLabel.text = NSLocalizedStringFromTable(@"SlideToCancel", @"MessageDisplayKitString", nil);
+    self.remindLabel.text = NSLocalizedStringFromTable(@"手指上划，取消发送", @"MessageDisplayKitString", nil);
     CGFloat w = [self.remindLabel.text calculateTextWidthWidth:self.bounds.size.width Font:self.remindLabel.font].width + 20;
     self.remindLabel.frame = CGRectMake((CGRectGetWidth(self.bounds) - w) / 2, _beaconView.bottom + 10, w, 20);
 }
@@ -228,7 +242,7 @@
 {
     [self configRecoding:NO];
     self.remindLabel.backgroundColor = [UIColor colorWithRed:1.000 green:0.000 blue:0.000 alpha:0.630];
-    self.remindLabel.text = NSLocalizedStringFromTable(@"ReleaseToCancel", @"MessageDisplayKitString", nil);
+    self.remindLabel.text = NSLocalizedStringFromTable(@"松开手指，取消发送", @"MessageDisplayKitString", nil);
     CGFloat w = [self.remindLabel.text calculateTextWidthWidth:self.bounds.size.width Font:self.remindLabel.font].width + 20;
     self.remindLabel.frame = CGRectMake((CGRectGetWidth(self.bounds) - w) / 2, _beaconView.bottom + 10, w, 20);
 }
@@ -264,7 +278,7 @@
 
 /**
  *  @author CC, 2016-01-26
- *  
+ *
  *  @brief 计时
  */
 - (void)startAnimation
@@ -272,22 +286,22 @@
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:1];
     UIView.AnimationRepeatAutoreverses = YES;
-    
+
     float second = _timeLabel.tag;
     if (second >= 50.0f)
         _timeLabel.textColor = [UIColor redColor];
     else
         _timeLabel.textColor = [UIColor whiteColor];
-    
+
     second++;
     _timeLabel.tag = second;
-    
+
     NSString *seconds;
     if (second < 10)
         seconds = [NSString stringWithFormat:@"0%.0f", second];
     else
         seconds = [NSString stringWithFormat:@"%.0f", second];
-    
+
     _timeLabel.text = [NSString stringWithFormat:@"00:%@", seconds];
     [UIView commitAnimations];
 }

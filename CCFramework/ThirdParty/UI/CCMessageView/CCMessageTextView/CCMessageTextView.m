@@ -34,13 +34,13 @@
 {
     if ([placeholder isEqualToString:_placeholder])
         return;
-    
+
     NSUInteger maxChars = [CCMessageTextView maxCharactersPerLine];
     if ([placeholder length] > maxChars) {
         placeholder = [placeholder substringToIndex:maxChars - 8];
         placeholder = [[placeholder stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAppendingString:@"..."];
     }
-    
+
     _placeholder = placeholder;
     [self setNeedsDisplay];
 }
@@ -49,7 +49,7 @@
 {
     if ([placeholderTextColor isEqual:_placeholderTextColor])
         return;
-    
+
     _placeholderTextColor = placeholderTextColor;
     [self setNeedsDisplay];
 }
@@ -117,7 +117,7 @@
                                              selector:@selector(didReceiveTextDidChangeNotification:)
                                                  name:UITextViewTextDidChangeNotification
                                                object:self];
-    
+
     _placeholderTextColor = [UIColor lightGrayColor];
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.scrollIndicatorInsets = UIEdgeInsetsMake(10.0f, 0.0f, 10.0f, 8.0f);
@@ -160,23 +160,23 @@
                 [self.cc_delegate didDeleteBackward];
         }
     }
-    
+
     [super deleteBackward];
 }
 
 #pragma mark - Drawing
 
 - (void)drawRect:(CGRect)rect
-{    
+{
     if ([self.text length] == 0 && self.placeholder) {
         CGRect placeHolderRect = CGRectMake(10.0f, 7.0f, rect.size.width, rect.size.height);
         [self.placeholderTextColor set];
-        
+
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
             paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
             paragraphStyle.alignment = self.textAlignment;
-            
+
             [self.placeholder drawInRect:placeHolderRect
                           withAttributes:@{NSFontAttributeName : self.font,
                                            NSForegroundColorAttributeName : self.placeholderTextColor,

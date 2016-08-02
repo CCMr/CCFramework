@@ -26,14 +26,14 @@
 
 #import "CCBadgeView.h"
 
-#define CC_BADGE_VIEW_MINUM_WIDTH           24.0
-#define CC_BADGE_VIEW_HORIZONTAL_PADDING    6.0
-#define CC_BADGE_VIEW_TRUNCATED_SUFFIX      @"..."
+#define CC_BADGE_VIEW_MINUM_WIDTH 24.0
+#define CC_BADGE_VIEW_HORIZONTAL_PADDING 6.0
+#define CC_BADGE_VIEW_TRUNCATED_SUFFIX @"..."
 
-@interface CCBadgeView()
+@interface CCBadgeView ()
 
-@property (nonatomic, copy) NSString* displayinText;
-@property (nonatomic, assign) CGRect badgeFrame;
+@property(nonatomic, copy) NSString *displayinText;
+@property(nonatomic, assign) CGRect badgeFrame;
 
 @end
 
@@ -60,7 +60,8 @@
 
 #pragma mark - Privates
 
-- (void)_setupBasics {
+- (void)_setupBasics
+{
     self.backgroundColor = [UIColor clearColor];
     self.horizontalAlignment = CCBadgeViewHorizontalAlignmentCenter;
     self.widthMode = CCBadgeViewWidthModeStandard;
@@ -76,7 +77,8 @@
     self.textOffset = CGSizeMake(0.0, 0.0);
 }
 
-- (void)_setupDefaultWithoutOutline {
+- (void)_setupDefaultWithoutOutline
+{
     self.textColor = [UIColor whiteColor];
     self.badgeColor = [UIColor grayColor];
 
@@ -87,7 +89,8 @@
     [self _setupBasics];
 }
 
-- (void)_setupDefaultWithOutline {
+- (void)_setupDefaultWithOutline
+{
     self.textColor = [UIColor grayColor];
     self.badgeColor = [UIColor whiteColor];
 
@@ -98,7 +101,8 @@
     [self _setupBasics];
 }
 
-- (void)_adjustBadgeFrameX {
+- (void)_adjustBadgeFrameX
+{
     CGFloat realOutlineWith = outline_ ? outlineWidth_ : 0.0;
     switch (self.horizontalAlignment) {
         case CCBadgeViewHorizontalAlignmentLeft:
@@ -115,10 +119,11 @@
     }
 }
 
-- (void)_adjustBadgeFrameWith {
+- (void)_adjustBadgeFrameWith
+{
     CGSize suffixSize = [CC_BADGE_VIEW_TRUNCATED_SUFFIX sizeWithFont:self.font];
 
-    CGFloat paddinWidth = CC_BADGE_VIEW_HORIZONTAL_PADDING*2;
+    CGFloat paddinWidth = CC_BADGE_VIEW_HORIZONTAL_PADDING * 2;
     CGSize size = [self.displayinText sizeWithFont:self.font];
     badgeFrame_.size.width = size.width + paddinWidth;
 
@@ -127,9 +132,9 @@
         while (1) {
             size = [self.displayinText sizeWithFont:self.font];
             badgeFrame_.size.width = size.width + paddinWidth;
-            if (badgeFrame_.size.width+suffixSize.width > self.bounds.size.width) {
+            if (badgeFrame_.size.width + suffixSize.width > self.bounds.size.width) {
                 if ([self.displayinText length] > 1) {
-                    self.displayinText = [self.displayinText substringToIndex:[self.displayinText length]-2];
+                    self.displayinText = [self.displayinText substringToIndex:[self.displayinText length] - 2];
                 } else {
                     self.displayinText = @" ";
                     break;
@@ -148,7 +153,8 @@
     }
 }
 
-- (void)_adjustBadgeFrame {
+- (void)_adjustBadgeFrame
+{
     badgeFrame_.size.height = [self badgeHeight];
 
     if (self.displayinText == nil || [self.displayinText length] == 0) {
@@ -163,7 +169,8 @@
 
 #pragma mark - Basics
 
-- (id)init {
+- (id)init
+{
     self = [super init];
     if (self) {
         [self _setupDefaultWithoutOutline];
@@ -171,7 +178,8 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame {
+- (id)initWithFrame:(CGRect)frame
+{
     self = [super initWithFrame:frame];
     if (self) {
         [self _setupDefaultWithoutOutline];
@@ -179,38 +187,42 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)coder {
+- (id)initWithCoder:(NSCoder *)coder
+{
     self = [super initWithCoder:coder];
     if (self) {
         [self _setupDefaultWithoutOutline];
     }
     return self;
 }
-- (void)dealloc {
+- (void)dealloc
+{
     self.badgeColor = nil;
 }
 
 #pragma mark - Overrides
 
-- (void)drawRect:(CGRect)rect {
+- (void)drawRect:(CGRect)rect
+{
     if (self.displayinText == nil || [self.displayinText length] == 0) {
         return;
     }
 
     // draw badge
-    UIBezierPath* outlinePath = [UIBezierPath bezierPath];
+    UIBezierPath *outlinePath = [UIBezierPath bezierPath];
 
     CGSize size = badgeFrame_.size;
-    CGFloat unit = size.height/2.0;
+    CGFloat unit = size.height / 2.0;
 
     CGPoint bp = badgeFrame_.origin;
 
     CGPoint c1 = CGPointMake(bp.x + unit, bp.y);
     [outlinePath moveToPoint:c1];
-    c1.y +=unit;
+    c1.y += unit;
     [outlinePath addArcWithCenter:c1
                            radius:unit
-                       startAngle:3*M_PI/2 endAngle:M_PI/2
+                       startAngle:3 * M_PI / 2
+                         endAngle:M_PI / 2
                         clockwise:NO];
 
     [outlinePath addLineToPoint:CGPointMake(bp.x + size.width - unit,
@@ -219,7 +231,8 @@
     CGPoint c2 = CGPointMake(bp.x + size.width - unit, bp.y + unit);
     [outlinePath addArcWithCenter:c2
                            radius:unit
-                       startAngle:M_PI/2 endAngle:-M_PI/2
+                       startAngle:M_PI / 2
+                         endAngle:-M_PI / 2
                         clockwise:NO];
 
     [outlinePath addLineToPoint:CGPointMake(bp.x + unit, bp.y)];
@@ -255,8 +268,8 @@
     if (self.text != nil || [self.text length] > 0) {
         [self.textColor setFill];
         CGSize size = [self.displayinText sizeWithFont:self.font];
-        CGPoint p = CGPointMake(bp.x + (badgeFrame_.size.width - size.width)/2.0 + textOffset_.width,
-                                bp.y + (badgeFrame_.size.height - size.height)/2.0 + textOffset_.height);
+        CGPoint p = CGPointMake(bp.x + (badgeFrame_.size.width - size.width) / 2.0 + textOffset_.width,
+                                bp.y + (badgeFrame_.size.height - size.height) / 2.0 + textOffset_.height);
 
         if (self.shadowOfText) {
             CGContextSaveGState(context);
@@ -267,17 +280,18 @@
             [self.displayinText drawAtPoint:p withFont:self.font];
         }
     }
-
 }
 
-- (void)setFrame:(CGRect)frame {
+- (void)setFrame:(CGRect)frame
+{
     [super setFrame:frame];
     [self _adjustBadgeFrame];
 }
 
 #pragma mark - Properties
 
-- (void)setText:(NSString *)text {
+- (void)setText:(NSString *)text
+{
     text_ = text;
 
     self.displayinText = text;
@@ -286,57 +300,67 @@
     [self setNeedsDisplay];
 }
 
-- (void)setHorizontalAlignment:(CCBadgeViewHorizontalAlignment)horizontalAlignment {
+- (void)setHorizontalAlignment:(CCBadgeViewHorizontalAlignment)horizontalAlignment
+{
     horizontalAlignment_ = horizontalAlignment;
     [self _adjustBadgeFrameX];
     [self setNeedsDisplay];
 }
 
-- (void)setWidthMode:(CCBadgeViewWidthMode)widthMode {
+- (void)setWidthMode:(CCBadgeViewWidthMode)widthMode
+{
     widthMode_ = widthMode;
     [self _adjustBadgeFrameWith];
     [self setNeedsDisplay];
 }
 
-- (void)setOutlineWidth:(CGFloat)outlineWidth {
+- (void)setOutlineWidth:(CGFloat)outlineWidth
+{
     outlineWidth_ = outlineWidth;
     [self _adjustBadgeFrame];
     [self setNeedsDisplay];
 }
 
-- (void)setOutline:(BOOL)outline {
+- (void)setOutline:(BOOL)outline
+{
     outline_ = outline;
     [self setNeedsDisplay];
 }
 
-- (void)setShadow:(BOOL)shadow {
+- (void)setShadow:(BOOL)shadow
+{
     shadow_ = shadow;
     [self setNeedsDisplay];
 }
 
-- (void)setShadowOfOutline:(BOOL)shadowOfOutline {
+- (void)setShadowOfOutline:(BOOL)shadowOfOutline
+{
     shadowOfOutline_ = shadowOfOutline;
     [self setNeedsDisplay];
 }
 
-- (void)setShadowOfText:(BOOL)shadowOfText {
+- (void)setShadowOfText:(BOOL)shadowOfText
+{
     shadowOfText_ = shadowOfText;
     [self setNeedsDisplay];
 }
 
-- (void)setBadgeColor:(UIColor *)badgeColor {
+- (void)setBadgeColor:(UIColor *)badgeColor
+{
     badgeColor_ = badgeColor;
 
     [self setNeedsDisplay];
 }
 
-- (void)setTextColor:(UIColor *)textColor {
+- (void)setTextColor:(UIColor *)textColor
+{
     textColor_ = textColor;
 
     [self setNeedsDisplay];
 }
 
-- (void)setFont:(UIFont *)font {
+- (void)setFont:(UIFont *)font
+{
     font_ = font;
 
     [self _adjustBadgeFrame];
@@ -345,11 +369,13 @@
 
 #pragma mark - API (@depricated)
 
-+ (CGFloat)badgeHeight {
++ (CGFloat)badgeHeight
+{
     return CC_BADGE_VIEW_STANDARD_HEIGHT;
 }
 
-- (CGFloat)badgeHeight {
+- (CGFloat)badgeHeight
+{
     CGFloat height;
     switch (self.heightMode) {
         case CCBadgeViewHeightModeStandard:
@@ -359,7 +385,7 @@
         case CCBadgeViewHeightModeLarge:
             height = CC_BADGE_VIEW_LARGE_HEIGHT;
             break;
-            
+
         default:
             break;
     }

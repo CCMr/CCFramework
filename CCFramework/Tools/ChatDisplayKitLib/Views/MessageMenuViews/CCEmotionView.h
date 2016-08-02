@@ -63,6 +63,7 @@
 - (instancetype)initWithFrame:(CGRect)frame
                       Section:(NSInteger)section
                           Row:(NSInteger)row
-                   dataSource:(NSArray *)data;
+                   dataSource:(NSArray *)data
+                  EmotionType:(NSInteger)eType;
 
 @end

@@ -37,13 +37,6 @@
  */
 @property(nonatomic, assign) BOOL tabBarHidden;
 
-/**
- *  @author CC, 16-07-30
- *
- *  @brief 选项卡红点是否显示
- */
-@property(nonatomic, assign) BOOL tabBarPoint;
-
 @property(nonatomic, strong) __kindof BaseViewModel *cc_viewModel;
 @property(nonatomic, strong) __kindof BaseViewManger *cc_viewManger;
 
@@ -57,6 +50,17 @@
  *  @return 视图层级字符串
  */
 - (NSString *)recursiveDescription;
+
+/**
+ *  @author CC, 16-08-01
+ *
+ *  @brief 选项卡红点是否显示
+ *
+ *  @param index   选项卡下标
+ *  @param isPoint 是否显示
+ */
+- (void)tabBatPoint:(NSInteger)index
+            IsPoint:(BOOL)isPoint;
 
 #pragma mark -
 #pragma mark :. Relationship

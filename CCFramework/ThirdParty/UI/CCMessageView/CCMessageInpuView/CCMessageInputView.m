@@ -380,7 +380,7 @@
             
             self.image = [[UIImage imageNamed:@"input-bar-flat"] resizableImageWithCapInsets:UIEdgeInsetsMake(2.0f, 0.0f, 0.0f, 0.0f)
                                                                                 resizingMode:UIImageResizingModeTile];
-            
+//            self.backgroundColor = cc_ColorRGB(247, 247, 247);
             break;
         }
         default:

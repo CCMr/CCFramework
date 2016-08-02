@@ -705,6 +705,7 @@
 		427E1D3E1C107066004B257C /* WXApiObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1D3B1C107066004B257C /* WXApiObject.h */; };
 		427E1D411C10709F004B257C /* CCWxPayEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1D3F1C10709F004B257C /* CCWxPayEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		427E1D421C10709F004B257C /* CCWxPayEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 427E1D401C10709F004B257C /* CCWxPayEngine.m */; };
+		428673761D504CA500DDA5BE /* emotionDelete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 428673751D504CA500DDA5BE /* emotionDelete@2x.png */; };
 		428A12CC1BC8A1C6005D904D /* ContactPersonEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 428A12CA1BC8A1C6005D904D /* ContactPersonEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		428A12CD1BC8A1C6005D904D /* ContactPersonEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 428A12CB1BC8A1C6005D904D /* ContactPersonEntity.m */; };
 		428A12D01BC8A433005D904D /* ContactRead.h in Headers */ = {isa = PBXBuildFile; fileRef = 428A12CE1BC8A433005D904D /* ContactRead.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1973,6 +1974,7 @@
 		427E1D3B1C107066004B257C /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		427E1D3F1C10709F004B257C /* CCWxPayEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCWxPayEngine.h; path = Pay/Wxpay/CCWxPayEngine.h; sourceTree = "<group>"; };
 		427E1D401C10709F004B257C /* CCWxPayEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCWxPayEngine.m; path = Pay/Wxpay/CCWxPayEngine.m; sourceTree = "<group>"; };
+		428673751D504CA500DDA5BE /* emotionDelete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "emotionDelete@2x.png"; sourceTree = "<group>"; };
 		428A12CA1BC8A1C6005D904D /* ContactPersonEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactPersonEntity.h; path = Contacts/Models/ContactPersonEntity.h; sourceTree = "<group>"; };
 		428A12CB1BC8A1C6005D904D /* ContactPersonEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactPersonEntity.m; path = Contacts/Models/ContactPersonEntity.m; sourceTree = "<group>"; };
 		428A12CE1BC8A433005D904D /* ContactRead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactRead.h; path = Contacts/ContactRead.h; sourceTree = "<group>"; };
@@ -5951,6 +5953,7 @@
 				422754661C29371F0099B653 /* PhotosViewImage */,
 				422754511C2932640099B653 /* GraffitiBoard */,
 				4268CED71C4356CE00434D65 /* icon_star_gray@2x.png */,
+				428673751D504CA500DDA5BE /* emotionDelete@2x.png */,
 				421DB6C71CA0E6AB006E74EF /* wechat_moment@2x.png */,
 				42E953221C58A9FC001C93CB /* banner_arrow@2x.png */,
 				4268CED81C4356CE00434D65 /* icon_star_yellow@2x.png */,
@@ -7172,6 +7175,7 @@
 				4206A4ED1C783CE4001A1CF3 /* photo_number_icon@2x.png in Resources */,
 				4206A4F21C783CE4001A1CF3 /* preview_number_icon@2x.png in Resources */,
 				4206A4F51C783CE4001A1CF3 /* VideoSendIcon@2x.png in Resources */,
+				428673761D504CA500DDA5BE /* emotionDelete@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

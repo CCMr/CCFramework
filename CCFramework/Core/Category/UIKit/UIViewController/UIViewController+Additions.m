@@ -150,14 +150,17 @@ NSString *const CCScrollingHandlerDidScrollBlock = @"CCScrollingHandlerDidScroll
 }
 
 /**
- *  @author CC, 16-07-30
+ *  @author CC, 16-08-01
  *
  *  @brief 选项卡红点是否显示
+ *
+ *  @param index   选项卡下标
+ *  @param isPoint 是否显示
  */
-- (void)setTabBarPoint:(BOOL)tabBarPoint
+- (void)tabBatPoint:(NSInteger)index
+            IsPoint:(BOOL)isPoint
 {
-    NSInteger index = self.tabBarController.selectedIndex;
-    if (tabBarPoint) {
+    if (isPoint) {
         [self.tabBarController.tabBar showBadgePointOnItemIndex:index];
     } else
         [self.tabBarController.tabBar hideBadgePointOnItemIndex:index];
