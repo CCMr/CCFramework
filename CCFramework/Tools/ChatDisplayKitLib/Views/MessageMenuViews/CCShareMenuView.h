@@ -26,7 +26,7 @@
 #import <UIKit/UIKit.h>
 #import "CCShareMenuItem.h"
 
-#define kXHShareMenuPageControlHeight 30
+#define kXHShareMenuPageControlHeight 20
 
 @protocol CCShareMenuViewDelegate <NSObject>
 
@@ -47,9 +47,9 @@
 /**
  *  第三方功能Models
  */
-@property (nonatomic, strong) NSArray *shareMenuItems;
+@property(nonatomic, strong) NSArray *shareMenuItems;
 
-@property (nonatomic, weak) id <CCShareMenuViewDelegate> delegate;
+@property(nonatomic, weak) id<CCShareMenuViewDelegate> delegate;
 
 /**
  *  根据数据源刷新第三方功能按钮的布局

@@ -30,13 +30,11 @@
  *  @author C C, 15-08-18
  *
  *  @brief  底部菜单选项
- *
- *  @since <#1.0#>
  */
 typedef NS_ENUM(NSInteger, CCShareMenuItemType) {
     /** 照片 **/
-    CCShareMenuItemTypePhoto,
-    CCShareMenuItemTypeVideo,
+    CCShareMenuItemTypePhoto = 0,
+    CCShareMenuItemTypeVideo = 1,
 };
 
 #define kCCShareMenuItemWidth 60
@@ -61,7 +59,7 @@ typedef NS_ENUM(NSInteger, CCShareMenuItemType) {
  *
  *  @since 1.0
  */
-@property(nonatomic, assign) CCShareMenuItemType itemType;
+@property(nonatomic, assign) NSInteger itemType;
 
 /**
  *  根据正常图片和标题初始化一个Model对象

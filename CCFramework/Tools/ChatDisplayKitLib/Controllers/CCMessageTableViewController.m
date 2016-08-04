@@ -1105,6 +1105,8 @@
     [self.messageInputView.inputTextView.textStorage removeAttribute:NSFontAttributeName range:wholeRange];
 
     [self.messageInputView.inputTextView.textStorage addAttribute:NSFontAttributeName value:font range:wholeRange];
+
+    self.emotionManagerView.isSendButton = YES;
 }
 
 /**
@@ -1124,8 +1126,12 @@
             [dic setObject:@([[dic objectForKey:@"location"] integerValue] - 1) forKey:@"location"];
             [self.teletextPath replaceObjectAtIndex:i withObject:dic];
         }
-        [self.messageInputView.inputTextView deleteBackward];
     }
+    [self.messageInputView.inputTextView deleteBackward];
+
+
+    if (!self.messageInputView.inputTextView.text.length)
+        self.emotionManagerView.isSendButton = NO;
 }
 
 - (void)didEmotionStore
@@ -1133,6 +1139,16 @@
     if ([self.delegate respondsToSelector:@selector(didEmotionStore)]) {
         [self.delegate didEmotionStore];
     }
+}
+
+/**
+ *  @author CC, 16-08-04
+ *
+ *  @brief 发送消息
+ */
+-(void)didSendMessage
+{
+    [self didSendTextAction:self.messageInputView.inputTextView.text];
 }
 
 - (void)didSendGeolocationsMessageWithGeolocaltions:(NSString *)geolcations location:(CLLocation *)location
@@ -1165,6 +1181,7 @@
             otherMenuViewFrame.origin.y = (hide ? CGRectGetHeight(self.view.frame) : (CGRectGetHeight(self.view.frame) - CGRectGetHeight(otherMenuViewFrame)));
             self.emotionManagerView.alpha = !hide;
             self.emotionManagerView.frame = otherMenuViewFrame;
+            self.emotionManagerView.isSendButton = self.messageInputView.inputTextView.text.length;
         };
 
         void (^ShareMenuViewAnimation)(BOOL hide) = ^(BOOL hide) {
@@ -1212,8 +1229,7 @@
 
         InputViewAnimation(hide);
 
-        [self setTableViewInsetsWithBottomValue:self.view.frame.size.height
-         - self.messageInputView.frame.origin.y];
+        [self setTableViewInsetsWithBottomValue:self.view.frame.size.height - self.messageInputView.frame.origin.y];
 
         [self scrollToBottomAnimated:NO];
     } completion:^(BOOL finished) {

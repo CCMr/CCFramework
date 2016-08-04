@@ -86,7 +86,7 @@
 
 - (void)setContentInset:(UIEdgeInsets)contentInset
 {
-    //    [super setContentInset:contentInset];
+        [super setContentInset:contentInset];
     [self setNeedsDisplay];
 }
 
@@ -163,6 +163,9 @@
 
     [super deleteBackward];
 }
+
+- (void)_firstBaselineOffsetFromTop {}
+- (void)_baselineOffsetFromBottom {}
 
 #pragma mark - Drawing
 

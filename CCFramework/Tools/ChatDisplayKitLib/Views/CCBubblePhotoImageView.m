@@ -159,7 +159,7 @@
     CGFloat triangleSize = 8;      //三角形的边长
     CGFloat triangleMarginTop = 8; //三角形距离圆角的距离
     
-    CGFloat borderOffset = 3;			 //阴影偏移量
+    CGFloat borderOffset = 0.5;			 //阴影偏移量
     UIColor *borderColor = [UIColor blackColor]; //阴影的颜色
     
     // 获取CGContext，注意UIKit里用的是一个专门的函数

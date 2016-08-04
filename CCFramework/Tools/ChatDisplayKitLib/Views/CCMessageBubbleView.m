@@ -720,8 +720,10 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                     CCAnimatedImage *animatedImage = [[CCAnimatedImage alloc] initWithAnimatedGIFData:animatedData];
                     _emotionImageView.animatedImage = animatedImage;
                 } else {
-                    [_emotionImageView sd_setImageWithURLStr:message.emotionPath];
+                    [_emotionImageView sd_setImageWithURLStr:message.emotionUrl];
                 }
+            } else {
+                [_emotionImageView sd_setImageWithURLStr:message.emotionUrl];
             }
             break;
         case CCBubbleMessageMediaTypeLocalPosition:

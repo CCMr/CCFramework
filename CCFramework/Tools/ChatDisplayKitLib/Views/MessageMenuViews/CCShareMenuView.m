@@ -18,11 +18,11 @@
 /**
  *  第三方按钮
  */
-@property (nonatomic, weak) UIButton *shareMenuItemButton;
+@property(nonatomic, weak) UIButton *shareMenuItemButton;
 /**
  *  第三方按钮的标题
  */
-@property (nonatomic, weak) UILabel *shareMenuItemTitleLabel;
+@property(nonatomic, weak) UILabel *shareMenuItemTitleLabel;
 
 /**
  *  配置默认控件的方法
@@ -32,10 +32,11 @@
 
 @implementation CCShareMenuItemView
 
-- (void)setup {
+- (void)setup
+{
     if (!_shareMenuItemButton) {
         UIButton *shareMenuItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        shareMenuItemButton.frame = CGRectMake(0, 0, kCCShareMenuItemWidth, kCCShareMenuItemWidth);
+        shareMenuItemButton.frame = CGRectMake((CGRectGetWidth(self.bounds) - kCCShareMenuItemWidth) / 2, 0, kCCShareMenuItemWidth, kCCShareMenuItemWidth);
         shareMenuItemButton.backgroundColor = [UIColor clearColor];
         [self addSubview:shareMenuItemButton];
 
@@ -43,7 +44,7 @@
     }
 
     if (!_shareMenuItemTitleLabel) {
-        UILabel *shareMenuItemTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.shareMenuItemButton.frame), kCCShareMenuItemWidth, KCCShareMenuItemHeight - kCCShareMenuItemWidth)];
+        UILabel *shareMenuItemTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.bounds) - kCCShareMenuItemWidth) / 2, CGRectGetMaxY(self.shareMenuItemButton.frame), kCCShareMenuItemWidth, KCCShareMenuItemHeight - kCCShareMenuItemWidth)];
         shareMenuItemTitleLabel.backgroundColor = [UIColor clearColor];
         shareMenuItemTitleLabel.textColor = [UIColor blackColor];
         shareMenuItemTitleLabel.font = [UIFont systemFontOfSize:12];
@@ -54,11 +55,13 @@
     }
 }
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     [self setup];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame
+{
     self = [super initWithFrame:frame];
     if (self) {
         [self setup];
@@ -73,12 +76,12 @@
 /**
  *  这是背景滚动视图
  */
-@property (nonatomic, weak) UIScrollView *shareMenuScrollView;
+@property(nonatomic, weak) UIScrollView *shareMenuScrollView;
 
 /**
  *  显示页码的视图
  */
-@property (nonatomic, weak) UIPageControl *shareMenuPageControl;
+@property(nonatomic, weak) UIPageControl *shareMenuPageControl;
 
 /**
  *  第三方按钮点击的事件
@@ -96,7 +99,8 @@
 
 @implementation CCShareMenuView
 
-- (void)shareMenuItemButtonClicked:(UIButton *)sender {
+- (void)shareMenuItemButtonClicked:(UIButton *)sender
+{
     if ([self.delegate respondsToSelector:@selector(didSelecteShareMenuItem:atIndex:)]) {
         NSInteger index = sender.tag;
         if (index < self.shareMenuItems.count) {
@@ -105,27 +109,21 @@
     }
 }
 
-- (void)reloadData {
+- (void)reloadData
+{
     if (!_shareMenuItems.count)
         return;
 
     [self.shareMenuScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
     CGFloat paddingX = 16;
-    CGFloat paddingY = 10;
+    CGFloat paddingY = 16;
     for (CCShareMenuItem *shareMenuItem in self.shareMenuItems) {
         NSInteger index = [self.shareMenuItems indexOfObject:shareMenuItem];
         NSInteger page = index / (kCCShareMenuPerRowItemCount * kCCShareMenuPerColum);
-        CGRect shareMenuItemViewFrame = [self getFrameWithPerRowItemCount:kCCShareMenuPerRowItemCount
-                                                        perColumItemCount:kCCShareMenuPerColum
-                                                                itemWidth:kCCShareMenuItemWidth
-                                                               itemHeight:KCCShareMenuItemHeight
-                                                                 paddingX:paddingX
-                                                                 paddingY:paddingY
-                                                                  atIndex:index
-                                                                   onPage:page];
-        CCShareMenuItemView *shareMenuItemView = [[CCShareMenuItemView alloc] initWithFrame:shareMenuItemViewFrame];
+        CGRect shareMenuItemViewFrame = [self frameWithPerRowItem:paddingX paddingY:paddingY atIndex:index onPage:page];
 
+        CCShareMenuItemView *shareMenuItemView = [[CCShareMenuItemView alloc] initWithFrame:shareMenuItemViewFrame];
         shareMenuItemView.shareMenuItemButton.tag = index;
         [shareMenuItemView.shareMenuItemButton addTarget:self action:@selector(shareMenuItemButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [shareMenuItemView.shareMenuItemButton setImage:shareMenuItem.normalIconImage forState:UIControlStateNormal];
@@ -138,35 +136,22 @@
     [self.shareMenuScrollView setContentSize:CGSizeMake(((self.shareMenuItems.count / (kCCShareMenuPerRowItemCount * 2) + (self.shareMenuItems.count % (kCCShareMenuPerRowItemCount * 2) ? 1 : 0)) * CGRectGetWidth(self.bounds)), CGRectGetHeight(self.shareMenuScrollView.bounds))];
 }
 
-/**
- *  通过目标的参数，获取一个grid布局
- *
- *  @param perRowItemCount   每行有多少列
- *  @param perColumItemCount 每列有多少行
- *  @param itemWidth         gridItem的宽度
- *  @param itemHeight        gridItem的高度
- *  @param paddingX          gridItem之间的X轴间隔
- *  @param paddingY          gridItem之间的Y轴间隔
- *  @param index             某个gridItem所在的index序号
- *  @param page              某个gridItem所在的页码
- *
- *  @return 返回一个已经处理好的gridItem frame
- */
-- (CGRect)getFrameWithPerRowItemCount:(NSInteger)perRowItemCount
-                    perColumItemCount:(NSInteger)perColumItemCount
-                            itemWidth:(CGFloat)itemWidth
-                           itemHeight:(NSInteger)itemHeight
-                             paddingX:(CGFloat)paddingX
-                             paddingY:(CGFloat)paddingY
-                              atIndex:(NSInteger)index
-                               onPage:(NSInteger)page {
-    CGRect itemFrame = CGRectMake((index % perRowItemCount) * (itemWidth + paddingX) + paddingX + (page * CGRectGetWidth(self.bounds)), ((index / perRowItemCount) - perColumItemCount * page) * (itemHeight + paddingY) + paddingY, itemWidth, itemHeight);
+- (CGRect)frameWithPerRowItem:(CGFloat)paddingX
+                     paddingY:(CGFloat)paddingY
+                      atIndex:(NSInteger)index
+                       onPage:(NSInteger)page
+{
+    CGFloat itemW = (CGRectGetWidth(self.bounds) - (kCCShareMenuPerRowItemCount + 1) * paddingX) / kCCShareMenuPerRowItemCount;
+    CGFloat itemH = (CGRectGetHeight(self.shareMenuScrollView.bounds) - (kCCShareMenuPerColum + 1) * paddingY) / kCCShareMenuPerColum;
+
+    CGRect itemFrame = CGRectMake((index % kCCShareMenuPerRowItemCount) * (itemW + paddingX) + paddingX + (page * CGRectGetWidth(self.bounds)), ((index / kCCShareMenuPerRowItemCount) - kCCShareMenuPerColum * page) * (itemH + paddingY) + paddingY, itemW, itemH);
     return itemFrame;
 }
 
 #pragma mark - Life cycle
 
-- (void)setup {
+- (void)setup
+{
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
     if (!_shareMenuScrollView) {
@@ -185,7 +170,9 @@
     }
 
     if (!_shareMenuPageControl) {
-        UIPageControl *shareMenuPageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.shareMenuScrollView.frame), CGRectGetWidth(self.bounds), kXHShareMenuPageControlHeight)];
+        UIPageControl *shareMenuPageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.shareMenuScrollView.bounds), CGRectGetWidth(self.bounds), kXHShareMenuPageControlHeight)];
+        shareMenuPageControl.currentPageIndicatorTintColor = [UIColor colorWithWhite:0.471 alpha:1.000];
+        shareMenuPageControl.pageIndicatorTintColor = [UIColor colorWithWhite:0.678 alpha:1.000];
         shareMenuPageControl.backgroundColor = self.backgroundColor;
         shareMenuPageControl.hidesForSinglePage = YES;
         shareMenuPageControl.defersCurrentPageDisplay = YES;
@@ -195,11 +182,13 @@
     }
 }
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     [self setup];
 }
 
-- (id)initWithFrame:(CGRect)frame {
+- (id)initWithFrame:(CGRect)frame
+{
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
@@ -208,13 +197,15 @@
     return self;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     self.shareMenuItems = nil;
     self.shareMenuScrollView = nil;
     self.shareMenuPageControl = nil;
 }
 
-- (void)willMoveToSuperview:(UIView *)newSuperview {
+- (void)willMoveToSuperview:(UIView *)newSuperview
+{
     if (newSuperview) {
         [self reloadData];
     }
@@ -222,7 +213,8 @@
 
 #pragma mark - UIScrollView delegate
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
     //每页宽度
     CGFloat pageWidth = scrollView.frame.size.width;
     //根据当前的坐标与页宽计算当前页码
