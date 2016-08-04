@@ -26,7 +26,7 @@
 
 #import "CCEmotionSectionBar.h"
 
-#define kCCStoreManagerItemWidth 40
+#define kCCStoreManagerItemWidth 50
 
 @interface CCEmotionSectionBar ()
 
@@ -47,7 +47,7 @@
 
 /**
  *  @author CC, 2015-12-03
- *  
+ *
  *  @brief  选中事件
  *
  *  @param sender 按钮
@@ -65,7 +65,7 @@
 
 /**
  *  @author CC, 2015-12-03
- *  
+ *
  *  @brief  商店按钮事件
  *
  *  @param sender 按钮
@@ -77,8 +77,22 @@
 }
 
 /**
+ *  @author CC, 16-08-04
+ *
+ *  @brief 发送按钮事件
+ *
+ *  @param sender 按钮
+ */
+- (void)didSectionBarSend:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(didSectionBarSend)]) {
+        [self.delegate didSectionBarSend];
+    }
+}
+
+/**
  *  @author CC, 2015-12-03
- *  
+ *
  *  @brief  选中下标
  *
  *  @param index 下标
@@ -107,9 +121,9 @@
 {
     if (!self.emotionManagers.count)
         return;
-    
+
     [self.sectionBarScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
+
     for (CCEmotionManager *emotionManager in self.emotionManagers) {
         NSInteger index = [self.emotionManagers indexOfObject:emotionManager];
         UIButton *sectionButton = [self cratedButton];
@@ -117,18 +131,18 @@
         [sectionButton setTitle:emotionManager.emotionName forState:UIControlStateNormal];
         sectionButton.titleLabel.font = [UIFont systemFontOfSize:14];
         [sectionButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        
+
         if (_currentIndex == index)
-            sectionButton.backgroundColor = self.superview.backgroundColor;// [UIColor whiteColor];
-        
+            sectionButton.backgroundColor = self.superview.backgroundColor; // [UIColor whiteColor];
+
         CGRect sectionButtonFrame = sectionButton.frame;
         sectionButtonFrame.origin.x = index * (CGRectGetWidth(sectionButtonFrame));
         sectionButton.frame = sectionButtonFrame;
-        
-        
+
+
         [self.sectionBarScrollView addSubview:sectionButton];
     }
-    
+
     [self.sectionBarScrollView setContentSize:CGSizeMake(self.emotionManagers.count * kCCStoreManagerItemWidth, CGRectGetHeight(self.bounds))];
 }
 
@@ -149,19 +163,37 @@
         [self addSubview:sectionBarScrollView];
         _sectionBarScrollView = sectionBarScrollView;
     }
-    
+
     if (self.isShowEmotionStoreButton) {
         UIButton *storeManagerItemButton = [self cratedButton];
-        
+
         CGRect storeManagerItemButtonFrame = storeManagerItemButton.frame;
         storeManagerItemButtonFrame.origin.x = CGRectGetWidth(self.bounds) - kCCStoreManagerItemWidth;
         storeManagerItemButton.frame = storeManagerItemButtonFrame;
-        
-        [storeManagerItemButton setTitle:@"商店" forState:UIControlStateNormal];
-        [storeManagerItemButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        [storeManagerItemButton addTarget:self action:@selector(didStoreClicked:) forControlEvents:UIControlEventTouchUpInside];
-//        [self addSubview:storeManagerItemButton];
+        storeManagerItemButton.backgroundColor = [UIColor whiteColor];
+        storeManagerItemButton.titleLabel.font = [UIFont systemFontOfSize:14];
+        [storeManagerItemButton setTitle:@"发送" forState:UIControlStateNormal];
+        [storeManagerItemButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [storeManagerItemButton addTarget:self action:@selector(didSectionBarSend:) forControlEvents:UIControlEventTouchUpInside];
+
+        storeManagerItemButton.layer.shadowColor = [UIColor lightGrayColor].CGColor;
+        storeManagerItemButton.layer.shadowOffset = CGSizeMake(-2.0, 10);
+        storeManagerItemButton.layer.shadowOpacity = 0.5;
+        storeManagerItemButton.layer.shadowRadius = 10;
+        [self addSubview:storeManagerItemButton];
         _storeManagerItemButton = storeManagerItemButton;
+    }
+}
+
+- (void)setIsSendButton:(BOOL)isSendButton
+{
+    _isSendButton = isSendButton;
+
+    self.storeManagerItemButton.backgroundColor = [UIColor whiteColor];
+    [self.storeManagerItemButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    if (isSendButton) {
+        self.storeManagerItemButton.backgroundColor = [UIColor blueColor];
+        [self.storeManagerItemButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
 }
 

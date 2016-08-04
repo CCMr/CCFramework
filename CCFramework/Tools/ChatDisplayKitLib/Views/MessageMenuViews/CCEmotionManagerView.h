@@ -45,7 +45,7 @@
 
 /**
  *  @author CC, 2015-12-11
- *  
+ *
  *  @brief  第三方(小)gif表情被点击的回调事件
  *
  *  @param emotion   被点击的gif表情Model
@@ -56,10 +56,17 @@
 
 /**
  *  @author CC, 2015-12-03
- *  
+ *
  *  @brief  商店按钮
  */
 - (void)didStore;
+
+/**
+ *  @author CC, 16-08-04
+ *
+ *  @brief 发送消息
+ */
+- (void)didSendMessage;
 
 @end
 
@@ -102,6 +109,8 @@
  *  是否显示表情商店的按钮
  */
 @property (nonatomic, assign) BOOL isShowEmotionStoreButton; // default is YES
+
+@property(nonatomic, assign) BOOL isSendButton;
 
 /**
  *  根据数据源刷新UI布局和数据

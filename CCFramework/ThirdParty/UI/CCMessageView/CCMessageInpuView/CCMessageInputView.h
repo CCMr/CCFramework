@@ -58,11 +58,20 @@ typedef NS_ENUM(NSInteger, CCMessageInputViewStyle) {
  */
 - (void)inputTextViewWillBeginEditing:(CCMessageTextView *)messageInputTextView;
 
+/**
+ *  @author CC, 16-08-04
+ *
+ *  @brief 输入框输入文字
+ *
+ *  @param messageInputTextView 输入框对象
+ */
+- (void)inputTextViewDidChangeText:(CCMessageTextView *)messageInputTextView;
+
 @optional
 
 /**
  *  @author CC, 2015-12-25
- *  
+ *
  *  @brief  输入文本删除回调
  */
 - (void)didTextDeleteBackward;

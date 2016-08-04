@@ -39,10 +39,17 @@
 
 /**
  *  @author CC, 2015-12-03
- *  
+ *
  *  @brief  商店
  */
 - (void)didSectionBarStore;
+
+/**
+ *  @author CC, 16-08-04
+ *
+ *  @brief 发送按钮事件
+ */
+- (void)didSectionBarSend;
 
 @end
 
@@ -55,12 +62,14 @@
  */
 @property(nonatomic, strong) NSArray *emotionManagers;
 
+@property(nonatomic, assign) BOOL isSendButton;
+
 - (instancetype)initWithFrame:(CGRect)frame
        showEmotionStoreButton:(BOOL)isShowEmotionStoreButtoned;
 
 /**
  *  @author CC, 2015-12-03
- *  
+ *
  *  @brief  选中下标
  *
  *  @param index 下标

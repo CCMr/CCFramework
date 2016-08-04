@@ -189,6 +189,12 @@
     }
 }
 
+- (void)setIsSendButton:(BOOL)isSendButton
+{
+    _isSendButton = isSendButton;
+    self.emotionSectionBar.isSendButton = isSendButton;
+}
+
 - (void)awakeFromNib
 {
     [self setup];
@@ -266,6 +272,12 @@
 {
     if ([self.delegate respondsToSelector:@selector(didStore)])
         [self.delegate didStore];
+}
+
+- (void)didSectionBarSend
+{
+    if ([self.delegate respondsToSelector:@selector(didSendMessage)])
+        [self.delegate didSendMessage];
 }
 
 #pragma mark - UIScrollView delegate
