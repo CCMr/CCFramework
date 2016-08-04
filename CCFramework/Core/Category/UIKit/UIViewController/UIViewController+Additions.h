@@ -62,6 +62,10 @@
 - (void)tabBatPoint:(NSInteger)index
             IsPoint:(BOOL)isPoint;
 
+#pragma mark :. 导航栏loading效果
+- (void)startLoading:(NSString *)title;
+- (void)stopLoading;
+
 #pragma mark -
 #pragma mark :. Relationship
 

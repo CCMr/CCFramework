@@ -167,7 +167,7 @@
 {
     if (!_whiteFrostedGlassBackgroundView) {
         _whiteFrostedGlassBackgroundView = [[UIView alloc] initWithFrame:self.bounds];
-        _whiteFrostedGlassBackgroundView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
+        _whiteFrostedGlassBackgroundView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.95];
     }
     return _whiteFrostedGlassBackgroundView;
 }

@@ -239,7 +239,7 @@
         if (!menuButton) {
             menuButton = [[CCPopMenuButton alloc] initWithFrame:fromRect menuItem:menuItem];
             menuButton.tag = kMenuButtonBaseTag + index;
-            if (self.backgroundType == CCWhite)
+            if (self.backgroundType == CCWhite || self.backgroundType == CCFrstedGlass)
                 menuButton.TextColor = [UIColor blackColor];
 
             menuButton.didSelctedItemCompleted = ^(CCPopMenuItem *menuItem) {
