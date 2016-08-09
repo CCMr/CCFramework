@@ -107,10 +107,11 @@ REGULAREXPRESSION(HashtagRegularExpression, @"#([\\u4e00-\\u9fa5\\w\\-]+)")
 {
     self.mutableAttributedText = [attributedText mutableCopy];
 
-    if (!self.replaceAdjustType) {
-        NSMutableArray *adArray = [NSMutableArray array];
-        for (NSInteger i = 0; i < self.replaceLabel.count; i++)
+    if (!self.replaceAdjustType || !self.replaceAdjustType.count) {
+        __block NSMutableArray *adArray = [NSMutableArray array];
+        [self.replaceLabel each:^(id object) {
             [adArray addObject:@(self.adjustType)];
+        }];
         self.replaceAdjustType = adArray;
     }
 

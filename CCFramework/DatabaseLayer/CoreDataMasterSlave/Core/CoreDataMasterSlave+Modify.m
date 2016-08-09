@@ -363,6 +363,48 @@
 }
 
 /**
+ *  @author CC, 16-08-09
+ *
+ *  @brief 更新或新增数据
+ *
+ *  @param tableName 表名
+ *  @param predicate 修改条件
+ *  @param dataAry   修改参数
+ */
++ (NSArray *)cc_updateORInsertCoreData:(NSString *)tableName
+                             Predicate:(NSPredicate *)predicate
+                               DataAry:(NSArray *)dataAry
+{
+    __block NSMutableArray *objs = [NSMutableArray array];
+    [dataAry enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        [objs addObject:[self cc_updateORInsertCoreData:tableName
+                                              Predicate:predicate
+                                                   Data:obj]];
+    }];
+
+    return objs;
+}
+
+/**
+ *  @author CC, 16-08-09
+ *
+ *  @brief 更新或新增数据
+ *
+ *  @param tableName 表名
+ *  @param predicate 修改条件
+ *  @param data      修改参数
+ */
++ (id)cc_updateORInsertCoreData:(NSString *)tableName
+                      Predicate:(NSPredicate *)predicate
+                           Data:(NSDictionary *)data
+{
+    return [[self objctWithData:tableName
+                  SubPredicates:@[ predicate ]
+                           Data:data
+                      inContext:self.saveCurrentContext] changedDictionary];
+}
+
+/**
  *  @author CC, 2015-11-05
  *
  *  @brief  更新或者添加数据

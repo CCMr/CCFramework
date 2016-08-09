@@ -115,6 +115,10 @@ NSString *const CCScrollingHandlerDidScrollBlock = @"CCScrollingHandlerDidScroll
     tController.tabBarItem.badgeValue = badgeValue;
 }
 
+- (UITableView *)tableView
+{
+    return [self.view findSubViewWithSubViewClass:[UITableView class]];
+}
 
 - (BOOL)tabBarHidden
 {
@@ -234,7 +238,7 @@ static char NavBarIsLoadingKey;
 
         UILabel *loadingTitleLabel = [[UILabel alloc] init];
         loadingTitleLabel.textAlignment = NSTextAlignmentCenter;
-        loadingTitleLabel.textColor = [UIColor blackColor];
+        loadingTitleLabel.textColor = self.navigationController.navigationBar.tintColor;
         loadingTitleLabel.text = title;
 
         UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];

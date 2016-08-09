@@ -133,6 +133,32 @@
                                     DataArray:(NSArray *)dataArray;
 
 /**
+ *  @author CC, 16-08-09
+ *
+ *  @brief 插入或更新
+ *
+ *  @param tableName 表名
+ *  @param predicate 插入条件
+ *  @param dataAry   参数
+ */
++ (id)cc_insertOrUpdateWtihData:(NSString *)tableName
+                      Predicate:(NSPredicate *)predicate
+                        DataAry:(NSArray *)dataAry;
+
+/**
+ *  @author CC, 16-08-09
+ *
+ *  @brief 插入或更新
+ *
+ *  @param tableName 表名
+ *  @param predicate 插入条件
+ *  @param data      参数
+ */
++ (id)cc_insertOrUpdateWtihData:(NSString *)tableName
+                      Predicate:(NSPredicate *)predicate
+                           Data:(NSDictionary *)data;
+
+/**
  *  @author CC, 2015-11-30
  *
  *  @brief  新增或更新数据
@@ -524,6 +550,32 @@
               ConditionID:(NSManagedObjectID *)conditionID
                  EditData:(NSDictionary *)editData
                completion:(void (^)(NSError *error))completion;
+
+/**
+ *  @author CC, 16-08-09
+ *
+ *  @brief 更新或新增数据
+ *
+ *  @param tableName 表名
+ *  @param predicate 修改条件
+ *  @param dataAry   修改参数
+ */
++ (NSArray *)cc_updateORInsertCoreData:(NSString *)tableName
+                             Predicate:(NSPredicate *)predicate
+                               DataAry:(NSArray *)dataAry;
+
+/**
+ *  @author CC, 16-08-09
+ *
+ *  @brief 更新或新增数据
+ *
+ *  @param tableName 表名
+ *  @param predicate 修改条件
+ *  @param data      修改参数
+ */
++ (id)cc_updateORInsertCoreData:(NSString *)tableName
+                      Predicate:(NSPredicate *)predicate
+                           Data:(NSDictionary *)data;
 
 /**
  *  @author CC, 2015-11-05

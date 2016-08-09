@@ -159,8 +159,8 @@ static CGSize attributedImageSize(CCTeletTextImage *imageData)
         if (!emojiImage)
             imageData.imageType = CCImageURLType;
 
-        if (adjustType != 0)
-            [imageData setURLImageSize];
+//        if (adjustType != 0)
+//            [imageData setURLImageSize];
 
         [imageArray addObject:imageData];
 

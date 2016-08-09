@@ -43,7 +43,7 @@
 
 #define kCCArrowMarginWidth 5.2f // 箭头宽度
 
-#define kCCTopAndBottomBubbleMargin 8.0f	 // 文本在气泡内部的上下间隙
+#define kCCTopAndBottomBubbleMargin 8.0f	  // 文本在气泡内部的上下间隙
 #define kCCLeftTextHorizontalBubblePadding 10.0f  // 文本的水平间隙
 #define kCCRightTextHorizontalBubblePadding 10.0f // 文本的水平间隙
 
@@ -371,16 +371,17 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             photoSize.height = photo.size.height < 30 ? 30 : photo.size.height;
         }
     } else {
-        CGSize imageSize = [CCMessageBubbleView obtainImageSizeWithURL:url];
-        if (imageSize.width != 0 || imageSize.height != 0) {
-            photoSize.width = imageSize.width > kCCMaxWidth ? kCCMaxWidth : imageSize.width;
-            photoSize.height = imageSize.height;
-            if (imageSize.width > kCCMaxWidth)
-                photoSize.height = (kCCMaxWidth / imageSize.width) * imageSize.width;
-
-            if (photoSize.height > kCCMaxHeight)
-                photoSize.height = kCCMaxHeight;
-        }
+        //网络请求滑动卡顿
+        //        CGSize imageSize = [CCMessageBubbleView obtainImageSizeWithURL:url];
+        //        if (imageSize.width != 0 || imageSize.height != 0) {
+        //            photoSize.width = imageSize.width > kCCMaxWidth ? kCCMaxWidth : imageSize.width;
+        //            photoSize.height = imageSize.height;
+        //            if (imageSize.width > kCCMaxWidth)
+        //                photoSize.height = (kCCMaxWidth / imageSize.width) * imageSize.width;
+        //
+        //            if (photoSize.height > kCCMaxHeight)
+        //                photoSize.height = kCCMaxHeight;
+        //        }
     }
 
     return photoSize;

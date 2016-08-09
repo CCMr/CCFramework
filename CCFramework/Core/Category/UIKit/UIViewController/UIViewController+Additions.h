@@ -31,6 +31,11 @@
 @interface UIViewController (Additions) <CCViewControllerProtocolDelegate>
 
 /**
+ *  @brief  找到当前viewcontroler所在的tableView
+ */
+@property(readonly) UITableView *tableView;
+
+/**
  *  @author CC, 16-03-15
  *
  *  @brief 是否隐藏底部TabBar

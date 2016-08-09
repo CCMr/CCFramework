@@ -49,7 +49,7 @@
 
 /**
  *  @author CC, 2015-10-30
- *  
+ *
  *  @brief  数据库新增
  *
  *  @param tableName  表名
@@ -78,7 +78,7 @@
                 DataArray:(NSArray *)dataArray
 {
     if (!dataArray.count) return;
-    
+
     [self cc_insertCoreData:tableName
                   DataArray:dataArray
                  completion:nil];
@@ -98,15 +98,15 @@
                completion:(void (^)(NSError *error))completion
 {
     if (!dataArray.count) return;
-    
+
     [self cc_saveAndWaitWithContextError:^(NSManagedObjectContext *currentContext) {
         for (NSDictionary *mapping in dataArray){
-            
+
             NSManagedObject *entity = [NSEntityDescription insertNewObjectForEntityForName:tableName inManagedObjectContext:currentContext];
-            
+
             NSArray *attributes = [entity allAttributeNames];
             NSArray *relationships = [entity allRelationshipNames];
-            
+
             [mapping.allKeys enumerateObjectsUsingBlock:^(id  _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
                 id remoteValue = [mapping objectForKey:key];
                 if (remoteValue) {
@@ -116,18 +116,18 @@
                         [entity mergeRelationshipForKey:key
                                               withValue:remoteValue
                                                   IsAdd:YES];
-                        
+
                     }
                 }
             }];
         }
-        
+
     } completion:completion];
 }
 
 /**
  *  @author CC, 2015-10-30
- *  
+ *
  *  @brief  新增对象并且返回
  *
  *  @param tableName 表名
@@ -144,7 +144,7 @@
 
 /**
  *  @author CC, 16-06-07
- *  
+ *
  *  @brief  新增对象并且返回数据库对象
  *
  *  @param tableName 表名
@@ -160,7 +160,7 @@
 
 /**
  *  @author CC, 2015-10-30
- *  
+ *
  *  @brief  新增对象并且返回当前对象(字典)
  *
  *  @param tableName 表名
@@ -173,8 +173,8 @@
 {
     __block NSMutableArray *objs = [NSMutableArray array];
     [dataArray enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        NSManagedObject *managedObject =[self objctWithData:tableName 
-                                                       Data:obj 
+        NSManagedObject *managedObject =[self objctWithData:tableName
+                                                       Data:obj
                                                   inContext:self.saveCurrentContext];
         [objs addObject:[managedObject changedDictionary]];
     }];
@@ -183,7 +183,7 @@
 
 /**
  *  @author CC, 16-05-25
- *  
+ *
  *  @brief   新增对象并且返回当前对象
  *
  *  @param tableName 表名
@@ -196,19 +196,61 @@
 {
     __block NSMutableArray *objs = [NSMutableArray array];
     [dataArray enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        
-        NSManagedObject *managedObject = [self objctWithData:tableName 
-                                                        Data:obj 
+
+        NSManagedObject *managedObject = [self objctWithData:tableName
+                                                        Data:obj
                                                    inContext:self.saveCurrentContext];
-        
+
         [objs addObject:managedObject];
     }];
     return objs;
 }
 
 /**
+ *  @author CC, 16-08-09
+ *
+ *  @brief 插入或更新
+ *
+ *  @param tableName 表名
+ *  @param predicate 插入条件
+ *  @param dataAry   参数
+ */
++ (id)cc_insertOrUpdateWtihData:(NSString *)tableName
+                      Predicate:(NSPredicate *)predicate
+                        DataAry:(NSArray *)dataAry
+{
+    __block NSMutableArray *objs = [NSMutableArray array];
+    [dataAry enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        [objs addObject:[self cc_insertOrUpdateWtihData:tableName
+                                              Predicate:predicate
+                                                   Data:obj]];
+    }];
+
+    return objs;
+}
+
+/**
+ *  @author CC, 16-08-09
+ *
+ *  @brief 插入或更新
+ *
+ *  @param tableName 表名
+ *  @param predicate 插入条件
+ *  @param data      参数
+ */
++ (id)cc_insertOrUpdateWtihData:(NSString *)tableName
+                      Predicate:(NSPredicate *)predicate
+                           Data:(NSDictionary *)data
+{
+    return [[self objctWithData:tableName
+                  SubPredicates:@[ predicate ]
+                           Data:data
+                      inContext:self.saveCurrentContext] changedDictionary];
+}
+
+/**
  *  @author CC, 2015-11-30
- *  
+ *
  *  @brief  新增或更新数据
  *
  *  @param tableName  表名
@@ -230,7 +272,7 @@
 
 /**
  *  @author CC, 2015-11-30
- *  
+ *
  *  @brief  新增或更新数据
  *
  *  @param tableName  表名
@@ -253,10 +295,10 @@
     } else if (attributeDes.attributeType == NSInteger64AttributeType) {
         remoteValue = [NSNumber numberWithLongLong:[remoteValue longLongValue]];
     }
-    
+
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", primaryKey, remoteValue];
     [subPredicates addObject:predicate];
-    
+
     return [self objctWithData:tableName
                  SubPredicates:subPredicates
                           Data:data
@@ -265,7 +307,7 @@
 
 /**
  *  @author CC, 2015-11-30
- *  
+ *
  *  @brief  新增或更新数据
  *
  *  @param tableName  表名
@@ -287,7 +329,7 @@
 
 /**
  *  @author CC, 2015-11-30
- *  
+ *
  *  @brief  新增或更新数据(字典)
  *
  *  @param tableName  表名
@@ -304,12 +346,12 @@
 {
     __block NSMutableArray *array = [NSMutableArray array];
     [dataArray enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        
-        NSManagedObject *managedObject = [self cc_insertOrUpdateWtihData:tableName 
-                                                              PrimaryKey:primaryKey 
-                                                                WithData:obj 
+
+        NSManagedObject *managedObject = [self cc_insertOrUpdateWtihData:tableName
+                                                              PrimaryKey:primaryKey
+                                                                WithData:obj
                                                                inContext:context];
-        
+
         [array addObject:[managedObject changedDictionary]];
     }];
     return array;
@@ -317,7 +359,7 @@
 
 /**
  *  @author CC, 16-05-25
- *  
+ *
  *  @brief  新增或更新数据(返回对象模型)
  *
  *  @param tableName  表名
@@ -334,12 +376,12 @@
 {
     __block NSMutableArray *array = [NSMutableArray array];
     [dataArray enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        
-        NSManagedObject *managedObject = [self cc_insertOrUpdateWtihData:tableName 
-                                                              PrimaryKey:primaryKey 
-                                                                WithData:obj 
+
+        NSManagedObject *managedObject = [self cc_insertOrUpdateWtihData:tableName
+                                                              PrimaryKey:primaryKey
+                                                                WithData:obj
                                                                inContext:context];
-        
+
         [array addObject:managedObject];
     }];
     return array;
@@ -365,10 +407,10 @@
     @autoreleasepool
     {
         entity = [NSEntityDescription insertNewObjectForEntityForName:tableName inManagedObjectContext:context];
-        
+
         NSArray *attributes = [entity allAttributeNames];
         NSArray *relationships = [entity allRelationshipNames];
-        
+
         [data.allKeys enumerateObjectsUsingBlock:^(id _Nonnull key, NSUInteger idx, BOOL *_Nonnull stop) {
             id remoteValue = [data objectForKey:key];
             if (remoteValue) {
@@ -378,7 +420,7 @@
                     [entity mergeRelationshipForKey:key
                                           withValue:remoteValue
                                               IsAdd:YES];
-                    
+
                 }
             }
         }];
