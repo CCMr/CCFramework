@@ -361,6 +361,8 @@
     UITableViewCellEditingStyle style = UITableViewCellEditingStyleNone;
     if (self.didEditingStyle)
         style = self.didEditingStyle(tableView, indexPath, [self currentModelAtIndexPath:indexPath]);
+    else if (self.didEditActionsBlock)
+        style = UITableViewCellEditingStyleDelete;
 
     return style;
 }

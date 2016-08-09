@@ -50,8 +50,6 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMediaType) {
  *  @author C C, 15-08-17
  *
  *  @brief  消息状态
- *
- *  @since 1.0
  */
 typedef NS_ENUM(NSInteger, CCMessageSendType) {
     /** 发送成功 **/
@@ -66,8 +64,6 @@ typedef NS_ENUM(NSInteger, CCMessageSendType) {
  *  @author C C, 15-08-17
  *
  *  @brief  消息体类型
- *
- *  @since 1.0
  */
 typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
     /** 发送 **/
@@ -83,7 +79,7 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 @required
 /**
  *  @author CC, 2016-01-21
- *  
+ *
  *  @brief 唯一ID
  */
 - (NSString *)uniqueID;
@@ -93,14 +89,14 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 
 /**
  *  @author CC, 2015-12-25
- *  
+ *
  *  @brief  图文对应路径(键值存放)
  */
 - (NSArray *)teletextPath;
 
 /**
  *  @author CC, 2016-12-28
- *  
+ *
  *  @brief  图文标示符，用于替换图片标示
  */
 - (NSString *)teletextReplaceStr;
@@ -134,7 +130,7 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 
 /**
  *  @author CC, 2015-11-16
- *  
+ *
  *  @brief  数据存储ID
  */
 - (NSManagedObjectID *)objectID;
@@ -148,8 +144,6 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
  *  @brief  发送消息状态
  *
  *  @return 返回消息状态
- *
- *  @since 1.0
  */
 - (CCMessageSendType)messageSendState;
 
@@ -157,8 +151,6 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
  *  @author CC, 15-08-17
  *
  *  @brief  消息体类型
- *
- *  @since <#1.0#>
  */
 - (CCBubbleMessageType)bubbleMessageType;
 
@@ -166,7 +158,7 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 
 /**
  *  @author CC, 2015-12-21
- *  
+ *
  *  @brief  是否显示名称
  */
 - (BOOL)shouldShowUserName;
@@ -175,23 +167,26 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
  *  @author CC, 15-08-17
  *
  *  @brief  发送人
- *
- *  @since 1.0
  */
 - (NSString *)sender;
+
+/**
+ *  @author CC, 16-08-06
+ *
+ *  @brief 发送人名字自定义样式
+ */
+- (NSAttributedString *)senderAttribute;
 
 /**
  *  @author CC, 15-08-17
  *
  *  @brief  发送时间戳
- *
- *  @since 1.0
  */
 - (NSDate *)timestamp;
 
 /**
  *  @author CC, 2015-12-05
- *  
+ *
  *  @brief  是否显示时间
  */
 -(BOOL) showdate;
@@ -200,8 +195,6 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
  *  @author CC, 15-08-17
  *
  *  @brief  是否阅读
- *
- *  @since 1.0
  */
 - (BOOL)isRead;
 - (void)setIsRead:(BOOL)isRead;

@@ -30,7 +30,7 @@ typedef NS_ENUM(NSInteger, CCImageTppe) {
  *
  *  @brief 图片
  */
-@property(nonatomic, copy) UIImage *image;
+@property(nonatomic, strong) UIImage *image;
 
 /**
  *  @author CC, 16-07-20

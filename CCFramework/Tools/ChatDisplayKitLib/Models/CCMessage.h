@@ -34,7 +34,7 @@
 
 /**
  *  @author CC, 2016-01-21
- *  
+ *
  *  @brief 唯一ID
  */
 @property(nonatomic, copy) NSString *uniqueID;
@@ -43,14 +43,14 @@
 
 /**
  *  @author CC, 2015-12-25
- *  
+ *
  *  @brief  图文对应路径(键值存放)
  */
 @property(nonatomic, copy) NSArray *teletextPath;
 
 /**
  *  @author CC, 2016-12-28
- *  
+ *
  *  @brief  图文标示符，用于替换图片标示
  */
 @property(nonatomic, copy) NSString *teletextReplaceStr;
@@ -84,7 +84,7 @@
 
 /**
  *  @author CC, 2015-11-16
- *  
+ *
  *  @brief  数据存储ID
  */
 @property(nonatomic, copy) NSManagedObjectID *objectID;
@@ -99,24 +99,29 @@
 @property(nonatomic, copy) NSString *sender;
 
 /**
+ *  @author CC, 16-08-06
+ *
+ *  @brief 发送人名字自定义样式
+ */
+@property(nonatomic, copy) NSAttributedString *senderAttribute;
+
+/**
  *  @author CC, 15-08-17
  *
  *  @brief  发送时间戳
- *
- *  @since 1.0
  */
 @property(nonatomic, strong) NSDate *timestamp;
 
 /**
  *  @author CC, 2015-12-05
- *  
+ *
  *  @brief  是否显示时间
  */
 @property(nonatomic, assign) BOOL showdate;
 
 /**
  *  @author CC, 2015-12-21
- *  
+ *
  *  @brief  是否显示名称
  */
 @property(nonatomic, assign) BOOL shouldShowUserName;
@@ -127,8 +132,6 @@
  *  @author CC, 15-08-17
  *
  *  @brief  媒体留言类型
- *
- *  @since 1.0
  */
 @property(nonatomic, assign) CCBubbleMessageMediaType messageMediaType;
 
@@ -136,8 +139,6 @@
  *  @author CC, 15-09-15
  *
  *  @brief  发送消息状态
- *
- *  @since 1.0
  */
 @property(nonatomic, assign) CCMessageSendType messageSendState;
 
@@ -145,8 +146,6 @@
  *  @author CC, 15-08-17
  *
  *  @brief  消息体类型
- *
- *  @since 1.0
  */
 @property(nonatomic, assign) CCBubbleMessageType bubbleMessageType;
 
@@ -154,14 +153,12 @@
  *  @author CC, 15-08-17
  *
  *  @brief  是否阅读
- *
- *  @since 1.0
  */
 @property(nonatomic) BOOL isRead;
 
 /**
  *  @author CC, 2015-11-16
- *  
+ *
  *  @brief  编辑状态下选中
  */
 @property(nonatomic) BOOL selected;
@@ -182,7 +179,7 @@
 
 /**
  *  @author CC, 2015-12-25
- *  
+ *
  *  @brief  初始化图文消息
  *
  *  @param text       发送的目标文本

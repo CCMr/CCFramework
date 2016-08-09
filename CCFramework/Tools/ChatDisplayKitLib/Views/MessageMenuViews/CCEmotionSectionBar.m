@@ -178,7 +178,7 @@
 
         storeManagerItemButton.layer.shadowColor = [UIColor lightGrayColor].CGColor;
         storeManagerItemButton.layer.shadowOffset = CGSizeMake(-2.0, 10);
-        storeManagerItemButton.layer.shadowOpacity = 0.5;
+        storeManagerItemButton.layer.shadowOpacity = 10;
         storeManagerItemButton.layer.shadowRadius = 10;
         [self addSubview:storeManagerItemButton];
         _storeManagerItemButton = storeManagerItemButton;
@@ -192,7 +192,7 @@
     self.storeManagerItemButton.backgroundColor = [UIColor whiteColor];
     [self.storeManagerItemButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     if (isSendButton) {
-        self.storeManagerItemButton.backgroundColor = [UIColor blueColor];
+        self.storeManagerItemButton.backgroundColor = [UIColor colorWithRed:46.f / 255.f green:169.f / 255.f blue:223.f / 255.f alpha:1.f];
         [self.storeManagerItemButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
 }

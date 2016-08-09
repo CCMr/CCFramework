@@ -117,7 +117,7 @@ static CGSize attributedImageSize(CCTeletTextImage *imageData)
               ReplaceLabel:(NSArray<NSString *> *)replaceLabel
                ReplacePath:(NSArray<NSString *> *)replacePath
                ReplaceSize:(NSArray<NSDictionary *> *)replaceSize
-                AdjustType:(NSInteger)adjustType
+                AdjustType:(NSArray *)adjustType
 {
     NSString *text = self.string;
 
@@ -148,7 +148,7 @@ static CGSize attributedImageSize(CCTeletTextImage *imageData)
 
         CCTeletTextImage *imageData = [CCTeletTextImage new];
         imageData.fontRef = fontRef;
-        imageData.adjustType = adjustType;
+        imageData.adjustType = [[adjustType objectAtIndex:i] integerValue];
         imageData.imageInsets = imageInset;
         imageData.imagePath = path;
         imageData.imageSize = size;

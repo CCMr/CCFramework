@@ -53,7 +53,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 /**
  *  @author CC, 2015-11-16
- *  
+ *
  *  @brief  编辑选择
  */
 @property(nonatomic, weak, readonly) UIImageView *selectedIndicator;
@@ -157,7 +157,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 #pragma mark - Menu Actions
 /**
  *  @author CC, 2015-11-16
- *  
+ *
  *  @brief  拷贝文案
  */
 - (void)copyed:(id)sender
@@ -168,7 +168,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 /**
  *  @author CC, 2015-11-16
- *  
+ *
  *  @brief  转发
  */
 - (void)transpond:(id)sender
@@ -180,7 +180,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 /**
  *  @author CC, 2015-11-16
- *  
+ *
  *  @brief  收藏
  */
 - (void)favorites:(id)sender
@@ -192,7 +192,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 /**
  *  @author CC, 2015-11-16
- *  
+ *
  *  @brief  撤回
  */
 - (void)withdraw:(id)sender
@@ -204,7 +204,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 /**
  *  @author CC, 2015-11-16
- *  
+ *
  *  @brief  删除
  */
 - (void)deletes:(id)sender
@@ -216,7 +216,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 /**
  *  @author CC, 2015-11-16
- *  
+ *
  *  @brief  更多
  */
 - (void)more:(id)sender
@@ -233,13 +233,13 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 {
     // 1、是否显示Time Line的label
     [self configureTimestamp:displayTimestamp atMessage:message];
-    
+
     // 2、配置头像
     [self configAvatarWithMessage:message];
-    
+
     // 3、配置用户名
     [self configUserNameWithMessage:message];
-    
+
     // 4、配置需要显示什么消息内容，比如语音、文字、视频、图片
     [self configureMessageBubbleViewWithMessage:message];
 }
@@ -258,7 +258,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 {
     UIImage *avatarPhoto = message.avatar;
     NSString *avatarURL = message.avatarUrl;
-    
+
     if (avatarPhoto) {
         [self configAvatarWithPhoto:avatarPhoto];
         if (avatarURL) {
@@ -288,6 +288,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (void)configUserNameWithMessage:(id<CCMessageModel>)message
 {
     self.userNameLabel.text = [message sender];
+    if ([message senderAttribute])
+        self.userNameLabel.attributedText = [message senderAttribute];
 }
 
 - (void)configureMessageBubbleViewWithMessage:(id<CCMessageModel>)message
@@ -346,7 +348,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (void)tapGestureRecognizerHandle:(UITapGestureRecognizer *)tapGestureRecognizer
 {
     [self updateMenuControllerVisiable];
-    
+
     if (self.isSelected)
         [self deselectCell];
     else if (self.shouldHighlight) // UITableView refuses selection if highlight is also refused.
@@ -362,7 +364,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 {
     if (longPressGestureRecognizer.state != UIGestureRecognizerStateBegan || ![self becomeFirstResponder])
         return;
-    
+
     NSArray *popMenuAry = [[CCConfigurationHelper appearance] popMenuTitles];
     NSMutableArray *menuItems = [[NSMutableArray alloc] init];
     for (int i = 0; i < popMenuAry.count; i++) {
@@ -405,15 +407,15 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             }
         }
     }
-    
+
     UIMenuController *menu = [UIMenuController sharedMenuController];
     [menu setMenuItems:menuItems];
-    
+
     CGRect targetRect = [self convertRect:[self.messageBubbleView bubbleFrame]
                                  fromView:self.messageBubbleView];
-    
+
     [menu setTargetRect:CGRectInset(targetRect, 0.0f, 4.0f) inView:self];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleMenuWillShowNotification:)
                                                  name:UIMenuControllerWillShowMenuNotification
@@ -458,7 +460,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIMenuControllerWillShowMenuNotification
                                                   object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleMenuWillHideNotification:)
                                                  name:UIMenuControllerWillHideMenuNotification
@@ -475,14 +477,14 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 + (CGFloat)calculateCellHeightWithMessage:(id<CCMessageModel>)message
                         displaysTimestamp:(BOOL)displayTimestamp
 {
-    
+
     // 第一，是否有时间戳的显示
     CGFloat timestampHeight = displayTimestamp ? (kCCTimeStampLabelHeight + kCCLabelPadding * 2) : 0;
-    
+
     CGFloat userInfoNeedHeight = kCCAvatarPaddingY + kCCAvatarImageSize + (message.shouldShowUserName ? kCCUserNameLabelHeight : 0) + kCCAvatarPaddingY + timestampHeight;
-    
+
     CGFloat bubbleMessageHeight = [CCMessageBubbleView calculateCellHeightWithMessage:message] + timestampHeight;
-    
+
     return MAX(bubbleMessageHeight, userInfoNeedHeight);
 }
 
@@ -494,12 +496,12 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.accessoryType = UITableViewCellAccessoryNone;
     self.accessoryView = nil;
-    
+
     UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognizerHandle:)];
     [recognizer setMinimumPressDuration:0.4f];
     [self addGestureRecognizer:recognizer];
-    
-    
+
+
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureRecognizerHandle:)];
     [self addGestureRecognizer:tapGestureRecognizer];
 }
@@ -511,14 +513,14 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     self = [self initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     if (self) {
         // 如果初始化成功，那就根据Message类型进行初始化控件，比如配置头像，配置发送和接收的样式
-        
+
         if (!_selectedIndicator) {
             UIImageView *selectedIndicator = [[UIImageView alloc] initWithFrame:CGRectMake(-30, 10, 30, 30)];
             selectedIndicator.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
             [self.contentView addSubview:selectedIndicator];
             _selectedIndicator = selectedIndicator;
         }
-        
+
         // 1、是否显示Time Line的label
         if (!_timestampLabel) {
             CCBadgeView *timestampLabel = [[CCBadgeView alloc] initWithFrame:CGRectMake(0, kCCLabelPadding, winsize.width, kCCTimeStampLabelHeight)];
@@ -531,7 +533,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             [self.contentView bringSubviewToFront:timestampLabel];
             _timestampLabel = timestampLabel;
         }
-        
+
         // 2、配置头像
         CGRect avatarButtonFrame;
         switch (message.bubbleMessageType) {
@@ -550,7 +552,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             default:
                 break;
         }
-        
+
         if (!_avatarButton) {
             UIButton *avatarButton = [[UIButton alloc] initWithFrame:avatarButtonFrame];
             [avatarButton setImage:[CCMessageAvatarFactory avatarImageNamed:[UIImage imageNamed:@"avatar"] messageAvatarType:CCMessageAvatarTypeCircle] forState:UIControlStateNormal];
@@ -558,18 +560,18 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             [self.contentView addSubview:avatarButton];
             self.avatarButton = avatarButton;
         }
-        
+
         if (message.shouldShowUserName) {
             // 3、配置用户名
             UILabel *userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.avatarButton.bounds) + 20, kCCUserNameLabelHeight)];
-            userNameLabel.textAlignment = NSTextAlignmentCenter;
+            //            userNameLabel.textAlignment = NSTextAlignmentCenter;
             userNameLabel.backgroundColor = [UIColor clearColor];
             userNameLabel.font = [UIFont systemFontOfSize:12];
             userNameLabel.textColor = [UIColor colorWithRed:0.140 green:0.635 blue:0.969 alpha:1.000];
             [self.contentView addSubview:userNameLabel];
             self.userNameLabel = userNameLabel;
         }
-        
+
         // 4、配置需要显示什么消息内容，比如语音、文字、视频、图片
         if (!_messageBubbleView) {
             // bubble container
@@ -617,7 +619,6 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
     // 布局头像
     CGFloat layoutOriginY = kCCAvatarPaddingY + (self.displayTimestamp ? kCCTimeStampLabelHeight : 0);
     CGRect avatarButtonFrame = self.avatarButton.frame;
@@ -629,43 +630,52 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             x -= kCCAvatarImageSize;
         avatarButtonFrame.origin.x = x;
     }
-    
     self.avatarButton.frame = avatarButtonFrame;
-    
-    if (self.messageBubbleView.message.shouldShowUserName) {
-        // 布局用户名
-        self.userNameLabel.center = CGPointMake(CGRectGetMidX(avatarButtonFrame), CGRectGetMaxY(avatarButtonFrame) + CGRectGetMidY(self.userNameLabel.bounds));
-    }
-    
+
     // 布局消息内容的View
     CGFloat bubbleX = 0.0f;
     CGFloat offsetX = 0.0f;
-    if ([self bubbleMessageType] == CCBubbleMessageTypeReceiving) {
+    if ([self bubbleMessageType] == CCBubbleMessageTypeReceiving)
         bubbleX = kCCAvatarImageSize + kCCAvatarPaddingX * 2;
-    } else {
+    else
         offsetX = kCCAvatarImageSize + kCCAvatarPaddingX * 2;
+
+    CGFloat timeStampLabelNeedHeight = kCCAvatarPaddingY;
+    if (self.displayTimestamp)
+        timeStampLabelNeedHeight = kCCTimeStampLabelHeight + kCCLabelPadding + kCCAvatarPaddingY;
+
+    if (self.messageBubbleView.message.shouldShowUserName) {
+        [self.userNameLabel sizeToFit];
+        // 布局用户名
+        CGRect userNameFrame = self.userNameLabel.frame;
+        userNameFrame.origin.y = timeStampLabelNeedHeight;
+        userNameFrame.origin.x = avatarButtonFrame.origin.x + avatarButtonFrame.size.width + kCCAvatarPaddingX;
+        if (self.bubbleMessageType != CCBubbleMessageTypeReceiving)
+            userNameFrame.origin.x = avatarButtonFrame.origin.x - userNameFrame.size.width - kCCAvatarPaddingX;
+        self.userNameLabel.frame = userNameFrame;
+
+        timeStampLabelNeedHeight += userNameFrame.size.height;
     }
-    CGFloat timeStampLabelNeedHeight = (self.displayTimestamp ? (kCCTimeStampLabelHeight + kCCLabelPadding) : 0);
-    
+
     CGRect bubbleMessageViewFrame = CGRectMake(bubbleX,
                                                timeStampLabelNeedHeight,
                                                CGRectGetWidth(self.contentView.bounds) - bubbleX - offsetX,
                                                CGRectGetHeight(self.contentView.bounds) - timeStampLabelNeedHeight);
     self.messageBubbleView.frame = bubbleMessageViewFrame;
-    
+
     self.messageBubbleView.userInteractionEnabled = YES;
     UITableView *edit = (UITableView *)self.superview.superview;
     if (edit.editing)
         self.messageBubbleView.userInteractionEnabled = NO;
-    
+
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationBeginsFromCurrentState:YES];
-    
+
     if (self.messageBubbleView.message.selected)
         [self.selectedIndicator setImage:CCResourceImage(@"AssetsYES")];
     else
         [self.selectedIndicator setImage:CCResourceImage(@"AssetsNO")];
-    
+
     [UIView commitAnimations];
 }
 
@@ -692,7 +702,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     self.messageBubbleView.voiceDurationLabel.text = nil;
     self.messageBubbleView.bubblePhotoImageView.messagePhoto = nil;
     self.messageBubbleView.geolocationsLabel.text = nil;
-    
+
     self.userNameLabel.text = nil;
     [self.avatarButton setImage:nil forState:UIControlStateNormal];
     self.timestampLabel.text = nil;
@@ -701,7 +711,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-    
+
     // Configure the view for the selected state
 }
 
@@ -711,7 +721,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 {
     self.containingTableView = nil;
     UIView *view = self.superview;
-    
+
     do {
         if ([view isKindOfClass:[UITableView class]]) {
             self.containingTableView = (UITableView *)view;
@@ -722,17 +732,17 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 - (void)selectCell
 {
-    
+
     NSIndexPath *cellIndexPath = [self.containingTableView indexPathForCell:self];
-    
+
     if ([self.containingTableView.delegate respondsToSelector:@selector(tableView:willSelectRowAtIndexPath:)]) {
         cellIndexPath = [self.containingTableView.delegate tableView:self.containingTableView
                                             willSelectRowAtIndexPath:cellIndexPath];
     }
-    
+
     if (cellIndexPath) {
         [self.containingTableView selectRowAtIndexPath:cellIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-        
+
         if ([self.containingTableView.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
             [self.containingTableView.delegate tableView:self.containingTableView
                                  didSelectRowAtIndexPath:cellIndexPath];
@@ -743,19 +753,19 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (void)deselectCell
 {
     NSIndexPath *cellIndexPath = [self.containingTableView indexPathForCell:self];
-    
+
     if ([self.containingTableView.delegate respondsToSelector:@selector(tableView:willDeselectRowAtIndexPath:)]) {
         cellIndexPath = [self.containingTableView.delegate
                          tableView:self.containingTableView
                          willDeselectRowAtIndexPath:cellIndexPath];
     }
-    
+
     if (cellIndexPath) {
         [self.containingTableView deselectRowAtIndexPath:cellIndexPath animated:NO];
-        
+
         if ([self.containingTableView.delegate respondsToSelector:@selector(tableView:didDeselectRowAtIndexPath:)])
         {
-            [self.containingTableView.delegate tableView:self.containingTableView 
+            [self.containingTableView.delegate tableView:self.containingTableView
                                didDeselectRowAtIndexPath:cellIndexPath];
         }
     }
@@ -764,15 +774,15 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (BOOL)shouldHighlight
 {
     BOOL shouldHighlight = YES;
-    
+
     if ([self.containingTableView.delegate respondsToSelector:@selector(tableView:shouldHighlightRowAtIndexPath:)])
     {
         NSIndexPath *cellIndexPath = [self.containingTableView indexPathForCell:self];
-        
-        shouldHighlight = [self.containingTableView.delegate tableView:self.containingTableView 
+
+        shouldHighlight = [self.containingTableView.delegate tableView:self.containingTableView
                                          shouldHighlightRowAtIndexPath:cellIndexPath];
     }
-    
+
     return shouldHighlight;
 }
 

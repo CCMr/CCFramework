@@ -24,7 +24,7 @@
  */
 - (void)setURLImageSize
 {
-    self.imageSize = [self getImageSizeWithURL:_imagePath];
+    _imageSize = [self getImageSizeWithURL:_imagePath];
 }
 
 // 根据图片url获取图片尺寸

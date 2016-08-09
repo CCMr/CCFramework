@@ -58,8 +58,15 @@ typedef void (^didClickLinkBlock)(CCTeletTextLabel *teletTextLabel, NSDictionary
 @property(nonatomic, strong) NSArray<NSString *> *replaceLabel;
 @property(nonatomic, strong) NSArray<NSString *> *replacePath;
 @property(nonatomic, strong) NSArray<NSDictionary *> *replaceSize;
+/**
+ *  @author CC, 16-08-06
+ *
+ *  @brief 针对每个图片大小调整
+ *         如果设置之后，adjustType 属性不使用
+ */
+@property(nonatomic, strong) NSArray *replaceAdjustType;
 
-@property (nonatomic,copy) NSAttributedString *attributedText;
+@property(nonatomic, copy) NSAttributedString *attributedText;
 
 /**
  * 选中超文本选中颜色
@@ -81,6 +88,7 @@ typedef void (^didClickLinkBlock)(CCTeletTextLabel *teletTextLabel, NSDictionary
  *  @author CC, 16-07-15
  *
  *  @brief 图片适应类型
+ *         设置replaceAdjustType属性后，该属性不使用
  */
 @property(nonatomic, assign) ImageAdjustType adjustType;
 

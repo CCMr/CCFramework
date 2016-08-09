@@ -26,6 +26,6 @@
               ReplaceLabel:(NSArray<NSString *> *)replaceLabel
                ReplacePath:(NSArray<NSString *> *)replacePath
                ReplaceSize:(NSArray<NSDictionary *> *)replaceSize
-                AdjustType:(NSInteger)adjustType;
+                AdjustType:(NSArray *)adjustType;
 
 @end

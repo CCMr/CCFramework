@@ -106,11 +106,19 @@ REGULAREXPRESSION(HashtagRegularExpression, @"#([\\u4e00-\\u9fa5\\w\\-]+)")
 - (void)setAttributedText:(NSAttributedString *)attributedText
 {
     self.mutableAttributedText = [attributedText mutableCopy];
+
+    if (!self.replaceAdjustType) {
+        NSMutableArray *adArray = [NSMutableArray array];
+        for (NSInteger i = 0; i < self.replaceLabel.count; i++)
+            [adArray addObject:@(self.adjustType)];
+        self.replaceAdjustType = adArray;
+    }
+
     self.imageArr = [self.mutableAttributedText analysisImage:self.font
                                                  ReplaceLabel:self.replaceLabel
                                                   ReplacePath:self.replacePath
                                                   ReplaceSize:self.replaceSize
-                                                   AdjustType:self.adjustType];
+                                                   AdjustType:self.replaceAdjustType];
     [self analysisLinks];
     self.size = [self.mutableAttributedText sizeWithWidth:self.width
                                             numberOfLines:self.numberOfLines];
