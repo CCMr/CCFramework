@@ -70,7 +70,7 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 
 - (void)initControl
 {
-
+    [self.view addSubview:self.backgroundView];
     UIView *view;
     if (NSClassFromString(@"WKWebView"))
         view = self.webWKView;
@@ -89,7 +89,7 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 {
     NSURL *url = [NSURL URLWithString:[self.urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
-    _originLable.text = [NSString stringWithFormat:@"网页由 %@ 提供", url.host];
+    self.originLable.text = [NSString stringWithFormat:@"网页由 %@ 提供", url.host];
 
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     if (NSClassFromString(@"WKWebView"))
@@ -100,7 +100,7 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 
 - (void)loadHTMLString
 {
-    _originLable.text = [NSString stringWithFormat:@"网页由 %@ 提供", AppName];
+    self.originLable.text = [NSString stringWithFormat:@"网页由 %@ 提供", AppName];
     if (NSClassFromString(@"WKWebView"))
         [self.webWKView loadHTMLString:self.htmlString baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
     else
@@ -140,7 +140,7 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
         _originLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, CGRectGetWidth(self.view.bounds), 20)];
         _originLable.backgroundColor = [UIColor clearColor];
         _originLable.textAlignment = NSTextAlignmentCenter;
-        _originLable.textColor = [UIColor whiteColor];
+        _originLable.textColor = [UIColor lightGrayColor];
         _originLable.font = [UIFont systemFontOfSize:12];
         _originLable.text = @"网页由 www.ccskill.com 提供";
     }
@@ -151,7 +151,7 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 {
     if (!_backgroundView) {
         _backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
-        [_backgroundView addSubview:_originLable];
+        [_backgroundView addSubview:self.originLable];
     }
     return _backgroundView;
 }
@@ -174,6 +174,9 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 {
     if (!_webWKView) {
         _webWKView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:self.configuration];
+        _webWKView.backgroundColor = [UIColor whiteColor];
+        _webWKView.opaque = NO;
+
         _webWKView.UIDelegate = self;
         _webWKView.navigationDelegate = self;
         _webWKView.allowsBackForwardNavigationGestures = YES;
@@ -227,14 +230,12 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 - (CCWebViewProgressView *)progressView
 {
     if (!_progressView) {
-        if (_webViewInitWithProgress) {
-            CGFloat progressBarHeight = 2.f;
-            CGRect navigaitonBarBounds = _webViewInitWithProgress.bounds;
-            CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);
-            _progressView = [[CCWebViewProgressView alloc] initWithFrame:barFrame];
-            _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-            [_webViewInitWithProgress addSubview:_progressView];
-        }
+        CGFloat progressBarHeight = 2.f;
+        CGRect navigaitonBarBounds = self.navigationController.navigationBar.bounds;
+        CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);
+        _progressView = [[CCWebViewProgressView alloc] initWithFrame:barFrame];
+        _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+        [self.navigationController.navigationBar addSubview:_progressView];
     }
     return _progressView;
 }
@@ -279,6 +280,7 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
         [self progressChanged:[change objectForKey:NSKeyValueChangeNewKey]];
     } else if ([keyPath isEqualToString:@"title"]) {
         _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.8];
+        self.webWKView.backgroundColor = [UIColor clearColor];
         self.title = change[NSKeyValueChangeNewKey];
     }
 }
@@ -364,8 +366,8 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
     } else {
         [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
         [self.webView removeObserver:self forKeyPath:@"title"];
-        [self.progressView removeFromSuperview];
     }
+    [self.progressView removeFromSuperview];
 }
 
 @end

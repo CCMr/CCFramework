@@ -40,10 +40,17 @@ typedef NS_ENUM(NSInteger, CCEmotionType) {
 
 /**
  *  @author CC, 2015-12-11
- *  
+ *
  *  @brief  表情名称
  */
 @property(nonatomic, copy) NSString *emotionName;
+
+/**
+ *  @author CC, 16-08-12
+ *
+ *  @brief 表情图片
+ */
+@property(nonatomic, copy) NSString *emotionIcon;
 
 /**
  *  某一类表情的数据源
@@ -52,14 +59,14 @@ typedef NS_ENUM(NSInteger, CCEmotionType) {
 
 /**
  *  @author CC, 2015-12-08
- *  
+ *
  *  @brief  列
  */
 @property(nonatomic, assign) NSInteger section;
 
 /**
  *  @author CC, 2015-12-08
- *  
+ *
  *  @brief  行
  */
 @property(nonatomic, assign) NSInteger row;

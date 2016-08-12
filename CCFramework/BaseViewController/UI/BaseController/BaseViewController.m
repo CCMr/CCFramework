@@ -366,8 +366,8 @@
 {
     [super viewWillAppear:animated];
 
-    NSString *mClassName = [NSString stringWithUTF8String:object_getClassName(self.navigationController.visibleViewController)];
-    CCNSLogger(@"viewDidAppear : %@", mClassName);
+    //    NSString *mClassName = [NSString stringWithUTF8String:object_getClassName(self.navigationController.visibleViewController)];
+    //    CCNSLogger(@"viewDidAppear : %@", mClassName);
 }
 
 /**

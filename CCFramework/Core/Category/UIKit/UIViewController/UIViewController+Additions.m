@@ -32,6 +32,7 @@
 #import "UITableView+Additions.h"
 #import "UITabBar+Additional.h"
 #import <objc/runtime.h>
+#import "CCNSLog.h"
 
 @import StoreKit;
 
@@ -108,6 +109,35 @@ NSString *const CCScrollingHandlerDidScrollBlock = @"CCScrollingHandlerDidScroll
 @end
 
 @implementation UIViewController (Additions)
+
+
+static inline void AutomaticWritingSwizzleSelector(Class class, SEL originalSelector, SEL swizzledSelector)
+{
+    Method originalMethod = class_getInstanceMethod(class, originalSelector);
+    Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+    if (class_addMethod(class, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod))) {
+        class_replaceMethod(class, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
+    } else {
+        method_exchangeImplementations(originalMethod, swizzledMethod);
+    }
+}
+
++ (void)load
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        AutomaticWritingSwizzleSelector([self class], @selector(viewWillAppear:), @selector(cc_viewWillAppear:));
+    });
+}
+
+- (void)cc_viewWillAppear:(BOOL)animated
+{
+    [self cc_viewWillAppear:animated];
+
+    NSString *mClassName = [NSString stringWithUTF8String:object_getClassName(self.navigationController.visibleViewController)];
+    CCNSLogger(@"viewDidAppear : %@", mClassName);
+}
+
 
 - (void)setBadgeValue:(NSString *)badgeValue
 {
@@ -1085,7 +1115,6 @@ NSString *const iTunesAppleString = @"itunes.apple.com";
     if (handler) {
         dispatch_async(dispatch_get_main_queue(), ^{
             handler(vc);
-            [self popViewControllerAnimated:YES];
         });
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{

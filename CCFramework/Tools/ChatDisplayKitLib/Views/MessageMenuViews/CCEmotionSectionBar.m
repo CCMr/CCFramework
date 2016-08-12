@@ -25,6 +25,7 @@
 
 
 #import "CCEmotionSectionBar.h"
+#import "UIButton+Additions.h"
 
 #define kCCStoreManagerItemWidth 50
 
@@ -128,7 +129,21 @@
         NSInteger index = [self.emotionManagers indexOfObject:emotionManager];
         UIButton *sectionButton = [self cratedButton];
         sectionButton.tag = index;
-        [sectionButton setTitle:emotionManager.emotionName forState:UIControlStateNormal];
+        if (emotionManager.emotionName)
+            [sectionButton setTitle:emotionManager.emotionName forState:UIControlStateNormal];
+        else if ([emotionManager.emotionIcon rangeOfString:@"http://"].location != NSNotFound) {
+            [sectionButton sd_setImageWithURL:[NSURL URLWithString:emotionManager.emotionIcon] forState:UIControlStateNormal];
+        } else {
+            UIImage *sourceImage = [UIImage imageWithContentsOfFile:emotionManager.emotionIcon];
+            UIGraphicsBeginImageContext(CGSizeMake(25, 25)); // this will crop
+            [sourceImage drawInRect:CGRectMake(0, 0, 25, 25)];
+            UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+
+            [sectionButton setImage:newImage forState:UIControlStateNormal];
+            [sectionButton setImage:newImage forState:UIControlStateHighlighted];
+        }
+
         sectionButton.titleLabel.font = [UIFont systemFontOfSize:14];
         [sectionButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 

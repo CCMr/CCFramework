@@ -31,7 +31,7 @@
 
 /**
  *  @author CC, 2015-12-04
- *  
+ *
  *  @brief  用来区分选中项比较
  */
 @property(nonatomic, strong) id fairly;
@@ -39,13 +39,14 @@
 @property(nonatomic, strong) NSURL *url;
 /**
  *  @author CC, 2015-11-27
- *  
+ *
  *  @brief  保存图片图片
  */
 @property(nonatomic, copy) NSString *savePath;
 @property(nonatomic, strong) UIImage *image;		// 完整的图片
 @property(nonatomic, strong) UIImage *thumbImage;       //缩略图
 @property(nonatomic, strong) UIImageView *srcImageView; // 来源view
+@property(nonatomic, assign) BOOL isFrame;		//是否使用Frame位置
 @property(nonatomic, strong) UIImage *Placeholder;
 @property(nonatomic, strong, readonly) UIImage *capture;
 
@@ -87,7 +88,7 @@
 
 /**
  *  @author CC, 2015-11-26
- *  
+ *
  *  @brief  压缩图片
  *
  *  @param size 最大像素大小

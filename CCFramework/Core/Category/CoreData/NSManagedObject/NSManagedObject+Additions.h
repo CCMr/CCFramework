@@ -140,7 +140,7 @@
 
 /**
  *  @author CC, 2015-10-29
- *  
+ *
  *  @brief  属性合并
  *
  *  @param attributeName 属性名
@@ -151,7 +151,7 @@
 
 /**
  *  @author CC, 16-05-20
- *  
+ *
  *  @brief  判断当前数据数据是否匹配
  *
  *  @param attributeName 属性名
@@ -162,7 +162,7 @@
 
 /**
  *  @author CC, 2015-10-29
- *  
+ *
  *  @brief  关系合并
  *
  *  @param relationshipName 关系对象名
@@ -175,7 +175,7 @@
 
 /**
  *  @author CC, 2015-10-29
- *  
+ *
  *  @brief  对象属性
  *
  *  @return 返回对象所有属性
@@ -184,7 +184,7 @@
 
 /**
  *  @author CC, 2015-10-29
- *  
+ *
  *  @brief  对象关系
  *
  *  @return 返回对象所有关系集合

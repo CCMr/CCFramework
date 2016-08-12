@@ -101,21 +101,8 @@
     return error;
 }
 
-static char UIB_PROPERTY_KEY;
-
-- (void)setTraversed:(BOOL)traversed
-{
-    objc_setAssociatedObject(self, &UIB_PROPERTY_KEY, @(traversed), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (BOOL)traversed
-{
-    return (BOOL)objc_getAssociatedObject(self, &UIB_PROPERTY_KEY);
-}
-
 - (NSDictionary *)changedDictionary
 {
-    self.traversed = YES;
     NSArray *attributes = self.entity.attributesByName.allKeys;
     NSArray *relationships = self.entity.relationshipsByName.allKeys;
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:[attributes count] + [relationships count] + 1];
@@ -137,24 +124,15 @@ static char UIB_PROPERTY_KEY;
             NSSet *relatedObjects = (NSSet *)value;
 
             NSMutableArray *dicSetArray = [NSMutableArray array];
-            for (NSManagedObject *relatedObject in relatedObjects) {
-                //                if (!relatedObject.traversed)
+            for (NSManagedObject *relatedObject in relatedObjects)
                 [dicSetArray addObject:[relatedObject changedDictionary]];
-            }
+
             [dict setObject:dicSetArray forKey:relationship];
-            /*
-             // Our set holds a collection of dictionaries
-             NSMutableSet* dictSet = [NSMutableSet setWithCapacity:[relatedObjects count]];
-             for (NSManagedObject* relatedObject in relatedObjects) {
-             if (!relatedObject.traversed)
-             [dictSet addObject:[relatedObject toDictionary]];
-             }
-             [dict setObject:dictSet forKey:relationship];
-             */
         } else if ([value isKindOfClass:[NSManagedObject class]]) {
             // To-one relationship
             NSManagedObject *relatedObject = (NSManagedObject *)value;
-            if (!relatedObject.traversed) {
+            //表名与关联字段必须一样并且全部是小写表名与关联字段必须一样 全部转小写比较
+            if ([[relatedObject.entity.name lowercaseString] isEqualToString:relationship]) {
                 // Call toDictionary on the referenced object and put the result back into our dictionary.
                 [dict setObject:[relatedObject changedDictionary] forKey:relationship];
             }
@@ -552,9 +530,18 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
     } else {
         id destinationObjs;
 
-        if ([desClassName isEqualToString:@"NSManagedObject"])
-            destinationObjs = [CoreDataMasterSlave cc_insertCoreDataWithObject:relationshipDes.destinationEntity.name DataDic:value];
-        else
+        if ([desClassName isEqualToString:@"NSManagedObject"]) {
+            NSString *primaryKey = [relationshipDes.destinationEntity.userInfo objectForKey:@"PrimaryKey"];
+            if (primaryKey) {
+                destinationObjs = [CoreDataMasterSlave cc_insertOrUpdateWtihData:relationshipDes.destinationEntity.name
+                                                                      PrimaryKey:primaryKey
+                                                                        WithData:value
+                                                                       inContext:self.managedObjectContext];
+            } else {
+                destinationObjs = [CoreDataMasterSlave cc_insertCoreDataWithObject:relationshipDes.destinationEntity.name
+                                                                           DataDic:value];
+            }
+        } else
             destinationObjs = [NSClassFromString(desClassName) cc_NewOrUpdateWithData:value inContext:self.managedObjectContext];
 
         [self setValue:destinationObjs forKey:relationshipName];

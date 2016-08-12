@@ -157,11 +157,11 @@
             }
 
             numberOfEmotions = (numberOfEmotions / (section * row) + (numberOfEmotions % (section * row) == 0 ? 0 : 1));
-            //添加每页删除按钮
-            numberOfEmotions = emotionManager.emotions.count + numberOfEmotions;
-            numberOfEmotions = (numberOfEmotions / (section * row) + (numberOfEmotions % (section * row) == 0 ? 0 : 1));
 
-            if (i == 0) {
+            if (emotionManager.emotionType == CCEmotionTypeSmall && i == 0) {
+                //添加每页删除按钮
+                numberOfEmotions = emotionManager.emotions.count + numberOfEmotions;
+                numberOfEmotions = (numberOfEmotions / (section * row) + (numberOfEmotions % (section * row) == 0 ? 0 : 1));
                 self.emotionPageControl.numberOfPages = numberOfEmotions;
                 self.emotionPageControl.currentPage = 0;
             }
@@ -169,20 +169,25 @@
             [self.indexs addObject:@(numberOfEmotions)];
 
 
-            NSInteger max = section * row - 1;
+            NSInteger max = section * row;
+            if (emotionManager.emotionType == CCEmotionTypeSmall)
+                max -= 1;
+
             for (int j = 0; j < numberOfEmotions; j++) {
 
                 NSArray *data = [emotionManager.emotions subarrayWithRange:NSMakeRange(j * max, j == numberOfEmotions - 1 ? (emotionManager.emotions.count - j * max) % (max + 1) : max)];
 
-                CCEmotionView *emotionView = [[CCEmotionView alloc] initWithFrame:frame
-                                                                          Section:section
-                                                                              Row:row
-                                                                       dataSource:data
-                                                                      EmotionType:emotionManager.emotionType];
-                //                emotionView.emotionType = emotionManager.emotionType;
-                emotionView.delegate = self;
-                [self.emotionScrollView addSubview:emotionView];
-                frame.origin.x += frame.size.width;
+                if (data.count) {
+                    CCEmotionView *emotionView = [[CCEmotionView alloc] initWithFrame:frame
+                                                                              Section:section
+                                                                                  Row:row
+                                                                           dataSource:data
+                                                                          EmotionType:emotionManager.emotionType];
+                    //                emotionView.emotionType = emotionManager.emotionType;
+                    emotionView.delegate = self;
+                    [self.emotionScrollView addSubview:emotionView];
+                    frame.origin.x += frame.size.width;
+                }
             }
         }
         self.emotionScrollView.contentSize = CGSizeMake(frame.origin.x, self.emotionScrollView.frame.size.height);
@@ -291,14 +296,15 @@
     if ([scrollView isEqual:self.emotionScrollView]) {
 
         NSInteger index = 0;
-        for (int i = 0; i <= _selectedIndex; i++)
+        NSInteger selectIndex = _selectedIndex;
+        for (int i = 0; i <= selectIndex; i++)
             index += [[self.indexs objectAtIndex:i] integerValue];
 
         if (currentPage > index - 1) {
             self.selectedIndex++;
             currentPage = 0;
         } else {
-            NSInteger ix = _selectedIndex == 0 ?: _selectedIndex - 1;
+            NSInteger ix = selectIndex;
             if (currentPage < [[self.indexs objectAtIndex:ix] integerValue])
                 self.selectedIndex--;
         }

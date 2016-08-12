@@ -390,9 +390,9 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 // 计算语音实际大小
 + (CGSize)neededSizeForVoicePath:(NSString *)voicePath voiceDuration:(NSString *)voiceDuration
 {
-    // 这里的100只是暂时固定，到时候会根据一个函数来计算
     float gapDuration = (!voiceDuration || voiceDuration.length == 0 ? -1 : [voiceDuration floatValue] - 1.0f);
-    CGSize voiceSize = CGSizeMake(100 + (gapDuration > 0 ? (120.0 / (60 - 1) * gapDuration) : 0), 42);
+    CGFloat secondW = 120.0 / (60 - 1);
+    CGSize voiceSize = CGSizeMake(50 + gapDuration * secondW, 42);
     return voiceSize;
 }
 

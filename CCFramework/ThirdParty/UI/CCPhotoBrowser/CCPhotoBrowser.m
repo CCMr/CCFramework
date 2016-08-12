@@ -156,6 +156,7 @@
             }];
             viewController.backPhotoBlock(array);
         }
+        [vc.navigationController popViewControllerAnimated:YES];
     }];
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deletePhoto)];

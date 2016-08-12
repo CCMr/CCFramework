@@ -87,7 +87,7 @@
     NSMutableDictionary *dictM = [NSMutableDictionary dictionary];
     dictM[NSFontAttributeName] = self.titleLabel.font;
     CGRect frame = [self.titleLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dictM context:nil];
-    
+
     CGRect imageFrame = self.imageView.frame;
     imageFrame.origin.x = self.bounds.size.width - cc_imageWidth;
     CGRect titleFrame = self.titleLabel.frame;
@@ -103,10 +103,10 @@
     //    设置文本的坐标
     CGFloat labelX = (cc_btnWidth - cc_labelWidth - cc_imageWidth - cc_padding) * 0.5;
     CGFloat labelY = (cc_btnHeight - cc_labelHeight) * 0.5;
-    
+
     //    设置label的frame
     self.titleLabel.frame = CGRectMake(labelX, labelY, cc_labelWidth, cc_labelHeight);
-    
+
     //    设置图片的坐标
     CGFloat imageX = CGRectGetMaxX(self.titleLabel.frame) + cc_padding;
     CGFloat imageY = (cc_btnHeight - cc_imageHeight) * 0.5;
@@ -121,10 +121,11 @@
     NSMutableDictionary *dictM = [NSMutableDictionary dictionary];
     dictM[NSFontAttributeName] = self.titleLabel.font;
     CGRect frame = [self.titleLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dictM context:nil];
-    
+
     CGFloat imageX = (cc_btnWidth - cc_imageWidth) * 0.5;
-    self.imageView.frame = CGRectMake(imageX, cc_btnHeight * 0.5 - cc_imageHeight * cc_buttonTopRadio, cc_imageWidth, cc_imageHeight);
-    self.titleLabel.frame = CGRectMake((self.center.x - frame.size.width) * 0.5, cc_btnHeight * 0.5 + cc_labelHeight * cc_buttonTopRadio, cc_labelWidth, cc_labelHeight);
+    CGFloat imageY = (cc_btnHeight - cc_imageHeight - cc_labelHeight) / 3;
+    self.imageView.frame = CGRectMake(imageX, imageY, cc_imageWidth, cc_imageHeight);
+    self.titleLabel.frame = CGRectMake((self.center.x - frame.size.width) * 0.5, imageY * 2 + cc_imageHeight, cc_labelWidth, cc_labelHeight);
     CGPoint labelCenter = self.titleLabel.center;
     labelCenter.x = self.imageView.center.x;
     self.titleLabel.center = labelCenter;
@@ -138,7 +139,7 @@
     NSMutableDictionary *dictM = [NSMutableDictionary dictionary];
     dictM[NSFontAttributeName] = self.titleLabel.font;
     CGRect frame = [self.titleLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dictM context:nil];
-    
+
     CGFloat imageX = (cc_btnWidth - cc_imageWidth) * 0.5;
     self.titleLabel.frame = CGRectMake((self.center.x - frame.size.width) * 0.5, cc_btnHeight * 0.5 - cc_labelHeight * (1 + cc_buttonBottomRadio), cc_labelWidth, cc_labelHeight);
     self.imageView.frame = CGRectMake(imageX, cc_btnHeight * 0.5, cc_imageWidth, cc_imageHeight);
@@ -155,7 +156,7 @@
     [super layoutSubviews];
     // 判断
     if (_status == CCAlignmentStatusNormal) {
-        
+
     } else if (_status == CCAlignmentStatusLeft) {
         [self alignmentLeft];
     }else if (_status == CCAlignmentStatusCenter){

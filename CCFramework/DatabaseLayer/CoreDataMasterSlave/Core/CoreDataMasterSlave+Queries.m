@@ -456,8 +456,7 @@
 {
     __block NSMutableArray *array = [NSMutableArray array];
     [data enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx,BOOL *_Nonnull stop) {
-        NSManagedObject *managedObject = obj;
-        [array addObject:[managedObject changedDictionary]];
+        [array addObject:[obj changedDictionary]];
     }];
     return array;
 }

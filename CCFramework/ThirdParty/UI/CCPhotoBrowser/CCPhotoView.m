@@ -35,8 +35,8 @@
     BOOL _doubleTap;
 }
 
-@property (nonatomic,assign) CGRect screenBounds;
-@property (nonatomic,assign) CGPoint screenCenter;
+@property(nonatomic, assign) CGRect screenBounds;
+@property(nonatomic, assign) CGPoint screenCenter;
 
 @property(nonatomic, copy) UIImageView *imageView;
 @property(nonatomic, copy) CCPhotoLoadingView *photoLoadingView;
@@ -232,7 +232,7 @@
     if (_photo.firstShow) { // 第一次显示的图片
         _photo.firstShow = NO; // 已经显示过了
         CGRect bounds = _photo.srcImageView.bounds;
-        if (bounds.origin.x == 0 && bounds.origin.y == 0)
+        if (_photo.isFrame)
             bounds = _photo.srcImageView.frame;
 
         _imageView.frame = [_photo.srcImageView convertRect:bounds toView:nil];
@@ -249,17 +249,19 @@
     }
 }
 
--(CGRect)frameWithW:(CGFloat)w h:(CGFloat)h center:(CGPoint)center{
+- (CGRect)frameWithW:(CGFloat)w h:(CGFloat)h center:(CGPoint)center
+{
 
-    CGFloat x = center.x - w *.5f;
+    CGFloat x = center.x - w * .5f;
     CGFloat y = center.y - h * .5f;
-    CGRect frame = (CGRect){CGPointMake(x, y),CGSizeMake(w, h)};
+    CGRect frame = (CGRect){CGPointMake(x, y), CGSizeMake(w, h)};
 
     return frame;
 }
 
--(CGPoint)screenCenter{
-    if(CGPointEqualToPoint(_screenCenter, CGPointZero)){
+- (CGPoint)screenCenter
+{
+    if (CGPointEqualToPoint(_screenCenter, CGPointZero)) {
         CGSize size = self.screenBounds.size;
         _screenCenter = CGPointMake(size.width * .5f, size.height * .5f);
     }
@@ -267,9 +269,10 @@
     return _screenCenter;
 }
 
--(CGRect)screenBounds{
+- (CGRect)screenBounds
+{
 
-    if(CGRectEqualToRect(_screenBounds, CGRectZero)){
+    if (CGRectEqualToRect(_screenBounds, CGRectZero)) {
 
         _screenBounds = [UIScreen mainScreen].bounds;
     }
@@ -318,7 +321,7 @@
     [UIView animateWithDuration:duration + 0.1 animations:^{
 
         CGRect bounds = _photo.srcImageView.bounds;
-        if (bounds.origin.x == 0 && bounds.origin.y == 0)
+        if (_photo.isFrame)
             bounds = _photo.srcImageView.frame;
 
         _imageView.frame = [_photo.srcImageView convertRect:bounds toView:nil];
