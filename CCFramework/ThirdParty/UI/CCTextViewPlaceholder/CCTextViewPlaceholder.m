@@ -104,6 +104,9 @@
     }
 }
 
+- (void)_firstBaselineOffsetFromTop {}
+- (void)_baselineOffsetFromBottom {}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

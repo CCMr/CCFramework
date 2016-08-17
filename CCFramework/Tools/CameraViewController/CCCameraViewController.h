@@ -35,10 +35,8 @@
  *
  *  @brief  启动相机或照片文件视图控制器
  *
- *  @param viewController <#viewController description#>
- *  @param complate       <#complate description#>
- *
- *  @since 1.0
+ *  @param viewController 当前显示ViewController
+ *  @param complate       回调函数
  */
 - (void)startCameraOrPhotoFileWithViewController:(UIViewController *)viewController
                                         complate:(Completion)complate;
@@ -48,10 +46,8 @@
  *
  *  @brief  启动相机试图控制器
  *
- *  @param viewController <#viewController description#>
- *  @param complate       <#complate description#>
- *
- *  @since <#1.0#>
+ *  @param viewController 当前显示ViewController
+ *  @param complate       回调函数
  */
 - (void)startCcameraWithViewController:(UIViewController *)viewController
                               complate:(Completion)complate;
@@ -61,10 +57,8 @@
  *
  *  @brief  启动照片文件夹试图
  *
- *  @param viewController <#viewController description#>
- *  @param complate       <#complate description#>
- *
- *  @since <#1.0#>
+ *  @param viewController 当前显示ViewController
+ *  @param complate       回调函数
  */
 - (void)startPhotoFileWithViewController:(UIViewController *)viewController
                                 complate:(Completion)complate;

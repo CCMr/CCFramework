@@ -620,6 +620,7 @@
 
 - (void)initilzer
 {
+    self.view.backgroundColor = [UIColor whiteColor];
     if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
@@ -1532,7 +1533,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
     id<CCMessageModel> message = [self.dataSource messageForRowAtIndexPath:indexPath];
 
     // 如果需要定制复杂的业务UI，那么就实现该DataSource方法

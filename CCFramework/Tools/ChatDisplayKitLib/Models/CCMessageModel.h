@@ -105,6 +105,7 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 - (UIImage *)photo;
 - (NSString *)thumbnailUrl;
 - (NSString *)originPhotoUrl;
+- (NSString *)savePath;
 
 #pragma mark - 视频
 - (UIImage *)videoConverPhoto;

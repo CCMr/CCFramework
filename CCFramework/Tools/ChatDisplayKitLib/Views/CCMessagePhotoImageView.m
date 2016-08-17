@@ -89,7 +89,7 @@
 - (void)setImageFilePath:(NSString *)imageFilePath
 {
     if ([imageFilePath rangeOfString:@"http://"].location != NSNotFound) {
-        [self.imageView sd_setImageWithURLStr:imageFilePath placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
+        [self.imageView sd_setImageWithURLStr:imageFilePath placeholderImage:[UIImage imageNamed:@"other_placeholderImg"]];
     } else {
         self.image = [UIImage cc_imageWithData:[NSData dataWithContentsOfFile:imageFilePath]];
     }

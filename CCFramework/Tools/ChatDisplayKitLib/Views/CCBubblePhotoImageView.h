@@ -53,11 +53,13 @@
  *  @param messagePhoto      目标图片
  *  @param thumbnailUrl      目标图片缩略图的URL链接
  *  @param originPhotoUrl    目标图片原图的URL链接
+ *  @param savePath          目标图片保存本地路径
  *  @param bubbleMessageType 目标消息类型
  */
 - (void)configureMessagePhoto:(UIImage *)messagePhoto
                  thumbnailUrl:(NSString *)thumbnailUrl
                originPhotoUrl:(NSString *)originPhotoUrl
+                     savePath:(NSString *)savePath
           onBubbleMessageType:(CCBubbleMessageType)bubbleMessageType;
 
 /**

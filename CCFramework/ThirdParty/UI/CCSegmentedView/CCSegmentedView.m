@@ -118,7 +118,6 @@
     self.shadeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, labelWidht, labelHeight)];
     self.shadeView.backgroundColor = self.tintColor;
     self.shadeView.clipsToBounds = YES;
-    self.shadeView.layer.cornerRadius = self.cornerRadius;
 
     [self addSubview:self.shadeView];
 
@@ -323,6 +322,27 @@
     _selectNumber = integer;
     self.shadeView.frame = CGRectMake(integer * labelWidht, 0, labelWidht, labelHeight);
     self.topLabelView.frame = CGRectMake(-integer * labelWidht, 0, self.frame.size.width, self.frame.size.height);
+
+    UIRectCorner corners = -1;
+    if (integer == 0) {
+        corners = UIRectCornerTopLeft | UIRectCornerBottomLeft;
+    } else if (integer == self.titles.count - 1) {
+        corners = UIRectCornerTopRight | UIRectCornerBottomRight;
+    }
+    [self fillet:corners];
+}
+
+- (void)fillet:(UIRectCorner)corners
+{
+    if (corners == -1) {
+        self.shadeView.layer.mask = nil;
+    } else {
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.shadeView.bounds byRoundingCorners:corners cornerRadii:CGSizeMake(self.cornerRadius, self.cornerRadius)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame = self.shadeView.bounds;
+        maskLayer.path = maskPath.CGPath;
+        self.shadeView.layer.mask = maskLayer;
+    }
 }
 
 @end

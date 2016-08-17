@@ -60,6 +60,13 @@
 @property(nonatomic, copy) NSString *thumbnailUrl;
 @property(nonatomic, copy) NSString *originPhotoUrl;
 
+/**
+ *  @author CC, 16-08-17
+ *
+ *  @brief 加载后保存路径
+ */
+@property(nonatomic, copy) NSString *savePath;
+
 #pragma mark - 视频
 @property(nonatomic, strong) UIImage *videoConverPhoto;
 @property(nonatomic, copy) NSString *videoPath;
@@ -209,6 +216,23 @@
 - (instancetype)initWithPhoto:(UIImage *)photo
                  thumbnailUrl:(NSString *)thumbnailUrl
                originPhotoUrl:(NSString *)originPhotoUrl
+                       sender:(NSString *)sender
+                    timestamp:(NSDate *)timestamp;
+
+/**
+ *  @author CC, 16-08-17
+ *
+ *  @brief 初始化图片类型的消息
+ *
+ *  @param photo        目标图片
+ *  @param thumbnailUrl 目标图片在服务器的缩略图地址
+ *  @param savePath     目标保存本地路径
+ *  @param sender       发送者
+ *  @param timestamp    发送时间
+ */
+- (instancetype)initWithPhoto:(UIImage *)photo
+                 thumbnailUrl:(NSString *)thumbnailUrl
+                     savePath:(NSString *)savePath
                        sender:(NSString *)sender
                     timestamp:(NSDate *)timestamp;
 

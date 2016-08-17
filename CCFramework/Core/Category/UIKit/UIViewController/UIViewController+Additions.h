@@ -45,8 +45,6 @@
 @property(nonatomic, strong) __kindof BaseViewModel *cc_viewModel;
 @property(nonatomic, strong) __kindof BaseViewManger *cc_viewManger;
 
-@property(nonatomic, copy) NSString *badgeValue;
-
 - (void)backButtonTouched:(void (^)(UIViewController *vc))backButtonHandler;
 
 /**

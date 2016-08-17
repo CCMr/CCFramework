@@ -95,7 +95,7 @@
 - (CCLoadLogoView *)cc_activityView
 {
     if (!_cc_activityView) {
-        CCLoadLogoView *loadingView = [[CCLoadLogoView alloc] initWithLogo:@"" Frame:CGRectMake(0, 0, 40, 40)];
+        CCLoadLogoView *loadingView = [[CCLoadLogoView alloc] initWithLogo:@"arrow" Frame:CGRectMake(0, 0, 40, 40)];
         [loadingView setLineColor:[UIColor lightGrayColor]];
         [self addSubview:_cc_activityView = loadingView];
     }

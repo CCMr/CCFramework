@@ -331,12 +331,34 @@ typedef void (^Outcomeblock)(NSString *outcome);
     _outcomeblock = block;
 }
 
+/**
+ *  @author CC, 16-08-16
+ *
+ *  @brief 判断是否有使用相机权限
+ */
+- (BOOL)isCameraUsageRights
+{
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo]; //读取设备授权状态
+    BOOL isCamera = YES;
+    if (authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied) {
+        NSDictionary *applicationInfo = [[NSBundle mainBundle] infoDictionary];
+        NSString *applicationName = [applicationInfo objectForKey:(NSString *)kCFBundleNameKey]; //app名称
+        UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"请在iPhone的“设置-隐私-相机”选项中，允许%@访问你的相机。",applicationName] delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
+        [alerView show];
+        isCamera = NO;
+    }
+    return isCamera;
+}
+
+
 #pragma mark - Life Cycle
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self.captureHelper showCaptureOnView:self.preview];
+
+    [self isCameraUsageRights];
 }
 
 - (void)viewDidLoad

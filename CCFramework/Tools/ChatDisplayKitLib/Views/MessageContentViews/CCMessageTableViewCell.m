@@ -30,6 +30,7 @@
 #import "CCConfigurationHelper.h"
 #import "CCMessageAvatarFactory.h"
 #import "UIView+Method.h"
+#import "CCMessage.h"
 
 static const CGFloat kCCLabelPadding = 3.0f;
 static const CGFloat kCCTimeStampLabelHeight = 20.0f;
@@ -173,9 +174,14 @@ static const CGFloat kCCUserNameLabelHeight = 20;
  */
 - (void)transpond:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(didSelectedMenuTranspond:atIndexPath:)])
-        [self.delegate didSelectedMenuTranspond:self.messageBubbleView.message
+    if ([self.delegate respondsToSelector:@selector(didSelectedMenuTranspond:atIndexPath:)]) {
+        CCMessage *message = self.messageBubbleView.message;
+        if (message.messageMediaType == CCBubbleMessageMediaTypePhoto)
+            message.photo = self.messageBubbleView.bubblePhotoImageView.messagePhoto;
+
+        [self.delegate didSelectedMenuTranspond:message
                                     atIndexPath:self.indexPath];
+    }
 }
 
 /**
@@ -365,41 +371,39 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     if (longPressGestureRecognizer.state != UIGestureRecognizerStateBegan || ![self becomeFirstResponder])
         return;
 
-    NSArray *popMenuAry = [[CCConfigurationHelper appearance] popMenuTitles];
+    NSArray *popMenuAry = @[ CCLocalization(@"复制"),
+                             CCLocalization(@"转发"),
+                             CCLocalization(@"收藏"),
+                             //CCLocalization(@"撤回"),
+                             CCLocalization(@"删除"),
+                             CCLocalization(@"更多") ];
+    if ([self.messageBubbleView.message messageMediaType] == CCBubbleMessageMediaTypeVoice) {
+        popMenuAry = @[ CCLocalization(@"复制"),
+                        CCLocalization(@"收藏"),
+                        CCLocalization(@"删除"),
+                        CCLocalization(@"更多") ];
+        ;
+    }
+
     NSMutableArray *menuItems = [[NSMutableArray alloc] init];
-    for (int i = 0; i < popMenuAry.count; i++) {
-        NSString *title = popMenuAry[i];
+
+    for (NSString *title in popMenuAry) {
         SEL action = nil;
-        switch (i) {
-            case 0: {
-                if ([self.messageBubbleView.message messageMediaType] == CCBubbleMessageMediaTypeText) {
-                    action = @selector(copyed:);
-                }
-                break;
-            }
-            case 1: {
-                action = @selector(transpond:);
-                break;
-            }
-            case 2: {
-                action = @selector(favorites:);
-                break;
-            }
-            case 3: {
-                action = @selector(withdraw:);
-                break;
-            }
-            case 4: {
-                action = @selector(deletes:);
-                break;
-            }
-            case 5: {
-                action = @selector(more:);
-                break;
-            }
-            default:
-                break;
+        if ([title isEqualToString:@"复制"]) {
+            if ([self.messageBubbleView.message messageMediaType] == CCBubbleMessageMediaTypeText)
+                action = @selector(copyed:);
+        } else if ([title isEqualToString:@"转发"]) {
+            action = @selector(transpond:);
+        } else if ([title isEqualToString:@"收藏"]) {
+            action = @selector(favorites:);
+        } else if ([title isEqualToString:@"撤回"]) {
+            action = @selector(withdraw:);
+        } else if ([title isEqualToString:@"删除"]) {
+            action = @selector(deletes:);
+        } else if ([title isEqualToString:@"更多"]) {
+            action = @selector(more:);
         }
+
         if (action) {
             UIMenuItem *item = [[UIMenuItem alloc] initWithTitle:title action:action];
             if (item) {
@@ -525,8 +529,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         if (!_timestampLabel) {
             CCBadgeView *timestampLabel = [[CCBadgeView alloc] initWithFrame:CGRectMake(0, kCCLabelPadding, winsize.width, kCCTimeStampLabelHeight)];
             timestampLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-            timestampLabel.badgeColor = [UIColor colorWithWhite:0.734 alpha:1.000];
-            timestampLabel.textColor = [UIColor whiteColor];
+            timestampLabel.badgeColor = [UIColor clearColor]; //[UIColor colorWithWhite:0.734 alpha:1.000];
+            timestampLabel.textColor = cc_ColorRGB(51, 58, 79); //[UIColor whiteColor];
             timestampLabel.font = [UIFont systemFontOfSize:10.0f];
             timestampLabel.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) / 2.0, timestampLabel.center.y);
             [self.contentView addSubview:timestampLabel];
@@ -555,7 +559,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
         if (!_avatarButton) {
             UIButton *avatarButton = [[UIButton alloc] initWithFrame:avatarButtonFrame];
-            [avatarButton setImage:[CCMessageAvatarFactory avatarImageNamed:[UIImage imageNamed:@"avatar"] messageAvatarType:CCMessageAvatarTypeCircle] forState:UIControlStateNormal];
+            [avatarButton setImage:[CCMessageAvatarFactory avatarImageNamed:[UIImage imageNamed:@"avator"] messageAvatarType:CCMessageAvatarTypeCircle] forState:UIControlStateNormal];
             [avatarButton addTarget:self action:@selector(avatarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
             avatarButton.layer.cornerRadius = 5;
             avatarButton.layer.masksToBounds = YES;

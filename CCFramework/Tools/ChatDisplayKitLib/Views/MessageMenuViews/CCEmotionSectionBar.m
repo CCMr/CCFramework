@@ -87,6 +87,7 @@
 - (void)didSectionBarSend:(UIButton *)sender
 {
     if ([self.delegate respondsToSelector:@selector(didSectionBarSend)]) {
+        self.isSendButton = NO;
         [self.delegate didSectionBarSend];
     }
 }
@@ -206,7 +207,9 @@
 
     self.storeManagerItemButton.backgroundColor = [UIColor whiteColor];
     [self.storeManagerItemButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    self.storeManagerItemButton.enabled = NO;
     if (isSendButton) {
+        self.storeManagerItemButton.enabled = YES;
         self.storeManagerItemButton.backgroundColor = [UIColor colorWithRed:46.f / 255.f green:169.f / 255.f blue:223.f / 255.f alpha:1.f];
         [self.storeManagerItemButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }

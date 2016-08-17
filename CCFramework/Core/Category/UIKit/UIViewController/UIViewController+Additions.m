@@ -138,13 +138,6 @@ static inline void AutomaticWritingSwizzleSelector(Class class, SEL originalSele
     CCNSLogger(@"viewDidAppear : %@", mClassName);
 }
 
-
-- (void)setBadgeValue:(NSString *)badgeValue
-{
-    UIViewController *tController = [self.tabBarController.viewControllers objectAtIndex:self.tabBarController.selectedIndex];
-    tController.tabBarItem.badgeValue = badgeValue;
-}
-
 - (UITableView *)tableView
 {
     return [self.view findSubViewWithSubViewClass:[UITableView class]];

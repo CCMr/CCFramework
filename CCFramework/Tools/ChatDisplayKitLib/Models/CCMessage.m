@@ -106,6 +106,37 @@
 }
 
 /**
+ *  @author CC, 16-08-17
+ *
+ *  @brief 初始化图片类型的消息
+ *
+ *  @param photo        目标图片
+ *  @param thumbnailUrl 目标图片在服务器的缩略图地址
+ *  @param savePath     目标保存本地路径
+ *  @param sender       发送者
+ *  @param timestamp    发送时间
+ */
+- (instancetype)initWithPhoto:(UIImage *)photo
+                 thumbnailUrl:(NSString *)thumbnailUrl
+                     savePath:(NSString *)savePath
+                       sender:(NSString *)sender
+                    timestamp:(NSDate *)timestamp
+{
+    self = [super init];
+    if (self) {
+        self.photo = photo;
+        self.thumbnailUrl = thumbnailUrl;
+        self.savePath = savePath;
+
+        self.sender = sender;
+        self.timestamp = timestamp;
+
+        self.messageMediaType = CCBubbleMessageMediaTypePhoto;
+    }
+    return self;
+}
+
+/**
  *  初始化视频类型的消息
  *
  *  @param videoConverPhoto 目标视频的封面图
@@ -267,6 +298,7 @@
         _photo = [aDecoder decodeObjectForKey:@"photo"];
         _thumbnailUrl = [aDecoder decodeObjectForKey:@"thumbnailUrl"];
         _originPhotoUrl = [aDecoder decodeObjectForKey:@"originPhotoUrl"];
+        _savePath = [aDecoder decodeObjectForKey:@"savePath"];
 
         _videoConverPhoto = [aDecoder decodeObjectForKey:@"videoConverPhoto"];
         _videoPath = [aDecoder decodeObjectForKey:@"videoPath"];
@@ -309,6 +341,7 @@
     [aCoder encodeObject:self.photo forKey:@"photo"];
     [aCoder encodeObject:self.thumbnailUrl forKey:@"thumbnailUrl"];
     [aCoder encodeObject:self.originPhotoUrl forKey:@"originPhotoUrl"];
+    [aCoder encodeObject:self.savePath forKey:@"savePath"];
 
     [aCoder encodeObject:self.videoConverPhoto forKey:@"videoConverPhoto"];
     [aCoder encodeObject:self.videoPath forKey:@"videoPath"];
@@ -349,45 +382,53 @@
             message = [[[self class] allocWithZone:zone] initWithText:[self.text copy]
                                                                sender:[self.sender copy]
                                                             timestamp:[self.timestamp copy]];
+            break;
         case CCBubbleMessageMediaTypePhoto:
             message = [[[self class] allocWithZone:zone] initWithPhoto:[self.photo copy]
                                                           thumbnailUrl:[self.thumbnailUrl copy]
                                                         originPhotoUrl:[self.originPhotoUrl copy]
                                                                 sender:[self.sender copy]
                                                              timestamp:[self.timestamp copy]];
+            break;
         case CCBubbleMessageMediaTypeVideo:
             message = [[[self class] allocWithZone:zone] initWithVideoConverPhoto:[self.videoConverPhoto copy]
                                                                         videoPath:[self.videoPath copy]
                                                                          videoUrl:[self.videoUrl copy]
                                                                            sender:[self.sender copy]
                                                                         timestamp:[self.timestamp copy]];
+            break;
         case CCBubbleMessageMediaTypeVoice:
             message = [[[self class] allocWithZone:zone] initWithVoicePath:[self.voicePath copy]
                                                                   voiceUrl:[self.voiceUrl copy]
                                                              voiceDuration:[self.voiceDuration copy]
                                                                     sender:[self.sender copy]
                                                                  timestamp:[self.timestamp copy]];
+            break;
         case CCBubbleMessageMediaTypeEmotion:
             message = [[[self class] allocWithZone:zone] initWithEmotionPath:[self.emotionPath copy]
                                                                   EmotionUrl:self.emotionUrl
                                                                       sender:[self.sender copy]
                                                                    timestamp:[self.timestamp copy]];
+            break;
         case CCBubbleMessageMediaTypeLocalPosition:
             message = [[[self class] allocWithZone:zone] initWithLocalPositionPhoto:[self.localPositionPhoto copy]
                                                                        geolocations:self.geolocations
                                                                            location:[self.location copy]
                                                                              sender:[self.sender copy]
                                                                           timestamp:[self.timestamp copy]];
+            break;
         case CCBubbleMessageMediaTypeTeletext:
             message = [[[self class] allocWithZone:zone] initWithTeletext:[self.text copy]
                                                                TelextPath:[self.teletextPath copy]
                                                        TeletextReplaceStr:[self.teletextReplaceStr copy]
                                                                    sender:[self.sender copy]
                                                                 timestamp:[self.timestamp copy]];
+            break;
         default:
             break;
     }
 
+    message.savePath = _savePath;
     message.objectID = _objectID;
     message.avatar = _avatar;
     message.sender = _sender;
@@ -415,6 +456,7 @@
     _photo = nil;
     _thumbnailUrl = nil;
     _originPhotoUrl = nil;
+    _savePath = nil;
 
     _videoConverPhoto = nil;
     _videoPath = nil;
