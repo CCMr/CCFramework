@@ -126,14 +126,14 @@ void hack_uiimageview_bf();
 
 /**
  Sets the image property of the view based on initial text. A random background color is automatically generated.
- 
+
  @param string The string used to generate the initials. This should be a user's full name if available
  */
 - (void)setImageWithString:(NSString *)string;
 
 /**
  Sets the image property of the view based on initial text and a specified background color.
- 
+
  @param string The string used to generate the initials. This should be a user's full name if available
  @param color (optional) This optional paramter sets the background of the image. If not provided, a random color will be generated
  */
@@ -143,7 +143,7 @@ void hack_uiimageview_bf();
 
 /**
  Sets the image property of the view based on initial text, a specified background color, and a circular clipping
- 
+
  @param string The string used to generate the initials. This should be a user's full name if available
  @param color (optional) This optional paramter sets the background of the image. If not provided, a random color will be generated
  @param isCircular This boolean will determine if the image view will be clipped to a circular shape
@@ -154,7 +154,7 @@ void hack_uiimageview_bf();
 
 /**
  Sets the image property of the view based on initial text, a specified background color, a custom font, and a circular clipping
- 
+
  @param string The string used to generate the initials. This should be a user's full name if available
  @param color (optional) This optional paramter sets the background of the image. If not provided, a random color will be generated
  @param isCircular This boolean will determine if the image view will be clipped to a circular shape
@@ -167,7 +167,7 @@ void hack_uiimageview_bf();
 
 /**
  Sets the image property of the view based on initial text, a specified background color, custom text attributes, and a circular clipping
- 
+
  @param string The string used to generate the initials. This should be a user's full name if available
  @param color (optional) This optional paramter sets the background of the image. If not provided, a random color will be generated
  @param isCircular This boolean will determine if the image view will be clipped to a circular shape
@@ -196,34 +196,33 @@ void hack_uiimageview_bf();
  * Usage with a UITableViewCell sub-class:
  *
  * @code
- 
+
  #import <SDWebImage/UIImageView+WebCache.h>
- 
+
  ...
- 
+
  - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
  {
  static NSString *MyIdentifier = @"MyIdentifier";
- 
+
  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
- 
+
  if (cell == nil) {
  cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier]
  autorelease];
  }
- 
+
  // Here we use the provided sd_setImageWithURL: method to load the web image
  // Ensure you use a placeholder image otherwise cells will be initialized with no image
  [cell.imageView sd_setImageWithURL:[NSURL URLWithString:@"http://example.com/image.jpg"]
  placeholderImage:[UIImage imageNamed:@"placeholder"]];
- 
+
  cell.textLabel.text = @"My Text";
  return cell;
  }
- 
+
  * @endcode
  */
-
 
 
 /**
@@ -374,7 +373,7 @@ void hack_uiimageview_bf();
  */
 - (void)setIndicatorStyle:(UIActivityIndicatorViewStyle)style;
 
-#pragma mark-
+#pragma mark -
 #pragma mark :. HighlightedWebCache
 
 /**
@@ -445,6 +444,71 @@ void hack_uiimageview_bf();
  * Cancel the current download
  */
 - (void)sd_cancelCurrentHighlightedImageLoad;
+
+
+#pragma mark - 2G/3G/4G点击加载图片、WIFI自动加载
+
+/**
+ *  @author CC, 16-08-23
+ *
+ *  @brief 加载完成后 给图片设置的contentMode
+ */
+@property UIViewContentMode loadedViewContentMode;
+
+/**
+ *  @author CC, 16-08-23
+ *
+ *  @brief 图片点击事件  不用再手动添加UITapGestureRecognizer
+ */
+@property(nonatomic, copy) void (^onTouchTapBlock)(UIImageView *imageView);
+
+/**
+ *  @author CC, 16-08-23
+ *
+ *  @brief 网络判断加载图片
+ *
+ *  @param url         图片请求网址
+ *  @param placeholder 默认图片
+ */
+- (void)cc_setImageWithURL:(NSURL *)url
+          placeholderImage:(UIImage *)placeholder;
+
+/**
+ *  @author CC, 16-08-23
+ *
+ *  @brief 网络判断加载图片
+ *
+ *  @param url              图片请求网址
+ *  @param placeholder      默认图片
+ *  @param errorPlaceholder 错误图片
+ */
+- (void)cc_setImageWithURL:(NSURL *)url
+          placeholderImage:(UIImage *)placeholder
+     ErrorPlaceholderImage:(UIImage *)errorPlaceholder;
+
+/**
+ *  @author CC, 16-08-23
+ *
+ *  @brief 网络判断加载图片
+ *
+ *  @param urlString   图片地址
+ *  @param placeholder 默认图片
+ */
+- (void)cc_setImageWithURLStr:(NSString *)urlString
+             placeholderImage:(UIImage *)placeholder;
+
+/**
+ *  @author CC, 16-08-23
+ *
+ *  @brief 网络判断加载图片
+ *
+ *  @param urlString        图片地址
+ *  @param placeholder      默认图片
+ *  @param errorPlaceholder 错图图片
+ */
+- (void)cc_setImageWithURLStr:(NSString *)urlString
+             placeholderImage:(UIImage *)placeholder
+        ErrorPlaceholderImage:(UIImage *)errorPlaceholder;
 
 @end
 

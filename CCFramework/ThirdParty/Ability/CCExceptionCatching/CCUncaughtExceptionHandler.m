@@ -98,9 +98,10 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
     NSMutableArray *crashArray = [NSMutableArray arrayWithArray:[CCUserDefaultsCrash manager].crashArray];
     
     NSMutableDictionary *carsDic = [NSMutableDictionary dictionary];
-    [carsDic setObject:exception.name forKey:@"type"];
+    [carsDic setObject:exception.name forKey:@"ErrName"];
     [carsDic setObject:[NSDate date] forKey:@"ErrDate"];
     [carsDic setObject:errorStr forKey:@"ErrMsg"];
+    [carsDic setObject:@"6" forKey:@"ErrType"];
     [crashArray addObject:carsDic];
     
     [[CCDebugCrashHelper manager] saveCrashException:carsDic];

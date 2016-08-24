@@ -56,7 +56,7 @@
 
 /**
  *  @author CC, 2015-12-11
- *  
+ *
  *  @brief  根据值生成唯一ID
  */
 - (NSString *)pathForTemporaryFileWithPrefix;
@@ -68,7 +68,7 @@
  */
 - (NSDictionary *)dictionaryValue;
 
-#pragma mark-
+#pragma mark -
 #pragma mark :. QueryDictionary
 /**
  *  @return If the receiver is a valid URL query component, returns
@@ -77,7 +77,7 @@
  */
 - (NSDictionary *)cc_URLQueryDictionary;
 
-#pragma mark-
+#pragma mark -
 #pragma mark :. XML
 
 /**
@@ -85,7 +85,7 @@
  *
  *  @return NSDictionary
  */
--(NSDictionary *)dictionaryFromXML;
+- (NSDictionary *)dictionaryFromXML;
 
 #pragma mark--- 转换
 
@@ -114,13 +114,13 @@
 
 /**
  *  @author CC, 2015-12-02
- *  
+ *
  *  @brief  字符串转换日期带'T'
  */
 - (NSDate *)convertingTStringsToDate;
 
 /**
- *  @author C C, 2015-07-22 
+ *  @author C C, 2015-07-22
  *
  *  @brief  转换货币格式
  */
@@ -173,14 +173,14 @@
 
 /**
  *  @author CC, 16-02-02
- *  
+ *
  *  @brief 计算文字长宽
  *
  *  @param MaxWith 最大宽度
  *  @param font    字体
  */
 - (CGSize)calculateTextWidthWidth:(CGFloat)MaxWith
-                              Font:(UIFont *)font;
+                             Font:(UIFont *)font;
 
 /**
  *  @brief 计算文字的高度
@@ -420,7 +420,7 @@
 
 /**
  *  @author CC, 2016-12-29
- *  
+ *
  *  @brief  字符串字节长度
  */
 - (NSInteger)byteLength;
@@ -432,10 +432,10 @@
  Returns a NSString in which any occurrences that match the cheat codes
  from Emoji Cheat Sheet  are replaced by the
  corresponding unicode characters.
- 
- Example: 
+
+ Example:
  "This is a smiley face :smiley:"
- 
+
  Will be replaced with:
  "This is a smiley face \U0001F604"
  */
@@ -445,10 +445,10 @@
  Returns a NSString in which any occurrences that match the unicode characters
  of the emoji emoticons are replaced by the corresponding cheat codes from
  Emoji Cheat Sheet
- 
+
  Example:
  "This is a smiley face \U0001F604"
- 
+
  Will be replaced with:
  "This is a smiley face :smiley:"
  */
@@ -585,7 +585,7 @@
  (?(exp)yes) 	同上，只是使用空表达式作为no
  (?(name)yes|no) 如果命名为name的组捕获到了内容，使用yes作为表达式；否则使用no
  (?(name)yes) 	同上，只是使用空表达式作为no
- 
+
  捕获
  (exp)               匹配exp,并捕获文本到自动命名的组里
  (?<name>exp)        匹配exp,并捕获文本到名称为name的组里，也可以写成(?'name'exp)
@@ -597,7 +597,7 @@
  (?<!exp)            匹配前面不是exp的位置
  注释
  (?#comment)         这种类型的分组不对正则表达式的处理产生任何影响，用于提供注释让人阅读
- 
+
  *  表达式：\(?0\d{2}[) -]?\d{8}
  *  这个表达式可以匹配几种格式的电话号码，像(010)88886666，或022-22334455，或02912345678等。
  *  我们对它进行一些分析吧：
@@ -608,10 +608,6 @@
 
 /**
  *  手机号码的有效性:分电信、联通、移动和小灵通
- */
-- (BOOL)isMobileNumberClassification;
-/**
- *  手机号有效性
  */
 - (BOOL)isMobileNumber;
 
@@ -800,7 +796,7 @@ typedef NSUInteger NSStringScoreOption;
 #pragma mark - NSMutableString
 
 /* Ruby -> Obj-C Equivalents
- 
+
  #capitalize!     capitalizeInPlace
  #chomp!          chompInPlace
  chompInPlace:
@@ -819,7 +815,7 @@ typedef NSUInteger NSStringScoreOption;
  substituteLastInPlace:
  #swapcase!       swapcaseInPlace
  #upcase!         uppercaseInPlace
- 
+
  */
 
 @interface NSMutableString (Additions)

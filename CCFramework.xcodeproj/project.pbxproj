@@ -1268,6 +1268,9 @@
 		42F4121F1C21648300814E7B /* CCPaintingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F4121D1C21648300814E7B /* CCPaintingLayer.m */; };
 		42F4E30F1C925DCF0006D847 /* HttpFileConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F4E30D1C925DCF0006D847 /* HttpFileConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42F4E3101C925DCF0006D847 /* HttpFileConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F4E30E1C925DCF0006D847 /* HttpFileConfig.m */; };
+		42F8F33B1D6BD688001D0E9E /* CCRingProgressView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F8F3391D6BD688001D0E9E /* CCRingProgressView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42F8F33C1D6BD688001D0E9E /* CCRingProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F8F33A1D6BD688001D0E9E /* CCRingProgressView.m */; };
+		42F8F33E1D6BEF9E001D0E9E /* cc_noimage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F8F33D1D6BEF9E001D0E9E /* cc_noimage@2x.png */; };
 		42F945871BC8ED5D008882AE /* CCDisplayMediaViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F945851BC8ED5D008882AE /* CCDisplayMediaViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42F945881BC8ED5D008882AE /* CCDisplayMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F945861BC8ED5D008882AE /* CCDisplayMediaViewController.m */; };
 		42F967881C3A5FBC0047FC15 /* CCBottomPopupView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F967861C3A5FBC0047FC15 /* CCBottomPopupView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2540,6 +2543,9 @@
 		42F4121D1C21648300814E7B /* CCPaintingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCPaintingLayer.m; path = CCGraffitiBoard/View/CCPaintingLayer.m; sourceTree = "<group>"; };
 		42F4E30D1C925DCF0006D847 /* HttpFileConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HttpFileConfig.h; path = ResponseEntity/HttpFileConfig.h; sourceTree = "<group>"; };
 		42F4E30E1C925DCF0006D847 /* HttpFileConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HttpFileConfig.m; path = ResponseEntity/HttpFileConfig.m; sourceTree = "<group>"; };
+		42F8F3391D6BD688001D0E9E /* CCRingProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRingProgressView.h; path = CCRingProgressView/CCRingProgressView.h; sourceTree = "<group>"; };
+		42F8F33A1D6BD688001D0E9E /* CCRingProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRingProgressView.m; path = CCRingProgressView/CCRingProgressView.m; sourceTree = "<group>"; };
+		42F8F33D1D6BEF9E001D0E9E /* cc_noimage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cc_noimage@2x.png"; sourceTree = "<group>"; };
 		42F945851BC8ED5D008882AE /* CCDisplayMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDisplayMediaViewController.h; sourceTree = "<group>"; };
 		42F945861BC8ED5D008882AE /* CCDisplayMediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDisplayMediaViewController.m; sourceTree = "<group>"; };
 		42F967861C3A5FBC0047FC15 /* CCBottomPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCBottomPopupView.h; path = CCBottomPopupView/CCBottomPopupView.h; sourceTree = "<group>"; };
@@ -5137,6 +5143,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E51BDE025300C76004 /* UI.h */,
+				42F8F3381D6BD4BA001D0E9E /* CCRingProgressView */,
 				4220E9E71CC4DCFC002B5FF0 /* CCButton */,
 				421546C61C9C010100996C8E /* CCTransformRefresh */,
 				421C64461C84437500696B63 /* CCSpreadsheetView */,
@@ -5955,6 +5962,7 @@
 				4268CED71C4356CE00434D65 /* icon_star_gray@2x.png */,
 				428673751D504CA500DDA5BE /* emotionDelete@2x.png */,
 				421DB6C71CA0E6AB006E74EF /* wechat_moment@2x.png */,
+				42F8F33D1D6BEF9E001D0E9E /* cc_noimage@2x.png */,
 				42E953221C58A9FC001C93CB /* banner_arrow@2x.png */,
 				4268CED81C4356CE00434D65 /* icon_star_yellow@2x.png */,
 				4227547A1C2938E30099B653 /* arrow@2x.png */,
@@ -6303,6 +6311,15 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		42F8F3381D6BD4BA001D0E9E /* CCRingProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				42F8F3391D6BD688001D0E9E /* CCRingProgressView.h */,
+				42F8F33A1D6BD688001D0E9E /* CCRingProgressView.m */,
+			);
+			name = CCRingProgressView;
+			sourceTree = "<group>";
+		};
 		42F967851C3A5FA20047FC15 /* CCBottomPopupView */ = {
 			isa = PBXGroup;
 			children = (
@@ -6628,6 +6645,7 @@
 				420CB1341C7D788500A0EC25 /* MASCompositeConstraint.h in Headers */,
 				421DC61A1C85750E009E825B /* NSHTTPCookieStorage+Additions.h in Headers */,
 				429C9FBC1B9EF8BF0013A44A /* MBProgressHUD.h in Headers */,
+				42F8F33B1D6BD688001D0E9E /* CCRingProgressView.h in Headers */,
 				42A1F6661C8A8E4000A20F64 /* FMDB.h in Headers */,
 				425477871BD2AF6A0071BBC5 /* AliOrderFormEntity.h in Headers */,
 				421DC6061C85750E009E825B /* NSDateFormatter+Additions.h in Headers */,
@@ -7170,6 +7188,7 @@
 				422754721C29371F0099B653 /* save_icon_highlighted@2x.png in Resources */,
 				4206A4EE1C783CE4001A1CF3 /* photo_original_def@2x.png in Resources */,
 				42F164021C2A38BD00F17928 /* bar_plus@2x.png in Resources */,
+				42F8F33E1D6BEF9E001D0E9E /* cc_noimage@2x.png in Resources */,
 				42F164031C2A38BD00F17928 /* dismiss@2x.png in Resources */,
 				4268CEDA1C4356CE00434D65 /* icon_star_yellow@2x.png in Resources */,
 				4206A4ED1C783CE4001A1CF3 /* photo_number_icon@2x.png in Resources */,
@@ -7674,6 +7693,7 @@
 				4269792C1BA695BA00C3E93C /* AFURLSessionManager.m in Sources */,
 				42F24C751BEA5236008CDEDC /* CCCountingLabel.m in Sources */,
 				4206A51B1C783CFA001A1CF3 /* CCPhotoManager.m in Sources */,
+				42F8F33C1D6BD688001D0E9E /* CCRingProgressView.m in Sources */,
 				42300C781C2BDD7200D03641 /* CCEmotionTextAttachment.m in Sources */,
 				4206A5311C783CFA001A1CF3 /* CCPhotoPreviewCell.m in Sources */,
 				429C9FA91B9EF8BF0013A44A /* SmoothViewController.m in Sources */,

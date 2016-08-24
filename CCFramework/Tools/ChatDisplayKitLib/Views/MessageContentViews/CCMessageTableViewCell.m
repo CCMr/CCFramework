@@ -30,9 +30,10 @@
 #import "CCConfigurationHelper.h"
 #import "CCMessageAvatarFactory.h"
 #import "UIView+Method.h"
+#import "UIView+Frame.h"
 #import "CCMessage.h"
 
-static const CGFloat kCCLabelPadding = 3.0f;
+static const CGFloat kCCLabelPadding = 5.0f;
 static const CGFloat kCCTimeStampLabelHeight = 20.0f;
 
 static const CGFloat kCCAvatarPaddingX = 8.0;
@@ -529,7 +530,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         if (!_timestampLabel) {
             CCBadgeView *timestampLabel = [[CCBadgeView alloc] initWithFrame:CGRectMake(0, kCCLabelPadding, winsize.width, kCCTimeStampLabelHeight)];
             timestampLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-            timestampLabel.badgeColor = [UIColor clearColor]; //[UIColor colorWithWhite:0.734 alpha:1.000];
+            timestampLabel.badgeColor = [UIColor clearColor];   //[UIColor colorWithWhite:0.734 alpha:1.000];
             timestampLabel.textColor = cc_ColorRGB(51, 58, 79); //[UIColor whiteColor];
             timestampLabel.font = [UIFont systemFontOfSize:10.0f];
             timestampLabel.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) / 2.0, timestampLabel.center.y);
@@ -626,7 +627,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 {
     [super layoutSubviews];
     // 布局头像
-    CGFloat layoutOriginY = kCCAvatarPaddingY + (self.displayTimestamp ? kCCTimeStampLabelHeight : 0);
+    CGFloat layoutOriginY = kCCAvatarPaddingY + (self.displayTimestamp ? kCCTimeStampLabelHeight + kCCLabelPadding : 0);
     CGRect avatarButtonFrame = self.avatarButton.frame;
     avatarButtonFrame.origin.y = layoutOriginY;
     avatarButtonFrame.origin.x = kCCAvatarPaddingX;
@@ -660,7 +661,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             userNameFrame.origin.x = avatarButtonFrame.origin.x - userNameFrame.size.width - kCCAvatarPaddingX;
         self.userNameLabel.frame = userNameFrame;
 
-        timeStampLabelNeedHeight += userNameFrame.size.height;
+        timeStampLabelNeedHeight += userNameFrame.size.height + 5;
     }
 
     CGRect bubbleMessageViewFrame = CGRectMake(bubbleX,

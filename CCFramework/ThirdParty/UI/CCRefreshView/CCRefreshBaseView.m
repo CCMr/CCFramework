@@ -89,7 +89,7 @@
 
 /**
  *  @author CC, 2015-11-12
- *  
+ *
  *  @brief  load图标
  */
 - (CCLoadLogoView *)cc_activityView
@@ -110,7 +110,7 @@
         // 1.自己的属性
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.backgroundColor = [UIColor clearColor];
-        
+
         // 2.设置默认状态
         self.state = CCRefreshStateNormal;
     }
@@ -120,15 +120,14 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
-    // 1.箭头
-    CGFloat arrowX = self.width * 0.5 - 100;
-    self.arrowImage.center = CGPointMake(arrowX, self.height * 0.5);
-    
-    // 2.指示器
+
     if (self.style == CCRefreshViewStyleIndicatorView) {
         self.activityView.center = CGPointMake(self.width / 2, self.height * 0.4);
     } else if (self.style == CCRefreshViewStyleDefault) {
+        // 1.箭头
+        CGFloat arrowX = self.width * 0.5 - 100;
+        self.arrowImage.center = CGPointMake(arrowX, self.height * 0.5);
+
         self.cc_activityView.center = self.arrowImage.center;
         self.activityView.center = self.arrowImage.center;
     }
@@ -137,18 +136,18 @@
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
     [super willMoveToSuperview:newSuperview];
-    
+
     // 旧的父控件
     [self.superview removeObserver:self forKeyPath:CCRefreshContentOffset context:nil];
-    
+
     if (newSuperview) { // 新的父控件
         [newSuperview addObserver:self forKeyPath:CCRefreshContentOffset options:NSKeyValueObservingOptionNew context:nil];
-        
+
         // 设置宽度
         self.width = newSuperview.width;
         // 设置位置
         self.x = 0;
-        
+
         // 记录UIScrollView
         _scrollView = (UIScrollView *)newSuperview;
         // 记录UIScrollView最开始的contentInset
@@ -179,7 +178,7 @@
         if ([self.beginRefreshingTaget respondsToSelector:self.beginRefreshingAction]) {
             msgSend(msgTarget(self.beginRefreshingTaget), self.beginRefreshingAction, self);
         }
-        
+
         if (self.beginRefreshingCallback) {
             self.beginRefreshingCallback();
         }
@@ -197,7 +196,7 @@
 - (void)endRefreshing
 {
     double delayInSeconds = 0.3;
-    
+
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
         self.state = CCRefreshStateNormal;
@@ -208,11 +207,16 @@
 - (void)setStyle:(CCRefreshViewStyle)style
 {
     _style = style;
-    self.statusLabel.hidden = NO;
-    self.arrowImage.hidden = NO;
-    if (style == CCRefreshViewStyleIndicatorView) {
+    if (_style == CCRefreshViewStyleImageView) {
         self.statusLabel.hidden = YES;
         self.arrowImage.hidden = YES;
+    } else {
+        self.statusLabel.hidden = NO;
+        self.arrowImage.hidden = NO;
+        if (style == CCRefreshViewStyleIndicatorView) {
+            self.statusLabel.hidden = YES;
+            self.arrowImage.hidden = YES;
+        }
     }
 }
 
@@ -258,16 +262,16 @@
     if (self.state != CCRefreshStateRefreshing) {
         _scrollViewOriginalInset = self.scrollView.contentInset;
     }
-    
+
     // 1.一样的就直接返回(暂时不返回)
     if (self.state == state) return;
-    
+
     // 2.旧状态
     CCRefreshState oldState = self.state;
-    
+
     // 3.存储状态
     _state = state;
-    
+
     // 4.根据状态执行不同的操作
     switch (state) {
         case CCRefreshStateNormal: // 普通状态
@@ -279,18 +283,18 @@
                     else if (self.style == CCRefreshViewStyleDefault)
                         self.cc_activityView.alpha = 0.0;
                 } completion:^(BOOL finished) {
-                    
+
                     if (self.style == CCRefreshViewStyleIndicatorView){// 停止转圈圈
                         [self.activityView stopAnimating];
                         self.activityView.alpha = 1.0;
-                    }else if (self.style == CCRefreshViewStyleDefault){ // 恢复alpha    
+                    }else if (self.style == CCRefreshViewStyleDefault){ // 恢复alpha
                         [self.cc_activityView stopAnimation];
-                        self.cc_activityView.alpha = 1.0;   
+                        self.cc_activityView.alpha = 1.0;
                     }
-                    
+
                 }];
-                
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(CCRefreshSlowAnimationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 等头部回去                    
+
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(CCRefreshSlowAnimationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 等头部回去
                     // 停止转圈圈
                     if (self.style == CCRefreshViewStyleIndicatorView){
                         [self.activityView stopAnimating];
@@ -299,7 +303,7 @@
                         self.arrowImage.hidden = NO;
                         [self.cc_activityView stopAnimation];
                     }
-                    
+
                     // 设置文字
                     [self settingLabelText];
                 });
@@ -317,29 +321,29 @@
             }
             break;
         }
-            
+
         case CCRefreshStatePulling:
             if (self.style == CCRefreshViewStyleIndicatorView) {
                 [self.activityView startAnimating];
             } else if (self.style == CCRefreshViewStyleDefault)
                 [self.cc_activityView startAnimation];
             break;
-            
+
         case CCRefreshStateRefreshing: {
-            
+
             if (self.style == CCRefreshViewStyleIndicatorView) {
                 [self.activityView startAnimating];
             } else if (self.style == CCRefreshViewStyleDefault)
                 [self.cc_activityView startAnimation];
-            
+
             // 隐藏箭头
             self.arrowImage.hidden = YES;
-            
+
             // 回调
             if ([self.beginRefreshingTaget respondsToSelector:self.beginRefreshingAction]) {
                 msgSend(msgTarget(self.beginRefreshingTaget), self.beginRefreshingAction, self);
             }
-            
+
             if (self.beginRefreshingCallback) {
                 self.beginRefreshingCallback();
             }
@@ -348,7 +352,7 @@
         default:
             break;
     }
-    
+
     // 5.设置文字
     [self settingLabelText];
 }

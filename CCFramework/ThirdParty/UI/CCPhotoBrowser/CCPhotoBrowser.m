@@ -351,6 +351,8 @@
             [self setBarHidden:!self.topBar.hidden animated:YES];
         }
     }
+
+    self.hidePhotoBlock ? self.hidePhotoBlock(self) : nil;
 }
 
 - (void)setBarHidden:(BOOL)hidden animated:(BOOL)animated

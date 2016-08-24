@@ -121,8 +121,8 @@ REGULAREXPRESSION(HashtagRegularExpression, @"#([\\u4e00-\\u9fa5\\w\\-]+)")
                                                   ReplaceSize:self.replaceSize
                                                    AdjustType:self.replaceAdjustType];
     [self analysisLinks];
-    self.size = [self.mutableAttributedText sizeWithWidth:self.width
-                                            numberOfLines:self.numberOfLines];
+//    self.size = [self.mutableAttributedText sizeWithWidth:self.width
+//                                            numberOfLines:self.numberOfLines];
     [self setNeedsDisplay];
 }
 

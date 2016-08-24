@@ -55,6 +55,13 @@ typedef NS_ENUM(NSInteger, PhotoBrowserType) {
 @property(nonatomic, copy) void (^backPhotoBlock)(NSArray *photoAry);
 
 /**
+ *  @author CC, 16-08-23
+ *
+ *  @brief 隐藏回调事件
+ */
+@property(nonatomic, copy) void (^hidePhotoBlock)(CCPhotoBrowser *browser);
+
+/**
  *  @author CC, 16-03-29
  *
  *  @brief 底部工具条提供自定义

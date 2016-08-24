@@ -28,8 +28,10 @@
 
 @interface CCRefreshHeaderView : CCRefreshBaseView
 
-@property (nonatomic, copy) NSString *dateKey;
+@property(nonatomic, copy) NSString *dateKey;
 
 + (instancetype)header;
+
+- (void)setActivityImage:(UIImage *)image;
 
 @end

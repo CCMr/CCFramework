@@ -36,7 +36,7 @@
 
 /**
  *  @author CC, 16-03-18
- *  
+ *
  *  @brief 旋转刷新
  */
 @property(nonatomic, weak) CCTransformRefresh *transformHeader;
@@ -125,18 +125,54 @@ static char CCTransformRefreshKey;
     [self addHeaderWithCallback:callback dateKey:nil];
 }
 
-- (void)addHeaderWithCallback:(void (^)())callback dateKey:(NSString *)dateKey
+/**
+ *  @author CC, 16-08-18
+ *
+ *  @brief 添加一个下拉新头部控件
+ *
+ *  @param image    图片
+ *  @param callback 回调
+ */
+- (void)addHeaderWithImageCallback:(UIImage *)image
+                          Callback:(void (^)())callback
+{
+    [self addHeaderWithInit:image
+                   Callback:callback
+                    dateKey:nil];
+}
+
+/**
+ *  添加一个下拉刷新头部控件
+ *
+ *  @param callback 回调
+ *  @param dateKey 刷新时间保存的key值
+ */
+- (void)addHeaderWithCallback:(void (^)())callback
+                      dateKey:(NSString *)dateKey
+{
+    [self addHeaderWithInit:nil
+                   Callback:callback
+                    dateKey:dateKey];
+}
+
+- (void)addHeaderWithInit:(UIImage *)image
+                 Callback:(void (^)())callback
+                  dateKey:(NSString *)dateKey
 {
     // 1.创建新的header
     if (!self.header) {
         CCRefreshHeaderView *header = [CCRefreshHeaderView header];
+        if (image) {
+            header.style = CCRefreshViewStyleImageView;
+            [header setActivityImage:image];
+        }
         [self addSubview:header];
         self.header = header;
     }
-    
+
     // 2.设置block回调
     self.header.beginRefreshingCallback = callback;
-    
+
     // 3.设置存储刷新时间的key
     self.header.dateKey = dateKey;
 }
@@ -185,11 +221,11 @@ static char CCTransformRefreshKey;
         [self addSubview:header];
         self.header = header;
     }
-    
+
     // 2.设置目标和回调方法
     self.header.beginRefreshingTaget = target;
     self.header.beginRefreshingAction = action;
-    
+
     // 3.设置存储刷新时间的key
     self.header.dateKey = dateKey;
 }
@@ -251,7 +287,7 @@ static char CCTransformRefreshKey;
         [self addSubview:footer];
         self.footer = footer;
     }
-    
+
     // 2.设置block回调
     self.footer.beginRefreshingCallback = callback;
 }
@@ -270,7 +306,7 @@ static char CCTransformRefreshKey;
         [self addSubview:footer];
         self.footer = footer;
     }
-    
+
     // 2.设置目标和回调方法
     self.footer.beginRefreshingTaget = target;
     self.footer.beginRefreshingAction = action;

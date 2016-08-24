@@ -28,6 +28,7 @@
 #import "UIImage+Additions.h"
 #import "Config.h"
 #import "CCTool.h"
+#import "UIImageView+Additions.h"
 
 @interface CCBubblePhotoImageView ()
 

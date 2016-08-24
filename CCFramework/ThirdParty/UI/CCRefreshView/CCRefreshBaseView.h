@@ -43,8 +43,12 @@ typedef enum {
 
 #pragma mark - 控件显示样式
 typedef enum {
+    /** 默认样式 */
     CCRefreshViewStyleDefault = 0,
+    /** 箭头加旋转 */
     CCRefreshViewStyleIndicatorView = 1,
+    /** 图片 */
+    CCRefreshViewStyleImageView = 2,
 } CCRefreshViewStyle;
 
 /**
@@ -90,7 +94,7 @@ typedef enum {
 - (void)endRefreshing;
 
 #pragma mark - 交给子类去实现 和 调用
-@property (assign, nonatomic) CCRefreshState state;
+@property(assign, nonatomic) CCRefreshState state;
 
 @property (nonatomic, assign) CCRefreshViewStyle style;
 

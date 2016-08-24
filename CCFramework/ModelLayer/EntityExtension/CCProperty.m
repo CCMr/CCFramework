@@ -107,6 +107,10 @@
 {
     if (self.type.KVCDisabled || value == nil) return;
     [object setValue:value forKey:self.name];
+    id values = [object valueForKey:self.name];
+    if (!values) {
+        [object setValue:value forKey:[self.name lowercaseString]];
+    }
 }
 
 /**

@@ -29,20 +29,20 @@
  [self.tableView addHeaderWithTarget:self action:@selector(headerRereshing)];
  或者
  [self.tableView addHeaderWithCallback:^{ }];
- 
+
  2. 添加尾部控件的方法
  [self.tableView addFooterWithTarget:self action:@selector(footerRereshing)];
  或者
  [self.tableView addFooterWithCallback:^{ }];
- 
+
  3. 可以在CCRefreshConst.h和CCRefreshConst.m文件中自定义显示的文字内容和文字颜色
- 
+
  4. 本框架兼容iOS6\iOS7，iPhone\iPad横竖屏
- 
+
  5.自动进入刷新状态
  1> [self.tableView headerBeginRefreshing];
  2> [self.tableView footerBeginRefreshing];
- 
+
  6.结束刷新
  1> [self.tableView headerEndRefreshing];
  2> [self.tableView footerEndRefreshing];
@@ -58,14 +58,14 @@
 
 /**
  *  @author CC, 16-03-18
- *  
+ *
  *  @brief 开始刷新
  */
 - (void)startTransform;
 
 /**
  *  @author CC, 16-03-18
- *  
+ *
  *  @brief 结束刷新
  */
 - (void)endTransform;
@@ -77,6 +77,18 @@
  *  @param callback 回调
  */
 - (void)addHeaderWithCallback:(void (^)())callback;
+
+
+/**
+ *  @author CC, 16-08-18
+ *
+ *  @brief 添加一个下拉新头部控件
+ *
+ *  @param image    图片
+ *  @param callback 回调
+ */
+- (void)addHeaderWithImageCallback:(UIImage *)image
+                          Callback:(void (^)())callback;
 
 /**
  *  添加一个下拉刷新头部控件

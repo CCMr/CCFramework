@@ -74,4 +74,6 @@
 #import <CCFramework/MLLinkLabel.h>
 #import <CCFramework/MLExpressionManager.h>
 #import <CCFramework/CCSpreadsheetView.h>
+#import <CCFramework/CCRingProgressView.h>
+
 #endif

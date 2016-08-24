@@ -35,17 +35,17 @@
 #import "CCMessageBubbleFactory.h"
 #import "CCMessageVoiceFactory.h"
 
-#define kCCHaveBubbleMargin 5.0f      // 文本、视频、表情气泡上下边的间隙
-#define kCCHaveBubbleVoiceMargin 8.5f // 语音气泡上下边的间隙
-#define kCCHaveBubblePhotoMargin 6.5f // 图片、地理位置气泡上下边的间隙
+#define kCCHaveBubbleMargin 8.0f       // 文本、视频、表情气泡上下边的间隙
+#define kCCHaveBubbleVoiceMargin 13.5f // 语音气泡上下边的间隙
+#define kCCHaveBubblePhotoMargin 6.5f  // 图片、地理位置气泡上下边的间隙
 
 #define kCCVoiceMargin 20.0f // 播放语音时的动画控件距离头像的间隙
 
 #define kCCArrowMarginWidth 5.2f // 箭头宽度
 
-#define kCCTopAndBottomBubbleMargin 8.0f	  // 文本在气泡内部的上下间隙
-#define kCCLeftTextHorizontalBubblePadding 10.0f  // 文本的水平间隙
-#define kCCRightTextHorizontalBubblePadding 10.0f // 文本的水平间隙
+#define kCCTopAndBottomBubbleMargin 10.0f	 // 文本在气泡内部的上下间隙
+#define kCCLeftTextHorizontalBubblePadding 13.0f  // 文本的水平间隙
+#define kCCRightTextHorizontalBubblePadding 13.0f // 文本的水平间隙
 
 #define kCCUnReadDotSize 10.0f // 语音未读的红点大小
 
@@ -94,7 +94,18 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 {
     UIFont *systemFont = [[CCMessageBubbleView appearance] font];
     CGSize textSize = CGSizeMake(CGFLOAT_MAX, 20); // rough accessory size
-    CGSize sizeWithFont = [text sizeWithFont:systemFont constrainedToSize:textSize lineBreakMode:NSLineBreakByWordWrapping];
+    CGSize sizeWithFont;
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] <= 6.0) {
+        sizeWithFont = [text sizeWithFont:systemFont constrainedToSize:textSize lineBreakMode:NSLineBreakByWordWrapping];
+    } else {
+        sizeWithFont = [text boundingRectWithSize:textSize
+                                          options:
+                        NSStringDrawingTruncatesLastVisibleLine |
+                        NSStringDrawingUsesLineFragmentOrigin |
+                        NSStringDrawingUsesFontLeading
+                                       attributes:@{ NSFontAttributeName : systemFont }
+                                          context:nil].size;
+    }
 
 #if defined(__LP64__) && __LP64__
     return ceil(sizeWithFont.width);
@@ -108,9 +119,6 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 {
     // 实际处理文本的时候
     CGFloat dyWidth = [CCMessageBubbleView neededWidthForText:text];
-
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0)
-        dyWidth += 10;
 
     CGSize textSize = [SETextView frameRectWithAttributtedString:[[CCMessageBubbleHelper sharedMessageBubbleHelper] bubbleAttributtedStringWithText:text]
                                                   constraintSize:CGSizeMake(kCCMaxWidth, MAXFLOAT)
@@ -370,17 +378,17 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     CGFloat topSumForBottom = 0.0;
     switch (currentMessageMediaType) {
         case CCBubbleMessageMediaTypeVoice:
-            marginY = kCCHaveBubbleVoiceMargin;
+            marginY = 0;
             topSumForBottom = kCCHaveBubbleVoiceMargin * 2;
             break;
         case CCBubbleMessageMediaTypePhoto:
         case CCBubbleMessageMediaTypeLocalPosition:
-            marginY = kCCHaveBubblePhotoMargin;
+            marginY = 0;
             topSumForBottom = kCCHaveBubblePhotoMargin * 2;
             break;
         default:
             // 文本、视频、表情
-            marginY = kCCHaveBubbleMargin;
+            marginY = 0;
             topSumForBottom = kCCHaveBubbleMargin * 2;
             break;
     }
@@ -712,7 +720,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 
         // 4、初始化显示语音时长的label
         if (!_voiceDurationLabel) {
-            UILabel *voiceDurationLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 50, 30)];
+            UILabel *voiceDurationLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 50, 30)];
             voiceDurationLabel.textColor = [UIColor colorWithWhite:0.579 alpha:1.000];
             voiceDurationLabel.backgroundColor = [UIColor clearColor];
             voiceDurationLabel.font = [UIFont systemFontOfSize:13.f];
@@ -841,13 +849,13 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             } else {
                 //小表情与文字消息时设置气泡框
 
-                CGFloat textX = -kCCArrowMarginWidth;
+                CGFloat textX = -(kCCArrowMarginWidth / 2);
                 if (self.message.bubbleMessageType == CCBubbleMessageTypeReceiving)
-                    textX = kCCArrowMarginWidth;
+                    textX = kCCArrowMarginWidth / 2;
 
                 CGRect viewFrame = CGRectZero;
                 viewFrame.size.width = CGRectGetWidth(bubbleFrame) - kCCLeftTextHorizontalBubblePadding - kCCRightTextHorizontalBubblePadding - kCCArrowMarginWidth;
-                viewFrame.size.height = CGRectGetHeight(bubbleFrame) - kCCHaveBubbleMargin * 3;
+                viewFrame.size.height = CGRectGetHeight(bubbleFrame) - kCCHaveBubbleMargin - kCCTopAndBottomBubbleMargin;
 
                 if (currentType == CCBubbleMessageMediaTypeText || currentType == CCBubbleMessageMediaTypeTeletext) {
                     self.displayTextView.frame = viewFrame;
@@ -873,7 +881,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 
             CGFloat marginY = kCCNoneBubblePhotoMargin;
             if (currentType == CCBubbleMessageMediaTypePhoto || currentType == CCBubbleMessageMediaTypeLocalPosition) {
-                marginY = kCCHaveBubblePhotoMargin;
+                marginY = 0;
             }
 
             CGRect photoImageViewFrame = CGRectMake(paddingX, marginY, needPhotoSize.width, needPhotoSize.height);

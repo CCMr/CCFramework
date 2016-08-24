@@ -56,21 +56,21 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
+
     self.statusLabel.frame = self.bounds;
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
     [super willMoveToSuperview:newSuperview];
-    
+
     // 旧的父控件
     [self.superview removeObserver:self forKeyPath:CCRefreshContentSize context:nil];
-    
+
     if (newSuperview) { // 新的父控件
         // 监听
         [newSuperview addObserver:self forKeyPath:CCRefreshContentSize options:NSKeyValueObservingOptionNew context:nil];
-        
+
         // 重新调整frame
         [self adjustFrameWithContentSize];
     }
@@ -92,14 +92,14 @@
 {
     // 不能跟用户交互，直接返回
     if (!self.userInteractionEnabled || self.alpha <= 0.01 || self.hidden) return;
-    
+
     if ([CCRefreshContentSize isEqualToString:keyPath]) {
         // 调整frame
         [self adjustFrameWithContentSize];
     } else if ([CCRefreshContentOffset isEqualToString:keyPath]) {
         // 如果正在刷新，直接返回
         if (self.state == CCRefreshStateRefreshing) return;
-        
+
         // 调整状态
         [self adjustStateWithContentOffset];
     }
@@ -114,14 +114,14 @@
     CGFloat currentOffsetY = self.scrollView.contentOffsetY;
     // 尾部控件刚好出现的offsetY
     CGFloat happenOffsetY = [self happenOffsetY];
-    
+
     // 如果是向下滚动到看不见尾部控件，直接返回
     if (currentOffsetY <= happenOffsetY) return;
-    
+
     if (self.scrollView.isDragging) {
         // 普通 和 即将刷新 的临界点
         CGFloat normal2pullingOffsetY = happenOffsetY + self.height;
-        
+
         if (self.state == CCRefreshStateNormal && currentOffsetY > normal2pullingOffsetY) {
             // 转为即将刷新状态
             self.state = CCRefreshStatePulling;
@@ -141,13 +141,13 @@
 {
     // 1.一样的就直接返回
     if (self.state == state) return;
-    
+
     // 2.保存旧状态
     CCRefreshState oldState = self.state;
-    
+
     // 3.调用父类方法
     [super setState:state];
-    
+
     // 4.根据状态来设置属性
     switch (state) {
         case CCRefreshStateNormal: {
@@ -163,7 +163,7 @@
                     self.arrowImage.transform = CGAffineTransformMakeRotation(M_PI);
                 }];
             }
-            
+
             CGFloat deltaH = [self heightForContentBreakView];
             NSInteger currentCount = [self totalDataCountInScrollView];
             // 刚刷新完毕
@@ -172,18 +172,18 @@
             }
             break;
         }
-            
+
         case CCRefreshStatePulling: {
             [UIView animateWithDuration:CCRefreshFastAnimationDuration animations:^{
                 self.arrowImage.transform = CGAffineTransformIdentity;
             }];
             break;
         }
-            
+
         case CCRefreshStateRefreshing: {
             // 记录刷新前的数量
             self.lastRefreshCount = [self totalDataCountInScrollView];
-            
+
             [UIView animateWithDuration:CCRefreshFastAnimationDuration animations:^{
                 CGFloat bottom = self.height + self.scrollViewOriginalInset.bottom;
                 CGFloat deltaH = [self heightForContentBreakView];
@@ -194,7 +194,7 @@
             }];
             break;
         }
-            
+
         default:
             break;
     }
@@ -205,13 +205,13 @@
     NSInteger totalCount = 0;
     if ([self.scrollView isKindOfClass:[UITableView class]]) {
         UITableView *tableView = (UITableView *)self.scrollView;
-        
+
         for (NSInteger section = 0; section < tableView.numberOfSections; section++) {
             totalCount += [tableView numberOfRowsInSection:section];
         }
     } else if ([self.scrollView isKindOfClass:[UICollectionView class]]) {
         UICollectionView *collectionView = (UICollectionView *)self.scrollView;
-        
+
         for (NSInteger section = 0; section < collectionView.numberOfSections; section++) {
             totalCount += [collectionView numberOfItemsInSection:section];
         }

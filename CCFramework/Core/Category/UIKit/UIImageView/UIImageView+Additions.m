@@ -26,6 +26,22 @@
 #import "UIImageView+Additions.h"
 #import <objc/runtime.h>
 #import "UIView+Method.h"
+#import "CCRingProgressView.h"
+#import "CCProperty.h"
+
+typedef NS_ENUM(NSInteger, CCImageViewStatus) {
+    /** 默认 */
+    CCImageViewStatusNone = 0,
+    /** 下载完成 */
+    CCImageViewStatusLoaded = 1,
+    /** 下载中 */
+    CCImageViewStatusLoading = 2,
+    /** 下载失败 */
+    CCImageViewStatusFail = 3,
+    /** 点击下载状态 */
+    CCImageViewStatusClickDownload = 4
+};
+
 
 @implementation UIImageView (Additions)
 
@@ -1235,6 +1251,385 @@ static char TAG_ACTIVITY_SHOW;
 - (void)sd_cancelCurrentHighlightedImageLoad
 {
     [self cc_cancelImageLoadOperationWithKey:UIImageViewHighlightedWebCacheOperationKey];
+}
+
+#pragma mark - 2G/3G/4G点击加载图片、WIFI自动加载
+static char tapEventLoadedKey;
+static char imageTapEventKey;
+static char imageURLKey;
+static char imageStatusKey;
+static char placeholderKey;
+static char errorPlaceholderKey;
+static char imageReloadCountKey;
+static char imageLoadedModeKey;
+
+#pragma mark :. getset
+
+- (int)reloadCount
+{
+    NSNumber *value = objc_getAssociatedObject(self, &imageReloadCountKey);
+    return [value intValue];
+}
+
+- (void)setReloadCount:(int)count
+{
+    objc_setAssociatedObject(self, &imageReloadCountKey, @(count), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (CCImageViewStatus)cc_status
+{
+    NSNumber *value = objc_getAssociatedObject(self, &imageStatusKey);
+    if (value)
+        return [value intValue];
+    return CCImageViewStatusNone;
+}
+
+- (void)setCc_status:(CCImageViewStatus)cc_status
+{
+    objc_setAssociatedObject(self, &imageStatusKey, @(cc_status), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (void)setCc_ImageURL:(id)cc_imageURL
+{
+    objc_setAssociatedObject(self, &imageURLKey, cc_imageURL, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (id)cc_ImageURL
+{
+    return objc_getAssociatedObject(self, &imageURLKey);
+}
+
+- (void)cc_loadTapEvent
+{
+    UITapGestureRecognizer *tap = objc_getAssociatedObject(self, &tapEventLoadedKey);
+    if (tap == nil) {
+        self.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cc_handleTapEvent:)];
+        [self addGestureRecognizer:tap];
+        objc_setAssociatedObject(self, &tapEventLoadedKey, tap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+}
+
+- (void)cc_handleTapEvent:(UITapGestureRecognizer *)sender
+{
+    CCImageViewStatus status = self.cc_status;
+    if (status == CCImageViewStatusClickDownload || status == CCImageViewStatusFail) {
+        [self cc_reloadImageURL];
+    } else {
+        if (self.onTouchTapBlock) {
+            self.onTouchTapBlock(self);
+        }
+    }
+}
+
+- (void)setOnTouchTapBlock:(void (^)(UIImageView *))onTouchTapBlock
+{
+    [self cc_loadTapEvent];
+    objc_setAssociatedObject(self, &imageTapEventKey, onTouchTapBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (void (^)(UIImageView *))onTouchTapBlock
+{
+    return objc_getAssociatedObject(self, &imageTapEventKey);
+}
+
+- (CCRingProgressView *)cc_progressView:(BOOL)isCreate
+{
+    const int imageProgressTag = 204517;
+    CCRingProgressView *progressView = (id)[self viewWithTag:imageProgressTag];
+    if (isCreate) {
+        if (progressView == nil) {
+            progressView = [[CCRingProgressView alloc] initWithFrame:CGRectMake(0, 0, 37, 37)];
+            progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+            progressView.progressTintColor = [UIColor whiteColor];
+            progressView.annular = NO;
+            progressView.percentShow = YES;
+            progressView.percentLabelTextColor = [[UIColor alloc] initWithWhite:0.2f alpha:.8f];
+            progressView.progressBackgroundColor = [[UIColor alloc] initWithWhite:1 alpha:.8];
+            progressView.hidden = YES;
+            progressView.tag = imageProgressTag;
+
+            [self addSubview:progressView];
+        }
+        progressView.center = self.center;
+        progressView.hidden = NO;
+
+        [self bringSubviewToFront:progressView];
+    }
+
+    return progressView;
+}
+
+- (void)setCc_Placeholder:(id)cc_Placeholder
+{
+    objc_setAssociatedObject(self, &placeholderKey, cc_Placeholder, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (id)cc_Placeholder
+{
+    return objc_getAssociatedObject(self, &placeholderKey);
+}
+
+- (void)setCc_ErrorPlaceholder:(id)cc_ErrorPlaceholder
+{
+    objc_setAssociatedObject(self, &errorPlaceholderKey, cc_ErrorPlaceholder, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (id)cc_ErrorPlaceholder
+{
+    return objc_getAssociatedObject(self, &errorPlaceholderKey);
+}
+
+- (UIViewContentMode)loadedViewContentMode
+{
+    NSNumber *value = objc_getAssociatedObject(self, &imageLoadedModeKey);
+    if (value == nil) {
+        return -1;
+    }
+    return [value intValue];
+}
+- (void)setLoadedViewContentMode:(UIViewContentMode)loadedViewContentMode
+{
+    objc_setAssociatedObject(self, &imageLoadedModeKey, @(loadedViewContentMode), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+#pragma mark :.
+/**
+ *  @author CC, 16-08-23
+ *
+ *  @brief 网络判断加载图片
+ *
+ *  @param url         图片请求网址
+ *  @param placeholder 默认图片
+ */
+- (void)cc_setImageWithURL:(NSURL *)url
+          placeholderImage:(UIImage *)placeholder
+{
+    [self cc_setImageWithURL:url
+            placeholderImage:placeholder
+       ErrorPlaceholderImage:CCResourceImage(@"cc_noimage")];
+}
+
+/**
+ *  @author CC, 16-08-23
+ *
+ *  @brief 网络判断加载图片
+ *
+ *  @param url              图片请求网址
+ *  @param placeholder      默认图片
+ *  @param errorPlaceholder 错误图片
+ */
+- (void)cc_setImageWithURL:(NSURL *)url
+          placeholderImage:(UIImage *)placeholder
+     ErrorPlaceholderImage:(UIImage *)errorPlaceholder
+{
+    self.cc_Placeholder = placeholder;
+    self.cc_ErrorPlaceholder = errorPlaceholder;
+
+    [self cc_loadTapEvent];
+
+    if (self.cc_ImageURL && self.image && self.image.duration == 0 && self.cc_status == CCImageViewStatusLoaded && self.imageURL) {
+        if ([[self.cc_ImageURL absoluteString] isEqualToString:[url absoluteString]]) //相同的图片URL 就不在设置了
+            return;
+    }
+
+    self.cc_ImageURL = url;
+    if (url) {
+        [self setReloadCount:0];
+
+        BOOL hasShowClickDownload = NO;
+        if (![[self obtainNetWorkStates] isEqualToString:@"WIFI"]) {
+            hasShowClickDownload = YES;
+        }
+
+        BOOL hasCache = NO;
+        if (hasShowClickDownload)
+            hasCache = [[SDImageCache sharedImageCache] diskImageExistsWithKey:[url absoluteString]];
+
+        //需要显示点击下载图片的选项
+        if (hasShowClickDownload && hasCache == NO) {
+            [self cc_init_imageview];
+            self.cc_status = CCImageViewStatusClickDownload;
+            [self cc_showImage:placeholder];
+        } else {
+            [self cc_reloadImageURL];
+        }
+    } else {
+        [self cc_hideProgressView];
+        [self sd_cancelCurrentImageLoad];
+        self.image = nil;
+        self.backgroundColor = [UIColor colorWithRed:233 / 255.0 green:228 / 255.0 blue:223 / 255.0 alpha:1];
+        self.cc_status = CCImageViewStatusNone;
+    }
+}
+
+/**
+ *  @author CC, 16-08-23
+ *
+ *  @brief 网络判断加载图片
+ *
+ *  @param urlString   图片地址
+ *  @param placeholder 默认图片
+ */
+- (void)cc_setImageWithURLStr:(NSString *)urlString
+             placeholderImage:(UIImage *)placeholder
+{
+    [self cc_setImageWithURLStr:urlString
+               placeholderImage:placeholder
+          ErrorPlaceholderImage:CCResourceImage(@"cc_noimage")];
+}
+
+/**
+ *  @author CC, 16-08-23
+ *
+ *  @brief 网络判断加载图片
+ *
+ *  @param urlString        图片地址
+ *  @param placeholder      默认图片
+ *  @param errorPlaceholder 错图图片
+ */
+- (void)cc_setImageWithURLStr:(NSString *)urlString
+             placeholderImage:(UIImage *)placeholder
+        ErrorPlaceholderImage:(UIImage *)errorPlaceholder
+{
+    NSURL *imageURL = [self cc_URLWithImageURL:urlString];
+    [self cc_setImageWithURL:imageURL
+            placeholderImage:placeholder
+       ErrorPlaceholderImage:errorPlaceholder];
+}
+
+- (void)cc_reloadImageURL
+{
+    __weak UIImageView *wself = self;
+    self.cc_status = CCImageViewStatusLoading;
+    __block CCRingProgressView *pv = [self cc_progressView:YES];
+    pv.progress = 0;
+    pv.hidden = NO;
+    [pv setNeedsDisplay];
+    [self setNeedsDisplay];
+
+    [self sd_setImageWithURL:self.cc_ImageURL placeholderImage:self.cc_Placeholder options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        if(expectedSize <= 0)
+            return;
+
+        float pvalue = MAX(0, MIN(1, receivedSize / (float) expectedSize));
+        dispatch_main_sync_safe(^{
+            if(!wself.image){
+                if(!pv)
+                    pv = [wself cc_progressView:YES];
+
+                pv.hidden = NO;
+            }
+            pv.progress = pvalue;
+        });
+    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (image){
+            [wself cc_hideProgressView];
+            wself.cc_status = CCImageViewStatusLoaded;
+            if(image.duration == 0){
+                if(wself.loadedViewContentMode > 0 && wself.contentMode != wself.loadedViewContentMode){
+                    wself.contentMode = wself.loadedViewContentMode;
+                    wself.image = image;
+                    [wself setNeedsDisplay];
+                }
+                wself.backgroundColor = [UIColor clearColor];
+            }
+        }else{
+            if (error){
+                int reloadCount = [wself reloadCount];
+                if(reloadCount < 2){
+                    [wself setReloadCount:reloadCount+1];
+                    [wself cc_reloadImageURL];
+                    return ;
+                }
+
+                [wself cc_hideProgressView];
+                wself.cc_status = CCImageViewStatusFail;
+                [wself cc_showImage:self.cc_ErrorPlaceholder];
+            }else{
+                wself.cc_status = CCImageViewStatusNone;
+                [wself cc_hideProgressView];
+            }
+        }
+    }];
+}
+
+- (void)cc_init_imageview
+{
+    [self sd_cancelCurrentImageLoad];
+    [self cc_progressView:NO].hidden = YES;
+
+    self.image = nil;
+    self.backgroundColor = [UIColor colorWithRed:233 / 255.0 green:228 / 255.0 blue:223 / 255.0 alpha:1];
+}
+
+- (void)cc_hideProgressView
+{
+    CCRingProgressView *pv = [self cc_progressView:NO];
+    pv.hidden = YES;
+    pv.progress = 0;
+    [pv removeFromSuperview];
+}
+
+- (NSURL *)cc_URLWithImageURL:(id)imageURL
+{
+    if ([imageURL isKindOfClass:[NSString class]]) {
+        if ([imageURL hasPrefix:@"http"] || [imageURL hasPrefix:@"ftp"]) {
+            imageURL = [NSURL URLWithString:imageURL];
+        } else {
+            imageURL = [NSURL fileURLWithPath:imageURL];
+        }
+    }
+    if ([imageURL isKindOfClass:[NSURL class]] == NO) {
+        imageURL = nil;
+    }
+    return imageURL;
+}
+
+- (void)cc_showImage:(UIImage *)image
+{
+    if (self.bounds.size.width < image.size.width || self.bounds.size.height < image.size.height) {
+        self.contentMode = UIViewContentModeScaleAspectFit;
+    } else {
+        self.contentMode = UIViewContentModeCenter;
+    }
+    self.image = image;
+    [self setNeedsDisplay];
+}
+
+- (NSString *)obtainNetWorkStates
+{
+    UIApplication *app = [UIApplication sharedApplication];
+    NSArray *children = [[[app valueForKeyPath:@"statusBar"] valueForKeyPath:@"foregroundView"] subviews];
+    NSString *state;
+    //获取到网络返回码
+    for (id child in children) {
+        if ([child isKindOfClass:NSClassFromString(@"UIStatusBarDataNetworkItemView")]) {
+            //获取到状态栏
+            NSInteger netType = [[child valueForKeyPath:@"dataNetworkType"] integerValue];
+            switch (netType) {
+                case 0:
+                    state = @"无网络";
+                    break;
+                case 1:
+                    state = @"2G";
+                    break;
+                case 2:
+                    state = @"3G";
+                    break;
+                case 3:
+                    state = @"4G";
+                    break;
+                case 5: {
+                    state = @"WIFI";
+                } break;
+                default:
+                    break;
+            }
+        }
+    }
+    //根据状态选择
+    return state;
 }
 
 @end
