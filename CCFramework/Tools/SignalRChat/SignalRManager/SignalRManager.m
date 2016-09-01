@@ -51,7 +51,7 @@
 
 /**
  *  @author CC, 2015-12-23
- *  
+ *
  *  @brief  链接状态
  */
 - (ConnectionStatus)state
@@ -106,10 +106,10 @@
 - (instancetype)init
 {
     self = [super init];
-    
+
     if (self) {
     }
-    
+
     return self;
 }
 
@@ -154,7 +154,7 @@
 
 /**
  *  @author CC, 2015-12-02
- *  
+ *
  *  @brief  注册设备
  */
 - (void)registerDevice
@@ -163,7 +163,7 @@
 
 /**
  *  @author CC, 2015-11-11
- *  
+ *
  *  @brief  建立服务器连接
  *
  *  @return 返回连接
@@ -179,7 +179,7 @@
 
 /**
  *  @author CC, 2015-11-11
- *  
+ *
  *  @brief  连接代理通道
  *
  *  @return 返回连接代理通道
@@ -201,15 +201,19 @@
  */
 - (void)startLink
 {
-    if (self.hubConnection.state == disconnected) {
-        [self addNotification];
-        [self.hubConnection start];
-    }
+    [self addNotification];
+    [self.hubConnection start];
+}
+
+- (void)detectStart
+{
+    if (self.hubConnection.state == disconnected)
+        [self startLink];
 }
 
 /**
  *  @author CC, 2015-11-05
- *  
+ *
  *  @brief  停止链接
  */
 - (void)stopLink
@@ -240,7 +244,7 @@
 
 /**
  *  @author CC, 2015-11-11
- *  
+ *
  *  @brief  发送调用
  *
  *  @param eventName 事件名称
@@ -249,7 +253,7 @@
 - (void)sendInvoke:(NSString *)eventName
           withArgs:(id)args, ... NS_REQUIRES_NIL_TERMINATION
 {
-    
+
     NSMutableArray *array = [NSMutableArray array];
     if (args) {
         [array addObject:args];
@@ -261,7 +265,7 @@
         }
         va_end(arguments);
     }
-    
+
     [self.chatProxy invoke:eventName
                   withArgs:array];
 }
@@ -270,7 +274,7 @@
 
 /**
  *  @author CC, 2016-01-05
- *  
+ *
  *  @brief  链接成功后调用
  */
 - (void)connectionWillComplete
@@ -281,7 +285,7 @@
 
 /**
  *  @author CC, 2016-01-07
- *  
+ *
  *  @brief  重新链接成功
  */
 - (void)connectionWillReconnectSuccess
@@ -423,7 +427,7 @@
  */
 - (void)SRConnection:(id <SRConnectionInterface>)connection didChangeState:(connectionState)oldState newState:(connectionState)newState
 {
-    
+
 }
 
 /**
@@ -437,7 +441,7 @@
  */
 - (void)SRConnectionDidSlow:(id <SRConnectionInterface>)connection
 {
-    
+
 }
 
 

@@ -27,14 +27,59 @@
 #import "CCMessage.h"
 #import "NSString+Additions.h"
 
+@interface CCMessage ()
+
+@property(nonatomic, strong) NSString *objuniqueID;
+
+@end
+
 @implementation CCMessage
+
+- (NSString *)objuniqueID
+{
+    return _objuniqueID;
+}
+
+- (instancetype)init
+{
+    if (self = [super init]) {
+        _objuniqueID = [NSString UUID];
+    }
+    return self;
+}
+
+/**
+ *  @author CC, 16-08-25
+ *
+ *  @brief 通知消息
+ *
+ *  @param text      消息内容
+ *  @param sender    发送人
+ *  @param timestamp 发送的时间
+ */
+- (instancetype)initWithNotice:(NSString *)text
+                        sender:(NSString *)sender
+                     timestamp:(NSDate *)timestamp
+{
+
+    if (self = [super init]) {
+        _objuniqueID = [NSString UUID];
+        self.noticeContent = text;
+
+        self.sender = sender;
+        self.timestamp = timestamp;
+
+        self.messageMediaType = CCBubbleMessageMediaTypeNotice;
+    }
+    return self;
+}
 
 - (instancetype)initWithText:(NSString *)text
                       sender:(NSString *)sender
                    timestamp:(NSDate *)timestamp
 {
-    self = [super init];
-    if (self) {
+    if (self = [super init]) {
+        _objuniqueID = [NSString UUID];
         self.text = text;
 
         self.sender = sender;
@@ -64,6 +109,7 @@
                        timestamp:(NSDate *)timestamp
 {
     if (self = [super init]) {
+        _objuniqueID = [NSString UUID];
         self.text = text;
         self.teletextPath = telextPath;
         self.teletextReplaceStr = teletextReplaceStr;
@@ -91,8 +137,8 @@
                        sender:(NSString *)sender
                     timestamp:(NSDate *)timestamp
 {
-    self = [super init];
-    if (self) {
+    if (self = [super init]) {
+        _objuniqueID = [NSString UUID];
         self.photo = photo;
         self.thumbnailUrl = thumbnailUrl;
         self.originPhotoUrl = originPhotoUrl;
@@ -122,8 +168,8 @@
                        sender:(NSString *)sender
                     timestamp:(NSDate *)timestamp
 {
-    self = [super init];
-    if (self) {
+    if (self = [super init]) {
+        _objuniqueID = [NSString UUID];
         self.photo = photo;
         self.thumbnailUrl = thumbnailUrl;
         self.savePath = savePath;
@@ -153,8 +199,8 @@
                                   sender:(NSString *)sender
                                timestamp:(NSDate *)timestamp
 {
-    self = [super init];
-    if (self) {
+    if (self = [super init]) {
+        _objuniqueID = [NSString UUID];
         self.videoConverPhoto = videoConverPhoto;
         self.videoPath = videoPath;
         self.videoUrl = videoUrl;
@@ -212,8 +258,8 @@
                         timestamp:(NSDate *)timestamp
                            isRead:(BOOL)isRead
 {
-    self = [super init];
-    if (self) {
+    if (self = [super init]) {
+        _objuniqueID = [NSString UUID];
         self.voicePath = voicePath;
         self.voiceUrl = voiceUrl;
         self.voiceDuration = voiceDuration;
@@ -241,8 +287,8 @@
                              sender:(NSString *)sender
                           timestamp:(NSDate *)timestamp
 {
-    self = [super init];
-    if (self) {
+    if (self = [super init]) {
+        _objuniqueID = [NSString UUID];
         self.emotionPath = emotionPath;
         self.emotionUrl = emotionUrl;
         self.sender = sender;
@@ -270,8 +316,8 @@
                                     sender:(NSString *)sender
                                  timestamp:(NSDate *)timestamp
 {
-    self = [super init];
-    if (self) {
+    if (self = [super init]) {
+        _objuniqueID = [NSString UUID];
         self.localPositionPhoto = localPositionPhoto;
         self.geolocations = geolocations;
         self.location = location;
@@ -289,7 +335,10 @@
 {
     self = [super init];
     if (self) {
+        _objuniqueID = [aDecoder decodeObjectForKey:@"objuniqueID"];
         _uniqueID = [aDecoder decodeObjectForKey:@"uniqueID"];
+
+        _noticeContent = [aDecoder decodeObjectForKey:@"noticeContent"];
 
         _text = [aDecoder decodeObjectForKey:@"text"];
         _teletextPath = [aDecoder decodeObjectForKey:@"teletextPath"];
@@ -318,6 +367,7 @@
         _avatar = [aDecoder decodeObjectForKey:@"avatar"];
         _avatarUrl = [aDecoder decodeObjectForKey:@"avatarUrl"];
 
+        _senderId = [aDecoder decodeObjectForKey:@"senderId"];
         _sender = [aDecoder decodeObjectForKey:@"sender"];
         _senderAttribute = [aDecoder decodeObjectForKey:@"senderAttribute"];
         _timestamp = [aDecoder decodeObjectForKey:@"timestamp"];
@@ -333,7 +383,11 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
+    [aCoder encodeObject:self.objuniqueID forKey:@"objuniqueID"];
     [aCoder encodeObject:self.uniqueID forKey:@"uniqueID"];
+
+    [aCoder encodeObject:self.noticeContent forKey:@"noticeContent"];
+
     [aCoder encodeObject:self.text forKey:@"text"];
     [aCoder encodeObject:self.teletextPath forKey:@"teletextPath"];
     [aCoder encodeObject:self.teletextReplaceStr forKey:@"teletextReplaceStr"];
@@ -361,6 +415,7 @@
     [aCoder encodeObject:self.avatar forKey:@"avatar"];
     [aCoder encodeObject:self.avatarUrl forKey:@"avatarUrl"];
 
+    [aCoder encodeObject:self.senderId forKey:@"senderId"];
     [aCoder encodeObject:self.sender forKey:@"sender"];
     [aCoder encodeObject:self.senderAttribute forKey:@"senderAttribute"];
     [aCoder encodeObject:self.timestamp forKey:@"timestamp"];
@@ -424,13 +479,20 @@
                                                                    sender:[self.sender copy]
                                                                 timestamp:[self.timestamp copy]];
             break;
+        case CCBubbleMessageMediaTypeNotice:
+            message = [[[self class] allocWithZone:zone] initWithNotice:[self.noticeContent copy]
+                                                                 sender:[self.sender copy]
+                                                              timestamp:[self.timestamp copy]];
+            break;
         default:
             break;
     }
 
+    message.objuniqueID = _objuniqueID;
     message.savePath = _savePath;
     message.objectID = _objectID;
     message.avatar = _avatar;
+    message.senderId = _senderId;
     message.sender = _sender;
     message.timestamp = _timestamp;
     message.showdate = _showdate;
@@ -448,7 +510,11 @@
 
 - (void)dealloc
 {
+    _objuniqueID = nil;
     _uniqueID = nil;
+
+    _noticeContent = nil;
+
     _text = nil;
     _teletextPath = nil;
     _teletextReplaceStr = nil;
@@ -476,6 +542,7 @@
     _avatar = nil;
     _avatarUrl = nil;
 
+    _senderId = nil;
     _sender = nil;
     _senderAttribute = nil;
 

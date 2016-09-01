@@ -66,6 +66,8 @@
 @property(nonatomic, copy) NSArray *titles;
 //未选中文字、边框、滑块颜色
 @property(nonatomic, strong) UIColor *textColor;
+//字体
+@property(nonatomic, strong) UIFont *textFont;
 //背景、选中文字颜色，当设置为透明时，选中文字为白色
 @property(nonatomic, strong) UIColor *viewColor;
 //选中的标题

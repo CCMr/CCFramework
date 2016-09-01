@@ -449,7 +449,7 @@ static NSString * const PARAGRAPH_SEPARATOR = @"\u2029";
     
     for (SETextAttachment *attachment in attachments) {
         NSMutableAttributedString *editingAttributedText = self.editingAttributedText;
-        if (!attachment.replacedString) {
+        if (!attachment.replacedString && ![editingAttributedText.string isEqualToString:@"<object returned empty description>"]) {
             if (attachment.range.length > 0) {
                 NSAttributedString *originalAttributedString = [editingAttributedText attributedSubstringFromRange:attachment.range];
                 attachment.originalAttributedString = originalAttributedString;

@@ -2315,6 +2315,25 @@ static unsigned char morphological_kernel[9] = {
     return image;
 }
 
+- (UIImage *)rotateByAngle:(CGFloat)angleInRadians
+{
+    CGSize contextSize = self.size;
+
+    UIGraphicsBeginImageContextWithOptions(contextSize, NO, self.scale);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    CGContextTranslateCTM(context, 0.5 * contextSize.width, 0.5 * contextSize.height);
+    CGContextRotateCTM(context, angleInRadians);
+    CGContextTranslateCTM(context, -0.5 * contextSize.width, -0.5 * contextSize.height);
+    [self drawAtPoint:CGPointZero];
+
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+
+    UIGraphicsEndImageContext();
+
+    return image;
+}
+
 /**
  *  @brief  垂直翻转
  *

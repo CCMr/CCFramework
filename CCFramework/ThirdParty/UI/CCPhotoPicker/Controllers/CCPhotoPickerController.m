@@ -28,6 +28,7 @@
 #import "CCPhotoManager.h"
 #import "config.h"
 #import "CCAlbumCell.h"
+#import "UIImage+Additions.h"
 
 @interface CCPhotoPickerController ()
 
@@ -92,12 +93,12 @@
         HUDContainer.backgroundColor = [UIColor darkGrayColor];
         HUDContainer.alpha = 0.7;
         _progressHUD = HUDContainer;
-        
+
         UIActivityIndicatorView *HUDIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         HUDIndicatorView.frame = CGRectMake(45, 15, 30, 30);
         [HUDContainer addSubview:HUDIndicatorView];
         _progressHUDIndicatorView = HUDIndicatorView;
-        
+
         UILabel *HUDLable = [[UILabel alloc] init];
         HUDLable.frame = CGRectMake(0, 40, 120, 50);
         HUDLable.textAlignment = NSTextAlignmentCenter;
@@ -106,7 +107,7 @@
         HUDLable.textColor = [UIColor whiteColor];
         [HUDContainer addSubview:HUDLable];
     }
-    
+
     [_progressHUDIndicatorView startAnimating];
     [[UIApplication sharedApplication].keyWindow addSubview:_progressHUD];
 }
@@ -130,16 +131,17 @@
 - (void)didFinishPickingPhoto:(NSArray<CCAssetModel *> *)assets
 {
     [self showProgressHUD];
-    NSMutableArray *images = [NSMutableArray array];
+    __block NSMutableArray *imageArray = [NSMutableArray array];
     [assets enumerateObjectsUsingBlock:^(CCAssetModel *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        [images addObject:obj.selectOriginEnable ? obj.originImage: obj.previewImage];
+        UIImage *images = obj.selectOriginEnable ? obj.originImage: obj.previewImage;
+        [imageArray addObject:[UIImage fixOrientation:images]];
     }];
-    
+
     if (self.photoPickerDelegate && [self.photoPickerDelegate respondsToSelector:@selector(photoPickerController:didFinishPickingPhotos:sourceAssets:)])
-        [self.photoPickerDelegate photoPickerController:self didFinishPickingPhotos:images sourceAssets:assets];
-    
-    self.didFinishPickingPhotosBlock ? self.didFinishPickingPhotosBlock(images, assets) : nil;
-    
+        [self.photoPickerDelegate photoPickerController:self didFinishPickingPhotos:imageArray sourceAssets:assets];
+
+    self.didFinishPickingPhotosBlock ? self.didFinishPickingPhotosBlock(imageArray, assets) : nil;
+
     [self hideProgressHUD];
 }
 
@@ -148,7 +150,7 @@
     [self showProgressHUD];
     if (self.photoPickerDelegate && [self.photoPickerDelegate respondsToSelector:@selector(photoPickerController:didFinishPickingVideo:sourceAssets:)])
         [self.photoPickerDelegate photoPickerController:self didFinishPickingVideo:asset.previewImage sourceAssets:asset];
-    
+
     self.didFinishPickingVideoBlock ? self.didFinishPickingVideoBlock(asset.previewImage, asset) : nil;
     [self hideProgressHUD];
 }
@@ -157,7 +159,7 @@
 {
     if (self.photoPickerDelegate && [self.photoPickerDelegate respondsToSelector:@selector(photoPickerControllerDidCancel:)])
         [self.photoPickerDelegate photoPickerControllerDidCancel:self];
-    
+
     self.didCancelPickingBlock ? self.didCancelPickingBlock() : nil;
 }
 
@@ -178,7 +180,7 @@
         if (!appName) appName = [[NSBundle mainBundle].infoDictionary valueForKey:@"CFBundleName"];
         tipsLabel.text = [NSString stringWithFormat:@"请在%@的\"设置-隐私-照片\"选项中，\r允许%@访问你的手机相册。", [UIDevice currentDevice].model, appName];
         [self.view addSubview:tipsLabel];
-        
+
         //!!! bug 用户前往设置后,修改授权会导致app崩溃
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_handleTipsTap)];
         [tipsLabel addGestureRecognizer:tap];
@@ -200,16 +202,16 @@
 {
     self.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationBar.translucent = YES;
-    
+
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [UIApplication sharedApplication].statusBarHidden = NO;
-    
+
     if (iOS7Later) {
         self.navigationBar.barTintColor = [UINavigationBar appearance].barTintColor; //  [UIColor colorWithRed:(34 / 255.0)green:(34 / 255.0)blue:(34 / 255.0)alpha:1.0];
         self.navigationBar.tintColor = [UINavigationBar appearance].tintColor;       //[UIColor whiteColor];
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-    
+
     UINavigationBar *navigationBar;
     UIBarButtonItem *barItem;
     if (iOS9Later) {
@@ -236,15 +238,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.navigationItem.title = @"照片";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(_handleCancelAction)];
-    
+
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.tableView.rowHeight = 70.0f;
     [self.tableView registerClass:[CCAlbumCell class] forCellReuseIdentifier:@"CCAlbumCell"];
-    
+
     CCPhotoPickerController *imagePickerVC = (CCPhotoPickerController *)self.navigationController;
     __weak typeof(*&self) wSelf = self;
     [[CCPhotoManager sharedManager] getAlbumsPickingVideoEnable:imagePickerVC.pickingVideoEnable completionBlock:^(NSArray<CCAlbumModel *> *albums) {

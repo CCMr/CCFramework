@@ -31,6 +31,13 @@
 @property(nonatomic, assign) NSInteger minCount;
 
 /**
+ *  @author CC, 16-08-30
+ *
+ *  @brief 是否裁剪，用选择头像
+ */
+@property(nonatomic, assign) BOOL isClipping;
+
+/**
  *  @author CC, 2015-07-23
  *
  *  @brief  启动相机或照片文件视图控制器

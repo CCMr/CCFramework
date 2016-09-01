@@ -30,8 +30,9 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "CCPhotoPickerController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "CCImageCropViewController.h"
 
-@interface CCCameraViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface CCCameraViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, CCImageCropViewControllerDelegate, CCImageCropViewControllerDataSource>
 
 @property(strong, nonatomic) UIViewController *currentViewController;
 
@@ -40,6 +41,7 @@
 @end
 
 @implementation CCCameraViewController
+
 
 - (instancetype)init
 {
@@ -116,8 +118,13 @@
 - (void)LocalPhoto
 {
     CCPhotoPickerController *photoPickerC = [[CCPhotoPickerController alloc] initWithMaxCount:self.minCount delegate:nil];
+    typeof(self) __weak weakSelf = self;
     [photoPickerC setDidFinishPickingPhotosBlock:^(NSArray<UIImage *> *_Nullable images, NSArray<CCAssetModel *> *_Nullable assets) {
-        self.callBackBlock(images);
+        if (weakSelf.isClipping && weakSelf.minCount == 1) {
+            [weakSelf performSelector:@selector(pushCropViewController:) withObject:images.lastObject afterDelay:0.5];
+        } else {
+            weakSelf.callBackBlock(images);
+        }
     }];
 
     if (_currentViewController.parentViewController)
@@ -153,7 +160,7 @@
     if (authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied) {
         NSDictionary *applicationInfo = [[NSBundle mainBundle] infoDictionary];
         NSString *applicationName = [applicationInfo objectForKey:(NSString *)kCFBundleNameKey]; //app名称
-        UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"请在iPhone的“设置-隐私-相机”选项中，允许%@访问你的相机。",applicationName] delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
+        UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"请在iPhone的“设置-隐私-相机”选项中，允许%@访问你的相机。", applicationName] delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
         [alerView show];
         isCamera = NO;
     }
@@ -335,8 +342,7 @@
  *
  *  @since 1.0
  */
-- (void)imagePickerController:(UIImagePickerController *)picker
-didFinishPickingMediaWithInfo:(NSDictionary *)info
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
     // 判断获取类型：图片
@@ -351,10 +357,13 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         SEL selectorToCall = @selector(imageWasSavedSuccessfully:didFinishSavingWithError:contextInfo:);
         UIImageWriteToSavedPhotosAlbum(theImage, self, selectorToCall, NULL);
 
-        NSMutableArray *SelectImageArray = [NSMutableArray array];
-        [SelectImageArray addObject:theImage];
-
-        _callBackBlock(SelectImageArray);
+        if (_isClipping && self.minCount == 1) {
+            [self performSelector:@selector(pushCropViewController:) withObject:theImage afterDelay:0.5];
+        } else {
+            NSMutableArray *SelectImageArray = [NSMutableArray array];
+            [SelectImageArray addObject:theImage];
+            _callBackBlock(SelectImageArray);
+        }
 
     } else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
         // 判断获取类型：视频 => 获取视频文件的url
@@ -372,7 +381,6 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     }
 
     [picker dismissViewControllerAnimated:YES completion:nil];
-
 }
 
 /**
@@ -384,10 +392,11 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
  *  @param paramError       错误日志
  *  @param paramContextInfo 结果信息
  */
-- (void) imageWasSavedSuccessfully: (UIImage *)paramImage
-          didFinishSavingWithError: (NSError *)paramError
-                       contextInfo: (void *)paramContextInfo{
-    if (paramError == nil){
+- (void)imageWasSavedSuccessfully:(UIImage *)paramImage
+         didFinishSavingWithError:(NSError *)paramError
+                      contextInfo:(void *)paramContextInfo
+{
+    if (paramError == nil) {
         NSLog(@"Image was saved successfully.");
     } else {
         NSLog(@"An error happened while saving the image.");
@@ -402,8 +411,48 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
  *
  *  @param picker 拍照视图对象
  */
-- (void)imagePickerControllerDidCancel: (UIImagePickerController *)picker{
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma mark -
+
+#pragma mark :. 跳转截图
+- (void)pushCropViewController:(UIImage *)image
+{
+    CCImageCropViewController *imageCropVC = [[CCImageCropViewController alloc] initWithImage:image cropMode:CCImageCropModeSquare];
+    imageCropVC.delegate = self;
+    imageCropVC.dataSource = self;
+
+    if (_currentViewController.parentViewController) {
+        UINavigationController *navViewController = _currentViewController.parentViewController;
+        if ([navViewController isKindOfClass:[UINavigationController class]]) {
+            [navViewController pushViewController:imageCropVC animated:YES];
+        }else
+            [_currentViewController.parentViewController presentViewController:imageCropVC animated:YES completion:nil];
+    }else
+        [[[[UIApplication sharedApplication].windows firstObject] rootViewController] presentViewController:imageCropVC animated:YES completion:nil];
+}
+
+#pragma mark :. imageCropViewDelegate
+- (void)imageCropViewControllerDidCancelCrop:(CCImageCropViewController *)controller
+{
+    UINavigationController *navViewController = _currentViewController.parentViewController;
+    [navViewController popViewControllerAnimated:YES];
+    [navViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)imageCropViewController:(CCImageCropViewController *)controller didCropImage:(UIImage *)croppedImage usingCropRect:(CGRect)cropRect
+{
+    UINavigationController *navViewController = _currentViewController.parentViewController;
+    [navViewController popViewControllerAnimated:YES];
+    [navViewController dismissViewControllerAnimated:YES completion:nil];
+
+    NSMutableArray *SelectImageArray = [NSMutableArray array];
+    [SelectImageArray addObject:croppedImage];
+    _callBackBlock(SelectImageArray);
+}
+
 
 @end

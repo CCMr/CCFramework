@@ -27,14 +27,11 @@
 #define CCFramework_BaseController_h
 
 #import <CCFramework/BaseAppDelegate.h>
-#import <CCFramework/BaseNavigationController.h>
 #import <CCFramework/BaseSearchTableViewController.h>
-#import <CCFramework/BaseTabBarController.h>
 #import <CCFramework/BaseTableViewCell.h>
 #import <CCFramework/BaseTableViewController.h>
 #import <CCFramework/BaseTableViewHeaderFooterView.h>
 #import <CCFramework/BaseViewController.h>
-#import <CCFramework/NavMainViewController.h>
 #import <CCFramework/CCDropzone.h>
 #import <CCFramework/CCDropzoneViewController.h>
 

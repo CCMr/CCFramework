@@ -51,6 +51,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 @property(nonatomic, weak, readwrite) CCBadgeView *timestampLabel;
 
+@property(nonatomic, weak, readwrite) CCBadgeView *noticeLabel;
+
 @property(nonatomic, weak) UITableView *containingTableView;
 
 /**
@@ -247,7 +249,10 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     // 3、配置用户名
     [self configUserNameWithMessage:message];
 
-    // 4、配置需要显示什么消息内容，比如语音、文字、视频、图片
+    // 4、配置通知消息
+    [self configureNoticeWihtMessage:message];
+
+    // 5、配置需要显示什么消息内容，比如语音、文字、视频、图片
     [self configureMessageBubbleViewWithMessage:message];
 }
 
@@ -297,6 +302,11 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     self.userNameLabel.text = [message sender];
     if ([message senderAttribute])
         self.userNameLabel.attributedText = [message senderAttribute];
+}
+
+- (void)configureNoticeWihtMessage:(id<CCMessageModel>)message
+{
+    self.noticeLabel.text = [message noticeContent];
 }
 
 - (void)configureMessageBubbleViewWithMessage:(id<CCMessageModel>)message
@@ -482,15 +492,23 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 + (CGFloat)calculateCellHeightWithMessage:(id<CCMessageModel>)message
                         displaysTimestamp:(BOOL)displayTimestamp
 {
-
     // 第一，是否有时间戳的显示
-    CGFloat timestampHeight = displayTimestamp ? (kCCTimeStampLabelHeight + kCCLabelPadding * 2) : 0;
+    CGFloat timestampHeight = displayTimestamp ? (kCCTimeStampLabelHeight + kCCLabelPadding * 2) : kCCAvatarPaddingY;
 
-    CGFloat userInfoNeedHeight = kCCAvatarPaddingY + kCCAvatarImageSize + (message.shouldShowUserName ? kCCUserNameLabelHeight : 0) + kCCAvatarPaddingY + timestampHeight;
+    CGFloat height = timestampHeight;
+    if ([message messageMediaType] == CCBubbleMessageMediaTypeNotice) {
+        height += kCCTimeStampLabelHeight + kCCLabelPadding * 2;
+    } else {
+        // 第二，是否又是名字显示
+        CGFloat userNameHheight = message.shouldShowUserName ? (kCCTimeStampLabelHeight + kCCLabelPadding * 2) : 0;
 
-    CGFloat bubbleMessageHeight = [CCMessageBubbleView calculateCellHeightWithMessage:message] + timestampHeight;
+        CGFloat userInfoNeedHeight = timestampHeight + kCCAvatarImageSize + kCCAvatarPaddingY;
 
-    return MAX(bubbleMessageHeight, userInfoNeedHeight);
+        CGFloat bubbleMessageHeight = [CCMessageBubbleView calculateCellHeightWithMessage:message] + timestampHeight + userNameHheight;
+
+        height = MAX(bubbleMessageHeight, userInfoNeedHeight) + kCCAvatarPaddingY;
+    }
+    return height;
 }
 
 #pragma mark - Life cycle
@@ -518,7 +536,6 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     self = [self initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     if (self) {
         // 如果初始化成功，那就根据Message类型进行初始化控件，比如配置头像，配置发送和接收的样式
-
         if (!_selectedIndicator) {
             UIImageView *selectedIndicator = [[UIImageView alloc] initWithFrame:CGRectMake(-30, 10, 30, 30)];
             selectedIndicator.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
@@ -537,6 +554,20 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             [self.contentView addSubview:timestampLabel];
             [self.contentView bringSubviewToFront:timestampLabel];
             _timestampLabel = timestampLabel;
+        }
+
+        // 通知消息类型
+        if (!_noticeLabel) {
+            CCBadgeView *noticeLabel = [[CCBadgeView alloc] initWithFrame:CGRectMake(0, kCCLabelPadding, winsize.width, kCCTimeStampLabelHeight)];
+            noticeLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
+            noticeLabel.badgeColor = [UIColor colorWithWhite:0.734 alpha:1.000];
+            noticeLabel.textColor = [UIColor whiteColor];
+            noticeLabel.font = [UIFont systemFontOfSize:10.0f];
+            noticeLabel.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) / 2.0, noticeLabel.center.y);
+            noticeLabel.hidden = YES;
+            [self.contentView addSubview:noticeLabel];
+            [self.contentView bringSubviewToFront:noticeLabel];
+            _noticeLabel = noticeLabel;
         }
 
         // 2、配置头像
@@ -626,64 +657,78 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    // 布局头像
-    CGFloat layoutOriginY = kCCAvatarPaddingY + (self.displayTimestamp ? kCCTimeStampLabelHeight + kCCLabelPadding : 0);
-    CGRect avatarButtonFrame = self.avatarButton.frame;
-    avatarButtonFrame.origin.y = layoutOriginY;
-    avatarButtonFrame.origin.x = kCCAvatarPaddingX;
-    if ([self bubbleMessageType] != CCBubbleMessageTypeReceiving) {
-        CGFloat x = (CGRectGetWidth(self.bounds) - kCCAvatarPaddingX - kCCAvatarImageSize);
-        if (self.editing)
-            x -= kCCAvatarImageSize;
-        avatarButtonFrame.origin.x = x;
+
+    if ([self.messageBubbleView.message messageMediaType] == CCBubbleMessageMediaTypeNotice) {
+        self.avatarButton.hidden = YES;
+        self.userNameLabel.hidden = YES;
+        self.noticeLabel.hidden = NO;
+
+        CGFloat layoutOriginY = kCCAvatarPaddingY + (self.displayTimestamp ? kCCTimeStampLabelHeight + kCCLabelPadding : 0);
+        CGRect noticeContentFram = self.noticeLabel.frame;
+        noticeContentFram.origin.y = layoutOriginY;
+        self.noticeLabel.frame = noticeContentFram;
+
+    } else {
+        self.noticeLabel.hidden = YES;
+        self.avatarButton.hidden = NO;
+        // 布局头像
+        CGFloat layoutOriginY = kCCAvatarPaddingY + (self.displayTimestamp ? kCCTimeStampLabelHeight + kCCLabelPadding : 0);
+        CGRect avatarButtonFrame = self.avatarButton.frame;
+        avatarButtonFrame.origin.y = layoutOriginY;
+        avatarButtonFrame.origin.x = kCCAvatarPaddingX;
+        if ([self bubbleMessageType] != CCBubbleMessageTypeReceiving) {
+            CGFloat x = (CGRectGetWidth(self.bounds) - kCCAvatarPaddingX - kCCAvatarImageSize);
+            if (self.editing)
+                x -= kCCAvatarImageSize;
+            avatarButtonFrame.origin.x = x;
+        }
+        self.avatarButton.frame = avatarButtonFrame;
+
+        // 布局消息内容的View
+        CGFloat bubbleX = 0.0f;
+        CGFloat offsetX = 0.0f;
+        if ([self bubbleMessageType] == CCBubbleMessageTypeReceiving)
+            bubbleX = kCCAvatarImageSize + kCCAvatarPaddingX * 2;
+        else
+            offsetX = kCCAvatarImageSize + kCCAvatarPaddingX * 2;
+
+        CGFloat timeStampLabelNeedHeight = layoutOriginY;
+
+        if (self.messageBubbleView.message.shouldShowUserName) {
+            self.userNameLabel.hidden = NO;
+            [self.userNameLabel sizeToFit];
+            // 布局用户名
+            CGRect userNameFrame = self.userNameLabel.frame;
+            userNameFrame.origin.y = timeStampLabelNeedHeight;
+            userNameFrame.origin.x = avatarButtonFrame.origin.x + avatarButtonFrame.size.width + kCCAvatarPaddingX;
+            if (self.bubbleMessageType != CCBubbleMessageTypeReceiving)
+                userNameFrame.origin.x = avatarButtonFrame.origin.x - userNameFrame.size.width - kCCAvatarPaddingX;
+            self.userNameLabel.frame = userNameFrame;
+
+            timeStampLabelNeedHeight += userNameFrame.size.height + 5;
+        }
+
+        CGRect bubbleMessageViewFrame = CGRectMake(bubbleX,
+                                                   timeStampLabelNeedHeight,
+                                                   CGRectGetWidth(self.contentView.bounds) - bubbleX - offsetX,
+                                                   CGRectGetHeight(self.contentView.bounds) - timeStampLabelNeedHeight);
+        self.messageBubbleView.frame = bubbleMessageViewFrame;
+
+        self.messageBubbleView.userInteractionEnabled = YES;
+        UITableView *edit = (UITableView *)self.superview.superview;
+        if (edit.editing)
+            self.messageBubbleView.userInteractionEnabled = NO;
+
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationBeginsFromCurrentState:YES];
+
+        if (self.messageBubbleView.message.selected)
+            [self.selectedIndicator setImage:CCResourceImage(@"AssetsYES")];
+        else
+            [self.selectedIndicator setImage:CCResourceImage(@"AssetsNO")];
+
+        [UIView commitAnimations];
     }
-    self.avatarButton.frame = avatarButtonFrame;
-
-    // 布局消息内容的View
-    CGFloat bubbleX = 0.0f;
-    CGFloat offsetX = 0.0f;
-    if ([self bubbleMessageType] == CCBubbleMessageTypeReceiving)
-        bubbleX = kCCAvatarImageSize + kCCAvatarPaddingX * 2;
-    else
-        offsetX = kCCAvatarImageSize + kCCAvatarPaddingX * 2;
-
-    CGFloat timeStampLabelNeedHeight = kCCAvatarPaddingY;
-    if (self.displayTimestamp)
-        timeStampLabelNeedHeight = kCCTimeStampLabelHeight + kCCLabelPadding + kCCAvatarPaddingY;
-
-    if (self.messageBubbleView.message.shouldShowUserName) {
-        [self.userNameLabel sizeToFit];
-        // 布局用户名
-        CGRect userNameFrame = self.userNameLabel.frame;
-        userNameFrame.origin.y = timeStampLabelNeedHeight;
-        userNameFrame.origin.x = avatarButtonFrame.origin.x + avatarButtonFrame.size.width + kCCAvatarPaddingX;
-        if (self.bubbleMessageType != CCBubbleMessageTypeReceiving)
-            userNameFrame.origin.x = avatarButtonFrame.origin.x - userNameFrame.size.width - kCCAvatarPaddingX;
-        self.userNameLabel.frame = userNameFrame;
-
-        timeStampLabelNeedHeight += userNameFrame.size.height + 5;
-    }
-
-    CGRect bubbleMessageViewFrame = CGRectMake(bubbleX,
-                                               timeStampLabelNeedHeight,
-                                               CGRectGetWidth(self.contentView.bounds) - bubbleX - offsetX,
-                                               CGRectGetHeight(self.contentView.bounds) - timeStampLabelNeedHeight);
-    self.messageBubbleView.frame = bubbleMessageViewFrame;
-
-    self.messageBubbleView.userInteractionEnabled = YES;
-    UITableView *edit = (UITableView *)self.superview.superview;
-    if (edit.editing)
-        self.messageBubbleView.userInteractionEnabled = NO;
-
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-
-    if (self.messageBubbleView.message.selected)
-        [self.selectedIndicator setImage:CCResourceImage(@"AssetsYES")];
-    else
-        [self.selectedIndicator setImage:CCResourceImage(@"AssetsNO")];
-
-    [UIView commitAnimations];
 }
 
 - (void)dealloc
@@ -691,6 +736,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     _avatarButton = nil;
     _timestampLabel = nil;
     _messageBubbleView = nil;
+    _noticeLabel = nil;
     self.indexPath = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -713,6 +759,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     self.userNameLabel.text = nil;
     [self.avatarButton setImage:nil forState:UIControlStateNormal];
     self.timestampLabel.text = nil;
+    self.noticeLabel.text = nil;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

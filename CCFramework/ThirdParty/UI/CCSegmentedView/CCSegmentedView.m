@@ -187,6 +187,13 @@
     self.layer.borderColor = [textColor CGColor];
 }
 
+- (void)setTextFont:(UIFont *)textFont
+{
+    _textFont = textFont;
+    for (UILabel *label in self.botLabelArray)
+        label.font = textFont;
+}
+
 - (void)setViewColor:(UIColor *)viewColor
 {
     _viewColor = viewColor;

@@ -11,6 +11,13 @@
 @interface CCTeletTextLink : NSObject
 
 /**
+ *  @author CC, 16-08-25
+ *
+ *  @brief link类型
+ */
+@property(nonatomic, assign) NSInteger linkType;
+
+/**
  * 超链接文本内容
  */
 @property(nonatomic, copy) NSString *text;

@@ -1,5 +1,5 @@
 //
-//  NavMainViewController.h
+//  CCTabBarBadge.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -25,8 +25,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NavMainViewController : UINavigationController
+@interface CCTabBarBadge : UIButton
 
-@property (nonatomic, retain) UITabBarController *tabBarViewController;
+@property (nonatomic, copy) NSString *badgeValue;
+
+@property (nonatomic, assign) NSInteger tabBarItemCount;
+
+/**
+ *  Tabbar item's badge title font
+ */
+@property (nonatomic, strong) UIFont *badgeTitleFont;
 
 @end

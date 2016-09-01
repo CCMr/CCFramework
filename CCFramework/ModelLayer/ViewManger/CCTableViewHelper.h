@@ -234,7 +234,7 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
  *  @param newDataAry 数据源
  *  @param cSection   分组数
  */
-- (void)cc_resetDataAry:(NSArray *)newDataAry forSection:(NSUInteger)cSection;
+- (void)cc_resetDataAry:(NSArray *)newDataAry forSection:(NSInteger)cSection;
 
 /**
  *  @author CC, 16-05-18
@@ -253,7 +253,7 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
  *  @param newDataAry 数据源
  *  @param cSection   分组数
  */
-- (void)cc_reloadDataAry:(NSArray *)newDataAry forSection:(NSUInteger)cSection;
+- (void)cc_reloadDataAry:(NSArray *)newDataAry forSection:(NSInteger)cSection;
 
 /**
  *  @author CC, 16-05-18
@@ -271,7 +271,7 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
  *  @param newDataAry 数据源
  *  @param cSection   分组数
  */
-- (void)cc_addDataAry:(NSArray *)newDataAry forSection:(NSUInteger)cSection;
+- (void)cc_addDataAry:(NSArray *)newDataAry forSection:(NSInteger)cSection;
 
 /**
  *  @author CC, 16-05-18

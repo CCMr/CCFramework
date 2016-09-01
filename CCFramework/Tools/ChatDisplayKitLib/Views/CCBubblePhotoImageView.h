@@ -27,7 +27,7 @@
 #import <UIKit/UIKit.h>
 #import "CCMessageModel.h"
 
-#define kCCBubblePhotoMargin 8.0f
+#define kCCBubblePhotoMargin 6.2f
 
 @interface CCBubblePhotoImageView : UIView
 

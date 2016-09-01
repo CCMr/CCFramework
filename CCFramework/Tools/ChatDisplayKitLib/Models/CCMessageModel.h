@@ -44,6 +44,9 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMediaType) {
     CCBubbleMessageMediaTypeLocalPosition = 6,
     /** 媒体留言图文类型 */
     CCBubbleMessageMediaTypeTeletext = 7,
+
+    /** 媒体通知消息类型 */
+    CCBubbleMessageMediaTypeNotice = 20,
 };
 
 /**
@@ -77,6 +80,9 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 @protocol CCMessageModel <NSObject>
 
 @required
+
+-(NSString *)objuniqueID;
+
 /**
  *  @author CC, 2016-01-21
  *
@@ -129,6 +135,8 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 - (UIImage *)avatar;
 - (NSString *)avatarUrl;
 
+- (NSString *)noticeContent;
+
 /**
  *  @author CC, 2015-11-16
  *
@@ -170,6 +178,13 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
  *  @brief  发送人
  */
 - (NSString *)sender;
+
+/**
+ *  @author CC, 16-08-29
+ *
+ *  @brief 发送人ID
+ */
+- (NSString *)senderId;
 
 /**
  *  @author CC, 16-08-06

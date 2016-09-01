@@ -94,6 +94,7 @@ REGULAREXPRESSION(HashtagRegularExpression, @"#([\\u4e00-\\u9fa5\\w\\-]+)")
     self.font = [UIFont systemFontOfSize:16];
     self.textColor = [UIColor blackColor];
     self.adjustType = ImageAdjustTypeDefault;
+    self.dataDetectorTypes = CCDataDetectorTypeAll;
     self.highlightColor = [UIColor lightGrayColor];
 }
 
@@ -121,8 +122,8 @@ REGULAREXPRESSION(HashtagRegularExpression, @"#([\\u4e00-\\u9fa5\\w\\-]+)")
                                                   ReplaceSize:self.replaceSize
                                                    AdjustType:self.replaceAdjustType];
     [self analysisLinks];
-//    self.size = [self.mutableAttributedText sizeWithWidth:self.width
-//                                            numberOfLines:self.numberOfLines];
+    //    self.size = [self.mutableAttributedText sizeWithWidth:self.width
+    //                                            numberOfLines:self.numberOfLines];
     [self setNeedsDisplay];
 }
 
@@ -183,7 +184,12 @@ static NSArray *kAllRegexps()
     static NSArray *_allRegexps = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _allRegexps = @[kURLRegularExpression(),kTelephoneNumber(),kPhoneNumerRegularExpression(),kEmailRegularExpression(),kUserHandleRegularExpression(),kHashtagRegularExpression()];
+        _allRegexps = @[@{@"type":@(CCLinkTypeURL),@"value":kURLRegularExpression()},
+                        @{@"type":@(CCLinkTypePhoneNumber),@"value":kTelephoneNumber()},
+                        @{@"type":@(CCLinkTypePhoneNumber),@"value":kPhoneNumerRegularExpression()},
+                        @{@"type":@(CCLinkTypeEmail),@"value":kEmailRegularExpression()},
+                        @{@"type":@(CCLinkTypeUserHandle),@"value":kUserHandleRegularExpression()},
+                        @{@"type":@(CCLinkTypeHashtag),@"value":kHashtagRegularExpression()}];
     });
     return _allRegexps;
 }
@@ -238,7 +244,7 @@ static NSArray *kAllRegexps()
     if (self.dataDetectorTypes & CCDataDetectorTypeAttributedLink)
         [links addObjectsFromArray:[self.mutableAttributedText analysisLinkColor:kDefaultLinkColorForMLLinkLabel linkFont:self.font]];
 
-    [links addObjectsFromArray:[self.mutableAttributedText analysisLinkRegexps:kAllRegexps() Regexps:[self regexpsWithDataDetectorTypes:self.dataDetectorTypes] Links:links]];
+    [links addObjectsFromArray:[self.mutableAttributedText analysisLinkRegexps:kAllRegexps() Regexps:[self regexpsWithDataDetectorTypes:self.dataDetectorTypes] Links:links linkColor:kDefaultLinkColorForMLLinkLabel linkFont:self.font]];
 
     self.linkArr = links.count > 0 ? links : nil;
 }
@@ -303,15 +309,18 @@ static NSArray *kAllRegexps()
     if (self.activeLink || self.activeImage) {
         if (self.didClickLinkBlock) {
 
-            if (self.activeLink)
-                self.didClickLinkBlock(self, @{ @"linkValue" : self.activeLink.text });
-            else if (self.activeImage) {
-                NSMutableDictionary *eventDic = [NSMutableDictionary dictionary];
+            NSMutableDictionary *eventDic = [NSMutableDictionary dictionary];
+            if (self.activeLink) {
+                [eventDic setObject:self.activeLink.text forKey:@"linkValue"];
+                [eventDic setInteger:self.activeLink.linkType forKey:@"linkType"];
+                self.didClickLinkBlock(self, eventDic);
+            } else if (self.activeImage) {
                 [eventDic setObject:self.activeImage.imagePath forKey:@"imagePath"];
                 [eventDic setObject:self.activeImage.imageLabel forKey:@"imageLabel"];
                 [eventDic setObject:self.activeImage.image forKey:@"image"];
                 [eventDic setObject:NSStringFromCGSize(self.activeImage.imageSize) forKey:@"imageSize"];
                 [eventDic setObject:self.activeImage.imageView forKeyedSubscript:@"imageView"];
+                [eventDic setInteger:0 forKey:@"linkType"];
                 self.didClickLinkBlock(self, eventDic);
             }
         }

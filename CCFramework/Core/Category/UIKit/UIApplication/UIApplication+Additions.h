@@ -30,6 +30,13 @@
 
 @interface UIApplication (Permissions)
 
+/**
+ Returns `nil` in an application extension, otherwise returns the singleton app instance.
+
+ @return `nil` in an application extension, otherwise the app instance is created in the `UIApplicationMain` function.
+ */
++ (UIApplication *)cc_sharedApplication;
+
 #pragma mark-
 #pragma mark :. ApplicationSize
 

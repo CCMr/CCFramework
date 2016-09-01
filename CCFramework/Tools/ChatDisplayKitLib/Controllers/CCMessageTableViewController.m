@@ -268,7 +268,8 @@
     NSMutableArray *messages = [NSMutableArray arrayWithArray:self.messages];
     [messages addObject:addedMessage];
     self.messages = messages;
-    [self finishSendMessageWithBubbleMessageType:addedMessage.messageMediaType];
+    if (addedMessage.bubbleMessageType == CCBubbleMessageTypeSending)
+        [self finishSendMessageWithBubbleMessageType:addedMessage.messageMediaType];
 
     CGFloat heigth = self.messageTableView.frame.size.height;
     CGFloat contentYoffset = self.messageTableView.contentOffsetY;
@@ -295,13 +296,8 @@
 - (void)updateMessageData:(CCMessage *)messageData
           MessageSendType:(CCMessageSendType)sendType
 {
-    NSInteger index = [self.messages indexOfObject:messageData];
-    if (index != NSNotFound) {
-        CCMessage *message = [self.messages objectAtIndex:index];
-        message.messageSendState = sendType;
-        [self replaceMessages:messageData
-                   Replaceobj:message];
-    }
+    messageData.messageSendState = sendType;
+    [self replaceMessages:messageData];
 }
 
 /**
@@ -312,16 +308,15 @@
  *  @param messageData 消息实体
  */
 - (void)replaceMessages:(CCMessage *)messageData
-             Replaceobj:(CCMessage *)newMessage
-
 {
     NSMutableArray *messages = [NSMutableArray arrayWithArray:self.messages];
-    NSInteger index = [messages indexOfObject:messageData];
+    id data = [messages filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.objuniqueID = %@", messageData.objuniqueID]].lastObject;
+    NSInteger index = [messages indexOfObject:data];
 
     if (index != NSNotFound) {
         NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:1];
         [indexPaths addObject:[NSIndexPath indexPathForRow:index inSection:0]];
-        [messages replaceObjectAtIndex:index withObject:newMessage];
+        [messages replaceObjectAtIndex:index withObject:messageData];
 
         self.messages = messages;
         [self.messageTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
@@ -340,28 +335,41 @@
     [self.messageTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
 }
 
+static CGPoint delayOffset = {0.0};
 - (void)insertOldMessages:(NSArray *)oldMessages
                completion:(void (^)())completion
 {
+    WEAKSELF;
+    [self exChangeMessageDataSourceQueue:^{
+        delayOffset = weakSelf.messageTableView.contentOffset;
+        NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:oldMessages.count];
+        NSMutableIndexSet *indexSets = [[NSMutableIndexSet alloc] init];
+        [oldMessages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:idx inSection:0];
+            [indexPaths addObject:indexPath];
 
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.messages];
-    oldMessages = [[oldMessages reverseObjectEnumerator] allObjects];
-    for (CCMessage *ms in oldMessages)
-        [array insertObject:ms atIndex:0];
+            delayOffset.y += [weakSelf calculateCellHeightWithMessage:[oldMessages objectAtIndex:idx] atIndexPath:indexPath];
+            [indexSets addIndex:idx];
+        }];
 
-    self.messages = array;
-    if (oldMessages.count) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:oldMessages.count inSection:0];
+        NSMutableArray *messages = [[NSMutableArray alloc] initWithArray:weakSelf.messages];
+        [messages insertObjects:oldMessages atIndexes:indexSets];
 
-        WEAKSELF;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (completion)
+        [weakSelf exMainQueue:^{
+            [UIView setAnimationsEnabled:NO];
+            weakSelf.messageTableView.userInteractionEnabled = NO;
+            //[self.messageTableView beginUpdates];
+            weakSelf.messages = messages;
+            [weakSelf.messageTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+            //[self.messageTableView endUpdates];
+            [UIView setAnimationsEnabled:YES];
+            [weakSelf.messageTableView setContentOffset:delayOffset animated:NO];
+            weakSelf.messageTableView.userInteractionEnabled = YES;
+            if (completion) {
                 completion();
-
-            [weakSelf.messageTableView reloadData];
-            [weakSelf.messageTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
-        });
-    }
+            }
+        }];
+    }];
 }
 
 - (void)insertOldMessages:(NSArray *)oldMessages
@@ -648,7 +656,7 @@
 
     if (shouldLoadMoreMessagesScrollToTop) {
         messageTableView.tableHeaderView = self.headerContainerView;
-        [messageTableView addHeaderWithTargetIndicatorView:self action:@selector(scrollRefresh)];
+        [messageTableView addHeaderWithIndicator:self action:@selector(scrollRefresh)];
     }
 
     [self.view addSubview:messageTableView];
@@ -754,9 +762,6 @@
 
     //设置默认高度
     self.previousTextViewContentHeight = inputView.inputTextView.frame.size.height;
-
-    // 设置手势滑动，默认添加一个bar的高度值
-    self.messageTableView.messageInputBarHeight = CGRectGetHeight(_messageInputView.bounds);
 }
 
 /**
@@ -776,6 +781,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
+    // 设置手势滑动，默认添加一个bar的高度值
+    self.messageTableView.messageInputBarHeight = CGRectGetHeight(_messageInputView.bounds);
+
+
     // 设置键盘通知或者手势控制键盘消失
     [self.messageTableView setupPanGestureControlKeyboardHide:self.allowsPanToDismissKeyboard];
 
@@ -1147,7 +1157,7 @@
  *
  *  @brief 发送消息
  */
--(void)didSendMessage
+- (void)didSendMessage
 {
     [self didSendTextAction:self.messageInputView.inputTextView.text];
 }
@@ -1457,6 +1467,22 @@
 }
 
 #pragma mark - UIScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if ([self.delegate respondsToSelector:@selector(shouldLoadMoreMessagesScrollToTop)]) {
+        BOOL shouldLoadMoreMessages = [self.delegate shouldLoadMoreMessagesScrollToTop];
+        if (shouldLoadMoreMessages) {
+            if (scrollView.contentOffset.y >= 0 && scrollView.contentOffset.y <= 44) {
+                //                if (!self.loadingMoreMessage) {
+                //                    if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollTotop)]) {
+                //                        [self.delegate loadMoreMessagesScrollTotop];
+                //                    }
+                //                }
+            }
+        }
+    }
+}
 
 - (void)scrollRefresh
 {

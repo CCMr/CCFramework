@@ -112,7 +112,7 @@
     NSError *error = nil;
     NSPersistentStoreCoordinator *storeCoodinator = self.persistentStoreCoordinator;
     [storeCoodinator removePersistentStore:self.persistentStore error:&error];
-    
+
     [self removeNotifications];
     _privateContext = nil;
     _mainContext = nil;
@@ -138,7 +138,7 @@
                                              selector:@selector(mainManageObjectContextDidSaved:)
                                                  name:NSManagedObjectContextDidSaveNotification
                                                object:[self mainContext]];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(privateManageObjectContextDidSaved:)
                                                  name:NSManagedObjectContextDidSaveNotification
@@ -169,7 +169,7 @@
     if (_mainContext != nil) {
         return _mainContext;
     }
-    
+
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator) {
         _mainContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
@@ -177,7 +177,7 @@
         _mainContext.undoManager = nil;
         [_mainContext setPersistentStoreCoordinator:coordinator];
     }
-    
+
     return _mainContext;
 }
 
@@ -193,7 +193,7 @@
     if (_privateContext) {
         return _privateContext;
     }
-    
+
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator) {
         _privateContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
@@ -217,7 +217,7 @@
         return _managedObjectModel;
     }
     _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
-    
+
     return _managedObjectModel;
 }
 
@@ -227,24 +227,23 @@
     if (_persistentStoreCoordinator) {
         return _persistentStoreCoordinator;
     }
-    
+
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    
+
     NSError *error = nil;
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"coreData.sqlite"];
     self.storeUrl = storeURL;
-    
+
     NSDictionary *persistentStoreOptions = [self persistentStoreOptions];
-    
-    NSPersistentStore *persistanceStore = [_persistentStoreCoordinator
-                                           addPersistentStoreWithType:NSSQLiteStoreType
-                                           configuration:nil
-                                           URL:storeURL
-                                           options:persistentStoreOptions
-                                           error:&error];
-    
+
+    NSPersistentStore *persistanceStore = [_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                                                    configuration:nil
+                                                                                              URL:storeURL
+                                                                                          options:persistentStoreOptions
+                                                                                            error:&error];
+
     self.persistentStore = persistanceStore;
-    
+
     NSString *failureReason = @"There was an error creating or loading the application's saved data.";
     if (!persistanceStore) {
         error = nil;
@@ -260,7 +259,7 @@
             [dict setObject:@"Failed to initialize the application's saved data" forKey:NSLocalizedDescriptionKey];
             [dict setObject:failureReason forKey:NSLocalizedFailureReasonErrorKey];
             [dict setObject:error forKey:NSUnderlyingErrorKey];
-            
+
             error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -268,7 +267,7 @@
             abort();
         }
     }
-    
+
     return _persistentStoreCoordinator;
 }
 
@@ -281,25 +280,25 @@
                                           includingPropertiesForKeys:nil
                                                              options:0
                                                         errorHandler:nil];
-    
+
     NSString *storeName = [storeURL.lastPathComponent stringByDeletingPathExtension];
     for (NSURL *url in enumerator) {
-        
+
         if ([url.lastPathComponent hasPrefix:storeName] == NO) {
             continue;
         }
-        
+
         NSError *fileManagerError = nil;
         if ([fileManager removeItemAtURL:url error:&fileManagerError] == NO) {
-            
+
             if (error != NULL) {
                 *error = fileManagerError;
             }
-            
+
             return NO;
         }
     }
-    
+
     return YES;
 }
 

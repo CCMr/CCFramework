@@ -24,7 +24,6 @@
 // THE SOFTWARE.
 //
 #import "BaseViewController.h"
-#import "BaseNavigationController.h"
 #import "Config.h"
 #import "CCNSLog.h"
 #import "UIBarButtonItem+Additions.h"
@@ -329,7 +328,7 @@
     __block UIViewController *selfViewControler = newViewController;
     [array enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         UIViewController *objViewController = obj;
-        BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:objViewController];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:objViewController];
         nav.view.frame = selfViewControler.view.bounds;
         [selfViewControler addChildViewController:nav];
         [selfViewControler.view addSubview:nav.view];

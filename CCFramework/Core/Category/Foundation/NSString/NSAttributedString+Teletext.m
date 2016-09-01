@@ -15,7 +15,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 
 /**
  *  @author CC, 16-05-30
- *  
+ *
  *  @brief  图文表情
  *
  *  @param text         文本
@@ -30,38 +30,43 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 {
     for (NSString *replaceStr in replaceAry)
         text = [text stringByReplacingOccurrencesOfString:replaceStr withString:OBJECT_REPLACEMENT_CHARACTER];
-    
+
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
-    
+
     NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:OBJECT_REPLACEMENT_CHARACTER options:NSRegularExpressionCaseInsensitive error:nil];
     NSArray *resultArray = [re matchesInString:text options:0 range:NSMakeRange(0, text.length)];
-    
-    for (int i = 0; i < resultArray.count; i++) {
-        NSDictionary *sizeDic = [teletextSize objectAtIndex:i];
-        NSTextCheckingResult *match = [resultArray objectAtIndex:i];
-        
-        NSString *path = @"";
-        if (teletextPath.count && i < teletextPath.count)
-            path = [teletextPath objectAtIndex:i];
-        
-        CGSize size = CGSizeMake([[sizeDic objectForKey:@"width"] integerValue], [[sizeDic objectForKey:@"height"] integerValue]);
-        UIImage *emojiImage = [UIImage imageWithContentsOfFile:path];
-        if (emojiImage)
-            size = CGSizeMake(emojiImage.size.width < size.width ? emojiImage.size.width : size.width, emojiImage.size.height < size.height ? emojiImage.size.height : size.height);
-        
-        // Resize Emoji Image
-        UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
-        [emojiImage drawInRect:CGRectMake(0, 0, size.width, size.height)];
-        UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
 
-        NSTextAttachment *textAttachment = [NSTextAttachment new];
-        textAttachment.image = resizedImage;
-        
-        NSAttributedString *rep = [NSAttributedString attributedStringWithAttachment:textAttachment];
-        [attributedString replaceCharactersInRange:[match range] withAttributedString:rep];
+    @try {
+        for (int i = 0; i < resultArray.count; i++) {
+            NSDictionary *sizeDic = [teletextSize objectAtIndex:i];
+            NSTextCheckingResult *match = [resultArray objectAtIndex:i];
+
+            NSString *path = @"";
+            if (teletextPath.count && i < teletextPath.count)
+                path = [teletextPath objectAtIndex:i];
+
+            CGSize size = CGSizeMake([[sizeDic objectForKey:@"width"] integerValue], [[sizeDic objectForKey:@"height"] integerValue]);
+            UIImage *emojiImage = [UIImage imageWithContentsOfFile:path];
+            if (emojiImage)
+                size = CGSizeMake(emojiImage.size.width < size.width ? emojiImage.size.width : size.width, emojiImage.size.height < size.height ? emojiImage.size.height : size.height);
+
+            // Resize Emoji Image
+            UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+            [emojiImage drawInRect:CGRectMake(0, 0, size.width, size.height)];
+            UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+
+            NSTextAttachment *textAttachment = [NSTextAttachment new];
+            textAttachment.image = resizedImage;
+
+            NSAttributedString *rep = [NSAttributedString attributedStringWithAttachment:textAttachment];
+            [attributedString replaceCharactersInRange:[match range] withAttributedString:rep];
+        }
+    } @catch (NSException *exception) {
+
+    } @finally {
     }
-    
+
     return attributedString;
 }
 

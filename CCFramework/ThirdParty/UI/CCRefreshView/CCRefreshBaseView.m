@@ -80,7 +80,7 @@
 {
     if (!_activityView) {
         UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        indicatorView.frame = CGRectMake(0, 0, 30, 30);
+        indicatorView.frame = CGRectMake(0, 0, 20, 20);
         [self addSubview:indicatorView];
         _activityView = indicatorView;
     }
@@ -130,6 +130,8 @@
 
         self.cc_activityView.center = self.arrowImage.center;
         self.activityView.center = self.arrowImage.center;
+    } else if (self.style == CCRefreshViewStyleIndicator) {
+        self.activityView.center = CGPointMake(self.centerX, self.height * 0.5);
     }
 }
 
@@ -210,6 +212,12 @@
     if (_style == CCRefreshViewStyleImageView) {
         self.statusLabel.hidden = YES;
         self.arrowImage.hidden = YES;
+    } else if (_style == CCRefreshViewStyleIndicator) {
+        self.statusLabel.hidden = YES;
+        self.arrowImage.hidden = YES;
+        self.activityView.hidden = NO;
+        self.height = 30;
+        [self setNeedsDisplay];
     } else {
         self.statusLabel.hidden = NO;
         self.arrowImage.hidden = NO;
@@ -278,13 +286,14 @@
         {
             if (oldState == CCRefreshStateRefreshing) {
                 [UIView animateWithDuration:CCRefreshSlowAnimationDuration * 0.6 animations:^{
-                    if (self.style == CCRefreshViewStyleIndicatorView)
+                    if (self.style == CCRefreshViewStyleIndicatorView || self.style == CCRefreshViewStyleIndicator)
                         self.activityView.alpha = 0.0;
                     else if (self.style == CCRefreshViewStyleDefault)
                         self.cc_activityView.alpha = 0.0;
+
                 } completion:^(BOOL finished) {
 
-                    if (self.style == CCRefreshViewStyleIndicatorView){// 停止转圈圈
+                    if (self.style == CCRefreshViewStyleIndicatorView || self.style == CCRefreshViewStyleIndicator){// 停止转圈圈
                         [self.activityView stopAnimating];
                         self.activityView.alpha = 1.0;
                     }else if (self.style == CCRefreshViewStyleDefault){ // 恢复alpha
@@ -296,7 +305,7 @@
 
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(CCRefreshSlowAnimationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 等头部回去
                     // 停止转圈圈
-                    if (self.style == CCRefreshViewStyleIndicatorView){
+                    if (self.style == CCRefreshViewStyleIndicatorView || self.style == CCRefreshViewStyleIndicator){
                         [self.activityView stopAnimating];
                     }else if (self.style == CCRefreshViewStyleDefault){
                         // 显示箭头
@@ -311,7 +320,7 @@
                 return;
             } else {
                 // 停止转圈圈
-                if (self.style == CCRefreshViewStyleIndicatorView) {
+                if (self.style == CCRefreshViewStyleIndicatorView || self.style == CCRefreshViewStyleIndicator) {
                     [self.activityView stopAnimating];
                 } else if (self.style == CCRefreshViewStyleDefault) {
                     [self.cc_activityView stopAnimation];
@@ -323,7 +332,7 @@
         }
 
         case CCRefreshStatePulling:
-            if (self.style == CCRefreshViewStyleIndicatorView) {
+            if (self.style == CCRefreshViewStyleIndicatorView || self.style == CCRefreshViewStyleIndicator) {
                 [self.activityView startAnimating];
             } else if (self.style == CCRefreshViewStyleDefault)
                 [self.cc_activityView startAnimation];
@@ -331,7 +340,7 @@
 
         case CCRefreshStateRefreshing: {
 
-            if (self.style == CCRefreshViewStyleIndicatorView) {
+            if (self.style == CCRefreshViewStyleIndicatorView || self.style == CCRefreshViewStyleIndicator) {
                 [self.activityView startAnimating];
             } else if (self.style == CCRefreshViewStyleDefault)
                 [self.cc_activityView startAnimation];

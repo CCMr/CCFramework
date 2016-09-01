@@ -1,5 +1,5 @@
 //
-//  BaseNavigationController.h
+//  CCPreviewItem.m
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,14 +23,32 @@
 // THE SOFTWARE.
 //
 
+#import "CCPreviewItem.h"
 
-#import <UIKit/UIKit.h>
+@interface CCPreviewItem () {
+    BOOL _loadingItem;
+}
+@end
 
-@interface BaseNavigationController : UINavigationController <UINavigationControllerDelegate>
+@implementation CCPreviewItem
 
-- (id)initWithRootViewController:(UIViewController *)rootViewController 
-                           title:(NSString *)rootTitle 
-                        SelImage:(UIImage *)SelecteImage
-                           Image:(UIImage *)image;
+@synthesize previewItemURL = _previewItemURL;
+
++ (CCPreviewItem *)previewItemWithStr:(NSString *)urlStr
+                                title:(NSString *)title
+{
+    return [self previewItemWithURL:[NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]
+                              title:title];
+}
+
++ (CCPreviewItem *)previewItemWithURL:(NSURL *)url
+                                title:(NSString *)title
+{
+    CCPreviewItem *instance = [[CCPreviewItem alloc] init];
+    instance.previewItemURL = url;
+    instance.previewItemTitle = title;
+
+    return instance;
+}
 
 @end

@@ -46,6 +46,7 @@
     return YES;
 }
 
+/*
 //最大旋转角度
 #define rotate 35.0 * M_PI / 180.0
 //返回一个rect位置下所有cell的位置数组
@@ -114,5 +115,5 @@
     //返回修改后停下的位置
     return CGPointMake(proposedContentOffset.x + offsetAdjustment, proposedContentOffset.y);
 }
-
+*/
 @end

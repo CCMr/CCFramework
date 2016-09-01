@@ -86,7 +86,7 @@
 
 /**
  *  @author CC, 2015-10-30
- *  
+ *
  *  @brief  排序
  *
  *  @param ascending     是否升序
@@ -158,6 +158,8 @@
 #pragma mark - NSMutableArray setter
 
 @interface NSMutableArray (SafeAccess)
+
+- (void)insertObjectsFromArray:(NSArray *)otherArray;
 
 - (void)addObj:(id)i;
 

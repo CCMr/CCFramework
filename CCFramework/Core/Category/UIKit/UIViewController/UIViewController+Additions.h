@@ -28,6 +28,10 @@
 #import "BaseViewManger.h"
 #import "BaseViewModel.h"
 
+// noticeStatistics 注册改通知 用于统计
+#define noticeStatisticsWillAppear @"NOTICESTATISTICSWILLAPPEAR"
+#define noticeStatisticsWillDisappear @"NOTICESTATISTICSWILLDISAPPEAR"
+
 @interface UIViewController (Additions) <CCViewControllerProtocolDelegate>
 
 /**

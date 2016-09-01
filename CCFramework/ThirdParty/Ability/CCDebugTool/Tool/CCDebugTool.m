@@ -24,8 +24,7 @@
 //
 
 #import "CCDebugTool.h"
-#import "BaseTabBarController.h"
-#import "BaseNavigationController.h"
+#import "CCTabBarController.h"
 #import "CCDebugCrashViewController.h"
 #import "CCDebugHttpViewController.h"
 #import "CCDebugLogViewController.h"
@@ -51,7 +50,7 @@
 
 @interface CCDebugTool ()
 
-@property(nonatomic, weak) BaseTabBarController *debugTabBar;
+@property(nonatomic, weak) CCTabBarController *debugTabBar;
 @property(nonatomic, strong) CCDebugWindow *debugWindow;
 
 @property(nonatomic, strong) UIButton *debugButton;
@@ -85,14 +84,14 @@
 
 /**
  *  @author CC, 16-03-05
- *  
+ *
  *  @brief 状态栏显示Debug按钮
  */
 - (void)showOnStatusBar
 {
     self.debugWindow.windowLevel = UIWindowLevelStatusBar + 1;
     self.debugWindow.hidden = NO;
-    
+
     self.debugButton = [[UIButton alloc] initWithFrame:CGRectMake(5, 2, 91, 18)];
     self.debugButton.backgroundColor = self.mainColor;
     self.debugButton.layer.cornerRadius = 3;
@@ -101,7 +100,7 @@
     [self.debugButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.debugButton addTarget:self action:@selector(showDebug) forControlEvents:UIControlEventTouchUpInside];
     [self.debugWindow addSubview:self.debugButton];
-    
+
     self.debugTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerMonitor) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:self.debugTimer forMode:NSDefaultRunLoopMode];
 }
@@ -109,7 +108,7 @@
 
 /**
  *  @author CC, 16-03-05
- *  
+ *
  *  @brief 启动Debug检测
  */
 - (void)enableDebugMode
@@ -124,48 +123,39 @@
 - (void)showDebug
 {
     if (!self.debugTabBar) {
-        BaseTabBarController *debugTabBar = [[BaseTabBarController alloc] init];
-        
-        UINavigationController *debugHTTP = ({
-            debugHTTP = [[BaseNavigationController alloc] initWithRootViewController:[[CCDebugHttpViewController alloc] init]
-                                                                               title:@"HTTP"
-                                                                            SelImage:[UIImage imageNamed:@""]
-                                                                               Image:[UIImage imageNamed:@""]];
+        CCTabBarController *debugTabBar = [[CCTabBarController alloc] init];
+
+        UINavigationController *debugHTTPNav = ({
+            CCDebugHttpViewController * debugHTTP = [CCDebugHttpViewController new];
+            debugHTTP.title = @"Home";
             [debugHTTP.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor],NSFontAttributeName:[UIFont systemFontOfSize:30]} forState:UIControlStateNormal];
             [debugHTTP.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:self.mainColor,NSFontAttributeName:[UIFont systemFontOfSize:30]} forState:UIControlStateSelected];
-            
-            debugHTTP;
-            
+
+            [[UINavigationController alloc] initWithRootViewController:debugHTTP];
         });
-        
-        
-        UINavigationController *debugCrash = ({ 
-            debugCrash= [[BaseNavigationController alloc] initWithRootViewController:[[CCDebugCrashViewController alloc] init]
-                                                                               title:@"Crash"
-                                                                            SelImage:[UIImage imageNamed:@""]
-                                                                               Image:[UIImage imageNamed:@""]];
+
+
+        UINavigationController *debugCrashNav = ({
+            CCDebugCrashViewController *debugCrash = [CCDebugCrashViewController new];
+            debugCrash.title = @"Crash";
             [debugCrash.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor],NSFontAttributeName:[UIFont systemFontOfSize:30]} forState:UIControlStateNormal];
             [debugCrash.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:self.mainColor,NSFontAttributeName:[UIFont systemFontOfSize:30]} forState:UIControlStateSelected];
-            
-            debugCrash;
-            
+
+            [[UINavigationController alloc] initWithRootViewController:debugCrash];
         });
-        
-        UINavigationController *DebugLOG = ({
-            DebugLOG= [[BaseNavigationController alloc] initWithRootViewController:[[CCDebugLogViewController alloc] init]
-                                                                             title:@"LOG"
-                                                                          SelImage:[UIImage imageNamed:@""]
-                                                                             Image:[UIImage imageNamed:@""]];
-            [DebugLOG.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor],NSFontAttributeName:[UIFont systemFontOfSize:30]} forState:UIControlStateNormal];
-            [DebugLOG.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:self.mainColor,NSFontAttributeName:[UIFont systemFontOfSize:30]} forState:UIControlStateSelected];
-            
-            DebugLOG;
-            
+
+        UINavigationController *debugLOGNav = ({
+            CCDebugLogViewController *debugLOG = [CCDebugLogViewController new];
+            debugLOG.title = @"LOG";
+            [debugLOG.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor],NSFontAttributeName:[UIFont systemFontOfSize:30]} forState:UIControlStateNormal];
+            [debugLOG.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:self.mainColor,NSFontAttributeName:[UIFont systemFontOfSize:30]} forState:UIControlStateSelected];
+
+            [[UINavigationController alloc] initWithRootViewController:debugLOG];
         });
-        
-        debugTabBar.viewControllers = [NSArray arrayWithObjects:debugHTTP, debugCrash, DebugLOG, nil];
+
+        debugTabBar.viewControllers = [NSArray arrayWithObjects:debugHTTPNav, debugCrashNav, debugLOGNav, nil];
         self.debugTabBar = debugTabBar;
-        
+
         UIViewController *rootViewController = [[[UIApplication sharedApplication].delegate window] rootViewController];
         UIViewController *presentedViewController = rootViewController.presentedViewController;
         [presentedViewController ?: rootViewController presentViewController:self.debugTabBar animated:YES completion:nil];
@@ -177,7 +167,7 @@
 
 /**
  *  @author CC, 16-03-05
- *  
+ *
  *  @brief 时时刷新当前使用情况
  */
 - (void)timerMonitor

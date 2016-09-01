@@ -16,6 +16,8 @@
 
 - (NSArray *)analysisLinkRegexps:(NSArray *)allRegexps
                          Regexps:(NSArray *)regexps
-                           Links:(NSArray *)links;
+                           Links:(NSArray *)links
+                       linkColor:(UIColor *)linkColor
+                        linkFont:(UIFont *)linkFont;
 
 @end

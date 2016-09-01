@@ -78,6 +78,16 @@
  */
 - (void)addHeaderWithCallback:(void (^)())callback;
 
+/**
+ *  @author CC, 16-08-26
+ *
+ *  @brief 单独居中指示器
+ *
+ *  @param target 目标
+ *  @param action 回调方法
+ */
+- (void)addHeaderWithIndicator:(id)target
+                        action:(SEL)action;
 
 /**
  *  @author CC, 16-08-18

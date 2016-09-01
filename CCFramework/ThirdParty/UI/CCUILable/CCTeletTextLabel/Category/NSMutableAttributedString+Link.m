@@ -45,16 +45,18 @@
 - (NSArray *)analysisLinkRegexps:(NSArray *)allRegexps
                          Regexps:(NSArray *)regexps
                            Links:(NSArray *)links
+                       linkColor:(UIColor *)linkColor
+                        linkFont:(UIFont *)linkFont
 {
     __block NSMutableArray *linkArray = [NSMutableArray array];
-    for (NSRegularExpression *regexp in regexps) {
+    for (NSDictionary *dic in regexps) {
+        NSRegularExpression *regexp = [dic objectForKey:@"value"];
         [regexp enumerateMatchesInString:self.string options:0 range:NSMakeRange(0, self.length) usingBlock:^(NSTextCheckingResult *result, __unused NSMatchingFlags flags, __unused BOOL *stop) {
             //去重处理
             for (CCTeletTextLink *link in links){
                 if (NSMaxRange(NSIntersectionRange(link.linkRange, result.range))>0)
                     return;
             }
-
             //这个刚好和MLLinkType对应
             NSInteger linkType = [allRegexps indexOfObject:regexp]+1;
 
@@ -62,11 +64,16 @@
                 CCTeletTextLink *link = [CCTeletTextLink new];
                 link.text = [self.string substringWithRange:result.range];
                 link.linkRange = result.range;
+                link.linkType = [[dic objectForKey:@"type"] integerValue];
                 [linkArray addObject:link];
+
+                // 设置超文本字体大小和颜色
+                [self setFont:linkFont range:result.range];
+                [self setTextColor:linkColor range:result.range];
             }
         }];
     }
-      return linkArray;
+    return linkArray;
 }
 
 - (void)setFont:(UIFont *)font range:(NSRange)range

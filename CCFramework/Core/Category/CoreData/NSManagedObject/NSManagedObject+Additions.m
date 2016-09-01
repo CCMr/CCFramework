@@ -32,6 +32,10 @@
 
 @implementation NSManagedObject (Additions)
 
+#define DATE_ATTR_PREFIX @"dAtEaTtr:"
+#warning "Change CLASS_PREFIX if it's not ABC"
+#define CLASS_PREFIX @"ABC"
+
 #pragma mark -
 #pragma mark :. Extensions
 
@@ -101,12 +105,63 @@
     return error;
 }
 
-- (NSDictionary *)changedDictionary
+//- (NSDictionary *)changedDictionary
+//{
+//
+//    NSArray *attributes = self.entity.attributesByName.allKeys;
+//    NSArray *relationships = self.entity.relationshipsByName.allKeys;
+//    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:[attributes count] + [relationships count] + 1];
+//    [dict setObject:self.objectID forKey:@"objectID"];
+//    //    [dict setObject:[[self class] description] forKey:@"class"];
+//
+//    for (NSString *attr in attributes) {
+//        NSObject *value = [self valueForKey:attr];
+//        if (value)
+//            [dict setObject:value forKey:attr];
+//    }
+//
+//    for (NSString *relationship in relationships) {
+//        NSObject *value = [self valueForKey:relationship];
+//
+//        if ([value isKindOfClass:[NSSet class]]) {
+//            // To-many relationship
+//            // The core data set holds a collection of managed objects
+//            NSSet *relatedObjects = (NSSet *)value;
+//
+//            NSMutableArray *dicSetArray = [NSMutableArray array];
+//            for (NSManagedObject *relatedObject in relatedObjects) {
+//                    [dicSetArray addObject:[relatedObject changedDictionary]];
+//            }
+//
+//            [dict setObject:dicSetArray forKey:relationship];
+//        } else if ([value isKindOfClass:[NSManagedObject class]]) {
+//            // To-one relationship
+//            NSManagedObject *relatedObject = (NSManagedObject *)value;
+//            //表名与关联字段必须一样并且全部是小写表名与关联字段必须一样 全部转小写比较
+//            if ([[relatedObject.entity.name lowercaseString] isEqualToString:relationship]) {
+//                // Call toDictionary on the referenced object and put the result back into our dictionary.
+//                [dict setObject:[relatedObject changedDictionary] forKey:relationship];
+//            }
+//        }
+//    }
+//
+//    return dict;
+//}
+
+- (NSDictionary *)toDictionaryWithTraversalHistory:(NSMutableSet *)traversalHistory
 {
-    NSArray *attributes = self.entity.attributesByName.allKeys;
-    NSArray *relationships = self.entity.relationshipsByName.allKeys;
+    NSArray *attributes = [[[self entity] attributesByName] allKeys];
+    NSArray *relationships = [[[self entity] relationshipsByName] allKeys];
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:[attributes count] + [relationships count] + 1];
-    [dict setObject:self.objectID forKey:@"objectID"];
+
+    NSMutableSet *localTraversalHistory = nil;
+    if (traversalHistory == nil) {
+        localTraversalHistory = [NSMutableSet setWithCapacity:[attributes count] + [relationships count] + 1];
+    } else {
+        localTraversalHistory = traversalHistory;
+    }
+
+    [localTraversalHistory addObject:self];
     //    [dict setObject:[[self class] description] forKey:@"class"];
 
     for (NSString *attr in attributes) {
@@ -122,24 +177,53 @@
             // To-many relationship
             // The core data set holds a collection of managed objects
             NSSet *relatedObjects = (NSSet *)value;
+            // Our set holds a collection of dictionaries
+            NSMutableArray *dictSet = [NSMutableArray arrayWithCapacity:[relatedObjects count]];
+            for (NSManagedObject *relatedObject in relatedObjects) {
+                if ([localTraversalHistory containsObject:relatedObject] == NO) {
+                    [dictSet addObject:[relatedObject toDictionaryWithTraversalHistory:localTraversalHistory]];
+                }
+            }
 
-            NSMutableArray *dicSetArray = [NSMutableArray array];
-            for (NSManagedObject *relatedObject in relatedObjects)
-                [dicSetArray addObject:[relatedObject changedDictionary]];
+            [dict setObject:[NSArray arrayWithArray:dictSet] forKey:relationship];
+        } else if ([value isKindOfClass:[NSOrderedSet class]]) {
+            // To-many relationship
+            // The core data set holds an ordered collection of managed objects
+            NSOrderedSet *relatedObjects = (NSOrderedSet *)value;
+            // Our ordered set holds a collection of dictionaries
+            NSMutableArray *dictSet = [NSMutableArray arrayWithCapacity:[relatedObjects count]];
+            for (NSManagedObject *relatedObject in relatedObjects) {
+                if ([localTraversalHistory containsObject:relatedObject] == NO) {
+                    [dictSet addObject:[relatedObject toDictionaryWithTraversalHistory:localTraversalHistory]];
+                }
+            }
 
-            [dict setObject:dicSetArray forKey:relationship];
+            [dict setObject:[NSOrderedSet orderedSetWithArray:dictSet] forKey:relationship];
         } else if ([value isKindOfClass:[NSManagedObject class]]) {
             // To-one relationship
             NSManagedObject *relatedObject = (NSManagedObject *)value;
-            //表名与关联字段必须一样并且全部是小写表名与关联字段必须一样 全部转小写比较
-            if ([[relatedObject.entity.name lowercaseString] isEqualToString:relationship]) {
+            if ([localTraversalHistory containsObject:relatedObject] == NO) {
                 // Call toDictionary on the referenced object and put the result back into our dictionary.
-                [dict setObject:[relatedObject changedDictionary] forKey:relationship];
+                [dict setObject:[relatedObject toDictionaryWithTraversalHistory:localTraversalHistory] forKey:relationship];
             }
         }
     }
 
+    if (traversalHistory == nil)
+        [localTraversalHistory removeAllObjects];
+
     return dict;
+}
+
+- (NSDictionary *)changedDictionary
+{
+    // Check to see there are any objects that should be skipped in the traversal.
+    // This method can be optionally implemented by NSManagedObject subclasses.
+    NSMutableSet *traversedObjects = nil;
+    if ([self respondsToSelector:@selector(serializationObjectsToSkip)]) {
+        traversedObjects = [self performSelector:@selector(serializationObjectsToSkip)];
+    }
+    return [self toDictionaryWithTraversalHistory:traversedObjects];
 }
 
 - (NSDictionary *)Dictionary
@@ -166,8 +250,7 @@
         NSObject *value = [dict objectForKey:key];
         if ([value isKindOfClass:[NSDictionary class]]) {
             // This is a to-one relationship
-            NSManagedObject *relatedObject =
-            [NSManagedObject createManagedObjectFromDictionary:(NSDictionary *)value inContext:context];
+            NSManagedObject *relatedObject = [NSManagedObject createManagedObjectFromDictionary:(NSDictionary *)value inContext:context];
 
             [self setValue:relatedObject forKey:key];
         } else if ([value isKindOfClass:[NSSet class]]) {
@@ -179,8 +262,7 @@
             NSMutableSet *relatedObjects = [self mutableSetValueForKey:key];
 
             for (NSDictionary *relatedObjectDict in relatedObjectDictionaries) {
-                NSManagedObject *relatedObject =
-                [NSManagedObject createManagedObjectFromDictionary:relatedObjectDict inContext:context];
+                NSManagedObject *relatedObject = [NSManagedObject createManagedObjectFromDictionary:relatedObjectDict inContext:context];
                 [relatedObjects addObject:relatedObject];
             }
         } else if (value != nil) {
@@ -514,7 +596,10 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
                 } else {
                     NSMutableSet *localSet = [self mutableSetValueForKey:relationshipName];
                     [localSet addObjectsFromArray:destinationObjs];
-                    [self setValue:localSet forKey:relationshipName];
+                    if (localSet.count < destinationObjs.count) {
+                        [self setValue:[[NSMutableSet alloc] initWithArray:destinationObjs] forKey:relationshipName];
+                    } else
+                        [self setValue:localSet forKey:relationshipName];
                 }
             } else {
                 if (relationshipDes.isOrdered) {

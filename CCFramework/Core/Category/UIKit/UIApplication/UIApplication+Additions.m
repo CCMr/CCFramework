@@ -50,8 +50,20 @@ static char PermissionsLocationBlockFailurePropertyKey;
 
 @end
 
+static IMP cc_sharedApplicationOriginalImplementation;
 
 @implementation UIApplication (Additions)
+
++ (UIApplication *)cc_sharedApplication
+{
+    return nil;
+}
+
++ (IMP)cc_sharedApplicationOriginalImplementaion
+{
+    return cc_sharedApplicationOriginalImplementation;
+}
+
 
 #pragma mark -
 #pragma mark :. ApplicationSize
@@ -74,6 +86,16 @@ static CGRect _keyboardFrame = (CGRect){(CGPoint){0.0f, 0.0f}, (CGSize){0.0f, 0.
     [NSNotificationCenter.defaultCenter addObserverForName:UIKeyboardDidHideNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
         _keyboardFrame = CGRectZero;
     }];
+
+    // When you build an extension based on an Xcode template, you get an extension bundle that ends in .appex.
+    if (![[[NSBundle mainBundle] bundlePath] hasSuffix:@".appex"]) {
+        Method sharedApplicationMethod = class_getClassMethod([UIApplication class], @selector(sharedApplication));
+        if (sharedApplicationMethod != NULL) {
+            IMP sharedApplicationMethodImplementation = method_getImplementation(sharedApplicationMethod);
+            Method cc_sharedApplicationMethod = class_getClassMethod([UIApplication class], @selector(cc_sharedApplication));
+            cc_sharedApplicationOriginalImplementation = method_setImplementation(cc_sharedApplicationMethod, sharedApplicationMethodImplementation);
+        }
+    }
 }
 
 - (NSString *)applicationSize

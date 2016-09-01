@@ -431,6 +431,8 @@ typedef NS_ENUM(NSUInteger, CCAccuracy) {
  */
 - (UIImage *)imageRotatedByRadians:(CGFloat)radians;
 
+- (UIImage *)rotateByAngle:(CGFloat)angleInRadians;
+
 /**
  *  @brief  垂直翻转
  *

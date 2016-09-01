@@ -30,7 +30,9 @@
 #import <CoreData/CoreData.h>
 #import "BaseEntity.h"
 
-@interface CCMessage : BaseEntity <CCMessageModel, NSCoding, NSCopying>
+@interface CCMessage : NSObject <CCMessageModel, NSCoding, NSCopying>
+
+@property(nonatomic, copy, readonly) NSString *objuniqueID;
 
 /**
  *  @author CC, 2016-01-21
@@ -90,6 +92,13 @@
 @property(nonatomic, copy) NSString *avatarUrl;
 
 /**
+ *  @author CC, 16-08-25
+ *
+ *  @brief 显示通知消息
+ */
+@property(nonatomic, copy) NSString *noticeContent;
+
+/**
  *  @author CC, 2015-11-16
  *
  *  @brief  数据存储ID
@@ -104,6 +113,13 @@
  *  @since 1.0
  */
 @property(nonatomic, copy) NSString *sender;
+
+/**
+ *  @author CC, 16-08-29
+ *
+ *  @brief 发送ID
+ */
+@property(nonatomic, copy) NSString *senderId;
 
 /**
  *  @author CC, 16-08-06
@@ -170,7 +186,18 @@
  */
 @property(nonatomic) BOOL selected;
 
-
+/**
+ *  @author CC, 16-08-25
+ *
+ *  @brief 通知消息
+ *
+ *  @param text      消息内容
+ *  @param sender    发送人
+ *  @param timestamp 发送的时间
+ */
+- (instancetype)initWithNotice:(NSString *)text
+                        sender:(NSString *)sender
+                     timestamp:(NSDate *)timestamp;
 /**
  *  初始化文本消息
  *

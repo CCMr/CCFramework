@@ -75,5 +75,8 @@
 #import <CCFramework/MLExpressionManager.h>
 #import <CCFramework/CCSpreadsheetView.h>
 #import <CCFramework/CCRingProgressView.h>
+#import <CCFramework/CCPreViewController.h>
+#import <CCFramework/CCPreviewItem.h>
+#import <CCFramework/CCTabBarController.h>
 
 #endif

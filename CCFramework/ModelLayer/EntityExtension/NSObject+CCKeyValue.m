@@ -184,24 +184,34 @@ static NSNumberFormatter *numberFormatter_;
                 }else if (propertyClass == [NSDate class]){
 
                     if(![value isKindOfClass:[NSDate class]]){
-                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                        NSRange range = [[NSString stringWithFormat:@"%@",value] rangeOfString:@"T"];
+                        if ([value isKindOfClass:[NSNumber class]]) {
+                            NSInteger mumber = [value integerValue];
+                            if ([[NSString stringWithFormat:@"%d",value] length]> 10)
+                                mumber = mumber / 1000;
 
-                        NSRange sRange = [[NSString stringWithFormat:@"%@",value] rangeOfString:@"."];
-                        NSInteger count = 0;
-                        if (sRange.location!=NSNotFound)
-                            count = [[NSString stringWithFormat:@"%@",value] componentsSeparatedByString:@"."].lastObject.length;
+                            value = [NSDate dateWithTimeIntervalSince1970:mumber];
+                        }else{
+                            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                            NSRange range = [[NSString stringWithFormat:@"%@",value] rangeOfString:@"T"];
 
-                        if (range.location != NSNotFound) {
-                            NSString *endMilliSecond = @".";
-                            for (NSInteger i = 0; i < count; i++)
-                                endMilliSecond = [NSString stringWithFormat:@"%@S",endMilliSecond];
-                            [formatter setDateFormat:[NSString stringWithFormat:@"yyyy-MM-dd'T'HH:mm:ss%@",endMilliSecond]];
-                        }else if([value isKindOfClass:[NSDate class]]){
-                            [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-                            [formatter setLocale:[NSLocale currentLocale]];
+                            NSRange sRange = [[NSString stringWithFormat:@"%@",value] rangeOfString:@"."];
+                            NSInteger count = 0;
+                            if (sRange.location!=NSNotFound)
+                                count = [[NSString stringWithFormat:@"%@",value] componentsSeparatedByString:@"."].lastObject.length;
+
+                            if (range.location != NSNotFound) {
+                                NSString *endMilliSecond = @".";
+                                for (NSInteger i = 0; i < count; i++)
+                                    endMilliSecond = [NSString stringWithFormat:@"%@S",endMilliSecond];
+                                [formatter setDateFormat:[NSString stringWithFormat:@"yyyy-MM-dd'T'HH:mm:ss%@",endMilliSecond]];
+                            }else if([value isKindOfClass:[NSDate class]]){
+                                [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+                                [formatter setLocale:[NSLocale currentLocale]];
+                            }else{
+                                [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                            }
+                            value = [formatter dateFromString:value];
                         }
-                        value = [formatter dateFromString:value];
                     }
                 }else if ([value isKindOfClass:[NSString class]]) {
                     if (propertyClass == [NSURL class]) {

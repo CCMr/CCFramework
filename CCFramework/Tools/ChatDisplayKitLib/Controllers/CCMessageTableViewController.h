@@ -67,7 +67,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
              onDate:(NSDate *)date;
 /**
  *  @author CC, 2015-12-25
- *  
+ *
  *  @brief  发送图文消息的回调方法
  *
  *  @param text         目标文本字符串
@@ -132,7 +132,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 
 /**
  *  @author CC, 2015-12-03
- *  
+ *
  *  @brief  表情包商店
  */
 - (void)didEmotionStore;
@@ -241,7 +241,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 
 /**
  *  @author CC, 2015-12-05
- *  
+ *
  *  @brief  记录上次显示时间
  */
 @property(nonatomic, strong) NSDate *currentCreateTime;
@@ -315,7 +315,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 
 /**
  *  @author CC, 2015-11-16
- *  
+ *
  *  @brief  底部工具条
  */
 @property(nonatomic, copy) UIView *bottomToolbarView;
@@ -351,14 +351,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 
 /**
  *  @author CC, 2016-01-23
- *  
+ *
  *  @brief 替换对象
  *
  *  @param messageData 消息实体
- *  @param newMessage  新消息实体
+ *                     根据消息对象唯一ID替换
  */
-- (void)replaceMessages:(CCMessage *)messageData
-               Replaceobj:(CCMessage *)newMessage;
+- (void)replaceMessages:(CCMessage *)messageData;
 
 /**
  *  删除一条已存在的消息
@@ -422,7 +421,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 
 /**
  *  @author CC, 2015-11-19
- *  
+ *
  *  @brief  结束刷新
  */
 - (void)headerEndRefreshing;
@@ -448,7 +447,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
  *
  *  @since 1.0
  */
-- (void)didSelecteShareMenuItem: (CCShareMenuItem *)shareMenuItem 
+- (void)didSelecteShareMenuItem: (CCShareMenuItem *)shareMenuItem
                         atIndex: (NSInteger)index;
 
 @end

@@ -178,6 +178,23 @@ static char CCTransformRefreshKey;
 }
 
 /**
+ *  @author CC, 16-08-26
+ *
+ *  @brief 单独居中指示器
+ *
+ *  @param target 目标
+ *  @param action 回调方法
+ */
+-(void)addHeaderWithIndicator:(id)target
+                       action:(SEL)action
+{
+    [self addHeaderWithTarget:target
+                       action:action
+                      dateKey:nil
+                        Style:CCRefreshViewStyleIndicator];
+}
+
+/**
  *  添加一个下拉刷新头部控件
  *
  *  @param target 目标

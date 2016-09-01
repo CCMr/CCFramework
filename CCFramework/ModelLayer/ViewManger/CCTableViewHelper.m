@@ -543,7 +543,7 @@
     [self cc_resetDataAry:newDataAry forSection:0];
 }
 
-- (void)cc_resetDataAry:(NSArray *)newDataAry forSection:(NSUInteger)cSection
+- (void)cc_resetDataAry:(NSArray *)newDataAry forSection:(NSInteger)cSection
 {
     [self cc_makeUpDataAryForSection:cSection];
     NSMutableArray *subAry = self.dataArray[cSection];
@@ -560,7 +560,7 @@
     [self cc_reloadDataAry:newDataAry forSection:0];
 }
 
-- (void)cc_reloadDataAry:(NSArray *)newDataAry forSection:(NSUInteger)cSection
+- (void)cc_reloadDataAry:(NSArray *)newDataAry forSection:(NSInteger)cSection
 {
     if (newDataAry.count == 0) return;
 
@@ -583,16 +583,21 @@
     [self cc_addDataAry:newDataAry forSection:0];
 }
 
-- (void)cc_addDataAry:(NSArray *)newDataAry forSection:(NSUInteger)cSection
+- (void)cc_addDataAry:(NSArray *)newDataAry forSection:(NSInteger)cSection
 {
     if (newDataAry.count == 0) return;
 
     NSIndexSet *curIndexSet = [self cc_makeUpDataAryForSection:cSection];
-    NSMutableArray *subAry = self.dataArray[cSection];
+    NSMutableArray *subAry;
+    if (cSection < 0) {
+        subAry = self.dataArray[0];
+    } else
+        subAry = self.dataArray[cSection];
+
     if (curIndexSet) {
         [subAry addObjectsFromArray:newDataAry];
         [self.cc_tableView beginUpdates];
-        [self.cc_tableView insertSections:curIndexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.cc_tableView insertSections:curIndexSet withRowAnimation:UITableViewRowAnimationNone];
         [self.cc_tableView endUpdates];
     } else {
         __block NSMutableArray *curIndexPaths = [NSMutableArray arrayWithCapacity:newDataAry.count];
@@ -645,8 +650,15 @@
         curIndexSet = [NSMutableIndexSet indexSet];
         for (NSInteger idx = 0; idx < (cSection - self.dataArray.count + 1); idx++) {
             NSMutableArray *subAry = [NSMutableArray array];
-            [self.dataArray addObject:subAry];
-            [curIndexSet addIndex:cSection - idx];
+            if (cSection < 0){
+                [self.dataArray insertObject:subAry atIndex:0];
+                [curIndexSet addIndex:0];
+                break;
+            }else{
+                [self.dataArray addObject:subAry];
+                 [curIndexSet addIndex:cSection - idx];
+            }
+
         }
     }
     return curIndexSet;

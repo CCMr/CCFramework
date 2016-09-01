@@ -1,5 +1,5 @@
 //
-//  BaseTabBarController.h
+//  CCTouchView.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -25,15 +25,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BaseTabBarController : UITabBarController <UITabBarControllerDelegate>
+@interface CCTouchView : UIView
 
-/**
- *  @author CC, 15-09-09
- *
- *  @brief  隐藏底部
- *
- *  @since 1.0
- */
-- (void)HideTabBar;
+@property (weak, nonatomic) UIView *receiver;
 
 @end

@@ -24,7 +24,6 @@
 //
 
 #import "UIViewController+Additions.h"
-#import "BaseNavigationController.h"
 #import "NSObject+Additions.h"
 #import "NSString+Additions.h"
 #import "CCProperty.h"
@@ -127,6 +126,7 @@ static inline void AutomaticWritingSwizzleSelector(Class class, SEL originalSele
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         AutomaticWritingSwizzleSelector([self class], @selector(viewWillAppear:), @selector(cc_viewWillAppear:));
+        AutomaticWritingSwizzleSelector([self class], @selector(viewWillDisappear:), @selector(cc_viewWillDisappear:));
     });
 }
 
@@ -134,8 +134,20 @@ static inline void AutomaticWritingSwizzleSelector(Class class, SEL originalSele
 {
     [self cc_viewWillAppear:animated];
 
-    NSString *mClassName = [NSString stringWithUTF8String:object_getClassName(self.navigationController.visibleViewController)];
+    NSString *mClassName = [NSString stringWithUTF8String:object_getClassName(self)];
     CCNSLogger(@"viewDidAppear : %@", mClassName);
+
+    if (self.navigationController.visibleViewController)
+        cc_NoticePost(noticeStatisticsWillAppear, [NSString stringWithUTF8String:object_getClassName(self)]);
+}
+
+- (void)cc_viewWillDisappear:(BOOL)animated
+{
+    [self cc_viewWillDisappear:animated];
+    NSString *mClassName = [NSString stringWithUTF8String:object_getClassName(self)];
+
+    if (self.navigationController.visibleViewController)
+        cc_NoticePost(noticeStatisticsWillDisappear, [NSString stringWithUTF8String:object_getClassName(self)]);
 }
 
 - (UITableView *)tableView
@@ -254,7 +266,7 @@ static char NavBarIsLoadingKey;
 - (void)startLoading:(NSString *)title
 {
     if (!self.isLoading) {
-        self.navBarOrigTitle = self.title;
+        self.navBarOrigTitle = self.navigationItem.title;
         UIView *navBarLoadingContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
         self.navigationItem.titleView = navBarLoadingContainer;
         self.isLoading = YES;
@@ -286,7 +298,7 @@ static char NavBarIsLoadingKey;
 {
     if (self.isLoading) {
         self.navigationItem.titleView = nil;
-        self.title = self.navBarOrigTitle;
+        self.navigationItem.title = self.navBarOrigTitle;
         self.isLoading = NO;
     }
 }
@@ -505,7 +517,7 @@ static char NavBarIsLoadingKey;
     __block UIViewController *selfViewControler = newViewController;
     [array enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         UIViewController *objViewController = obj;
-        BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:objViewController];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:objViewController];
         nav.view.frame = selfViewControler.view.bounds;
         [selfViewControler addChildViewController:nav];
         [selfViewControler.view addSubview:nav.view];
@@ -1005,8 +1017,7 @@ NSString *const iTunesAppleString = @"itunes.apple.com";
             self.loadedStoreKitItemBlock();
         }
 
-        if (result && !error)
-        {
+        if (result && !error){
             [self presentViewController:storeViewController animated:YES completion:nil];
         }
     }];

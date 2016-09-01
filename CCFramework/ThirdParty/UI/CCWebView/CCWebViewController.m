@@ -173,7 +173,7 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 - (WKWebView *)webWKView
 {
     if (!_webWKView) {
-        _webWKView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:self.configuration];
+        _webWKView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, winsize.width, winsize.height - 64) configuration:self.configuration];
         _webWKView.backgroundColor = [UIColor whiteColor];
         _webWKView.opaque = NO;
 
@@ -199,7 +199,7 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 - (UIWebView *)webView
 {
     if (!_webView) {
-        _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, winsize.width, winsize.height - 64)];
         _webView.backgroundColor = [UIColor whiteColor];
         _webView.opaque = NO;
         for (UIView *subview in [_webView.scrollView subviews]) {
@@ -281,7 +281,8 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
     } else if ([keyPath isEqualToString:@"title"]) {
         _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.8];
         self.webWKView.backgroundColor = [UIColor clearColor];
-        self.title = change[NSKeyValueChangeNewKey];
+        if (!self.title)
+            self.title = change[NSKeyValueChangeNewKey];
     }
 }
 
@@ -290,7 +291,8 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 {
     [_progressView setProgress:progress animated:YES];
     _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.8];
-    self.title = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    if (!self.title)
+        self.title = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
 
 /**

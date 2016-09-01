@@ -140,7 +140,7 @@
  */
 - (NSMutableDictionary *)analysisSortGroup:(NSString *)analysisName
 {
-    NSMutableDictionary *sortGroupDic = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *sortGroupDic = [NSMutableDictionary dictionary];
     for (id object in self) {
         NSString *persoName = [self obtainObjectPropertyValues:object Attributes:analysisName];
         NSMutableString *personName = [[NSMutableString alloc] initWithString:persoName];
@@ -174,15 +174,23 @@
         NSString *pinyin = personName;
         NSArray *arr = [pinyin componentsSeparatedByString:@" "];
         NSString *InitialName = @"";
-        for (NSString *str in arr)
-            InitialName = [NSString stringWithFormat:@"%@%@", InitialName, [str substringWithRange:NSMakeRange(0, 1)]];
+        for (NSString *str in arr) {
+            if (str.length)
+                InitialName = [NSString stringWithFormat:@"%@%@", InitialName, [str substringWithRange:NSMakeRange(0, 1)]];
+        }
 
         id pinyinObject = [self objectPropertyWithAttribute:object PinyinValue:personName InitialName:InitialName];
 
+        NSSortDescriptor *sort =  [NSSortDescriptor sortDescriptorWithKey:analysisName ascending:YES];
+        if ([object isKindOfClass:[NSDictionary class]]) {
+            sort = [NSSortDescriptor sortDescriptorWithKey:@"pinyin" ascending:YES];
+        }
+
         [temp addObject:pinyinObject];
-        temp = [[NSMutableArray alloc] initWithArray:[temp sortedArrayUsingDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:analysisName ascending:YES], nil]]];
+        temp = [[NSMutableArray alloc] initWithArray:[temp sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sort, nil]]];
         [sortGroupDic setObject:temp forKey:[sectionName uppercaseString]];
     }
+
     return sortGroupDic;
 }
 
@@ -603,6 +611,13 @@
 #pragma-- mark NSMutableArray setter
 
 @implementation NSMutableArray (SafeAccess)
+
+- (void)insertObjectsFromArray:(NSArray *)otherArray
+{
+    [[[otherArray reverseObjectEnumerator] allObjects] each:^(id object) {
+        [self insertObject:object atIndex:0];
+    }];
+}
 
 - (void)addObj:(id)i
 {

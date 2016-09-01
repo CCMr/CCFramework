@@ -49,6 +49,8 @@ typedef enum {
     CCRefreshViewStyleIndicatorView = 1,
     /** 图片 */
     CCRefreshViewStyleImageView = 2,
+    /** 单独居中指示器 */
+    CCRefreshViewStyleIndicator = 3,
 } CCRefreshViewStyle;
 
 /**

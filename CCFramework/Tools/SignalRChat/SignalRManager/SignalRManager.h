@@ -39,7 +39,7 @@ typedef NS_ENUM(NSInteger, ConnectionStatus) {
 
 /**
  *  @author CC, 2015-12-23
- *  
+ *
  *  @brief  链接状态
  */
 @property(nonatomic, assign) ConnectionStatus state;
@@ -88,7 +88,7 @@ typedef NS_ENUM(NSInteger, ConnectionStatus) {
 
 /**
  *  @author CC, 2015-12-02
- *  
+ *
  *  @brief  注册设备
  */
 - (void)registerDevice;
@@ -103,8 +103,16 @@ typedef NS_ENUM(NSInteger, ConnectionStatus) {
 - (void)startLink;
 
 /**
+ *  @author CC, 16-08-31
+ *
+ *  @brief 检测启动
+ *         检测连接状态，判断是否启动
+ */
+- (void)detectStart;
+
+/**
  *  @author CC, 2015-11-05
- *  
+ *
  *  @brief  停止链接
  */
 - (void)stopLink;
@@ -127,7 +135,7 @@ typedef NS_ENUM(NSInteger, ConnectionStatus) {
 
 /**
  *  @author CC, 2015-11-11
- *  
+ *
  *  @brief  发送调用
  *
  *  @param eventName 事件名称
@@ -140,7 +148,7 @@ typedef NS_ENUM(NSInteger, ConnectionStatus) {
 #pragma mark - 回调函数
 /**
  *  @author CC, 2016-01-07
- *  
+ *
  *  @brief  重新链接成功
  */
 - (void)connectionWillReconnectSuccess;

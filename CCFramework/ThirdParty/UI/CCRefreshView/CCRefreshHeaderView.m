@@ -100,6 +100,8 @@
     [super layoutSubviews];
     if (self.style == CCRefreshViewStyleImageView) {
         self.activityImageView.center = CGPointMake(self.centerX, -self.centerY);
+    } else if (self.style == CCRefreshViewStyleIndicator) {
+
     } else {
         CGFloat statusX = 0;
         CGFloat statusY = 0;
