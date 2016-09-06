@@ -35,7 +35,7 @@
 #import "CCMessageBubbleFactory.h"
 #import "CCMessageVoiceFactory.h"
 
-#define kCCHaveBubbleMargin 8.0f       // 文本、视频、表情气泡上下边的间隙
+#define kCCHaveBubbleMargin 6.5f       // 文本、视频、表情气泡上下边的间隙
 #define kCCHaveBubbleVoiceMargin 13.5f // 语音气泡上下边的间隙
 #define kCCHaveBubblePhotoMargin 6.5f  // 图片、地理位置气泡上下边的间隙
 
@@ -43,7 +43,7 @@
 
 #define kCCArrowMarginWidth 5.2f // 箭头宽度
 
-#define kCCTopAndBottomBubbleMargin 10.0f	 // 文本在气泡内部的上下间隙
+#define kCCTopAndBottomBubbleMargin 6.0f	  // 文本在气泡内部的上下间隙
 #define kCCLeftTextHorizontalBubblePadding 13.0f  // 文本的水平间隙
 #define kCCRightTextHorizontalBubblePadding 13.0f // 文本的水平间隙
 
@@ -98,17 +98,13 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     if ([[[UIDevice currentDevice] systemVersion] floatValue] <= 6.0) {
         sizeWithFont = [text sizeWithFont:systemFont constrainedToSize:textSize lineBreakMode:NSLineBreakByWordWrapping];
     } else {
-        sizeWithFont = [text boundingRectWithSize:textSize
-                                          options:
-                        NSStringDrawingTruncatesLastVisibleLine |
-                        NSStringDrawingUsesLineFragmentOrigin |
-                        NSStringDrawingUsesFontLeading
-                                       attributes:@{ NSFontAttributeName : systemFont }
-                                          context:nil].size;
+        sizeWithFont = [text sizeWithFont:systemFont
+                                 forWidth:kCCMaxWidth
+                            lineBreakMode:NSLineBreakByWordWrapping];
     }
 
 #if defined(__LP64__) && __LP64__
-    return ceil(sizeWithFont.width + 1);
+    return ceil(sizeWithFont.width + 5);
 #else
     return ceilf(sizeWithFont.width);
 #endif

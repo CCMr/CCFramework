@@ -30,4 +30,6 @@
 
 + (instancetype)footer;
 
+- (void)setActivityImage:(UIImage *)image;
+
 @end

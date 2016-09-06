@@ -96,6 +96,7 @@
 {
     if (!_cc_activityView) {
         CCLoadLogoView *loadingView = [[CCLoadLogoView alloc] initWithLogo:@"arrow" Frame:CGRectMake(0, 0, 40, 40)];
+        loadingView.hidden = YES;
         [loadingView setLineColor:[UIColor lightGrayColor]];
         [self addSubview:_cc_activityView = loadingView];
     }
@@ -212,6 +213,7 @@
     if (_style == CCRefreshViewStyleImageView) {
         self.statusLabel.hidden = YES;
         self.arrowImage.hidden = YES;
+        self.cc_activityView.hidden = YES;
     } else if (_style == CCRefreshViewStyleIndicator) {
         self.statusLabel.hidden = YES;
         self.arrowImage.hidden = YES;

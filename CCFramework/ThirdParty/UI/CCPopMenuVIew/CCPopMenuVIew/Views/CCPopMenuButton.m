@@ -35,6 +35,8 @@
 
 @property(nonatomic, strong) CCPopMenuItem *menuItem;
 
+@property(nonatomic, assign) BOOL isClick;
+
 @end
 
 @implementation CCPopMenuButton
@@ -77,13 +79,16 @@
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event
 {
-    // 播放缩放动画
-    POPSpringAnimation *scaleAnimation = [POPSpringAnimation animation];
-    scaleAnimation.springBounciness = 20; // value between 0-20
-    scaleAnimation.springSpeed = 20;      // value between 0-20
-    scaleAnimation.property = [POPAnimatableProperty propertyWithName:kPOPViewScaleXY];
-    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.3, 1.3)];
-    [self pop_addAnimation:scaleAnimation forKey:@"scaleAnimationKey"];
+     if (!self.isClick) {
+         self.isClick = YES;
+         // 播放缩放动画
+         POPSpringAnimation *scaleAnimation = [POPSpringAnimation animation];
+         scaleAnimation.springBounciness = 20; // value between 0-20
+         scaleAnimation.springSpeed = 20;      // value between 0-20
+         scaleAnimation.property = [POPAnimatableProperty propertyWithName:kPOPViewScaleXY];
+         scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.3, 1.3)];
+         [self pop_addAnimation:scaleAnimation forKey:@"scaleAnimationKey"];
+    }
 }
 
 - (void)touchesCancelled:(NSSet *)touches
@@ -102,6 +107,7 @@
     scaleAnimation.completionBlock = ^(POPAnimation *anim, BOOL finished) {
         if (completed) {
             completed(finished);
+             self.isClick = NO;
         }
     };
     [self pop_addAnimation:scaleAnimation forKey:@"scaleAnimationKey"];
@@ -109,12 +115,12 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    // 回调
-    [self disMissCompleted:^(BOOL finished) {
-        if (self.didSelctedItemCompleted) {
-            self.didSelctedItemCompleted(self.menuItem);
-        }
-    }];
+        [self disMissCompleted:^(BOOL finished) {
+
+            if (self.didSelctedItemCompleted) {
+                self.didSelctedItemCompleted(self.menuItem);
+            }
+        }];
 }
 
 

@@ -33,7 +33,7 @@
        failure:(requestFailureBlock)failure
 {
     if (![CCHTTPManager requestBeforeCheckNetWork]) {
-        failure([NSError errorWithDomain:@"Error. Count not recover network reachability flags" code:kCFURLErrorNotConnectedToInternet userInfo:nil]);
+        failure(nil,[NSError errorWithDomain:@"Error. Count not recover network reachability flags" code:kCFURLErrorNotConnectedToInternet userInfo:nil]);
         return;
     }
     
@@ -44,7 +44,7 @@
             success(nil);
     } failure:^(AFHTTPRequestOperation *_Nonnull operation, NSError *_Nonnull error) {
         if (failure)
-            failure(error);
+            failure(operation.userInfo,error);
     }];
     [requestOperation start];
 }
@@ -67,7 +67,7 @@
        failure:(requestFailureBlock)failure
 {
     if (![CCHTTPManager requestBeforeCheckNetWork]) {
-        failure([NSError errorWithDomain:@"Error. Count not recover network reachability flags" code:kCFURLErrorNotConnectedToInternet userInfo:nil]);
+        failure(nil,[NSError errorWithDomain:@"Error. Count not recover network reachability flags" code:kCFURLErrorNotConnectedToInternet userInfo:nil]);
         return;
     }
     
@@ -77,7 +77,7 @@
     
     NSURLSessionUploadTask *uploadTask = [sessionManager uploadTaskWithRequest:request fromFile:postFilePath progress:progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error)
-            failure(error);
+            failure(responseObject,error);
         else
             success(responseObject);
     }];
@@ -103,7 +103,7 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
          failure:(requestFailureBlock)failure
 {
     if (![CCHTTPManager requestBeforeCheckNetWork]) {
-        failure([NSError errorWithDomain:@"Error. Count not recover network reachability flags" code:kCFURLErrorNotConnectedToInternet userInfo:nil]);
+        failure(nil,[NSError errorWithDomain:@"Error. Count not recover network reachability flags" code:kCFURLErrorNotConnectedToInternet userInfo:nil]);
         return;
     }
     
@@ -149,7 +149,7 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
             success(operation.responseData,nil);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if (failure)
-                failure(error);
+                failure(operation.userInfo,error);
         }];
         [requestOperation start];
     }

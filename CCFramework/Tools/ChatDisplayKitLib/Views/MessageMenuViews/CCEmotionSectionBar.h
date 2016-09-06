@@ -51,6 +51,13 @@
  */
 - (void)didSectionBarSend;
 
+/**
+ *  @author CC, 16-09-01
+ *
+ *  @brief 表情管理
+ */
+- (void)didEmojiManage;
+
 @end
 
 @interface CCEmotionSectionBar : UIView
@@ -63,9 +70,6 @@
 @property(nonatomic, strong) NSArray *emotionManagers;
 
 @property(nonatomic, assign) BOOL isSendButton;
-
-- (instancetype)initWithFrame:(CGRect)frame
-       showEmotionStoreButton:(BOOL)isShowEmotionStoreButtoned;
 
 /**
  *  @author CC, 2015-12-03

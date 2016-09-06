@@ -276,7 +276,7 @@ static char NavBarIsLoadingKey;
         loadingTitleLabel.textColor = self.navigationController.navigationBar.tintColor;
         loadingTitleLabel.text = title;
 
-        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         [activityIndicator startAnimating];
         [navBarLoadingContainer addSubview:loadingTitleLabel];
         [navBarLoadingContainer addSubview:activityIndicator];

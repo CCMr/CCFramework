@@ -32,13 +32,27 @@
 @interface CCEmotionSectionBar ()
 
 /**
- *  是否显示表情商店的按钮
+ *  @author CC, 16-09-01
+ *
+ *  @brief 商店按钮
  */
-@property(nonatomic, assign) BOOL isShowEmotionStoreButton; // default is YES
-
+@property(nonatomic, weak) UIButton *storeManagerItemButton;
 
 @property(nonatomic, weak) UIScrollView *sectionBarScrollView;
-@property(nonatomic, weak) UIButton *storeManagerItemButton;
+
+/**
+ *  @author CC, 16-09-01
+ *
+ *  @brief 发送消息按钮
+ */
+@property(nonatomic, weak) UIButton *sendMessageItemButton;
+
+/**
+ *  @author CC, 16-09-01
+ *
+ *  @brief 表情管理按钮
+ */
+@property(nonatomic, weak) UIButton *emojiManagerItemButton;
 
 @property(nonatomic, assign) NSInteger currentIndex;
 
@@ -93,6 +107,18 @@
 }
 
 /**
+ *  @author CC, 16-09-01
+ *
+ *  @brief 表情管理事件
+ */
+- (void)didEmojiManagerClick:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(didEmojiManage)]) {
+        [self.delegate didEmojiManage];
+    }
+}
+
+/**
  *  @author CC, 2015-12-03
  *
  *  @brief  选中下标
@@ -109,6 +135,24 @@
             [self.sectionBarScrollView scrollRectToVisible:CGRectMake(button.frame.origin.x, 0, self.sectionBarScrollView.frame.size.width, self.sectionBarScrollView.frame.size.height) animated:YES];
         }
     }
+
+    [self switchingButton:_currentIndex];
+}
+
+- (void)switchingButton:(BOOL)isShow
+{
+    CGFloat hideX = CGRectGetMaxX(self.bounds) + 20;
+    CGFloat showX = CGRectGetMaxX(self.bounds) - kCCStoreManagerItemWidth;
+
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect frame = self.sendMessageItemButton.frame;
+        frame.origin.x = isShow?hideX:showX;
+        self.sendMessageItemButton.frame = frame;
+
+        frame = self.emojiManagerItemButton.frame;
+        frame.origin.x = isShow?showX:hideX;
+        self.emojiManagerItemButton.frame = frame;
+    }];
 }
 
 - (UIButton *)cratedButton
@@ -116,8 +160,25 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(0, 0, kCCStoreManagerItemWidth, CGRectGetHeight(self.bounds));
     [button addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+
     return button;
 }
+
+- (UIButton *)crateItemButton
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(CGRectGetMaxX(self.bounds) + 20, 0, kCCStoreManagerItemWidth, CGRectGetHeight(self.bounds));
+    button.backgroundColor = [UIColor whiteColor];
+    button.titleLabel.font = [UIFont systemFontOfSize:14];
+    [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+
+    button.layer.shadowColor = [UIColor lightGrayColor].CGColor;
+    button.layer.shadowOffset = CGSizeMake(-2.0, 10);
+    button.layer.shadowOpacity = 10;
+    button.layer.shadowRadius = 10;
+    return button;
+}
+
 
 - (void)reloadData
 {
@@ -159,19 +220,27 @@
         [self.sectionBarScrollView addSubview:sectionButton];
     }
 
-    [self.sectionBarScrollView setContentSize:CGSizeMake(self.emotionManagers.count * kCCStoreManagerItemWidth, CGRectGetHeight(self.bounds))];
+    [self.sectionBarScrollView setContentSize:CGSizeMake((self.emotionManagers.count + 2) * kCCStoreManagerItemWidth, CGRectGetHeight(self.bounds))];
 }
 
 #pragma mark - Lefy cycle
 
 - (void)setup
 {
+    if (!_storeManagerItemButton) {
+        UIButton *storeManagerItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        storeManagerItemButton.frame = CGRectMake(0, 0, kCCStoreManagerItemWidth, CGRectGetHeight(self.bounds));
+        storeManagerItemButton.backgroundColor = [UIColor whiteColor];
+        storeManagerItemButton.titleLabel.font = [UIFont systemFontOfSize:14];
+        [storeManagerItemButton setTitle:@"商店" forState:UIControlStateNormal];
+        [storeManagerItemButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [storeManagerItemButton addTarget:self action:@selector(didStoreClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:storeManagerItemButton];
+        _storeManagerItemButton = storeManagerItemButton;
+    }
+
     if (!_sectionBarScrollView) {
-        CGFloat scrollWidth = CGRectGetWidth(self.bounds);
-        if (self.isShowEmotionStoreButton) {
-            scrollWidth -= kCCStoreManagerItemWidth;
-        }
-        UIScrollView *sectionBarScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, scrollWidth, CGRectGetHeight(self.bounds))];
+        UIScrollView *sectionBarScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(kCCStoreManagerItemWidth, 0, CGRectGetWidth(self.bounds) - kCCStoreManagerItemWidth, CGRectGetHeight(self.bounds))];
         [sectionBarScrollView setScrollsToTop:NO];
         sectionBarScrollView.showsVerticalScrollIndicator = NO;
         sectionBarScrollView.showsHorizontalScrollIndicator = NO;
@@ -180,24 +249,22 @@
         _sectionBarScrollView = sectionBarScrollView;
     }
 
-    if (self.isShowEmotionStoreButton) {
-        UIButton *storeManagerItemButton = [self cratedButton];
+    if (!_sendMessageItemButton) {
+        UIButton *sendMessageItemButton = [self crateItemButton];
+        [sendMessageItemButton setTitle:@"发送" forState:UIControlStateNormal];
+        [sendMessageItemButton addTarget:self action:@selector(didSectionBarSend:) forControlEvents:UIControlEventTouchUpInside];
 
-        CGRect storeManagerItemButtonFrame = storeManagerItemButton.frame;
-        storeManagerItemButtonFrame.origin.x = CGRectGetWidth(self.bounds) - kCCStoreManagerItemWidth;
-        storeManagerItemButton.frame = storeManagerItemButtonFrame;
-        storeManagerItemButton.backgroundColor = [UIColor whiteColor];
-        storeManagerItemButton.titleLabel.font = [UIFont systemFontOfSize:14];
-        [storeManagerItemButton setTitle:@"发送" forState:UIControlStateNormal];
-        [storeManagerItemButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-        [storeManagerItemButton addTarget:self action:@selector(didSectionBarSend:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:sendMessageItemButton];
+        _sendMessageItemButton = sendMessageItemButton;
+    }
 
-        storeManagerItemButton.layer.shadowColor = [UIColor lightGrayColor].CGColor;
-        storeManagerItemButton.layer.shadowOffset = CGSizeMake(-2.0, 10);
-        storeManagerItemButton.layer.shadowOpacity = 10;
-        storeManagerItemButton.layer.shadowRadius = 10;
-        [self addSubview:storeManagerItemButton];
-        _storeManagerItemButton = storeManagerItemButton;
+    if (!_emojiManagerItemButton) {
+        UIButton *emojiManagerItemButton = [self crateItemButton];
+        [emojiManagerItemButton setTitle:@"管理" forState:UIControlStateNormal];
+        [emojiManagerItemButton addTarget:self action:@selector(didEmojiManagerClick:) forControlEvents:UIControlEventTouchUpInside];
+
+        [self addSubview:emojiManagerItemButton];
+        _emojiManagerItemButton = emojiManagerItemButton;
     }
 }
 
@@ -205,23 +272,29 @@
 {
     _isSendButton = isSendButton;
 
-    self.storeManagerItemButton.backgroundColor = [UIColor whiteColor];
-    [self.storeManagerItemButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    self.storeManagerItemButton.enabled = NO;
+    self.sendMessageItemButton.backgroundColor = [UIColor whiteColor];
+    [self.sendMessageItemButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    self.sendMessageItemButton.enabled = NO;
     if (isSendButton) {
-        self.storeManagerItemButton.enabled = YES;
-        self.storeManagerItemButton.backgroundColor = [UIColor colorWithRed:46.f / 255.f green:169.f / 255.f blue:223.f / 255.f alpha:1.f];
-        [self.storeManagerItemButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.sendMessageItemButton.enabled = YES;
+        self.sendMessageItemButton.backgroundColor = [UIColor colorWithRed:46.f / 255.f green:169.f / 255.f blue:223.f / 255.f alpha:1.f];
+        [self.sendMessageItemButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
 }
 
-- (instancetype)initWithFrame:(CGRect)frame
-       showEmotionStoreButton:(BOOL)isShowEmotionStoreButtoned
+- (instancetype)init
 {
-    self = [super initWithFrame:frame];
-    if (self) {
+    if (self = [super init]) {
         // Initialization code
-        self.isShowEmotionStoreButton = isShowEmotionStoreButtoned;
+        [self setup];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame]) {
+        // Initialization code
         [self setup];
     }
     return self;

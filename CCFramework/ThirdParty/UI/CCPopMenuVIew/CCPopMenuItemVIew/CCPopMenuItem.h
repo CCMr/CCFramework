@@ -27,10 +27,10 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#define kCCMenuTableViewWidth 122
+#define kCCMenuTableViewWidth 150
 #define kCCMenuTableViewSapcing 7
 
-#define kCCMenuItemViewHeight 36
+#define kCCMenuItemViewHeight 40
 #define kCCMenuItemViewImageSapcing 15
 #define kCCSeparatorLineImageViewHeight 0.5
 

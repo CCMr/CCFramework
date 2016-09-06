@@ -185,8 +185,8 @@ static char CCTransformRefreshKey;
  *  @param target 目标
  *  @param action 回调方法
  */
--(void)addHeaderWithIndicator:(id)target
-                       action:(SEL)action
+- (void)addHeaderWithIndicator:(id)target
+                        action:(SEL)action
 {
     [self addHeaderWithTarget:target
                        action:action
@@ -291,6 +291,7 @@ static char CCTransformRefreshKey;
 }
 
 #pragma mark - 上拉刷新
+
 /**
  *  添加一个上拉刷新尾部控件
  *
@@ -310,6 +311,33 @@ static char CCTransformRefreshKey;
 }
 
 /**
+ *  @author CC, 16-09-05
+ *
+ *  @brief 自定义图片
+ *
+ *  @param image    图片
+ *  @param callback 回调函数
+ */
+- (void)addFooterWithInit:(UIImage *)image
+                 Callback:(void (^)())callback
+{
+
+    // 1.创建新的footer
+    if (!self.footer) {
+        CCRefreshFooterView *footer = [CCRefreshFooterView footer];
+        if (image) {
+            footer.style = CCRefreshViewStyleImageView;
+            [footer setActivityImage:image];
+        }
+        [self addSubview:footer];
+        self.footer = footer;
+    }
+
+    // 2.设置block回调
+    self.footer.beginRefreshingCallback = callback;
+}
+
+/**
  *  添加一个上拉刷新尾部控件
  *
  *  @param target 目标
@@ -317,9 +345,19 @@ static char CCTransformRefreshKey;
  */
 - (void)addFooterWithTarget:(id)target action:(SEL)action
 {
-    // 1.创建新的footer
+    [self addFooterWithTarget:target
+                       action:action
+                        Style:CCRefreshViewStyleDefault];
+}
+
+- (void)addFooterWithTarget:(id)target
+                     action:(SEL)action
+                      Style:(CCRefreshViewStyle)style
+{
+    // 1.创建新的header
     if (!self.footer) {
         CCRefreshFooterView *footer = [CCRefreshFooterView footer];
+        footer.style = style;
         [self addSubview:footer];
         self.footer = footer;
     }

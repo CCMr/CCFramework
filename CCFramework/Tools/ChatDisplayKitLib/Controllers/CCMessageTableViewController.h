@@ -419,13 +419,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
               atScrollPosition:(UITableViewScrollPosition)position
                       animated:(BOOL)animated;
 
-/**
- *  @author CC, 2015-11-19
- *
- *  @brief  结束刷新
- */
-- (void)headerEndRefreshing;
-
 #pragma mark - Other Menu View Frame Helper Mehtod
 /**
  *  根据显示或隐藏的需求对所有第三方Menu进行管理

@@ -53,11 +53,11 @@
         ![request.URL.scheme isEqualToString:@"https"]) {
         return NO;
     }
-    
+
     if ([NSURLProtocol propertyForKey:kCCProtocolKey inRequest:request]) {
         return NO;
     }
-    
+
     if ([[CCDebugTool manager] arrOnlyHosts].count > 0) {
         NSString *url = [request.URL.absoluteString lowercaseString];
         for (NSString *_url in [CCDebugTool manager].arrOnlyHosts) {
@@ -66,7 +66,7 @@
         }
         return NO;
     }
-    
+
     return YES;
 }
 
@@ -90,23 +90,27 @@
 - (void)stopLoading
 {
     [self.connection cancel];
-    
+
     CCDebugHttpModel *model = [[CCDebugHttpModel alloc] init];
     model.url = self.request.URL;
     model.method = self.request.HTTPMethod;
-    if (self.request.HTTPBody) {
-        model.requestBody = [self prettyJSONStringFromData:self.request.HTTPBody];
+    @try {
+        if (self.request.HTTPBody)
+            model.requestBody = [self prettyJSONStringFromData:self.request.HTTPBody];
+    } @catch (NSException *exception) {
+    } @finally {
     }
+
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)self.response;
     model.statusCode = [NSString stringWithFormat:@"%d", (int)httpResponse.statusCode];
     if (self.data) {
         model.responseBody = [self prettyJSONStringFromData:self.data];
     }
     model.mineType = self.response.MIMEType;
-    
+
     model.totalDuration = [NSString stringWithFormat:@"%fs", [[NSDate date] timeIntervalSince1970] - self.startTime];
     model.startTime = [NSString stringWithFormat:@"%fs", self.startTime];
-    
+
     [[CCDebugHttpDataSource manager] addHttpRequset:model];
     [[NSNotificationCenter defaultCenter] postNotificationName:kCCNotifyKeyReloadHttp object:nil];
 }
@@ -115,7 +119,7 @@
 - (NSString *)prettyJSONStringFromData:(NSData *)data
 {
     NSString *prettyString = nil;
-    
+
     id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
     if ([NSJSONSerialization isValidJSONObject:jsonObject]) {
         prettyString = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:NULL] encoding:NSUTF8StringEncoding];
@@ -124,7 +128,7 @@
     } else {
         prettyString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     }
-    
+
     return prettyString;
 }
 

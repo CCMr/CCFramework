@@ -32,8 +32,7 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self)
-    {
+    if (self) {
         // Initialization code
         self.separatorStyle = NO;
     }
@@ -44,10 +43,9 @@
            withEvent:(UIEvent *)event
 {
     [super touchesBegan:touches withEvent:event];
-    
+
     if ([_touchDelegate conformsToProtocol:@protocol(CCMessageTableViewDelegate)] &&
-        [_touchDelegate respondsToSelector:@selector(tableView:touchesBegan:withEvent:)])
-    {
+        [_touchDelegate respondsToSelector:@selector(tableView:touchesBegan:withEvent:)]) {
         [_touchDelegate tableView:self touchesBegan:touches withEvent:event];
     }
 }
@@ -57,10 +55,9 @@
 {
     [super touchesCancelled:touches
                   withEvent:event];
-    
+
     if ([_touchDelegate conformsToProtocol:@protocol(CCMessageTableViewDelegate)] &&
-        [_touchDelegate respondsToSelector:@selector(tableView:touchesCancelled:withEvent:)])
-    {
+        [_touchDelegate respondsToSelector:@selector(tableView:touchesCancelled:withEvent:)]) {
         [_touchDelegate tableView:self touchesCancelled:touches withEvent:event];
     }
 }
@@ -70,10 +67,9 @@
 {
     [super touchesEnded:touches
               withEvent:event];
-    
+
     if ([_touchDelegate conformsToProtocol:@protocol(CCMessageTableViewDelegate)] &&
-        [_touchDelegate respondsToSelector:@selector(tableView:touchesEnded:withEvent:)])
-    {
+        [_touchDelegate respondsToSelector:@selector(tableView:touchesEnded:withEvent:)]) {
         [_touchDelegate tableView:self touchesEnded:touches withEvent:event];
     }
 }
@@ -83,12 +79,23 @@
 {
     [super touchesMoved:touches
               withEvent:event];
-    
+
     if ([_touchDelegate conformsToProtocol:@protocol(CCMessageTableViewDelegate)] &&
-        [_touchDelegate respondsToSelector:@selector(tableView:touchesMoved:withEvent:)])
-    {
+        [_touchDelegate respondsToSelector:@selector(tableView:touchesMoved:withEvent:)]) {
         [_touchDelegate tableView:self touchesMoved:touches withEvent:event];
     }
+}
+
+- (void)setContentSize:(CGSize)contentSize
+{
+    if (!CGSizeEqualToSize(self.contentSize, CGSizeZero)) {
+        if (contentSize.height > self.contentSize.height) {
+            CGPoint offset = self.contentOffset;
+            offset.y += (contentSize.height - self.contentSize.height);
+            self.contentOffset = offset;
+        }
+    }
+    [super setContentSize:contentSize];
 }
 
 - (void)dealloc

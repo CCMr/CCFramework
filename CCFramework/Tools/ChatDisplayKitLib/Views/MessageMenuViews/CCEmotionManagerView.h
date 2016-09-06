@@ -68,6 +68,13 @@
  */
 - (void)didSendMessage;
 
+/**
+ *  @author CC, 16-09-02
+ *
+ *  @brief 表情管理
+ */
+- (void)didEmojiManage;
+
 @end
 
 @protocol CCEmotionManagerViewDataSource <NSObject>
@@ -110,6 +117,11 @@
  */
 @property (nonatomic, assign) BOOL isShowEmotionStoreButton; // default is YES
 
+/**
+ *  @author CC, 16-09-02
+ *
+ *  @brief 发送按钮是否可以点击
+ */
 @property(nonatomic, assign) BOOL isSendButton;
 
 /**

@@ -145,7 +145,7 @@
     }
 
     for (int i = 1; i < titleNumber; i++) {
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(i * labelWidht, 3, 0.5, labelHeight - 6)];
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(i * labelWidht, 0, 0.5, labelHeight)];
         line.backgroundColor = self.tintColor;
         [self.lineArray addObject:line];
         [self addSubview:line];
@@ -162,7 +162,7 @@
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = textColor;
     titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.font = [UIFont fontWithName:@"Helvetica" size:13];
+    titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15];
 
     return titleLabel;
 }

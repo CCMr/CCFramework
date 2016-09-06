@@ -130,7 +130,7 @@
 #pragma mark - 设置图片
 - (void)setActivityImage:(UIImage *)image
 {
-    self.activityImageView.size = image.size;
+    self.activityImageView.size = CGSizeMake(43, 35); //image.size;
     self.activityImageView.image = image;
 }
 

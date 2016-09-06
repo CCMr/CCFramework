@@ -79,6 +79,17 @@
 - (void)addHeaderWithCallback:(void (^)())callback;
 
 /**
+ *  @author CC, 16-09-05
+ *
+ *  @brief 自定义图片
+ *
+ *  @param image    图片
+ *  @param callback 回调函数
+ */
+- (void)addFooterWithInit:(UIImage *)image
+                 Callback:(void (^)())callback;
+
+/**
  *  @author CC, 16-08-26
  *
  *  @brief 单独居中指示器

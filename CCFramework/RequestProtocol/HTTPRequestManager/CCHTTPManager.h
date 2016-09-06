@@ -43,21 +43,21 @@ typedef NS_ENUM(NSUInteger, CCHTTPRequestCachePolicy) {
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief 请求成功Block
  */
 typedef void (^requestSuccessBlock)(CCResponseObject *responseObject);
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief 请求失败Block
  */
-typedef void (^requestFailureBlock)(NSError *error);
+typedef void (^requestFailureBlock)(id response, NSError *error);
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief 请求进度Block
  */
 typedef void (^requestProgressBlock)(NSProgress *progress);
@@ -74,7 +74,7 @@ typedef void (^requestDownloadBacktrack)(NSData *data, NSError *error);
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief 请求下载文件回调
  *
  *  @param response 响应结果
@@ -95,14 +95,21 @@ typedef void (^requestDownloadsuccess)(id response, NSError *error);
 
 /**
  *  @author CC, 2015-11-25
- *  
+ *
  *  @brief  超时时间间隔，以秒为单位创建的请求。默认的超时时间间隔为30秒。
  */
 @property(nonatomic, assign) NSTimeInterval timeoutInterval;
 
 /**
+ *  @author CC, 16-09-01
+ *
+ *  @brief 设置请求是否使用GZIP
+ */
+@property(nonatomic, assign) BOOL isRequestGZIP;
+
+/**
  *  @author CC, 16-01-28
- *  
+ *
  *  @brief 设置请求ContentType
  */
 @property(nonatomic, copy) NSSet *acceptableContentTypes;
@@ -116,14 +123,14 @@ typedef void (^requestDownloadsuccess)(id response, NSError *error);
 
 /**
  *  @author CC, 16-01-28
- *  
+ *
  *  @brief 创建并返回一个‘CCHTTPManager’对象。
  */
 + (instancetype)manager;
 
 /**
  *  @author CC, 16-03-11
- *  
+ *
  *  @brief 设置传输字典
  *
  *  @param userInfo 字典
@@ -132,7 +139,7 @@ typedef void (^requestDownloadsuccess)(id response, NSError *error);
 
 /**
  *  @author CC, 16-01-28
- *  
+ *
  *  @brief 初始化请求对象
  */
 -
@@ -151,7 +158,7 @@ typedef void (^requestDownloadsuccess)(id response, NSError *error);
 
 /**
  *  @author CC, 16-01-28
- *  
+ *
  *  @brief 时时网络状态（status 0: 无网络 1: 3G/4G 2:WiFi）
  *
  *  @param status 网络状态
@@ -160,7 +167,7 @@ typedef void (^requestDownloadsuccess)(id response, NSError *error);
 
 /**
  *  @author CC, 16-01-28
- *  
+ *
  *  @brief 请求检查网络
  */
 + (BOOL)requestBeforeCheckNetWork;
@@ -169,8 +176,8 @@ typedef void (^requestDownloadsuccess)(id response, NSError *error);
 
 /**
  *  @author CC, 16-03-10
- *  
- *  @brief GET请求 
+ *
+ *  @brief GET请求
  *         默认 CCHTTPReloadIgnoringLocalCacheData的缓存方式
  *
  *  @param requestURLString 请求地址
@@ -185,7 +192,7 @@ typedef void (^requestDownloadsuccess)(id response, NSError *error);
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief GET请求
  *
  *  @param requestURLString 请求地址
@@ -202,7 +209,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief POST请求
  *         默认 CCHTTPReloadIgnoringLocalCacheData的缓存方式
  *
@@ -218,7 +225,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief POST请求
  *
  *  @param requestURLString 请求地址
@@ -235,7 +242,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief DELETE请求
  *         默认 CCHTTPReloadIgnoringLocalCacheData的缓存方式
  *
@@ -251,7 +258,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief DELETE请求
  *
  *  @param requestURLString 请求地址
@@ -268,7 +275,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief HEAD请求
  *
  *  @param requestURLString 请求地址
@@ -285,7 +292,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief PUT请求
  *         默认 CCHTTPReloadIgnoringLocalCacheData的缓存方式
  *
@@ -301,7 +308,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief PUT请求
  *
  *  @param requestURLString 请求地址
@@ -318,7 +325,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief PATCH请求
  *
  *  @param requestURLString 请求地址
@@ -337,7 +344,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief 上传文件(表单提交)
  *
  *  @param requestURLString 请求地址
@@ -354,7 +361,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief 上传文件（流）
  *
  *  @param requestURLString 请求地址
@@ -371,7 +378,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief 下载文件
  *
  *  @param requestURLString      请求地址
@@ -388,7 +395,7 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief 下载文件缓存
  *
  *  @param requestURLString 请求地址

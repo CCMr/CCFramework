@@ -130,7 +130,7 @@
     }
 
     if (!_emotionSectionBar) {
-        CCEmotionSectionBar *emotionSectionBar = [[CCEmotionSectionBar alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.emotionPageControl.frame), CGRectGetWidth(self.bounds), kCCEmotionSectionBarHeight) showEmotionStoreButton:self.isShowEmotionStoreButton];
+        CCEmotionSectionBar *emotionSectionBar = [[CCEmotionSectionBar alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.emotionPageControl.frame), CGRectGetWidth(self.bounds), kCCEmotionSectionBarHeight)];
         emotionSectionBar.delegate = self;
         emotionSectionBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         emotionSectionBar.backgroundColor = [UIColor whiteColor]; //[UIColor colorWithWhite:0.886 alpha:1.000];
@@ -283,6 +283,12 @@
 {
     if ([self.delegate respondsToSelector:@selector(didSendMessage)])
         [self.delegate didSendMessage];
+}
+
+-(void)didEmojiManage
+{
+    if ([self.delegate respondsToSelector:@selector(didEmojiManage)])
+        [self.delegate didEmojiManage];
 }
 
 #pragma mark - UIScrollView delegate

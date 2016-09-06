@@ -7,6 +7,7 @@
 //
 
 #import <TargetConditionals.h>
+#import "config.h"
 
 #if TARGET_OS_IPHONE
 #import "SETextMagnifierRanged.h"
@@ -33,12 +34,13 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
-        
-        UIImage *mask = [UIImage imageNamed:@"SECoreTextView.bundle/kb-magnifier-ranged-mask-flipped"];
+
+
+        UIImage *mask = CCResourceImage(@"kb-magnifier-ranged-mask-flipped");
         self.mask = mask;
         
-        self.loupe = [UIImage imageNamed:@"SECoreTextView.bundle/kb-magnifier-ranged-hi"];
-        self.loupeFrame = [UIImage imageNamed:@"SECoreTextView.bundle/kb-magnifier-ranged-lo"];
+        self.loupe = CCResourceImage(@"kb-magnifier-ranged-hi");
+        self.loupeFrame = CCResourceImage(@"kb-magnifier-ranged-lo");
         
         CGImageRef maskImageRef = self.mask.CGImage;
         _maskRef = CGImageMaskCreate(CGImageGetWidth(maskImageRef),

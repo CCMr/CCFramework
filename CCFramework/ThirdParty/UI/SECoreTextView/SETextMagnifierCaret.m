@@ -7,6 +7,7 @@
 //
 
 #import <TargetConditionals.h>
+#import "config.h"
 
 #if TARGET_OS_IPHONE
 #import "SETextMagnifierCaret.h"
@@ -34,11 +35,11 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         
-        UIImage *mask = [UIImage imageNamed:@"SECoreTextView.bundle/kb-loupe-mask"];
+        UIImage *mask = CCResourceImage(@"kb-loupe-mask");
         self.mask = mask;
         
-        self.loupe = [UIImage imageNamed:@"SECoreTextView.bundle/kb-loupe-hi"];
-        self.loupeFrame = [UIImage imageNamed:@"SECoreTextView.bundle/kb-loupe-lo"];
+        self.loupe = CCResourceImage(@"kb-loupe-hi");
+        self.loupeFrame = CCResourceImage(@"kb-loupe-lo");
         
         CGImageRef maskImageRef = self.mask.CGImage;
         _maskRef = CGImageMaskCreate(CGImageGetWidth(maskImageRef),

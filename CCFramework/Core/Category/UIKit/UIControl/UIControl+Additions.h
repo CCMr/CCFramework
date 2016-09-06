@@ -24,6 +24,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#define defaultInterval .5  //默认时间间隔
 
 typedef void (^UIControlActionBlock)(id sender);
 
@@ -38,6 +39,21 @@ typedef void (^UIControlActionBlock)(id sender);
 
 
 @interface UIControl (Additions)
+
+/**
+ *  @author CC, 16-09-02
+ *
+ *  @brief 设置点击时间间隔
+ */
+@property (nonatomic, assign) NSTimeInterval timeInterval;
+
+/**
+ *  @author CC, 16-09-02
+ *
+ *  @brief 用于设置单个按钮不需要被hook
+ */
+@property (nonatomic, assign) BOOL isIgnore;
+
 
 #pragma mark -
 #pragma mark :. ActionBlocks

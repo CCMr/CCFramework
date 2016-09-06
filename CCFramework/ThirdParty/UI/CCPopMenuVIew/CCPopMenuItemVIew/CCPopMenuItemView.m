@@ -96,7 +96,7 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         self.textLabel.textColor = [UIColor blackColor];
-        self.textLabel.font = [UIFont systemFontOfSize:12];
+        self.textLabel.font = [UIFont systemFontOfSize:15];
         //        self.selectedBackgroundView = self.menuSelectedBackgroundView;
 
         _badge = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
@@ -118,7 +118,7 @@
     [super layoutSubviews];
 
     CGRect imageViewFrame = self.imageView.frame;
-    imageViewFrame.origin.x = 10;
+    imageViewFrame.origin.x = 15;
     self.imageView.frame = imageViewFrame;
 
     CGRect textLabelFrame = self.textLabel.frame;

@@ -38,9 +38,9 @@
 #define kFollowTimeInterval 0.016f
 #define kBombDuration 0.5f
 #define kValidRadius 20.0f
-#define kDefaultFontSize 14.0f
+#define kDefaultFontSize 16.0f
 
-#define kPaddingSize 0.0f
+#define kPaddingSize 10.0f
 
 CGFloat distanceBetweenPoints(CGPoint p1, CGPoint p2)
 {
@@ -205,13 +205,34 @@ CGFloat distanceBetweenPoints(CGPoint p1, CGPoint p2)
         self.hidden = YES;
     }
     
-    [self reset];
+    [self resetTextLabel];
 }
 
 - (void)setTextColor:(UIColor *)textColor
 {
     _textLabel.textColor = textColor;
 }
+
+-(void)resetTextLabel
+{
+    CGSize size = [_textLabel.text sizeWithFont:_textLabel.font];
+    CGRect frame = _textLabel.frame;
+    size.width += 10;
+    frame.size = size;
+    _textLabel.frame  = frame;
+
+    _textLabel.layer.masksToBounds = YES;
+    _textLabel.layer.cornerRadius = size.height / 2;
+    _textLabel.backgroundColor = _tintColor;
+
+    _shapeLayer.frame = CGRectMake(0, 0, size.width - 5, size.height);
+
+    _radius = (size.height - 5)/2;
+    _originPoint = CGPointMake(kPaddingSize+_radius, kPaddingSize+_radius);
+
+    [self reset];
+}
+
 
 - (void)reset
 {

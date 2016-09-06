@@ -34,6 +34,8 @@
 
 @property(assign, nonatomic) NSInteger lastRefreshCount;
 
+@property(nonatomic, weak) UIImageView *activityImageView;
+
 @end
 
 @implementation CCRefreshFooterView
@@ -53,11 +55,39 @@
     return self;
 }
 
+/**
+ *  @author CC, 16-08-18
+ *
+ *  @brief 自定义独立图片
+ */
+- (UIImageView *)activityImageView
+{
+    if (!_activityImageView) {
+        UIImageView *activityImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+        [self addSubview:_activityImageView = activityImageView];
+    }
+    return _activityImageView;
+}
+
+#pragma mark - 设置图片
+- (void)setActivityImage:(UIImage *)image
+{
+    self.activityImageView.size = CGSizeMake(43, 35); //image.size;
+    self.activityImageView.image = image;
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
 
-    self.statusLabel.frame = self.bounds;
+    if (self.style == CCRefreshViewStyleImageView) {
+        self.statusLabel.hidden = YES;
+        self.activityImageView.center = CGPointMake(self.centerX, -self.centerY);
+    } else {
+        self.activityImageView.hidden = YES;
+        self.arrowImage.hidden = YES;
+        self.statusLabel.frame = self.bounds;
+    }
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview

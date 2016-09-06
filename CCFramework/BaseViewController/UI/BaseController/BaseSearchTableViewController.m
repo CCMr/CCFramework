@@ -78,15 +78,15 @@
     else
         searchField = [((UIView *)[_searchBar.subviews objectAtIndex:0]).subviews lastObject];
     
-    if ([searchField isKindOfClass:[UITextField class]]) {
-        UIButton *leftIconButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 22, 22)];
-        [leftIconButton setImage:[UIImage imageNamed:@"VoiceSearchStartBtn"] forState:UIControlStateNormal];
-        [leftIconButton setImage:[UIImage imageNamed:@"VoiceSearchStartBtn_HL"] forState:UIControlStateHighlighted];
-        [leftIconButton addTarget:self action:@selector(voiceButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        
-        searchField.rightView = leftIconButton;
-        searchField.rightViewMode = UITextFieldViewModeAlways;
-    }
+//    if ([searchField isKindOfClass:[UITextField class]]) {
+//        UIButton *leftIconButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 22, 22)];
+//        [leftIconButton setImage:[UIImage imageNamed:@"VoiceSearchStartBtn"] forState:UIControlStateNormal];
+//        [leftIconButton setImage:[UIImage imageNamed:@"VoiceSearchStartBtn_HL"] forState:UIControlStateHighlighted];
+//        [leftIconButton addTarget:self action:@selector(voiceButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+//        
+//        searchField.rightView = leftIconButton;
+//        searchField.rightViewMode = UITextFieldViewModeAlways;
+//    }
     [self.searchBar setCancelTitle:@"取消"];
 }
 

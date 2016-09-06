@@ -126,7 +126,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
                 response(dataObj,nil);
         }else{
             if (failure)
-                failure([NSError errorWithDomain:dataObj code:0 userInfo:@{@"NSDebugDescription":@"解析对象错误"}]);
+                failure(responseObject.userInfo,[NSError errorWithDomain:dataObj code:0 userInfo:@{@"NSDebugDescription":@"解析对象错误"}]);
         }
     } failure:failure];
 }
@@ -159,7 +159,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
                 response(dataObj,nil);
         }else{
             if (failure)
-                failure([NSError errorWithDomain:dataObj code:0 userInfo:@{@"NSDebugDescription":@"解析对象错误"}]);
+                failure(responseObject.userInfo,[NSError errorWithDomain:dataObj code:0 userInfo:@{@"NSDebugDescription":@"解析对象错误"}]);
         }
     } failure:failure];
 }
@@ -192,7 +192,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
                 response(dataObj,nil);
         }else{
             if (failure)
-                failure([NSError errorWithDomain:dataObj code:0 userInfo:@{@"NSDebugDescription":@"解析对象错误"}]);
+                failure(responseObject.userInfo,[NSError errorWithDomain:dataObj code:0 userInfo:@{@"NSDebugDescription":@"解析对象错误"}]);
         }
     } failure:failure];
 }
@@ -251,7 +251,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
                 response(dataObj,nil);
         }else{
             if (failure)
-                failure([NSError errorWithDomain:dataObj code:0 userInfo:@{@"NSDebugDescription":@"解析对象错误"}]);
+                failure(responseObject.userInfo,[NSError errorWithDomain:dataObj code:0 userInfo:@{@"NSDebugDescription":@"解析对象错误"}]);
         }
     } failure:failure];
 }
@@ -284,7 +284,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
                 response(dataObj,nil);
         }else{
             if (failure)
-                failure([NSError errorWithDomain:dataObj code:0 userInfo:@{@"NSDebugDescription":@"解析对象错误"}]);
+                failure(responseObject.userInfo,[NSError errorWithDomain:dataObj code:0 userInfo:@{@"NSDebugDescription":@"解析对象错误"}]);
         }
     } failure:failure];
 }

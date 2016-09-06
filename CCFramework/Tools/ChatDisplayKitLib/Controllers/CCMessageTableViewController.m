@@ -34,7 +34,7 @@
 #import "UIScrollView+Additions.h"
 #import "CCVoiceCommonHelper.h"
 #import "CCEmotionTextAttachment.h"
-#import "UIScrollView+CCRefresh.h"
+//#import "UIScrollView+CCRefresh.h"
 //#import "CCVoiceRecordHUD.h"
 #import "CCVoiceProgressHUD.h"
 
@@ -339,37 +339,21 @@ static CGPoint delayOffset = {0.0};
 - (void)insertOldMessages:(NSArray *)oldMessages
                completion:(void (^)())completion
 {
-    WEAKSELF;
-    [self exChangeMessageDataSourceQueue:^{
-        delayOffset = weakSelf.messageTableView.contentOffset;
-        NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:oldMessages.count];
-        NSMutableIndexSet *indexSets = [[NSMutableIndexSet alloc] init];
-        [oldMessages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:idx inSection:0];
-            [indexPaths addObject:indexPath];
-
-            delayOffset.y += [weakSelf calculateCellHeightWithMessage:[oldMessages objectAtIndex:idx] atIndexPath:indexPath];
-            [indexSets addIndex:idx];
-        }];
-
-        NSMutableArray *messages = [[NSMutableArray alloc] initWithArray:weakSelf.messages];
-        [messages insertObjects:oldMessages atIndexes:indexSets];
-
-        [weakSelf exMainQueue:^{
-            [UIView setAnimationsEnabled:NO];
-            weakSelf.messageTableView.userInteractionEnabled = NO;
-            //[self.messageTableView beginUpdates];
-            weakSelf.messages = messages;
-            [weakSelf.messageTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-            //[self.messageTableView endUpdates];
-            [UIView setAnimationsEnabled:YES];
-            [weakSelf.messageTableView setContentOffset:delayOffset animated:NO];
-            weakSelf.messageTableView.userInteractionEnabled = YES;
+    if (oldMessages.count != 0) {
+        self.loadingMoreMessage = YES;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            __block NSMutableArray *messages = [[NSMutableArray alloc] initWithArray:self.messages];
+            [[[oldMessages reverseObjectEnumerator] allObjects] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [messages insertObject:obj atIndex:0];
+            }];
+            self.messages = messages;
+            [self.messageTableView reloadData];
+            self.loadingMoreMessage = NO;
             if (completion) {
                 completion();
             }
-        }];
-    }];
+        });
+    }
 }
 
 - (void)insertOldMessages:(NSArray *)oldMessages
@@ -398,9 +382,10 @@ static CGPoint delayOffset = {0.0};
 - (UIView *)headerContainerView
 {
     if (!_headerContainerView) {
-        _headerContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 15)];
+        _headerContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 30)];
         _headerContainerView.backgroundColor = self.messageTableView.backgroundColor;
-        //        [_headerContainerView addSubview:self.loadMoreActivityIndicatorView];
+        [_headerContainerView addSubview:self.loadMoreActivityIndicatorView];
+        _headerContainerView.hidden = YES;
     }
     return _headerContainerView;
 }
@@ -417,8 +402,10 @@ static CGPoint delayOffset = {0.0};
     _loadingMoreMessage = loadingMoreMessage;
     if (loadingMoreMessage) {
         [self.loadMoreActivityIndicatorView startAnimating];
+        self.messageTableView.tableHeaderView.hidden = NO;
     } else {
         [self.loadMoreActivityIndicatorView stopAnimating];
+        self.messageTableView.tableHeaderView.hidden = YES;
     }
 }
 - (void)setLoadMoreActivityIndicatorViewStyle:(UIActivityIndicatorViewStyle)loadMoreActivityIndicatorViewStyle
@@ -562,13 +549,8 @@ static CGPoint delayOffset = {0.0};
     if (![self shouldAllowScroll])
         return;
 
-    NSInteger rows = [self.messageTableView numberOfRowsInSection:0];
-
-    if (rows > 0) {
-        [self.messageTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:rows - 1 inSection:0]
-                                     atScrollPosition:UITableViewScrollPositionBottom
-                                             animated:animated];
-    }
+    if (self.messages.count)
+        [self.messageTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:animated];
 }
 
 - (void)scrollToRowAtIndexPath:(NSIndexPath *)indexPath
@@ -656,7 +638,6 @@ static CGPoint delayOffset = {0.0};
 
     if (shouldLoadMoreMessagesScrollToTop) {
         messageTableView.tableHeaderView = self.headerContainerView;
-        [messageTableView addHeaderWithIndicator:self action:@selector(scrollRefresh)];
     }
 
     [self.view addSubview:messageTableView];
@@ -671,10 +652,7 @@ static CGPoint delayOffset = {0.0};
     [self setBackgroundColor:[UIColor whiteColor]];
 
     // 输入工具条的frame
-    CGRect inputFrame = CGRectMake(0.0f,
-                                   self.view.frame.size.height - inputViewHeight,
-                                   self.view.frame.size.width,
-                                   inputViewHeight);
+    CGRect inputFrame = CGRectMake(0.0f, self.view.frame.size.height - inputViewHeight, self.view.frame.size.width, inputViewHeight);
 
     WEAKSELF;
     if (self.allowsPanToDismissKeyboard) {
@@ -720,13 +698,9 @@ static CGPoint delayOffset = {0.0};
                                  if (inputViewFrameY > messageViewFrameBottom)
                                      inputViewFrameY = messageViewFrameBottom;
 
-                                 weakSelf.messageInputView.frame = CGRectMake(inputViewFrame.origin.x,
-                                                                              inputViewFrameY,
-                                                                              inputViewFrame.size.width,
-                                                                              inputViewFrame.size.height);
+                                 weakSelf.messageInputView.frame = CGRectMake(inputViewFrame.origin.x, inputViewFrameY, inputViewFrame.size.width, inputViewFrame.size.height);
 
-                                 [weakSelf setTableViewInsetsWithBottomValue:weakSelf.view.frame.size.height
-                                  - weakSelf.messageInputView.frame.origin.y];
+                                 [weakSelf setTableViewInsetsWithBottomValue:weakSelf.view.frame.size.height - weakSelf.messageInputView.frame.origin.y];
                                  if (showKeyboard)
                                      [weakSelf scrollToBottomAnimated:NO];
                              }
@@ -784,7 +758,6 @@ static CGPoint delayOffset = {0.0};
 
     // 设置手势滑动，默认添加一个bar的高度值
     self.messageTableView.messageInputBarHeight = CGRectGetHeight(_messageInputView.bounds);
-
 
     // 设置键盘通知或者手势控制键盘消失
     [self.messageTableView setupPanGestureControlKeyboardHide:self.allowsPanToDismissKeyboard];
@@ -953,12 +926,10 @@ static CGPoint delayOffset = {0.0};
     if (self.previousTextViewContentHeight == maxHeight) {
         double delayInSeconds = 0.01;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime,
-                       dispatch_get_main_queue(),
-                       ^(void) {
-                           CGPoint bottomOffset = CGPointMake(0.0f, contentH - textView.bounds.size.height);
-                           [textView setContentOffset:bottomOffset animated:YES];
-                       });
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+            CGPoint bottomOffset = CGPointMake(0.0f, contentH - textView.bounds.size.height);
+            [textView setContentOffset:bottomOffset animated:YES];
+        });
     }
 }
 
@@ -1473,36 +1444,19 @@ static CGPoint delayOffset = {0.0};
     if ([self.delegate respondsToSelector:@selector(shouldLoadMoreMessagesScrollToTop)]) {
         BOOL shouldLoadMoreMessages = [self.delegate shouldLoadMoreMessagesScrollToTop];
         if (shouldLoadMoreMessages) {
-            if (scrollView.contentOffset.y >= 0 && scrollView.contentOffset.y <= 44) {
-                //                if (!self.loadingMoreMessage) {
-                //                    if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollTotop)]) {
-                //                        [self.delegate loadMoreMessagesScrollTotop];
-                //                    }
-                //                }
+
+            if(!self.messageTableView.tableHeaderView)
+                self.messageTableView.tableHeaderView = self.headerContainerView;
+
+            if (scrollView.contentOffset.y < 0 && !self.loadingMoreMessage) {
+                if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollTotop)]) {
+                    [self.delegate loadMoreMessagesScrollTotop];
+                }
             }
+        }else{
+            self.messageTableView.tableHeaderView = nil;
         }
     }
-}
-
-- (void)scrollRefresh
-{
-    if (!self.loadingMoreMessage) {
-        self.loadingMoreMessage = YES;
-        if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollTotop)]) {
-            [self.delegate loadMoreMessagesScrollTotop];
-        }
-    }
-}
-
-/**
- *  @author CC, 2015-11-19
- *
- *  @brief  结束刷新
- */
-- (void)headerEndRefreshing
-{
-    self.loadingMoreMessage = NO;
-    [self.messageTableView EndRefreshing];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
@@ -1547,10 +1501,10 @@ static CGPoint delayOffset = {0.0};
 
 #pragma mark - Table View Data Source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+//{
+//    return 1;
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
