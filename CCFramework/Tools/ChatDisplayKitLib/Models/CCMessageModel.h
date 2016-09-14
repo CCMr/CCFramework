@@ -81,7 +81,7 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 
 @required
 
--(NSString *)objuniqueID;
+- (NSString *)objuniqueID;
 
 /**
  *  @author CC, 2016-01-21
@@ -99,6 +99,7 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
  *  @brief  图文对应路径(键值存放)
  */
 - (NSArray *)teletextPath;
+- (CGSize)teletextPhotoSize;
 
 /**
  *  @author CC, 2016-12-28
@@ -112,11 +113,13 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 - (NSString *)thumbnailUrl;
 - (NSString *)originPhotoUrl;
 - (NSString *)savePath;
+- (CGSize)photoSize;
 
 #pragma mark - 视频
 - (UIImage *)videoConverPhoto;
 - (NSString *)videoPath;
 - (NSString *)videoUrl;
+- (CGSize)videoPhotoSize;
 
 #pragma mark - 音频
 - (NSString *)voicePath;
@@ -127,10 +130,12 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 - (UIImage *)localPositionPhoto;
 - (NSString *)geolocations;
 - (CLLocation *)location;
+- (CGSize)localPhotoSize;
 
 #pragma mark - 表情
 - (NSString *)emotionPath;
 - (NSString *)emotionUrl;
+- (CGSize)emotionSize;
 
 - (UIImage *)avatar;
 - (NSString *)avatarUrl;

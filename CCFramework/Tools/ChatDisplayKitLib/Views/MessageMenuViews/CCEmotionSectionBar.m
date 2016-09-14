@@ -28,6 +28,7 @@
 #import "UIButton+Additions.h"
 
 #define kCCStoreManagerItemWidth 50
+#define kCCLineWidth 0.5
 
 @interface CCEmotionSectionBar ()
 
@@ -191,11 +192,9 @@
         NSInteger index = [self.emotionManagers indexOfObject:emotionManager];
         UIButton *sectionButton = [self cratedButton];
         sectionButton.tag = index;
-        if (emotionManager.emotionName)
-            [sectionButton setTitle:emotionManager.emotionName forState:UIControlStateNormal];
-        else if ([emotionManager.emotionIcon rangeOfString:@"http://"].location != NSNotFound) {
-            [sectionButton sd_setImageWithURL:[NSURL URLWithString:emotionManager.emotionIcon] forState:UIControlStateNormal];
-        } else {
+
+        UIImage *image = [UIImage imageWithContentsOfFile:emotionManager.emotionIcon];
+        if (image) {
             UIImage *sourceImage = [UIImage imageWithContentsOfFile:emotionManager.emotionIcon];
             UIGraphicsBeginImageContext(CGSizeMake(25, 25)); // this will crop
             [sourceImage drawInRect:CGRectMake(0, 0, 25, 25)];
@@ -204,6 +203,10 @@
 
             [sectionButton setImage:newImage forState:UIControlStateNormal];
             [sectionButton setImage:newImage forState:UIControlStateHighlighted];
+        } else if (emotionManager.emotionIcon && [emotionManager.emotionIcon rangeOfString:@"http://"].location != NSNotFound) {
+            [sectionButton sd_setImageWithURL:[NSURL URLWithString:emotionManager.emotionIcon] forState:UIControlStateNormal];
+        } else if (emotionManager.emotionName) {
+            [sectionButton setTitle:emotionManager.emotionName forState:UIControlStateNormal];
         }
 
         sectionButton.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -213,11 +216,14 @@
             sectionButton.backgroundColor = self.superview.backgroundColor; // [UIColor whiteColor];
 
         CGRect sectionButtonFrame = sectionButton.frame;
-        sectionButtonFrame.origin.x = index * (CGRectGetWidth(sectionButtonFrame));
+        sectionButtonFrame.origin.x = index * (CGRectGetWidth(sectionButtonFrame) + kCCLineWidth);
         sectionButton.frame = sectionButtonFrame;
 
-
         [self.sectionBarScrollView addSubview:sectionButton];
+
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(sectionButtonFrame.origin.x + sectionButtonFrame.size.width, 3, kCCLineWidth, sectionButtonFrame.size.height - 6)];
+        line.backgroundColor = [UIColor lightGrayColor];
+        [self.sectionBarScrollView addSubview:line];
     }
 
     [self.sectionBarScrollView setContentSize:CGSizeMake((self.emotionManagers.count + 2) * kCCStoreManagerItemWidth, CGRectGetHeight(self.bounds))];
@@ -237,10 +243,14 @@
         [storeManagerItemButton addTarget:self action:@selector(didStoreClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:storeManagerItemButton];
         _storeManagerItemButton = storeManagerItemButton;
+
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(kCCStoreManagerItemWidth, 3, kCCLineWidth, storeManagerItemButton.frame.size.height - 6)];
+        line.backgroundColor = [UIColor lightGrayColor];
+        [self addSubview:line];
     }
 
     if (!_sectionBarScrollView) {
-        UIScrollView *sectionBarScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(kCCStoreManagerItemWidth, 0, CGRectGetWidth(self.bounds) - kCCStoreManagerItemWidth, CGRectGetHeight(self.bounds))];
+        UIScrollView *sectionBarScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(kCCStoreManagerItemWidth + kCCLineWidth, 0, CGRectGetWidth(self.bounds) - kCCStoreManagerItemWidth - kCCLineWidth, CGRectGetHeight(self.bounds))];
         [sectionBarScrollView setScrollsToTop:NO];
         sectionBarScrollView.showsVerticalScrollIndicator = NO;
         sectionBarScrollView.showsHorizontalScrollIndicator = NO;

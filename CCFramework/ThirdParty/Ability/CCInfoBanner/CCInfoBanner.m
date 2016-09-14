@@ -454,7 +454,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
 
     [self setHidden:NO];
 
-    self.frame = CGRectMake(10, self.additionalTopSpacing, CGRectGetWidth(self.targetView.frame) - 20, 30);
+    self.frame = CGRectMake(0, self.additionalTopSpacing, CGRectGetWidth(self.targetView.frame), 30);
     [self layoutSubviews];
     if (animated) {
         [self.superview layoutIfNeeded];

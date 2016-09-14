@@ -93,13 +93,13 @@
 }
 
 #pragma mark -
-#pragma mark :. 网络请求并解析
+#pragma mark :. 网络请求并解析 异步
 
 static id dataObj;
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief GET请求
  *
  *  @param requestURLString 请求地址
@@ -117,10 +117,10 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
     failure:(requestFailureBlock)failure
 {
     [CCHTTPManager GET:requestURLString parameters:parameter cachePolicy:cachePolicy success:^(CCResponseObject *responseObject) {
-        
+
         dataObj = [self modelTransformationWithResponseObj:responseObject
                                                 modelClass:modelClass];
-        
+
         if ([dataObj isKindOfClass:modelClass]) {
             if (response)
                 response(dataObj,nil);
@@ -133,7 +133,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief POST请求
  *
  *  @param requestURLString 请求地址
@@ -153,7 +153,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
     [CCHTTPManager POST:requestURLString parameters:parameter cachePolicy:cachePolicy success:^(CCResponseObject *responseObject) {
         dataObj = [self modelTransformationWithResponseObj:responseObject
                                                 modelClass:modelClass];
-        
+
         if ([dataObj isKindOfClass:modelClass]) {
             if (response)
                 response(dataObj,nil);
@@ -166,7 +166,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief DELETE请求
  *
  *  @param requestURLString 请求地址
@@ -186,7 +186,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
     [CCHTTPManager DELETE:requestURLString parameters:parameter cachePolicy:cachePolicy success:^(CCResponseObject *responseObject) {
         dataObj = [self modelTransformationWithResponseObj:responseObject
                                                 modelClass:modelClass];
-        
+
         if ([dataObj isKindOfClass:modelClass]) {
             if (response)
                 response(dataObj,nil);
@@ -199,7 +199,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief HEAD请求
  *
  *  @param requestURLString 请求地址
@@ -224,7 +224,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief PUT请求
  *
  *  @param requestURLString 请求地址
@@ -241,11 +241,11 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
    response:(responseBlock)response
     failure:(requestFailureBlock)failure
 {
-    
+
     [CCHTTPManager PUT:requestURLString parameters:parameter cachePolicy:cachePolicy success:^(CCResponseObject *responseObject) {
         dataObj = [self modelTransformationWithResponseObj:responseObject
                                                 modelClass:modelClass];
-        
+
         if ([dataObj isKindOfClass:modelClass]) {
             if (response)
                 response(dataObj,nil);
@@ -258,7 +258,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief PATCH请求
  *
  *  @param requestURLString 请求地址
@@ -278,7 +278,201 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
     [CCHTTPManager PATCH:requestURLString parameters:parameter cachePolicy:cachePolicy success:^(CCResponseObject *responseObject) {
         dataObj = [self modelTransformationWithResponseObj:responseObject
                                                 modelClass:modelClass];
-        
+
+        if ([dataObj isKindOfClass:modelClass]) {
+            if (response)
+                response(dataObj,nil);
+        }else{
+            if (failure)
+                failure(responseObject.userInfo,[NSError errorWithDomain:dataObj code:0 userInfo:@{@"NSDebugDescription":@"解析对象错误"}]);
+        }
+    } failure:failure];
+}
+
+#pragma mark :. 网络请求并解析 同步
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief GET请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param modelClass       模型Class
+ *  @param cachePolicy      缓存类型
+ *  @param response         请求响应结果
+ *  @param failure          故障处理回调
+ */
++ (void)syncGET:(NSString *)requestURLString
+     parameters:(NSDictionary *)parameter
+     modelClass:(Class)modelClass
+    cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+       response:(responseBlock)response
+        failure:(requestFailureBlock)failure
+{
+    [CCHTTPManager syncGET:requestURLString parameters:parameter cachePolicy:cachePolicy success:^(CCResponseObject *responseObject) {
+
+        dataObj = [self modelTransformationWithResponseObj:responseObject
+                                                modelClass:modelClass];
+
+        if ([dataObj isKindOfClass:modelClass]) {
+            if (response)
+                response(dataObj,nil);
+        }else{
+            if (failure)
+                failure(responseObject.userInfo,[NSError errorWithDomain:dataObj code:0 userInfo:@{@"NSDebugDescription":@"解析对象错误"}]);
+        }
+    } failure:failure];
+}
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief POST请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param modelClass       模型Class
+ *  @param cachePolicy      缓存类型
+ *  @param response         请求响应结果
+ *  @param failure          故障处理回调
+ */
++ (void)syncPOST:(NSString *)requestURLString
+      parameters:(NSDictionary *)parameter
+      modelClass:(Class)modelClass
+     cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+        response:(responseBlock)response
+         failure:(requestFailureBlock)failure
+{
+    [CCHTTPManager syncPOST:requestURLString parameters:parameter cachePolicy:cachePolicy success:^(CCResponseObject *responseObject) {
+        dataObj = [self modelTransformationWithResponseObj:responseObject
+                                                modelClass:modelClass];
+
+        if ([dataObj isKindOfClass:modelClass]) {
+            if (response)
+                response(dataObj,nil);
+        }else{
+            if (failure)
+                failure(responseObject.userInfo,[NSError errorWithDomain:dataObj code:0 userInfo:@{@"NSDebugDescription":@"解析对象错误"}]);
+        }
+    } failure:failure];
+}
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief DELETE请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param modelClass       模型Class
+ *  @param cachePolicy      缓存类型
+ *  @param response         请求响应结果
+ *  @param failure          故障处理回调
+ */
++ (void)syncDELETE:(NSString *)requestURLString
+        parameters:(NSDictionary *)parameter
+        modelClass:(Class)modelClass
+       cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+          response:(responseBlock)response
+           failure:(requestFailureBlock)failure
+{
+    [CCHTTPManager syncDELETE:requestURLString parameters:parameter cachePolicy:cachePolicy success:^(CCResponseObject *responseObject) {
+        dataObj = [self modelTransformationWithResponseObj:responseObject
+                                                modelClass:modelClass];
+
+        if ([dataObj isKindOfClass:modelClass]) {
+            if (response)
+                response(dataObj,nil);
+        }else{
+            if (failure)
+                failure(responseObject.userInfo,[NSError errorWithDomain:dataObj code:0 userInfo:@{@"NSDebugDescription":@"解析对象错误"}]);
+        }
+    } failure:failure];
+}
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief HEAD请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param modelClass       模型Class
+ *  @param cachePolicy      缓存类型
+ *  @param response         请求响应结果
+ *  @param failure          故障处理回调
+ */
++ (void)syncHEAD:(NSString *)requestURLString
+      parameters:(NSDictionary *)parameter
+      modelClass:(Class)modelClass
+     cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+        response:(responseBlock)response
+         failure:(requestFailureBlock)failure
+{
+    [CCHTTPManager syncHEAD:requestURLString parameters:parameter cachePolicy:cachePolicy success:^(CCResponseObject *responseObject) {
+        if (response)
+            response(responseObject,nil);
+    } failure:failure];
+}
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief PUT请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param modelClass       模型Class
+ *  @param cachePolicy      缓存类型
+ *  @param response         请求响应结果
+ *  @param failure          故障处理回调
+ */
++ (void)syncPUT:(NSString *)requestURLString
+     parameters:(NSDictionary *)parameter
+     modelClass:(Class)modelClass
+    cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+       response:(responseBlock)response
+        failure:(requestFailureBlock)failure
+{
+
+    [CCHTTPManager syncPUT:requestURLString parameters:parameter cachePolicy:cachePolicy success:^(CCResponseObject *responseObject) {
+        dataObj = [self modelTransformationWithResponseObj:responseObject
+                                                modelClass:modelClass];
+
+        if ([dataObj isKindOfClass:modelClass]) {
+            if (response)
+                response(dataObj,nil);
+        }else{
+            if (failure)
+                failure(responseObject.userInfo,[NSError errorWithDomain:dataObj code:0 userInfo:@{@"NSDebugDescription":@"解析对象错误"}]);
+        }
+    } failure:failure];
+}
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief PATCH请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param modelClass       模型Class
+ *  @param cachePolicy      缓存类型
+ *  @param response         请求响应结果
+ *  @param failure          故障处理回调
+ */
++ (void)syncPATCH:(NSString *)requestURLString
+       parameters:(NSDictionary *)parameter
+       modelClass:(Class)modelClass
+      cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+         response:(responseBlock)response
+          failure:(requestFailureBlock)failure
+{
+    [CCHTTPManager syncPATCH:requestURLString parameters:parameter cachePolicy:cachePolicy success:^(CCResponseObject *responseObject) {
+        dataObj = [self modelTransformationWithResponseObj:responseObject
+                                                modelClass:modelClass];
+
         if ([dataObj isKindOfClass:modelClass]) {
             if (response)
                 response(dataObj,nil);
@@ -302,7 +496,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-04-06
- *  
+ *
  *  @brief GET请求处理
  *
  *  @param api           API地址
@@ -317,7 +511,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-04-06
- *  
+ *
  *  @brief POST请求处理
  *
  *  @param api           API地址
@@ -332,7 +526,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-04-06
- *  
+ *
  *  @brief ELETE请求处理
  *
  *  @param api           API地址
@@ -347,7 +541,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-04-06
- *  
+ *
  *  @brief HEAD请求处理
  *
  *  @param api           API地址
@@ -358,12 +552,12 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
         parameters:(NSDictionary *)parameter
      responseBlock:(CCRequestBacktrack)responseBlock
 {
-    
+
 }
 
 /**
  *  @author CC, 16-04-06
- *  
+ *
  *  @brief PUT请求处理
  *
  *  @param api           API地址
@@ -374,12 +568,12 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
        parameters:(NSDictionary *)parameter
     responseBlock:(CCRequestBacktrack)responseBlock
 {
-    
+
 }
 
 /**
  *  @author CC, 16-04-06
- *  
+ *
  *  @brief PATCH请求处理
  *
  *  @param api           API地址
@@ -390,7 +584,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
          parameters:(NSDictionary *)parameter
       responseBlock:(CCRequestBacktrack)responseBlock
 {
-    
+
 }
 
 @end

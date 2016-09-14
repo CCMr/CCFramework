@@ -31,13 +31,20 @@
 #import "CCNSLog.h"
 #import "CCHTTPUpDownLoad.h"
 
-typedef NS_ENUM(NSUInteger, CCHTTPRequestType) {
-    CCHTTPRequestTypeGET = 0,
-    CCHTTPRequestTypePOST = 1,
-    CCHTTPRequestTypeDELETE = 2,
-    CCHTTPRequestTypeHEAD = 3,
-    CCHTTPRequestTypePUT = 4,
-    CCHTTPRequestTypePATCH = 5,
+typedef NS_ENUM(NSUInteger, CCHTTPRequestStyle) {
+    CCHTTPRequestStyleGET = 0,
+    CCHTTPRequestStylePOST = 1,
+    CCHTTPRequestStyleDELETE = 2,
+    CCHTTPRequestStyleHEAD = 3,
+    CCHTTPRequestStylePUT = 4,
+    CCHTTPRequestStylePATCH = 5,
+};
+
+typedef NS_ENUM(NSInteger, CCHTTPRequestType) {
+    /** 异步请求 */
+    CCHTTPRequestTypeAsynchronous = 0,
+    /** 同步请求 */
+    CCHTTPRequestTypeSynchronize = 1,
 };
 
 @interface CCHTTPManager ()
@@ -273,7 +280,7 @@ static NSString *const CCCacheTableName = @"CCCacheTable";
     return isNetworkEnable;
 }
 
-#pragma mark :. 请求
+#pragma mark :. 请求异步
 
 /**
  *  @author CC, 16-03-10
@@ -291,7 +298,8 @@ static NSString *const CCCacheTableName = @"CCCacheTable";
     success:(requestSuccessBlock)success
     failure:(requestFailureBlock)failure
 {
-    [CCHTTPManager requestHandler:CCHTTPRequestTypeGET
+    [CCHTTPManager requestHandler:CCHTTPRequestStyleGET
+                      requestType:CCHTTPRequestTypeAsynchronous
                  RequestURLString:requestURLString
                     WithParameter:parameter
                       cachePolicy:CCHTTPReloadIgnoringLocalCacheData
@@ -305,7 +313,8 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
     success:(requestSuccessBlock)success
     failure:(requestFailureBlock)failure
 {
-    [CCHTTPManager requestHandler:CCHTTPRequestTypeGET
+    [CCHTTPManager requestHandler:CCHTTPRequestStyleGET
+                      requestType:CCHTTPRequestTypeAsynchronous
                  RequestURLString:requestURLString
                     WithParameter:parameter
                       cachePolicy:cachePolicy
@@ -329,7 +338,8 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
      success:(requestSuccessBlock)success
      failure:(requestFailureBlock)failure
 {
-    [CCHTTPManager requestHandler:CCHTTPRequestTypePOST
+    [CCHTTPManager requestHandler:CCHTTPRequestStylePOST
+                      requestType:CCHTTPRequestTypeAsynchronous
                  RequestURLString:requestURLString
                     WithParameter:parameter
                       cachePolicy:CCHTTPReloadIgnoringLocalCacheData
@@ -343,7 +353,8 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
      success:(requestSuccessBlock)success
      failure:(requestFailureBlock)failure
 {
-    [CCHTTPManager requestHandler:CCHTTPRequestTypePOST
+    [CCHTTPManager requestHandler:CCHTTPRequestStylePOST
+                      requestType:CCHTTPRequestTypeAsynchronous
                  RequestURLString:requestURLString
                     WithParameter:parameter
                       cachePolicy:cachePolicy
@@ -367,7 +378,8 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
        success:(requestSuccessBlock)success
        failure:(requestFailureBlock)failure
 {
-    [CCHTTPManager requestHandler:CCHTTPRequestTypeDELETE
+    [CCHTTPManager requestHandler:CCHTTPRequestStyleDELETE
+                      requestType:CCHTTPRequestTypeAsynchronous
                  RequestURLString:requestURLString
                     WithParameter:parameter
                       cachePolicy:CCHTTPReloadIgnoringLocalCacheData
@@ -381,7 +393,8 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
        success:(requestSuccessBlock)success
        failure:(requestFailureBlock)failure
 {
-    [CCHTTPManager requestHandler:CCHTTPRequestTypeDELETE
+    [CCHTTPManager requestHandler:CCHTTPRequestStyleDELETE
+                      requestType:CCHTTPRequestTypeAsynchronous
                  RequestURLString:requestURLString
                     WithParameter:parameter
                       cachePolicy:cachePolicy
@@ -395,7 +408,8 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
      success:(requestSuccessBlock)success
      failure:(requestFailureBlock)failure
 {
-    [CCHTTPManager requestHandler:CCHTTPRequestTypeHEAD
+    [CCHTTPManager requestHandler:CCHTTPRequestStyleHEAD
+                      requestType:CCHTTPRequestTypeAsynchronous
                  RequestURLString:requestURLString
                     WithParameter:parameter
                       cachePolicy:cachePolicy
@@ -419,7 +433,8 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
     success:(requestSuccessBlock)success
     failure:(requestFailureBlock)failure
 {
-    [CCHTTPManager requestHandler:CCHTTPRequestTypePUT
+    [CCHTTPManager requestHandler:CCHTTPRequestStylePUT
+                      requestType:CCHTTPRequestTypeAsynchronous
                  RequestURLString:requestURLString
                     WithParameter:parameter
                       cachePolicy:CCHTTPReloadIgnoringLocalCacheData
@@ -433,7 +448,8 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
     success:(requestSuccessBlock)success
     failure:(requestFailureBlock)failure
 {
-    [CCHTTPManager requestHandler:CCHTTPRequestTypePUT
+    [CCHTTPManager requestHandler:CCHTTPRequestStylePUT
+                      requestType:CCHTTPRequestTypeAsynchronous
                  RequestURLString:requestURLString
                     WithParameter:parameter
                       cachePolicy:cachePolicy
@@ -447,7 +463,199 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
       success:(requestSuccessBlock)success
       failure:(requestFailureBlock)failure
 {
-    [CCHTTPManager requestHandler:CCHTTPRequestTypePATCH
+    [CCHTTPManager requestHandler:CCHTTPRequestStylePATCH
+                      requestType:CCHTTPRequestTypeAsynchronous
+                 RequestURLString:requestURLString
+                    WithParameter:parameter
+                      cachePolicy:cachePolicy
+                          success:success
+                          failure:failure];
+}
+
+#pragma mark :. 请求Synchronize
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief GET请求
+ *         默认 CCHTTPReloadIgnoringLocalCacheData的缓存方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)syncGET:(NSString *)requestURLString
+     parameters:(NSDictionary *)parameter
+        success:(requestSuccessBlock)success
+        failure:(requestFailureBlock)failure
+{
+    [CCHTTPManager requestHandler:CCHTTPRequestStyleGET
+                      requestType:CCHTTPRequestTypeSynchronize
+                 RequestURLString:requestURLString
+                    WithParameter:parameter
+                      cachePolicy:CCHTTPReloadIgnoringLocalCacheData
+                          success:success
+                          failure:failure];
+}
+
++ (void)syncGET:(NSString *)requestURLString
+     parameters:(NSDictionary *)parameter
+    cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+        success:(requestSuccessBlock)success
+        failure:(requestFailureBlock)failure
+{
+    [CCHTTPManager requestHandler:CCHTTPRequestStyleGET
+                      requestType:CCHTTPRequestTypeSynchronize
+                 RequestURLString:requestURLString
+                    WithParameter:parameter
+                      cachePolicy:cachePolicy
+                          success:success
+                          failure:failure];
+}
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief POST请求
+ *         默认 CCHTTPReloadIgnoringLocalCacheData的缓存方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)syncPOST:(NSString *)requestURLString
+      parameters:(NSDictionary *)parameter
+         success:(requestSuccessBlock)success
+         failure:(requestFailureBlock)failure
+{
+    [CCHTTPManager requestHandler:CCHTTPRequestStylePOST
+                      requestType:CCHTTPRequestTypeSynchronize
+                 RequestURLString:requestURLString
+                    WithParameter:parameter
+                      cachePolicy:CCHTTPReloadIgnoringLocalCacheData
+                          success:success
+                          failure:failure];
+}
+
++ (void)syncPOST:(NSString *)requestURLString
+      parameters:(NSDictionary *)parameter
+     cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+         success:(requestSuccessBlock)success
+         failure:(requestFailureBlock)failure
+{
+    [CCHTTPManager requestHandler:CCHTTPRequestStylePOST
+                      requestType:CCHTTPRequestTypeSynchronize
+                 RequestURLString:requestURLString
+                    WithParameter:parameter
+                      cachePolicy:cachePolicy
+                          success:success
+                          failure:failure];
+}
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief DELETE请求
+ *         默认 CCHTTPReloadIgnoringLocalCacheData的缓存方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)syncDELETE:(NSString *)requestURLString
+        parameters:(NSDictionary *)parameter
+           success:(requestSuccessBlock)success
+           failure:(requestFailureBlock)failure
+{
+    [CCHTTPManager requestHandler:CCHTTPRequestStyleDELETE
+                      requestType:CCHTTPRequestTypeSynchronize
+                 RequestURLString:requestURLString
+                    WithParameter:parameter
+                      cachePolicy:CCHTTPReloadIgnoringLocalCacheData
+                          success:success
+                          failure:failure];
+}
+
++ (void)syncDELETE:(NSString *)requestURLString
+        parameters:(NSDictionary *)parameter
+       cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+           success:(requestSuccessBlock)success
+           failure:(requestFailureBlock)failure
+{
+    [CCHTTPManager requestHandler:CCHTTPRequestStyleDELETE
+                      requestType:CCHTTPRequestTypeSynchronize
+                 RequestURLString:requestURLString
+                    WithParameter:parameter
+                      cachePolicy:cachePolicy
+                          success:success
+                          failure:failure];
+}
+
++ (void)syncHEAD:(NSString *)requestURLString
+      parameters:(NSDictionary *)parameter
+     cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+         success:(requestSuccessBlock)success
+         failure:(requestFailureBlock)failure
+{
+    [CCHTTPManager requestHandler:CCHTTPRequestStyleHEAD
+                      requestType:CCHTTPRequestTypeSynchronize
+                 RequestURLString:requestURLString
+                    WithParameter:parameter
+                      cachePolicy:cachePolicy
+                          success:success
+                          failure:failure];
+}
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief PUT请求
+ *         默认 CCHTTPReloadIgnoringLocalCacheData的缓存方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)syncPUT:(NSString *)requestURLString
+     parameters:(NSDictionary *)parameter
+        success:(requestSuccessBlock)success
+        failure:(requestFailureBlock)failure
+{
+    [CCHTTPManager requestHandler:CCHTTPRequestStylePUT
+                      requestType:CCHTTPRequestTypeSynchronize
+                 RequestURLString:requestURLString
+                    WithParameter:parameter
+                      cachePolicy:CCHTTPReloadIgnoringLocalCacheData
+                          success:success
+                          failure:failure];
+}
+
++ (void)syncPUT:(NSString *)requestURLString
+     parameters:(NSDictionary *)parameter
+    cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+        success:(requestSuccessBlock)success
+        failure:(requestFailureBlock)failure
+{
+    [CCHTTPManager requestHandler:CCHTTPRequestStylePUT
+                      requestType:CCHTTPRequestTypeSynchronize
+                 RequestURLString:requestURLString
+                    WithParameter:parameter
+                      cachePolicy:cachePolicy
+                          success:success
+                          failure:failure];
+}
+
++ (void)syncPATCH:(NSString *)requestURLString
+       parameters:(NSDictionary *)parameter
+      cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+          success:(requestSuccessBlock)success
+          failure:(requestFailureBlock)failure
+{
+    [CCHTTPManager requestHandler:CCHTTPRequestStylePATCH
+                      requestType:CCHTTPRequestTypeSynchronize
                  RequestURLString:requestURLString
                     WithParameter:parameter
                       cachePolicy:cachePolicy
@@ -549,7 +757,8 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
 
 #pragma mark :. 请求处理
 
-+ (void)requestHandler:(CCHTTPRequestType)requestType
++ (void)requestHandler:(CCHTTPRequestStyle)requestStyle
+           requestType:(CCHTTPRequestType)requestType
       RequestURLString:(NSString *)requestURLString
          WithParameter:(NSDictionary *)parameter
            cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
@@ -558,12 +767,21 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
 {
     //默认直接请求
     if (cachePolicy == CCHTTPReturnDefault) {
-        [CCHTTPManager requestMethod:requestType
-                    RequestURLString:requestURLString
-                       WithParameter:parameter
-                         cachePolicy:cachePolicy
-                             success:successHandler
-                             failure:failureHandler];
+        if (requestType == CCHTTPRequestTypeAsynchronous) {
+            [CCHTTPManager requestMethod:requestStyle
+                        RequestURLString:requestURLString
+                           WithParameter:parameter
+                             cachePolicy:cachePolicy
+                                 success:successHandler
+                                 failure:failureHandler];
+        } else if (requestType == CCHTTPRequestTypeSynchronize) {
+            [CCHTTPManager syncRequestMethod:requestStyle
+                            RequestURLString:requestURLString
+                               WithParameter:parameter
+                                 cachePolicy:cachePolicy
+                                     success:successHandler
+                                     failure:failureHandler];
+        }
         return;
     }
 
@@ -607,14 +825,27 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
         }
     }
 
-    [CCHTTPManager requestMethod:requestType
-                RequestURLString:requestURLString
-                   WithParameter:parameter
-                     cachePolicy:cachePolicy
-                         success:successHandler
-                         failure:failureHandler];
+    if (requestType == CCHTTPRequestTypeAsynchronous) {
+
+        [CCHTTPManager requestMethod:requestStyle
+                    RequestURLString:requestURLString
+                       WithParameter:parameter
+                         cachePolicy:cachePolicy
+                             success:successHandler
+                             failure:failureHandler];
+
+    } else if (requestType == CCHTTPRequestTypeSynchronize) {
+
+        [CCHTTPManager syncRequestMethod:requestStyle
+                        RequestURLString:requestURLString
+                           WithParameter:parameter
+                             cachePolicy:cachePolicy
+                                 success:successHandler
+                                 failure:failureHandler];
+    }
 }
 
+#pragma mark :. 异步
 /**
  *  @author CC, 16-03-10
  *
@@ -627,7 +858,7 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
  *  @param successHandler   完成回调
  *  @param failureHandler   故障回调
  */
-+ (void)requestMethod:(CCHTTPRequestType)requestType
++ (void)requestMethod:(CCHTTPRequestStyle)requestStyle
      RequestURLString:(NSString *)requestURLString
         WithParameter:(NSDictionary *)parameter
           cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
@@ -635,13 +866,13 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
               failure:(requestFailureBlock)failureHandler
 {
     if (![self requestBeforeCheckNetWork]) {
-        failureHandler([CCHTTPManager defaultHttp].userInfo,[NSError errorWithDomain:@"Error. Count not recover network reachability flags" code:kCFURLErrorNotConnectedToInternet userInfo:nil]);
+        failureHandler([CCHTTPManager defaultHttp].userInfo, [NSError errorWithDomain:@"Error. Count not recover network reachability flags" code:kCFURLErrorNotConnectedToInternet userInfo:nil]);
         return;
     }
 
     AFHTTPRequestOperation *requestOperation;
-    switch (requestType) {
-        case CCHTTPRequestTypeGET: {
+    switch (requestStyle) {
+        case CCHTTPRequestStyleGET: {
             requestOperation = [[CCHTTPManager defaultHttp].manager GET:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *_Nonnull operation, id _Nonnull responseObject) {
                 if (successHandler){
                     if (cachePolicy != CCHTTPReturnDefault)
@@ -659,7 +890,7 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
 
             break;
         }
-        case CCHTTPRequestTypePOST: {
+        case CCHTTPRequestStylePOST: {
             requestOperation = [[CCHTTPManager defaultHttp].manager POST:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *_Nonnull operation, id _Nonnull responseObject) {
                 if (successHandler){
                     if (cachePolicy != CCHTTPReturnDefault)
@@ -677,7 +908,7 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
 
             break;
         }
-        case CCHTTPRequestTypeDELETE: {
+        case CCHTTPRequestStyleDELETE: {
             requestOperation = [[CCHTTPManager defaultHttp].manager DELETE:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *_Nonnull operation, id _Nonnull responseObject) {
                 if (successHandler){
                     if (cachePolicy != CCHTTPReturnDefault)
@@ -695,7 +926,7 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
 
             break;
         }
-        case CCHTTPRequestTypeHEAD: {
+        case CCHTTPRequestStyleHEAD: {
             requestOperation = [[CCHTTPManager defaultHttp].manager HEAD:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *_Nonnull operation) {
                 if (successHandler){
                     CCResponseObject *entity= [[CCResponseObject alloc] init];
@@ -712,7 +943,7 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
 
             break;
         }
-        case CCHTTPRequestTypePUT: {
+        case CCHTTPRequestStylePUT: {
             requestOperation = [[CCHTTPManager defaultHttp].manager PUT:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *_Nonnull operation, id _Nonnull responseObject) {
                 if (successHandler){
                     if (cachePolicy != CCHTTPReturnDefault)
@@ -732,7 +963,7 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
 
             break;
         }
-        case CCHTTPRequestTypePATCH: {
+        case CCHTTPRequestStylePATCH: {
             requestOperation = [[CCHTTPManager defaultHttp].manager PATCH:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *_Nonnull operation, id _Nonnull responseObject) {
                 if (successHandler){
                     if (cachePolicy != CCHTTPReturnDefault)
@@ -754,6 +985,59 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
     }
 
     [requestOperation start];
+}
+
+#pragma mark :. 同步
++ (void)syncRequestMethod:(CCHTTPRequestStyle)requestStyle
+         RequestURLString:(NSString *)requestURLString
+            WithParameter:(NSDictionary *)parameter
+              cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+                  success:(requestSuccessBlock)successHandler
+                  failure:(requestFailureBlock)failureHandler
+{
+
+    if (![self requestBeforeCheckNetWork]) {
+        failureHandler([CCHTTPManager defaultHttp].userInfo, [NSError errorWithDomain:@"Error. Count not recover network reachability flags" code:kCFURLErrorNotConnectedToInternet userInfo:nil]);
+        return;
+    }
+
+    NSDictionary *userInfo = [[CCHTTPManager defaultHttp].userInfo copy];
+
+    AFHTTPRequestOperation *requestOperation;
+    NSError *error = nil;
+    switch (requestStyle) {
+        case CCHTTPRequestStyleGET:
+            requestOperation = [[CCHTTPManager defaultHttp].manager syncGET:requestURLString parameters:parameter operation:nil error:&error];
+            break;
+        case CCHTTPRequestStylePOST:
+            requestOperation = [[CCHTTPManager defaultHttp].manager syncPOST:requestURLString parameters:parameter operation:nil error:&error];
+            break;
+        case CCHTTPRequestStyleDELETE:
+            requestOperation = [[CCHTTPManager defaultHttp].manager syncDELETE:requestURLString parameters:parameter operation:nil error:&error];
+            break;
+        case CCHTTPRequestStyleHEAD:
+            requestOperation = [[CCHTTPManager defaultHttp].manager syncHEAD:requestURLString parameters:parameter operation:nil error:&error];
+            break;
+        case CCHTTPRequestStylePUT:
+            requestOperation = [[CCHTTPManager defaultHttp].manager syncPUT:requestURLString parameters:parameter operation:nil error:&error];
+            break;
+        case CCHTTPRequestStylePATCH:
+            requestOperation = [[CCHTTPManager defaultHttp].manager syncPATCH:requestURLString parameters:parameter operation:nil error:&error];
+            break;
+    }
+
+
+    if (!error) {
+        if (successHandler) {
+            if (cachePolicy != CCHTTPReturnDefault)
+                [self requestCache:requestURLString CacheData:requestOperation.responseObject];
+
+            successHandler([self requestResultsHandler:requestOperation.responseObject UserInfo:userInfo]);
+        }
+    } else {
+        if (failureHandler)
+            failureHandler(userInfo, [self failureError:error]);
+    }
 }
 
 #pragma mark :. 响应处理
@@ -784,6 +1068,10 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
             entity.userInfo = userInfo;
 
         CCNSLogger(@"%@", [entity cc_keyValues]);
+    } else {
+        entity = [[CCResponseObject alloc] init];
+        if (userInfo)
+            entity.userInfo = userInfo;
     }
 
     return entity;

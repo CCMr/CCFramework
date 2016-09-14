@@ -55,8 +55,10 @@
                 for (int j = 0; j < datas.count; j++) {
                     [self emotionButton:[datas objectAtIndex:j] Frame:frames IsDelete:NO];
                     frames.origin.x += frames.size.width;
-                    if (_emotionType == 1 && (i == section - 1) && j == datas.count - 1)
-                        [self emotionButton:nil Frame:frames IsDelete:YES];
+                    if (_emotionType == 1 && (i == section - 1) && j == datas.count - 1){
+                        if (row != data.count)
+                            [self emotionButton:nil Frame:frames IsDelete:YES];
+                    }
                 }
 
                 frames.origin.x = 0;

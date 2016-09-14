@@ -49,6 +49,7 @@
  *  @brief  图文对应路径(键值存放)
  */
 @property(nonatomic, copy) NSArray *teletextPath;
+@property(nonatomic, assign) CGSize teletextPhotoSize;
 
 /**
  *  @author CC, 2016-12-28
@@ -61,6 +62,7 @@
 @property(nonatomic, strong) UIImage *photo;
 @property(nonatomic, copy) NSString *thumbnailUrl;
 @property(nonatomic, copy) NSString *originPhotoUrl;
+@property(nonatomic, assign) CGSize photoSize;
 
 /**
  *  @author CC, 16-08-17
@@ -73,6 +75,7 @@
 @property(nonatomic, strong) UIImage *videoConverPhoto;
 @property(nonatomic, copy) NSString *videoPath;
 @property(nonatomic, copy) NSString *videoUrl;
+@property(nonatomic, assign) CGSize videoPhotoSize;
 
 #pragma mark - 音频
 @property(nonatomic, copy) NSString *voicePath;
@@ -82,11 +85,13 @@
 #pragma mark - 表情
 @property(nonatomic, copy) NSString *emotionPath;
 @property(nonatomic, copy) NSString *emotionUrl;
+@property(nonatomic, assign) CGSize emotionSize;
 
 #pragma mark -  地理位置
 @property(nonatomic, strong) UIImage *localPositionPhoto;
 @property(nonatomic, copy) NSString *geolocations;
 @property(nonatomic, strong) CLLocation *location;
+@property(nonatomic, assign) CGSize localPhotoSize;
 
 @property(nonatomic, strong) UIImage *avatar;
 @property(nonatomic, copy) NSString *avatarUrl;

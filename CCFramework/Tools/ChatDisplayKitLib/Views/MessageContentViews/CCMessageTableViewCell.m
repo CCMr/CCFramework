@@ -166,7 +166,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
  */
 - (void)copyed:(id)sender
 {
-    [[UIPasteboard generalPasteboard] setString:self.messageBubbleView.displayTextView.text];
+//    [[UIPasteboard generalPasteboard] setString:self.messageBubbleView.displayTextView.text];
     [self resignFirstResponder];
 }
 
@@ -379,7 +379,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 - (void)longPressGestureRecognizerHandle:(UILongPressGestureRecognizer *)longPressGestureRecognizer
 {
-    if (longPressGestureRecognizer.state != UIGestureRecognizerStateBegan || ![self becomeFirstResponder])
+    if (longPressGestureRecognizer.state != UIGestureRecognizerStateBegan || ![self becomeFirstResponder] || ((UITableView *)self.superview.superview).isEditing)
         return;
 
     NSArray *popMenuAry = @[ CCLocalization(@"复制"),
@@ -747,8 +747,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 {
     // 这里做清除工作
     [super prepareForReuse];
-    self.messageBubbleView.displayTextView.text = nil;
-    self.messageBubbleView.displayTextView.attributedText = nil;
+//    self.messageBubbleView.displayTextView.text = nil;
+//    self.messageBubbleView.displayTextView.attributedText = nil;
     self.messageBubbleView.bubbleImageView.image = nil;
     self.messageBubbleView.emotionImageView.animatedImage = nil;
     self.messageBubbleView.animationVoiceImageView.image = nil;

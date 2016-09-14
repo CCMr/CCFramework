@@ -28,7 +28,7 @@
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief 请求响应结果
  */
 typedef void (^responseBlock)(id responseObj, NSError *error);
@@ -74,10 +74,10 @@ typedef void (^responseBlock)(id responseObj, NSError *error);
                                 MethodName:(NSString *)methodName;
 
 #pragma mark -
-#pragma mark :. 网络请求并解析
+#pragma mark :. 网络请求并解析 异步
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief GET请求
  *
  *  @param requestURLString 请求地址
@@ -96,7 +96,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief POST请求
  *
  *  @param requestURLString 请求地址
@@ -115,7 +115,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief DELETE请求
  *
  *  @param requestURLString 请求地址
@@ -134,7 +134,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief HEAD请求
  *
  *  @param requestURLString 请求地址
@@ -153,7 +153,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief PUT请求
  *
  *  @param requestURLString 请求地址
@@ -172,7 +172,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief PATCH请求
  *
  *  @param requestURLString 请求地址
@@ -189,12 +189,127 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
      response:(responseBlock)response
       failure:(requestFailureBlock)failure;
 
+#pragma mark :. 网络请求并解析 同步
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief GET请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param modelClass       模型Class
+ *  @param cachePolicy      缓存类型
+ *  @param response         请求响应结果
+ *  @param failure          故障处理回调
+ */
++ (void)syncGET:(NSString *)requestURLString
+     parameters:(NSDictionary *)parameter
+     modelClass:(Class)modelClass
+    cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+       response:(responseBlock)response
+        failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief POST请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param modelClass       模型Class
+ *  @param cachePolicy      缓存类型
+ *  @param response         请求响应结果
+ *  @param failure          故障处理回调
+ */
++ (void)syncPOST:(NSString *)requestURLString
+      parameters:(NSDictionary *)parameter
+      modelClass:(Class)modelClass
+     cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+        response:(responseBlock)response
+         failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief DELETE请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param modelClass       模型Class
+ *  @param cachePolicy      缓存类型
+ *  @param response         请求响应结果
+ *  @param failure          故障处理回调
+ */
++ (void)syncDELETE:(NSString *)requestURLString
+        parameters:(NSDictionary *)parameter
+        modelClass:(Class)modelClass
+       cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+          response:(responseBlock)response
+           failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief HEAD请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param modelClass       模型Class
+ *  @param cachePolicy      缓存类型
+ *  @param response         请求响应结果
+ *  @param failure          故障处理回调
+ */
++ (void)syncHEAD:(NSString *)requestURLString
+      parameters:(NSDictionary *)parameter
+      modelClass:(Class)modelClass
+     cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+        response:(responseBlock)response
+         failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief PUT请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param modelClass       模型Class
+ *  @param cachePolicy      缓存类型
+ *  @param response         请求响应结果
+ *  @param failure          故障处理回调
+ */
++ (void)syncPUT:(NSString *)requestURLString
+     parameters:(NSDictionary *)parameter
+     modelClass:(Class)modelClass
+    cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+       response:(responseBlock)response
+        failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief PATCH请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param modelClass       模型Class
+ *  @param cachePolicy      缓存类型
+ *  @param response         请求响应结果
+ *  @param failure          故障处理回调
+ */
++ (void)syncPATCH:(NSString *)requestURLString
+       parameters:(NSDictionary *)parameter
+       modelClass:(Class)modelClass
+      cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+         response:(responseBlock)response
+          failure:(requestFailureBlock)failure;
+
 #pragma mark -
 #pragma mark :. 网络请求解析处理   PS:如需使用必须在子类实现该函数
 
 /**
  *  @author CC, 16-03-10
- *  
+ *
  *  @brief 数组、字典转模型，提供给子类的接口
  *
  *  @param responseObject 响应结果
@@ -205,7 +320,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-04-06
- *  
+ *
  *  @brief GET请求处理
  *
  *  @param api           API地址
@@ -218,7 +333,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-04-06
- *  
+ *
  *  @brief POST请求处理
  *
  *  @param api           API地址
@@ -231,7 +346,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-04-06
- *  
+ *
  *  @brief ELETE请求处理
  *
  *  @param api           API地址
@@ -244,7 +359,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-04-06
- *  
+ *
  *  @brief HEAD请求处理
  *
  *  @param api           API地址
@@ -257,7 +372,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-04-06
- *  
+ *
  *  @brief PUT请求处理
  *
  *  @param api           API地址
@@ -270,7 +385,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 
 /**
  *  @author CC, 16-04-06
- *  
+ *
  *  @brief PATCH请求处理
  *
  *  @param api           API地址

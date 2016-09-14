@@ -271,7 +271,7 @@
     if (addedMessage.bubbleMessageType == CCBubbleMessageTypeSending)
         [self finishSendMessageWithBubbleMessageType:addedMessage.messageMediaType];
 
-    CGFloat heigth = self.messageTableView.frame.size.height;
+    CGFloat heigth = self.messageTableView.bounds.size.height;
     CGFloat contentYoffset = self.messageTableView.contentOffsetY;
     CGFloat distanceFromBootom = self.messageTableView.contentSizeHeight - contentYoffset;
 
@@ -310,8 +310,8 @@
 - (void)replaceMessages:(CCMessage *)messageData
 {
     NSMutableArray *messages = [NSMutableArray arrayWithArray:self.messages];
-    id data = [messages filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.objuniqueID = %@", messageData.objuniqueID]].lastObject;
-    NSInteger index = [messages indexOfObject:data];
+    id data = [self.messages filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.objuniqueID = %@", messageData.objuniqueID]].lastObject;
+    NSInteger index = [self.messages indexOfObject:data];
 
     if (index != NSNotFound) {
         NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:1];
@@ -435,7 +435,7 @@ static CGPoint delayOffset = {0.0};
         CCEmotionManagerView *emotionManagerView = [[CCEmotionManagerView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), self.keyboardViewHeight)];
         emotionManagerView.delegate = self;
         emotionManagerView.dataSource = self;
-        emotionManagerView.backgroundColor = self.messageTableView.backgroundColor;
+//        emotionManagerView.backgroundColor = self.messageTableView.backgroundColor;
         emotionManagerView.alpha = 0.0;
         [self.view addSubview:emotionManagerView];
         _emotionManagerView = emotionManagerView;
@@ -549,8 +549,13 @@ static CGPoint delayOffset = {0.0};
     if (![self shouldAllowScroll])
         return;
 
-    if (self.messages.count)
-        [self.messageTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:animated];
+    NSInteger rows = [self.messageTableView numberOfRowsInSection:0];
+
+    if (rows > 0) {
+        [self.messageTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:rows - 1 inSection:0]
+                                     atScrollPosition:UITableViewScrollPositionBottom
+                                             animated:animated];
+    }
 }
 
 - (void)scrollToRowAtIndexPath:(NSIndexPath *)indexPath
@@ -1454,7 +1459,7 @@ static CGPoint delayOffset = {0.0};
                 }
             }
         }else{
-            self.messageTableView.tableHeaderView = nil;
+//            self.messageTableView.tableHeaderView = nil;
         }
     }
 }

@@ -91,7 +91,7 @@
         return;
     }
 
-    if (!self.emotionSectionBar.emotionManagers.count) {
+    if (self.emotionSectionBar.emotionManagers.count != numberOfEmotionManagers) {
         self.emotionSectionBar.emotionManagers = [self.dataSource emotionManagersAtManager];
         [self.emotionSectionBar reloadData];
 
@@ -133,7 +133,7 @@
         CCEmotionSectionBar *emotionSectionBar = [[CCEmotionSectionBar alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.emotionPageControl.frame), CGRectGetWidth(self.bounds), kCCEmotionSectionBarHeight)];
         emotionSectionBar.delegate = self;
         emotionSectionBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        emotionSectionBar.backgroundColor = [UIColor whiteColor]; //[UIColor colorWithWhite:0.886 alpha:1.000];
+        emotionSectionBar.backgroundColor = [UIColor colorWithWhite:0.886 alpha:1.000];
         [emotionSectionBar currentIndex:0];
         [self addSubview:emotionSectionBar];
         self.emotionSectionBar = emotionSectionBar;
@@ -143,6 +143,7 @@
 - (void)initEmotionCollectionView:(NSInteger)index
 {
     if (self.emotionScrollView) {
+        [self.emotionScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         self.indexs = [NSMutableArray array];
         CGRect frame = CGRectMake(0, 0, self.emotionScrollView.frame.size.width, self.emotionScrollView.frame.size.height);
         for (int i = 0; i < index; i++) {

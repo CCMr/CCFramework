@@ -183,6 +183,8 @@
 		420CD8BC1C59F9B9009578D4 /* UIScrollView+CCInputDodger.m in Sources */ = {isa = PBXBuildFile; fileRef = 420CD8B81C59F9B9009578D4 /* UIScrollView+CCInputDodger.m */; };
 		420CD8BD1C59F9B9009578D4 /* UIView+CCInputDodger.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CD8B91C59F9B9009578D4 /* UIView+CCInputDodger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		420CD8BE1C59F9B9009578D4 /* UIView+CCInputDodger.m in Sources */ = {isa = PBXBuildFile; fileRef = 420CD8BA1C59F9B9009578D4 /* UIView+CCInputDodger.m */; };
+		421196A41D810A400041DAB8 /* UITableViewHeaderFooterView+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 421196A21D810A400041DAB8 /* UITableViewHeaderFooterView+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		421196A51D810A400041DAB8 /* UITableViewHeaderFooterView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 421196A31D810A400041DAB8 /* UITableViewHeaderFooterView+Additions.m */; };
 		4213943C1BF2D9F50046062B /* SRLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213943B1BF2D9F50046062B /* SRLog.h */; };
 		4213B0141C91016100BAB28E /* CCKeyValueStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213B0121C91016100BAB28E /* CCKeyValueStore.h */; };
 		4213B0151C91016100BAB28E /* CCKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4213B0131C91016100BAB28E /* CCKeyValueStore.m */; };
@@ -1487,6 +1489,8 @@
 		420CD8B81C59F9B9009578D4 /* UIScrollView+CCInputDodger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+CCInputDodger.m"; path = "CCInputDodger/UIScrollView+CCInputDodger.m"; sourceTree = "<group>"; };
 		420CD8B91C59F9B9009578D4 /* UIView+CCInputDodger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+CCInputDodger.h"; path = "CCInputDodger/UIView+CCInputDodger.h"; sourceTree = "<group>"; };
 		420CD8BA1C59F9B9009578D4 /* UIView+CCInputDodger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+CCInputDodger.m"; path = "CCInputDodger/UIView+CCInputDodger.m"; sourceTree = "<group>"; };
+		421196A21D810A400041DAB8 /* UITableViewHeaderFooterView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewHeaderFooterView+Additions.h"; sourceTree = "<group>"; };
+		421196A31D810A400041DAB8 /* UITableViewHeaderFooterView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewHeaderFooterView+Additions.m"; sourceTree = "<group>"; };
 		4213943B1BF2D9F50046062B /* SRLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRLog.h; sourceTree = "<group>"; };
 		4213B0121C91016100BAB28E /* CCKeyValueStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCKeyValueStore.h; path = HttpDatabase/CCKeyValueStore.h; sourceTree = "<group>"; };
 		4213B0131C91016100BAB28E /* CCKeyValueStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCKeyValueStore.m; path = HttpDatabase/CCKeyValueStore.m; sourceTree = "<group>"; };
@@ -3089,6 +3093,15 @@
 			name = Core;
 			sourceTree = "<group>";
 		};
+		421196A11D810A400041DAB8 /* UITableViewHeaderFooterView */ = {
+			isa = PBXGroup;
+			children = (
+				421196A21D810A400041DAB8 /* UITableViewHeaderFooterView+Additions.h */,
+				421196A31D810A400041DAB8 /* UITableViewHeaderFooterView+Additions.m */,
+			);
+			path = UITableViewHeaderFooterView;
+			sourceTree = "<group>";
+		};
 		4213B0111C91010C00BAB28E /* HttpDatabase */ = {
 			isa = PBXGroup;
 			children = (
@@ -3457,6 +3470,7 @@
 				425F0EB51D4C303F0025178C /* UITabBar */,
 				421DC56C1C85750E009E825B /* UITableView */,
 				421DC5781C85750E009E825B /* UITableViewCell */,
+				421196A11D810A400041DAB8 /* UITableViewHeaderFooterView */,
 				421DC57D1C85750E009E825B /* UITextField */,
 				421DC5861C85750E009E825B /* UITextView */,
 				421DC58D1C85750E009E825B /* UIView */,
@@ -7091,6 +7105,7 @@
 				421DC6B21C85750E009E825B /* UIDevice+Additions.h in Headers */,
 				42FB015C1C900B5E0048B5E0 /* UICollectionViewCell+Additions.h in Headers */,
 				4206A51C1C783CFA001A1CF3 /* CCPhotoCollectionController.h in Headers */,
+				421196A41D810A400041DAB8 /* UITableViewHeaderFooterView+Additions.h in Headers */,
 				42DEB2A81C25495000734E09 /* CCInsetView.h in Headers */,
 				42068F201C573E33005DFB01 /* POPSpringSolver.h in Headers */,
 				421DC5E71C85750E009E825B /* NSBundle+AppIcon.h in Headers */,
@@ -7755,6 +7770,7 @@
 				421DC62F1C85750E009E825B /* NSObject+Additions.m in Sources */,
 				42F24C6E1BEA5091008CDEDC /* PNScatterChartData.m in Sources */,
 				421DC7071C85750E009E825B /* UIPopoverController+Additions.m in Sources */,
+				421196A51D810A400041DAB8 /* UITableViewHeaderFooterView+Additions.m in Sources */,
 				422359201C866F78005207B9 /* UITabBarController+Additions.m in Sources */,
 				429CA0881B9EF8BF0013A44A /* CCLabel.m in Sources */,
 				429CA0941B9EF8BF0013A44A /* CCDatePicker.m in Sources */,

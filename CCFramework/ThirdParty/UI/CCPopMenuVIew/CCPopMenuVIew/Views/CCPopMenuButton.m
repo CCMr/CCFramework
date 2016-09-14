@@ -48,14 +48,14 @@
     if (self) {
         // Initialization code
         self.menuItem = menuItem;
-        
+
         self.iconImageView = [[GlowImageView alloc] initWithFrame:CGRectMake(0, 0, menuItem.iconImage.size.width, menuItem.iconImage.size.height)];
         self.iconImageView.userInteractionEnabled = NO;
         [self.iconImageView setImage:menuItem.iconImage forState:UIControlStateNormal];
         self.iconImageView.glowColor = menuItem.glowColor;
         self.iconImageView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.iconImageView.bounds));
         [self addSubview:self.iconImageView];
-        
+
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.iconImageView.frame), CGRectGetWidth(self.bounds), 35)];
         self.titleLabel.textColor = [UIColor whiteColor];
         self.titleLabel.backgroundColor = [UIColor clearColor];
@@ -79,16 +79,16 @@
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event
 {
-     if (!self.isClick) {
-         self.isClick = YES;
-         // 播放缩放动画
-         POPSpringAnimation *scaleAnimation = [POPSpringAnimation animation];
-         scaleAnimation.springBounciness = 20; // value between 0-20
-         scaleAnimation.springSpeed = 20;      // value between 0-20
-         scaleAnimation.property = [POPAnimatableProperty propertyWithName:kPOPViewScaleXY];
-         scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.3, 1.3)];
-         [self pop_addAnimation:scaleAnimation forKey:@"scaleAnimationKey"];
+    if (!self.isClick) {
+        // 播放缩放动画
+        POPSpringAnimation *scaleAnimation = [POPSpringAnimation animation];
+        scaleAnimation.springBounciness = 20; // value between 0-20
+        scaleAnimation.springSpeed = 20;      // value between 0-20
+        scaleAnimation.property = [POPAnimatableProperty propertyWithName:kPOPViewScaleXY];
+        scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.3, 1.3)];
+        [self pop_addAnimation:scaleAnimation forKey:@"scaleAnimationKey"];
     }
+     self.isClick = YES;
 }
 
 - (void)touchesCancelled:(NSSet *)touches
@@ -107,7 +107,7 @@
     scaleAnimation.completionBlock = ^(POPAnimation *anim, BOOL finished) {
         if (completed) {
             completed(finished);
-             self.isClick = NO;
+
         }
     };
     [self pop_addAnimation:scaleAnimation forKey:@"scaleAnimationKey"];
@@ -115,12 +115,11 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-        [self disMissCompleted:^(BOOL finished) {
-
-            if (self.didSelctedItemCompleted) {
-                self.didSelctedItemCompleted(self.menuItem);
-            }
-        }];
+    [self disMissCompleted:^(BOOL finished) {
+        if (self.didSelctedItemCompleted) {
+            self.didSelctedItemCompleted(self.menuItem);
+        }
+    }];
 }
 
 

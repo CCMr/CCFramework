@@ -243,7 +243,7 @@
     if (self.dataArray.count > section) {
         NSMutableArray *subDataAry = self.dataArray[section];
         if (self.numberRow)
-            curNumOfRows = self.numberRow(tableView, subDataAry);
+            curNumOfRows = self.numberRow(tableView, section, subDataAry);
         else
             curNumOfRows = subDataAry.count;
     }
@@ -255,7 +255,8 @@
 {
     CGFloat height = self.titleHeaderHeight;
     if (self.headerBlock) {
-        UIView *headerView = self.headerBlock(tableView, section);
+
+        UIView *headerView = self.headerBlock(tableView, section, [self currentSectionModel:section]);
         if (headerView)
             height = headerView.LayoutSizeFittingSize.height;
     }
@@ -265,8 +266,9 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *hederView = nil;
-    if (self.headerBlock)
-        hederView = self.headerBlock(tableView, section);
+    if (self.headerBlock) {
+        hederView = self.headerBlock(tableView, section, [self currentSectionModel:section]);
+    }
     return hederView;
 }
 
@@ -283,7 +285,7 @@
 {
     CGFloat height = self.titleFooterHeight;
     if (self.footerBlock) {
-        UIView *footerView = self.footerBlock(tableView, section);
+        UIView *footerView = self.footerBlock(tableView, section, [self currentSectionModel:section]);
         if (footerView)
             height = footerView.LayoutSizeFittingSize.height;
     }
@@ -294,8 +296,9 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView *footerView = nil;
-    if (self.footerBlock)
-        footerView = self.footerBlock(tableView, section);
+    if (self.footerBlock) {
+        footerView = self.footerBlock(tableView, section, [self currentSectionModel:section]);
+    }
     return footerView;
 }
 
@@ -500,6 +503,16 @@
     return curCellIdentifier;
 }
 
+- (id)currentSectionModel:(NSInteger)section
+{
+    id currentModel = nil;
+    NSArray *arr = [self.dataArray objectAtIndex:section];
+    if (arr.count)
+        currentModel = [arr objectAtIndex:0];
+
+    return currentModel;
+}
+
 - (id)currentModel
 {
     return [self currentModelAtIndexPath:self.cc_indexPath];
@@ -643,6 +656,18 @@
     [self.cc_tableView endUpdates];
 }
 
+- (void)cc_replaceDataAtIndex:(id)model
+                    IndexPath:(NSIndexPath *)cIndexPath
+{
+    if (self.dataArray.count > cIndexPath.section) {
+        NSMutableArray *subDataAry = self.dataArray[cIndexPath.section];
+        if (subDataAry.count > cIndexPath.row) {
+            [subDataAry replaceObjectAtIndex:cIndexPath.row withObject:model];
+            [self.cc_tableView reloadData];
+        }
+    }
+}
+
 - (NSIndexSet *)cc_makeUpDataAryForSection:(NSInteger)cSection
 {
     NSMutableIndexSet *curIndexSet = nil;
@@ -650,15 +675,14 @@
         curIndexSet = [NSMutableIndexSet indexSet];
         for (NSInteger idx = 0; idx < (cSection - self.dataArray.count + 1); idx++) {
             NSMutableArray *subAry = [NSMutableArray array];
-            if (cSection < 0){
+            if (cSection < 0) {
                 [self.dataArray insertObject:subAry atIndex:0];
                 [curIndexSet addIndex:0];
                 break;
-            }else{
+            } else {
                 [self.dataArray addObject:subAry];
-                 [curIndexSet addIndex:cSection - idx];
+                [curIndexSet addIndex:cSection - idx];
             }
-
         }
     }
     return curIndexSet;

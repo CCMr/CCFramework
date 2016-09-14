@@ -44,8 +44,6 @@ static char OperationKey;
  */
 @property(nonatomic, assign) BOOL isJPush;
 
-@property(nonatomic, copy) Class APService;
-
 @end
 
 @implementation BaseAppDelegate
@@ -323,60 +321,6 @@ static char OperationKey;
     [self performSelector:@selector(repeatExecutionWithafterDelay:ExecutionFunction:) withObject:[NSArray arrayWithObjects:@(delays), function, nil] afterDelay:delays];
 }
 
-/**
- *  @author C C, 2015-07-30
- *
- *  @brief  初始化极光推送(初始化程序使用)
- *
- *  @param launchOptions 完成启动使用选项
- *
- *  @since 1.0
- */
-- (void)initAPService:(NSDictionary *)launchOptions
-{
-    _isJPush = YES;
-    
-    if (NSClassFromString(@"APService")) {
-        _APService = NSClassFromString(@"APService");
-        
-    } else {
-        NSLog(@"请在工程中导入APService.a文件");
-    }
-    
-    if (_APService) {
-        // Required
-#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
-        if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
-            //可以添加自定义categories
-            
-            [_APService performSelectors:@"registerForRemoteNotificationTypes:categories:"
-                              withObject:@(UIUserNotificationTypeBadge |
-             UIUserNotificationTypeSound |
-             UIUserNotificationTypeAlert),
-             nil, nil];
-        } else {
-            //categories 必须为nil
-            
-            [_APService performSelectors:@"registerForRemoteNotificationTypes:categories:"
-                              withObject:@(UIRemoteNotificationTypeBadge |
-             UIRemoteNotificationTypeSound |
-             UIRemoteNotificationTypeAlert),
-             nil, nil];
-        }
-#else
-        //categories 必须为nil
-        
-        [APService performSelectors:@"registerForRemoteNotificationTypes:categories:"
-                         withObject:@(UIRemoteNotificationTypeBadge |
-         UIRemoteNotificationTypeSound |
-         UIRemoteNotificationTypeAlert),
-         nil, nil];
-#endif
-        
-        [_APService performSelectors:@"setupWithOption:"
-                          withObject:launchOptions, nil];
-    }
-}
 
 /**
  *  @author CC, 15-08-31
@@ -399,10 +343,7 @@ static char OperationKey;
 #pragma mark - 推送
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    if (_isJPush) { //注册deviceToken
-        [_APService performSelectors:@"registerDeviceToken:"
-                          withObject:deviceToken, nil];
-    }
+
 }
 
 /**
@@ -446,27 +387,16 @@ static char OperationKey;
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    if (_isJPush) {
-        [_APService performSelectors:@"handleRemoteNotification:"
-                          withObject:userInfo, nil];
-        cc_NoticePost(@"PushNotifications", userInfo);
-    }
+
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-    if (_isJPush) {
-        [_APService performSelectors:@"handleRemoteNotification:"
-                          withObject:userInfo, nil];
-        cc_NoticePost(@"PushNotifications", userInfo);
-    }
-    completionHandler(UIBackgroundFetchResultNewData);
+
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
-    if (_isJPush)
-        [_APService performSelectors:@"showLocalNotificationAtFront:identifierKey:"
-                          withObject:notification,nil, nil];
+
 }
 @end

@@ -172,7 +172,7 @@ typedef void (^requestDownloadsuccess)(id response, NSError *error);
  */
 + (BOOL)requestBeforeCheckNetWork;
 
-#pragma mark :. 请求
+#pragma mark :. 请求同步
 
 /**
  *  @author CC, 16-03-10
@@ -339,6 +339,174 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
   cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
       success:(requestSuccessBlock)success
       failure:(requestFailureBlock)failure;
+
+#pragma mark :. 请求同步
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief GET请求
+ *         默认 CCHTTPReloadIgnoringLocalCacheData的缓存方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)syncGET:(NSString *)requestURLString
+     parameters:(NSDictionary *)parameter
+        success:(requestSuccessBlock)success
+        failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief GET请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param cachePolicy      缓存类型
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)syncGET:(NSString *)requestURLString
+     parameters:(NSDictionary *)parameter
+    cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+        success:(requestSuccessBlock)success
+        failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief POST请求
+ *         默认 CCHTTPReloadIgnoringLocalCacheData的缓存方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)syncPOST:(NSString *)requestURLString
+      parameters:(NSDictionary *)parameter
+         success:(requestSuccessBlock)success
+         failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief POST请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param cachePolicy      缓存类型
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)syncPOST:(NSString *)requestURLString
+      parameters:(NSDictionary *)parameter
+     cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+         success:(requestSuccessBlock)success
+         failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief DELETE请求
+ *         默认 CCHTTPReloadIgnoringLocalCacheData的缓存方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)syncDELETE:(NSString *)requestURLString
+        parameters:(NSDictionary *)parameter
+           success:(requestSuccessBlock)success
+           failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief DELETE请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param cachePolicy      缓存类型
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)syncDELETE:(NSString *)requestURLString
+        parameters:(NSDictionary *)parameter
+       cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+           success:(requestSuccessBlock)success
+           failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief HEAD请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param cachePolicy      缓存类型
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)syncHEAD:(NSString *)requestURLString
+      parameters:(NSDictionary *)parameter
+     cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+         success:(requestSuccessBlock)success
+         failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief PUT请求
+ *         默认 CCHTTPReloadIgnoringLocalCacheData的缓存方式
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)syncPUT:(NSString *)requestURLString
+     parameters:(NSDictionary *)parameter
+        success:(requestSuccessBlock)success
+        failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief PUT请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param cachePolicy      缓存类型
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)syncPUT:(NSString *)requestURLString
+     parameters:(NSDictionary *)parameter
+    cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+        success:(requestSuccessBlock)success
+        failure:(requestFailureBlock)failure;
+
+/**
+ *  @author CC, 16-03-10
+ *
+ *  @brief PATCH请求
+ *
+ *  @param requestURLString 请求地址
+ *  @param parameter        请求参数
+ *  @param cachePolicy      缓存类型
+ *  @param success          成功处理回调
+ *  @param failure          故障处理回调
+ */
++ (void)syncPATCH:(NSString *)requestURLString
+       parameters:(NSDictionary *)parameter
+      cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
+          success:(requestSuccessBlock)success
+          failure:(requestFailureBlock)failure;
 
 #pragma mark :. 上下传文件
 

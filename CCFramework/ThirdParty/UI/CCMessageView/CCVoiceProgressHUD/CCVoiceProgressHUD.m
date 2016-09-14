@@ -98,7 +98,6 @@
 - (void)initialization
 {
     self.frame = [[UIScreen mainScreen] bounds];
-
     self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
 
     if (!_pulsingHaloLayer) {
@@ -179,6 +178,8 @@
                                            userInfo:nil
                                             repeats:YES];
 
+//    CGPoint center = CGPointMake(CGRectGetWidth(view.frame) / 2.0, CGRectGetHeight(view.frame) / 2.0);
+//    self.center = center;
     [view.window addSubview:self];
     [self configRecoding:YES];
     [self pauseRecord];

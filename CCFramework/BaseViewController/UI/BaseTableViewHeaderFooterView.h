@@ -40,7 +40,7 @@ typedef void (^didSelectedHeaderFooterView)(id requestData, BOOL IsError);
  *
  *  @since 1.0
  */
-- (void)didClickHeadView:(UIView *)views
+- (void)didClickHeadView:(UITableViewHeaderFooterView *)views
                    Index:(int)index;
 
 /**
@@ -53,7 +53,7 @@ typedef void (^didSelectedHeaderFooterView)(id requestData, BOOL IsError);
  *
  *  @since 1.0
  */
-- (void)didClickDoubleClick:(UIView *)views
+- (void)didClickDoubleClick:(UITableViewHeaderFooterView *)views
                       Index:(int)index;
 
 /**
@@ -66,7 +66,7 @@ typedef void (^didSelectedHeaderFooterView)(id requestData, BOOL IsError);
  *
  *  @since 1.0
  */
-- (void)didLongPress:(UIView *)view
+- (void)didLongPress:(UITableViewHeaderFooterView *)view
                Index:(int)index;
 
 /**

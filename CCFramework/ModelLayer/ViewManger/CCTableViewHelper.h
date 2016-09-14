@@ -45,13 +45,13 @@ typedef void (^CCScrollViewDidScroll)(UIScrollView *scrollView);
 typedef void (^CCTableHelperCellBlock)(NSString *info, id event);
 
 
-typedef UIView *__nonnull (^CCTableHelperHeaderBlock)(UITableView *tableView, NSInteger section);
-typedef UIView *__nonnull (^CCTableHelperFooterBlock)(UITableView *tableView, NSInteger section);
+typedef UIView *__nonnull (^CCTableHelperHeaderBlock)(UITableView *tableView, NSInteger section,id cModel);
+typedef UIView *__nonnull (^CCTableHelperFooterBlock)(UITableView *tableView, NSInteger section,id cModel);
 
 typedef NSString *__nonnull (^CCTableHelperTitleHeaderBlock)(UITableView *tableView, NSInteger section);
 typedef NSString *__nonnull (^CCTableHelperTitleFooterBlock)(UITableView *tableView, NSInteger section);
 
-typedef NSInteger (^CCTableHelperNumberRows)(UITableView *tableView, id cModel);
+typedef NSInteger (^CCTableHelperNumberRows)(UITableView *tableView,NSInteger section, id cModel);
 typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndexPath *cIndexPath);
 
 @interface CCTableViewHelper : NSObject <UITableViewDataSource, UITableViewDelegate>
@@ -282,6 +282,17 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
  *  @param cIndexPath 下标位置
  */
 - (void)cc_insertData:(id)cModel AtIndex:(NSIndexPath *)cIndexPath;
+
+/**
+ *  @author CC, 16-09-06
+ *
+ *  @brief 替换数据对象
+ *
+ *  @param model      对象
+ *  @param cIndexPath 下标位置
+ */
+- (void)cc_replaceDataAtIndex:(id)model
+                    IndexPath:(NSIndexPath *)cIndexPath;
 
 /**
  *  @author CC, 16-05-18

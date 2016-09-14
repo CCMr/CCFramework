@@ -84,6 +84,7 @@
 #import <CCFramework/UITabBarController+Additions.h>
 #import <CCFramework/UITableView+Additions.h>
 #import <CCFramework/UITableViewCell+Additions.h>
+#import <CCFramework/UITableViewHeaderFooterView+Additions.h>
 #import <CCFramework/UITextField+Additions.h>
 #import <CCFramework/UITextView+Additions.h>
 #import <CCFramework/UIView+Method.h>

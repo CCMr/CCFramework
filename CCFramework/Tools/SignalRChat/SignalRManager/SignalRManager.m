@@ -201,6 +201,7 @@
  */
 - (void)startLink
 {
+    [self stopLink];
     [self addNotification];
     [self.hubConnection start];
 }

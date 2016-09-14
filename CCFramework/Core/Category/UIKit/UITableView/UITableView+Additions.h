@@ -72,6 +72,8 @@
 
 @property(nonatomic) IBInspectable BOOL cc_autoSizingCell;
 
+
+
 /**
  *  @author CC, 16-07-23
  *
@@ -202,6 +204,13 @@
 #pragma mark :. CCIndexPathHeightCacheInvalidation
 
 @interface UITableView (CCIndexPathHeightCacheInvalidation)
+
+/**
+ *  @author CC, 16-09-09
+ *
+ *  @brief 设置添加数时不会顶部
+ */
+@property(nonatomic,assign) BOOL cc_isContentSize;
 
 /// Call this method when you want to reload data but don't want to invalidate
 /// all height cache by index path, for example, load more data at the bottom of

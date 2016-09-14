@@ -622,7 +622,7 @@ __CC_TEMPLATE_LAYOUT_CELL_PRIMARY_CALL_IF_CRASH_NOT_OUR_BUG__(^{__VA_ARGS__}); \
         @selector(insertRowsAtIndexPaths:withRowAnimation:),
         @selector(deleteRowsAtIndexPaths:withRowAnimation:),
         @selector(reloadRowsAtIndexPaths:withRowAnimation:),
-        @selector(moveRowAtIndexPath:toIndexPath:)
+        @selector(moveRowAtIndexPath:toIndexPath:),
     };
 
     for (NSUInteger index = 0; index < sizeof(selectors) / sizeof(SEL); ++index) {
@@ -632,6 +632,31 @@ __CC_TEMPLATE_LAYOUT_CELL_PRIMARY_CALL_IF_CRASH_NOT_OUR_BUG__(^{__VA_ARGS__}); \
         Method swizzledMethod = class_getInstanceMethod(self, swizzledSelector);
         method_exchangeImplementations(originalMethod, swizzledMethod);
     }
+}
+
+- (BOOL)cc_isContentSize
+{
+    return [[self associatedValueForKey:@selector(cc_isContentSize)] boolValue];
+}
+
+- (void)setCc_isContentSize:(BOOL)cc_isContentSize
+{
+    [self associateValue:@(cc_isContentSize) withKey:@selector(cc_isContentSize)];
+}
+
+- (void)cc_setContentSize:(CGSize)contentSize
+{
+//    if (self.cc_isContentSize) {
+//        if (!CGSizeEqualToSize(self.contentSize, CGSizeZero)) {
+//            if (contentSize.height > self.contentSize.height) {
+//                CGPoint offset = self.contentOffset;
+//                offset.y += (contentSize.height - self.contentSize.height);
+//                self.contentOffset = offset;
+//            }
+//        }
+//    }
+
+    CCPrimaryCall([self cc_setContentSize:contentSize];);
 }
 
 - (void)cc_reloadData

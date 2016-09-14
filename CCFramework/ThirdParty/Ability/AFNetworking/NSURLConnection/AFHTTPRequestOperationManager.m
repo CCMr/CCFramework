@@ -32,20 +32,23 @@
 #endif
 
 @interface AFHTTPRequestOperationManager ()
-@property (readwrite, nonatomic, strong) NSURL *baseURL;
+@property(readwrite, nonatomic, strong) NSURL *baseURL;
 @end
 
 @implementation AFHTTPRequestOperationManager
 
-+ (instancetype)manager {
++ (instancetype)manager
+{
     return [[self alloc] initWithBaseURL:nil];
 }
 
-- (instancetype)init {
+- (instancetype)init
+{
     return [self initWithBaseURL:nil];
 }
 
-- (instancetype)initWithBaseURL:(NSURL *)url {
+- (instancetype)initWithBaseURL:(NSURL *)url
+{
     self = [super init];
     if (!self) {
         return nil;
@@ -77,13 +80,15 @@
 #ifdef _SYSTEMCONFIGURATION_H
 #endif
 
-- (void)setRequestSerializer:(AFHTTPRequestSerializer <AFURLRequestSerialization> *)requestSerializer {
+- (void)setRequestSerializer:(AFHTTPRequestSerializer<AFURLRequestSerialization> *)requestSerializer
+{
     NSParameterAssert(requestSerializer);
 
     _requestSerializer = requestSerializer;
 }
 
-- (void)setResponseSerializer:(AFHTTPResponseSerializer <AFURLResponseSerialization> *)responseSerializer {
+- (void)setResponseSerializer:(AFHTTPResponseSerializer<AFURLResponseSerialization> *)responseSerializer
+{
     NSParameterAssert(responseSerializer);
 
     _responseSerializer = responseSerializer;
@@ -176,7 +181,7 @@
 
 - (AFHTTPRequestOperation *)POST:(NSString *)URLString
                       parameters:(id)parameters
-       constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
+       constructingBodyWithBlock:(void (^)(id<AFMultipartFormData> formData))block
                          success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
@@ -238,19 +243,99 @@
     return operation;
 }
 
+#pragma mark - Sync Request
+
+- (AFHTTPRequestOperation *)syncHTTPRequestOperationWithHTTPMethod:(NSString *)method
+                                                         URLString:(NSString *)URLString
+                                                        parameters:(NSDictionary *)parameters
+                                                         operation:(AFHTTPRequestOperation *__autoreleasing *)operationPtr
+                                                             error:(NSError *__autoreleasing *)outError
+{
+    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:method URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters error:nil];
+
+    AFHTTPRequestOperation *op = [self HTTPRequestOperationWithRequest:request
+                                                               success:nil
+                                                               failure:nil];
+
+    [op start];
+    [op waitUntilFinished];
+
+    if (operationPtr != nil) *operationPtr = op;
+
+    // Must call responseObject before checking the error
+    // id responseObject = [op responseObject];
+    if (outError != nil) *outError = [op error];
+
+    return op;
+}
+
+#pragma mark :.
+- (AFHTTPRequestOperation *)syncGET:(NSString *)URLString
+                         parameters:(NSDictionary *)parameters
+                          operation:(AFHTTPRequestOperation *__autoreleasing *)operationPtr
+                              error:(NSError *__autoreleasing *)outError
+{
+    return [self syncHTTPRequestOperationWithHTTPMethod:@"GET" URLString:URLString parameters:parameters operation:operationPtr error:outError];
+}
+
+- (AFHTTPRequestOperation *)syncHEAD:(NSString *)URLString
+                          parameters:(id)parameters
+                           operation:(AFHTTPRequestOperation *__autoreleasing *)operationPtr
+                               error:(NSError *__autoreleasing *)outError
+{
+
+    return [self syncHTTPRequestOperationWithHTTPMethod:@"HEAD" URLString:URLString parameters:parameters operation:operationPtr error:outError];
+}
+
+
+- (AFHTTPRequestOperation *)syncPOST:(NSString *)URLString
+                          parameters:(NSDictionary *)parameters
+                           operation:(AFHTTPRequestOperation *__autoreleasing *)operationPtr
+                               error:(NSError *__autoreleasing *)outError
+{
+    return [self syncHTTPRequestOperationWithHTTPMethod:@"POST" URLString:URLString parameters:parameters operation:operationPtr error:outError];
+}
+
+- (AFHTTPRequestOperation *)syncPUT:(NSString *)URLString
+                         parameters:(NSDictionary *)parameters
+                          operation:(AFHTTPRequestOperation *__autoreleasing *)operationPtr
+                              error:(NSError *__autoreleasing *)outError
+{
+    return [self syncHTTPRequestOperationWithHTTPMethod:@"PUT" URLString:URLString parameters:parameters operation:operationPtr error:outError];
+}
+
+- (AFHTTPRequestOperation *)syncPATCH:(NSString *)URLString
+                           parameters:(NSDictionary *)parameters
+                            operation:(AFHTTPRequestOperation *__autoreleasing *)operationPtr
+                                error:(NSError *__autoreleasing *)outError
+{
+    return [self syncHTTPRequestOperationWithHTTPMethod:@"PATCH" URLString:URLString parameters:parameters operation:operationPtr error:outError];
+}
+
+- (AFHTTPRequestOperation *)syncDELETE:(NSString *)URLString
+                            parameters:(NSDictionary *)parameters
+                             operation:(AFHTTPRequestOperation *__autoreleasing *)operationPtr
+                                 error:(NSError *__autoreleasing *)outError
+{
+    return [self syncHTTPRequestOperationWithHTTPMethod:@"DELETE" URLString:URLString parameters:parameters operation:operationPtr error:outError];
+}
+
 #pragma mark - NSObject
 
-- (NSString *)description {
+- (NSString *)description
+{
     return [NSString stringWithFormat:@"<%@: %p, baseURL: %@, operationQueue: %@>", NSStringFromClass([self class]), self, [self.baseURL absoluteString], self.operationQueue];
 }
 
 #pragma mark - NSSecureCoding
 
-+ (BOOL)supportsSecureCoding {
++ (BOOL)supportsSecureCoding
+{
     return YES;
 }
 
-- (id)initWithCoder:(NSCoder *)decoder {
+- (id)initWithCoder:(NSCoder *)decoder
+{
     NSURL *baseURL = [decoder decodeObjectForKey:NSStringFromSelector(@selector(baseURL))];
 
     self = [self initWithBaseURL:baseURL];
@@ -264,7 +349,8 @@
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)coder {
+- (void)encodeWithCoder:(NSCoder *)coder
+{
     [coder encodeObject:self.baseURL forKey:NSStringFromSelector(@selector(baseURL))];
     [coder encodeObject:self.requestSerializer forKey:NSStringFromSelector(@selector(requestSerializer))];
     [coder encodeObject:self.responseSerializer forKey:NSStringFromSelector(@selector(responseSerializer))];
@@ -272,7 +358,8 @@
 
 #pragma mark - NSCopying
 
-- (id)copyWithZone:(NSZone *)zone {
+- (id)copyWithZone:(NSZone *)zone
+{
     AFHTTPRequestOperationManager *HTTPClient = [[[self class] allocWithZone:zone] initWithBaseURL:self.baseURL];
 
     HTTPClient.requestSerializer = [self.requestSerializer copyWithZone:zone];
