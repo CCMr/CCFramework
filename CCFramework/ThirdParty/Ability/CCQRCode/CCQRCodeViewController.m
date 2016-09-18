@@ -67,7 +67,7 @@ typedef void (^Outcomeblock)(NSString *outcome);
         self.scanBookButton.selected = (sender == self.scanBookButton);
         self.scanStreetButton.selected = (sender == self.scanStreetButton);
         self.scanWordButton.selected = (sender == self.scanWordButton);
-        
+
         [self.scanningView transformScanningTypeWithStyle:sender.tag];
     } else {
         sender.hidden = YES;
@@ -77,7 +77,7 @@ typedef void (^Outcomeblock)(NSString *outcome);
 
 #pragma mark - Propertys
 
-- (UIButton *)createButton
+- (UIButton *)createBottomButton
 {
     UIButton *button = [[UIButton alloc] init];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -109,7 +109,7 @@ typedef void (^Outcomeblock)(NSString *outcome);
     if (!_buttonContainerView) {
         _buttonContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 140 - [CCFoundationCommon getAdapterHeight], CGRectGetWidth(self.view.bounds), 80)];
         _buttonContainerView.backgroundColor = [UIColor colorWithWhite:0.000 alpha:0.700];
-        
+
         [_buttonContainerView addSubview:self.scanQRCodeButton];
         [_buttonContainerView addSubview:self.scanBookButton];
         [_buttonContainerView addSubview:self.scanStreetButton];
@@ -121,7 +121,7 @@ typedef void (^Outcomeblock)(NSString *outcome);
 - (UIButton *)scanQRCodeButton
 {
     if (!_scanQRCodeButton) {
-        _scanQRCodeButton = [self createButton];
+        _scanQRCodeButton = [self createBottomButton];
         _scanQRCodeButton.frame = CGRectMake(CGRectGetMidX(self.view.bounds) - kCCScanningButtonPadding * 1.5 - 35 * 2, 8, 35, CGRectGetHeight(self.buttonContainerView.bounds) - 16);
         _scanQRCodeButton.tag = 0;
         [_scanQRCodeButton setImage:CCResourceImage(@"ScanQRCode")
@@ -130,14 +130,14 @@ typedef void (^Outcomeblock)(NSString *outcome);
                            forState:UIControlStateSelected];
         _scanQRCodeButton.selected = YES;
         [_scanQRCodeButton setTitle:@"扫码" forState:UIControlStateNormal];
-//        [_scanQRCodeButton setTitlePositionWithType:CCButtonTitlePostionTypeBottom];
+        //        [_scanQRCodeButton setTitlePositionWithType:CCButtonTitlePostionTypeBottom];
     }
     return _scanQRCodeButton;
 }
 - (UIButton *)scanBookButton
 {
     if (!_scanBookButton) {
-        _scanBookButton = [self createButton];
+        _scanBookButton = [self createBottomButton];
         CGRect scanBookButtonFrame = self.scanQRCodeButton.frame;
         scanBookButtonFrame.origin.x += kCCScanningButtonPadding + CGRectGetWidth(self.scanQRCodeButton.bounds);
         _scanBookButton.frame = scanBookButtonFrame;
@@ -147,14 +147,14 @@ typedef void (^Outcomeblock)(NSString *outcome);
         [_scanBookButton setImage:CCResourceImage(@"ScanBook_HL")
                          forState:UIControlStateSelected];
         [_scanBookButton setTitle:@"封面" forState:UIControlStateNormal];
-//        [_scanBookButton setTitlePositionWithType:CCButtonTitlePostionTypeBottom];
+        //        [_scanBookButton setTitlePositionWithType:CCButtonTitlePostionTypeBottom];
     }
     return _scanBookButton;
 }
 - (UIButton *)scanStreetButton
 {
     if (!_scanStreetButton) {
-        _scanStreetButton = [self createButton];
+        _scanStreetButton = [self createBottomButton];
         CGRect scanBookButtonFrame = self.scanBookButton.frame;
         scanBookButtonFrame.origin.x += kCCScanningButtonPadding + CGRectGetWidth(self.scanQRCodeButton.bounds);
         _scanStreetButton.frame = scanBookButtonFrame;
@@ -164,14 +164,14 @@ typedef void (^Outcomeblock)(NSString *outcome);
         [_scanStreetButton setImage:CCResourceImage(@"ScanStreet_HL")
                            forState:UIControlStateSelected];
         [_scanStreetButton setTitle:@"街景" forState:UIControlStateNormal];
-//        [_scanStreetButton setTitlePositionWithType:CCButtonTitlePostionTypeBottom];
+        //        [_scanStreetButton setTitlePositionWithType:CCButtonTitlePostionTypeBottom];
     }
     return _scanStreetButton;
 }
 - (UIButton *)scanWordButton
 {
     if (!_scanWordButton) {
-        _scanWordButton = [self createButton];
+        _scanWordButton = [self createBottomButton];
         CGRect scanBookButtonFrame = self.scanStreetButton.frame;
         scanBookButtonFrame.origin.x += kCCScanningButtonPadding + CGRectGetWidth(self.scanQRCodeButton.bounds);
         _scanWordButton.frame = scanBookButtonFrame;
@@ -181,7 +181,7 @@ typedef void (^Outcomeblock)(NSString *outcome);
         [_scanWordButton setImage:CCResourceImage(@"ScanWord_HL")
                          forState:UIControlStateSelected];
         [_scanWordButton setTitle:@"翻译" forState:UIControlStateNormal];
-//        [_scanWordButton setTitlePositionWithType:CCButtonTitlePostionTypeBottom];
+        //        [_scanWordButton setTitlePositionWithType:CCButtonTitlePostionTypeBottom];
     }
     return _scanWordButton;
 }
@@ -197,7 +197,7 @@ typedef void (^Outcomeblock)(NSString *outcome);
 
 /**
  *  @author CC, 16-02-22
- *  
+ *
  *  @brief 切换照明
  */
 - (void)switchTorch
@@ -209,27 +209,27 @@ typedef void (^Outcomeblock)(NSString *outcome);
 
 /**
  *  @author CC, 16-02-23
- *  
+ *
  *  @brief 扫描提示
  */
 - (UIView *)analysisToast
 {
     if (!_analysisToast) {
-        _analysisToast = [self createButton];
+        _analysisToast = [self createBottomButton];
         _analysisToast.frame = self.view.bounds;
         _analysisToast.backgroundColor = [UIColor colorWithWhite:0 alpha:0.9];
         _analysisToast.hidden = YES;
         _analysisToast.tag = 999;
         [self.view addSubview:_analysisToast];
         [self.view bringSubviewToFront:_analysisToast];
-        
+
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, (_analysisToast.height - 40) / 2, _analysisToast.width, 20)];
         title.backgroundColor = [UIColor clearColor];
         title.textColor = [UIColor whiteColor];
         title.textAlignment = NSTextAlignmentCenter;
         title.text = @"未发现二维码/条码";
         [_analysisToast addSubview:title];
-        
+
         UILabel *content = [[UILabel alloc] initWithFrame:CGRectMake(0, title.bottom, _analysisToast.width, 20)];
         content.font = [UIFont systemFontOfSize:12];
         content.backgroundColor = [UIColor clearColor];
@@ -283,10 +283,10 @@ typedef void (^Outcomeblock)(NSString *outcome);
 {
     //检测器
     CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{CIDetectorAccuracy : CIDetectorAccuracyHigh}];
-    
+
     //监测到的结果数组
     NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:qrCode.CGImage]];
-    
+
     if (features.count >= 1) {
         /**结果对象 */
         CIQRCodeFeature *feature = [features objectAtIndex:0];
@@ -316,6 +316,8 @@ typedef void (^Outcomeblock)(NSString *outcome);
     } else { // 自行处理
         if (_outcomeblock)
             _outcomeblock(resultAddress);
+
+        [self didDiAnalysisOutcome:resultAddress];
     }
 }
 
@@ -343,13 +345,23 @@ typedef void (^Outcomeblock)(NSString *outcome);
     if (authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied) {
         NSDictionary *applicationInfo = [[NSBundle mainBundle] infoDictionary];
         NSString *applicationName = [applicationInfo objectForKey:(NSString *)kCFBundleNameKey]; //app名称
-        UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"请在iPhone的“设置-隐私-相机”选项中，允许%@访问你的相机。",applicationName] delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
+        UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"请在iPhone的“设置-隐私-相机”选项中，允许%@访问你的相机。", applicationName] delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
         [alerView show];
         isCamera = NO;
     }
     return isCamera;
 }
 
+/**
+ *  @author CC, 16-09-18
+ *
+ *  @brief 二维码解析结果
+ *
+ *  @param outcome 解析结果
+ */
+- (void)didDiAnalysisOutcome:(NSString *)outcome
+{
+}
 
 #pragma mark - Life Cycle
 
@@ -366,14 +378,14 @@ typedef void (^Outcomeblock)(NSString *outcome);
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = CCLocalization(@"扫一扫");
-    
+
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"相册"
                                                                               style:UIBarButtonItemStyleBordered
                                                                              target:self
                                                                              action:@selector(showPhotoLibray)];
-    
+
     self.view.backgroundColor = [UIColor grayColor];
-    
+
     [self.view addSubview:self.preview];
     [self.view addSubview:self.scanningView];
     [self.view addSubview:self.buttonContainerView];

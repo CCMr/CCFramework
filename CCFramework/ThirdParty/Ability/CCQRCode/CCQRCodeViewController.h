@@ -37,13 +37,6 @@
 @property(nonatomic, strong) UIView *buttonContainerView;
 
 /**
- *  @author CC, 16-02-23
- *  
- *  @brief 创建底部按钮
- */
-- (UIButton *)createButton;
-
-/**
  *  @author CC, 2015-10-09
  *
  *  @brief  二维码分析结果
@@ -54,7 +47,7 @@
 
 /**
  *  @author CC, 16-02-22
- *  
+ *
  *  @brief 分析二维码
  *
  *  @param qrCode 二维码图片
@@ -63,30 +56,39 @@
 
 /**
  *  @author CC, 16-02-22
- *  
+ *
  *  @brief 切换照明
  */
 - (void)switchTorch;
 
 /**
  *  @author CC, 16-02-23
- *  
+ *
  *  @brief 选着相册
  */
 - (void)showPhotoLibray;
 
 /**
  *  @author CC, 16-02-23
- *  
+ *
  *  @brief 启动扫描
  */
 - (void)startRunning;
 
 /**
  *  @author CC, 16-02-23
- *  
+ *
  *  @brief 关闭扫描
  */
--(void)stopRunning;
+- (void)stopRunning;
+
+/**
+ *  @author CC, 16-09-18
+ *
+ *  @brief 二维码解析结果
+ *
+ *  @param outcome 解析结果
+ */
+-(void)didDiAnalysisOutcome:(NSString *)outcome;
 
 @end
