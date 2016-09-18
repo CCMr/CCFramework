@@ -49,7 +49,7 @@
  *  @brief  图文对应路径(键值存放)
  */
 @property(nonatomic, copy) NSArray *teletextPath;
-@property(nonatomic, assign) CGSize teletextPhotoSize;
+@property(nonatomic, copy) NSArray *teletextPhotoSize;
 
 /**
  *  @author CC, 2016-12-28

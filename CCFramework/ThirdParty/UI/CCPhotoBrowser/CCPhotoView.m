@@ -214,7 +214,7 @@
     if ([UIScreen instancesRespondToSelector:@selector(scale)]) {
         maxScale = maxScale / [[UIScreen mainScreen] scale];
     }
-    self.maximumZoomScale = maxScale;
+    self.maximumZoomScale = 2.0;
     self.minimumZoomScale = minScale;
     self.zoomScale = minScale;
 
@@ -364,7 +364,10 @@
     if (self.zoomScale == self.maximumZoomScale) {
         [self setZoomScale:self.minimumZoomScale animated:YES];
     } else {
-        [self zoomToRect:CGRectMake(touchPoint.x * 2.5, touchPoint.y * 2.5, 1, 1) animated:YES];
+        CGFloat width = self.frame.size.width / self.maximumZoomScale;
+        CGFloat height = self.frame.size.height / self.maximumZoomScale;
+        CGRect rect = CGRectMake(touchPoint.x*(1-1/self.maximumZoomScale), touchPoint.y * (1-1/self.maximumZoomScale), width, height);
+        [self zoomToRect:rect animated:YES];
     }
 }
 
@@ -373,7 +376,6 @@
     CGFloat offsetX = (scrollView.bounds.size.width > scrollView.contentSize.width) ? (scrollView.bounds.size.width - scrollView.contentSize.width) / 2 : 0.0;
     CGFloat offsetY = (scrollView.bounds.size.height > scrollView.contentSize.height) ? (scrollView.bounds.size.height - scrollView.contentSize.height) / 2 : 0.0;
     _imageView.center = CGPointMake(scrollView.contentSize.width / 2 + offsetX, scrollView.contentSize.height / 2 + offsetY);
-
 }
 
 - (void)dealloc{

@@ -209,37 +209,28 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 
 // 计算图片实际大小
 + (CGSize)neededSizeForPhoto:(UIImage *)photo
-                    imageURL:(NSString *)url
+                   ImageSize:(CGSize)imageSize
 {
     CGSize photoSize = CGSizeMake(150, 150);
     if (photo) {
-        if (photo.size.width > photoSize.width && photo.size.height > photoSize.height) {
-            CGRect frame = [CCTool neededSizeForPhoto:photo Size:photoSize];
-            photoSize.width = frame.size.width > kCCMaxWidth ? kCCMaxWidth : frame.size.width;
-            photoSize.height = frame.size.height;
-            if (frame.size.width > kCCMaxWidth)
-                photoSize.height = (kCCMaxWidth / frame.size.width) * frame.size.width;
+        if (photo.size.width > imageSize.width || photo.size.height > imageSize.height)
+            imageSize = photo.size;
+    }
 
-            if (photoSize.height > kCCMaxHeight)
-                photoSize.height = kCCMaxHeight;
-        } else if (photo.size.width > kCCMaxWidth) {
-            photoSize.width = kCCMaxWidth;
-        } else {
-            photoSize.width = photo.size.width < 30 ? 30 : photo.size.width;
-            photoSize.height = photo.size.height < 30 ? 30 : photo.size.height;
-        }
+    if (imageSize.width > photoSize.width && imageSize.height > photoSize.height) {
+        CGSize needSize = [CCTool neededSizeForSize:imageSize Size:photoSize];
+        photoSize.width = needSize.width > kCCMaxWidth ? kCCMaxWidth : needSize.width;
+        photoSize.height = needSize.height;
+        if (needSize.width > kCCMaxWidth)
+            photoSize.height = (kCCMaxWidth / needSize.width) * needSize.width;
+
+        if (photoSize.height > kCCMaxHeight)
+            photoSize.height = kCCMaxHeight;
+    } else if (imageSize.width > kCCMaxWidth) {
+        photoSize.width = kCCMaxWidth;
     } else {
-        //网络请求滑动卡顿
-        //        CGSize imageSize = [CCMessageBubbleView obtainImageSizeWithURL:url];
-        //        if (imageSize.width != 0 || imageSize.height != 0) {
-        //            photoSize.width = imageSize.width > kCCMaxWidth ? kCCMaxWidth : imageSize.width;
-        //            photoSize.height = imageSize.height;
-        //            if (imageSize.width > kCCMaxWidth)
-        //                photoSize.height = (kCCMaxWidth / imageSize.width) * imageSize.width;
-        //
-        //            if (photoSize.height > kCCMaxHeight)
-        //                photoSize.height = kCCMaxHeight;
-        //        }
+        photoSize.width = imageSize.width < 30 ? 30 : imageSize.width;
+        photoSize.height = imageSize.height < 30 ? 30 : imageSize.height;
     }
 
     return photoSize;
@@ -317,12 +308,12 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             break;
         }
         case CCBubbleMessageMediaTypeVideo: {
-            CGSize needVideoConverPhotoSize = [CCMessageBubbleView neededSizeForPhoto:message.videoConverPhoto imageURL:nil];
+            CGSize needVideoConverPhotoSize = [CCMessageBubbleView neededSizeForPhoto:message.videoConverPhoto ImageSize:CGSizeZero];
             bubbleSize = CGSizeMake(needVideoConverPhotoSize.width, needVideoConverPhotoSize.height + kCCNoneBubblePhotoMargin * 2);
             break;
         }
         case CCBubbleMessageMediaTypePhoto: {
-            CGSize needPhotoSize = [CCMessageBubbleView neededSizeForPhoto:message.photo imageURL:message.originPhotoUrl];
+            CGSize needPhotoSize = [CCMessageBubbleView neededSizeForPhoto:message.photo ImageSize:message.photoSize];
             bubbleSize = CGSizeMake(needPhotoSize.width, needPhotoSize.height);
             break;
         }
@@ -879,7 +870,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         case CCBubbleMessageMediaTypePhoto:
         case CCBubbleMessageMediaTypeVideo:
         case CCBubbleMessageMediaTypeLocalPosition: {
-            CGSize needPhotoSize = [CCMessageBubbleView neededSizeForPhoto:self.message.photo imageURL:self.message.originPhotoUrl];
+            CGSize needPhotoSize = [CCMessageBubbleView neededSizeForPhoto:self.message.photo ImageSize:self.message.photoSize];
             CGFloat paddingX = 0.0f;
             if (self.message.bubbleMessageType == CCBubbleMessageTypeSending) {
                 paddingX = CGRectGetWidth(self.bounds) - needPhotoSize.width;

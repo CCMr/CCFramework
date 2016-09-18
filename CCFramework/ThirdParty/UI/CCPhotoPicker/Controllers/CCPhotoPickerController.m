@@ -36,6 +36,8 @@
 
 @property(weak, nonatomic) UIActivityIndicatorView *progressHUDIndicatorView;
 
+@property(nonatomic, assign) UIStatusBarStyle barStyle;
+
 @end
 
 @implementation CCPhotoPickerController
@@ -60,8 +62,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.barStyle = [UIApplication sharedApplication].statusBarStyle;
     [self _setupNavigationBarAppearance];
     [self _setupUnAuthorizedTips];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:self.barStyle];
 }
 
 /**

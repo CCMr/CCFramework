@@ -29,7 +29,7 @@
 
 /**
  *  @author CC, 2015-12-02
- *  
+ *
  *  @brief  获取音频时长
  *
  *  @param recordPath 音频名称
@@ -38,7 +38,7 @@
 
 /**
  *  @author CC, 2015-12-04
- *  
+ *
  *  @brief  等比尺寸
  *
  *  @param image 图片
@@ -48,8 +48,19 @@
                         Size:(CGSize)size;
 
 /**
+ *  @author CC, 16-09-14
+ *
+ *  @brief 等比缩放大小
+ *
+ *  @param photoSize 图片大小
+ *  @param size      规定大小
+ */
++ (CGSize)neededSizeForSize:(CGSize)photoSize
+                       Size:(CGSize)size;
+
+/**
  *  @author CC, 2015-12-04
- *  
+ *
  *  @brief  等比修改图片
  *
  *  @param image 图片

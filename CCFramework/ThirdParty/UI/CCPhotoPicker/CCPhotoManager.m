@@ -86,9 +86,9 @@
         for (PHAssetCollection *collection in smartAlbums) {
             PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:collection options:option];
             if (fetchResult.count < 1) continue;
-            if ([collection.localizedTitle containsString:@"Deleted"]) continue;
+            if ([collection.localizedTitle containsString:@"Deleted"] || collection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumVideos) continue;
             
-            if ([collection.localizedTitle isEqualToString:@"Camera Roll"]) {
+            if (collection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary) {
                 [albumArr insertObject:[CCAlbumModel albumWithResult:fetchResult name:collection.localizedTitle] atIndex:0];
             } else {
                 [albumArr addObject:[CCAlbumModel albumWithResult:fetchResult name:collection.localizedTitle]];
