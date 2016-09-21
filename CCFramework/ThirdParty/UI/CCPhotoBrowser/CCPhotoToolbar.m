@@ -137,7 +137,7 @@
     
     CCPhoto *photo = _photos[_currentPhotoIndex];
     // 按钮
-    saveImageBtn.enabled = photo.image != nil && !photo.save;
+    saveImageBtn.enabled = !photo.save;
 }
 
 - (void)updataSelectd

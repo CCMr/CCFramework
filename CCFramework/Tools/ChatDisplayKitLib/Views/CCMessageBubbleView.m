@@ -102,7 +102,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                                  forWidth:kCCMaxWidth
                             lineBreakMode:NSLineBreakByWordWrapping];
     }
-
+    
 #if defined(__LP64__) && __LP64__
     return ceil(sizeWithFont.width + 5);
 #else
@@ -115,7 +115,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 {
     // 实际处理文本的时候
     CGFloat dyWidth = [CCMessageBubbleView neededWidthForText:text];
-
+    
     CGSize textSize = [SETextView frameRectWithAttributtedString:[[CCMessageBubbleHelper sharedMessageBubbleHelper] bubbleAttributtedStringWithText:text]
                                                   constraintSize:CGSizeMake(kCCMaxWidth, MAXFLOAT)
                                                      lineSpacing:kCCTextLineSpacing
@@ -132,39 +132,39 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     BOOL isWrap = NO;
     for (NSDictionary *d in message.teletextPath) {
         NSString *path = [d objectForKey:@"path"];
-
+        
         UIImage *image = [UIImage imageWithContentsOfFile:path];
         if (image) {
             if (image.size.height > size.height)
                 size = CGSizeMake(size.width, size.height + (image.size.height - size.height));
-
+            
             size = CGSizeMake(image.size.width + size.width, size.height);
         } else if ([path rangeOfString:@"http://"].location != NSNotFound) { //网络加载图片时
             size = CGSizeMake(100 + size.width, 100 + size.height);
         }
-
+        
         CGFloat w = size.width;
         if (w > kCCMaxWidth) { //超过显示最大宽度
             isWrap = YES;
             w = image.size.width;
             size.height += image.size.height;
         }
-
+        
         size = CGSizeMake(w, size.height);
     }
-
+    
     if (isWrap)
         size = CGSizeMake(kCCMaxWidth, size.height);
-
+    
     size.height = [self displayTextViewWithHeight:message Size:size];
-
+    
     return size;
 }
 
 + (CGFloat)displayTextViewWithHeight:(id<CCMessageModel>)message
                                 Size:(CGSize)size
 {
-
+    
     SETextView *displayTextView = [[SETextView alloc] initWithFrame:CGRectZero];
     displayTextView.textColor = [UIColor colorWithWhite:0.143 alpha:1.000];
     displayTextView.backgroundColor = [UIColor clearColor];
@@ -173,21 +173,21 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     displayTextView.font = [[CCMessageBubbleView appearance] font];
     displayTextView.showsEditingMenuAutomatically = NO;
     displayTextView.highlighted = NO;
-
-
+    
+    
     NSString *text = [[message text] stringByReplacingOccurrencesOfString:message.teletextReplaceStr withString:OBJECT_REPLACEMENT_CHARACTER];
-
+    
     NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"\uFFFC" options:NSRegularExpressionCaseInsensitive error:nil];
     NSArray *resultArray = [re matchesInString:text options:0 range:NSMakeRange(0, text.length)];
-
+    
     for (int i = 0; i < resultArray.count; i++) {
-
+        
         NSTextCheckingResult *match = [resultArray objectAtIndex:i];
-
+        
         NSString *path = @"";
         if (message.teletextPath.count && i < message.teletextPath.count)
             path = [[message.teletextPath objectAtIndex:i] objectForKey:@"path"];
-
+        
         CGSize size = CGSizeMake(20, 20);
         UIImage *Images = [UIImage imageWithContentsOfFile:path];
         if (Images)
@@ -195,15 +195,15 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         else if ([path rangeOfString:@"http://"].location != NSNotFound) { //网络加载图片时
             size = CGSizeMake(100, 100);
         }
-
+        
         CCMessagePhotoImageView *messagePhotoImageView = [[CCMessagePhotoImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
         messagePhotoImageView.imageFilePath = path;
-
+        
         [displayTextView addObject:messagePhotoImageView size:size replaceRange:[match range]];
     }
-
+    
     displayTextView.attributedText = [[CCMessageBubbleHelper sharedMessageBubbleHelper] bubbleAttributtedStringWithText:text];
-
+    
     return [displayTextView sizeThatFits:size].height;
 }
 
@@ -216,23 +216,23 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         if (photo.size.width > imageSize.width || photo.size.height > imageSize.height)
             imageSize = photo.size;
     }
-
+    
     if (imageSize.width > photoSize.width && imageSize.height > photoSize.height) {
         CGSize needSize = [CCTool neededSizeForSize:imageSize Size:photoSize];
         photoSize.width = needSize.width > kCCMaxWidth ? kCCMaxWidth : needSize.width;
         photoSize.height = needSize.height;
         if (needSize.width > kCCMaxWidth)
             photoSize.height = (kCCMaxWidth / needSize.width) * needSize.width;
-
+        
         if (photoSize.height > kCCMaxHeight)
             photoSize.height = kCCMaxHeight;
     } else if (imageSize.width > kCCMaxWidth) {
         photoSize.width = kCCMaxWidth;
-    } else {
+    } else if (!CGSizeEqualToSize(imageSize, CGSizeMake(0, 0))) {
         photoSize.width = imageSize.width < 30 ? 30 : imageSize.width;
         photoSize.height = imageSize.height < 30 ? 30 : imageSize.height;
     }
-
+    
     return photoSize;
 }
 
@@ -242,10 +242,10 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     //float gapDuration = (!voiceDuration || voiceDuration.length == 0 ? -1 : [voiceDuration floatValue] - 1.0f);
     //CGFloat secondW = 120.0 / (60 - 1);
     //CGSize voiceSize = CGSizeMake(50 + gapDuration * secondW, 42);
-
+    
     float gapDuration = (!voiceDuration || voiceDuration.length == 0 ? -1 : [voiceDuration floatValue] - 1.0f);
     CGSize voiceSize = CGSizeMake(100 + (gapDuration > 0 ? (120.0 / (60 - 1) * gapDuration) : 0), 42);
-
+    
     return voiceSize;
 }
 
@@ -286,7 +286,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         }
         case CCBubbleMessageMediaTypeTeletext: { //图文
             CGSize needTextSize = [CCMessageBubbleView neededSizeForTeletext:message];
-
+            
             bubbleSize = CGSizeMake(needTextSize.width + kCCLeftTextHorizontalBubblePadding + kCCRightTextHorizontalBubblePadding + kCCArrowMarginWidth, needTextSize.height + kCCHaveBubbleMargin * 2 + kCCTopAndBottomBubbleMargin * 2);
             break;
         }
@@ -339,11 +339,11 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     if (_font == nil) {
         _font = [[[self class] appearance] font];
     }
-
+    
     if (_font != nil) {
         return _font;
     }
-
+    
     return [UIFont systemFontOfSize:16.0f];
 }
 
@@ -354,15 +354,15 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 {
     // 1.先得到MessageBubbleView的实际大小
     CGSize bubbleSize = [CCMessageBubbleView getBubbleFrameWithMessage:self.message];
-
+    
     // 2.计算起泡的大小和位置
     CGFloat paddingX = 0.0f;
     if (self.message.bubbleMessageType == CCBubbleMessageTypeSending) {
         paddingX = CGRectGetWidth(self.bounds) - bubbleSize.width;
     }
-
+    
     CCBubbleMessageMediaType currentMessageMediaType = self.message.messageMediaType;
-
+    
     // 最终减去上下边距的像素就可以得到气泡的位置以及大小
     CGFloat marginY = 0.0;
     CGFloat topSumForBottom = 0.0;
@@ -382,7 +382,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             topSumForBottom = 0;
             break;
     }
-
+    
     return CGRectMake(paddingX,
                       marginY,
                       bubbleSize.width,
@@ -394,25 +394,25 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 - (void)configureCellWithMessage:(id<CCMessageModel>)message
 {
     _message = message;
-
+    
     [self configureBubbleImageView:message];
-
+    
     [self configureMessageDisplayMediaWithMessage:message];
 }
 
 - (void)configureBubbleImageView:(id<CCMessageModel>)message
 {
     CCBubbleMessageMediaType currentType = message.messageMediaType;
-
+    
     _voiceDurationLabel.hidden = YES;
     _voiceUnreadDotImageView.hidden = YES;
-
+    
     [_sendNotSuccessfulButton setImage:@""];
     _sendNotSuccessfulButton.hidden = YES;
     _indicatorView.hidden = YES;
     [_indicatorView stopAnimating];
     if (message.bubbleMessageType == CCBubbleMessageTypeSending) {
-
+        
         CCMessageSendType sendStatusType = message.messageSendState;
         switch (sendStatusType) {
             case CCMessageSendTypeFailure:
@@ -420,7 +420,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 _sendNotSuccessfulButton.hidden = NO;
                 _indicatorView.hidden = YES;
                 [_indicatorView stopAnimating];
-
+                
                 break;
             case CCMessageSendTypeRunIng:
                 _sendNotSuccessfulButton.hidden = YES;
@@ -436,8 +436,8 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 break;
         }
     }
-
-
+    
+    
     switch (currentType) {
         case CCBubbleMessageMediaTypeVoice: {
             _voiceDurationLabel.hidden = NO;
@@ -452,11 +452,11 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                                                                           meidaType:message.messageMediaType];
             // 只要是文本、语音、第三方表情，背景的气泡都不能隐藏
             _bubbleImageView.hidden = NO;
-
+            
             // 只要是文本、语音、第三方表情，都需要把显示尖嘴图片的控件隐藏了
             _bubblePhotoImageView.hidden = YES;
-
-
+            
+            
             if (currentType == CCBubbleMessageMediaTypeText || currentType == CCBubbleMessageMediaTypeTeletext) {
                 // 如果是文本消息，那文本消息的控件需要显示
                 _displayTextView.hidden = NO;
@@ -466,12 +466,12 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             } else {
                 // 那如果不文本消息，必须把文本消息的控件隐藏了啊
                 _displayTextView.hidden = YES;
-
+                
                 // 对语音消息的进行特殊处理，第三方表情可以直接利用背景气泡的ImageView控件
                 if (currentType == CCBubbleMessageMediaTypeVoice) {
                     [_animationVoiceImageView removeFromSuperview];
                     _animationVoiceImageView = nil;
-
+                    
                     UIImageView *animationVoiceImageView = [CCMessageVoiceFactory messageVoiceAnimationImageViewWithBubbleMessageType:message.bubbleMessageType];
                     [self addSubview:animationVoiceImageView];
                     _animationVoiceImageView = animationVoiceImageView;
@@ -481,7 +481,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                     _emotionImageView.hidden = NO;
                 } else {
                     _emotionImageView.hidden = NO;
-
+                    
                     _bubbleImageView.hidden = YES;
                     _animationVoiceImageView.hidden = YES;
                 }
@@ -493,11 +493,11 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         case CCBubbleMessageMediaTypeLocalPosition: {
             // 只要是图片和视频消息，必须把尖嘴显示控件显示出来
             _bubblePhotoImageView.hidden = NO;
-
+            
             _videoPlayImageView.hidden = (currentType != CCBubbleMessageMediaTypeVideo);
-
+            
             _geolocationsLabel.hidden = (currentType != CCBubbleMessageMediaTypeLocalPosition);
-
+            
             // 那其他的控件都必须隐藏
             _displayTextView.hidden = YES;
             _bubbleImageView.hidden = YES;
@@ -522,7 +522,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     _displayTextView.textColor = [UIColor colorWithWhite:0.143 alpha:1.000];
     if (self.message.bubbleMessageType == CCBubbleMessageTypeSending)
         _displayTextView.textColor = [UIColor whiteColor];
-
+    
     switch (message.messageMediaType) {
         case CCBubbleMessageMediaTypeText:
             [_displayTextView clearAttachments];
@@ -531,18 +531,18 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         case CCBubbleMessageMediaTypeTeletext: {
             [_displayTextView clearAttachments];
             NSString *text = [[message text] stringByReplacingOccurrencesOfString:message.teletextReplaceStr withString:OBJECT_REPLACEMENT_CHARACTER];
-
+            
             NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"\uFFFC" options:NSRegularExpressionCaseInsensitive error:nil];
             NSArray *resultArray = [re matchesInString:text options:0 range:NSMakeRange(0, text.length)];
-
+            
             for (int i = 0; i < resultArray.count; i++) {
-
+                
                 NSTextCheckingResult *match = [resultArray objectAtIndex:i];
-
+                
                 NSString *path = @"";
                 if (message.teletextPath.count && i < message.teletextPath.count)
                     path = [[message.teletextPath objectAtIndex:i] objectForKey:@"path"];
-
+                
                 CGSize size = CGSizeMake(20, 20);
                 UIImage *Images = [UIImage imageWithContentsOfFile:path];
                 if (Images)
@@ -550,15 +550,15 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 else if ([path rangeOfString:@"http://"].location != NSNotFound) { //网络加载图片时
                     size = CGSizeMake(100, 100);
                 }
-
+                
                 CCMessagePhotoImageView *messagePhotoImageView = [[CCMessagePhotoImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
                 messagePhotoImageView.imageFilePath = path;
-
+                
                 [_displayTextView addObject:messagePhotoImageView size:size replaceRange:[match range]];
             }
-
+            
             _displayTextView.attributedText = [[CCMessageBubbleHelper sharedMessageBubbleHelper] bubbleAttributtedStringWithText:text];
-
+            
             break;
         }
         case CCBubbleMessageMediaTypePhoto:
@@ -598,13 +598,13 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                                           originPhotoUrl:nil
                                                 savePath:nil
                                      onBubbleMessageType:self.message.bubbleMessageType];
-
+            
             _geolocationsLabel.text = message.geolocations;
             break;
         default:
             break;
     }
-
+    
     [self setNeedsLayout];
 }
 
@@ -666,7 +666,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     if (self) {
         // Initialization code
         _message = message;
-
+        
         // 1、初始化气泡的背景
         if (!_bubbleImageView) {
             //bubble image
@@ -676,7 +676,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             [self addSubview:bubbleImageView];
             _bubbleImageView = bubbleImageView;
         }
-
+        
         // 2、初始化显示文本消息的TextView
         if (!_displayTextView) {
             SETextView *displayTextView = [[SETextView alloc] initWithFrame:CGRectZero];
@@ -690,19 +690,19 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             [self addSubview:displayTextView];
             _displayTextView = displayTextView;
         }
-
+        
         // 3、初始化显示图片的控件
         if (!_bubblePhotoImageView) {
             CCBubblePhotoImageView *bubblePhotoImageView = [[CCBubblePhotoImageView alloc] initWithFrame:CGRectZero];
             [self addSubview:bubblePhotoImageView];
             _bubblePhotoImageView = bubblePhotoImageView;
-
+            
             if (!_videoPlayImageView) {
                 UIImageView *videoPlayImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"MessageVideoPlay"]];
                 [bubblePhotoImageView addSubview:videoPlayImageView];
                 _videoPlayImageView = videoPlayImageView;
             }
-
+            
             if (!_geolocationsLabel) {
                 UILabel *geolocationsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
                 geolocationsLabel.numberOfLines = 0;
@@ -714,7 +714,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 _geolocationsLabel = geolocationsLabel;
             }
         }
-
+        
         // 4、初始化显示语音时长的label
         if (!_voiceDurationLabel) {
             UILabel *voiceDurationLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 50, 30)];
@@ -726,14 +726,14 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             [self addSubview:voiceDurationLabel];
             _voiceDurationLabel = voiceDurationLabel;
         }
-
+        
         // 5、初始化显示gif表情的控件
         if (!_emotionImageView) {
             CCAnimatedImageView *emotionImageView = [[CCAnimatedImageView alloc] initWithFrame:CGRectZero];
             [self addSubview:emotionImageView];
             _emotionImageView = emotionImageView;
         }
-
+        
         // 6. 初始化显示语音未读标记的imageview
         if (!_voiceUnreadDotImageView) {
             UIImageView *voiceUnreadDotImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 5, kCCUnReadDotSize, kCCUnReadDotSize)];
@@ -743,7 +743,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             [self addSubview:voiceUnreadDotImageView];
             _voiceUnreadDotImageView = voiceUnreadDotImageView;
         }
-
+        
         // 7. 初始化消息未发送成功时显示重新发送按钮
         if (!_sendNotSuccessfulButton) {
             UIButton *sendNotSuccessfulButton = [UIButton buttonWithBackgroundImage:@""];
@@ -753,7 +753,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             [self addSubview:sendNotSuccessfulButton];
             _sendNotSuccessfulButton = sendNotSuccessfulButton;
         }
-
+        
         // 8. 初始化发送消息加载中
         if (!_indicatorView) {
             UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -781,42 +781,42 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 - (void)dealloc
 {
     _message = nil;
-
+    
     _displayTextView = nil;
-
+    
     _bubbleImageView = nil;
-
+    
     _bubblePhotoImageView = nil;
-
+    
     _animationVoiceImageView = nil;
-
+    
     _voiceUnreadDotImageView = nil;
-
+    
     _voiceDurationLabel = nil;
-
+    
     _emotionImageView = nil;
-
+    
     _videoPlayImageView = nil;
-
+    
     _geolocationsLabel = nil;
-
+    
     _font = nil;
-
+    
     _sendNotSuccessfulButton = nil;
-
+    
     _indicatorView = nil;
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-
+    
     CCBubbleMessageMediaType currentType = self.message.messageMediaType;
     CGRect bubbleFrame = [self bubbleFrame];
-
+    
     [self configureIndicatorViewFrameWithBubbleFrame:bubbleFrame];
     [self configureSendNotSuccessfulButtonFrameWithBubbleFrame:bubbleFrame];
-
+    
     switch (currentType) {
         case CCBubbleMessageMediaTypeText:
         case CCBubbleMessageMediaTypeVoice:
@@ -826,7 +826,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             // 获取实际气泡的大小
             CGRect bubbleFrame = [self bubbleFrame];
             self.bubbleImageView.frame = bubbleFrame;
-
+            
             if (currentType == CCBubbleMessageMediaTypeVoice) {
                 // 配置语音播放的位置
                 CGRect animationVoiceImageViewFrame = self.animationVoiceImageView.frame;
@@ -836,7 +836,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 }
                 animationVoiceImageViewFrame.origin = CGPointMake(voiceImagePaddingX, CGRectGetMidY(bubbleFrame) - CGRectGetHeight(animationVoiceImageViewFrame) / 2.0); // 垂直居中
                 self.animationVoiceImageView.frame = animationVoiceImageViewFrame;
-
+                
                 [self configureVoiceDurationLabelFrameWithBubbleFrame:bubbleFrame];
                 [self configureVoiceUnreadDotImageViewFrameWithBubbleFrame:bubbleFrame];
             } else if (currentType == CCBubbleMessageMediaTypeEmotion) {
@@ -845,26 +845,26 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 self.emotionImageView.frame = emotionImageViewFrame;
             } else {
                 //小表情与文字消息时设置气泡框
-
+                
                 CGFloat textX = -(kCCArrowMarginWidth / 2);
                 if (self.message.bubbleMessageType == CCBubbleMessageTypeReceiving)
                     textX = kCCArrowMarginWidth / 2;
-
+                
                 CGRect viewFrame = CGRectZero;
                 viewFrame.size.width = CGRectGetWidth(bubbleFrame) - kCCLeftTextHorizontalBubblePadding - kCCRightTextHorizontalBubblePadding - kCCArrowMarginWidth;
                 viewFrame.size.height = CGRectGetHeight(bubbleFrame) - kCCHaveBubbleMargin * 2 - kCCTopAndBottomBubbleMargin * 2;
-
+                
                 if (currentType == CCBubbleMessageMediaTypeText || currentType == CCBubbleMessageMediaTypeTeletext) {
                     self.displayTextView.frame = viewFrame;
                     self.displayTextView.center = CGPointMake(self.bubbleImageView.center.x + textX, self.bubbleImageView.center.y);
                 }
-
+                
                 if (currentType == CCBubbleMessageMediaTypeSmallEmotion) {
                     self.emotionImageView.frame = viewFrame;
                     self.emotionImageView.center = CGPointMake(self.bubbleImageView.center.x + textX, self.bubbleImageView.center.y);
                 }
             }
-
+            
             break;
         }
         case CCBubbleMessageMediaTypePhoto:
@@ -875,20 +875,20 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             if (self.message.bubbleMessageType == CCBubbleMessageTypeSending) {
                 paddingX = CGRectGetWidth(self.bounds) - needPhotoSize.width;
             }
-
+            
             CGFloat marginY = kCCNoneBubblePhotoMargin;
             if (currentType == CCBubbleMessageMediaTypePhoto || currentType == CCBubbleMessageMediaTypeLocalPosition) {
                 marginY = 0;
             }
-
+            
             CGRect photoImageViewFrame = CGRectMake(paddingX, marginY, needPhotoSize.width, needPhotoSize.height);
             self.bubblePhotoImageView.frame = photoImageViewFrame;
             self.bubbleImageView.frame = photoImageViewFrame;
-
+            
             self.videoPlayImageView.center = CGPointMake(CGRectGetWidth(photoImageViewFrame) / 2.0, CGRectGetHeight(photoImageViewFrame) / 2.0);
             CGRect geolocationsLabelFrame = CGRectMake(11, CGRectGetHeight(photoImageViewFrame) - 47, CGRectGetWidth(photoImageViewFrame) - 20, 40);
             self.geolocationsLabel.frame = geolocationsLabelFrame;
-
+            
             break;
         }
         default:

@@ -8108,6 +8108,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
+				VERSIONING_SYSTEM = "";
 			};
 			name = Debug;
 		};
@@ -8152,6 +8153,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
+				VERSIONING_SYSTEM = "";
 			};
 			name = Release;
 		};
