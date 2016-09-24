@@ -330,6 +330,72 @@
     return self;
 }
 
+/**
+ *  @author CC, 16-09-22
+ *
+ *  @brief 初始化文件消息类型
+ *
+ *  @param filePath  文件URL
+ *  @param fileName  文件名称
+ *  @param fileSize  文件大小
+ *  @param sender    发送者
+ *  @param timestamp 发送时间
+ *
+ *  @return 返回Message model 对象
+ */
+- (instancetype)initWithFile:(NSString *)fileThumbnailUrl
+                    FileName:(NSString *)fileName
+                    FileSize:(NSInteger)fileSize
+                      sender:(NSString *)sender
+                   timestamp:(NSDate *)timestamp
+{
+    if (self = [super init]) {
+        _objuniqueID = [NSString UUID];
+        self.fileThumbnailUrl = fileThumbnailUrl;
+        self.fileName = fileName;
+        self.fileSize = fileSize;
+
+        self.sender = sender;
+        self.timestamp = timestamp;
+
+        self.messageMediaType = CCBubbleMessageMediaTypeFile;
+    }
+    return self;
+}
+
+/**
+ *  @author CC, 16-09-22
+ *
+ *  @brief 初始化文件消息类型
+ *
+ *  @param filePhoto 文件图片
+ *  @param fileName  文件名称
+ *  @param fileSize  文件大小
+ *  @param sender    发送者
+ *  @param timestamp 发送时间
+ *
+ *  @return 返回Message model 对象
+ */
+- (instancetype)initWithFilePhoto:(UIImage *)filePhoto
+                         FileName:(NSString *)fileName
+                         FileSize:(NSInteger)fileSize
+                           sender:(NSString *)sender
+                        timestamp:(NSDate *)timestamp
+{
+    if (self = [super init]) {
+        _objuniqueID = [NSString UUID];
+        self.filePhoto = filePhoto;
+        self.fileName = fileName;
+        self.fileSize = fileSize;
+
+        self.sender = sender;
+        self.timestamp = timestamp;
+
+        self.messageMediaType = CCBubbleMessageMediaTypeFile;
+    }
+    return self;
+}
+
 #pragma mark - NSCoding
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -377,6 +443,11 @@
         _messageSendState = [[aDecoder decodeObjectForKey:@"messageSendState"] integerValue];
         _bubbleMessageType = [[aDecoder decodeObjectForKey:@"bubbleMessageType"] integerValue];
         _isRead = [[aDecoder decodeObjectForKey:@"isRead"] boolValue];
+
+        _filePhoto = [aDecoder decodeObjectForKey:@"filePhoto"];
+        _fileThumbnailUrl = [aDecoder decodeObjectForKey:@"fileThumbnailUrl"];
+        _fileName = [aDecoder decodeObjectForKey:@"fileName"];
+        _fileSize = [[aDecoder decodeObjectForKey:@"fileSize"] integerValue];
     }
     return self;
 }
@@ -425,6 +496,11 @@
     [aCoder encodeObject:[NSNumber numberWithInteger:self.bubbleMessageType] forKey:@"bubbleMessageType"];
     [aCoder encodeObject:[NSNumber numberWithInteger:self.messageSendState] forKey:@"messageSendState"];
     [aCoder encodeObject:[NSNumber numberWithBool:self.isRead] forKey:@"isRead"];
+
+    [aCoder encodeObject:self.filePhoto forKey:@"filePhoto"];
+    [aCoder encodeObject:self.fileThumbnailUrl forKey:@"fileThumbnailUrl"];
+    [aCoder encodeObject:self.fileName forKey:@"fileName"];
+    [aCoder encodeObject:[NSNumber numberWithBool:self.fileSize] forKey:@"fileSize"];
 }
 
 #pragma mark - NSCopying
@@ -484,6 +560,13 @@
                                                                  sender:[self.sender copy]
                                                               timestamp:[self.timestamp copy]];
             break;
+        case CCBubbleMessageMediaTypeFile:
+            message = [[[self class] allocWithZone:zone] initWithFile:[self.fileThumbnailUrl copy]
+                                                             FileName:[self.fileName copy]
+                                                             FileSize:self.fileSize
+                                                               sender:[self.sender copy]
+                                                            timestamp:[self.timestamp copy]];
+            break;
         default:
             break;
     }
@@ -504,6 +587,9 @@
     message.isRead = _isRead;
     message.selected = _selected;
     message.senderAttribute = _senderAttribute;
+    message.filePhoto = _filePhoto;
+    message.fileThumbnailUrl = _fileThumbnailUrl;
+    message.fileOriginPhotoUrl = _fileOriginPhotoUrl;
 
     return message;
 }
@@ -547,6 +633,11 @@
     _senderAttribute = nil;
 
     _timestamp = nil;
+
+    _filePhoto = nil;
+    _fileThumbnailUrl = nil;
+    _fileName = nil;
+    _fileSize = nil;
 }
 
 

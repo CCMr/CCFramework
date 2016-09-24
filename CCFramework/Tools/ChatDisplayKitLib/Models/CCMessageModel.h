@@ -44,7 +44,8 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMediaType) {
     CCBubbleMessageMediaTypeLocalPosition = 6,
     /** 媒体留言图文类型 */
     CCBubbleMessageMediaTypeTeletext = 7,
-
+    /** 媒体留言文件类型 */
+    CCBubbleMessageMediaTypeFile = 8,
     /** 媒体通知消息类型 */
     CCBubbleMessageMediaTypeNotice = 20,
 };
@@ -99,7 +100,7 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
  *  @brief  图文对应路径(键值存放)
  */
 - (NSArray *)teletextPath;
-- (CGSize)teletextPhotoSize;
+- (NSArray *)teletextPhotoSize;
 
 /**
  *  @author CC, 2016-12-28
@@ -141,6 +142,14 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 - (NSString *)avatarUrl;
 
 - (NSString *)noticeContent;
+
+#pragma mark - 文件
+- (NSString *)fileThumbnailUrl;
+- (NSString *)fileOriginPhotoUrl;
+- (UIImage *)filePhoto;
+- (NSString *)fileName;
+- (NSInteger)fileSize;
+- (CGSize)filePhotoSize;
 
 /**
  *  @author CC, 2015-11-16

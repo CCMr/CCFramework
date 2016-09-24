@@ -1218,6 +1218,26 @@
 		42DEB2BB1C254A6800734E09 /* CCColorPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2B91C254A6800734E09 /* CCColorPickerController.m */; };
 		42DEB2BF1C254ABC00734E09 /* CCBrushView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEB2BD1C254ABC00734E09 /* CCBrushView.h */; };
 		42DEB2C01C254ABC00734E09 /* CCBrushView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEB2BE1C254ABC00734E09 /* CCBrushView.m */; };
+		42DEC09F1D94DDB400004CDB /* NSMutableAttributedString+TY.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEC08B1D94DDB400004CDB /* NSMutableAttributedString+TY.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42DEC0A01D94DDB400004CDB /* NSMutableAttributedString+TY.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEC08C1D94DDB400004CDB /* NSMutableAttributedString+TY.m */; };
+		42DEC0A11D94DDB400004CDB /* TYAttributedLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEC08D1D94DDB400004CDB /* TYAttributedLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42DEC0A21D94DDB400004CDB /* TYAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEC08E1D94DDB400004CDB /* TYAttributedLabel.m */; };
+		42DEC0A31D94DDB400004CDB /* TYDrawStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEC08F1D94DDB400004CDB /* TYDrawStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42DEC0A41D94DDB400004CDB /* TYDrawStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEC0901D94DDB400004CDB /* TYDrawStorage.m */; };
+		42DEC0A51D94DDB400004CDB /* TYImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEC0911D94DDB400004CDB /* TYImageCache.h */; };
+		42DEC0A61D94DDB400004CDB /* TYImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEC0921D94DDB400004CDB /* TYImageCache.m */; };
+		42DEC0A71D94DDB400004CDB /* TYImageStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEC0931D94DDB400004CDB /* TYImageStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42DEC0A81D94DDB400004CDB /* TYImageStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEC0941D94DDB400004CDB /* TYImageStorage.m */; };
+		42DEC0A91D94DDB400004CDB /* TYLinkTextStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEC0951D94DDB400004CDB /* TYLinkTextStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42DEC0AA1D94DDB400004CDB /* TYLinkTextStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEC0961D94DDB400004CDB /* TYLinkTextStorage.m */; };
+		42DEC0AB1D94DDB400004CDB /* TYTextContainer+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEC0971D94DDB400004CDB /* TYTextContainer+Extended.m */; };
+		42DEC0AC1D94DDB400004CDB /* TYTextContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEC0981D94DDB400004CDB /* TYTextContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42DEC0AD1D94DDB400004CDB /* TYTextContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEC0991D94DDB400004CDB /* TYTextContainer.m */; };
+		42DEC0AE1D94DDB400004CDB /* TYTextStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEC09A1D94DDB400004CDB /* TYTextStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42DEC0AF1D94DDB400004CDB /* TYTextStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEC09B1D94DDB400004CDB /* TYTextStorage.m */; };
+		42DEC0B01D94DDB400004CDB /* TYTextStorageProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEC09C1D94DDB400004CDB /* TYTextStorageProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42DEC0B11D94DDB400004CDB /* TYViewStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DEC09D1D94DDB400004CDB /* TYViewStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42DEC0B21D94DDB400004CDB /* TYViewStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DEC09E1D94DDB400004CDB /* TYViewStorage.m */; };
 		42E9531C1C589DB3001C93CB /* CCBannerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42E9531A1C589DB3001C93CB /* CCBannerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42E9531D1C589DB3001C93CB /* CCBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E9531B1C589DB3001C93CB /* CCBannerView.m */; };
 		42E953201C589E9E001C93CB /* CCBannerFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = 42E9531E1C589E9E001C93CB /* CCBannerFooter.h */; };
@@ -2528,6 +2548,26 @@
 		42DEB2B91C254A6800734E09 /* CCColorPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCColorPickerController.m; path = CCGraffitiBoard/CCColorPickerController.m; sourceTree = "<group>"; };
 		42DEB2BD1C254ABC00734E09 /* CCBrushView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCBrushView.h; sourceTree = "<group>"; };
 		42DEB2BE1C254ABC00734E09 /* CCBrushView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCBrushView.m; sourceTree = "<group>"; };
+		42DEC08B1D94DDB400004CDB /* NSMutableAttributedString+TY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+TY.h"; sourceTree = "<group>"; };
+		42DEC08C1D94DDB400004CDB /* NSMutableAttributedString+TY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+TY.m"; sourceTree = "<group>"; };
+		42DEC08D1D94DDB400004CDB /* TYAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYAttributedLabel.h; sourceTree = "<group>"; };
+		42DEC08E1D94DDB400004CDB /* TYAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYAttributedLabel.m; sourceTree = "<group>"; };
+		42DEC08F1D94DDB400004CDB /* TYDrawStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYDrawStorage.h; sourceTree = "<group>"; };
+		42DEC0901D94DDB400004CDB /* TYDrawStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYDrawStorage.m; sourceTree = "<group>"; };
+		42DEC0911D94DDB400004CDB /* TYImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYImageCache.h; sourceTree = "<group>"; };
+		42DEC0921D94DDB400004CDB /* TYImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYImageCache.m; sourceTree = "<group>"; };
+		42DEC0931D94DDB400004CDB /* TYImageStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYImageStorage.h; sourceTree = "<group>"; };
+		42DEC0941D94DDB400004CDB /* TYImageStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYImageStorage.m; sourceTree = "<group>"; };
+		42DEC0951D94DDB400004CDB /* TYLinkTextStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYLinkTextStorage.h; sourceTree = "<group>"; };
+		42DEC0961D94DDB400004CDB /* TYLinkTextStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYLinkTextStorage.m; sourceTree = "<group>"; };
+		42DEC0971D94DDB400004CDB /* TYTextContainer+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TYTextContainer+Extended.m"; sourceTree = "<group>"; };
+		42DEC0981D94DDB400004CDB /* TYTextContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYTextContainer.h; sourceTree = "<group>"; };
+		42DEC0991D94DDB400004CDB /* TYTextContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYTextContainer.m; sourceTree = "<group>"; };
+		42DEC09A1D94DDB400004CDB /* TYTextStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYTextStorage.h; sourceTree = "<group>"; };
+		42DEC09B1D94DDB400004CDB /* TYTextStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYTextStorage.m; sourceTree = "<group>"; };
+		42DEC09C1D94DDB400004CDB /* TYTextStorageProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYTextStorageProtocol.h; sourceTree = "<group>"; };
+		42DEC09D1D94DDB400004CDB /* TYViewStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYViewStorage.h; sourceTree = "<group>"; };
+		42DEC09E1D94DDB400004CDB /* TYViewStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYViewStorage.m; sourceTree = "<group>"; };
 		42E9531A1C589DB3001C93CB /* CCBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCBannerView.h; path = CCBannerView/CCBannerView.h; sourceTree = "<group>"; };
 		42E9531B1C589DB3001C93CB /* CCBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCBannerView.m; path = CCBannerView/CCBannerView.m; sourceTree = "<group>"; };
 		42E9531E1C589E9E001C93CB /* CCBannerFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCBannerFooter.h; path = CCBannerView/CCBannerFooter.h; sourceTree = "<group>"; };
@@ -5266,6 +5306,7 @@
 		429C9DDC1B9EF8BF0013A44A /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				42DEC08A1D94DDB400004CDB /* TYAttributedLabel */,
 				427369451D6FCF4E00921B48 /* CCTabBarController */,
 				429B0B661D6E903A00D095C8 /* CCPreViewController */,
 				42C208E51BDE025300C76004 /* UI.h */,
@@ -6292,6 +6333,33 @@
 			path = CCGraffitiBoard/View/BrushView;
 			sourceTree = "<group>";
 		};
+		42DEC08A1D94DDB400004CDB /* TYAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				42DEC08B1D94DDB400004CDB /* NSMutableAttributedString+TY.h */,
+				42DEC08C1D94DDB400004CDB /* NSMutableAttributedString+TY.m */,
+				42DEC08D1D94DDB400004CDB /* TYAttributedLabel.h */,
+				42DEC08E1D94DDB400004CDB /* TYAttributedLabel.m */,
+				42DEC08F1D94DDB400004CDB /* TYDrawStorage.h */,
+				42DEC0901D94DDB400004CDB /* TYDrawStorage.m */,
+				42DEC0911D94DDB400004CDB /* TYImageCache.h */,
+				42DEC0921D94DDB400004CDB /* TYImageCache.m */,
+				42DEC0931D94DDB400004CDB /* TYImageStorage.h */,
+				42DEC0941D94DDB400004CDB /* TYImageStorage.m */,
+				42DEC0951D94DDB400004CDB /* TYLinkTextStorage.h */,
+				42DEC0961D94DDB400004CDB /* TYLinkTextStorage.m */,
+				42DEC0971D94DDB400004CDB /* TYTextContainer+Extended.m */,
+				42DEC0981D94DDB400004CDB /* TYTextContainer.h */,
+				42DEC0991D94DDB400004CDB /* TYTextContainer.m */,
+				42DEC09A1D94DDB400004CDB /* TYTextStorage.h */,
+				42DEC09B1D94DDB400004CDB /* TYTextStorage.m */,
+				42DEC09C1D94DDB400004CDB /* TYTextStorageProtocol.h */,
+				42DEC09D1D94DDB400004CDB /* TYViewStorage.h */,
+				42DEC09E1D94DDB400004CDB /* TYViewStorage.m */,
+			);
+			path = TYAttributedLabel;
+			sourceTree = "<group>";
+		};
 		42E953191C589D8C001C93CB /* CCBannerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -6599,6 +6667,7 @@
 				420CB1451C7D788500A0EC25 /* NSArray+MASShorthandAdditions.h in Headers */,
 				42A1F6641C8A8E4000A20F64 /* FMDatabaseQueue.h in Headers */,
 				42063ED61C893BCF003348EB /* CLLocation+CH1903.h in Headers */,
+				42DEC0B01D94DDB400004CDB /* TYTextStorageProtocol.h in Headers */,
 				425477641BD2AEC20071BBC5 /* srtp.h in Headers */,
 				42F411471C214C5400814E7B /* CCSquareBrush.h in Headers */,
 				42063EC01C8936F1003348EB /* CALayer+Additions.h in Headers */,
@@ -6621,6 +6690,7 @@
 				42A1F6671C8A8E4000A20F64 /* FMResultSet.h in Headers */,
 				4254775A1BD2AEC20071BBC5 /* pqueue.h in Headers */,
 				42068F051C573E33005DFB01 /* POPSpringAnimationInternal.h in Headers */,
+				42DEC0B11D94DDB400004CDB /* TYViewStorage.h in Headers */,
 				425477311BD2AEC20071BBC5 /* camellia.h in Headers */,
 				425477611BD2AEC20071BBC5 /* seed.h in Headers */,
 				425477371BD2AEC20071BBC5 /* conf_api.h in Headers */,
@@ -6662,6 +6732,7 @@
 				429CA09D1B9EF8BF0013A44A /* SELinkText.h in Headers */,
 				421DC7381C85750E009E825B /* UIView+Animation.h in Headers */,
 				425477331BD2AEC20071BBC5 /* cmac.h in Headers */,
+				42DEC0A11D94DDB400004CDB /* TYAttributedLabel.h in Headers */,
 				425477811BD2AEC20071BBC5 /* RSADataSigner.h in Headers */,
 				42387C2C1CC75D5A00E25CEF /* CCViewMangerProtocol.h in Headers */,
 				42A356391BF4399800B6F1F2 /* CCRefreshFooterView.h in Headers */,
@@ -6719,6 +6790,7 @@
 				426979431BA695BA00C3E93C /* UIImageView+AFNetworking.h in Headers */,
 				42068F0F1C573E33005DFB01 /* POPAnimationTracer.h in Headers */,
 				4219EE0E1C7FF93F00F1EE76 /* NSAttributedString+MLExpression.h in Headers */,
+				42DEC0AE1D94DDB400004CDB /* TYTextStorage.h in Headers */,
 				4269793F1BA695BA00C3E93C /* UIAlertView+AFNetworking.h in Headers */,
 				42063E781C892E7D003348EB /* NSManagedObjectContext+Additions.h in Headers */,
 				42B30DDF1BBD72AD0039BB94 /* SDWebImageDownloader.h in Headers */,
@@ -6796,6 +6868,7 @@
 				429C9F561B9EF8BF0013A44A /* BaseTableViewController.h in Headers */,
 				420CB1371C7D788500A0EC25 /* MASConstraint.h in Headers */,
 				4298C7821BDCAC3100A3581D /* CoreDataMasterSlave+Manager.h in Headers */,
+				42DEC0A71D94DDB400004CDB /* TYImageStorage.h in Headers */,
 				429CA12E1B9EF8BF0013A44A /* CCTimePicker.h in Headers */,
 				42B30DE51BBD72AD0039BB94 /* SDWebImageOperation.h in Headers */,
 				421DC6B61C85750E009E825B /* UIFont+Additions.h in Headers */,
@@ -6877,6 +6950,7 @@
 				423C12791C0ECACB009FBA17 /* CCTool.h in Headers */,
 				42068F211C573E33005DFB01 /* POPVector.h in Headers */,
 				422359331C8679A4005207B9 /* NSData+Additions.h in Headers */,
+				42DEC0A51D94DDB400004CDB /* TYImageCache.h in Headers */,
 				42F4113F1C214C5400814E7B /* CCLineBrush.h in Headers */,
 				42A1F64C1C8A84B200A20F64 /* CCDebugHttpDetailViewController.h in Headers */,
 				4219EE0A1C7FF93F00F1EE76 /* MLExpressionManager.h in Headers */,
@@ -6967,6 +7041,7 @@
 				425330731C96B1A000375ED0 /* BaseViewManger.h in Headers */,
 				428B5C391C22609C001B8584 /* qrspec.h in Headers */,
 				427369521D6FCF4E00921B48 /* CCTabBar.h in Headers */,
+				42DEC0A31D94DDB400004CDB /* TYDrawStorage.h in Headers */,
 				42A1F6291C8A761D00A20F64 /* CCDebugCrashViewController.h in Headers */,
 				42E9531C1C589DB3001C93CB /* CCBannerView.h in Headers */,
 				429C9C9D1B9EF66A0013A44A /* CCFramework.h in Headers */,
@@ -7028,6 +7103,7 @@
 				429CA1261B9EF8BF0013A44A /* CCAnnotation.h in Headers */,
 				42068EFF1C573E33005DFB01 /* POPDecayAnimationInternal.h in Headers */,
 				429C9FBA1B9EF8BF0013A44A /* FriendGroup.h in Headers */,
+				42DEC09F1D94DDB400004CDB /* NSMutableAttributedString+TY.h in Headers */,
 				42DEB2B61C254A2100734E09 /* CCBarSlider.h in Headers */,
 				421DC6081C85750E009E825B /* NSDictionary+Additions.h in Headers */,
 				4254776D1BD2AEC20071BBC5 /* txt_db.h in Headers */,
@@ -7132,12 +7208,14 @@
 				429C9FF51B9EF8BF0013A44A /* SRWebSocketConnectionInfo.h in Headers */,
 				429C9FFB1B9EF8BF0013A44A /* SRWebSocket.h in Headers */,
 				425477451BD2AEC20071BBC5 /* err.h in Headers */,
+				42DEC0A91D94DDB400004CDB /* TYLinkTextStorage.h in Headers */,
 				429C9FD31B9EF8BF0013A44A /* SRVersion.h in Headers */,
 				4230E1911BBB83E40001E68F /* CCRadarView.h in Headers */,
 				429C9FF11B9EF8BF0013A44A /* SRServerSentEventsTransport.h in Headers */,
 				421DC7CF1C85992B009E825B /* UIImage+Additions.h in Headers */,
 				422359371C867C41005207B9 /* NSDate+Additions.h in Headers */,
 				42C208E21BDDF91400C76004 /* Animation.h in Headers */,
+				42DEC0AC1D94DDB400004CDB /* TYTextContainer.h in Headers */,
 				42068F021C573E33005DFB01 /* POPPropertyAnimationInternal.h in Headers */,
 				429C9FE81B9EF8BF0013A44A /* SRServerSentEvent.h in Headers */,
 				42C208EF1BDE1D7D00C76004 /* ModelLayer.h in Headers */,
@@ -7509,11 +7587,13 @@
 				42A1F6371C8A7DB600A20F64 /* NSURLResponse+Data.m in Sources */,
 				42A1F6221C8A75F200A20F64 /* CCDebugLogViewController.m in Sources */,
 				427E1A2D1D3E07D10093281F /* NSMutableAttributedString+Image.m in Sources */,
+				42DEC0AB1D94DDB400004CDB /* TYTextContainer+Extended.m in Sources */,
 				429C9F6B1B9EF8BF0013A44A /* BaseViewModel.m in Sources */,
 				42F411441C214C5400814E7B /* CCEllipseBrush.m in Sources */,
 				4298C77E1BDCAB3D00A3581D /* CoreDataMasterSlave.m in Sources */,
 				429CA08A1B9EF8BF0013A44A /* CCAutoTextView.m in Sources */,
 				428B5C331C22609C001B8584 /* QRCodeGenerator.m in Sources */,
+				42DEC0A21D94DDB400004CDB /* TYAttributedLabel.m in Sources */,
 				4219EE0B1C7FF93F00F1EE76 /* MLExpressionManager.m in Sources */,
 				42068F1D1C573E33005DFB01 /* POPLayerExtras.mm in Sources */,
 				42DEB2A71C25495000734E09 /* CCDragChip.m in Sources */,
@@ -7563,6 +7643,7 @@
 				429CA0391B9EF8BF0013A44A /* CCPhotoToolbar.m in Sources */,
 				421DC6B31C85750E009E825B /* UIDevice+Additions.m in Sources */,
 				42068F071C573E33005DFB01 /* POPAnimatableProperty.mm in Sources */,
+				42DEC0AF1D94DDB400004CDB /* TYTextStorage.m in Sources */,
 				420CB1401C7D788500A0EC25 /* MASViewAttribute.m in Sources */,
 				42F1640A1C2A401E00F17928 /* CCToolButton.m in Sources */,
 				4267DD1D1BDB5C5900B0C43F /* BaseManagedObject.m in Sources */,
@@ -7641,12 +7722,14 @@
 				421DC7B01C8595AB009E825B /* UIActionSheet+Additions.m in Sources */,
 				42063EC11C8936F1003348EB /* CALayer+Additions.m in Sources */,
 				425F0EB91D4C30720025178C /* UITabBar+Additional.m in Sources */,
+				42DEC0B21D94DDB400004CDB /* TYViewStorage.m in Sources */,
 				429CA0021B9EF8BF0013A44A /* CCActionSheet.m in Sources */,
 				42A1F65F1C8A8E4000A20F64 /* FMDatabase.m in Sources */,
 				427E1A391D3E13BA0093281F /* NSMutableAttributedString+FrameRef.m in Sources */,
 				426979361BA695BA00C3E93C /* AFSecurityPolicy.m in Sources */,
 				429C9F731B9EF8BF0013A44A /* CCHTTPRequest.m in Sources */,
 				426979421BA695BA00C3E93C /* UIButton+AFNetworking.m in Sources */,
+				42DEC0A41D94DDB400004CDB /* TYDrawStorage.m in Sources */,
 				429C9FC41B9EF8BF0013A44A /* SRHubProxy.m in Sources */,
 				42068F041C573E33005DFB01 /* POPSpringAnimation.mm in Sources */,
 				42DEB2AD1C25495000734E09 /* CCSwatches.m in Sources */,
@@ -7776,11 +7859,13 @@
 				429CA0941B9EF8BF0013A44A /* CCDatePicker.m in Sources */,
 				42F411481C214C5400814E7B /* CCSquareBrush.m in Sources */,
 				42F4121F1C21648300814E7B /* CCPaintingLayer.m in Sources */,
+				42DEC0A81D94DDB400004CDB /* TYImageStorage.m in Sources */,
 				4298C78B1BDCBB0300A3581D /* CoreDataMasterSlave+Modify.m in Sources */,
 				4206A52B1C783CFA001A1CF3 /* CCAssetCell.m in Sources */,
 				42F24C5C1BEA5091008CDEDC /* PNGenericChart.m in Sources */,
 				422E91711C5F38BE008F7DDA /* PRTween.m in Sources */,
 				424BD58F1C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.m in Sources */,
+				42DEC0A01D94DDB400004CDB /* NSMutableAttributedString+TY.m in Sources */,
 				429C9F571B9EF8BF0013A44A /* BaseTableViewController.m in Sources */,
 				42E9531D1C589DB3001C93CB /* CCBannerView.m in Sources */,
 				421DC6251C85750E009E825B /* NSDecimalNumber+Additions.m in Sources */,
@@ -7801,6 +7886,7 @@
 				42F411401C214C5400814E7B /* CCLineBrush.m in Sources */,
 				4268CEDF1C4381A100434D65 /* CCExpandHeader.m in Sources */,
 				4206A52D1C783CFA001A1CF3 /* CCBottomBar.m in Sources */,
+				42DEC0AD1D94DDB400004CDB /* TYTextContainer.m in Sources */,
 				4298C7871BDCB33D00A3581D /* CoreDataMasterSlave+Convenience.m in Sources */,
 				42F412161C215BC400814E7B /* CCGraffitiBoardView.m in Sources */,
 				4206A5291C783CFA001A1CF3 /* CCAlbumCell.m in Sources */,
@@ -7866,6 +7952,7 @@
 				42D900A31BF4817000B8B01F /* UITextView+CCSignalSupport.m in Sources */,
 				427369531D6FCF4E00921B48 /* CCTabBar.m in Sources */,
 				429C9FD41B9EF8BF0013A44A /* SRVersion.m in Sources */,
+				42DEC0AA1D94DDB400004CDB /* TYLinkTextStorage.m in Sources */,
 				429CA12D1B9EF8BF0013A44A /* SignalRManager.m in Sources */,
 				425477801BD2AEC20071BBC5 /* openssl_wrapper.m in Sources */,
 				425477751BD2AEC20071BBC5 /* base64.m in Sources */,
@@ -7875,6 +7962,7 @@
 				42068F381C576414005DFB01 /* CCVoiceProgressHUD.m in Sources */,
 				4264D7431BA2C19100E83159 /* CCPagesContainerTopBar.m in Sources */,
 				4269792A1BA695BA00C3E93C /* AFHTTPSessionManager.m in Sources */,
+				42DEC0A61D94DDB400004CDB /* TYImageCache.m in Sources */,
 				42F24C7A1BEA5A10008CDEDC /* CCChart.m in Sources */,
 				42DEB2931C25495000734E09 /* CCColor.m in Sources */,
 				429CA1041B9EF8BF0013A44A /* CCMessageBubbleFactory.m in Sources */,

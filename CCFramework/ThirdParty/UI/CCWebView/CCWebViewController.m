@@ -29,6 +29,7 @@
 #import "CCWebViewProgressView.h"
 #import "config.h"
 #import <JavaScriptCore/JavaScriptCore.h>
+#import "UIViewController+Additions.h"
 
 typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 
@@ -65,6 +66,12 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
+
+    self.navigationController.navigationBar.translucent = NO;
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+
     [self initControl];
 }
 
@@ -83,6 +90,23 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
         [self loadHTMLString];
 
     [self.view addSubview:view];
+
+    typeof(self) __weak weakSelf = self;
+    [self backButtonTouched:^(UIViewController *vc) {
+        if (NSClassFromString(@"WKWebView")){
+            if (weakSelf.webWKView.backForwardList.backList.count > 0) {
+                [weakSelf.webWKView goBack];
+            }else{
+                [vc.navigationController popViewControllerAnimated:YES];
+            }
+        }else{
+            if (weakSelf.webView.canGoBack) {
+                [weakSelf.webView goBack];
+            }else{
+                [vc.navigationController popViewControllerAnimated:YES];
+            }
+        }
+    }];
 }
 
 - (void)loadRequest
@@ -107,6 +131,22 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
         [self.webView loadHTMLString:self.htmlString baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
 }
 
+- (void)goBack
+{
+    if (NSClassFromString(@"WKWebView"))
+        [self.webWKView goBack];
+    else
+        [self.webView goBack];
+}
+
+- (void)goForward
+{
+    if (NSClassFromString(@"WKWebView"))
+        [self.webWKView goForward];
+    else
+        [self.webView goForward];
+}
+
 #pragma mark -
 #pragma mark :. JSBlock
 
@@ -128,6 +168,19 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 {
     for (NSString *fName in functionNames)
         [self didCapture:fName ResponseBlock:block];
+}
+
+#pragma mark -
+#pragma mark :. OCTransferJs
+- (void)evaluateJavaScript:(NSString *)javaScriptString
+         completionHandler:(void (^)(id response, NSError *error))completionHandler
+{
+    if (NSClassFromString(@"WKWebView")) {
+
+        [self.webWKView evaluateJavaScript:javaScriptString completionHandler:^(id _Nullable response, NSError *_Nullable error) {
+            completionHandler?completionHandler(response,error):nil;
+        }];
+    }
 }
 
 #pragma mark -
@@ -173,10 +226,10 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 - (WKWebView *)webWKView
 {
     if (!_webWKView) {
-        _webWKView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, winsize.width, winsize.height - 64) configuration:self.configuration];
+        _webWKView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:self.configuration];
         _webWKView.backgroundColor = [UIColor whiteColor];
         _webWKView.opaque = NO;
-
+        _webWKView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _webWKView.UIDelegate = self;
         _webWKView.navigationDelegate = self;
         _webWKView.allowsBackForwardNavigationGestures = YES;
@@ -199,8 +252,9 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 - (UIWebView *)webView
 {
     if (!_webView) {
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, winsize.width, winsize.height - 64)];
+        _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
         _webView.backgroundColor = [UIColor whiteColor];
+        _webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _webView.opaque = NO;
         for (UIView *subview in [_webView.scrollView subviews]) {
             if ([subview isKindOfClass:[UIImageView class]]) {
@@ -267,6 +321,25 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 }
 
 #pragma mark -
+#pragma mark :.
+
+- (void)jumpPage:(NSString *)baseURL
+{
+    if ([baseURL rangeOfString:@"http://"].location == NSNotFound)
+        baseURL = [NSString stringWithFormat:@"http://%@", baseURL];
+
+    NSURL *url = [NSURL URLWithString:[baseURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+
+    self.originLable.text = [NSString stringWithFormat:@"网页由 %@ 提供", url.host];
+
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    if (NSClassFromString(@"WKWebView"))
+        [self.webWKView loadRequest:request];
+    else
+        [self.webView loadRequest:request];
+}
+
+#pragma mark -
 #pragma mark :. UIWebViewDelegate
 
 /**
@@ -280,9 +353,12 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
         [self progressChanged:[change objectForKey:NSKeyValueChangeNewKey]];
     } else if ([keyPath isEqualToString:@"title"]) {
         _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.8];
-        self.webWKView.backgroundColor = [UIColor clearColor];
-        if (!self.title)
-            self.title = change[NSKeyValueChangeNewKey];
+
+        NSString *changeTitle = change[NSKeyValueChangeNewKey];
+        if (![self.title isEqualToString:changeTitle]) {
+            self.title = changeTitle;
+            [self observeTitle:self.title];
+        }
     }
 }
 
@@ -291,8 +367,11 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 {
     [_progressView setProgress:progress animated:YES];
     _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.8];
-    if (!self.title)
-        self.title = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    NSString *changeTitle = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    if (![self.title isEqualToString:changeTitle]) {
+        self.title = changeTitle;
+        [self observeTitle:self.title];
+    }
 }
 
 /**
@@ -307,8 +386,9 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
     if (!self.progressView) return;
 
     self.progressView.progress = newValue.floatValue;
-    if (self.progressView.progress == 1) {
+    if (newValue.floatValue == 1) {
         self.progressView.progress = 0;
+        self.webWKView.backgroundColor = [UIColor clearColor];
         [UIView animateWithDuration:.02 animations:^{
             self.progressView.alpha = 0;
         }];
@@ -317,6 +397,10 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
             self.progressView.alpha = 1;
         }];
     }
+}
+
+- (void)observeTitle:(NSString *)title
+{
 }
 
 #pragma mark -
@@ -350,11 +434,6 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 {
 }
 
-- (void)evaluateJavaScript:(NSString *)javaScriptString
-         completionHandler:(void (^)(id, NSError *))completionHandler
-{
-}
-
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
 {
     self.responseBlock ? self.responseBlock(message.name, message.body) : nil;
@@ -363,13 +442,15 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 - (void)dealloc
 {
     if (NSClassFromString(@"WKWebView")) {
-        [self.webWKView removeObserver:self forKeyPath:@"estimatedProgress"];
-        [self.webWKView removeObserver:self forKeyPath:@"title"];
+        _webWKView.UIDelegate = nil;
+        _webWKView.navigationDelegate = nil;
+        [_webWKView removeObserver:self forKeyPath:@"estimatedProgress"];
+        [_webWKView removeObserver:self forKeyPath:@"title"];
     } else {
-        [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
-        [self.webView removeObserver:self forKeyPath:@"title"];
+        [_webView removeObserver:self forKeyPath:@"estimatedProgress"];
+        [_webView removeObserver:self forKeyPath:@"title"];
     }
-    [self.progressView removeFromSuperview];
+    [_progressView removeFromSuperview];
 }
 
 @end

@@ -48,6 +48,28 @@
 - (void)loadHTMLString:(NSString *)string;
 
 /**
+ *  @author CC, 16-09-23
+ *
+ *  @brief 跳转页面
+ *
+ *  @param baseURL URL地址
+ */
+- (void)jumpPage:(NSString *)baseURL;
+
+/**
+ *  @author CC, 16-09-23
+ *
+ *  @brief 页面后退
+ */
+- (void)goBack;
+/**
+ *  @author CC, 16-09-23
+ *
+ *  @brief 页面前进
+ */
+- (void)goForward;
+
+/**
  *  @author CC, 16-07-30
  *
  *  @brief JS捕获
@@ -68,5 +90,25 @@
  */
 - (void)didCaptures:(NSArray<NSString *> *)functionNames
       ResponseBlock:(void (^)(NSString *functionName, id arguments))block;
+
+/**
+ *  @author CC, 16-09-23
+ *
+ *  @brief OC调用Js
+ *
+ *  @param javaScriptString  JS函数名
+ *  @param completionHandler 回调事件
+ */
+- (void)evaluateJavaScript:(NSString *)javaScriptString
+         completionHandler:(void (^)(id response, NSError *error))completionHandler;
+
+/**
+ *  @author CC, 16-09-22
+ *
+ *  @brief 观察标题
+ *
+ *  @param title 标题
+ */
+-(void)observeTitle:(NSString *)title;
 
 @end

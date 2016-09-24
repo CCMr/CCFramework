@@ -96,6 +96,14 @@
 @property(nonatomic, strong) UIImage *avatar;
 @property(nonatomic, copy) NSString *avatarUrl;
 
+#pragma mark - 文件
+@property(nonatomic, copy) NSString *fileThumbnailUrl;
+@property(nonatomic, copy) NSString *fileOriginPhotoUrl;
+@property(nonatomic, strong) UIImage *filePhoto;
+@property(nonatomic, copy) NSString *fileName;
+@property(nonatomic, assign) NSInteger fileSize;
+@property(nonatomic, assign) CGSize filePhotoSize;
+
 /**
  *  @author CC, 16-08-25
  *
@@ -351,5 +359,43 @@
                                   location:(CLLocation *)location
                                     sender:(NSString *)sender
                                  timestamp:(NSDate *)timestamp;
+
+/**
+ *  @author CC, 16-09-22
+ *
+ *  @brief 初始化文件消息类型
+ *
+ *  @param filePath  文件URL
+ *  @param fileName  文件名称
+ *  @param fileSize  文件大小
+ *  @param sender    发送者
+ *  @param timestamp 发送时间
+ *
+ *  @return 返回Message model 对象
+ */
+- (instancetype)initWithFile:(NSString *)fileThumbnailUrl
+                    FileName:(NSString *)fileName
+                    FileSize:(NSInteger)fileSize
+                      sender:(NSString *)sender
+                   timestamp:(NSDate *)timestamp;
+
+/**
+ *  @author CC, 16-09-22
+ *
+ *  @brief 初始化文件消息类型
+ *
+ *  @param filePhoto 文件图片
+ *  @param fileName  文件名称
+ *  @param fileSize  文件大小
+ *  @param sender    发送者
+ *  @param timestamp 发送时间
+ *
+ *  @return 返回Message model 对象
+ */
+- (instancetype)initWithFilePhoto:(UIImage *)filePhoto
+                         FileName:(NSString *)fileName
+                         FileSize:(NSInteger)fileSize
+                           sender:(NSString *)sender
+                        timestamp:(NSDate *)timestamp;
 
 @end

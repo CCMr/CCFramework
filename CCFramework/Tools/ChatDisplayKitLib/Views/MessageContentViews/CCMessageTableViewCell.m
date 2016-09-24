@@ -547,8 +547,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         if (!_timestampLabel) {
             CCBadgeView *timestampLabel = [[CCBadgeView alloc] initWithFrame:CGRectMake(0, kCCLabelPadding, winsize.width, kCCTimeStampLabelHeight)];
             timestampLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-            timestampLabel.badgeColor = [UIColor clearColor];   //[UIColor colorWithWhite:0.734 alpha:1.000];
-            timestampLabel.textColor = cc_ColorRGB(51, 58, 79); //[UIColor whiteColor];
+            timestampLabel.badgeColor = [UIColor colorWithWhite:0.734 alpha:1.000];
+            timestampLabel.textColor = [UIColor whiteColor]; //cc_ColorRGB(51, 58, 79); //
             timestampLabel.font = [UIFont systemFontOfSize:10.0f];
             timestampLabel.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) / 2.0, timestampLabel.center.y);
             [self.contentView addSubview:timestampLabel];
