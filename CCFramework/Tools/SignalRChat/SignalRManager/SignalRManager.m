@@ -24,6 +24,7 @@
 
 #import "SignalRManager.h"
 #import "SignalR.h"
+#import "AFNetworkReachabilityManager.h"
 
 @interface SignalRManager () <SRConnectionDelegate>
 
@@ -106,11 +107,28 @@
 - (instancetype)init
 {
     self = [super init];
-
+    
     if (self) {
+        [self initialization];
     }
-
+    
     return self;
+}
+
+/**
+ *  @author C C, 2016-09-24
+ *  
+ *  @brief  （status 0: 无网络 1: 3G/4G 2:WiFi）
+ */
+- (void)initialization
+{
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        if (status == AFNetworkReachabilityStatusReachableViaWWAN || status == AFNetworkReachabilityStatusReachableViaWiFi) {
+            [self detectStart];
+        }
+    }];
 }
 
 /**
@@ -254,7 +272,7 @@
 - (void)sendInvoke:(NSString *)eventName
           withArgs:(id)args, ... NS_REQUIRES_NIL_TERMINATION
 {
-
+    
     NSMutableArray *array = [NSMutableArray array];
     if (args) {
         [array addObject:args];
@@ -266,7 +284,7 @@
         }
         va_end(arguments);
     }
-
+    
     [self.chatProxy invoke:eventName
                   withArgs:array];
 }
@@ -398,6 +416,7 @@
 - (void)SRConnectionDidClose:(id<SRConnectionInterface>)connection
 {
     [self connectionDidClose];
+    [self.hubConnection stop];
 }
 
 /**
@@ -428,7 +447,7 @@
  */
 - (void)SRConnection:(id <SRConnectionInterface>)connection didChangeState:(connectionState)oldState newState:(connectionState)newState
 {
-
+    
 }
 
 /**
@@ -442,7 +461,7 @@
  */
 - (void)SRConnectionDidSlow:(id <SRConnectionInterface>)connection
 {
-
+    
 }
 
 
