@@ -115,7 +115,7 @@
 /**
  *  是否显示表情商店的按钮
  */
-@property (nonatomic, assign) BOOL isShowEmotionStoreButton; // default is YES
+@property(nonatomic, assign) BOOL isShowEmotionStoreButton; // default is YES
 
 /**
  *  @author CC, 16-09-02
@@ -123,6 +123,13 @@
  *  @brief 发送按钮是否可以点击
  */
 @property(nonatomic, assign) BOOL isSendButton;
+
+/**
+ *  @author C C, 2016-10-04
+ *  
+ *  @brief  是否管理(默认 YES)
+ */
+@property(nonatomic, assign) BOOL isManager;
 
 /**
  *  根据数据源刷新UI布局和数据

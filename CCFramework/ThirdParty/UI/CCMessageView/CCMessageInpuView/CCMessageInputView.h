@@ -59,7 +59,6 @@ typedef NS_ENUM(NSInteger, CCMessageInputViewStyle) {
 - (void)inputTextViewWillBeginEditing:(CCMessageTextView *)messageInputTextView;
 
 
-
 @optional
 
 /**
@@ -226,6 +225,13 @@ typedef NS_ENUM(NSInteger, CCMessageInputViewStyle) {
  *  @since 1.0
  */
 @property(nonatomic, assign) BOOL allowsSendFace; // default is YES
+
+/**
+ *  @author C C, 2016-10-04
+ *  
+ *  @brief  是否禁言
+ */
+@property(nonatomic, assign) BOOL allowTalk; // default is NO
 
 /**
  *  @author CC, 2015-08-13

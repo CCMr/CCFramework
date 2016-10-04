@@ -72,6 +72,13 @@
 @property(nonatomic, assign) BOOL isSendButton;
 
 /**
+ *  @author C C, 2016-10-04
+ *  
+ *  @brief  是否管理
+ */
+@property(nonatomic, assign) BOOL isManager;
+
+/**
  *  @author CC, 2015-12-03
  *
  *  @brief  选中下标

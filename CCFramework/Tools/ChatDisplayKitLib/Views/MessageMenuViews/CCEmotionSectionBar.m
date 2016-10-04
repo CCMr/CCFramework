@@ -136,7 +136,7 @@
             [self.sectionBarScrollView scrollRectToVisible:CGRectMake(button.frame.origin.x, 0, self.sectionBarScrollView.frame.size.width, self.sectionBarScrollView.frame.size.height) animated:YES];
         }
     }
-
+    
     [self switchingButton:_currentIndex];
 }
 
@@ -144,12 +144,12 @@
 {
     CGFloat hideX = CGRectGetMaxX(self.bounds) + 20;
     CGFloat showX = CGRectGetMaxX(self.bounds) - kCCStoreManagerItemWidth;
-
+    
     [UIView animateWithDuration:0.3 animations:^{
         CGRect frame = self.sendMessageItemButton.frame;
         frame.origin.x = isShow?hideX:showX;
         self.sendMessageItemButton.frame = frame;
-
+        
         frame = self.emojiManagerItemButton.frame;
         frame.origin.x = isShow?showX:hideX;
         self.emojiManagerItemButton.frame = frame;
@@ -161,7 +161,7 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(0, 0, kCCStoreManagerItemWidth, CGRectGetHeight(self.bounds));
     [button addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-
+    
     return button;
 }
 
@@ -172,7 +172,7 @@
     button.backgroundColor = [UIColor whiteColor];
     button.titleLabel.font = [UIFont systemFontOfSize:14];
     [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-
+    
     button.layer.shadowColor = [UIColor lightGrayColor].CGColor;
     button.layer.shadowOffset = CGSizeMake(-2.0, 10);
     button.layer.shadowOpacity = 10;
@@ -185,14 +185,14 @@
 {
     if (!self.emotionManagers.count)
         return;
-
+    
     [self.sectionBarScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-
+    
     for (CCEmotionManager *emotionManager in self.emotionManagers) {
         NSInteger index = [self.emotionManagers indexOfObject:emotionManager];
         UIButton *sectionButton = [self cratedButton];
         sectionButton.tag = index;
-
+        
         UIImage *image = [UIImage imageWithContentsOfFile:emotionManager.emotionIcon];
         if (image) {
             UIImage *sourceImage = [UIImage imageWithContentsOfFile:emotionManager.emotionIcon];
@@ -200,7 +200,7 @@
             [sourceImage drawInRect:CGRectMake(0, 0, 25, 25)];
             UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
             UIGraphicsEndImageContext();
-
+            
             [sectionButton setImage:newImage forState:UIControlStateNormal];
             [sectionButton setImage:newImage forState:UIControlStateHighlighted];
         } else if (emotionManager.emotionIcon && [emotionManager.emotionIcon rangeOfString:@"http://"].location != NSNotFound) {
@@ -208,24 +208,24 @@
         } else if (emotionManager.emotionName) {
             [sectionButton setTitle:emotionManager.emotionName forState:UIControlStateNormal];
         }
-
+        
         sectionButton.titleLabel.font = [UIFont systemFontOfSize:14];
         [sectionButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-
+        
         if (_currentIndex == index)
             sectionButton.backgroundColor = self.superview.backgroundColor; // [UIColor whiteColor];
-
+        
         CGRect sectionButtonFrame = sectionButton.frame;
         sectionButtonFrame.origin.x = index * (CGRectGetWidth(sectionButtonFrame) + kCCLineWidth);
         sectionButton.frame = sectionButtonFrame;
-
+        
         [self.sectionBarScrollView addSubview:sectionButton];
-
+        
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(sectionButtonFrame.origin.x + sectionButtonFrame.size.width, 3, kCCLineWidth, sectionButtonFrame.size.height - 6)];
         line.backgroundColor = [UIColor lightGrayColor];
         [self.sectionBarScrollView addSubview:line];
     }
-
+    
     [self.sectionBarScrollView setContentSize:CGSizeMake((self.emotionManagers.count + 2) * kCCStoreManagerItemWidth, CGRectGetHeight(self.bounds))];
 }
 
@@ -233,6 +233,7 @@
 
 - (void)setup
 {
+    _isManager = YES;
     if (!_storeManagerItemButton) {
         UIButton *storeManagerItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
         storeManagerItemButton.frame = CGRectMake(0, 0, kCCStoreManagerItemWidth, CGRectGetHeight(self.bounds));
@@ -241,7 +242,7 @@
         UIImage *storeImage = [UIImage imageNamed:@"storManager"];
         if (!storeImage) {
             [storeManagerItemButton setTitle:@"商店" forState:UIControlStateNormal];
-        }else{
+        } else {
             [storeManagerItemButton setImage:storeImage forState:UIControlStateNormal];
         }
         
@@ -249,12 +250,12 @@
         [storeManagerItemButton addTarget:self action:@selector(didStoreClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:storeManagerItemButton];
         _storeManagerItemButton = storeManagerItemButton;
-
+        
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(kCCStoreManagerItemWidth, 3, kCCLineWidth, storeManagerItemButton.frame.size.height - 6)];
         line.backgroundColor = [UIColor lightGrayColor];
         [self addSubview:line];
     }
-
+    
     if (!_sectionBarScrollView) {
         UIScrollView *sectionBarScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(kCCStoreManagerItemWidth + kCCLineWidth, 0, CGRectGetWidth(self.bounds) - kCCStoreManagerItemWidth - kCCLineWidth, CGRectGetHeight(self.bounds))];
         [sectionBarScrollView setScrollsToTop:NO];
@@ -264,30 +265,31 @@
         [self addSubview:sectionBarScrollView];
         _sectionBarScrollView = sectionBarScrollView;
     }
-
+    
     if (!_sendMessageItemButton) {
         UIButton *sendMessageItemButton = [self crateItemButton];
         [sendMessageItemButton setTitle:@"发送" forState:UIControlStateNormal];
         [sendMessageItemButton addTarget:self action:@selector(didSectionBarSend:) forControlEvents:UIControlEventTouchUpInside];
-
+        
         [self addSubview:sendMessageItemButton];
         _sendMessageItemButton = sendMessageItemButton;
     }
-
+    
     if (!_emojiManagerItemButton) {
         UIButton *emojiManagerItemButton = [self crateItemButton];
         [emojiManagerItemButton setTitle:@"管理" forState:UIControlStateNormal];
         [emojiManagerItemButton addTarget:self action:@selector(didEmojiManagerClick:) forControlEvents:UIControlEventTouchUpInside];
-
+        
         [self addSubview:emojiManagerItemButton];
         _emojiManagerItemButton = emojiManagerItemButton;
     }
+    
 }
 
 - (void)setIsSendButton:(BOOL)isSendButton
 {
     _isSendButton = isSendButton;
-
+    
     self.sendMessageItemButton.backgroundColor = [UIColor whiteColor];
     [self.sendMessageItemButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     self.sendMessageItemButton.enabled = NO;
@@ -295,6 +297,23 @@
         self.sendMessageItemButton.enabled = YES;
         self.sendMessageItemButton.backgroundColor = [UIColor colorWithRed:46.f / 255.f green:169.f / 255.f blue:223.f / 255.f alpha:1.f];
         [self.sendMessageItemButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }
+}
+
+- (void)setIsManager:(BOOL)isManager
+{
+    _isManager = isManager;
+    
+    _storeManagerItemButton.hidden = NO;
+    _sectionBarScrollView.frame = CGRectMake(kCCStoreManagerItemWidth + kCCLineWidth, 0, CGRectGetWidth(self.bounds) - kCCStoreManagerItemWidth - kCCLineWidth, CGRectGetHeight(self.bounds));
+    _sendMessageItemButton.hidden = NO;
+    _emojiManagerItemButton.hidden = NO;
+    
+    if (!isManager) {
+        _storeManagerItemButton.hidden = YES;
+        _sectionBarScrollView.frame = CGRectMake(kCCLineWidth, 0, CGRectGetWidth(self.bounds) - kCCLineWidth, CGRectGetHeight(self.bounds));
+        _sendMessageItemButton.hidden = YES;
+        _emojiManagerItemButton.hidden = YES;
     }
 }
 

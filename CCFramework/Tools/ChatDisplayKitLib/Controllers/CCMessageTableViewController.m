@@ -363,6 +363,8 @@
                 self.loadingMoreMessage = NO;
             });
         });
+    }else{
+        self.loadingMoreMessage = NO;
     }
 }
 

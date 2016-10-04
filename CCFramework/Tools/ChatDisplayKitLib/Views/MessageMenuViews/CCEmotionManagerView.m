@@ -99,6 +99,12 @@
     }
 }
 
+- (void)setIsManager:(BOOL)isManager
+{
+    _isManager = isManager;
+    self.emotionSectionBar.isManager = isManager;
+}
+
 #pragma mark - Life cycle
 
 - (void)setup
