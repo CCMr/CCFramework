@@ -83,7 +83,7 @@
 {
     self = [super init];
     if (self) {
-        self.iconImage = iconName;
+        self.iconImage = [UIImage imageNamed:iconName];
         self.title = title;
         self.badgeValue = badgeValue;
         self.badgeBGColor = badgeBGColor;

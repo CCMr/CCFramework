@@ -56,6 +56,9 @@
  */
 - (void)jumpPage:(NSString *)baseURL;
 
+-(BOOL)isGoBack;
+-(BOOL)isGoForward;
+
 /**
  *  @author CC, 16-09-23
  *

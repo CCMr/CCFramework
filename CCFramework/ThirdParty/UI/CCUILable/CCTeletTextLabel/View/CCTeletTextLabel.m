@@ -194,7 +194,7 @@ static NSArray *kAllRegexps()
     return _allRegexps;
 }
 
-- (NSArray *)regexpsWithDataDetectorTypes:(MLDataDetectorTypes)dataDetectorTypes
+- (NSArray *)regexpsWithDataDetectorTypes:(CCDataDetectorTypes)dataDetectorTypes
 {
     CCDataDetectorTypes const allDataDetectorTypes[] = {CCDataDetectorTypeURL, CCDataDetectorTypePhoneNumber, CCDataDetectorTypeEmail, CCDataDetectorTypeUserHandle, CCDataDetectorTypeHashtag};
     NSArray *allRegexps = kAllRegexps();
@@ -277,7 +277,6 @@ static NSArray *kAllRegexps()
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    UITouch *touch = [touches anyObject];
     CGPoint position = [[touches anyObject] locationInView:self];
 
     self.activeLink = [self touchLinkWithPosition:position];
@@ -291,7 +290,6 @@ static NSArray *kAllRegexps()
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if (self.activeLink) {
-        UITouch *touch = [touches anyObject];
         CGPoint position = [[touches anyObject] locationInView:self];
 
         if (![self.activeLink isEqual:[self touchLinkWithPosition:position]])

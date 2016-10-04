@@ -238,7 +238,13 @@
         storeManagerItemButton.frame = CGRectMake(0, 0, kCCStoreManagerItemWidth, CGRectGetHeight(self.bounds));
         storeManagerItemButton.backgroundColor = [UIColor whiteColor];
         storeManagerItemButton.titleLabel.font = [UIFont systemFontOfSize:14];
-        [storeManagerItemButton setTitle:@"商店" forState:UIControlStateNormal];
+        UIImage *storeImage = [UIImage imageNamed:@"storManager"];
+        if (!storeImage) {
+            [storeManagerItemButton setTitle:@"商店" forState:UIControlStateNormal];
+        }else{
+            [storeManagerItemButton setImage:storeImage forState:UIControlStateNormal];
+        }
+        
         [storeManagerItemButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [storeManagerItemButton addTarget:self action:@selector(didStoreClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:storeManagerItemButton];

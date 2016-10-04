@@ -136,6 +136,9 @@
  */
 @property (nonatomic, weak, readonly) UILabel *geolocationsLabel;
 
+/** 文件视图 */
+@property(nonatomic, weak, readonly) UIView *fileView;
+
 /**
  *  设置文本消息的字体
  */

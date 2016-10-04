@@ -283,7 +283,7 @@
     CGFloat allButtonWidth = 0.0;
 
     // 水平间隔
-    CGFloat horizontalPadding = 5;
+    CGFloat horizontalPadding = 8;
 
     // 垂直间隔
     CGFloat verticalPadding = 5;

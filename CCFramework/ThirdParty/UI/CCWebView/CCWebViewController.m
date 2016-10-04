@@ -66,12 +66,13 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-
-    self.navigationController.navigationBar.translucent = NO;
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
+    
+    if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 7.0)) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
+        self.extendedLayoutIncludesOpaqueBars = NO;
+        self.modalPresentationCapturesStatusBarAppearance = NO;
     }
-
+    
     [self initControl];
 }
 
@@ -83,14 +84,14 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
         view = self.webWKView;
     else
         view = self.webView;
-
+    
     if (self.urlString)
         [self loadRequest];
     else if (self.htmlString)
         [self loadHTMLString];
-
+    
     [self.view addSubview:view];
-
+    
     typeof(self) __weak weakSelf = self;
     [self backButtonTouched:^(UIViewController *vc) {
         if (NSClassFromString(@"WKWebView")){
@@ -112,9 +113,9 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 - (void)loadRequest
 {
     NSURL *url = [NSURL URLWithString:[self.urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-
+    
     self.originLable.text = [NSString stringWithFormat:@"网页由 %@ 提供", url.host];
-
+    
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     if (NSClassFromString(@"WKWebView"))
         [self.webWKView loadRequest:request];
@@ -129,6 +130,32 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
         [self.webWKView loadHTMLString:self.htmlString baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
     else
         [self.webView loadHTMLString:self.htmlString baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
+}
+
+- (BOOL)isGoBack
+{
+    BOOL isBack = NO;
+    if (NSClassFromString(@"WKWebView")) {
+        if (self.webWKView.backForwardList.backList.count > 0)
+            isBack = YES;
+    } else {
+        if (self.webView.canGoBack)
+            isBack = YES;
+    }
+    return isBack;
+}
+
+- (BOOL)isGoForward
+{
+    BOOL isForward = NO;
+    if (NSClassFromString(@"WKWebView")) {
+        if (self.webWKView.backForwardList.forwardList.count > 0)
+            isForward = YES;
+    } else {
+        if (self.webView.canGoForward)
+            isForward = YES;
+    }
+    return isForward;
 }
 
 - (void)goBack
@@ -176,7 +203,7 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
          completionHandler:(void (^)(id response, NSError *error))completionHandler
 {
     if (NSClassFromString(@"WKWebView")) {
-
+        
         [self.webWKView evaluateJavaScript:javaScriptString completionHandler:^(id _Nullable response, NSError *_Nullable error) {
             completionHandler?completionHandler(response,error):nil;
         }];
@@ -189,7 +216,7 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 - (UILabel *)originLable
 {
     if (!_originLable) {
-
+        
         _originLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, CGRectGetWidth(self.view.bounds), 20)];
         _originLable.backgroundColor = [UIColor clearColor];
         _originLable.textAlignment = NSTextAlignmentCenter;
@@ -234,7 +261,7 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
         _webWKView.navigationDelegate = self;
         _webWKView.allowsBackForwardNavigationGestures = YES;
         _webWKView.scrollView.backgroundColor = [UIColor clearColor];
-
+        
         [_webWKView setTranslatesAutoresizingMaskIntoConstraints:NO];
         [_webWKView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
         [_webWKView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
@@ -262,12 +289,12 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
                 subview.backgroundColor = [UIColor clearColor];
             }
         }
-
+        
         _webViewProgress = [[CCWebViewProgress alloc] init];
         _webView.delegate = _webViewProgress;
         _webViewProgress.webViewProxyDelegate = self;
         _webViewProgress.progressDelegate = self;
-
+        
         [_webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
         self.webViewJSContext = [_webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     }
@@ -327,11 +354,11 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 {
     if ([baseURL rangeOfString:@"http://"].location == NSNotFound)
         baseURL = [NSString stringWithFormat:@"http://%@", baseURL];
-
+    
     NSURL *url = [NSURL URLWithString:[baseURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-
+    
     self.originLable.text = [NSString stringWithFormat:@"网页由 %@ 提供", url.host];
-
+    
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     if (NSClassFromString(@"WKWebView"))
         [self.webWKView loadRequest:request];
@@ -353,7 +380,7 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
         [self progressChanged:[change objectForKey:NSKeyValueChangeNewKey]];
     } else if ([keyPath isEqualToString:@"title"]) {
         _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.8];
-
+        
         NSString *changeTitle = change[NSKeyValueChangeNewKey];
         if (![self.title isEqualToString:changeTitle]) {
             self.title = changeTitle;
@@ -384,7 +411,7 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 - (void)progressChanged:(NSNumber *)newValue
 {
     if (!self.progressView) return;
-
+    
     self.progressView.progress = newValue.floatValue;
     if (newValue.floatValue == 1) {
         self.progressView.progress = 0;
@@ -406,6 +433,10 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 #pragma mark -
 #pragma mark :. WKWebViewDelegate
 
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error
+{
+}
+
 // 创建新的webview
 // 可以指定配置对象、导航动作对象、window特性
 - (nullable WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
@@ -414,9 +445,7 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 }
 
 // webview关闭时回调
-- (void)webViewDidClose:(WKWebView *)webView
-{
-}
+- (void)webViewDidClose:(WKWebView *)webView {}
 
 // 调用JS的alert()方法
 - (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler
@@ -425,14 +454,10 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 }
 
 // 调用JS的confirm()方法
-- (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL result))completionHandler
-{
-}
+- (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL result))completionHandler {}
 
 // 调用JS的prompt()方法
-- (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(nullable NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString *__nullable result))completionHandler
-{
-}
+- (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(nullable NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString *__nullable result))completionHandler {}
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
 {

@@ -217,8 +217,6 @@
 		4219EE181C7FF93F00F1EE76 /* MLLinkLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4219EE031C7FF93F00F1EE76 /* MLLinkLabel.m */; };
 		421C08D51CBB88DF00402EB9 /* CCTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 421C08D31CBB88DF00402EB9 /* CCTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		421C08D61CBB88DF00402EB9 /* CCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 421C08D41CBB88DF00402EB9 /* CCTextView.m */; };
-		421C643D1C83E18700696B63 /* SREventSourceRequestSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 421C64391C83E18700696B63 /* SREventSourceRequestSerializer.h */; };
-		421C643E1C83E18700696B63 /* SREventSourceRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 421C643A1C83E18700696B63 /* SREventSourceRequestSerializer.m */; };
 		421C643F1C83E18700696B63 /* SREventSourceResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 421C643B1C83E18700696B63 /* SREventSourceResponseSerializer.h */; };
 		421C64401C83E18700696B63 /* SREventSourceResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 421C643C1C83E18700696B63 /* SREventSourceResponseSerializer.m */; };
 		421C644D1C84437500696B63 /* CCGridLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 421C64471C84437500696B63 /* CCGridLayout.h */; };
@@ -603,6 +601,10 @@
 		425A4F391C11C466009A7E77 /* CCXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A4F371C11C466009A7E77 /* CCXML.m */; };
 		425A4F3C1C11CA42009A7E77 /* CCWXSingleEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 425A4F3A1C11CA42009A7E77 /* CCWXSingleEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		425A4F3D1C11CA42009A7E77 /* CCWXSingleEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A4F3B1C11CA42009A7E77 /* CCWXSingleEntity.m */; };
+		425C4D6A1D9E072A00E3CD1C /* SRTransportRequestSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = 425C4D681D9E072A00E3CD1C /* SRTransportRequestSerialization.h */; };
+		425C4D6B1D9E072A00E3CD1C /* SRTransportRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 425C4D691D9E072A00E3CD1C /* SRTransportRequestSerialization.m */; };
+		425C4D6E1D9E077200E3CD1C /* SRBlockOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 425C4D6C1D9E077200E3CD1C /* SRBlockOperation.h */; };
+		425C4D6F1D9E077200E3CD1C /* SRBlockOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 425C4D6D1D9E077200E3CD1C /* SRBlockOperation.m */; };
 		425F0EB81D4C30720025178C /* UITabBar+Additional.h in Headers */ = {isa = PBXBuildFile; fileRef = 425F0EB61D4C30720025178C /* UITabBar+Additional.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		425F0EB91D4C30720025178C /* UITabBar+Additional.m in Sources */ = {isa = PBXBuildFile; fileRef = 425F0EB71D4C30720025178C /* UITabBar+Additional.m */; };
 		4263DEE61C225A54002E1071 /* CCColorWell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4263DEE41C225A54002E1071 /* CCColorWell.h */; };
@@ -1543,8 +1545,6 @@
 		4219EE031C7FF93F00F1EE76 /* MLLinkLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLinkLabel.m; sourceTree = "<group>"; };
 		421C08D31CBB88DF00402EB9 /* CCTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTextView.h; sourceTree = "<group>"; };
 		421C08D41CBB88DF00402EB9 /* CCTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTextView.m; sourceTree = "<group>"; };
-		421C64391C83E18700696B63 /* SREventSourceRequestSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SREventSourceRequestSerializer.h; sourceTree = "<group>"; };
-		421C643A1C83E18700696B63 /* SREventSourceRequestSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SREventSourceRequestSerializer.m; sourceTree = "<group>"; };
 		421C643B1C83E18700696B63 /* SREventSourceResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SREventSourceResponseSerializer.h; sourceTree = "<group>"; };
 		421C643C1C83E18700696B63 /* SREventSourceResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SREventSourceResponseSerializer.m; sourceTree = "<group>"; };
 		421C64471C84437500696B63 /* CCGridLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCGridLayout.h; sourceTree = "<group>"; };
@@ -1929,6 +1929,10 @@
 		425A4F371C11C466009A7E77 /* CCXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCXML.m; path = Core/CCXML/CCXML.m; sourceTree = "<group>"; };
 		425A4F3A1C11CA42009A7E77 /* CCWXSingleEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCWXSingleEntity.h; path = Pay/Wxpay/Model/CCWXSingleEntity.h; sourceTree = "<group>"; };
 		425A4F3B1C11CA42009A7E77 /* CCWXSingleEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCWXSingleEntity.m; path = Pay/Wxpay/Model/CCWXSingleEntity.m; sourceTree = "<group>"; };
+		425C4D681D9E072A00E3CD1C /* SRTransportRequestSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRTransportRequestSerialization.h; sourceTree = "<group>"; };
+		425C4D691D9E072A00E3CD1C /* SRTransportRequestSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRTransportRequestSerialization.m; sourceTree = "<group>"; };
+		425C4D6C1D9E077200E3CD1C /* SRBlockOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRBlockOperation.h; sourceTree = "<group>"; };
+		425C4D6D1D9E077200E3CD1C /* SRBlockOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRBlockOperation.m; sourceTree = "<group>"; };
 		425F0EB61D4C30720025178C /* UITabBar+Additional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITabBar+Additional.h"; path = "UITabBar/UITabBar+Additional.h"; sourceTree = "<group>"; };
 		425F0EB71D4C30720025178C /* UITabBar+Additional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITabBar+Additional.m"; path = "UITabBar/UITabBar+Additional.m"; sourceTree = "<group>"; };
 		4263DEE41C225A54002E1071 /* CCColorWell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCColorWell.h; path = CCGraffitiBoard/View/CCColorWell.h; sourceTree = "<group>"; };
@@ -4406,6 +4410,15 @@
 			name = CCPagesContainer;
 			sourceTree = "<group>";
 		};
+		425C4D671D9E072A00E3CD1C /* Serialization */ = {
+			isa = PBXGroup;
+			children = (
+				425C4D681D9E072A00E3CD1C /* SRTransportRequestSerialization.h */,
+				425C4D691D9E072A00E3CD1C /* SRTransportRequestSerialization.m */,
+			);
+			path = Serialization;
+			sourceTree = "<group>";
+		};
 		425F0EB51D4C303F0025178C /* UITabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -5198,6 +5211,8 @@
 		429C9DA01B9EF8BE0013A44A /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				425C4D6C1D9E077200E3CD1C /* SRBlockOperation.h */,
+				425C4D6D1D9E077200E3CD1C /* SRBlockOperation.m */,
 				429C9DA11B9EF8BE0013A44A /* NSObject+SRJSON.h */,
 				429C9DA21B9EF8BE0013A44A /* NSObject+SRJSON.m */,
 				429C9DA31B9EF8BE0013A44A /* SRDeserializable.h */,
@@ -5213,6 +5228,7 @@
 		429C9DB81B9EF8BE0013A44A /* Transports */ = {
 			isa = PBXGroup;
 			children = (
+				425C4D671D9E072A00E3CD1C /* Serialization */,
 				429C9DB91B9EF8BE0013A44A /* ServerSentEvents */,
 				429C9DCB1B9EF8BE0013A44A /* WebSockets */,
 				429C9DC01B9EF8BE0013A44A /* SRAutoTransport.h */,
@@ -5233,8 +5249,6 @@
 		429C9DB91B9EF8BE0013A44A /* ServerSentEvents */ = {
 			isa = PBXGroup;
 			children = (
-				421C64391C83E18700696B63 /* SREventSourceRequestSerializer.h */,
-				421C643A1C83E18700696B63 /* SREventSourceRequestSerializer.m */,
 				421C643B1C83E18700696B63 /* SREventSourceResponseSerializer.h */,
 				421C643C1C83E18700696B63 /* SREventSourceResponseSerializer.m */,
 				429C9DBA1B9EF8BE0013A44A /* SRChunkBuffer.h */,
@@ -6665,6 +6679,7 @@
 				424BD58C1C8ECA3E005722F6 /* WebViewJavascriptBridge.h in Headers */,
 				425477441BD2AEC20071BBC5 /* engine.h in Headers */,
 				420CB1451C7D788500A0EC25 /* NSArray+MASShorthandAdditions.h in Headers */,
+				425C4D6E1D9E077200E3CD1C /* SRBlockOperation.h in Headers */,
 				42A1F6641C8A8E4000A20F64 /* FMDatabaseQueue.h in Headers */,
 				42063ED61C893BCF003348EB /* CLLocation+CH1903.h in Headers */,
 				42DEC0B01D94DDB400004CDB /* TYTextStorageProtocol.h in Headers */,
@@ -7116,7 +7131,6 @@
 				429CA0011B9EF8BF0013A44A /* CCActionSheet.h in Headers */,
 				42027FBD1C9BD468009D3803 /* UIGestureRecognizer+Additions.h in Headers */,
 				4219EE121C7FF93F00F1EE76 /* MLLabel+Override.h in Headers */,
-				421C643D1C83E18700696B63 /* SREventSourceRequestSerializer.h in Headers */,
 				42063EC41C8936F1003348EB /* CAShapeLayer+Additions.h in Headers */,
 				429C9FFF1B9EF8BF0013A44A /* CCRourRotation.h in Headers */,
 				42DEB2921C25495000734E09 /* CCColor.h in Headers */,
@@ -7176,6 +7190,7 @@
 				4254774A1BD2AEC20071BBC5 /* kssl.h in Headers */,
 				425477291BD2AEC20071BBC5 /* aes.h in Headers */,
 				42068F321C57480C005DFB01 /* CCRealTimeBlur.h in Headers */,
+				425C4D6A1D9E072A00E3CD1C /* SRTransportRequestSerialization.h in Headers */,
 				421E7A751C3D173D00C31AD0 /* CCDrawerVisualState.h in Headers */,
 				421E7A7D1C3D173D00C31AD0 /* UIViewController+CCSideMenu.h in Headers */,
 				421DC6B21C85750E009E825B /* UIDevice+Additions.h in Headers */,
@@ -7617,13 +7632,13 @@
 				42A1F63F1C8A7E5900A20F64 /* NSURLSessionTask+Data.m in Sources */,
 				42063E771C892E7D003348EB /* NSManagedObject+Additions.m in Sources */,
 				42648C881C01AC960085A07D /* SEViewCaptureHelper.m in Sources */,
-				421C643E1C83E18700696B63 /* SREventSourceRequestSerializer.m in Sources */,
 				429CA0741B9EF8BF0013A44A /* CCPopMenuItem.m in Sources */,
 				42F24C661BEA5091008CDEDC /* PNPieChartDataItem.m in Sources */,
 				422966811C756480005E1C03 /* CCLaunchAnimation.m in Sources */,
 				4219EE111C7FF93F00F1EE76 /* NSString+MLExpression.m in Sources */,
 				422E91731C5F38BE008F7DDA /* PRTweenTimingFunctions.m in Sources */,
 				429C9FF61B9EF8BF0013A44A /* SRWebSocketConnectionInfo.m in Sources */,
+				425C4D6B1D9E072A00E3CD1C /* SRTransportRequestSerialization.m in Sources */,
 				42F411311C214C5400814E7B /* CCImageManger.m in Sources */,
 				42A1F66C1C8AA94C00A20F64 /* CCDebugCrashHelper.m in Sources */,
 				423C127A1C0ECACB009FBA17 /* CCTool.m in Sources */,
@@ -7882,6 +7897,7 @@
 				429CA0FE1B9EF8BF0013A44A /* CCCacheManager.m in Sources */,
 				429CA1291B9EF8BF0013A44A /* CCDisplayLocationViewController.m in Sources */,
 				420CD8BC1C59F9B9009578D4 /* UIScrollView+CCInputDodger.m in Sources */,
+				425C4D6F1D9E077200E3CD1C /* SRBlockOperation.m in Sources */,
 				429CA0331B9EF8BF0013A44A /* CCPhotoBrowser.m in Sources */,
 				42F411401C214C5400814E7B /* CCLineBrush.m in Sources */,
 				4268CEDF1C4381A100434D65 /* CCExpandHeader.m in Sources */,

@@ -172,6 +172,13 @@
 - (NSDate *)afterADay;
 
 /**
+ *  @author C C, 2016-09-29
+ *  
+ *  @brief  转换时间格式（微信样式）
+ */
+- (NSString *)convertDateFormat;
+
+/**
  *  @author CC, 15-09-15
  *
  *  @brief  时间转换

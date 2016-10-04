@@ -590,7 +590,9 @@
     message.filePhoto = _filePhoto;
     message.fileThumbnailUrl = _fileThumbnailUrl;
     message.fileOriginPhotoUrl = _fileOriginPhotoUrl;
-
+    message.teletextPhotoSize = _teletextPhotoSize;
+    message.thumbnailUrl = _thumbnailUrl;
+    
     return message;
 }
 
@@ -637,7 +639,6 @@
     _filePhoto = nil;
     _fileThumbnailUrl = nil;
     _fileName = nil;
-    _fileSize = nil;
 }
 
 

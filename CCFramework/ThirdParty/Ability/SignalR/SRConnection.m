@@ -21,7 +21,6 @@
 //
 
 #include <TargetConditionals.h>
-#import <UIKit/UIKit.h>
 #import "SRAutoTransport.h"
 #import "SRConnection.h"
 #import "SRLog.h"
@@ -29,7 +28,7 @@
 #import "SRVersion.h"
 #import "SRKeepAliveData.h"
 #import "SRHeartbeatMonitor.h"
-
+#import "SRExceptionHelper.h"
 #import "NSObject+SRJSON.h"
 
 @interface SRConnection ()
@@ -93,11 +92,11 @@
         if (url == nil) {
             [NSException raise:NSInvalidArgumentException format:NSLocalizedString(@"Url should be non-null", @"")];
         }
-
+        
         if ([url hasSuffix:@"/"] == NO) {
             url = [url stringByAppendingString:@"/"];
         }
-
+        
         _url = url;
         _queryString = queryString;
         //_disconnectTimeoutOperation = DisposableAction.Empty;
@@ -126,42 +125,37 @@
     if (![self changeState:disconnected toState:connecting]) {
         return;
     }
-
+    
     _monitor = [[SRHeartbeatMonitor alloc] initWithConnection:self];
     _transport = transport;
-
+    
     [self negotiate:transport];
 }
 
 - (void)negotiate:(id<SRClientTransportInterface>)transport
 {
-    //    SRLogConnection(@"will negotiate");
-
     _connectionData = [self onSending];
-
+    
     __weak __typeof(&*self) weakSelf = self;
     [transport negotiate:self connectionData:_connectionData completionHandler:^(SRNegotiationResponse *negotiationResponse, NSError *error) {
         __strong __typeof(&*weakSelf)strongSelf = weakSelf;
         if (!error) {
-            //            SRLogConnection(@"negotiation was successful %@",negotiationResponse);
-
             [strongSelf verifyProtocolVersion:negotiationResponse.protocolVersion];
-
+            
             _connectionId = negotiationResponse.connectionId;
             _connectionToken = negotiationResponse.connectionToken;
             _disconnectTimeout = negotiationResponse.disconnectTimeout;
             _transportConnectTimeout = @([_transportConnectTimeout integerValue] + [negotiationResponse.transportConnectTimeout integerValue]);
-
+            
             // If we have a keep alive
             if (negotiationResponse.keepAliveTimeout != nil) {
                 _keepAliveData = [[SRKeepAliveData alloc] initWithTimeout:negotiationResponse.keepAliveTimeout];
             }
-
+            
             [strongSelf startTransport];
         } else {
-            //            SRLogConnection(@"negotiation failed %@", error);
             [strongSelf didReceiveError:error];
-            [strongSelf didClose];
+            [strongSelf stopButDoNotCallServer];
         }
     }];
 }
@@ -169,16 +163,16 @@
 - (void)startTransport
 {
     __weak __typeof(&*self) weakSelf = self;
-
+    
     [self.transport start:self connectionData:_connectionData completionHandler:^(id response, NSError *error) {
         __strong __typeof(&*weakSelf)strongSelf = weakSelf;
         if (!error) {
             [strongSelf changeState:connecting toState:connected];
-
+            
             if (_keepAliveData != nil && [_transport supportsKeepAlive]) {
                 [_monitor start];
             }
-
+            
             if(strongSelf.started != nil) {
                 strongSelf.started();
             }
@@ -186,8 +180,10 @@
                 [strongSelf.delegate SRConnectionDidOpen:strongSelf];
             }
         } else {
-            [strongSelf didReceiveError:error];
-            [strongSelf didClose];
+            if (![SRExceptionHelper isRequestAborted:error]) {
+                [strongSelf didReceiveError:error];
+            }
+            [strongSelf stopButDoNotCallServer];
         }
     }];
 }
@@ -199,17 +195,17 @@
         // If we're in the expected old state then change state and return true
         if (self.state == oldState) {
             self.state = newState;
-
+            
             if (self.stateChanged) {
                 self.stateChanged(self.state);
             }
-
+            
             if (self.delegate && [self.delegate respondsToSelector:@selector(SRConnection:didChangeState:newState:)]) {
                 [self.delegate SRConnection:self didChangeState:oldState newState:newState];
             }
             return YES;
         }
-
+        
         // Invalid transition
         return NO;
     }
@@ -246,32 +242,30 @@
 {
     // Do nothing if the connection is offline
     if (self.state != disconnected) {
-
         [_monitor stop];
         _monitor = nil;
-
+        
         [_transport abort:self timeout:timeout connectionData:_connectionData];
         [self disconnect];
-
-        _transport = nil;
     }
 }
 
 - (void)disconnect
 {
     if (self.state != disconnected) {
-
+        
         _state = disconnected;
-
+        
         [_monitor stop];
         _monitor = nil;
-
+        
         // Clear the state for this connection
+        _transport = nil;
         _connectionId = nil;
         _connectionToken = nil;
         _groupsToken = nil;
         _messageId = nil;
-
+        
         [self didClose];
     }
 }
@@ -299,7 +293,7 @@
         }
         return;
     }
-
+    
     if (self.state == connecting) {
         NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
         userInfo[NSLocalizedFailureReasonErrorKey] = NSInternalInconsistencyException;
@@ -313,14 +307,14 @@
         }
         return;
     }
-
+    
     NSString *message = nil;
     if ([object isKindOfClass:[NSString class]]) {
         message = object;
     } else {
         message = [object SRJSONRepresentation];
     }
-
+    
     [self.transport send:self data:message connectionData:_connectionData completionHandler:block];
 }
 
@@ -332,7 +326,7 @@
     if (self.received != nil) {
         self.received(message);
     }
-
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(SRConnection:didReceiveData:)]) {
         [self.delegate SRConnection:self didReceiveData:message];
     }
@@ -343,7 +337,7 @@
     if (self.error != nil) {
         self.error(ex);
     }
-
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(SRConnection:didReceiveError:)]) {
         [self.delegate SRConnection:self didReceiveError:ex];
     }
@@ -351,7 +345,6 @@
 
 - (void)willReconnect
 {
-
     // Only allow the client to attempt to reconnect for a _disconnectTimout TimeSpan which is set by
     // the server during negotiation.
     // If the client tries to reconnect for longer the server will likely have deleted its ConnectionId
@@ -362,11 +355,11 @@
         [strongSelf stopButDoNotCallServer];
     }];
     [self.disconnectTimeoutOperation performSelector:@selector(start) withObject:nil afterDelay:[_disconnectTimeout integerValue]];
-
+    
     if (self.reconnecting != nil) {
         self.reconnecting();
     }
-
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(SRConnectionWillReconnect:)]) {
         [self.delegate SRConnectionWillReconnect:self];
     }
@@ -378,15 +371,15 @@
                                              selector:@selector(start)
                                                object:nil];
     self.disconnectTimeoutOperation = nil;
-
+    
     if (self.reconnected != nil) {
         self.reconnected();
     }
-
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(SRConnectionDidReconnect:)]) {
         [self.delegate SRConnectionDidReconnect:self];
     }
-
+    
     [self updateLastKeepAlive];
 }
 
@@ -395,7 +388,7 @@
     if (self.connectionSlow != nil) {
         self.connectionSlow();
     }
-
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(SRConnectionDidSlow:)]) {
         [self.delegate SRConnectionDidSlow:self];
     }
@@ -406,7 +399,7 @@
     if (self.closed != nil) {
         self.closed();
     }
-
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(SRConnectionDidClose:)]) {
         [self.delegate SRConnectionDidClose:self];
     }
@@ -434,12 +427,12 @@
 #elif TARGET_OS_MAC
     [request addValue:[self createUserAgentString:NSLocalizedString(@"SignalR.Client.OSX", @"")] forHTTPHeaderField:@"User-Agent"];
 #endif
-
+    
     //TODO: set credentials
     //[request setCredentials:_credentials];
-
+    
     [request setAllHTTPHeaderFields:_headers];
-
+    
     //TODO: Potentially set proxy here
 }
 
@@ -448,7 +441,7 @@
     if (_assemblyVersion == nil) {
         _assemblyVersion = [[SRVersion alloc] initWithMajor:2 minor:0 build:0 revision:0];
     }
-
+    
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
     return [NSString stringWithFormat:@"%@/%@ (%@ %@)", client, _assemblyVersion, [[UIDevice currentDevice] localizedModel], [[UIDevice currentDevice] systemVersion]];
 #elif TARGET_OS_MAC

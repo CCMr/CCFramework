@@ -1428,7 +1428,7 @@ static char imageLoadedModeKey;
 
     [self cc_loadTapEvent];
 
-    if (self.cc_ImageURL && self.image && self.image.duration == 0 && self.cc_status == CCImageViewStatusLoaded && self.imageURL) {
+    if (self.cc_ImageURL && self.image && self.image.duration == 0 && self.cc_status == CCImageViewStatusLoaded) {
         if ([[self.cc_ImageURL absoluteString] isEqualToString:[url absoluteString]]) //相同的图片URL 就不在设置了
             return;
     }

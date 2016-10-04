@@ -26,22 +26,24 @@
 #import "SRExceptionHelper.h"
 #import "SRLog.h"
 #import "SRLongPollingTransport.h"
+#import "SRTransportRequestSerialization.h"
 
- @interface SRLongPollingTransport()
- 
- @property (strong, nonatomic, readwrite) NSOperationQueue *pollingOperationQueue;
- 
- @end
+@interface SRLongPollingTransport()
+
+@property (strong, nonatomic, readwrite) NSURLSessionDataTask *poll;
+
+@end
 
 @implementation SRLongPollingTransport
 
-- (instancetype)init {
-    if (self = [super init]) {
-        _pollingOperationQueue = [[NSOperationQueue alloc] init];
-        [_pollingOperationQueue setMaxConcurrentOperationCount:1];
-        _reconnectDelay = @5;
-        _errorDelay = @2;
+- (instancetype)initWithSessionConfiguration:(nullable NSURLSessionConfiguration *)configuration {
+    self = [super initWithSessionConfiguration:configuration];
+    if (!self) {
+        return nil;
     }
+    _reconnectDelay = @5;
+    _errorDelay = @2;
+    
     return self;
 }
 
@@ -69,11 +71,11 @@
 }
 
 - (void)abort:(id<SRConnectionInterface>)connection timeout:(NSNumber *)timeout connectionData:(NSString *)connectionData {
+    [self.poll cancel];
     [super abort:connection timeout:timeout connectionData:connectionData];
 }
 
 - (void)lostConnection:(id<SRConnectionInterface>)connection {
-
 }
 
 #pragma mark -
@@ -83,51 +85,34 @@
     
     __block NSNumber *canReconnect = @(YES);
 
-    NSString *url = connection.url;
+    NSString *path = nil;
     if(connection.messageId == nil) {
-        url = [url stringByAppendingString:@"connect"];
+        path = @"connect";
     } else if ([self isConnectionReconnecting:connection]) {
-        url = [url stringByAppendingString:@"reconnect"];
+        path = @"reconnect";
     } else {
-        url = [url stringByAppendingString:@"poll"];
+        path = @"poll";
     }
     
     [self delayConnectionReconnect:connection canReconnect:canReconnect];
+
+    NSDictionary *parameters = @{};
+    parameters = [self addTransport:parameters transport:[self name]];
+    parameters = [self addConnectionData:parameters connectionData:connectionData];
     
     __weak __typeof(&*self)weakSelf = self;
     __weak __typeof(&*connection)weakConnection = connection;
-    
-    id parameters = @{
-        @"transport" : [self name],
-        @"connectionToken" : ([connection connectionToken]) ? [connection connectionToken] : @"",
-        @"messageId" : ([connection messageId]) ? [connection messageId] : @"",
-        @"groupsToken" : ([connection groupsToken]) ? [connection groupsToken] : @"",
-        @"connectionData" : (connectionData) ? connectionData : @"",
-    };
-    
-    if ([connection queryString]) {
-        NSMutableDictionary *_parameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
-        [_parameters addEntriesFromDictionary:[connection queryString]];
-        parameters = _parameters;
-    }
-    
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:url parameters:parameters error:nil];
-    [connection prepareRequest:request]; //TODO: prepareRequest
-    [request setTimeoutInterval:240];
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [operation setResponseSerializer:[AFJSONResponseSerializer serializer]];
-    //operation.shouldUseCredentialStorage = self.shouldUseCredentialStorage;
-    //operation.credential = self.credential;
-    //operation.securityPolicy = self.securityPolicy;
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:connection.url] sessionConfiguration:self.sessionConfiguration];
+    [manager setRequestSerializer:[SRLongPollingRequestSerializer serializerWithConnection:connection]];
+    [manager setResponseSerializer:[AFJSONResponseSerializer serializer]];
+    //manager = self.securityPolicy;
+    self.poll = [manager GET:path parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         __strong __typeof(&*weakSelf)strongSelf = weakSelf;
         __strong __typeof(&*weakConnection)strongConnection = weakConnection;
 
         BOOL shouldReconnect = NO;
         BOOL disconnectedReceived = NO;
         
-        [strongSelf processResponse:strongConnection response:operation.responseString shouldReconnect:&shouldReconnect disconnected:&disconnectedReceived];
         if (block) {
             block(nil, nil);
         }
@@ -137,6 +122,10 @@
             // event here before any incoming messages are processed
             [strongSelf connectionReconnect:strongConnection canReconnect:canReconnect];
         }
+        
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseObject options:NSJSONWritingPrettyPrinted error:nil];
+        NSString *json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        [strongSelf processResponse:strongConnection response:json shouldReconnect:&shouldReconnect disconnected:&disconnectedReceived];
         
         if (shouldReconnect) {
             // Transition into reconnecting state
@@ -152,25 +141,25 @@
             canReconnect = @(YES);
             [strongSelf poll:strongConnection connectionData:connectionData completionHandler:nil];
         } else {
-            
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         __strong __typeof(&*weakSelf)strongSelf = weakSelf;
         __strong __typeof(&*weakConnection)strongConnection = weakConnection;
         
         canReconnect = @(NO);
         
-        // Transition into reconnecting state
-        [SRConnection ensureReconnecting:strongConnection];
-        
         if (![strongSelf tryCompleteAbort] &&
             ![SRExceptionHelper isRequestAborted:error]) {
             [strongConnection didReceiveError:error];
             
+            //TODO: previously we would reconnect always.  I would think cancelled requests should not be retried?
+            // Transition into reconnecting state
+            [SRConnection ensureReconnecting:strongConnection];
+            
             canReconnect = @(YES);
             
             [[NSBlockOperation blockOperationWithBlock:^{
-                [strongSelf poll:strongConnection connectionData:connectionData completionHandler:nil];
+                [strongSelf poll:strongConnection connectionData:connectionData completionHandler:block];
             }] performSelector:@selector(start) withObject:nil afterDelay:[strongSelf.errorDelay integerValue]];
             
         } else {
@@ -180,7 +169,6 @@
             }
         }
     }];
-    [self.pollingOperationQueue addOperation:operation];
 }
 
 - (void)delayConnectionReconnect:(id<SRConnectionInterface>)connection canReconnect:(NSNumber *)canReconnect {
@@ -193,7 +181,6 @@
             __strong __typeof(&*weakSelf)strongSelf = weakSelf;
             __strong __typeof(&*weakConnection)strongConnection = weakConnection;
             __strong __typeof(&*weakCanReconnect)strongCanReconnect = weakCanReconnect;
-
             [strongSelf connectionReconnect:strongConnection canReconnect:strongCanReconnect];
             
         }] performSelector:@selector(start) withObject:nil afterDelay:[self.reconnectDelay integerValue]];

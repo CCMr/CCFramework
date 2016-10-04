@@ -379,7 +379,19 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
  *  @param oldMessages 目标的旧消息数据
  *  @param completion  insert 完成回调
  */
-- (void)insertOldMessages:(NSArray *)oldMessages completion:(void (^)())completion;
+- (void)insertOldMessages:(NSArray *)oldMessages
+               completion:(void (^)())completion;
+
+/**
+ *  @author C C, 2016-09-28
+ *  
+ *  @brief  插入旧消息数据到头部去除重复数据，仿微信的做法
+ *
+ *  @param oldMessages 目标的旧消息数据
+ *  @param keyName     去除重复key
+ */
+- (void)insertOldMessages:(NSArray *)oldMessages
+            deduplication:(NSString *)keyName;
 
 #pragma mark - Messages view controller
 /**

@@ -33,7 +33,7 @@ static NSString *CCMD5StringFromNSString(NSString *string)
 {
     NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
     unsigned char digest[CC_MD5_DIGEST_LENGTH], i;
-    CC_MD5([data bytes], [data length], digest);
+    CC_MD5([data bytes], (CC_LONG)[data length], digest);
     NSMutableString *result = [NSMutableString string];
     for (i = 0; i < CC_MD5_DIGEST_LENGTH; i++) {
         [result appendFormat:@"%02x", (int)(digest[i])];
@@ -120,8 +120,8 @@ static NSString *CCLocalFilePathForURL(NSURL *URL)
                 [controller refreshCurrentPreviewItem];
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if ([self.delegate respondsToSelector:@selector(cc_previewController:failedToLoadRemotePreviewItem:withError:)]) {
-            [self.delegate cc_previewController:self
+        if ([self.cc_delegate respondsToSelector:@selector(cc_previewController:failedToLoadRemotePreviewItem:withError:)]) {
+            [self.cc_delegate cc_previewController:self
                   failedToLoadRemotePreviewItem:originalPreviewItem
                                       withError:error];
         }

@@ -37,6 +37,8 @@ typedef NS_ENUM(NSUInteger, CCImageCropMode) {
     CCImageCropModeCustom
 };
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CCImageCropViewController : UIViewController
 
 /**
@@ -337,3 +339,5 @@ typedef NS_ENUM(NSUInteger, CCImageCropMode) {
 - (void)imageCropViewController:(CCImageCropViewController *)controller didCropImage:(UIImage *)croppedImage usingCropRect:(CGRect)cropRect rotationAngle:(CGFloat)rotationAngle;
 
 @end
+
+NS_ASSUME_NONNULL_END

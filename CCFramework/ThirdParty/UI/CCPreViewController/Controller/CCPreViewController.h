@@ -46,6 +46,6 @@
 
 @interface CCPreViewController : QLPreviewController
 
-@property(weak) id<CCPreviewControllerDelegate, QLPreviewControllerDelegate> delegate;
+@property(weak) id<CCPreviewControllerDelegate, QLPreviewControllerDelegate> cc_delegate;
 
 @end

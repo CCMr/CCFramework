@@ -147,7 +147,7 @@ static inline void AutomaticWritingSwizzleSelector(Class class, SEL originalSele
 - (void)cc_viewWillDisappear:(BOOL)animated
 {
     [self cc_viewWillDisappear:animated];
-    NSString *mClassName = [NSString stringWithUTF8String:object_getClassName(self)];
+//    NSString *mClassName = [NSString stringWithUTF8String:object_getClassName(self)];
 
     if (self.navigationController.visibleViewController)
         cc_NoticePost(noticeStatisticsWillDisappear, [NSString stringWithUTF8String:object_getClassName(self)]);

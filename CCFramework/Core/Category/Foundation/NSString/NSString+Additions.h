@@ -69,6 +69,34 @@
 - (NSDictionary *)dictionaryValue;
 
 #pragma mark -
+#pragma mark :. IPAddress
+
+/**
+ *  @author C C, 2016-09-27
+ *  
+ *  @brief  获取IP地址
+ *
+ *  @param preferIPv4 是否IPV4
+ */
++ (NSString *)obtainIPAddress:(BOOL)preferIPv4;
+
+/**
+ *  @author C C, 2016-09-27
+ *  
+ *  @brief  判断IP地址
+ *
+ *  @param ipAddress IP地址
+ */
++ (BOOL)isValidatIP:(NSString *)ipAddress;
+
+/**
+ *  @author C C, 2016-09-27
+ *  
+ *  @brief  获取设置所有IP
+ */
++ (NSDictionary *)obtainIPAddresses;
+
+#pragma mark -
 #pragma mark :. QueryDictionary
 /**
  *  @return If the receiver is a valid URL query component, returns
@@ -432,10 +460,10 @@
  Returns a NSString in which any occurrences that match the cheat codes
  from Emoji Cheat Sheet  are replaced by the
  corresponding unicode characters.
-
+ 
  Example:
  "This is a smiley face :smiley:"
-
+ 
  Will be replaced with:
  "This is a smiley face \U0001F604"
  */
@@ -445,10 +473,10 @@
  Returns a NSString in which any occurrences that match the unicode characters
  of the emoji emoticons are replaced by the corresponding cheat codes from
  Emoji Cheat Sheet
-
+ 
  Example:
  "This is a smiley face \U0001F604"
-
+ 
  Will be replaced with:
  "This is a smiley face :smiley:"
  */
@@ -585,7 +613,7 @@
  (?(exp)yes) 	同上，只是使用空表达式作为no
  (?(name)yes|no) 如果命名为name的组捕获到了内容，使用yes作为表达式；否则使用no
  (?(name)yes) 	同上，只是使用空表达式作为no
-
+ 
  捕获
  (exp)               匹配exp,并捕获文本到自动命名的组里
  (?<name>exp)        匹配exp,并捕获文本到名称为name的组里，也可以写成(?'name'exp)
@@ -597,7 +625,7 @@
  (?<!exp)            匹配前面不是exp的位置
  注释
  (?#comment)         这种类型的分组不对正则表达式的处理产生任何影响，用于提供注释让人阅读
-
+ 
  *  表达式：\(?0\d{2}[) -]?\d{8}
  *  这个表达式可以匹配几种格式的电话号码，像(010)88886666，或022-22334455，或02912345678等。
  *  我们对它进行一些分析吧：
@@ -796,7 +824,7 @@ typedef NSUInteger NSStringScoreOption;
 #pragma mark - NSMutableString
 
 /* Ruby -> Obj-C Equivalents
-
+ 
  #capitalize!     capitalizeInPlace
  #chomp!          chompInPlace
  chompInPlace:
@@ -815,7 +843,7 @@ typedef NSUInteger NSStringScoreOption;
  substituteLastInPlace:
  #swapcase!       swapcaseInPlace
  #upcase!         uppercaseInPlace
-
+ 
  */
 
 @interface NSMutableString (Additions)

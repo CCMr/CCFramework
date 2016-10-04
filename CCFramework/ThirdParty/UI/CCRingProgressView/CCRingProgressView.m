@@ -14,7 +14,7 @@ static const CGFloat kAnnularLineWith = 4.f;
 @interface CCRingProgressView ()
 
 @property(nonatomic, strong) UILabel *percentLabel;
-@property(nonatomic, assign) BOOL _percentShow;
+//@property(nonatomic, assign) BOOL _percentShow;
 
 @end
 

@@ -107,7 +107,7 @@
     CTFrameGetLineOrigins(self.frameRef, CFRangeMake(0, 0), lineOrigins);
 
     // 6.遍历lines，处理每一行可能会对应的偏移值索引
-    NSInteger index = -1;
+//    NSInteger index = -1;
     for (CFIndex idx = 0; idx < lineCount; idx++) {
         // 6.1获取每一行的lineRef
         CTLineRef lineRef = CFArrayGetValueAtIndex(lines, idx);

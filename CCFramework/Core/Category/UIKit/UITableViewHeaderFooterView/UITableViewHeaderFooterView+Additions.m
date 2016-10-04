@@ -33,7 +33,7 @@ static inline void AutomaticWritingSwizzleSelector(Class class, SEL originalSele
 - (void)cc_layoutSubviews
 {
     [self cc_layoutSubviews];
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.bounds];
+//    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.bounds];
 
     [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([NSStringFromClass([obj class]) isEqualToString:@"_UITableViewHeaderFooterViewBackground"]){
@@ -85,7 +85,7 @@ static inline void AutomaticWritingSwizzleSelector(Class class, SEL originalSele
 
 - (void)setCc_Section:(NSInteger)cc_Section
 {
-    objc_setAssociatedObject(self, @selector(cc_indexPath), @(cc_Section), OBJC_ASSOCIATION_RETAIN);
+    objc_setAssociatedObject(self, @selector(cc_Section), @(cc_Section), OBJC_ASSOCIATION_RETAIN);
 }
 
 - (NSInteger)cc_Section

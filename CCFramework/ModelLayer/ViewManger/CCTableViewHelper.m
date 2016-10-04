@@ -113,7 +113,7 @@
         array = self.dataArray;
     else
         array = self.dataArray.firstObject;
-
+    
     return array;
 }
 
@@ -122,10 +122,10 @@
     if (!_sectionIndexTitles) {
         NSMutableArray *sectionIndex = [NSMutableArray array];
         if (self.cc_tableView.tableHeaderView && [self.cc_tableView.tableHeaderView isKindOfClass:[UISearchBar class]]) {
-            self.searchBar = self.cc_tableView.tableHeaderView;
+            self.searchBar = (UISearchBar *)self.cc_tableView.tableHeaderView;
             [sectionIndex addObject:UITableViewIndexSearch];
         }
-
+        
         [sectionIndex addObjectsFromArray:[UILocalizedIndexedCollation.currentCollation sectionIndexTitles]];
         _sectionIndexTitles = sectionIndex;
     }
@@ -255,7 +255,7 @@
 {
     CGFloat height = self.titleHeaderHeight;
     if (self.headerBlock) {
-
+        
         UIView *headerView = self.headerBlock(tableView, section, [self currentSectionModel:section]);
         if (headerView)
             height = headerView.LayoutSizeFittingSize.height;
@@ -277,7 +277,7 @@
     NSString *title = nil;
     if (self.headerTitleBlock)
         title = self.headerTitleBlock(tableView, section);
-
+    
     return title;
 }
 
@@ -289,7 +289,7 @@
         if (footerView)
             height = footerView.LayoutSizeFittingSize.height;
     }
-
+    
     return height;
 }
 
@@ -307,7 +307,7 @@
     NSString *title = nil;
     if (self.footerTitleBlock)
         title = self.footerTitleBlock(tableView, section);
-
+    
     return title;
 }
 
@@ -338,7 +338,7 @@
         [tableView scrollRectToVisible:_searchBar.frame animated:NO];
         indexs = -1;
     }
-
+    
     return indexs;
 }
 
@@ -366,7 +366,7 @@
         style = self.didEditingStyle(tableView, indexPath, [self currentModelAtIndexPath:indexPath]);
     else if (self.didEditActionsBlock)
         style = UITableViewCellEditingStyleDelete;
-
+    
     return style;
 }
 
@@ -381,7 +381,7 @@
     NSString *title = nil;
     if (self.didEditTileBlock)
         title = self.didEditTileBlock(tableView, indexPath, [self currentModelAtIndexPath:indexPath]);
-
+    
     return title;
 }
 
@@ -390,7 +390,7 @@
     NSArray *ary = [NSArray array];
     if (self.didEditActionsBlock)
         ary = self.didEditActionsBlock(tableView, indexPath, [self currentModelAtIndexPath:indexPath]);
-
+    
     return ary;
 }
 
@@ -422,19 +422,19 @@
     NSString *curCellIdentifier = [self cellIdentifierForRowAtIndexPath:indexPath model:curModel];
     curCell = [tableView dequeueReusableCellWithIdentifier:curCellIdentifier forIndexPath:indexPath];
     CCAssert(curCell, @"cell is nil Identifier ⤭ %@ ⤪", curCellIdentifier);
-
+    
     if (self.didWillDisplayBlock) {
         self.didWillDisplayBlock(curCell, indexPath, curModel, YES);
     } else if ([curCell respondsToSelector:@selector(cc_cellWillDisplayWithModel:indexPath:)]) {
         [curCell cc_cellWillDisplayWithModel:curModel indexPath:indexPath];
     }
-
+    
     if (self.cellDelegate)
         curCell.viewDelegate = self.cellDelegate;
-
+    
     if (self.cellViewEventsBlock)
         curCell.viewEventsBlock = self.cellViewEventsBlock;
-
+    
     return curCell;
 }
 
@@ -475,13 +475,13 @@
 {
     UIView *customHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.cc_tableView.bounds), self.titleHeaderHeight)];
     customHeaderView.backgroundColor = [UIColor colorWithRed:0.926 green:0.920 blue:0.956 alpha:1.000];
-
+    
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0f, 0, CGRectGetWidth(customHeaderView.bounds) - 15.0f, self.titleHeaderHeight)];
     headerLabel.backgroundColor = [UIColor clearColor];
     headerLabel.font = [UIFont boldSystemFontOfSize:14.0f];
     headerLabel.textColor = [UIColor darkGrayColor];
     [customHeaderView addSubview:headerLabel];
-
+    
     if (self.isSection) {
         BOOL showSection = NO;
         showSection = [tableView numberOfRowsInSection:section] != 0;
@@ -509,7 +509,7 @@
     NSArray *arr = [self.dataArray objectAtIndex:section];
     if (arr.count)
         currentModel = [arr objectAtIndex:0];
-
+    
     return currentModel;
 }
 
@@ -537,11 +537,54 @@
     self.dataArray = nil;
     for (NSInteger i = 0; i < newDataAry.count; i++)
         [self cc_makeUpDataAryForSection:i];
-
+    
     for (int idx = 0; idx < self.dataArray.count; idx++) {
         NSMutableArray *subAry = self.dataArray[idx];
         if (subAry.count) [subAry removeAllObjects];
         id data = [newDataAry objectAtIndex:idx];
+        if ([data isKindOfClass:[NSArray class]]) {
+            [subAry addObjectsFromArray:data];
+        } else {
+            [subAry addObject:data];
+        }
+    }
+    [self.cc_tableView reloadData];
+}
+
+- (void)cc_addGroupDataAry:(NSArray *)newDataAry
+{
+    [self.dataArray addObject:[NSMutableArray arrayWithArray:newDataAry]];
+    [self.cc_tableView reloadData];
+}
+
+- (void)cc_insertGroupDataAry:(NSArray *)newDataAry
+                   forSection:(NSInteger)cSection
+{
+    [self.dataArray insertObject:[NSMutableArray arrayWithArray:newDataAry] atIndex:cSection == -1 ? 0 : cSection];
+    [self.cc_tableView reloadData];
+}
+
+- (void)cc_insertMultiplGroupDataAry:(NSArray *)newDataAry
+                          forSection:(NSInteger)cSection
+{
+    NSMutableArray *idxArray = [NSMutableArray array];
+    if (cSection < 0) {
+        for (NSInteger i = 0; i < newDataAry.count; i++) {
+            [self.dataArray insertObject:[NSMutableArray array] atIndex:0];
+            [idxArray addObject:@(i)];
+        }
+    } else {
+        for (NSInteger i = 0; i < newDataAry.count; i++) {
+            [self.dataArray insertObject:[NSMutableArray array] atIndex:cSection + i];
+            [idxArray addObject:@(cSection + i)];
+        }
+    }
+    
+    for (NSInteger i = 0; i < idxArray.count; i++) {
+        NSInteger idx = [[idxArray objectAtIndex:i] integerValue];
+        NSMutableArray *subAry = self.dataArray[idx];
+        if (subAry.count) [subAry removeAllObjects];
+        id data = [newDataAry objectAtIndex:i];
         if ([data isKindOfClass:[NSArray class]]) {
             [subAry addObjectsFromArray:data];
         } else {
@@ -576,12 +619,12 @@
 - (void)cc_reloadDataAry:(NSArray *)newDataAry forSection:(NSInteger)cSection
 {
     if (newDataAry.count == 0) return;
-
+    
     NSIndexSet *curIndexSet = [self cc_makeUpDataAryForSection:cSection];
     NSMutableArray *subAry = self.dataArray[cSection];
     if (subAry.count) [subAry removeAllObjects];
     [subAry addObjectsFromArray:newDataAry];
-
+    
     [self.cc_tableView beginUpdates];
     if (curIndexSet) {
         [self.cc_tableView insertSections:curIndexSet withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -599,14 +642,14 @@
 - (void)cc_addDataAry:(NSArray *)newDataAry forSection:(NSInteger)cSection
 {
     if (newDataAry.count == 0) return;
-
+    
     NSIndexSet *curIndexSet = [self cc_makeUpDataAryForSection:cSection];
     NSMutableArray *subAry;
     if (cSection < 0) {
         subAry = self.dataArray[0];
     } else
         subAry = self.dataArray[cSection];
-
+    
     if (curIndexSet) {
         [subAry addObjectsFromArray:newDataAry];
         [self.cc_tableView beginUpdates];
@@ -626,7 +669,7 @@
 
 - (void)cc_insertData:(id)cModel AtIndex:(NSIndexPath *)cIndexPath;
 {
-
+    
     NSIndexSet *curIndexSet = [self cc_makeUpDataAryForSection:cIndexPath.section];
     NSMutableArray *subAry = self.dataArray[cIndexPath.section];
     if (subAry.count < cIndexPath.row) return;
@@ -645,11 +688,11 @@
 
 - (void)cc_deleteDataAtIndex:(NSIndexPath *)cIndexPath
 {
-
+    
     if (self.dataArray.count <= cIndexPath.section) return;
     NSMutableArray *subAry = self.dataArray[cIndexPath.section];
     if (subAry.count <= cIndexPath.row) return;
-
+    
     [subAry removeObjectAtIndex:cIndexPath.row];
     [self.cc_tableView beginUpdates];
     [self.cc_tableView deleteRowsAtIndexPaths:@[ cIndexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];

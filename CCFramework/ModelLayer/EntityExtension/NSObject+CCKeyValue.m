@@ -186,7 +186,7 @@ static NSNumberFormatter *numberFormatter_;
                     if(![value isKindOfClass:[NSDate class]]){
                         if ([value isKindOfClass:[NSNumber class]]) {
                             NSInteger mumber = [value integerValue];
-                            if ([[NSString stringWithFormat:@"%d",value] length]> 10)
+                            if ([[NSString stringWithFormat:@"%@",value] length]> 10)
                                 mumber = mumber / 1000;
 
                             value = [NSDate dateWithTimeIntervalSince1970:mumber];

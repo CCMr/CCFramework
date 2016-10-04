@@ -32,10 +32,6 @@
 
 @implementation NSManagedObject (Additions)
 
-#define DATE_ATTR_PREFIX @"dAtEaTtr:"
-#warning "Change CLASS_PREFIX if it's not ABC"
-#define CLASS_PREFIX @"ABC"
-
 #pragma mark -
 #pragma mark :. Extensions
 
@@ -215,6 +211,9 @@
     return dict;
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wundeclared-selector"
+#pragma GCC diagnostic ignored "-Warc-performSelector-leaks"
 - (NSDictionary *)changedDictionary
 {
     // Check to see there are any objects that should be skipped in the traversal.
@@ -225,6 +224,7 @@
     }
     return [self toDictionaryWithTraversalHistory:traversedObjects];
 }
+#pragma GCC diagnostic pop
 
 - (NSDictionary *)Dictionary
 {

@@ -81,6 +81,8 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 
 @property(nonatomic, weak, readwrite) UILabel *geolocationsLabel;
 
+@property(nonatomic, weak, readwrite) UIView *fileView;
+@property(nonatomic, weak, readwrite) UIImageView *fileImageView;
 @property(nonatomic, weak, readwrite) UILabel *fileNameLabel;
 @property(nonatomic, weak, readwrite) UILabel *fileSizeLabel;
 
@@ -101,9 +103,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     if ([[[UIDevice currentDevice] systemVersion] floatValue] <= 6.0) {
         sizeWithFont = [text sizeWithFont:systemFont constrainedToSize:textSize lineBreakMode:NSLineBreakByWordWrapping];
     } else {
-        sizeWithFont = [text sizeWithFont:systemFont
-                                 forWidth:kCCMaxWidth
-                            lineBreakMode:NSLineBreakByWordWrapping];
+        sizeWithFont = [text boundingRectWithSize:textSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : systemFont } context:nil].size;
     }
     
 #if defined(__LP64__) && __LP64__
@@ -117,55 +117,20 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 + (CGSize)neededSizeForText:(NSString *)text
 {
     UIFont *systemFont = [[CCMessageBubbleView appearance] font];
-    CGSize textSize = CGSizeMake(kCCMaxWidth, CGFLOAT_MAX); // rough accessory size
-    CGSize sizeWithFont;
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] <= 6.0) {
-        sizeWithFont = [text sizeWithFont:systemFont constrainedToSize:textSize lineBreakMode:NSLineBreakByCharWrapping];
-    } else {
-        sizeWithFont = [text boundingRectWithSize:textSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : systemFont } context:nil].size;
-    }
+    TYTextContainer *textContainer = [[TYTextContainer alloc] init];
+    textContainer.text = text;
+    textContainer.font = systemFont;
+    textContainer.isWidthToFit = YES;
+    textContainer = [textContainer createTextContainerWithTextWidth:kCCMaxWidth];
     
-    sizeWithFont.width += 5;
-    return sizeWithFont;
+    return CGSizeMake(textContainer.textWidth, textContainer.textHeight);
 }
 
 //计算图文最大的大小
 + (CGSize)neededSizeForTeletext:(id<CCMessageModel>)message
 {
-    NSString *text = [[message text] stringByReplacingOccurrencesOfString:message.teletextReplaceStr withString:@""];
-    text = [text stringByReplacingOccurrencesOfString:OBJECT_REPLACEMENT_CHARACTER withString:@""];
-    text = [text stringByReplacingOccurrencesOfString:message.teletextReplaceStr withString:OBJECT_REPLACEMENT_CHARACTER];
-    __block CGSize size = [CCMessageBubbleView neededSizeForText:text];
-    __block BOOL isWrap = NO;
-    [message.teletextPath enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        NSString *path = obj;
-        if ([obj isKindOfClass:[NSDictionary class]])
-            path = [obj objectForKey:@"path"];
-        
-        UIImage *image = [UIImage imageWithContentsOfFile:path];
-        if (image) {
-            if (image.size.height > size.height)
-                size = CGSizeMake(size.width, size.height + (image.size.height - size.height));
-            
-            size = CGSizeMake(image.size.width + size.width, size.height);
-        } else if ([obj rangeOfString:@"http://"].location != NSNotFound) { //网络加载图片时
-            size = CGSizeMake(100 + size.width, 100 + size.height);
-        }
-        
-        CGFloat w = size.width;
-        if (w > kCCMaxWidth) { //超过显示最大宽度
-            isWrap = YES;
-            w = image.size.width;
-            size.height += image.size.height;
-        }
-        
-        size = CGSizeMake(w, size.height);
-    }];
-    
-    if (isWrap)
-        size = CGSizeMake(kCCMaxWidth, size.height);
-    
-    return size;
+    TYTextContainer *textContainer = [self configureDisplayMessage:message];
+    return CGSizeMake(textContainer.textWidth, textContainer.textHeight);
 }
 
 // 计算图片实际大小
@@ -376,7 +341,6 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     _voiceDurationLabel.hidden = YES;
     _voiceUnreadDotImageView.hidden = YES;
     
-    [_sendNotSuccessfulButton setImage:@""];
     _sendNotSuccessfulButton.hidden = YES;
     _indicatorView.hidden = YES;
     [_indicatorView stopAnimating];
@@ -385,7 +349,6 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         CCMessageSendType sendStatusType = message.messageSendState;
         switch (sendStatusType) {
             case CCMessageSendTypeFailure:
-                [_sendNotSuccessfulButton setImage:@"caveat"];
                 _sendNotSuccessfulButton.hidden = NO;
                 _indicatorView.hidden = YES;
                 [_indicatorView stopAnimating];
@@ -406,6 +369,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         }
     }
     
+    _fileView.hidden = (currentType != CCBubbleMessageMediaTypeFile);
     
     switch (currentType) {
         case CCBubbleMessageMediaTypeVoice: {
@@ -424,7 +388,6 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             
             // 只要是文本、语音、第三方表情，都需要把显示尖嘴图片的控件隐藏了
             _bubblePhotoImageView.hidden = YES;
-            
             
             if (currentType == CCBubbleMessageMediaTypeText || currentType == CCBubbleMessageMediaTypeTeletext) {
                 // 如果是文本消息，那文本消息的控件需要显示
@@ -467,9 +430,6 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             
             _geolocationsLabel.hidden = (currentType != CCBubbleMessageMediaTypeLocalPosition);
             
-            _fileSizeLabel.hidden = (currentType != CCBubbleMessageMediaTypeFile);
-            _fileNameLabel.hidden = (currentType != CCBubbleMessageMediaTypeFile);
-            
             // 那其他的控件都必须隐藏
             _displayTextView.hidden = YES;
             _bubbleImageView.hidden = YES;
@@ -481,10 +441,9 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             _bubbleImageView.image = [CCMessageBubbleFactory bubbleImageViewForType:message.bubbleMessageType
                                                                               style:CCBubbleImageViewStyleWeChat
                                                                           meidaType:message.messageMediaType];
-            _fileSizeLabel.hidden = NO;
-            _fileNameLabel.hidden = NO;
+            _fileView.hidden = NO;
             _bubbleImageView.hidden = NO;
-            
+            _bubblePhotoImageView.hidden = YES;
             _displayTextView.hidden = YES;
             _videoPlayImageView.hidden = YES;
             _animationVoiceImageView.hidden = YES;
@@ -492,8 +451,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             
             break;
         default:
-            _fileSizeLabel.hidden = YES;
-            _fileNameLabel.hidden = YES;
+            _fileView.hidden = YES;
             _bubblePhotoImageView.hidden = YES;
             _videoPlayImageView.hidden = YES;
             _geolocationsLabel.hidden = YES;
@@ -508,54 +466,14 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 - (void)configureMessageDisplayMediaWithMessage:(id<CCMessageModel>)message
 {
     switch (message.messageMediaType) {
-        case CCBubbleMessageMediaTypeText:
-            _displayTextView.text = [message text];
-            break;
-        case CCBubbleMessageMediaTypeTeletext: {
-            
-            NSString *text = [[message text] stringByReplacingOccurrencesOfString:message.teletextReplaceStr withString:OBJECT_REPLACEMENT_CHARACTER];
-            
-            NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"\uFFFC" options:NSRegularExpressionCaseInsensitive error:nil];
-            NSArray *resultArray = [re matchesInString:text options:0 range:NSMakeRange(0, text.length)];
-            
-            NSMutableArray *tmpArray = [NSMutableArray array];
-            for (int i = 0; i < resultArray.count; i++) {
-                
-                NSTextCheckingResult *match = [resultArray objectAtIndex:i];
-                
-                NSString *path = @"";
-                if (message.teletextPath.count && i < message.teletextPath.count) {
-                    id teletextPath = [message.teletextPath objectAtIndex:i];
-                    if ([teletextPath isKindOfClass:[NSDictionary class]]) {
-                        path = [teletextPath objectForKey:@"path"];
-                    } else {
-                        path = teletextPath;
-                    }
-                }
-                NSDictionary *dic = [message.teletextPhotoSize objectAtIndex:i];
-                
-                CGSize size = CGSizeMake([[dic objectForKey:@"width"] integerValue], [[dic objectForKey:@"height"] integerValue]);
-                UIImage *Images = [UIImage imageWithContentsOfFile:path];
-                TYImageStorage *imageStorage = [[TYImageStorage alloc] init];
-                imageStorage.cacheImageOnMemory = YES;
-                imageStorage.range = match.range;
-                if (Images) {
-                    imageStorage.image = Images;
-                    if (CGSizeEqualToSize(size, CGSizeMake(0, 0)))
-                        size = Images.size;
-                } else if ([path rangeOfString:@"http://"].location != NSNotFound) { //网络加载图片时
-                    size = CGSizeMake(100, 100);
-                    imageStorage.imageURL = [NSURL URLWithString:path];
-                }
-                imageStorage.size = size;
-                
-                [tmpArray addObject:imageStorage];
-            }
-            
+        case CCBubbleMessageMediaTypeText: {
             TYTextContainer *textContainer = [[TYTextContainer alloc] init];
-            textContainer.text = text;
-            [textContainer addTextStorageArray:tmpArray];
+            textContainer.text = [message text];
             _displayTextView.textContainer = textContainer;
+            break;
+        }
+        case CCBubbleMessageMediaTypeTeletext: {
+            _displayTextView.textContainer = [CCMessageBubbleView configureDisplayMessage:message];
             
             break;
         }
@@ -600,11 +518,16 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             _geolocationsLabel.text = message.geolocations;
             break;
         case CCBubbleMessageMediaTypeFile:
-            [_bubblePhotoImageView configureMessagePhoto:message.filePhoto
-                                            thumbnailUrl:message.fileThumbnailUrl
-                                          originPhotoUrl:message.fileOriginPhotoUrl
-                                                savePath:message.savePath
-                                     onBubbleMessageType:self.message.bubbleMessageType];
+            if (message.filePhoto) {
+                _fileImageView.image = message.filePhoto;
+            } else {
+                _fileImageView.image = [UIImage imageNamed:@"other_placeholderImg"];
+                [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:message.fileThumbnailUrl] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                    _fileImageView.image = image;
+                    if (message.savePath)
+                        [UIImageJPEGRepresentation(image, 1.0f) writeToFile:message.savePath atomically:YES];
+                }];
+            }
             _fileNameLabel.text = message.fileName;
             _fileSizeLabel.text = [self fileSize:message.fileSize];
             break;
@@ -613,6 +536,57 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     }
     
     [self setNeedsLayout];
+}
+
++ (TYTextContainer *)configureDisplayMessage:(id<CCMessageModel>)message
+{
+    NSString *text = [[message text] stringByReplacingOccurrencesOfString:message.teletextReplaceStr withString:OBJECT_REPLACEMENT_CHARACTER];
+    
+    NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"\uFFFC" options:NSRegularExpressionCaseInsensitive error:nil];
+    NSArray *resultArray = [re matchesInString:text options:0 range:NSMakeRange(0, text.length)];
+    
+    NSMutableArray *tmpArray = [NSMutableArray array];
+    for (int i = 0; i < resultArray.count; i++) {
+        
+        NSTextCheckingResult *match = [resultArray objectAtIndex:i];
+        
+        NSString *path = @"";
+        if (message.teletextPath.count && i < message.teletextPath.count) {
+            id teletextPath = [message.teletextPath objectAtIndex:i];
+            if ([teletextPath isKindOfClass:[NSDictionary class]]) {
+                path = [teletextPath objectForKey:@"localpath"];
+            } else {
+                path = teletextPath;
+            }
+        }
+        NSDictionary *dic = [message.teletextPhotoSize objectAtIndex:i];
+        
+        CGSize size = CGSizeMake([[dic objectForKey:@"width"] integerValue], [[dic objectForKey:@"height"] integerValue]);
+        UIImage *Images = [UIImage imageWithContentsOfFile:path];
+        TYImageStorage *imageStorage = [[TYImageStorage alloc] init];
+        imageStorage.cacheImageOnMemory = YES;
+        imageStorage.range = match.range;
+        if (Images) {
+            imageStorage.image = Images;
+            if (CGSizeEqualToSize(size, CGSizeMake(0, 0)))
+                size = Images.size;
+        } else if ([path rangeOfString:@"http://"].location != NSNotFound && CGSizeEqualToSize(size, CGSizeMake(0, 0))) { //网络加载图片时
+            size = CGSizeMake(100, 100);
+            imageStorage.imageURL = [NSURL URLWithString:path];
+        }
+        imageStorage.size = size;
+        
+        [tmpArray addObject:imageStorage];
+    }
+    
+    TYTextContainer *textContainer = [[TYTextContainer alloc] init];
+    textContainer.text = text;
+    textContainer.isWidthToFit = YES;
+    [textContainer addTextStorageArray:tmpArray];
+    
+    textContainer = [textContainer createTextContainerWithTextWidth:kCCMaxWidth];
+    
+    return textContainer;
 }
 
 - (NSString *)fileSize:(NSInteger)fileSize
@@ -766,7 +740,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         
         // 7. 初始化消息未发送成功时显示重新发送按钮
         if (!_sendNotSuccessfulButton) {
-            UIButton *sendNotSuccessfulButton = [UIButton buttonWithBackgroundImage:@""];
+            UIButton *sendNotSuccessfulButton = [UIButton buttonWithBackgroundImage:@"caveat"];
             sendNotSuccessfulButton.frame = CGRectMake(0, 0, kCCSendNotSuccessfulSize, kCCSendNotSuccessfulSize);
             sendNotSuccessfulButton.hidden = YES;
             [sendNotSuccessfulButton addTarget:self action:@selector(sendNotSuccessful:) forControlEvents:UIControlEventTouchUpInside];
@@ -784,27 +758,42 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             _indicatorView = indicatorView;
         }
         
-        if (!_fileNameLabel) {
-            UILabel *fileNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-            fileNameLabel.numberOfLines = 2;
-            fileNameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-            fileNameLabel.textColor = [UIColor colorWithWhite:0.143 alpha:1.000];
-            fileNameLabel.backgroundColor = [UIColor clearColor];
-            fileNameLabel.font = [[CCMessageBubbleView appearance] font];
-            [self addSubview:fileNameLabel];
-            _fileNameLabel = fileNameLabel;
-        }
-        
-        if (!_fileSizeLabel) {
-            UILabel *fileSizeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-            fileSizeLabel.numberOfLines = 0;
-            fileSizeLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-            fileSizeLabel.textColor = [UIColor lightGrayColor];
-            fileSizeLabel.backgroundColor = [UIColor clearColor];
-            fileSizeLabel.font = [[CCMessageBubbleView appearance] font];
-            fileSizeLabel.textAlignment = NSTextAlignmentCenter;
-            [self addSubview:fileSizeLabel];
-            _fileSizeLabel = fileSizeLabel;
+        if (!_fileView) {
+            UIView *fileView = [[UIView alloc] initWithFrame:CGRectZero];
+            fileView.clipsToBounds = YES;
+            [self addSubview:fileView];
+            _fileView = fileView;
+            
+            if (!_fileImageView) {
+                UIImageView *fileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, kCCHaveBubbleFileMargin, kCCHaveBubbleFileMargin)];
+                fileImageView.contentMode = UIViewContentModeScaleAspectFill;
+                fileImageView.clipsToBounds = YES;
+                [fileView addSubview:fileImageView];
+                _fileImageView = fileImageView;
+            }
+            
+            if (!_fileNameLabel) {
+                UILabel *fileNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+                fileNameLabel.numberOfLines = 2;
+                fileNameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+                fileNameLabel.textColor = [UIColor colorWithWhite:0.143 alpha:1.000];
+                fileNameLabel.backgroundColor = [UIColor clearColor];
+                fileNameLabel.font = [[CCMessageBubbleView appearance] font];
+                [fileView addSubview:fileNameLabel];
+                _fileNameLabel = fileNameLabel;
+            }
+            
+            if (!_fileSizeLabel) {
+                UILabel *fileSizeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+                fileSizeLabel.numberOfLines = 0;
+                fileSizeLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+                fileSizeLabel.textColor = [UIColor lightGrayColor];
+                fileSizeLabel.backgroundColor = [UIColor clearColor];
+                fileSizeLabel.font = [[CCMessageBubbleView appearance] font];
+                fileSizeLabel.textAlignment = NSTextAlignmentCenter;
+                [fileView addSubview:fileSizeLabel];
+                _fileSizeLabel = fileSizeLabel;
+            }
         }
     }
     return self;
@@ -848,6 +837,8 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     _sendNotSuccessfulButton = nil;
     
     _indicatorView = nil;
+    _fileView = nil;
+    _fileImageView = nil;
     _fileNameLabel = nil;
     _fileSizeLabel = nil;
 }
@@ -905,6 +896,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 if (currentType == CCBubbleMessageMediaTypeText || currentType == CCBubbleMessageMediaTypeTeletext) {
                     self.displayTextView.frame = viewFrame;
                     self.displayTextView.center = CGPointMake(self.bubbleImageView.center.x + textX, self.bubbleImageView.center.y);
+                    [self.displayTextView sizeToFit];
                 }
                 
                 if (currentType == CCBubbleMessageMediaTypeSmallEmotion) {
@@ -944,17 +936,17 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             self.bubbleImageView.frame = bubbleFrame;
             
             CGFloat paddingX = 0.0f;
-            if (self.message.bubbleMessageType == CCBubbleMessageTypeSending) {
+            if (self.message.bubbleMessageType == CCBubbleMessageTypeSending)
                 paddingX = CGRectGetWidth(self.bounds) - bubbleFrame.size.width;
-            }
             
-            CGRect photoImageViewFrame = CGRectMake(paddingX, kCCHaveBubbleMargin, kCCHaveBubbleFileMargin, kCCHaveBubbleFileMargin);
-            self.bubblePhotoImageView.frame = photoImageViewFrame;
+            self.fileView.frame = bubbleFrame;
             
-            CGRect fileLabelFrame = CGRectMake(CGRectGetMaxX(photoImageViewFrame) + 5, kCCHaveBubbleMargin, CGRectGetWidth(bubbleFrame) - kCCHaveBubbleFileMargin - kCCLeftTextHorizontalBubblePadding * 2, kCCHaveBubbleFileMargin - 20);
+            self.fileImageView.frame = CGRectMake(10, kCCHaveBubbleMargin, kCCHaveBubbleFileMargin, kCCHaveBubbleFileMargin);
+            
+            CGRect fileLabelFrame = CGRectMake(CGRectGetMaxX(self.fileImageView.frame) + 5, kCCHaveBubbleMargin, CGRectGetWidth(bubbleFrame) - kCCHaveBubbleFileMargin - kCCLeftTextHorizontalBubblePadding * 2, kCCHaveBubbleFileMargin - 20);
             self.fileNameLabel.frame = fileLabelFrame;
             [self.fileNameLabel sizeToFit];
-            fileLabelFrame = CGRectMake(CGRectGetMaxX(photoImageViewFrame) + 5, CGRectGetMaxY(bubbleFrame) - 20 - kCCHaveBubbleMargin, CGRectGetWidth(bubbleFrame) - kCCHaveBubbleFileMargin - kCCLeftTextHorizontalBubblePadding * 2, 20);
+            fileLabelFrame = CGRectMake(CGRectGetMaxX(self.fileImageView.frame) + 5, CGRectGetMaxY(bubbleFrame) - 20 - kCCHaveBubbleMargin, CGRectGetWidth(bubbleFrame) - kCCHaveBubbleFileMargin - kCCLeftTextHorizontalBubblePadding * 2, 20);
             self.fileSizeLabel.frame = fileLabelFrame;
             [self.fileSizeLabel sizeToFit];
             break;

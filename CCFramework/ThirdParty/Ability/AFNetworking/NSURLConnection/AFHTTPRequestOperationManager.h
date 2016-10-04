@@ -326,7 +326,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)syncHTTPRequestOperationWithHTTPMethod:(NSString *)method
                                    URLString:(NSString *)URLString
                                   parameters:(NSDictionary *)parameters
-                                   operation:(AFHTTPRequestOperation *__autoreleasing *)operationPtr
+                                   operation:(AFHTTPRequestOperation * __autoreleasing  *)operationPtr
                                        error:(NSError *__autoreleasing *)outError;
 
 #pragma mark :.

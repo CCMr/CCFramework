@@ -72,15 +72,15 @@
 - (void)setSelectedIndex:(NSInteger)selectedIndex
 {
     if (selectedIndex < 0) return;
-
+    
     _selectedIndex = selectedIndex;
     self.emotionPageControl.numberOfPages = [[self.indexs objectAtIndex:selectedIndex] integerValue];
-
+    
     self.emotionPageControl.hidden = NO;
     if (!self.emotionPageControl.numberOfPages)
         self.emotionPageControl.hidden = YES;
-
-
+    
+    
     [self.emotionSectionBar currentIndex:_selectedIndex];
 }
 
@@ -90,11 +90,11 @@
     if (!numberOfEmotionManagers) {
         return;
     }
-
+    
     if (self.emotionSectionBar.emotionManagers.count != numberOfEmotionManagers) {
         self.emotionSectionBar.emotionManagers = [self.dataSource emotionManagersAtManager];
         [self.emotionSectionBar reloadData];
-
+        
         [self initEmotionCollectionView:[self.dataSource emotionManagersAtManager].count];
     }
 }
@@ -106,9 +106,10 @@
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.backgroundColor = [UIColor colorWithWhite:0.961 alpha:1.000];
     self.isShowEmotionStoreButton = YES;
-
+    
     if (!_emotionScrollView) {
         UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - kCCEmotionSectionBarHeight - kCCEmotionPageControlHeight)];
+        scrollView.backgroundColor = self.backgroundColor;
         scrollView.delegate = self;
         scrollView.showsHorizontalScrollIndicator = NO;
         scrollView.showsVerticalScrollIndicator = NO;
@@ -117,7 +118,7 @@
         [self addSubview:scrollView];
         self.emotionScrollView = scrollView;
     }
-
+    
     if (!_emotionPageControl) {
         UIPageControl *emotionPageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.emotionScrollView.frame), CGRectGetWidth(self.bounds), kCCEmotionPageControlHeight)];
         emotionPageControl.currentPageIndicatorTintColor = [UIColor colorWithWhite:0.471 alpha:1.000];
@@ -128,12 +129,12 @@
         [self addSubview:emotionPageControl];
         self.emotionPageControl = emotionPageControl;
     }
-
+    
     if (!_emotionSectionBar) {
         CCEmotionSectionBar *emotionSectionBar = [[CCEmotionSectionBar alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.emotionPageControl.frame), CGRectGetWidth(self.bounds), kCCEmotionSectionBarHeight)];
         emotionSectionBar.delegate = self;
         emotionSectionBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        emotionSectionBar.backgroundColor = [UIColor colorWithWhite:0.886 alpha:1.000];
+        emotionSectionBar.backgroundColor = [UIColor whiteColor]; //[UIColor colorWithWhite:0.886 alpha:1.000];
         [emotionSectionBar currentIndex:0];
         [self addSubview:emotionSectionBar];
         self.emotionSectionBar = emotionSectionBar;
@@ -147,7 +148,7 @@
         self.indexs = [NSMutableArray array];
         CGRect frame = CGRectMake(0, 0, self.emotionScrollView.frame.size.width, self.emotionScrollView.frame.size.height);
         for (int i = 0; i < index; i++) {
-
+            
             CCEmotionManager *emotionManager = [self.dataSource emotionManagerForColumn:i];
             NSInteger numberOfEmotions = emotionManager.emotions.count;
             NSInteger section = 2;
@@ -156,9 +157,9 @@
                 section = emotionManager.section;
                 row = emotionManager.row;
             }
-
+            
             numberOfEmotions = (numberOfEmotions / (section * row) + (numberOfEmotions % (section * row) == 0 ? 0 : 1));
-
+            
             if (emotionManager.emotionType == CCEmotionTypeSmall && i == 0) {
                 //添加每页删除按钮
                 numberOfEmotions = emotionManager.emotions.count + numberOfEmotions;
@@ -166,18 +167,18 @@
                 self.emotionPageControl.numberOfPages = numberOfEmotions;
                 self.emotionPageControl.currentPage = 0;
             }
-
+            
             [self.indexs addObject:@(numberOfEmotions)];
-
-
+            
+            
             NSInteger max = section * row;
             if (emotionManager.emotionType == CCEmotionTypeSmall)
                 max -= 1;
-
+            
             for (int j = 0; j < numberOfEmotions; j++) {
-
+                
                 NSArray *data = [emotionManager.emotions subarrayWithRange:NSMakeRange(j * max, j == numberOfEmotions - 1 ? (emotionManager.emotions.count - j * max) % (max + 1) : max)];
-
+                
                 if (data.count) {
                     CCEmotionView *emotionView = [[CCEmotionView alloc] initWithFrame:frame
                                                                               Section:section
@@ -261,16 +262,16 @@
                        atSection:(NSInteger)section
 {
     if (self.selectedIndex == section) return;
-
+    
     self.emotionPageControl.currentPage = 0;
     self.selectedIndex = section;
-
+    
     NSInteger index = 0;
     for (int i = 0; i <= self.selectedIndex; i++)
         index += [[self.indexs objectAtIndex:i] integerValue];
-
+    
     [self.emotionScrollView scrollRectToVisible:CGRectMake(CGRectGetWidth(self.bounds) * (index - self.emotionPageControl.numberOfPages), 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - kCCEmotionSectionBarHeight) animated:NO];
-
+    
     [self reloadData];
 }
 
@@ -286,7 +287,7 @@
         [self.delegate didSendMessage];
 }
 
--(void)didEmojiManage
+- (void)didEmojiManage
 {
     if ([self.delegate respondsToSelector:@selector(didEmojiManage)])
         [self.delegate didEmojiManage];
@@ -301,12 +302,12 @@
     //根据当前的坐标与页宽计算当前页码
     NSInteger currentPage = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     if ([scrollView isEqual:self.emotionScrollView]) {
-
+        
         NSInteger index = 0;
         NSInteger selectIndex = _selectedIndex;
         for (int i = 0; i <= selectIndex; i++)
             index += [[self.indexs objectAtIndex:i] integerValue];
-
+        
         if (currentPage > index - 1) {
             self.selectedIndex++;
             currentPage = 0;

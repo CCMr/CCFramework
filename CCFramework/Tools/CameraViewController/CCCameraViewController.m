@@ -62,17 +62,17 @@
                                         complate:(Completion)complate
 {
     _currentViewController = viewController;
-
+    
     CCActionSheet *actionSheet = [[CCActionSheet alloc] initWithWhiteExample];
     [actionSheet addButtonWithTitle:@"拍照获取" image:nil type:CCActionSheetButtonTypeTextAlignmentCenter handler:^(CCActionSheet *actionSheet) {
         [self cameras];
     }];
-
+    
     [actionSheet addButtonWithTitle:@"从相册选择" image:nil type:CCActionSheetButtonTypeTextAlignmentCenter handler:^(CCActionSheet *actionSheet) {
         [self LocalPhoto];
     }];
     [actionSheet show];
-
+    
     _callBackBlock = complate;
 }
 
@@ -126,7 +126,7 @@
             weakSelf.callBackBlock(images);
         }
     }];
-
+    
     if (_currentViewController.parentViewController)
         [_currentViewController.parentViewController presentViewController:photoPickerC animated:YES completion:nil];
     else
@@ -303,29 +303,29 @@
 {
     if ([self isCameraAvailable] && [self doesCameraSupportTakingPhotos]) {
         UIImagePickerController *controller = [[UIImagePickerController alloc] init]; //初始化图片选择控制器
-        [controller setSourceType:UIImagePickerControllerSourceTypeCamera];		// 设置类型
+        [controller setSourceType:UIImagePickerControllerSourceTypeCamera];	   // 设置类型
         controller.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;      //设置闪光灯模式
-
+        
         // 设置所支持的类型，设置只能拍照，或则只能录像，或者两者都可以
         NSString *requiredMediaType = (NSString *)kUTTypeImage;
         //        NSString *requiredMediaType1 = ( NSString *)kUTTypeMovie;
         //        NSArray *arrMediaTypes=[NSArray arrayWithObjects:requiredMediaType, requiredMediaType1,nil];
         NSArray *arrMediaTypes = [NSArray arrayWithObjects:requiredMediaType, nil];
         [controller setMediaTypes:arrMediaTypes];
-
-
+        
+        
         // 设置录制视频的质量
         // [controller setVideoQuality:UIImagePickerControllerQualityTypeHigh];
         //设置最长摄像时间
         // [controller setVideoMaximumDuration:10.f];
-
+        
         //        [controller setAllowsEditing:YES];// 设置是否可以管理已经存在的图片或者视频
         [controller setDelegate:self]; // 设置代理
-
+        
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
             _currentViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         }
-
+        
         [_currentViewController presentViewController:controller animated:YES completion:^{
             [self isCameraUsageRights];
         }];
@@ -348,29 +348,30 @@
     // 判断获取类型：图片
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
         UIImage *theImage = nil;
-        if ([picker allowsEditing])					      //判断，图片是否允许修改
+        if ([picker allowsEditing])					       //判断，图片是否允许修改
             theImage = [info objectForKey:UIImagePickerControllerEditedImage]; //获取用户编辑之后的图像
         else
             theImage = [info objectForKey:UIImagePickerControllerOriginalImage]; // 照片的元数据参数
-
+        
         // 保存图片到相册中
         SEL selectorToCall = @selector(imageWasSavedSuccessfully:didFinishSavingWithError:contextInfo:);
         UIImageWriteToSavedPhotosAlbum(theImage, self, selectorToCall, NULL);
-
+        
+        UIImage *sendImage = [UIImage imageWithData:UIImagePNGRepresentation(theImage)];
         if (_isClipping && self.minCount == 1) {
-            [self performSelector:@selector(pushCropViewController:) withObject:theImage afterDelay:0.5];
+            [self performSelector:@selector(pushCropViewController:) withObject:sendImage afterDelay:0.5];
         } else {
             NSMutableArray *SelectImageArray = [NSMutableArray array];
-            [SelectImageArray addObject:theImage];
+            [SelectImageArray addObject:sendImage];
             _callBackBlock(SelectImageArray);
         }
-
+        
     } else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
         // 判断获取类型：视频 => 获取视频文件的url
         NSURL *mediaURL = [info objectForKey:UIImagePickerControllerMediaURL];
         //创建ALAssetsLibrary对象并将视频保存到媒体库 => Assets Library 框架包是提供了在应用程序中操作图片和视频的相关功能。相当于一个桥梁，链接了应用程序和多媒体文件。
         ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
-
+        
         [assetsLibrary writeVideoAtPathToSavedPhotosAlbum:mediaURL completionBlock:^(NSURL *assetURL, NSError *error) { // 将视频保存到相册中
             if (!error) {
                 NSLog(@"captured video saved with no error.");
@@ -379,7 +380,7 @@
             }
         }];
     }
-
+    
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -424,31 +425,41 @@
     CCImageCropViewController *imageCropVC = [[CCImageCropViewController alloc] initWithImage:image cropMode:CCImageCropModeSquare];
     imageCropVC.delegate = self;
     imageCropVC.dataSource = self;
-
+    
     if (_currentViewController.parentViewController) {
-        UINavigationController *navViewController = _currentViewController.parentViewController;
+        UINavigationController *navViewController = (UINavigationController *)_currentViewController.parentViewController;
         if ([navViewController isKindOfClass:[UINavigationController class]]) {
             [navViewController pushViewController:imageCropVC animated:YES];
-        }else
+        } else
             [_currentViewController.parentViewController presentViewController:imageCropVC animated:YES completion:nil];
     }else
         [[[[UIApplication sharedApplication].windows firstObject] rootViewController] presentViewController:imageCropVC animated:YES completion:nil];
 }
 
 #pragma mark :. imageCropViewDelegate
+-(CGRect)imageCropViewControllerCustomMaskRect:(CCImageCropViewController *)controller
+{
+    return CGRectZero;
+}
+
+-(UIBezierPath *)imageCropViewControllerCustomMaskPath:(CCImageCropViewController *)controller
+{
+    return [UIBezierPath new];
+}
+
 - (void)imageCropViewControllerDidCancelCrop:(CCImageCropViewController *)controller
 {
-    UINavigationController *navViewController = _currentViewController.parentViewController;
+    UINavigationController *navViewController = (UINavigationController *)_currentViewController.parentViewController;
     [navViewController popViewControllerAnimated:YES];
     [navViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)imageCropViewController:(CCImageCropViewController *)controller didCropImage:(UIImage *)croppedImage usingCropRect:(CGRect)cropRect
 {
-    UINavigationController *navViewController = _currentViewController.parentViewController;
+    UINavigationController *navViewController = (UINavigationController *)_currentViewController.parentViewController;
     [navViewController popViewControllerAnimated:YES];
     [navViewController dismissViewControllerAnimated:YES completion:nil];
-
+    
     NSMutableArray *SelectImageArray = [NSMutableArray array];
     [SelectImageArray addObject:croppedImage];
     _callBackBlock(SelectImageArray);

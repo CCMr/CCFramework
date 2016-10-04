@@ -121,7 +121,7 @@
     }
 
     if (!_timeLabel) {
-        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, _beaconView.width, 20)];
+        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 25, _beaconView.width, 20)];
         timeLabel.textColor = [UIColor whiteColor];
         timeLabel.font = [UIFont systemFontOfSize:13];
         timeLabel.backgroundColor = [UIColor clearColor];
@@ -135,7 +135,7 @@
     if (!_microPhoneImageView) {
         UIImage *images = [UIImage imageNamed:@"microphone"];
 
-        UIImageView *microPhoneImageView = [[UIImageView alloc] initWithFrame:CGRectMake((_beaconView.width - images.size.width) / 2, _timeLabel.bottom + 5, images.size.width, images.size.height)];
+        UIImageView *microPhoneImageView = [[UIImageView alloc] initWithFrame:CGRectMake((_beaconView.width - images.size.width) / 2, _timeLabel.bottom + 10, images.size.width, images.size.height)];
         microPhoneImageView.hidden = YES;
         microPhoneImageView.image = images;
         microPhoneImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;

@@ -45,13 +45,13 @@ typedef void (^CCScrollViewDidScroll)(UIScrollView *scrollView);
 typedef void (^CCTableHelperCellBlock)(NSString *info, id event);
 
 
-typedef UIView *__nonnull (^CCTableHelperHeaderBlock)(UITableView *tableView, NSInteger section,id cModel);
-typedef UIView *__nonnull (^CCTableHelperFooterBlock)(UITableView *tableView, NSInteger section,id cModel);
+typedef UIView *__nonnull (^CCTableHelperHeaderBlock)(UITableView *tableView, NSInteger section, id cModel);
+typedef UIView *__nonnull (^CCTableHelperFooterBlock)(UITableView *tableView, NSInteger section, id cModel);
 
 typedef NSString *__nonnull (^CCTableHelperTitleHeaderBlock)(UITableView *tableView, NSInteger section);
 typedef NSString *__nonnull (^CCTableHelperTitleFooterBlock)(UITableView *tableView, NSInteger section);
 
-typedef NSInteger (^CCTableHelperNumberRows)(UITableView *tableView,NSInteger section, id cModel);
+typedef NSInteger (^CCTableHelperNumberRows)(UITableView *tableView, NSInteger section, id cModel);
 typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndexPath *cIndexPath);
 
 @interface CCTableViewHelper : NSObject <UITableViewDataSource, UITableViewDelegate>
@@ -216,6 +216,39 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
  *  @param newDataAry 数据源
  */
 - (void)cc_reloadGroupDataAry:(NSArray *)newDataAry;
+
+/**
+ *  @author C C, 2016-09-29
+ *  
+ *  @brief  添加分组数据
+ *
+ *  @param newDataAry 数据源
+ */
+- (void)cc_addGroupDataAry:(NSArray *)newDataAry;
+
+/**
+ *  @author C C, 2016-09-29
+ *  
+ *  @brief  插入分组数据
+ *
+ *  @param newDataAry 数据源
+ *  @param cSection   下标
+ *                    如下标为-1 是往前插入
+ */
+- (void)cc_insertGroupDataAry:(NSArray *)newDataAry
+                   forSection:(NSInteger)cSection;
+
+/**
+ *  @author C C, 2016-09-29
+ *  
+ *  @brief  插入多条分组数据
+ *
+ *  @param newDataAry 数据源
+ *  @param cSection   下标
+ *                    如下标为-1 是往前插入
+ */
+- (void)cc_insertMultiplGroupDataAry:(NSArray *)newDataAry
+                          forSection:(NSInteger)cSection;
 
 /**
  *  @author CC, 16-05-18

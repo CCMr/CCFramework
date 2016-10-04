@@ -365,6 +365,40 @@
 }
 
 /**
+ *  @author C C, 2016-09-29
+ *  
+ *  @brief  转换时间格式（微信样式）
+ */
+-(NSString *)convertDateFormat
+{
+    NSDate *currentDate = [NSDate date];
+    
+    NSCalendar *currentCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    
+    NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    
+    NSDateComponents *currentComps = [currentCalendar components:unitFlags fromDate:currentDate];
+    NSDateComponents *otherComps = [currentCalendar components:unitFlags fromDate:self];
+    
+    NSString *strDate;
+    NSInteger weekIntValue = [self weekIntValueWithDate] - 1; //获取星期对应的数字
+    NSInteger days = currentComps.day - otherComps.day;
+    
+    if (currentComps.year == otherComps.year && currentComps.month == otherComps.month && currentComps.day == otherComps.day)
+        strDate = [self timeFormat:@"HH:mm"];
+    else if (currentComps.year == otherComps.year && currentComps.month == otherComps.month && days == 1)
+        strDate = @"昨天";
+    else if (currentComps.year == otherComps.year && currentComps.month == otherComps.month && days < 7)
+        strDate = [NSDate getWeekStringFromInteger:(int)weekIntValue];
+    else if (currentComps.year == otherComps.year)
+        strDate = [self timeFormat:@"yyyy/MM/dd"];
+    else
+        strDate = [self timeFormat:@"yyyy/MM/dd HH:mm"];
+    
+    return strDate;
+}
+
+/**
  *  @author CC, 15-09-15
  *
  *  @brief  时间转换
