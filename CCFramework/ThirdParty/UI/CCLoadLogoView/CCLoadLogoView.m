@@ -29,8 +29,8 @@
 
 @interface CCLoadLogoView ()
 
-@property (nonatomic, strong) CCLoadView *LoadViews;
-@property (nonatomic) BOOL isAnimating;
+@property(nonatomic, strong) CCLoadView *LoadViews;
+@property(nonatomic) BOOL isAnimating;
 
 @end
 
@@ -44,38 +44,44 @@
     [_LoadViews.layer removeAllAnimations];
 }
 
--(instancetype)init{
+- (instancetype)init
+{
     if (self = [super init]) {
         self.backgroundColor = [UIColor clearColor];
     }
     return self;
 }
 
--(instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame
+{
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor];
     }
     return self;
 }
 
--(instancetype)initWithLogo:(NSString *)Logo Frame:(CGRect)frame{
+- (instancetype)initWithLogo:(NSString *)Logo Frame:(CGRect)frame
+{
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor];
         _LoadViews = [[CCLoadView alloc] initWithFrame:frame];
         _LoadViews.mode = CCLoadLogoViewModeIndeterminate;
         [_LoadViews startAnimation];
         [self addSubview:_LoadViews];
-        UIImageView *LogoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:Logo]];
-        LogoImageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
-        [self addSubview:LogoImageView];
         
+        if (Logo && ![Logo isEqualToString:@""]) {
+            UIImageView *LogoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:Logo]];
+            LogoImageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+            [self addSubview:LogoImageView];
+        }
         //按home键回来 继续转动
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForegroundNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
     }
     return self;
 }
 
--(instancetype)initWithLoading:(CGRect)frame{
+- (instancetype)initWithLoading:(CGRect)frame
+{
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor];
         _LoadViews = [[CCLoadView alloc] initWithFrame:frame];
@@ -94,23 +100,24 @@
 {
     if (!_isAnimating) {
         [self startAnimation];
-    }
-    else {
+    } else {
         [self stopAnimation];
     }
 }
 
--(void)setLineColor:(UIColor *)lineColor
+- (void)setLineColor:(UIColor *)lineColor
 {
     self.LoadViews.lineColor = lineColor;
 }
 
--(void)startAnimation{
+- (void)startAnimation
+{
     _isAnimating = YES;
     [_LoadViews startAnimation];
 }
 
--(void)stopAnimation{
+- (void)stopAnimation
+{
     _isAnimating = NO;
     [_LoadViews stopAnimation];
 }
@@ -123,9 +130,9 @@
 @interface CCLoadView ()
 
 //0.0 - 1.0
-@property (nonatomic, assign) CGFloat anglePer;
+@property(nonatomic, assign) CGFloat anglePer;
 
-@property (nonatomic, strong) NSTimer *timer;
+@property(nonatomic, strong) NSTimer *timer;
 
 @end
 
@@ -133,7 +140,8 @@
 static int stage = 0;
 @synthesize mode;
 
-- (id)initWithFrame:(CGRect)frame{
+- (id)initWithFrame:(CGRect)frame
+{
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
@@ -141,7 +149,8 @@ static int stage = 0;
     return self;
 }
 
-- (id)init{
+- (id)init
+{
     self = [super init];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
@@ -149,18 +158,20 @@ static int stage = 0;
     return self;
 }
 
--(void)setLineColor:(UIColor *)lineColor
+- (void)setLineColor:(UIColor *)lineColor
 {
     _lineColor = lineColor;
     [self setNeedsDisplay];
 }
 
-- (void)setAnglePer:(CGFloat)anglePer{
+- (void)setAnglePer:(CGFloat)anglePer
+{
     _anglePer = anglePer;
     [self setNeedsDisplay];
 }
 
-- (void)startAnimation{
+- (void)startAnimation
+{
     if (self.isAnimating) {
         [self stopAnimation];
         [self.layer removeAllAnimations];
@@ -168,10 +179,11 @@ static int stage = 0;
     _isAnimating = YES;
     self.anglePer = 0;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.02f target:self selector:@selector(drawPathAnimation:) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop]addTimer:self.timer forMode:NSRunLoopCommonModes];
+    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
 }
 
-- (void)stopAnimation{
+- (void)stopAnimation
+{
     _isAnimating = NO;
     
     if ([self.timer isValid]) {
@@ -181,7 +193,8 @@ static int stage = 0;
     [self stopRotateAnimation];
 }
 
-- (void)drawPathAnimation:(NSTimer *)timer{
+- (void)drawPathAnimation:(NSTimer *)timer
+{
     if (mode == CCLoadLogoViewModeFloatingPoint) {
         stage++;
     }
@@ -195,17 +208,19 @@ static int stage = 0;
     }
 }
 
-- (void)startRotateAnimation{
+- (void)startRotateAnimation
+{
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     animation.fromValue = @(0);
-    animation.toValue = @(2*M_PI);
+    animation.toValue = @(2 * M_PI);
     animation.duration = 1;
     animation.repeatCount = INT_MAX;
     
     [self.layer addAnimation:animation forKey:@"keyFrameAnimation"];
 }
 
-- (void)stopRotateAnimation{
+- (void)stopRotateAnimation
+{
     [UIView animateWithDuration:0.3f animations:^{
         self.alpha = 0;
     } completion:^(BOOL finished) {
@@ -215,7 +230,8 @@ static int stage = 0;
     }];
 }
 
-- (void)drawRect:(CGRect)rect{
+- (void)drawRect:(CGRect)rect
+{
     if (self.anglePer <= 0)
         _anglePer = 0;
     
@@ -230,12 +246,11 @@ static int stage = 0;
     if (mode == CCLoadLogoViewModeIndeterminate) {
         CGContextSetLineWidth(context, lineWidth);
         CGContextSetStrokeColorWithColor(context, lineColor.CGColor);
-        CGContextAddArc(context,CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds),CGRectGetWidth(self.bounds) / 2 - lineWidth,ANGLE(120), ANGLE(120) + ANGLE(330) * self.anglePer,0);
+        CGContextAddArc(context, CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds), CGRectGetWidth(self.bounds) / 2 - lineWidth, ANGLE(120), ANGLE(120) + ANGLE(330) * self.anglePer, 0);
         CGContextStrokePath(context);
-    }else if (mode == CCLoadLogoViewModeFloatingPoint){
-        CGContextAddArc(context,CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds),CGRectGetWidth(self.bounds) / 2 - 5,ANGLE(120), ANGLE(120) + ANGLE(330) * self.anglePer,0);
+    } else if (mode == CCLoadLogoViewModeFloatingPoint) {
+        CGContextAddArc(context, CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds), CGRectGetWidth(self.bounds) / 2 - 5, ANGLE(120), ANGLE(120) + ANGLE(330) * self.anglePer, 0);
         CGContextDrawPath(context, kCGPathFill);
-
     }
 }
 @end

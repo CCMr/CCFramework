@@ -412,307 +412,236 @@
 @interface CoreDataMasterSlave (Modify)
 
 /**
- *  @author 2015-10-25
- *
- *  @brief  批量修改属性值
- *
- *  @param tableName 表名
- *  @param key       字段名
- *  @param value     字段值
+ 批量修改属性值
+ 
+ @param tableName 表名
+ @param columnDic 更新键值
  */
 + (void)cc_batchUpdataCoredData:(NSString *)tableName
                  ColumnKeyValue:(NSDictionary *)columnDic;
 
 /**
- *  @author CC, 2015-10-25
- *
- *  @brief  修改对象及子项
- *          操作方式 属性 条件 值（editDataArray 对象中获取Key值）
- *
- *  @param tableName      表名
- *  @param conditionKey   条件字段
- *  @param condition      条件
- *  @param conditionValue 条件值的Key
- *  @param editDataArray  编辑的对象
+ 修改数据
+ 及其子对象数据
+ 
+ @param tableName 表名
+ @param condition 修改条件
+ @param editData  编辑键值
  */
-+ (void)cc_updateCoreData:(NSString *)tableName
-             ConditionKey:(NSString *)conditionKey
-                Condition:(NSString *)condition
-           ConditionValue:(NSString *)conditionValue
-            EditDataArray:(NSArray *)editDataArray;
++(void)cc_updateCoreData:(NSString *)tableName 
+               Condition:(NSPredicate *)condition 
+                EditData:(NSDictionary *)editData;
 
 /**
- *  @author C C, 2015-10-25
- *
- *  @brief  修改对象及子项
- *
- *  @param tableName      表名
- *  @param conditionKey   条件字段
- *  @param condition      条件
- *  @param conditionValue 条件值
- *  @param editDataArray  编辑属性
- *  @param completion     完成回调函数
+ 修改数据
+ 及其子对象数据
+ 
+ @param tableName  表名
+ @param condition  修改条件
+ @param editData   编辑键值
+ @param completion 完成回调
  */
-+ (void)cc_updateCoreData:(NSString *)tableName
-             ConditionKey:(NSString *)conditionKey
-                Condition:(NSString *)condition
-           ConditionValue:(NSString *)conditionValue
-            EditDataArray:(NSArray *)editDataArray
-               completion:(void (^)(NSError *error))completion;
++(void)cc_updateCoreData:(NSString *)tableName 
+               Condition:(NSPredicate *)condition
+                EditData:(NSDictionary *)editData 
+              Completion:(void (^)(NSError *error))completion;
 
 /**
- *  @author CC, 2015-07-24
- *
- *  @brief  对整个对象修改
- *
- *  @param tableName 表名
- *  @param condition 查询条件
- *  @param editData  修改对象
- *
- *  @since 1.0
- */
-+ (void)cc_updateCoreData:(NSString *)tableName
-                Condition:(NSPredicate *)condition
-                 EditData:(NSDictionary *)editData;
-
-/**
- *  @author C C, 2015-10-25
- *
- *  @brief  修改对象及子项
- *
- *  @param tableName  表名
- *  @param condition  条件
- *  @param editData   编辑属性
- *  @param completion 完成回调函数
- */
-+ (void)cc_updateCoreData:(NSString *)tableName
-                Condition:(NSPredicate *)condition
-                 EditData:(NSDictionary *)editData
-               completion:(void (^)(NSError *error))completion;
-
-/**
- *  @author C C, 2015-10-25
- *
- *  @brief  修改对象属性
- *
- *  @param tableName      表名
- *  @param condition      条件
- *  @param attributeName  属性名
- *  @param attributeValue 属性值
- */
-+ (void)cc_updateCoreData:(NSString *)tableName
-                Condition:(NSPredicate *)condition
-            AttributeName:(NSString *)attributeName
-           AttributeValue:(id)attributeValue;
-
-/**
- *  @author C C, 2015-10-25
- *
- *  @brief  修改对象属性
- *
- *  @param tableName      表名
- *  @param condition      条件
- *  @param attributeName  属性名
- *  @param attributeValue 属性值
- *  @param completion     完成回调函数
- */
-+ (void)cc_updateCoreData:(NSString *)tableName
-                Condition:(NSPredicate *)condition
-            AttributeName:(NSString *)attributeName
-           AttributeValue:(id)attributeValue
-               completion:(void (^)(NSError *error))completion;
-
-/**
- *  @author CC, 2015-10-23
- *
- *  @brief  主键修改数据对象及子项
- *
- *  @param context     操作对象
- *  @param tableName   表名
- *  @param conditionID 主键ID
- *  @param editData    编辑的数据集
+ 主键修改数据对象及子项
+ 
+ @param tableName   表名
+ @param conditionID 主键ID
+ @param editData    编辑数据键值
  */
 + (void)cc_updateCoreData:(NSString *)tableName
               ConditionID:(NSManagedObjectID *)conditionID
                  EditData:(NSDictionary *)editData;
 
 /**
- *  @author C C, 2015-10-25
- *
- *  @brief  主键ID修改对象及子项
- *
- *  @param tableName   表名
- *  @param conditionID 主键ID
- *  @param editData    编辑属性
- *  @param completion  完成回调函数
+ 主键修改数据对象及子项
+ 
+ @param tableName   表名
+ @param conditionID 主键ID
+ @param editData    编辑数据键值
+ @param completion  完成回调
  */
 + (void)cc_updateCoreData:(NSString *)tableName
               ConditionID:(NSManagedObjectID *)conditionID
                  EditData:(NSDictionary *)editData
-               completion:(void (^)(NSError *error))completion;
+               Completion:(void (^)(NSError *error))completion;
 
 /**
- *  @author CC, 16-08-09
- *
- *  @brief 更新或新增数据
- *
- *  @param tableName 表名
- *  @param predicate 修改条件
- *  @param dataAry   修改参数
+ 更新或插入数据
+ 根据条件先查询符合条件就修改数据对象，不符合就插入数据
+ 
+ @param tableName 表名
+ @param predicate 条件
+ @param data      更新键值
  */
-+ (NSArray *)cc_updateORInsertCoreData:(NSString *)tableName
-                             Predicate:(NSPredicate *)predicate
-                               DataAry:(NSArray *)dataAry;
++(void)cc_updateORInsertCoreData:(NSString *)tableName
+                       Predicate:(NSPredicate *)predicate
+                            Data:(NSDictionary *)data;
 
 /**
- *  @author CC, 16-08-09
- *
- *  @brief 更新或新增数据
- *
- *  @param tableName 表名
- *  @param predicate 修改条件
- *  @param data      修改参数
- */
-+ (id)cc_updateORInsertCoreData:(NSString *)tableName
-                      Predicate:(NSPredicate *)predicate
-                           Data:(NSDictionary *)data;
+ 更新或插入数据
+ 根据条件先查询符合条件就修改数据对象，不符合就插入数据
+
+ @param tableName 表名
+ @param predicate 条件
+ @param data      更新键值
+ @param callbackDataArr 回调执行后对象集合
+*/
++(void)cc_updateORInsertCoreData:(NSString *)tableName
+                       Predicate:(NSPredicate *)predicate
+                            Data:(NSDictionary *)data
+                    CallbackData:(void (^)(NSDictionary *data))callbackData;
 
 /**
- *  @author CC, 2015-11-05
- *
- *  @brief  更新或者添加数据
- *
- *  @param tableName   表名
- *  @param primaryKeys 主键
- *  @param data        数据源
- *
- *  @return 返回更新或者添加之后的对象
+ 更新或插入数据
+ 根据条件先查询符合条件就修改数据对象，不符合就插入数据
+ 
+ @param tableName 表名
+ @param predicate 条件
+ @param data      更新键值
+ @param callbackDataArr 回调执行后对象集合
+ @param completion 完成回调
  */
-+ (id)cc_updateORInsertCoreData:(NSString *)tableName
-                    PrimaryKeys:(NSString *)primaryKeys
-                           Data:(NSDictionary *)data;
++(void)cc_updateORInsertCoreData:(NSString *)tableName
+                       Predicate:(NSPredicate *)predicate
+                            Data:(NSDictionary *)data
+                    CallbackData:(void (^)(NSDictionary *data))callbackData
+                      Completion:(void (^)(NSError *error))completion;
 
 /**
- *  @author CC, 2015-11-05
- *
- *  @brief  更新或者添加数据
- *
- *  @param tableName   表名
- *  @param primaryKeys 主键
- *  @param data        数据源
- *  @param completion  完成回调
- *
- *  @return 返回更新或者添加之后的对象
+ 批量更新或新增数据
+ 
+ @param tableName       表名
+ @param predicateArr    条件
+ @param dataArr         集合
+ @param callbackDataArr 完成数据
  */
-+ (id)cc_updateORInsertCoreData:(NSString *)tableName
-                    PrimaryKeys:(NSString *)primaryKeys
-                           Data:(NSDictionary *)data
-                     completion:(void (^)(NSError *error))completion;
++(void)cc_updateORInsertCoreData:(NSString *)tableName
+                    PredicateArr:(NSArray *)predicateArr
+                         DataArr:(NSArray *)dataArr
+                 CallbackDataArr:(void (^)(NSArray *dataArr))callbackDataArr;
 
 /**
- *  @author CC, 2015-11-05
- *
- *  @brief  更新或者添加数据
- *
- *  @param tableName   表名
- *  @param primaryKeys 主键
- *  @param dataAry     数据源
- *
- *  @return 返回更新或者添加之后的对象集合
+ 批量更新或新增数据
+ 
+ @param tableName       表名
+ @param predicateArr    条件
+ @param dataArr         集合
+ @param callbackDataArr 完成数据
+ @param completion      完成回调
  */
-+ (NSArray *)cc_updateORInsertCoreData:(NSString *)tableName
-                           PrimaryKeys:(NSString *)primaryKeys
-                               DataAry:(NSArray *)dataAry;
++(void)cc_updateORInsertCoreData:(NSString *)tableName
+                    PredicateArr:(NSArray *)predicateArr
+                         DataArr:(NSArray *)dataArr
+                 CallbackDataArr:(void (^)(NSArray *dataArr))callbackDataArr
+                      Completion:(void (^)(NSError *error))completion;
 
 /**
- *  @author CC, 2015-11-05
- *
- *  @brief  更新或者添加数据
- *
- *  @param tableName   表名
- *  @param primaryKeys 主键
- *  @param dataAry     数据源
- *  @param completion  完成回调
- *
- *  @return 返回更新或者添加之后的对象集合
+ 更新或插入数据
+ 根据主键与主键值
+ 
+ @param tableName    表名
+ @param primaryKey   主键
+ @param primaryValue 主键值
+ @param data         更新数据
  */
-+ (NSArray *)cc_updateORInsertCoreData:(NSString *)tableName
-                           PrimaryKeys:(NSString *)primaryKeys
-                               DataAry:(NSArray *)dataAry
-                            completion:(void (^)(NSError *error))completion;
++ (void)cc_updateORInsertCoreData:(NSString *)tableName
+                       PrimaryKey:(NSString *)primaryKey
+                          DataArr:(NSArray *)dataArr;
 
 /**
- *  @author CC, 2015-11-23
- *
- *  @brief   更新或添加数据
- *
- *  @param tableName    表名
- *  @param primaryKey   主键
- *  @param primaryValue 主键值
- *  @param dataAry      数据
- *  @param completion   完成回调
- *
- *  @return 返回更新或创建之后的对象集合
+ 更新或插入数据
+ 根据主键与主键值
+ 
+ @param tableName    表名
+ @param primaryKey   主键
+ @param primaryValue 主键值
+ @param data         更新数据
+ @param completion   完成回调
  */
-+ (NSArray *)cc_updateORInsertCoreData:(NSString *)tableName
-                            PrimaryKey:(NSString *)primaryKey
-                          PrimaryValue:(id)primaryValue
-                               DataDic:(NSDictionary *)data;
++ (void)cc_updateORInsertCoreData:(NSString *)tableName
+                       PrimaryKey:(NSString *)primaryKey
+                          DataArr:(NSArray *)dataArr
+                       Completion:(void (^)(NSError *error))completion;
 
 /**
- *  @author CC, 2015-11-23
- *
- *  @brief   更新或添加数据
- *
- *  @param tableName    表名
- *  @param primaryKey   主键
- *  @param primaryValue 主键值
- *  @param dataAry      数据
- *  @param completion   完成回调
- *
- *  @return 返回更新或创建之后的对象集合
+ 更新或插入数据
+ 根据主键与主键值
+ 
+ @param tableName       表名
+ @param primaryKey      主键
+ @param dataArr         对象集合
+ @param callbackDataArr 回调执行后对象集合
  */
-+ (NSArray *)cc_updateORInsertCoreData:(NSString *)tableName
-                            PrimaryKey:(NSString *)primaryKey
-                          PrimaryValue:(id)primaryValue
-                               DataAry:(NSArray *)dataAry;
-/**
- *  @author CC, 2015-11-23
- *
- *  @brief   更新或添加数据
- *
- *  @param tableName    表名
- *  @param primaryKey   主键
- *  @param primaryValue 主键值
- *  @param dataAry      数据
- *  @param completion   完成回调
- *
- *  @return 返回更新或创建之后的对象集合
- */
-+ (NSArray *)cc_updateORInsertCoreData:(NSString *)tableName
-                            PrimaryKey:(NSString *)primaryKey
-                          PrimaryValue:(id)primaryValue
-                               DataAry:(NSArray *)dataAry
-                            completion:(void (^)(NSError *error))completion;
++ (void)cc_updateORInsertCoreData:(NSString *)tableName
+                       PrimaryKey:(NSString *)primaryKey
+                          DataArr:(NSArray *)dataArr
+                  CallbackDataArr:(void (^)(NSArray *dataArr))callbackDataArr;
 
 /**
- *  @author CC, 2015-11-23
- *
- *  @brief  更新或新增数据
- *
- *  @param tableName    表名
- *  @param primaryKey   主键
- *  @param primaryValue 主键值
- *  @param data         数据源
- *  @param context      管理对象
- *
- *  @return 返回更新或创建
+ 更新或插入数据
+ 根据主键与主键值
+ 
+ @param tableName       表名
+ @param primaryKey      主键
+ @param dataArr         对象集合
+ @param callbackDataArr 回调执行后对象集合
+ @param completion      完成回调
  */
-+ (id)objctWithData:(NSString *)tableName
-         PrimaryKey:(NSString *)primaryKey
-       PrimaryValue:(id)primaryValue
-               Data:(NSDictionary *)data
-          inContext:(NSManagedObjectContext *)context;
++ (void)cc_updateORInsertCoreData:(NSString *)tableName
+                       PrimaryKey:(NSString *)primaryKey
+                          DataArr:(NSArray *)dataArr
+                  CallbackDataArr:(void (^)(NSArray *dataArr))callbackDataArr
+                       Completion:(void (^)(NSError *error))completion;
+
+/**
+ 更新或插入数据
+ 根据主键与主键值
+ 
+ @param tableName    表名
+ @param primaryKey   主键
+ @param primaryValue 主键值
+ @param data         更新数据
+ */
++ (void)cc_updateORInsertCoreData:(NSString *)tableName
+                       PrimaryKey:(NSString *)primaryKey
+                             Data:(NSDictionary *)data;
+
+/**
+ 更新或插入数据
+ 根据主键与主键值
+ 
+ @param tableName    表名
+ @param primaryKey   主键
+ @param data         数据对象
+ @param callbackData 回调执行后对象
+ */
++ (void)cc_updateORInsertCoreData:(NSString *)tableName
+                       PrimaryKey:(NSString *)primaryKey
+                             Data:(NSDictionary *)data
+                     CallbackData:(void (^)(NSDictionary *data))callbackData;
+
+/**
+ /**
+ 更新或插入数据
+ 根据主键与主键值
+ 
+ @param tableName    表名
+ @param primaryKey   主键
+ @param primaryValue 主键值
+ @param data         更新数据
+ @param callbackData 回调执行后对象
+ @param completion   完成回调
+ */
++ (void)cc_updateORInsertCoreData:(NSString *)tableName
+                       PrimaryKey:(NSString *)primaryKey
+                             Data:(NSDictionary *)data
+                     CallbackData:(void (^)(NSDictionary *data))callbackData
+                       Completion:(void (^)(NSError *error))completion;
 
 /**
  *  @author CC, 2015-11-05

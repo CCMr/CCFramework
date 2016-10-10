@@ -71,6 +71,13 @@
 @property(nonatomic, strong) UIActivityIndicatorView *loadMoreActivityIndicatorView;
 
 /**
+ *  @author C C, 2016-10-06
+ *  
+ *  @brief  长按中
+ */
+@property(nonatomic, assign) BOOL isCellPress;
+
+/**
  *  @author CC, 2015-12-25
  *
  *  @brief  图文路径
@@ -266,22 +273,26 @@
 
 - (void)addMessage:(CCMessage *)addedMessage
 {
-    NSMutableArray *messages = [NSMutableArray arrayWithArray:self.messages];
-    [messages addObject:addedMessage];
-    self.messages = messages;
     if (addedMessage.bubbleMessageType == CCBubbleMessageTypeSending)
         [self finishSendMessageWithBubbleMessageType:addedMessage.messageMediaType];
     
-    CGFloat heigth = self.messageTableView.bounds.size.height;
-    CGFloat contentYoffset = self.messageTableView.contentOffsetY;
-    CGFloat distanceFromBootom = self.messageTableView.contentSizeHeight - contentYoffset;
-    
-    BOOL animated = YES;
-    if (distanceFromBootom < heigth)
-        animated = NO;
-    
-    [self.messageTableView reloadData];
-    [self scrollToBottomAnimated:animated];
+    [self addMessages:@[ addedMessage ]];
+}
+
+- (void)addMessages:(NSArray *)objects
+{
+    typeof(self) __weak weakSelf = self;
+    [self exChangeMessageDataSourceQueue:^{
+        NSMutableArray *messages = [NSMutableArray arrayWithArray:weakSelf.messages];
+        [messages addObjectsFromArray:objects];        
+        weakSelf.messages = messages;
+        [weakSelf exMainQueue:^{
+            if (!weakSelf.messageTableView.isEditing && !weakSelf.isCellPress) {
+                [weakSelf.messageTableView reloadData];
+                [weakSelf scrollToBottomAnimated:YES];
+            }
+        }];
+    }];
 }
 
 /**
@@ -310,18 +321,23 @@
  */
 - (void)replaceMessages:(CCMessage *)messageData
 {
-    NSMutableArray *messages = [NSMutableArray arrayWithArray:self.messages];
-    id data = [self.messages filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.objuniqueID = %@", messageData.objuniqueID]].lastObject;
-    NSInteger index = [self.messages indexOfObject:data];
-    
-    if (index != NSNotFound) {
-        NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:1];
-        [indexPaths addObject:[NSIndexPath indexPathForRow:index inSection:0]];
-        [messages replaceObjectAtIndex:index withObject:messageData];
+    typeof(self) __weak weakSelf = self;
+    [self exChangeMessageDataSourceQueue:^{
+        NSMutableArray *messages = [NSMutableArray arrayWithArray:weakSelf.messages];
+        id data = [weakSelf.messages filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.objuniqueID = %@", messageData.objuniqueID]].lastObject;
+        NSInteger index = [weakSelf.messages indexOfObject:data];
         
-        self.messages = messages;
-        [self.messageTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-    }
+        if (index != NSNotFound) {
+            NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:1];
+            [indexPaths addObject:[NSIndexPath indexPathForRow:index inSection:0]];
+            [messages replaceObjectAtIndex:index withObject:messageData];
+            
+            weakSelf.messages = messages;
+            [weakSelf exMainQueue:^{
+                [weakSelf.messageTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+            }];
+        }
+    }];
 }
 
 - (void)removeMessageAtIndexPath:(NSIndexPath *)indexPath
@@ -348,8 +364,9 @@
                             completion:(void (^)(NSMutableArray **arr))completion
 {
     if (oldMessages.count != 0) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            __block NSMutableArray *messages = [[NSMutableArray alloc] initWithArray:self.messages];
+        typeof(self) __weak weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            __block NSMutableArray *messages = [[NSMutableArray alloc] initWithArray:weakSelf.messages];
             [[[oldMessages reverseObjectEnumerator] allObjects] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 [messages insertObject:obj atIndex:0];
             }];
@@ -357,13 +374,13 @@
             if (completion) 
                 completion(&messages);
             
-            self.messages = messages;            
+            weakSelf.messages = messages; 
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.messageTableView reloadData];
-                self.loadingMoreMessage = NO;
+                [weakSelf.messageTableView reloadData];
+                weakSelf.loadingMoreMessage = NO;
             });
         });
-    }else{
+    } else {
         self.loadingMoreMessage = NO;
     }
 }
@@ -1471,8 +1488,7 @@
 {
     if ([self.delegate respondsToSelector:@selector(shouldLoadMoreMessagesScrollToTop)]) {
         BOOL shouldLoadMoreMessages = [self.delegate shouldLoadMoreMessagesScrollToTop];
-        if (shouldLoadMoreMessages) {
-            
+        if (shouldLoadMoreMessages && !self.messageTableView.isEditing) {
             if (!self.messageTableView.tableHeaderView)
                 self.messageTableView.tableHeaderView = self.headerContainerView;
             
@@ -1627,6 +1643,11 @@
                        onMessageTableViewCell:(CCMessageTableViewCell *)messageTableViewCell
 {
     [self.messageInputView.inputTextView resignFirstResponder];
+}
+
+-(void)didSelectedPress:(BOOL)isCellPress
+{
+    self.isCellPress = isCellPress;
 }
 
 @end

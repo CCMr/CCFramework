@@ -87,7 +87,7 @@
 #pragma mark-
 #pragma mark :. 常用
 
-#define cc_NilOrNull(__ref) (((__ref) == nil) || ([(__ref) isEqual:[NSNull null]]))
+#define cc_NilOrNull(__ref) (((__ref) == nil) || ([(__ref) isEqual:[NSNull null]]) || ([(__ref) isEqualToString:@""]))
 
 #define cc_Font(__fontSize) [UIFont systemFontOfSize:__fontSize]
 #define cc_BFont(__fontSize) [UIFont boldSystemFontOfSize:__fontSize]

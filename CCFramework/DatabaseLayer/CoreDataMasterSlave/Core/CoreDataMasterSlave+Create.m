@@ -30,14 +30,10 @@
 @implementation CoreDataMasterSlave (Create)
 
 /**
- *  @author CC, 2015-07-24
- *
- *  @brief  数据库新增
- *
- *  @param tableName 表名
- *  @param dataDic   对象
- *
- *  @since 1.0
+ 新增对象
+
+ @param tableName 表名
+ @param dataDic   新增数据键值
  */
 + (void)cc_insertCoreData:(NSString *)tableName
                   DataDic:(NSDictionary *)dataDic
@@ -48,13 +44,11 @@
 }
 
 /**
- *  @author CC, 2015-10-30
- *
- *  @brief  数据库新增
- *
- *  @param tableName  表名
- *  @param dataDic    新增数据
- *  @param completion 完成回调函数
+ 新增对象
+
+ @param tableName  表名
+ @param dataDic    新增数据键值
+ @param completion 完成回调
  */
 + (void)cc_insertCoreData:(NSString *)tableName
                   DataDic:(NSDictionary *)dataDic
@@ -67,12 +61,10 @@
 
 
 /**
- *  @author C C, 2015-10-25
- *
- *  @brief  新增对个对象
- *
- *  @param tableName 表名
- *  @param dataArray 新增数据
+ 新增多个对象
+
+ @param tableName 表名
+ @param dataArray 对象集合
  */
 + (void)cc_insertCoreData:(NSString *)tableName
                 DataArray:(NSArray *)dataArray
@@ -85,13 +77,11 @@
 }
 
 /**
- *  @author C C, 2015-10-25
- *
- *  @brief  新增对个对象
- *
- *  @param tableName  表名
- *  @param dataArray  新增数据
- *  @param completion 完成回调函数
+ 新增多个对象
+
+ @param tableName  表名
+ @param dataArray  对象集合
+ @param completion 完成回调
  */
 + (void)cc_insertCoreData:(NSString *)tableName
                 DataArray:(NSArray *)dataArray

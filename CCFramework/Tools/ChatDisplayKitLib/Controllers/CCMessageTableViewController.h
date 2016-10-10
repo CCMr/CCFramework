@@ -337,6 +337,15 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)addMessage:(CCMessage *)addedMessage;
 
 /**
+ *  @author C C, 2016-10-06
+ *  
+ *  @brief  添加多条新的消息
+ *
+ *  @param objects 添加多条目标消息对象
+ */
+- (void)addMessages:(NSArray *)objects;
+
+/**
  *  @author CC, 15-09-16
  *
  *  @brief  修改发送消息状态

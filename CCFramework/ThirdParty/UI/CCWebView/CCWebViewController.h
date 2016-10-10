@@ -30,6 +30,13 @@
 @property(nonatomic, assign) UINavigationBar *webViewInitWithProgress;
 
 /**
+ *  @author C C, 2016-10-05
+ *  
+ *  @brief  标题是否跟随变化（默认 YES）
+ */
+@property(nonatomic, assign) BOOL isTitleFollowChange;
+
+/**
  *  @author CC, 2015-10-13
  *
  *  @brief  显示网页地址
@@ -56,8 +63,8 @@
  */
 - (void)jumpPage:(NSString *)baseURL;
 
--(BOOL)isGoBack;
--(BOOL)isGoForward;
+- (BOOL)isGoBack;
+- (BOOL)isGoForward;
 
 /**
  *  @author CC, 16-09-23

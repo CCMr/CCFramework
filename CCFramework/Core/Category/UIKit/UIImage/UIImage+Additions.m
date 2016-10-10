@@ -1161,6 +1161,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWi
 #pragma mark -
 #pragma mark :. MultiFormat
 
+
 + (UIImage *)cc_imageWithData:(NSData *)data
 {
     if (!data) {

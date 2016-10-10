@@ -126,6 +126,13 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
 - (void)didSelectedSendNotSuccessfulCallback:(id<CCMessageModel>)message 
                                  atIndexPath:(NSIndexPath *)indexPath;
 
+/**
+ *  @author C C, 2016-10-06
+ *  
+ *  @brief  选中长按
+ */
+-(void)didSelectedPress:(BOOL)isCellPress;
+
 #pragma mark - Menu Actions
 /**
  *  @author CC, 2015-11-16

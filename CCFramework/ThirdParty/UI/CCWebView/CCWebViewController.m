@@ -61,6 +61,14 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 
 @implementation CCWebViewController
 
+-(instancetype)init
+{
+    if (self = [super init]) {
+        _isTitleFollowChange = YES;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -381,10 +389,12 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
     } else if ([keyPath isEqualToString:@"title"]) {
         _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.8];
         
-        NSString *changeTitle = change[NSKeyValueChangeNewKey];
-        if (![self.title isEqualToString:changeTitle]) {
-            self.title = changeTitle;
-            [self observeTitle:self.title];
+        if (self.isTitleFollowChange) {
+            NSString *changeTitle = change[NSKeyValueChangeNewKey];
+            if (![self.title isEqualToString:changeTitle]) {
+                self.title = changeTitle;
+                [self observeTitle:self.title];
+            }
         }
     }
 }
@@ -394,10 +404,12 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 {
     [_progressView setProgress:progress animated:YES];
     _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.8];
-    NSString *changeTitle = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-    if (![self.title isEqualToString:changeTitle]) {
-        self.title = changeTitle;
-        [self observeTitle:self.title];
+    if (self.isTitleFollowChange) {
+        NSString *changeTitle = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+        if (![self.title isEqualToString:changeTitle]) {
+            self.title = changeTitle;
+            [self observeTitle:self.title];
+        }
     }
 }
 

@@ -479,7 +479,7 @@
     if ([self.navigationController.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
         NSArray *subArray = self.navigationController.navigationBar.subviews;
         for (UIView *subV in subArray) {
-            if ([subV isKindOfClass:[UIImageView class]]) {
+//            if ([subV isKindOfClass:[UIImageView class]]) {
                 for (UIView *subVs in subV.subviews) {
                     if ([subVs isKindOfClass:[UIImageView class]]) {
                         subVs.hidden = hiden;
@@ -490,7 +490,7 @@
                             subVs.backgroundColor = color;
                     }
                 }
-            }
+//            }
         }
     }
 }

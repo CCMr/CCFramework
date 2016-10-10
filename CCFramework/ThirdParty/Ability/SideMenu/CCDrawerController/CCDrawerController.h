@@ -277,6 +277,18 @@ typedef void (^CCDrawerControllerDrawerVisualStateBlock)(CCDrawerController *dra
  */
 @property(nonatomic, assign) CGFloat panVelocityXAnimationThreshold;
 
+
+/**
+ 是否可以左侧滑
+ */
+@property(nonatomic, assign) BOOL isLeftDrawer;
+
+
+/**
+ 是否可以右车花
+ */
+@property(nonatomic, assign) BOOL isRightDrawer;
+
 /**
  *  @author CC, 2016-01-06
  *  
@@ -476,11 +488,9 @@ typedef void (^CCDrawerControllerDrawerVisualStateBlock)(CCDrawerController *dra
  @param completion The block called when the animation is finsihed.
  
  */
--
-(void)
-setCenterViewControllerWithFull:(UIViewController *)newCenterViewController
-withFullCloseAnimation:(BOOL)fullCloseAnimated
-completion:(void (^)(BOOL finished))completion;
+-(void)setCenterViewControllerWithFull:(UIViewController *)newCenterViewController
+                withFullCloseAnimation:(BOOL)fullCloseAnimated
+                            completion:(void (^)(BOOL finished))completion;
 
 /**
  *  @author CC, 2016-01-06

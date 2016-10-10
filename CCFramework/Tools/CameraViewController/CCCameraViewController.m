@@ -24,13 +24,13 @@
 //
 
 #import "CCCameraViewController.h"
-//#import "CCPickerViewController.h"
 #import "CCActionSheet.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AssetsLibrary/AssetsLibrary.h>
-#import "CCPhotoPickerController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "CCImageCropViewController.h"
+#import "UIImage+Additions.h"
+#import "TZImagePickerController.h"
 
 @interface CCCameraViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, CCImageCropViewControllerDelegate, CCImageCropViewControllerDataSource>
 
@@ -116,14 +116,21 @@
  *  @since 1.0
  */
 - (void)LocalPhoto
-{
-    CCPhotoPickerController *photoPickerC = [[CCPhotoPickerController alloc] initWithMaxCount:self.minCount delegate:nil];
+{    
+    TZImagePickerController *photoPickerC = [[TZImagePickerController alloc] initWithMaxImagesCount:self.minCount columnNumber:4 delegate:nil pushPhotoPickerVc:YES];
+    photoPickerC.isSelectOriginalPhoto = NO;
+    photoPickerC.allowTakePicture = NO;
+    photoPickerC.allowPickingVideo = NO;
+    photoPickerC.alwaysEnableDoneBtn = YES;
+    photoPickerC.allowPickingImage = YES;
+    photoPickerC.allowPickingOriginalPhoto = YES;
+
     typeof(self) __weak weakSelf = self;
-    [photoPickerC setDidFinishPickingPhotosBlock:^(NSArray<UIImage *> *_Nullable images, NSArray<CCAssetModel *> *_Nullable assets) {
+    [photoPickerC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
         if (weakSelf.isClipping && weakSelf.minCount == 1) {
-            [weakSelf performSelector:@selector(pushCropViewController:) withObject:images.lastObject afterDelay:0.5];
-        } else {
-            weakSelf.callBackBlock(images);
+            [weakSelf performSelector:@selector(pushCropViewController:) withObject:photos.lastObject afterDelay:0.5];
+        } else {            
+            weakSelf.callBackBlock(photos);
         }
     }];
     
@@ -357,7 +364,10 @@
         SEL selectorToCall = @selector(imageWasSavedSuccessfully:didFinishSavingWithError:contextInfo:);
         UIImageWriteToSavedPhotosAlbum(theImage, self, selectorToCall, NULL);
         
-        UIImage *sendImage = [UIImage imageWithData:UIImagePNGRepresentation(theImage)];
+        theImage = [UIImage fixOrientation:theImage];        
+        UIImage *sendImage = [UIImage imageWithData:UIImagePNGRepresentation(theImage)]; //图片质量太高内存吃紧再次压缩
+        sendImage = [UIImage imageWithData:UIImagePNGRepresentation(sendImage)];
+        
         if (_isClipping && self.minCount == 1) {
             [self performSelector:@selector(pushCropViewController:) withObject:sendImage afterDelay:0.5];
         } else {

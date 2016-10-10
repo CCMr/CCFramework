@@ -43,6 +43,17 @@
 }
 
 /**
+ *  @author C C, 2016-10-06
+ *  
+ *  @brief  时间转13位时间戳
+ */
+-(NSTimeInterval)dataConversionTimestamp
+{
+    NSTimeInterval timestamp = [self timeIntervalSince1970];
+    return timestamp * 1000;
+}
+
+/**
  *  @author CC, 2015-07-21
  *
  *  @brief  时间转字符串

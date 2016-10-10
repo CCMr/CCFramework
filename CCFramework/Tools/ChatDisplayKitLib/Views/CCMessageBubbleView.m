@@ -59,7 +59,7 @@
 static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 
 
-@interface CCMessageBubbleView ()
+@interface CCMessageBubbleView () <TYAttributedLabelDelegate>
 
 @property(nonatomic, weak, readwrite) TYAttributedLabel *displayTextView;
 
@@ -147,11 +147,13 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         CGSize needSize = [CCTool neededSizeForSize:imageSize Size:photoSize];
         photoSize.width = needSize.width > kCCMaxWidth ? kCCMaxWidth : needSize.width;
         photoSize.height = needSize.height;
-        if (needSize.width > kCCMaxWidth)
-            photoSize.height = (kCCMaxWidth / needSize.width) * needSize.width;
         
-        if (photoSize.height > kCCMaxHeight)
+        if (needSize.width > kCCMaxWidth)
+            photoSize.height = (kCCMaxWidth / needSize.width) * needSize.height;
+        
+        if (needSize.height > kCCMaxHeight)
             photoSize.height = kCCMaxHeight;
+        
     } else if (imageSize.width > kCCMaxWidth) {
         photoSize.width = kCCMaxWidth;
     } else if (!CGSizeEqualToSize(imageSize, CGSizeMake(0, 0))) {
@@ -555,6 +557,9 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             id teletextPath = [message.teletextPath objectAtIndex:i];
             if ([teletextPath isKindOfClass:[NSDictionary class]]) {
                 path = [teletextPath objectForKey:@"localpath"];
+                if ([path isEqualToString:@""] || !path) {
+                    path = [teletextPath objectForKey:@"path"];
+                }
             } else {
                 path = teletextPath;
             }
@@ -570,7 +575,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             imageStorage.image = Images;
             if (CGSizeEqualToSize(size, CGSizeMake(0, 0)))
                 size = Images.size;
-        } else if ([path rangeOfString:@"http://"].location != NSNotFound && CGSizeEqualToSize(size, CGSizeMake(0, 0))) { //网络加载图片时
+        } else if ([path rangeOfString:@"http://"].location != NSNotFound) { //网络加载图片时
             size = CGSizeMake(100, 100);
             imageStorage.imageURL = [NSURL URLWithString:path];
         }
@@ -655,6 +660,15 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     _indicatorView.frame = indicatorViewFrame;
 }
 
+#pragma mark -
+#pragma mark :. TYAttributedLabelDelegate
+-(void)attributedLabel:(TYAttributedLabel *)attributedLabel textStorageClicked:(id<TYTextStorageProtocol>)textStorage atPoint:(CGPoint)point
+{
+    if ([textStorage isKindOfClass:[TYImageStorage class]]) {
+//        TYImageStorage *imageStorage = (TYImageStorage *)textStorage;
+    }
+}
+
 #pragma mark - Life cycle
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -681,6 +695,8 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             displayTextView.textColor = cc_ColorRGB(51, 58, 79); //[UIColor colorWithWhite:0.143 alpha:1.000];
             displayTextView.backgroundColor = [UIColor clearColor];
             displayTextView.font = [[CCMessageBubbleView appearance] font];
+//            displayTextView.delegate = self;
+            displayTextView.userInteractionEnabled = NO;
             [self addSubview:displayTextView];
             _displayTextView = displayTextView;
         }

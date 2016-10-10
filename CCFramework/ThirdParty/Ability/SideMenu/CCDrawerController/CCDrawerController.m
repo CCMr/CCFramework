@@ -1208,12 +1208,20 @@ static NSString *CCDrawerOpenSideKey = @"CCDrawerOpenSide";
 
 - (void)setRightDrawerViewController:(UIViewController *)rightDrawerViewController
 {
+     self.isRightDrawer = NO;
+    if (rightDrawerViewController)
+         self.isRightDrawer = YES;
+   
     [self setDrawerViewController:rightDrawerViewController
                           forSide:CCDrawerSideRight];
 }
 
 - (void)setLeftDrawerViewController:(UIViewController *)leftDrawerViewController
 {
+    self.isLeftDrawer = NO;
+    if (leftDrawerViewController)
+        self.isLeftDrawer = YES;
+    
     [self setDrawerViewController:leftDrawerViewController
                           forSide:CCDrawerSideLeft];
 }
@@ -1369,7 +1377,7 @@ static NSString *CCDrawerOpenSideKey = @"CCDrawerOpenSide";
 #pragma mark - Getters
 - (CGFloat)maximumLeftDrawerWidth
 {
-    if (self.leftDrawerViewController) {
+    if (self.isLeftDrawer) {
         return _maximumLeftDrawerWidth;
     } else {
         return 0;
@@ -1378,7 +1386,7 @@ static NSString *CCDrawerOpenSideKey = @"CCDrawerOpenSide";
 
 - (CGFloat)maximumRightDrawerWidth
 {
-    if (self.rightDrawerViewController) {
+    if (self.isRightDrawer) {
         return _maximumRightDrawerWidth;
     } else {
         return 0;
@@ -1697,16 +1705,14 @@ static NSString *CCDrawerOpenSideKey = @"CCDrawerOpenSide";
 {
     
     if (originX < -self.maximumRightDrawerWidth) {
-        if (self.shouldStretchDrawer &&
-            self.rightDrawerViewController) {
+        if (self.shouldStretchDrawer && self.isRightDrawer) {
             CGFloat maxOvershoot = (CGRectGetWidth(self.centerContainerView.frame) - self.maximumRightDrawerWidth) * CCDrawerOvershootPercentage;
             return originXForDrawerOriginAndTargetOriginOffset(originX, -self.maximumRightDrawerWidth, maxOvershoot);
         } else {
             return -self.maximumRightDrawerWidth;
         }
     } else if (originX > self.maximumLeftDrawerWidth) {
-        if (self.shouldStretchDrawer &&
-            self.leftDrawerViewController) {
+        if (self.shouldStretchDrawer && self.isLeftDrawer) {
             CGFloat maxOvershoot = (CGRectGetWidth(self.centerContainerView.frame) - self.maximumLeftDrawerWidth) * CCDrawerOvershootPercentage;
             return originXForDrawerOriginAndTargetOriginOffset(originX, self.maximumLeftDrawerWidth, maxOvershoot);
         } else {

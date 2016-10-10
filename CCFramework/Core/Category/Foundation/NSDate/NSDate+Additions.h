@@ -478,6 +478,13 @@
  */
 + (NSDate *)timestampConversion:(NSTimeInterval)timeInterval;
 
+/**
+ *  @author C C, 2016-10-06
+ *  
+ *  @brief  时间转13位时间戳
+ */
+- (NSTimeInterval)dataConversionTimestamp;
+
 #pragma mark -
 #pragma mark :. Formatter
 

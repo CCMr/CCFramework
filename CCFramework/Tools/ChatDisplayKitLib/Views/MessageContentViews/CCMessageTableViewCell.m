@@ -279,7 +279,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     } else if (avatarURL) {
         [self configAvatarWithPhotoURLString:avatarURL];
     } else {
-        UIImage *avatarPhoto = [CCMessageAvatarFactory avatarImageNamed:[UIImage imageNamed:@"avatar"]
+        UIImage *avatarPhoto = [CCMessageAvatarFactory avatarImageNamed:[UIImage imageNamed:@"avator"]
                                                       messageAvatarType:CCMessageAvatarTypeSquare];
         [self configAvatarWithPhoto:avatarPhoto];
     }
@@ -294,7 +294,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 {
     self.avatarButton.messageAvatarType = CCMessageAvatarTypeSquare;
     [self.avatarButton setImageWithURL:[NSURL URLWithString:photoURLString]
-                            placeholer:[UIImage imageNamed:@"avatar"]];
+                            placeholer:[UIImage imageNamed:@"avator"]];
 }
 
 - (void)configUserNameWithMessage:(id<CCMessageModel>)message
@@ -387,6 +387,9 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     if (longPressGestureRecognizer.state != UIGestureRecognizerStateBegan || ![self becomeFirstResponder] || ((UITableView *)self.superview.superview).isEditing)
         return;
     
+    if ([self.delegate respondsToSelector:@selector(didSelectedPress:)])
+        [self.delegate didSelectedPress:YES];
+    
     NSArray *popMenuAry = @[ CCLocalization(@"复制"),
                              CCLocalization(@"转发"),
                              //                             CCLocalization(@"收藏"),
@@ -398,7 +401,9 @@ static const CGFloat kCCUserNameLabelHeight = 20;
                         //                        CCLocalization(@"收藏"),
                         CCLocalization(@"删除"),
                         CCLocalization(@"更多") ];
-        ;
+    }else if ([self.messageBubbleView.message messageMediaType] == CCBubbleMessageMediaTypeFile){
+        popMenuAry = @[ CCLocalization(@"删除"),
+                        CCLocalization(@"更多") ];
     }
     
     NSMutableArray *menuItems = [[NSMutableArray alloc] init];
@@ -470,6 +475,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 - (void)handleMenuWillHideNotification:(NSNotification *)notification
 {
+    if ([self.delegate respondsToSelector:@selector(didSelectedPress:)])
+        [self.delegate didSelectedPress:NO];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIMenuControllerWillHideMenuNotification
                                                   object:nil];
@@ -598,8 +605,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             UIButton *avatarButton = [[UIButton alloc] initWithFrame:avatarButtonFrame];
             [avatarButton setImage:[CCMessageAvatarFactory avatarImageNamed:[UIImage imageNamed:@"avator"] messageAvatarType:CCMessageAvatarTypeCircle] forState:UIControlStateNormal];
             [avatarButton addTarget:self action:@selector(avatarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-            avatarButton.layer.cornerRadius = 5;
-            avatarButton.layer.masksToBounds = YES;
+//            avatarButton.layer.cornerRadius = 5;
+//            avatarButton.layer.masksToBounds = YES;
             [self.contentView addSubview:avatarButton];
             self.avatarButton = avatarButton;
         }
