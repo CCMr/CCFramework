@@ -124,13 +124,24 @@
     photoPickerC.alwaysEnableDoneBtn = YES;
     photoPickerC.allowPickingImage = YES;
     photoPickerC.allowPickingOriginalPhoto = YES;
-
+    
     typeof(self) __weak weakSelf = self;
     [photoPickerC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
+        
+        NSMutableArray *photoArray = [NSMutableArray array];
+        if (!weakSelf.isPhotoType) {
+            for (NSDictionary *dic in photos) {
+                [photoArray addObject:[dic objectForKey:@"image"]];
+            }
+        }else{
+            [photoArray addObjectsFromArray:photos];
+        }
+        
+        
         if (weakSelf.isClipping && weakSelf.minCount == 1) {
-            [weakSelf performSelector:@selector(pushCropViewController:) withObject:photos.lastObject afterDelay:0.5];
+            [weakSelf performSelector:@selector(pushCropViewController:) withObject:photoArray.lastObject afterDelay:0.5];
         } else {            
-            weakSelf.callBackBlock(photos);
+            weakSelf.callBackBlock(photoArray);
         }
     }];
     
@@ -333,8 +344,9 @@
             _currentViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         }
         
+        typeof(self) __weak weakSelf = self;
         [_currentViewController presentViewController:controller animated:YES completion:^{
-            [self isCameraUsageRights];
+            [weakSelf isCameraUsageRights];
         }];
     }
 }
@@ -371,9 +383,13 @@
         if (_isClipping && self.minCount == 1) {
             [self performSelector:@selector(pushCropViewController:) withObject:sendImage afterDelay:0.5];
         } else {
-            NSMutableArray *SelectImageArray = [NSMutableArray array];
-            [SelectImageArray addObject:sendImage];
-            _callBackBlock(SelectImageArray);
+            NSMutableArray *photoArray = [NSMutableArray array];
+            if (self.isPhotoType) 
+                [photoArray addObject:@{@"image":sendImage}];
+            else
+                [photoArray addObject:sendImage];
+            
+            _callBackBlock(photoArray);
         }
         
     } else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
@@ -430,8 +446,12 @@
 #pragma mark -
 
 #pragma mark :. 跳转截图
-- (void)pushCropViewController:(UIImage *)image
+- (void)pushCropViewController:(id)ImageObj
 {
+    UIImage *image = ImageObj; 
+    if ([ImageObj isKindOfClass:[NSDictionary class]])
+        image = [ImageObj objectForKey:@"image"];
+    
     CCImageCropViewController *imageCropVC = [[CCImageCropViewController alloc] initWithImage:image cropMode:CCImageCropModeSquare];
     imageCropVC.delegate = self;
     imageCropVC.dataSource = self;

@@ -144,6 +144,7 @@
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
+
 - (void)drawRect:(CGRect)rect
 {
     CGRect frame = [CCTool neededSizeForPhoto:self.messagePhoto Size:CGSizeMake(rect.size.width, rect.size.height)];

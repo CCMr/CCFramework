@@ -209,33 +209,31 @@
     }
 
     // draw badge
-    UIBezierPath *outlinePath = [UIBezierPath bezierPath];
-
     CGSize size = badgeFrame_.size;
     CGFloat unit = size.height / 2.0;
 
     CGPoint bp = badgeFrame_.origin;
-
-    CGPoint c1 = CGPointMake(bp.x + unit, bp.y);
-    [outlinePath moveToPoint:c1];
-    c1.y += unit;
-    [outlinePath addArcWithCenter:c1
-                           radius:unit
-                       startAngle:3 * M_PI / 2
-                         endAngle:M_PI / 2
-                        clockwise:NO];
-
-    [outlinePath addLineToPoint:CGPointMake(bp.x + size.width - unit,
-                                            bp.y + size.height)];
-
-    CGPoint c2 = CGPointMake(bp.x + size.width - unit, bp.y + unit);
-    [outlinePath addArcWithCenter:c2
-                           radius:unit
-                       startAngle:M_PI / 2
-                         endAngle:-M_PI / 2
-                        clockwise:NO];
-
-    [outlinePath addLineToPoint:CGPointMake(bp.x + unit, bp.y)];
+    UIBezierPath *outlinePath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(bp.x, bp.y, size.width,bp.y + size.height) cornerRadius:4];
+//    CGPoint c1 = CGPointMake(bp.x + unit, bp.y);
+//    [outlinePath moveToPoint:c1];
+//    c1.y += unit;
+//    [outlinePath addArcWithCenter:c1
+//                           radius:unit
+//                       startAngle:3 * M_PI / 2
+//                         endAngle:M_PI / 2
+//                        clockwise:NO];
+//
+//    [outlinePath addLineToPoint:CGPointMake(bp.x + size.width - unit,
+//                                            bp.y + size.height)];
+//
+//    CGPoint c2 = CGPointMake(bp.x + size.width - unit, bp.y + unit);
+//    [outlinePath addArcWithCenter:c2
+//                           radius:unit
+//                       startAngle:M_PI / 2
+//                         endAngle:-M_PI / 2
+//                        clockwise:NO];
+//
+//    [outlinePath addLineToPoint:CGPointMake(bp.x + unit, bp.y)];
 
     [self.outlineColor setStroke];
     [self.badgeColor setFill];

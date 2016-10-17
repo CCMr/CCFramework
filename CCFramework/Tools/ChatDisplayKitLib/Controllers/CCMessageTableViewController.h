@@ -83,11 +83,11 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 /**
  *  发送图片消息的回调方法
  *
- *  @param photo  目标图片对象，后续有可能会换
+ *  @param photo  目标图片对象
  *  @param sender 发送者的名字
  *  @param date   发送时间
  */
-- (void)didSendPhoto:(UIImage *)photo
+- (void)didSendPhoto:(NSDictionary *)photo
           fromSender:(NSString *)sender
               onDate:(NSDate *)date;
 
@@ -129,6 +129,19 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             EmotionUrl:(NSString *)emotionUrl
             fromSender:(NSString *)sender
                 onDate:(NSDate *)date;
+
+/**
+ *  发送GIF图片
+ *
+ *  @param gifPath 目标第三方表情的本地路径
+ *  @param gifUrl  目标第三方表情的网络路径
+ *  @param sender  目标第三方表情的本地路径
+ *  @param date     发送时间
+ */
+- (void)didSendGIF:(NSString *)gifPath
+            GIFUrl:(NSString *)gifUrl
+        fromSender:(NSString *)sender
+            onDate:(NSDate *)date;
 
 /**
  *  @author CC, 2015-12-03

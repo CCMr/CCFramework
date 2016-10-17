@@ -60,6 +60,8 @@
 
 #pragma mark - 图片
 @property(nonatomic, strong) UIImage *photo;
+@property(nonatomic, copy) NSString *photoType;
+@property(nonatomic, copy) NSString *photoURL;
 @property(nonatomic, copy) NSString *thumbnailUrl;
 @property(nonatomic, copy) NSString *originPhotoUrl;
 @property(nonatomic, assign) CGSize photoSize;
@@ -103,6 +105,11 @@
 @property(nonatomic, copy) NSString *fileName;
 @property(nonatomic, assign) NSInteger fileSize;
 @property(nonatomic, assign) CGSize filePhotoSize;
+
+#pragma mark GIF
+@property(nonatomic, copy) NSString *gifPath;
+@property(nonatomic, copy) NSString *gifUrl;
+@property(nonatomic, assign) CGSize gifSize;
 
 /**
  *  @author CC, 16-08-25
@@ -397,5 +404,18 @@
                          FileSize:(NSInteger)fileSize
                            sender:(NSString *)sender
                         timestamp:(NSDate *)timestamp;
+
+/**
+ 初始化GIF消息类型
+ 
+ @param gifPath   GIF路径
+ @param gifUrl    GIF链接
+ @param sender    发送人
+ @param timestamp 发送时间
+ */
+- (instancetype)initWithGIFPath:(NSString *)gifPath
+                         GIFUrl:(NSString *)gifUrl
+                         sender:(NSString *)sender
+                      timestamp:(NSDate *)timestamp;
 
 @end

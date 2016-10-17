@@ -56,6 +56,8 @@
  */
 @property(nonatomic, assign) CGFloat keyboardViewHeight;
 
+@property(nonatomic, assign) BOOL showKeyboard;
+
 @property(nonatomic, assign, readwrite) CCInputViewType textViewInputViewType;
 
 @property(nonatomic, weak, readwrite) CCMessageTableView *messageTableView;
@@ -202,9 +204,9 @@
 /**
  *  根据图片开始发送图片消息
  *
- *  @param photo 目标图片
+ *  @param photo 目标对象
  */
-- (void)didSendMessageWithPhoto:(UIImage *)photo;
+- (void)didSendMessageWithPhoto:(NSDictionary *)photo;
 /**
  *  根据视频的封面和视频的路径开始发送视频消息
  *
@@ -733,6 +735,7 @@
                                   delay:0.0
                                 options:options
                              animations:^{
+                                 weakSelf.showKeyboard = showKeyboard;
                                  CGFloat keyboardY = [weakSelf.view convertRect:keyboardRect fromView:nil].origin.y;
                                  
                                  CGRect inputViewFrame = weakSelf.messageInputView.frame;
@@ -781,6 +784,9 @@
     
     //设置默认高度
     self.previousTextViewContentHeight = inputView.inputTextView.frame.size.height;
+    
+    // 设置手势滑动，默认添加一个bar的高度值
+    self.messageTableView.messageInputBarHeight = CGRectGetHeight(_messageInputView.bounds);
 }
 
 /**
@@ -800,13 +806,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    // 设置手势滑动，默认添加一个bar的高度值
-    self.messageTableView.messageInputBarHeight = CGRectGetHeight(_messageInputView.bounds);
-    
     // 设置键盘通知或者手势控制键盘消失
     [self.messageTableView setupPanGestureControlKeyboardHide:self.allowsPanToDismissKeyboard];
-    
     // KVO 检查contentSize
     [self.messageInputView.inputTextView addObserver:self
                                           forKeyPath:@"contentSize"
@@ -814,6 +815,23 @@
                                              context:nil];
     
     [self.messageInputView.inputTextView setEditable:YES];
+    
+    
+//    if (self.showKeyboard) {
+//        [self performSelector:@selector(delayedDisplay)
+//                   withObject:nil
+//                   afterDelay:0.6];
+//    }
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+}
+
+-(void)delayedDisplay
+{
+    [self.messageInputView.inputTextView becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -823,7 +841,6 @@
     if (self.textViewInputViewType != CCInputViewTypeNormal) {
         [self layoutOtherMenuViewHiden:YES];
     }
-    
     // remove键盘通知或者手势
     [self.messageTableView disSetupPanGestureControlKeyboardHide:self.allowsPanToDismissKeyboard];
     
@@ -849,6 +866,7 @@
 
 - (void)dealloc
 {
+   
     _messages = nil;
     _delegate = nil;
     _dataSource = nil;
@@ -1027,12 +1045,22 @@
     }
 }
 
-- (void)didSendMessageWithPhoto:(UIImage *)photo
+- (void)didSendMessageWithPhoto:(NSDictionary *)photo
 {
     if ([self.delegate respondsToSelector:@selector(didSendPhoto:fromSender:onDate:)]) {
         [self.delegate didSendPhoto:photo
                          fromSender:self.messageSender
                              onDate:[NSDate date]];
+    }
+}
+
+-(void)didSendMessageWithGIF:(NSDictionary *)gif
+{
+    if ([self.delegate respondsToSelector:@selector(didSendGIF:GIFUrl:fromSender:onDate:)]) {
+        [self.delegate didSendGIF:[gif objectForKey:@"imageFileURL"]
+                           GIFUrl:[gif objectForKey:@"imageFileURL"]
+                       fromSender:self.messageSender
+                           onDate:[NSDate date]];
     }
 }
 
@@ -1206,6 +1234,9 @@
         void (^EmotionManagerViewAnimation)(BOOL hide) = ^(BOOL hide) {
             otherMenuViewFrame = self.emotionManagerView.frame;
             otherMenuViewFrame.origin.y = (hide ? CGRectGetHeight(self.view.frame) : (CGRectGetHeight(self.view.frame) - CGRectGetHeight(otherMenuViewFrame)));
+            if (hide)
+                self.messageInputView.faceSendButton.selected = NO;
+            
             self.emotionManagerView.alpha = !hide;
             self.emotionManagerView.frame = otherMenuViewFrame;
             self.emotionManagerView.isSendButton = self.messageInputView.inputTextView.text.length;
@@ -1413,15 +1444,21 @@
     switch (shareMenuItem.itemType) {
         case CCShareMenuItemTypePhoto: {
             _camerViewController = [[CCCameraViewController alloc] init];
+            _camerViewController.isPhotoType = YES;
             [_camerViewController startPhotoFileWithViewController:weakSelf complate:^(id request) {
                 NSArray *photoAry = request;
                 [photoAry enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    [weakSelf didSendMessageWithPhoto:obj];
+                    NSDictionary *dic = obj;
+                    if ([weakSelf isGIF:[dic objectForKey:@"imageFileURL"]]) {
+                        [weakSelf didSendMessageWithGIF:obj];
+                    }else
+                        [weakSelf didSendMessageWithPhoto:obj];
                 }];
             }];
         } break;
         case CCShareMenuItemTypeVideo: {
             _camerViewController = [[CCCameraViewController alloc] init];
+            _camerViewController.isPhotoType = YES;
             [_camerViewController startCcameraWithViewController:weakSelf complate:^(id request) {
                 NSArray *photoAry = request;
                 [photoAry enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -1433,6 +1470,17 @@
             break;
     }
 }
+
+- (BOOL)isGIF:(NSURL *)path
+{    
+    NSString *extensionPath = [path pathExtension].lowercaseString;
+    BOOL bol = NO;
+    
+    if ([extensionPath isEqualToString:@"gif"])
+        bol = YES;
+    return bol;
+}
+
 
 #pragma mark - CCEmotionManagerView Delegate
 

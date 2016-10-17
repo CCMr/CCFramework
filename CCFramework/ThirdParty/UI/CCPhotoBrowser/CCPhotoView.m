@@ -103,35 +103,7 @@
 #pragma mark 显示图片
 - (void)showImage
 {
-    if (_photo.firstShow) { // 首次显示
-        if (_photo.url) {
-            _imageView.image = _photo.Placeholder; // 占位图片
-            _photo.srcImageView.image = nil;
-            
-            // 不是gif，就马上开始下载
-            if (![_photo.url.absoluteString hasSuffix:@"gif"]) {
-                __unsafe_unretained CCPhotoView *photoView = self;
-                __unsafe_unretained CCPhoto *photo = _photo;
-                [_imageView sd_setImageWithURL:_photo.url
-                              placeholderImage:_photo.Placeholder
-                                       options:SDWebImageRetryFailed | SDWebImageLowPriority
-                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                         photo.image = image;
-                                         
-                                         if (photo.savePath)
-                                             [[image data] writeToFile:photo.savePath atomically:YES];
-                                         
-                                         // 调整frame参数
-                                         [photoView adjustFrame];
-                                     }];
-            }
-            
-        } else {
-            [self photoStartLoad];
-        }
-    } else {
-        [self photoStartLoad];
-    }
+    [self photoStartLoad];
     
     _imageView.transform = CGAffineTransformMakeRotation(0);
     // 调整frame参数
@@ -174,8 +146,15 @@
         self.scrollEnabled = YES;
         _photo.image = image;
         
-        if (_photo.savePath)
-            [[image data] writeToFile:_photo.savePath atomically:YES];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            if (_photo.savePath){
+                NSData *data = [image data];
+                if ([_photo.url.pathExtension.lowercaseString isEqualToString:@"gif"])
+                    data = [NSData dataWithContentsOfURL:_photo.url];
+                
+                [data writeToFile:_photo.savePath atomically:YES];
+            }
+        });
         
         [_photoLoadingView removeFromSuperview];
         

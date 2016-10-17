@@ -31,6 +31,11 @@
 @property(nonatomic, assign) NSInteger minCount;
 
 /**
+ 是否需要文件类型 (默认不需要)
+ */
+@property(nonatomic, assign) BOOL isPhotoType;
+
+/**
  *  @author CC, 16-08-30
  *
  *  @brief 是否裁剪，用选择头像

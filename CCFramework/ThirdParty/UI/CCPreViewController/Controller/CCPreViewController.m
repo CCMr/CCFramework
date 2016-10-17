@@ -79,21 +79,21 @@ static NSString *CCLocalFilePathForURL(NSURL *URL)
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.delegate = self;
+    self.dataSource = self;
+    [self reloadData];
 }
 
 #pragma mark - QLPreviewControllerDataSource
 
 - (NSInteger)numberOfPreviewItemsInPreviewController:(QLPreviewController *)controller
 {
-    return [self.actualDataSource numberOfPreviewItemsInPreviewController:controller];
+    return self.previewItems.count;
 }
 
 - (id<QLPreviewItem>)previewController:(QLPreviewController *)controller previewItemAtIndex:(NSInteger)index
 {
-    id<QLPreviewItem> originalPreviewItem = [self.actualDataSource previewController:controller previewItemAtIndex:index];
-
-    CCPreviewItem *previewItemCopy = [CCPreviewItem previewItemWithURL:originalPreviewItem.previewItemURL
-                                                                 title:originalPreviewItem.previewItemTitle];
+    CCPreviewItem *previewItemCopy = [self.previewItems objectAtIndex:index];
 
     NSURL *originalURL = previewItemCopy.previewItemURL;
     if (!originalURL || [originalURL isFileURL])
@@ -122,7 +122,7 @@ static NSString *CCLocalFilePathForURL(NSURL *URL)
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if ([self.cc_delegate respondsToSelector:@selector(cc_previewController:failedToLoadRemotePreviewItem:withError:)]) {
             [self.cc_delegate cc_previewController:self
-                  failedToLoadRemotePreviewItem:originalPreviewItem
+                  failedToLoadRemotePreviewItem:previewItemCopy
                                       withError:error];
         }
     }];
@@ -134,15 +134,10 @@ static NSString *CCLocalFilePathForURL(NSURL *URL)
 
 #pragma mark - Properties
 
-- (void)setDataSource:(id<QLPreviewControllerDataSource>)dataSource
+-(void)setPreviewItems:(NSArray<CCPreviewItem *> *)previewItems
 {
-    self.actualDataSource = dataSource;
-    [super setDataSource:self];
-}
-
-- (id<QLPreviewControllerDataSource>)dataSource
-{
-    return self.actualDataSource;
+    _previewItems = previewItems;
+    [self reloadData];
 }
 
 - (void)didReceiveMemoryWarning

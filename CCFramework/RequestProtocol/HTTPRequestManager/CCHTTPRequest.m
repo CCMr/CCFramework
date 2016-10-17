@@ -55,7 +55,7 @@
 {
     MethodName = (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
                                                                                        (__bridge CFStringRef)MethodName,
-                                                                                       CFSTR("!*'();@&+$,%#[]"),
+                                                                                       CFSTR("!*'();@+$,%#[]"),
                                                                                        NULL,
                                                                                        CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
     return MethodName;
@@ -73,7 +73,7 @@
     MethodName = (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
                                                                                        (__bridge CFStringRef)MethodName,
                                                                                        NULL,
-                                                                                       CFSTR("!*'();@&+$,%#[]"),
+                                                                                       CFSTR("!*'();@+$,%#[]"),
                                                                                        CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
     return MethodName;
 }

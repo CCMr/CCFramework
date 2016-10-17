@@ -133,6 +133,33 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     return CGSizeMake(textContainer.textWidth, textContainer.textHeight);
 }
 
+
+/**
+ 等比计算图片尺寸
+ 
+ @param fixedSize 初始化大小
+ @param imageSize 图片实际大小
+ */
++(CGSize)neededRatioSize:(CGSize)fixedSize 
+               ImageSize:(CGSize)imageSize
+{
+    if (imageSize.width > fixedSize.width && imageSize.height > fixedSize.height) {
+        CGSize needSize = [CCTool neededSizeForSize:imageSize Size:fixedSize];
+        fixedSize.width = needSize.width > kCCMaxWidth ? kCCMaxWidth : needSize.width;
+        fixedSize.height = needSize.height;
+        
+        if (needSize.width > kCCMaxWidth)
+            fixedSize.height = (kCCMaxWidth / needSize.width) * needSize.height;
+        
+        if (needSize.height > kCCMaxHeight)
+            fixedSize.height = kCCMaxHeight;
+        
+    } else if (imageSize.width > kCCMaxWidth) {
+        fixedSize.width = kCCMaxWidth;
+    }
+    return fixedSize;
+}
+
 // 计算图片实际大小
 + (CGSize)neededSizeForPhoto:(UIImage *)photo
                    ImageSize:(CGSize)imageSize
@@ -143,23 +170,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             imageSize = photo.size;
     }
     
-    if (imageSize.width > photoSize.width && imageSize.height > photoSize.height) {
-        CGSize needSize = [CCTool neededSizeForSize:imageSize Size:photoSize];
-        photoSize.width = needSize.width > kCCMaxWidth ? kCCMaxWidth : needSize.width;
-        photoSize.height = needSize.height;
-        
-        if (needSize.width > kCCMaxWidth)
-            photoSize.height = (kCCMaxWidth / needSize.width) * needSize.height;
-        
-        if (needSize.height > kCCMaxHeight)
-            photoSize.height = kCCMaxHeight;
-        
-    } else if (imageSize.width > kCCMaxWidth) {
-        photoSize.width = kCCMaxWidth;
-    } else if (!CGSizeEqualToSize(imageSize, CGSizeMake(0, 0))) {
-        photoSize.width = imageSize.width < 30 ? 30 : imageSize.width;
-        photoSize.height = imageSize.height < 30 ? 30 : imageSize.height;
-    }
+    photoSize = [CCMessageBubbleView neededRatioSize:photoSize ImageSize:imageSize];
     
     return photoSize;
 }
@@ -177,10 +188,27 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     return voiceSize;
 }
 
-// 计算Emotion的高度
-+ (CGSize)neededSizeForEmotion
++(CGSize)neededSizeForGif:(id<CCMessageModel>)message
 {
-    return CGSizeMake(100, 100);
+    CGSize gifSize = CGSizeMake(150, 150);
+    CGSize imageSize = message.gifSize;
+    if (CGSizeEqualToSize(imageSize, CGSizeMake(0, 0))){
+        NSData *data=  [NSData dataWithContentsOfFile:message.gifPath];
+        imageSize = [UIImage imageWithData:data].size;
+    }
+    
+    gifSize = [CCMessageBubbleView neededRatioSize:gifSize ImageSize:imageSize];
+
+    return gifSize;
+}
+
+// 计算Emotion的高度
++ (CGSize)neededSizeForEmotion:(id<CCMessageModel>)message
+{
+    CGSize emjiSize = CGSizeMake(100, 100);
+    emjiSize = [CCMessageBubbleView neededRatioSize:emjiSize ImageSize:message.emotionSize];
+    
+    return emjiSize;
 }
 
 // 算SmallEmotion的高度
@@ -226,7 +254,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         }
         case CCBubbleMessageMediaTypeEmotion: {
             // 是否固定大小呢？
-            CGSize emotionSize = [CCMessageBubbleView neededSizeForEmotion];
+            CGSize emotionSize = [CCMessageBubbleView neededSizeForEmotion:message];
             bubbleSize = CGSizeMake(emotionSize.width, emotionSize.height);
             break;
         }
@@ -260,6 +288,12 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                                                         forWidth:kCCMaxWidth - kCCHaveBubbleFileMargin - kCCLeftTextHorizontalBubblePadding * 2
                                                    lineBreakMode:NSLineBreakByWordWrapping];
             bubbleSize = CGSizeMake(needTextSize.width + kCCHaveBubbleFileMargin + kCCLeftTextHorizontalBubblePadding * 2, kCCHaveBubbleFileMargin + kCCHaveBubbleMargin * 2);
+            break;
+        }
+        case CCBubbleMessageMediaTypeGIF:{
+            CGSize gifSize = [CCMessageBubbleView neededSizeForGif:message];
+            bubbleSize = CGSizeMake(gifSize.width, gifSize.height);
+            
             break;
         }
         default:
@@ -381,6 +415,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         case CCBubbleMessageMediaTypeText:
         case CCBubbleMessageMediaTypeEmotion:
         case CCBubbleMessageMediaTypeSmallEmotion:
+        case CCBubbleMessageMediaTypeGIF:
         case CCBubbleMessageMediaTypeTeletext: {
             _bubbleImageView.image = [CCMessageBubbleFactory bubbleImageViewForType:message.bubbleMessageType
                                                                               style:CCBubbleImageViewStyleWeChat
@@ -497,19 +532,27 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             break;
         case CCBubbleMessageMediaTypeEmotion:
         case CCBubbleMessageMediaTypeSmallEmotion:
+        case CCBubbleMessageMediaTypeGIF:{
+            
+            NSString *path = message.emotionPath?:message.gifPath;
+            NSString *url = message.emotionUrl?:message.gifUrl;
             // 直接设置GIF
-            if (message.emotionPath) {
-                NSData *animatedData = [NSData dataWithContentsOfFile:message.emotionPath];
+            if (path) {
+                NSData *animatedData = [NSData dataWithContentsOfFile:path];
                 if (animatedData) {
                     CCAnimatedImage *animatedImage = [[CCAnimatedImage alloc] initWithAnimatedGIFData:animatedData];
-                    _emotionImageView.animatedImage = animatedImage;
+                    if (animatedImage)
+                        _emotionImageView.animatedImage = animatedImage;
+                    else
+                        _emotionImageView.image = [UIImage imageWithData:animatedData];
                 } else {
-                    [_emotionImageView sd_setImageWithURLStr:message.emotionUrl];
+                    [_emotionImageView sd_setImageWithURLStr:url];
                 }
             } else {
-                [_emotionImageView sd_setImageWithURLStr:message.emotionUrl];
+                [_emotionImageView sd_setImageWithURLStr:url];
             }
             break;
+        }
         case CCBubbleMessageMediaTypeLocalPosition:
             [_bubblePhotoImageView configureMessagePhoto:message.localPositionPhoto
                                             thumbnailUrl:nil
@@ -571,13 +614,13 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         TYImageStorage *imageStorage = [[TYImageStorage alloc] init];
         imageStorage.cacheImageOnMemory = YES;
         imageStorage.range = match.range;
+        imageStorage.imageURL = [NSURL URLWithString:path];
         if (Images) {
             imageStorage.image = Images;
             if (CGSizeEqualToSize(size, CGSizeMake(0, 0)))
                 size = Images.size;
-        } else if ([path rangeOfString:@"http://"].location != NSNotFound) { //网络加载图片时
+        } else if ([path rangeOfString:@"http://"].location != NSNotFound && (size.width > 100 || size.height > 100)) { //网络加载图片时
             size = CGSizeMake(100, 100);
-            imageStorage.imageURL = [NSURL URLWithString:path];
         }
         imageStorage.size = size;
         
@@ -665,7 +708,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 -(void)attributedLabel:(TYAttributedLabel *)attributedLabel textStorageClicked:(id<TYTextStorageProtocol>)textStorage atPoint:(CGPoint)point
 {
     if ([textStorage isKindOfClass:[TYImageStorage class]]) {
-//        TYImageStorage *imageStorage = (TYImageStorage *)textStorage;
+        //        TYImageStorage *imageStorage = (TYImageStorage *)textStorage;
     }
 }
 
@@ -695,7 +738,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             displayTextView.textColor = cc_ColorRGB(51, 58, 79); //[UIColor colorWithWhite:0.143 alpha:1.000];
             displayTextView.backgroundColor = [UIColor clearColor];
             displayTextView.font = [[CCMessageBubbleView appearance] font];
-//            displayTextView.delegate = self;
+            //            displayTextView.delegate = self;
             displayTextView.userInteractionEnabled = NO;
             [self addSubview:displayTextView];
             _displayTextView = displayTextView;
@@ -740,6 +783,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         // 5、初始化显示gif表情的控件
         if (!_emotionImageView) {
             CCAnimatedImageView *emotionImageView = [[CCAnimatedImageView alloc] initWithFrame:CGRectZero];
+            emotionImageView.userInteractionEnabled = YES;
             [self addSubview:emotionImageView];
             _emotionImageView = emotionImageView;
         }
@@ -873,6 +917,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         case CCBubbleMessageMediaTypeText:
         case CCBubbleMessageMediaTypeVoice:
         case CCBubbleMessageMediaTypeEmotion:
+        case CCBubbleMessageMediaTypeGIF:
         case CCBubbleMessageMediaTypeSmallEmotion:
         case CCBubbleMessageMediaTypeTeletext: {
             // 获取实际气泡的大小
@@ -893,9 +938,13 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 [self configureVoiceUnreadDotImageViewFrameWithBubbleFrame:bubbleFrame];
             } else if (currentType == CCBubbleMessageMediaTypeEmotion) {
                 CGRect emotionImageViewFrame = bubbleFrame;
-                emotionImageViewFrame.size = [CCMessageBubbleView neededSizeForEmotion];
+                emotionImageViewFrame.size = [CCMessageBubbleView neededSizeForEmotion:self.message];
                 self.emotionImageView.frame = emotionImageViewFrame;
-            } else {
+            } else if (currentType == CCBubbleMessageMediaTypeGIF){
+                CGRect gifImageViewFrame = bubbleFrame;
+                gifImageViewFrame.size = [CCMessageBubbleView neededSizeForGif:self.message];
+                self.emotionImageView.frame = gifImageViewFrame;
+            }else {
                 //小表情与文字消息时设置气泡框
                 
                 CGFloat textX = -(kCCArrowMarginWidth / 2);

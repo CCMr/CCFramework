@@ -295,6 +295,7 @@ static CGSize AssetGridThumbnailSize;
                 photo = [self scaleImage:photo toSize:CGSizeMake(tzImagePickerVc.photoWidth, (int)(tzImagePickerVc.photoWidth * photo.size.height / photo.size.width))];
                 
                 NSString *imageType;
+                NSString *imageFileURL = [info objectForKey:@"PHImageFileURLKey"];
                 if ([info[@"PHImageFileUTIKey"] isEqualToString:(__bridge NSString *)kUTTypeGIF]) {
                     imageType = @"gif";
                 }else if ([info[@"PHImageFileUTIKey"] isEqualToString:(__bridge NSString *)kUTTypeJPEG]){
@@ -305,8 +306,9 @@ static CGSize AssetGridThumbnailSize;
                 
                 NSMutableDictionary *imageDic = [NSMutableDictionary dictionary];
                 [imageDic setObject:photo forKey:@"image"];
-                [imageDic setObject:imageType forKey:@"imageType"];
-                [photos replaceObjectAtIndex:i withObject:photo];
+                [imageDic setObject:imageType?:@"" forKey:@"imageType"];
+                [imageDic setObject:imageFileURL?:@"" forKey:@"imageFileURL"];
+                [photos replaceObjectAtIndex:i withObject:imageDic];
             }
             if (info)  [infoArr replaceObjectAtIndex:i withObject:info];
             [assets replaceObjectAtIndex:i withObject:model.asset];

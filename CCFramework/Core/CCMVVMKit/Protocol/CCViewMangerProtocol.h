@@ -230,5 +230,15 @@ typedef void (^ViewEventHandleBlock)(NSString *info, NSDictionary *eventDic, Vie
  */
 -(void)cc_viewMangerSendEvents:(NSString *)eventName;
 
+/**
+ 传递事件到Model处理Block回传结果
+ 
+ @param info        描述信息
+ @param parameters  传递参数
+ @param handleBlock 回调BLock
+ */
+-(void)cc_viewManagerWithEventBlock:(NSString *)info 
+                        Parameter:(NSDictionary *)parameters
+                 EventHandleBlock:(void(^)(NSDictionary *handleResult))handleBlock;
 
 @end

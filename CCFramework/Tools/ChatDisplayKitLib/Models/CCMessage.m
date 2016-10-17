@@ -61,14 +61,14 @@
                         sender:(NSString *)sender
                      timestamp:(NSDate *)timestamp
 {
-
+    
     if (self = [super init]) {
         _objuniqueID = [NSString UUID];
         self.noticeContent = text;
-
+        
         self.sender = sender;
         self.timestamp = timestamp;
-
+        
         self.messageMediaType = CCBubbleMessageMediaTypeNotice;
     }
     return self;
@@ -81,10 +81,10 @@
     if (self = [super init]) {
         _objuniqueID = [NSString UUID];
         self.text = text;
-
+        
         self.sender = sender;
         self.timestamp = timestamp;
-
+        
         self.messageMediaType = CCBubbleMessageMediaTypeText;
     }
     return self;
@@ -123,7 +123,7 @@
 /**
  *  初始化图片类型的消息
  *
- *  @param photo          目标图片
+ *  @param photo          目标图片 @{@"image":image,@"imageType":imageType}
  *  @param thumbnailUrl   目标图片在服务器的缩略图地址
  *  @param originPhotoUrl 目标图片在服务器的原图地址
  *  @param sender         发送者
@@ -142,10 +142,10 @@
         self.photo = photo;
         self.thumbnailUrl = thumbnailUrl;
         self.originPhotoUrl = originPhotoUrl;
-
+        
         self.sender = sender;
         self.timestamp = timestamp;
-
+        
         self.messageMediaType = CCBubbleMessageMediaTypePhoto;
     }
     return self;
@@ -156,7 +156,7 @@
  *
  *  @brief 初始化图片类型的消息
  *
- *  @param photo        目标图片
+ *  @param photo        目标图片 
  *  @param thumbnailUrl 目标图片在服务器的缩略图地址
  *  @param savePath     目标保存本地路径
  *  @param sender       发送者
@@ -173,10 +173,10 @@
         self.photo = photo;
         self.thumbnailUrl = thumbnailUrl;
         self.savePath = savePath;
-
+        
         self.sender = sender;
         self.timestamp = timestamp;
-
+        
         self.messageMediaType = CCBubbleMessageMediaTypePhoto;
     }
     return self;
@@ -204,10 +204,10 @@
         self.videoConverPhoto = videoConverPhoto;
         self.videoPath = videoPath;
         self.videoUrl = videoUrl;
-
+        
         self.sender = sender;
         self.timestamp = timestamp;
-
+        
         self.messageMediaType = CCBubbleMessageMediaTypeVideo;
     }
     return self;
@@ -230,7 +230,7 @@
                            sender:(NSString *)sender
                         timestamp:(NSDate *)timestamp
 {
-
+    
     return [self initWithVoicePath:voicePath
                           voiceUrl:voiceUrl
                      voiceDuration:voiceDuration
@@ -263,11 +263,11 @@
         self.voicePath = voicePath;
         self.voiceUrl = voiceUrl;
         self.voiceDuration = voiceDuration;
-
+        
         self.sender = sender;
         self.timestamp = timestamp;
         self.isRead = isRead;
-
+        
         self.messageMediaType = CCBubbleMessageMediaTypeVoice;
     }
     return self;
@@ -293,7 +293,7 @@
         self.emotionUrl = emotionUrl;
         self.sender = sender;
         self.timestamp = timestamp;
-
+        
         self.messageMediaType = CCBubbleMessageMediaTypeEmotion;
     }
     return self;
@@ -321,10 +321,10 @@
         self.localPositionPhoto = localPositionPhoto;
         self.geolocations = geolocations;
         self.location = location;
-
+        
         self.sender = sender;
         self.timestamp = timestamp;
-
+        
         self.messageMediaType = CCBubbleMessageMediaTypeLocalPosition;
     }
     return self;
@@ -354,10 +354,10 @@
         self.fileThumbnailUrl = fileThumbnailUrl;
         self.fileName = fileName;
         self.fileSize = fileSize;
-
+        
         self.sender = sender;
         self.timestamp = timestamp;
-
+        
         self.messageMediaType = CCBubbleMessageMediaTypeFile;
     }
     return self;
@@ -387,11 +387,37 @@
         self.filePhoto = filePhoto;
         self.fileName = fileName;
         self.fileSize = fileSize;
-
+        
         self.sender = sender;
         self.timestamp = timestamp;
-
+        
         self.messageMediaType = CCBubbleMessageMediaTypeFile;
+    }
+    return self;
+}
+
+
+/**
+ 初始化GIF消息类型
+ 
+ @param gifPath   GIF路径
+ @param gifUrl    GIF链接
+ @param sender    发送人
+ @param timestamp 发送时间
+ */
+- (instancetype)initWithGIFPath:(NSString *)gifPath
+                         GIFUrl:(NSString *)gifUrl
+                         sender:(NSString *)sender
+                      timestamp:(NSDate *)timestamp
+{
+    if (self = [super init]) {
+        _objuniqueID = [NSString UUID];
+        self.gifPath = gifPath;
+        self.gifUrl = gifUrl;
+        self.sender = sender;
+        self.timestamp = timestamp;
+        
+        self.messageMediaType = CCBubbleMessageMediaTypeGIF;
     }
     return self;
 }
@@ -403,51 +429,56 @@
     if (self) {
         _objuniqueID = [aDecoder decodeObjectForKey:@"objuniqueID"];
         _uniqueID = [aDecoder decodeObjectForKey:@"uniqueID"];
-
+        
         _noticeContent = [aDecoder decodeObjectForKey:@"noticeContent"];
-
+        
         _text = [aDecoder decodeObjectForKey:@"text"];
         _teletextPath = [aDecoder decodeObjectForKey:@"teletextPath"];
         _teletextReplaceStr = [aDecoder decodeObjectForKey:@"teletextReplaceStr"];
-
+        
         _photo = [aDecoder decodeObjectForKey:@"photo"];
+        _photoType = [aDecoder decodeObjectForKey:@"photoType"];
+        _photoURL = [aDecoder decodeObjectForKey:@"photoURL"];
         _thumbnailUrl = [aDecoder decodeObjectForKey:@"thumbnailUrl"];
         _originPhotoUrl = [aDecoder decodeObjectForKey:@"originPhotoUrl"];
         _savePath = [aDecoder decodeObjectForKey:@"savePath"];
-
+        
         _videoConverPhoto = [aDecoder decodeObjectForKey:@"videoConverPhoto"];
         _videoPath = [aDecoder decodeObjectForKey:@"videoPath"];
         _videoUrl = [aDecoder decodeObjectForKey:@"videoUrl"];
-
+        
         _voicePath = [aDecoder decodeObjectForKey:@"voicePath"];
         _voiceUrl = [aDecoder decodeObjectForKey:@"voiceUrl"];
         _voiceDuration = [aDecoder decodeObjectForKey:@"voiceDuration"];
-
+        
         _emotionPath = [aDecoder decodeObjectForKey:@"emotionPath"];
         _emotionUrl = [aDecoder decodeObjectForKey:@"emotionUrl"];
-
+        
         _localPositionPhoto = [aDecoder decodeObjectForKey:@"localPositionPhoto"];
         _geolocations = [aDecoder decodeObjectForKey:@"geolocations"];
         _location = [aDecoder decodeObjectForKey:@"location"];
-
+        
         _avatar = [aDecoder decodeObjectForKey:@"avatar"];
         _avatarUrl = [aDecoder decodeObjectForKey:@"avatarUrl"];
-
+        
         _senderId = [aDecoder decodeObjectForKey:@"senderId"];
         _sender = [aDecoder decodeObjectForKey:@"sender"];
         _senderAttribute = [aDecoder decodeObjectForKey:@"senderAttribute"];
         _timestamp = [aDecoder decodeObjectForKey:@"timestamp"];
         _showdate = [[aDecoder decodeObjectForKey:@"showdate"] boolValue];
-
+        
         _messageMediaType = [[aDecoder decodeObjectForKey:@"messageMediaType"] integerValue];
         _messageSendState = [[aDecoder decodeObjectForKey:@"messageSendState"] integerValue];
         _bubbleMessageType = [[aDecoder decodeObjectForKey:@"bubbleMessageType"] integerValue];
         _isRead = [[aDecoder decodeObjectForKey:@"isRead"] boolValue];
-
+        
         _filePhoto = [aDecoder decodeObjectForKey:@"filePhoto"];
         _fileThumbnailUrl = [aDecoder decodeObjectForKey:@"fileThumbnailUrl"];
         _fileName = [aDecoder decodeObjectForKey:@"fileName"];
         _fileSize = [[aDecoder decodeObjectForKey:@"fileSize"] integerValue];
+        
+        _gifPath = [aDecoder decodeObjectForKey:@"gifPath"];
+        _gifUrl = [aDecoder decodeObjectForKey:@"gifUrl"];
     }
     return self;
 }
@@ -456,51 +487,56 @@
 {
     [aCoder encodeObject:self.objuniqueID forKey:@"objuniqueID"];
     [aCoder encodeObject:self.uniqueID forKey:@"uniqueID"];
-
+    
     [aCoder encodeObject:self.noticeContent forKey:@"noticeContent"];
-
+    
     [aCoder encodeObject:self.text forKey:@"text"];
     [aCoder encodeObject:self.teletextPath forKey:@"teletextPath"];
     [aCoder encodeObject:self.teletextReplaceStr forKey:@"teletextReplaceStr"];
-
+    
     [aCoder encodeObject:self.photo forKey:@"photo"];
+    [aCoder encodeObject:self.photoType forKey:@"photoType"];
+    [aCoder encodeObject:self.photoURL forKey:@"photoURL"];
     [aCoder encodeObject:self.thumbnailUrl forKey:@"thumbnailUrl"];
     [aCoder encodeObject:self.originPhotoUrl forKey:@"originPhotoUrl"];
     [aCoder encodeObject:self.savePath forKey:@"savePath"];
-
+    
     [aCoder encodeObject:self.videoConverPhoto forKey:@"videoConverPhoto"];
     [aCoder encodeObject:self.videoPath forKey:@"videoPath"];
     [aCoder encodeObject:self.videoUrl forKey:@"videoUrl"];
-
+    
     [aCoder encodeObject:self.voicePath forKey:@"voicePath"];
     [aCoder encodeObject:self.voiceUrl forKey:@"voiceUrl"];
     [aCoder encodeObject:self.voiceDuration forKey:@"voiceDuration"];
-
+    
     [aCoder encodeObject:self.emotionPath forKey:@"emotionPath"];
     [aCoder encodeObject:self.emotionUrl forKey:@"emotionUrl"];
-
+    
     [aCoder encodeObject:self.localPositionPhoto forKey:@"localPositionPhoto"];
     [aCoder encodeObject:self.geolocations forKey:@"geolocations"];
     [aCoder encodeObject:self.location forKey:@"location"];
-
+    
     [aCoder encodeObject:self.avatar forKey:@"avatar"];
     [aCoder encodeObject:self.avatarUrl forKey:@"avatarUrl"];
-
+    
     [aCoder encodeObject:self.senderId forKey:@"senderId"];
     [aCoder encodeObject:self.sender forKey:@"sender"];
     [aCoder encodeObject:self.senderAttribute forKey:@"senderAttribute"];
     [aCoder encodeObject:self.timestamp forKey:@"timestamp"];
     [aCoder encodeObject:[NSNumber numberWithBool:self.showdate] forKey:@"showdate"];
-
+    
     [aCoder encodeObject:[NSNumber numberWithInteger:self.messageMediaType] forKey:@"messageMediaType"];
     [aCoder encodeObject:[NSNumber numberWithInteger:self.bubbleMessageType] forKey:@"bubbleMessageType"];
     [aCoder encodeObject:[NSNumber numberWithInteger:self.messageSendState] forKey:@"messageSendState"];
     [aCoder encodeObject:[NSNumber numberWithBool:self.isRead] forKey:@"isRead"];
-
+    
     [aCoder encodeObject:self.filePhoto forKey:@"filePhoto"];
     [aCoder encodeObject:self.fileThumbnailUrl forKey:@"fileThumbnailUrl"];
     [aCoder encodeObject:self.fileName forKey:@"fileName"];
-    [aCoder encodeObject:[NSNumber numberWithBool:self.fileSize] forKey:@"fileSize"];
+    [aCoder encodeObject:[NSNumber numberWithInteger:self.fileSize] forKey:@"fileSize"];
+    
+    [aCoder encodeObject:self.gifPath forKey:@"gifPath"];
+    [aCoder encodeObject:self.gifUrl forKey:@"gifUrl"];
 }
 
 #pragma mark - NSCopying
@@ -567,10 +603,16 @@
                                                                sender:[self.sender copy]
                                                             timestamp:[self.timestamp copy]];
             break;
+        case CCBubbleMessageMediaTypeGIF:
+            message = [[[self class] allocWithZone:zone] initWithGIFPath:[self.gifPath copy]
+                                                                  GIFUrl:self.gifUrl
+                                                                  sender:[self.sender copy]
+                                                               timestamp:[self.timestamp copy]];
+            break;
         default:
             break;
     }
-
+    
     message.objuniqueID = _objuniqueID;
     message.savePath = _savePath;
     message.objectID = _objectID;
@@ -588,10 +630,13 @@
     message.selected = _selected;
     message.senderAttribute = _senderAttribute;
     message.filePhoto = _filePhoto;
+    message.photoType = _photoType;
+    message.photoURL = _photoURL;
     message.fileThumbnailUrl = _fileThumbnailUrl;
     message.fileOriginPhotoUrl = _fileOriginPhotoUrl;
     message.teletextPhotoSize = _teletextPhotoSize;
     message.thumbnailUrl = _thumbnailUrl;
+    message.gifSize = _gifSize;
     
     return message;
 }
@@ -600,45 +645,50 @@
 {
     _objuniqueID = nil;
     _uniqueID = nil;
-
+    
     _noticeContent = nil;
-
+    
     _text = nil;
     _teletextPath = nil;
     _teletextReplaceStr = nil;
-
+    
     _photo = nil;
+    _photoType = nil;
+    _photoURL = nil;
     _thumbnailUrl = nil;
     _originPhotoUrl = nil;
     _savePath = nil;
-
+    
     _videoConverPhoto = nil;
     _videoPath = nil;
     _videoUrl = nil;
-
+    
     _voicePath = nil;
     _voiceUrl = nil;
     _voiceDuration = nil;
-
+    
     _emotionPath = nil;
     _emotionUrl = nil;
-
+    
     _localPositionPhoto = nil;
     _geolocations = nil;
     _location = nil;
-
+    
     _avatar = nil;
     _avatarUrl = nil;
-
+    
     _senderId = nil;
     _sender = nil;
     _senderAttribute = nil;
-
+    
     _timestamp = nil;
-
+    
     _filePhoto = nil;
     _fileThumbnailUrl = nil;
     _fileName = nil;
+    
+    _gifPath = nil;
+    _gifUrl = nil;
 }
 
 

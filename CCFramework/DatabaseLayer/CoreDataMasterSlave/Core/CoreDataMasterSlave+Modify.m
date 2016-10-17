@@ -219,6 +219,26 @@
                        CallbackData:nil];
 }
 
+/**
+ 更新或插入数据
+ 根据条件先查询符合条件就修改数据对象，不符合就插入数据
+ 
+ @param tableName 表名
+ @param predicate 条件
+ @param data      更新键值
+ @param completion 完成回调
+ */
++(void)cc_updateORInsertCoreData:(NSString *)tableName
+                       Predicate:(NSPredicate *)predicate
+                            Data:(NSDictionary *)data
+                      Completion:(void (^)(NSError *error))completion
+{
+    [self cc_updateORInsertCoreData:tableName 
+                          Predicate:predicate 
+                               Data:data 
+                       CallbackData:nil 
+                         Completion:completion];
+}
 
 /**
  更新或插入数据
@@ -436,6 +456,27 @@
                        CallbackData:nil];
 }
 
+/**
+ 更新或插入数据
+ 根据主键与主键值
+ 
+ @param tableName    表名
+ @param primaryKey   主键
+ @param primaryValue 主键值
+ @param data         更新数据
+ @param Completion   完成回调
+ */
++ (void)cc_updateORInsertCoreData:(NSString *)tableName
+                       PrimaryKey:(NSString *)primaryKey
+                             Data:(NSDictionary *)data
+                       Completion:(void (^)(NSError *error))completion
+{
+    [self cc_updateORInsertCoreData:tableName 
+                         PrimaryKey:primaryKey 
+                               Data:data
+                       CallbackData:nil
+                         Completion:completion];
+}
 
 /**
  更新或插入数据

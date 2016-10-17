@@ -268,7 +268,6 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
         _webWKView.UIDelegate = self;
         _webWKView.navigationDelegate = self;
         _webWKView.allowsBackForwardNavigationGestures = YES;
-        _webWKView.scrollView.backgroundColor = [UIColor clearColor];
         
         [_webWKView setTranslatesAutoresizingMaskIntoConstraints:NO];
         [_webWKView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
@@ -427,7 +426,6 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
     self.progressView.progress = newValue.floatValue;
     if (newValue.floatValue == 1) {
         self.progressView.progress = 0;
-        self.webWKView.backgroundColor = [UIColor clearColor];
         [UIView animateWithDuration:.02 animations:^{
             self.progressView.alpha = 0;
         }];
@@ -442,8 +440,22 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 {
 }
 
+-(void)delaySetColor 
+{
+    self.webWKView.backgroundColor = [UIColor clearColor];
+    self.webWKView.scrollView.backgroundColor = [UIColor clearColor];
+}
+
 #pragma mark -
 #pragma mark :. WKWebViewDelegate
+
+// 页面加载完成之后调用
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+{
+    [self performSelector:@selector(delaySetColor)
+               withObject:nil
+               afterDelay:1];
+}
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error
 {

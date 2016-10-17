@@ -36,7 +36,7 @@
 static const CGFloat kCCLabelPadding = 5.0f;
 static const CGFloat kCCTimeStampLabelHeight = 20.0f;
 
-static const CGFloat kCCAvatarPaddingX = 8.0;
+static const CGFloat kCCAvatarPaddingX = 10.0;
 static const CGFloat kCCAvatarPaddingY = 5;
 
 static const CGFloat kCCUserNameLabelHeight = 20;
@@ -340,7 +340,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         case CCBubbleMessageMediaTypeVoice: {
             self.messageBubbleView.voiceDurationLabel.text = [NSString stringWithFormat:@"%@\'\'", message.voiceDuration];
         }
-        case CCBubbleMessageMediaTypeEmotion: {
+        case CCBubbleMessageMediaTypeEmotion:{
             UITapGestureRecognizer *tapGestureRecognizer;
             if (currentMediaType == CCBubbleMessageMediaTypeText) {
                 tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapGestureRecognizerHandle:)];
@@ -351,6 +351,11 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             [self.messageBubbleView.bubbleImageView addGestureRecognizer:tapGestureRecognizer];
             break;
         }
+            case CCBubbleMessageMediaTypeGIF:{
+                UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTapGestureRecognizerHandle:)];
+                [self.messageBubbleView.emotionImageView addGestureRecognizer:tapGestureRecognizer];
+                break;
+            }
         default:
             break;
     }
@@ -559,7 +564,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         if (!_timestampLabel) {
             CCBadgeView *timestampLabel = [[CCBadgeView alloc] initWithFrame:CGRectMake(0, kCCLabelPadding, winsize.width, kCCTimeStampLabelHeight)];
             timestampLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-            timestampLabel.badgeColor = cc_ColorRGB(226, 225, 225); //[UIColor colorWithWhite:0.734 alpha:1.000];
+            timestampLabel.badgeColor = cc_ColorRGB(202, 202, 202); //[UIColor colorWithWhite:0.734 alpha:1.000];
             timestampLabel.textColor = [UIColor whiteColor];	//cc_ColorRGB(51, 58, 79); //
             timestampLabel.font = [UIFont systemFontOfSize:10.0f];
             timestampLabel.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) / 2.0, timestampLabel.center.y);
@@ -572,7 +577,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         if (!_noticeLabel) {
             CCBadgeView *noticeLabel = [[CCBadgeView alloc] initWithFrame:CGRectMake(0, kCCLabelPadding, winsize.width, kCCTimeStampLabelHeight)];
             noticeLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-            noticeLabel.badgeColor = [UIColor colorWithWhite:0.734 alpha:1.000];
+            noticeLabel.badgeColor = cc_ColorRGB(202, 202, 202);
             noticeLabel.textColor = [UIColor whiteColor];
             noticeLabel.font = [UIFont systemFontOfSize:10.0f];
             noticeLabel.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) / 2.0, noticeLabel.center.y);
@@ -605,8 +610,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             UIButton *avatarButton = [[UIButton alloc] initWithFrame:avatarButtonFrame];
             [avatarButton setImage:[CCMessageAvatarFactory avatarImageNamed:[UIImage imageNamed:@"avator"] messageAvatarType:CCMessageAvatarTypeCircle] forState:UIControlStateNormal];
             [avatarButton addTarget:self action:@selector(avatarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-//            avatarButton.layer.cornerRadius = 5;
-//            avatarButton.layer.masksToBounds = YES;
+            //            avatarButton.layer.cornerRadius = 5;
+            //            avatarButton.layer.masksToBounds = YES;
             [self.contentView addSubview:avatarButton];
             self.avatarButton = avatarButton;
         }
@@ -715,6 +720,13 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             userNameFrame.origin.x = avatarButtonFrame.origin.x + avatarButtonFrame.size.width + kCCAvatarPaddingX;
             if (self.bubbleMessageType != CCBubbleMessageTypeReceiving)
                 userNameFrame.origin.x = avatarButtonFrame.origin.x - userNameFrame.size.width - kCCAvatarPaddingX;
+            
+            CGFloat userNameWidth = userNameFrame.size.width;
+            if ((userNameWidth + userNameFrame.origin.x) > self.contentView.width) {
+                userNameWidth = self.contentView.width - userNameFrame.origin.x;
+            }
+            userNameFrame.size.width = userNameWidth;
+            
             self.userNameLabel.frame = userNameFrame;
             
             timeStampLabelNeedHeight += userNameFrame.size.height + 5;

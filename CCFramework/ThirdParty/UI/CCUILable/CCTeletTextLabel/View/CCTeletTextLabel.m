@@ -315,7 +315,7 @@ static NSArray *kAllRegexps()
             } else if (self.activeImage) {
                 [eventDic setObject:self.activeImage.imagePath forKey:@"imagePath"];
                 [eventDic setObject:self.activeImage.imageLabel forKey:@"imageLabel"];
-                [eventDic setObject:self.activeImage.image forKey:@"image"];
+                [eventDic setObject:self.activeImage.image?:self.defaultImage forKey:@"image"];
                 [eventDic setObject:NSStringFromCGSize(self.activeImage.imageSize) forKey:@"imageSize"];
                 [eventDic setObject:self.activeImage.imageView forKeyedSubscript:@"imageView"];
                 [eventDic setInteger:0 forKey:@"linkType"];

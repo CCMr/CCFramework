@@ -482,6 +482,9 @@
             [image drawInRect:rect];
             count++;
         }
+    }else{
+        UIImage *image = array.lastObject;
+        [image drawInRect:rect];
     }
 
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();

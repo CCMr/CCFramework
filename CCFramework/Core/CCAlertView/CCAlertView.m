@@ -115,7 +115,7 @@
     [self showWithContainerView:containerView
            withButtonTitleArray:buttonTitles
           OnButtonTouchUpInside:^(UIView *containerView, NSInteger buttonIndex) {
-              onButtonTouchUpInside(buttonIndex);
+              onButtonTouchUpInside?onButtonTouchUpInside(buttonIndex):nil;
           }];
 }
 

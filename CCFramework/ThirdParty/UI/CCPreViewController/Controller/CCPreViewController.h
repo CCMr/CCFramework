@@ -25,7 +25,8 @@
 
 #import <QuickLook/QuickLook.h>
 
-@class CCPreViewController;
+
+@class CCPreViewController,CCPreviewItem;
 
 @protocol CCPreviewControllerDelegate <NSObject>
 @optional
@@ -39,13 +40,14 @@
  *  @param previewItem 当前显示项
  *  @param error       错误消息
  */
-- (void)cc_previewController:(CCPreViewController *)controller failedToLoadRemotePreviewItem:(id<QLPreviewItem>)previewItem withError:(NSError *)error;
+- (void)cc_previewController:(CCPreViewController *)controller failedToLoadRemotePreviewItem:(CCPreviewItem *)previewItem withError:(NSError *)error;
 
 @end
 
-
 @interface CCPreViewController : QLPreviewController
 
-@property(weak) id<CCPreviewControllerDelegate, QLPreviewControllerDelegate> cc_delegate;
+@property(nonatomic, strong) NSArray<CCPreviewItem *> *previewItems;
+
+@property(weak) id<CCPreviewControllerDelegate> cc_delegate;
 
 @end

@@ -49,8 +49,8 @@
  */
 -(NSTimeInterval)dataConversionTimestamp
 {
-    NSTimeInterval timestamp = [self timeIntervalSince1970];
-    return timestamp * 1000;
+    NSTimeInterval timestamp = [self timeIntervalSince1970] * 1000;
+    return ceil(timestamp);
 }
 
 /**
@@ -472,7 +472,7 @@
     } else if (currentComps.year == otherComps.year && currentComps.month == otherComps.month && currentComps.day == otherComps.day && otherComps.hour < 24) {
         NSInteger hour = currentComps.hour - otherComps.hour;
 
-        NSInteger time = [self timeIntervalSinceDate:currentDate];
+        double time = [currentDate timeIntervalSinceReferenceDate] - [self timeIntervalSinceReferenceDate];
         if (time < 3600) {
             NSInteger retTime = 1.0;
             retTime = time / 60;

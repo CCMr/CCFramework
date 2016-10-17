@@ -131,9 +131,14 @@
     _currentIndex = index;
     for (UIButton *button in self.sectionBarScrollView.subviews) {
         button.backgroundColor = [UIColor clearColor];
-        if (button.tag == index) {
+        NSInteger idx = button.tag;
+        if (idx == index) {
             button.backgroundColor = self.superview.backgroundColor; // [UIColor whiteColor];
-            [self.sectionBarScrollView scrollRectToVisible:CGRectMake(button.frame.origin.x, 0, self.sectionBarScrollView.frame.size.width, self.sectionBarScrollView.frame.size.height) animated:YES];
+            if (idx!=0){
+                [self.sectionBarScrollView scrollRectToVisible:CGRectMake(button.frame.origin.x, 0, self.sectionBarScrollView.frame.size.width, self.sectionBarScrollView.frame.size.height) animated:YES];
+            }else{
+                [self.sectionBarScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+            }
         }
     }
     
