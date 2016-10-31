@@ -28,7 +28,15 @@
 
 @interface CCCameraViewController : UIViewController
 
+/**
+ 最小数量
+ */
 @property(nonatomic, assign) NSInteger minCount;
+
+/**
+ 最大数量
+ */
+@property(nonatomic, assign) NSInteger maxCount;
 
 /**
  是否需要文件类型 (默认不需要)

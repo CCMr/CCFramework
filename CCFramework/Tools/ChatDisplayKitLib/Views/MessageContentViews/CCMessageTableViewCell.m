@@ -45,9 +45,9 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 @property(nonatomic, weak, readwrite) CCMessageBubbleView *messageBubbleView;
 
-@property(nonatomic, weak, readwrite) UIButton *avatarButton;
+@property(nonatomic, strong, readwrite) UILabel *userNameLabel;
 
-@property(nonatomic, weak, readwrite) UILabel *userNameLabel;
+@property(nonatomic, weak, readwrite) UIButton *avatarButton;
 
 @property(nonatomic, weak, readwrite) CCBadgeView *timestampLabel;
 
@@ -616,16 +616,21 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             self.avatarButton = avatarButton;
         }
         
-        if (message.shouldShowUserName) {
+        if (!_userNameLabel) {
             // 3、配置用户名
             UILabel *userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.avatarButton.bounds) + 20, kCCUserNameLabelHeight)];
             //            userNameLabel.textAlignment = NSTextAlignmentCenter;
             userNameLabel.backgroundColor = [UIColor clearColor];
             userNameLabel.font = [UIFont systemFontOfSize:12];
             userNameLabel.textColor = [UIColor colorWithRed:0.140 green:0.635 blue:0.969 alpha:1.000];
+            userNameLabel.hidden = YES;
             [self.contentView addSubview:userNameLabel];
             self.userNameLabel = userNameLabel;
         }
+        
+         if (message.shouldShowUserName) {
+             self.userNameLabel.hidden = YES;
+         }
         
         // 4、配置需要显示什么消息内容，比如语音、文字、视频、图片
         if (!_messageBubbleView) {
@@ -758,6 +763,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (void)dealloc
 {
     _avatarButton = nil;
+    _userNameLabel = nil;
     _timestampLabel = nil;
     _messageBubbleView = nil;
     _noticeLabel = nil;

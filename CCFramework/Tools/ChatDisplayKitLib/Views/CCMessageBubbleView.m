@@ -35,7 +35,7 @@
 #import "CCMessageBubbleFactory.h"
 #import "CCMessageVoiceFactory.h"
 
-#define kCCHaveBubbleMargin 6.5f       // 文本、视频、表情气泡上下边的间隙
+#define kCCHaveBubbleMargin 5.0f       // 文本、视频、表情气泡上下边的间隙
 #define kCCHaveBubbleVoiceMargin 13.5f // 语音气泡上下边的间隙
 #define kCCHaveBubblePhotoMargin 6.5f  // 图片、地理位置气泡上下边的间隙
 #define kCCHaveBubbleFileMargin 60     //文件类型图标高宽

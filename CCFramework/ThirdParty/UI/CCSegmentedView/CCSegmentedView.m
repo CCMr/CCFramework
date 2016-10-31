@@ -39,6 +39,7 @@
 @property(nonatomic, strong) NSMutableArray *botLabelArray;
 @property(nonatomic, strong) NSMutableArray *topLabelArray;
 @property(nonatomic, strong) NSMutableArray *lineArray;
+@property(nonatomic, strong) UIPanGestureRecognizer *pan;
 
 @end
 
@@ -87,9 +88,6 @@
     _titles = @[ @"First", @"Second" ];
 
     [self setSubViewWithTitles:_titles];
-
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
-    [self addGestureRecognizer:pan];
 }
 
 - (void)setTitles:(NSArray *)titles
@@ -269,6 +267,18 @@
 
     if (self.didSelectRowAtIndex)
         self.didSelectRowAtIndex(self, self.selectNumber);
+}
+
+- (void)setIsGesture:(BOOL)isGesture
+{
+    if (self.pan)
+        [self removeGestureRecognizer:self.pan];
+    
+     _isGesture = isGesture;
+    if (_isGesture) {
+        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
+        [self addGestureRecognizer:pan];
+    }
 }
 
 - (void)pan:(UIPanGestureRecognizer *)sender

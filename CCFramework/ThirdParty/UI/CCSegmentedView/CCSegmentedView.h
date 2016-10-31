@@ -73,6 +73,12 @@
 //选中的标题
 @property(nonatomic) NSInteger selectNumber;
 
+
+/**
+ 是否使用滑动手势 (默认不使用)
+ */
+@property(nonatomic, assign) BOOL isGesture;
+
 /**
  *  @author CC, 16-07-30
  *

@@ -48,6 +48,7 @@
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
+        self.arrowImage.hidden = YES;
         self.pullToRefreshText = CCRefreshFooterPullToRefresh;
         self.releaseToRefreshText = CCRefreshFooterReleaseToRefresh;
         self.refreshingText = CCRefreshFooterRefreshing;

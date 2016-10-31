@@ -72,6 +72,12 @@
 @property(nonatomic, strong) UIView *headerContainerView;
 @property(nonatomic, strong) UIActivityIndicatorView *loadMoreActivityIndicatorView;
 
+
+/**
+ 操作是存放数据
+ */
+@property(nonatomic, strong) NSMutableArray *operationMessage;
+
 /**
  *  @author C C, 2016-10-06
  *  
@@ -285,9 +291,22 @@
 {
     typeof(self) __weak weakSelf = self;
     [self exChangeMessageDataSourceQueue:^{
-        NSMutableArray *messages = [NSMutableArray arrayWithArray:weakSelf.messages];
-        [messages addObjectsFromArray:objects];        
-        weakSelf.messages = messages;
+        if (weakSelf.messageTableView.isEditing || weakSelf.isCellPress) {
+            if (weakSelf.operationMessage.count == 0)
+                [weakSelf.operationMessage addObjectsFromArray:weakSelf.messages];
+            
+            [weakSelf.operationMessage addObjectsFromArray:objects];
+            
+        }else{
+           NSMutableArray *messages = [NSMutableArray arrayWithArray:weakSelf.messages];
+            if (self.operationMessage.count > 0){
+                messages = [NSMutableArray arrayWithArray:self.operationMessage];
+                [self.operationMessage removeAllObjects];
+            }
+            
+            [messages addObjectsFromArray:objects];
+            weakSelf.messages = messages;
+        }
         [weakSelf exMainQueue:^{
             if (!weakSelf.messageTableView.isEditing && !weakSelf.isCellPress) {
                 [weakSelf.messageTableView reloadData];
@@ -336,7 +355,8 @@
             
             weakSelf.messages = messages;
             [weakSelf exMainQueue:^{
-                [weakSelf.messageTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                //                [weakSelf.messageTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                [weakSelf.messageTableView reloadData];
             }];
         }
     }];
@@ -419,6 +439,14 @@
         _messages = [NSMutableArray array];
     }
     return _messages;
+}
+
+-(NSMutableArray *)operationMessage
+{
+    if (!_operationMessage) {
+        _operationMessage = [NSMutableArray array];
+    }
+    return _operationMessage;
 }
 
 - (UIView *)headerContainerView
@@ -787,6 +815,9 @@
     
     // 设置手势滑动，默认添加一个bar的高度值
     self.messageTableView.messageInputBarHeight = CGRectGetHeight(_messageInputView.bounds);
+    
+    //录音打断处理
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInterruption:) name:AVAudioSessionInterruptionNotification object:[AVAudioSession sharedInstance]];
 }
 
 /**
@@ -817,11 +848,11 @@
     [self.messageInputView.inputTextView setEditable:YES];
     
     
-//    if (self.showKeyboard) {
-//        [self performSelector:@selector(delayedDisplay)
-//                   withObject:nil
-//                   afterDelay:0.6];
-//    }
+    //    if (self.showKeyboard) {
+    //        [self performSelector:@selector(delayedDisplay)
+    //                   withObject:nil
+    //                   afterDelay:0.6];
+    //    }
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -866,7 +897,7 @@
 
 - (void)dealloc
 {
-   
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionInterruptionNotification object:[AVAudioSession sharedInstance]];
     _messages = nil;
     _delegate = nil;
     _dataSource = nil;
@@ -1313,6 +1344,7 @@
 
 - (void)finishRecorded
 {
+    [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
     WEAKSELF;
     [self.voiceRecordHUD stopRecordCompled:^(BOOL fnished) {
         weakSelf.voiceRecordHUD = nil;
@@ -1341,6 +1373,21 @@
     [self.voiceRecordHelper cancelledDeleteWithCompletion:^{
         
     }];
+}
+
+- (void)handleInterruption:(NSNotification *)notification
+{
+    NSDictionary *info = notification.userInfo;
+    AVAudioSessionInterruptionType type = [info[AVAudioSessionInterruptionTypeKey] unsignedIntegerValue];
+    if (type == AVAudioSessionInterruptionTypeBegan) {
+        [self finishRecorded];
+    }else{
+        AVAudioSessionInterruptionOptions options = [info[AVAudioSessionInterruptionOptionKey] unsignedIntegerValue];
+        if (options == AVAudioSessionInterruptionOptionShouldResume) {
+            //Handle Resume
+            [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+        }
+    }
 }
 
 #pragma mark - CCMessageInputView Delegate

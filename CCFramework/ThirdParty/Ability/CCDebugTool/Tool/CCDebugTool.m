@@ -123,7 +123,7 @@
 - (void)showDebug
 {
     if (!self.debugTabBar) {
-        CCTabBarController *debugTabBar = [[CCTabBarController alloc] init];
+        UITabBarController *debugTabBar = [[UITabBarController alloc] init];
 
         UINavigationController *debugHTTPNav = ({
             CCDebugHttpViewController * debugHTTP = [CCDebugHttpViewController new];

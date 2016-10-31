@@ -46,7 +46,7 @@
 - (instancetype)init
 {
     if (self = [super init])
-        self.minCount = 9;
+        self.maxCount = 9;
     return self;
 }
 
@@ -117,13 +117,14 @@
  */
 - (void)LocalPhoto
 {    
-    TZImagePickerController *photoPickerC = [[TZImagePickerController alloc] initWithMaxImagesCount:self.minCount columnNumber:4 delegate:nil pushPhotoPickerVc:YES];
+    TZImagePickerController *photoPickerC = [[TZImagePickerController alloc] initWithMaxImagesCount:self.maxCount columnNumber:4 delegate:nil pushPhotoPickerVc:YES];
     photoPickerC.isSelectOriginalPhoto = NO;
     photoPickerC.allowTakePicture = NO;
     photoPickerC.allowPickingVideo = NO;
     photoPickerC.alwaysEnableDoneBtn = YES;
     photoPickerC.allowPickingImage = YES;
     photoPickerC.allowPickingOriginalPhoto = YES;
+    photoPickerC.minImagesCount = self.minCount;
     
     typeof(self) __weak weakSelf = self;
     [photoPickerC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
@@ -138,7 +139,7 @@
         }
         
         
-        if (weakSelf.isClipping && weakSelf.minCount == 1) {
+        if (weakSelf.isClipping && weakSelf.maxCount == 1) {
             [weakSelf performSelector:@selector(pushCropViewController:) withObject:photoArray.lastObject afterDelay:0.5];
         } else {            
             weakSelf.callBackBlock(photoArray);
@@ -372,24 +373,25 @@
         else
             theImage = [info objectForKey:UIImagePickerControllerOriginalImage]; // 照片的元数据参数
         
-        // 保存图片到相册中
-        SEL selectorToCall = @selector(imageWasSavedSuccessfully:didFinishSavingWithError:contextInfo:);
-        UIImageWriteToSavedPhotosAlbum(theImage, self, selectorToCall, NULL);
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{  
+            // 保存图片到相册中
+            SEL selectorToCall = @selector(imageWasSavedSuccessfully:didFinishSavingWithError:contextInfo:);
+            UIImageWriteToSavedPhotosAlbum(theImage, self, selectorToCall, NULL);
+        });
         
-        theImage = [UIImage fixOrientation:theImage];        
-        UIImage *sendImage = [UIImage imageWithData:UIImagePNGRepresentation(theImage)]; //图片质量太高内存吃紧再次压缩
-        sendImage = [UIImage imageWithData:UIImagePNGRepresentation(sendImage)];
-        
-        if (_isClipping && self.minCount == 1) {
-            [self performSelector:@selector(pushCropViewController:) withObject:sendImage afterDelay:0.5];
+        theImage = [UIImage fixOrientation:theImage];  
+        //        UIImage *sendImage = [UIImage imageWithData:UIImagePNGRepresentation(theImage)]; //图片质量太高内存吃紧再次压缩
+        //        sendImage = [UIImage imageWithData:UIImagePNGRepresentation(sendImage)];
+        if (_isClipping && self.maxCount == 1) {
+            [self performSelector:@selector(pushCropViewController:) withObject:theImage afterDelay:0.5];
         } else {
             NSMutableArray *photoArray = [NSMutableArray array];
             if (self.isPhotoType) 
-                [photoArray addObject:@{@"image":sendImage}];
+                [photoArray addObject:@{@"image":theImage}];
             else
-                [photoArray addObject:sendImage];
-            
+                [photoArray addObject:theImage];
             _callBackBlock(photoArray);
+            
         }
         
     } else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {

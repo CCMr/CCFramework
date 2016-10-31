@@ -62,7 +62,7 @@
         CGContextRelease(context);
         CGImageRelease(imageRefWithAlpha);
         
-        return imageWithAlpha;
+        return imageWithAlpha?:image;
     }
 }
 

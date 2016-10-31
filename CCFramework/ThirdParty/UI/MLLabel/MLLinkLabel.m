@@ -31,6 +31,9 @@ REGULAREXPRESSION(EmailRegularExpression, @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\
 REGULAREXPRESSION(UserHandleRegularExpression, @"@[\\u4e00-\\u9fa5\\w\\-]+")
 REGULAREXPRESSION(HashtagRegularExpression, @"#([\\u4e00-\\u9fa5\\w\\-]+)")
 
+REGULAREXPRESSION(LandlinePhone,@"^(0[0-9]{2,3}/-)?([2-9][0-9]{6,7})+(/-[0-9]{1,4})?$")
+REGULAREXPRESSION(planePhone,@"^0(([1,2]\d)|([3-9]\d{2}))\d{8}$")
+
 @interface MLLink ()
 
 @property(nonatomic, assign) NSRange linkRange;
@@ -220,7 +223,7 @@ static NSArray *kAllRegexps()
     static NSArray *_allRegexps = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _allRegexps = @[kURLRegularExpression(),kTelephoneNumber(),kPhoneNumerRegularExpression(),kEmailRegularExpression(),kUserHandleRegularExpression(),kHashtagRegularExpression()];
+        _allRegexps = @[kURLRegularExpression(),kTelephoneNumber(),kPhoneNumerRegularExpression(),kEmailRegularExpression(),kUserHandleRegularExpression(),kHashtagRegularExpression(),kLandlinePhone(),kplanePhone()];
     });
     return _allRegexps;
 }

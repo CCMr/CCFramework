@@ -28,7 +28,7 @@
  
  音频文件必须在CAF格式
  
- //震动
+ //振动
  [CCSystemSound soundWithID:kSystemSoundID_Vibrate];
  
  play once
