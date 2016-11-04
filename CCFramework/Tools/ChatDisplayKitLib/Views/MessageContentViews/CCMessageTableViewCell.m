@@ -29,9 +29,10 @@
 #import "NSDate+Additions.h"
 #import "CCConfigurationHelper.h"
 #import "CCMessageAvatarFactory.h"
-#import "UIView+Method.h"
+//#import "UIView+Method.h"
 #import "UIView+Frame.h"
 #import "CCMessage.h"
+#import "UIButton+Additions.h"
 
 static const CGFloat kCCLabelPadding = 5.0f;
 static const CGFloat kCCTimeStampLabelHeight = 20.0f;
@@ -292,9 +293,10 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 - (void)configAvatarWithPhotoURLString:(NSString *)photoURLString
 {
-    self.avatarButton.messageAvatarType = CCMessageAvatarTypeSquare;
-    [self.avatarButton setImageWithURL:[NSURL URLWithString:photoURLString]
-                            placeholer:[UIImage imageNamed:@"avator"]];
+//    self.avatarButton.messageAvatarType = CCMessageAvatarTypeSquare;
+//    [self.avatarButton setImageWithURL:[NSURL URLWithString:photoURLString]
+//                            placeholer:[UIImage imageNamed:@"avator"]];
+    [self.avatarButton sd_setImageWithURL:[NSURL URLWithString:photoURLString] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"avator"]];
 }
 
 - (void)configUserNameWithMessage:(id<CCMessageModel>)message

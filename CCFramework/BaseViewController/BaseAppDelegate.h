@@ -26,6 +26,12 @@
 #import <UIKit/UIKit.h>
 #import "CCDropzone.h"
 
+
+/**
+ 锁屏通知
+ */
+#define kCCLockScreen @"kCCLockScreen"
+
 @interface BaseAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property(strong, nonatomic) UIWindow *window;
@@ -131,5 +137,10 @@
  *  @brief  初始化调试模式
  */
 -(void)initEnableDebugMode;
+
+/**
+ 监听锁屏
+ */
+-(void)monitorLockScreen;
 
 @end

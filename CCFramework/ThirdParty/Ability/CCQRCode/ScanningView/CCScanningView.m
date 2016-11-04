@@ -26,7 +26,7 @@
 #import "CCScanningView.h"
 #import "config.h"
 
-#define kCCQRCodeTipString @"将二维码/条码放入框内，即可自动扫描"
+#define kCCQRCodeTipString @"将取景框对准二维码" //   @"将二维码/条码放入框内，即可自动扫描"
 #define kCCBookTipString @"将书、CD、电影海报放入框内，即可自动扫描"
 #define kCCStreetTipString @"扫一下周围环境，讯在附近街景"
 #define kCCWordTipString @"将英文单词放入框内"

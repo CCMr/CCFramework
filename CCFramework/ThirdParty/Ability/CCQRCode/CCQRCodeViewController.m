@@ -227,7 +227,7 @@ typedef void (^Outcomeblock)(NSString *outcome);
         title.backgroundColor = [UIColor clearColor];
         title.textColor = [UIColor whiteColor];
         title.textAlignment = NSTextAlignmentCenter;
-        title.text = @"未发现二维码/条码";
+        title.text = @"未发现二维码";
         [_analysisToast addSubview:title];
 
         UILabel *content = [[UILabel alloc] initWithFrame:CGRectMake(0, title.bottom, _analysisToast.width, 20)];

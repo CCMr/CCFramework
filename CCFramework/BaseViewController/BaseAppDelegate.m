@@ -33,6 +33,11 @@
 #import "CCLaunchAnimation.h"
 #import "CCDebugTool.h"
 
+#import <notify.h>
+#define NotificationLock CFSTR("com.apple.springboard.lockcomplete")
+#define NotificationChange CFSTR("com.apple.springboard.lockstate")
+#define NotificationPwdUI CFSTR("com.apple.springboard.hasBlankedScreen")
+
 static char OperationKey;
 
 @interface BaseAppDelegate ()
@@ -60,7 +65,7 @@ static char OperationKey;
 {
     //全局crash捕获
     InstallUncaughtExceptionHandler();
-    
+   
     [self uploadCrashLog];
     
     float sysVersion = [[UIDevice currentDevice] systemVersion].floatValue;
@@ -85,7 +90,8 @@ static char OperationKey;
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0]; // 设置app图标消息计数为0
+    application.applicationIconBadgeNumber = 0;
+    //[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0]; // 设置app图标消息计数为0
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -321,13 +327,10 @@ static char OperationKey;
     [self performSelector:@selector(repeatExecutionWithafterDelay:ExecutionFunction:) withObject:[NSArray arrayWithObjects:@(delays), function, nil] afterDelay:delays];
 }
 
-
 /**
- *  @author CC, 15-08-31
- *
- *  @brief  使用系统自带推送
- *
- *  @param application <#application description#>
+ 使用系统自带推送
+ 
+ @param application 
  */
 - (void)initOwnService:(UIApplication *)application
 {
@@ -338,6 +341,26 @@ static char OperationKey;
     } else { //IOS7
         [application registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge | UIUserNotificationTypeAlert | UIUserNotificationTypeSound)];
     }
+}
+
+// 设备是否锁屏
+static void screenLockStateChanged(CFNotificationCenterRef center,void* observer,CFStringRef name,const void* object,CFDictionaryRef userInfo){
+    NSString* lockstate = (__bridge NSString*)name;
+    if ([lockstate isEqualToString:(__bridge  NSString*)NotificationLock]) {
+        cc_NoticePost(kCCLockScreen, @"Lock screen");
+    }else if ([lockstate isEqualToString:(__bridge  NSString*)NotificationChange]){
+        cc_NoticePost(kCCLockScreen, @"State change");
+    }
+}
+
+
+/**
+ 监听锁屏
+ */
+-(void)monitorLockScreen
+{
+    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, screenLockStateChanged, NotificationLock, NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
+    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, screenLockStateChanged, NotificationChange, NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
 }
 
 #pragma mark - 推送
@@ -364,6 +387,7 @@ static char OperationKey;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
+    [application registerForRemoteNotifications];
 }
 
 // Called when your app has been activated by the user selecting an action from

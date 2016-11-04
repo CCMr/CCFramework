@@ -218,7 +218,8 @@
     [self stopBackgroundTask];
     [self stopRecord];
     [self getVoiceDuration:_recordPath];
-    dispatch_async(dispatch_get_main_queue(), stopRecorderCompletion);
+    if (stopRecorderCompletion)
+        dispatch_async(dispatch_get_main_queue(), stopRecorderCompletion);
 }
 
 - (void)cancelledDeleteWithCompletion:(CCCancellRecorderDeleteFileCompletion)cancelledDeleteCompletion

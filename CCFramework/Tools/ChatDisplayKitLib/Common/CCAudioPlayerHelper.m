@@ -65,6 +65,8 @@
     if ([self.delegate respondsToSelector:@selector(didAudioPlayerStopPlay:)]) {
         [self.delegate didAudioPlayerStopPlay:_player];
     }
+    
+    [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
 }
 
 #pragma mark - action

@@ -887,6 +887,7 @@ static NSString *CCDrawerOpenSideKey = @"CCDrawerOpenSide";
             navigationController = [tabBar.viewControllers objectAtIndex:tabBar.selectedIndex];
         }
         
+        navigationController.topViewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:nil];
         [navigationController pushViewController:newCenterViewController animated:NO];
     }
 }

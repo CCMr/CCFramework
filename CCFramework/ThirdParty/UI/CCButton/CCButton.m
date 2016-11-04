@@ -126,6 +126,8 @@
     CGFloat imageY = (cc_btnHeight - cc_imageHeight - cc_labelHeight) / 3;
     self.imageView.frame = CGRectMake(imageX, imageY, cc_imageWidth, cc_imageHeight);
     self.titleLabel.frame = CGRectMake((self.center.x - frame.size.width) * 0.5, imageY * 2 + cc_imageHeight, cc_labelWidth, cc_labelHeight);
+    [self.titleLabel sizeToFit];
+//    self.titleLabel.textAlignment = NSTextAlignmentCenter;
     CGPoint labelCenter = self.titleLabel.center;
     labelCenter.x = self.imageView.center.x;
     self.titleLabel.center = labelCenter;

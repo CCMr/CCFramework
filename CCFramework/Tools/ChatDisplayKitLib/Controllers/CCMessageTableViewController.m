@@ -817,7 +817,8 @@
     self.messageTableView.messageInputBarHeight = CGRectGetHeight(_messageInputView.bounds);
     
     //录音打断处理
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInterruption:) name:AVAudioSessionInterruptionNotification object:[AVAudioSession sharedInstance]];
+    cc_NoticeObserver(self, @selector(handleInterruption:), AVAudioSessionInterruptionNotification, [AVAudioSession sharedInstance]);
+    cc_NoticeObserver(self, @selector(handleLockScreen:), @"kCCLockScreen", nil);
 }
 
 /**
@@ -898,6 +899,7 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionInterruptionNotification object:[AVAudioSession sharedInstance]];
+    cc_NoticeremoveObserver(self, @"kCCLockScreen", nil);
     _messages = nil;
     _delegate = nil;
     _dataSource = nil;
@@ -908,6 +910,7 @@
     
     _photographyHelper = nil;
     _locationHelper = nil;
+    
 }
 
 #pragma mark - View Rotation
@@ -1380,13 +1383,32 @@
     NSDictionary *info = notification.userInfo;
     AVAudioSessionInterruptionType type = [info[AVAudioSessionInterruptionTypeKey] unsignedIntegerValue];
     if (type == AVAudioSessionInterruptionTypeBegan) {
-        [self finishRecorded];
+        WEAKSELF;
+        [self.voiceRecordHUD stopRecordCompled:^(BOOL fnished) {
+            weakSelf.voiceRecordHUD = nil;
+        }];
+        
+        [self.voiceRecordHelper stopRecordingWithStopRecorderCompletion:nil];
+
     }else{
         AVAudioSessionInterruptionOptions options = [info[AVAudioSessionInterruptionOptionKey] unsignedIntegerValue];
         if (options == AVAudioSessionInterruptionOptionShouldResume) {
             //Handle Resume
             [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
         }
+    }
+}
+
+/**
+ 锁屏处理语音
+
+ @param notification 通知结构
+ */
+-(void)handleLockScreen:(NSNotification *)notification
+{
+    NSString *obj = notification.object;
+    if ([obj isEqualToString:@"Lock screen"]) {
+        [self finishRecorded];
     }
 }
 

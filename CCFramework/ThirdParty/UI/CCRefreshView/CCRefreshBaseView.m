@@ -68,6 +68,7 @@
     if (!_arrowImage) {
         UIImageView *arrowImage = [[UIImageView alloc] initWithImage:CCResourceImage(@"arrow")];
         arrowImage.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        arrowImage.hidden = YES;
         [self addSubview:_arrowImage = arrowImage];
     }
     return _arrowImage;

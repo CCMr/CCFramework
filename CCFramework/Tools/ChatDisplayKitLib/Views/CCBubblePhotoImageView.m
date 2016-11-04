@@ -34,6 +34,10 @@
 
 @property dispatch_semaphore_t semaphore;
 
+@property(nonatomic, strong) NSString *thumbnailUrl;
+
+@property(nonatomic, strong) NSString *savePath;
+
 /**
  *  消息类型
  */
@@ -71,48 +75,96 @@
 {
     self.bubbleMessageType = bubbleMessageType;
     self.messagePhoto = messagePhoto;
+    self.thumbnailUrl = thumbnailUrl;
+    self.savePath = savePath;
+    
+    BOOL isImageWIFI = [[[NSUserDefaults standardUserDefaults] objectForKey:@"isImageWIFI"] boolValue];
+    if (isImageWIFI &&  ![[self obtainNetWorkStates] isEqualToString:@"WIFI"]) {
+        UITapGestureRecognizer *singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(SingleTap:)];
+        singleRecognizer.numberOfTapsRequired = 1;
+        [self addGestureRecognizer:singleRecognizer];
+    }else{
+        if (!messagePhoto && thumbnailUrl) {
+            [self loadImage];
+        }
+    }
+}
 
-    if (!messagePhoto && thumbnailUrl) {
-        WEAKSELF;
-        [self addSubview:self.activityIndicatorView];
-        [self.activityIndicatorView startAnimating];
-        self.messagePhoto = [UIImage imageNamed:@"other_placeholderImg"];
-        [self setImageWithURL:[NSURL URLWithString:thumbnailUrl]
-                   placeholer:nil
-    showActivityIndicatorView:NO
-              completionBlock:^(UIImage *image, NSURL *url, NSError *error) {
-                  if ([url.absoluteString isEqualToString:thumbnailUrl]) {
+-(void)SingleTap:(UITapGestureRecognizer*)recognizer  
+{  
+    [self loadImage];
+} 
 
-                      if (CGRectEqualToRect(weakSelf.bounds, CGRectZero)) {
-                          if (weakSelf) {
-                              weakSelf.semaphore = dispatch_semaphore_create(0);
-                              dispatch_semaphore_wait(weakSelf.semaphore,
-                                                      DISPATCH_TIME_FOREVER);
-                              weakSelf.semaphore = nil;
-                          }
-                      }
-
-                      // if image not nil
-                      if (image) {
-                          // scale image
-//                          image = [image thumbnailImage:CGRectGetWidth(weakSelf.bounds) * 2
-//                                      transparentBorder:0
-//                                           cornerRadius:0
-//                                   interpolationQuality:1.0];
-                          dispatch_async(dispatch_get_main_queue(), ^{
-                              // if image not nil
-                              if (image) {
-                                  // show image
-                                  weakSelf.messagePhoto = image;
-                                  [weakSelf.activityIndicatorView stopAnimating];
-                                  if (savePath)
-                                      [[image data] writeToFile:savePath atomically:YES];
-                              }
-                          });
+-(void)loadImage
+{
+    WEAKSELF;
+    [self addSubview:self.activityIndicatorView];
+    [self.activityIndicatorView startAnimating];
+    self.messagePhoto = [UIImage imageNamed:@"other_placeholderImg"];
+    [self setImageWithURL:[NSURL URLWithString:self.thumbnailUrl]
+               placeholer:nil
+showActivityIndicatorView:NO
+          completionBlock:^(UIImage *image, NSURL *url, NSError *error) {
+              if ([url.absoluteString isEqualToString:weakSelf.thumbnailUrl]) {
+                  
+                  if (CGRectEqualToRect(weakSelf.bounds, CGRectZero)) {
+                      if (weakSelf) {
+                          weakSelf.semaphore = dispatch_semaphore_create(0);
+                          dispatch_semaphore_wait(weakSelf.semaphore,DISPATCH_TIME_FOREVER);
+                          weakSelf.semaphore = nil;
                       }
                   }
-              }];
+                  // if image not nil
+                  if (image) {
+                      // scale image
+                      dispatch_async(dispatch_get_main_queue(), ^{
+                          // if image not nil
+                          if (image) {
+                              // show image
+                              weakSelf.messagePhoto = image;
+                              [weakSelf.activityIndicatorView stopAnimating];
+                              if (weakSelf.savePath)
+                                  [[image data] writeToFile:weakSelf.savePath atomically:YES];
+                          }
+                      });
+                  }
+              }
+          }];
+}
+
+- (NSString *)obtainNetWorkStates
+{
+    UIApplication *app = [UIApplication sharedApplication];
+    NSArray *children = [[[app valueForKeyPath:@"statusBar"] valueForKeyPath:@"foregroundView"] subviews];
+    NSString *state;
+    //获取到网络返回码
+    for (id child in children) {
+        if ([child isKindOfClass:NSClassFromString(@"UIStatusBarDataNetworkItemView")]) {
+            //获取到状态栏
+            NSInteger netType = [[child valueForKeyPath:@"dataNetworkType"] integerValue];
+            switch (netType) {
+                case 0:
+                    state = @"无网络";
+                    break;
+                case 1:
+                    state = @"2G";
+                    break;
+                case 2:
+                    state = @"3G";
+                    break;
+                case 3:
+                    state = @"4G";
+                    break;
+                case 5: {
+                    state = @"WIFI";
+                } break;
+                default:
+                    break;
+            }
+        }
     }
+    //根据状态选择
+    return state;
 }
 
 - (void)setFrame:(CGRect)frame
@@ -120,7 +172,7 @@
     [super setFrame:frame];
     if (self.semaphore)
         dispatch_semaphore_signal(self.semaphore);
-
+    
     _activityIndicatorView.center = CGPointMake(CGRectGetWidth(self.bounds) / 2.0, CGRectGetHeight(self.bounds) / 2.0);
 }
 
@@ -150,23 +202,23 @@
     CGRect frame = [CCTool neededSizeForPhoto:self.messagePhoto Size:CGSizeMake(rect.size.width, rect.size.height)];
     frame.origin.x = rect.origin.x;
     frame.origin.y = rect.origin.y;
-
+    
     // Drawing code
     rect.origin = CGPointZero;
     [self.messagePhoto drawInRect:frame];
-
+    
     CGFloat width = rect.size.width;
     CGFloat height = rect.size.height + 1; //莫名其妙会出现绘制底部有残留 +1像素遮盖
     // 简便起见，这里把圆角半径设置为长和宽平均值的1/10
     CGFloat radius = 6;
     CGFloat margin = kCCBubblePhotoMargin; //留出上下左右的边距
-
+    
     CGFloat triangleSize = 8;      //三角形的边长
     CGFloat triangleMarginTop = 8; //三角形距离圆角的距离
-
+    
     CGFloat borderOffset = 0.5;		      //阴影偏移量
     UIColor *borderColor = [UIColor blackColor]; //阴影的颜色
-
+    
     // 获取CGContext，注意UIKit里用的是一个专门的函数
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetRGBStrokeColor(context, 0, 0, 0, 1); //画笔颜色
@@ -186,9 +238,9 @@
     CGContextAddLineToPoint(context, width, margin + radius);
     CGContextAddLineToPoint(context, width, height - margin - radius);
     CGContextAddLineToPoint(context, width - margin, height - margin - radius);
-
+    
     float arcSize = 3; //角度的大小
-
+    
     if (self.bubbleMessageType == CCBubbleMessageTypeSending) {
         float arcStartY = margin + radius + triangleMarginTop + triangleSize - (triangleSize - arcSize / margin * triangleSize) / 2; //圆弧起始Y值
         float arcStartX = width - arcSize;											       //圆弧起始X值
@@ -202,35 +254,35 @@
         CGContextAddArc(context, centerOfCycleX, centerOfCycleY, radiusOfCycle, angelOfCycle / 2, 0.0 - angelOfCycle / 2, 1);
         CGContextAddLineToPoint(context, width - margin, margin + radius + triangleMarginTop);
     }
-
-
+    
+    
     CGContextMoveToPoint(context, width - margin, height - radius - margin);
     CGContextAddArc(context, width - radius - margin, height - radius - margin, radius, 0.0, 0.5 * M_PI, 0);
     CGContextAddLineToPoint(context, width - margin - radius, height);
     CGContextAddLineToPoint(context, width, height);
     CGContextAddLineToPoint(context, width, height - radius - margin);
-
-
+    
+    
     // 绘制第3条线和第3个1/4圆弧
     CGContextMoveToPoint(context, width - margin - radius, height - margin);
     CGContextAddLineToPoint(context, width - margin - radius, height);
     CGContextAddLineToPoint(context, margin, height);
     CGContextAddLineToPoint(context, margin, height - margin);
-
-
+    
+    
     CGContextMoveToPoint(context, margin, height - margin);
     CGContextAddArc(context, radius + margin, height - radius - margin, radius, 0.5 * M_PI, M_PI, 0);
     CGContextAddLineToPoint(context, 0, height - margin - radius);
     CGContextAddLineToPoint(context, 0, height);
     CGContextAddLineToPoint(context, margin, height);
-
-
+    
+    
     // 绘制第4条线和第4个1/4圆弧
     CGContextMoveToPoint(context, margin, height - margin - radius);
     CGContextAddLineToPoint(context, 0, height - margin - radius);
     CGContextAddLineToPoint(context, 0, radius + margin);
     CGContextAddLineToPoint(context, margin, radius + margin);
-
+    
     if (self.bubbleMessageType != CCBubbleMessageTypeSending) {
         float arcStartY = margin + radius + triangleMarginTop + (triangleSize - arcSize / margin * triangleSize) / 2;		    //圆弧起始Y值
         float arcStartX = arcSize;												    //圆弧起始X值
@@ -249,10 +301,10 @@
     CGContextAddLineToPoint(context, margin + radius, 0);
     CGContextAddLineToPoint(context, 0, 0);
     CGContextAddLineToPoint(context, 0, radius + margin);
-
+    
     CGContextSetShadowWithColor(context, CGSizeMake(0, 0), borderOffset, borderColor.CGColor);//阴影
     CGContextSetBlendMode(context, kCGBlendModeClear);
-
+    
     CGContextDrawPath(context, kCGPathFill);
 }
 

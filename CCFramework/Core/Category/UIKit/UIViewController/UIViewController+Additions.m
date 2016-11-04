@@ -75,7 +75,7 @@ NSString *const CCScrollingHandlerDidScrollBlock = @"CCScrollingHandlerDidScroll
     if (![keyPath isEqualToString:@"contentOffset"]) {
         return;
     }
-
+    
     if (self.didScrollBlock) {
         self.didScrollBlock(object);
     }
@@ -105,6 +105,8 @@ NSString *const CCScrollingHandlerDidScrollBlock = @"CCScrollingHandlerDidScroll
 
 @interface UIViewController (SKStoreProductViewControllerDelegate) <SKStoreProductViewControllerDelegate>
 
+@property (nonatomic, copy) _CCViewControllerWillAppearInjectBlock cc_willAppearInjectBlock;
+
 @end
 
 @implementation UIViewController (Additions)
@@ -133,24 +135,38 @@ static inline void AutomaticWritingSwizzleSelector(Class class, SEL originalSele
 - (void)cc_viewWillAppear:(BOOL)animated
 {
     [self cc_viewWillAppear:animated];
-
+    
+    if (self.cc_willAppearInjectBlock) {
+        self.cc_willAppearInjectBlock(self, animated);
+    }
+    
     NSString *mClassName = [NSString stringWithUTF8String:object_getClassName(self)];
-
+    
     if (self.navigationController.visibleViewController) {
         mClassName = [NSString stringWithUTF8String:object_getClassName(self.navigationController.visibleViewController)];
         cc_NoticePost(noticeStatisticsWillAppear, [NSString stringWithUTF8String:object_getClassName(self)]);
     }
-
+    
     CCNSLogger(@"viewDidAppear : %@", mClassName);
 }
 
 - (void)cc_viewWillDisappear:(BOOL)animated
 {
     [self cc_viewWillDisappear:animated];
-//    NSString *mClassName = [NSString stringWithUTF8String:object_getClassName(self)];
-
+    //    NSString *mClassName = [NSString stringWithUTF8String:object_getClassName(self)];
+    
     if (self.navigationController.visibleViewController)
         cc_NoticePost(noticeStatisticsWillDisappear, [NSString stringWithUTF8String:object_getClassName(self)]);
+}
+
+- (_CCViewControllerWillAppearInjectBlock)cc_willAppearInjectBlock
+{
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setCc_willAppearInjectBlock:(_CCViewControllerWillAppearInjectBlock)block
+{
+    objc_setAssociatedObject(self, @selector(cc_willAppearInjectBlock), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (UITableView *)tableView
@@ -171,14 +187,14 @@ static inline void AutomaticWritingSwizzleSelector(Class class, SEL originalSele
 - (void)setTabBarHidden:(BOOL)tabBarHidden
 {
     if ([self.tabBarController.view.subviews count] < 2) return;
-
+    
     UIView *contentView;
-
+    
     if ([[self.tabBarController.view.subviews objectAtIndex:0] isKindOfClass:[UITabBar class]])
         contentView = [self.tabBarController.view.subviews objectAtIndex:1];
     else
         contentView = [self.tabBarController.view.subviews objectAtIndex:0];
-
+    
     if (tabBarHidden)
         contentView.frame = self.tabBarController.view.bounds;
     else {
@@ -187,7 +203,7 @@ static inline void AutomaticWritingSwizzleSelector(Class class, SEL originalSele
                                        self.tabBarController.view.bounds.size.width,
                                        self.tabBarController.view.bounds.size.height - self.tabBarController.tabBar.frame.size.height);
     }
-
+    
     self.tabBarController.tabBar.hidden = tabBarHidden;
 }
 
@@ -236,11 +252,49 @@ static const void *BackButtonHandlerKey = &BackButtonHandlerKey;
     NSString *padding = [@"" stringByPaddingToLength:indentLevel withString:@" " startingAtIndex:0];
     [string appendString:padding];
     [string appendFormat:@"%@, %@", [self debugDescription], NSStringFromCGRect(self.view.frame)];
-
+    
     for (UIViewController *childController in self.childViewControllers) {
         [string appendFormat:@"\n%@>", padding];
         [childController addDescriptionToString:string indentLevel:indentLevel + 1];
     }
+}
+
+#pragma mark :. 
+
+- (BOOL)cc_interactivePopDisabled
+{
+    return [objc_getAssociatedObject(self, _cmd) boolValue];
+}
+
+- (void)setCc_interactivePopDisabled:(BOOL)disabled
+{
+    objc_setAssociatedObject(self, @selector(cc_interactivePopDisabled), @(disabled), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)cc_prefersNavigationBarHidden
+{
+    return [objc_getAssociatedObject(self, _cmd) boolValue];
+}
+
+- (void)setCc_prefersNavigationBarHidden:(BOOL)hidden
+{
+    objc_setAssociatedObject(self, @selector(cc_prefersNavigationBarHidden), @(hidden), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+
+- (CGFloat)cc_interactivePopMaxAllowedInitialDistanceToLeftEdge
+{
+#if CGFLOAT_IS_DOUBLE
+    return [objc_getAssociatedObject(self, _cmd) doubleValue];
+#else
+    return [objc_getAssociatedObject(self, _cmd) floatValue];
+#endif
+}
+
+- (void)setCC_interactivePopMaxAllowedInitialDistanceToLeftEdge:(CGFloat)distance
+{
+    SEL key = @selector(cc_interactivePopMaxAllowedInitialDistanceToLeftEdge);
+    objc_setAssociatedObject(self, key, @(MAX(0, distance)), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 #pragma mark :. NavBarLoading
@@ -273,24 +327,24 @@ static char NavBarIsLoadingKey;
         UIView *navBarLoadingContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
         self.navigationItem.titleView = navBarLoadingContainer;
         self.isLoading = YES;
-
+        
         UILabel *loadingTitleLabel = [[UILabel alloc] init];
         loadingTitleLabel.textAlignment = NSTextAlignmentCenter;
         loadingTitleLabel.textColor = self.navigationController.navigationBar.tintColor;
         loadingTitleLabel.text = title;
-
+        
         UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         [activityIndicator startAnimating];
         [navBarLoadingContainer addSubview:loadingTitleLabel];
         [navBarLoadingContainer addSubview:activityIndicator];
-
+        
         CGFloat padding = 5;
         NSLayoutConstraint *trailingConstraintForLabel = [NSLayoutConstraint constraintWithItem:loadingTitleLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:loadingTitleLabel.superview attribute:NSLayoutAttributeTrailing multiplier:1 constant:-padding];
         NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint constraintWithItem:loadingTitleLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:loadingTitleLabel.superview attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
-
+        
         NSLayoutConstraint *leadingConstraintForIndicator = [NSLayoutConstraint constraintWithItem:activityIndicator attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:activityIndicator.superview attribute:NSLayoutAttributeLeading multiplier:1 constant:padding];
         NSLayoutConstraint *centerYConstraintForIndicator = [NSLayoutConstraint constraintWithItem:activityIndicator attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:loadingTitleLabel attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
-
+        
         loadingTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
         [loadingTitleLabel.superview addConstraints:@[ trailingConstraintForLabel, centerYConstraint, centerYConstraintForIndicator, leadingConstraintForIndicator ]];
@@ -350,11 +404,11 @@ static char NavBarIsLoadingKey;
 {
     NSString *curIdentifier = [self associatedValueForKey:_cmd];
     if (curIdentifier) return curIdentifier;
-
+    
     NSString *curClassName = NSStringFromClass([self class]);
     curIdentifier = [curClassName matchWithRegex:@"(?<=^CC)\\S+(?=VC$)" atIndex:0];
     CCAssert(curIdentifier, @"className should prefix with 'SUI' and suffix with 'VC'");
-
+    
     if (!cc_NilOrNull(curClassName)) {
         [self copyAssociateValue:curClassName withKey:_cmd];
     }
@@ -365,13 +419,13 @@ static char NavBarIsLoadingKey;
 {
     UITableView *curTableView = [self associatedValueForKey:@selector(cc_tableView)];
     if (curTableView) return curTableView;
-
+    
     if ([self isKindOfClass:[UITableViewController class]]) {
         curTableView = (UITableView *)self.view;
     } else {
         curTableView = [self.view findSubViewWithSubViewNSString:@"UITableView"];
     }
-
+    
     if (curTableView) self.cc_tableView = curTableView;
     return curTableView;
 }
@@ -385,7 +439,7 @@ static char NavBarIsLoadingKey;
 {
     __block UIViewController *curVC = [self associatedValueForKey:@selector(cc_sourceVC)];
     if (curVC) return curVC;
-
+    
     if (self.navigationController) {
         __block BOOL curFlag = NO;
         [self.navigationController.viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof UIViewController *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
@@ -494,7 +548,7 @@ static char NavBarIsLoadingKey;
                                  BackTitle:(NSString *)title
                                   Animated:(BOOL)animated
 {
-    self.navigationController.topViewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleBordered target:self action:nil];
+    self.navigationController.topViewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:nil];
     [self.navigationController pushViewController:newViewController animated:animated];
 }
 
@@ -516,7 +570,7 @@ static char NavBarIsLoadingKey;
         }
         va_end(arguments);
     }
-
+    
     __block UIViewController *selfViewControler = newViewController;
     [array enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         UIViewController *objViewController = obj;
@@ -525,7 +579,7 @@ static char NavBarIsLoadingKey;
         [selfViewControler addChildViewController:nav];
         [selfViewControler.view addSubview:nav.view];
         [nav didMoveToParentViewController:selfViewControler];
-
+        
         selfViewControler = nav;
     }];
     [self pushNewViewController:newViewController];
@@ -641,7 +695,7 @@ static void *const keypath = (void *)&keypath;
     UIView *sourceView = [self topView];
     UIView *popupView = [sourceView viewWithTag:kCCPopupViewTag];
     UIView *overlayView = [sourceView viewWithTag:kCCOverlayViewTag];
-
+    
     switch (animationType) {
         case CCPopupViewAnimationSlideBottomTop:
         case CCPopupViewAnimationSlideBottomBottom:
@@ -656,7 +710,7 @@ static void *const keypath = (void *)&keypath;
                    overlayView:overlayView
              withAnimationType:animationType];
             break;
-
+            
         default:
             [self fadeViewOut:popupView
                    sourceView:sourceView
@@ -697,7 +751,7 @@ static void *const keypath = (void *)&keypath;
             return rootViewController;
         } else {
             UIViewController *recentView = self;
-
+            
             while (recentView.parentViewController != nil) {
                 recentView = recentView.parentViewController;
             }
@@ -715,10 +769,10 @@ static void *const keypath = (void *)&keypath;
     sourceView.tag = kCCSourceViewTag;
     popupView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin;
     popupView.tag = kCCPopupViewTag;
-
+    
     // check if source view controller is not in destination
     if ([sourceView.subviews containsObject:popupView]) return;
-
+    
     // customize popupView
     popupView.layer.shadowPath = [UIBezierPath bezierPathWithRect:popupView.bounds].CGPath;
     popupView.layer.masksToBounds = NO;
@@ -727,32 +781,32 @@ static void *const keypath = (void *)&keypath;
     popupView.layer.shadowOpacity = 0.5;
     popupView.layer.shouldRasterize = YES;
     popupView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
-
+    
     // Add semi overlay
     UIView *overlayView = [[UIView alloc] initWithFrame:sourceView.bounds];
     overlayView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     overlayView.tag = kCCOverlayViewTag;
     overlayView.backgroundColor = [UIColor clearColor];
-
+    
     // BackgroundView
     self.popupBackgroundView = [[UIView alloc] initWithFrame:sourceView.bounds];
     self.popupBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.popupBackgroundView.backgroundColor = [UIColor clearColor];
     self.popupBackgroundView.alpha = 0.0f;
     [overlayView addSubview:self.popupBackgroundView];
-
+    
     // Make the Background Clickable
     UIButton *dismissButton = [UIButton buttonWithType:UIButtonTypeCustom];
     dismissButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     dismissButton.backgroundColor = [UIColor clearColor];
     dismissButton.frame = sourceView.bounds;
     [overlayView addSubview:dismissButton];
-
+    
     popupView.alpha = 0.0f;
     [overlayView addSubview:popupView];
     [sourceView addSubview:overlayView];
-
-
+    
+    
     [dismissButton addTarget:self action:@selector(dismissPopupViewControllerWithanimation:) forControlEvents:UIControlEventTouchUpInside];
     switch (animationType) {
         case CCPopupViewAnimationSlideBottomTop:
@@ -782,7 +836,7 @@ static void *const keypath = (void *)&keypath;
 
 - (UIView *)topView
 {
-
+    
     return [self topViewControllers].view;
 }
 
@@ -830,7 +884,7 @@ static void *const keypath = (void *)&keypath;
                                         sourceSize.height,
                                         popupSize.width,
                                         popupSize.height);
-
+            
             break;
         case CCPopupViewAnimationSlideLeftLeft:
         case CCPopupViewAnimationSlideLeftRight:
@@ -839,7 +893,7 @@ static void *const keypath = (void *)&keypath;
                                         popupSize.width,
                                         popupSize.height);
             break;
-
+            
         case CCPopupViewAnimationSlideTopTop:
         case CCPopupViewAnimationSlideTopBottom:
             popupStartRect = CGRectMake((sourceSize.width - popupSize.width) / 2,
@@ -847,7 +901,7 @@ static void *const keypath = (void *)&keypath;
                                         popupSize.width,
                                         popupSize.height);
             break;
-
+            
         default:
             popupStartRect = CGRectMake(sourceSize.width,
                                         (sourceSize.height - popupSize.height) / 2,
@@ -859,7 +913,7 @@ static void *const keypath = (void *)&keypath;
                                      (sourceSize.height - popupSize.height) / 2,
                                      popupSize.width,
                                      popupSize.height);
-
+    
     // Set starting properties
     popupView.frame = popupStartRect;
     popupView.alpha = 1.0f;
@@ -910,7 +964,7 @@ static void *const keypath = (void *)&keypath;
                                       popupSize.height);
             break;
     }
-
+    
     [UIView animateWithDuration:kPopupModalAnimationDuration delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
         [self.popupViewController viewWillDisappear:NO];
         popupView.frame = popupEndRect;
@@ -920,7 +974,7 @@ static void *const keypath = (void *)&keypath;
         [overlayView removeFromSuperview];
         [self.popupViewController viewDidDisappear:NO];
         self.popupViewController = nil;
-
+        
         id dismissed = [self dismissedCallback];
         if (dismissed != nil){
             ((void(^)(void))dismissed)();
@@ -942,11 +996,11 @@ static void *const keypath = (void *)&keypath;
                                      (sourceSize.height - popupSize.height) / 2,
                                      popupSize.width,
                                      popupSize.height);
-
+    
     // Set starting properties
     popupView.frame = popupEndRect;
     popupView.alpha = 0.0f;
-
+    
     [UIView animateWithDuration:kPopupModalAnimationDuration animations:^{
         [self.popupViewController viewWillAppear:NO];
         self.popupBackgroundView.alpha = 0.5f;
@@ -969,7 +1023,7 @@ static void *const keypath = (void *)&keypath;
         [overlayView removeFromSuperview];
         [self.popupViewController viewDidDisappear:NO];
         self.popupViewController = nil;
-
+        
         id dismissed = [self dismissedCallback];
         if (dismissed != nil){
             ((void(^)(void))dismissed)();
@@ -1003,15 +1057,15 @@ NSString *const iTunesAppleString = @"itunes.apple.com";
 {
     SKStoreProductViewController *storeViewController = [[SKStoreProductViewController alloc] init];
     storeViewController.delegate = self;
-
+    
     NSString *campaignToken = self.campaignToken ?: @"";
-
+    
     NSDictionary *parameters = @{
                                  SKStoreProductParameterITunesItemIdentifier : @(itemIdentifier),
                                  affiliateTokenKey : affiliateTokenKey,
                                  campaignTokenKey : campaignToken,
                                  };
-
+    
     if (self.loadingStoreKitItemBlock) {
         self.loadingStoreKitItemBlock();
     }
@@ -1019,7 +1073,7 @@ NSString *const iTunesAppleString = @"itunes.apple.com";
         if (self.loadedStoreKitItemBlock) {
             self.loadedStoreKitItemBlock();
         }
-
+        
         if (result && !error){
             [self presentViewController:storeViewController animated:YES completion:nil];
         }
@@ -1063,12 +1117,12 @@ NSString *const iTunesAppleString = @"itunes.apple.com";
     NSError *error;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"id\\d+" options:0 error:&error];
     NSTextCheckingResult *match = [regex firstMatchInString:URLString options:0 range:NSMakeRange(0, URLString.length)];
-
+    
     NSString *idString = [URLString substringWithRange:match.range];
     if (idString.length > 0) {
         idString = [idString stringByReplacingOccurrencesOfString:@"id" withString:@""];
     }
-
+    
     return [idString integerValue];
 }
 
@@ -1113,10 +1167,10 @@ NSString *const iTunesAppleString = @"itunes.apple.com";
 {
     if ([self.viewControllers count] < [navigationBar.items count])
         return YES;
-
+    
     UIWindow *windowView = [UIApplication sharedApplication].keyWindow;
     [[windowView viewWithTag:999999] removeFromSuperview];
-
+    
     UIViewController *vc = [self topViewController];
     void (^handler)(UIViewController *vc) = [vc backButtonHandler];
     if (handler) {
@@ -1128,7 +1182,7 @@ NSString *const iTunesAppleString = @"itunes.apple.com";
             [self popViewControllerAnimated:YES];
         });
     }
-
+    
     return NO;
 }
 

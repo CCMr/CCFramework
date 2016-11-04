@@ -27,6 +27,18 @@
 
 @interface UINavigationController (Additions)
 
+/**
+ 实际处理交互式弹出的手势识别器。
+ */
+@property (nonatomic, strong, readonly) UIPanGestureRecognizer *cc_fullscreenPopGestureRecognizer;
+
+/**
+ 视图控制器能够自己控制导航栏的外观，
+ 而不是全局方式，检查“cc_prefersNavigationBarHidden”属性。
+ 默认为YES，如果不需要，请禁用它。
+ */
+@property (nonatomic, assign) BOOL cc_viewControllerBasedNavigationBarAppearanceEnabled;
+
 - (void)pushViewController:(UIViewController *)controller withTransition:(UIViewAnimationTransition)transition;
 - (UIViewController *)popViewControllerWithTransition:(UIViewAnimationTransition)transition;
 
@@ -72,3 +84,4 @@
                                  animated:(BOOL)animated;
 
 @end
+
