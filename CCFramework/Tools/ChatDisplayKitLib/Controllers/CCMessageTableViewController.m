@@ -720,7 +720,7 @@
     _messageTableView = messageTableView;
     
     // 设置Message TableView 的bottom edg
-    CGFloat inputViewHeight = (self.inputViewStyle == CCMessageInputViewStyleFlat) ? 45.0f : 40.0f;
+    CGFloat inputViewHeight = (self.inputViewStyle == CCMessageInputViewStyleFlat) ? 50.0f : 45.0f;
     [self setTableViewInsetsWithBottomValue:inputViewHeight];
     
     // 设置整体背景颜色
@@ -1145,14 +1145,14 @@
  *
  *  @param emotionPath 表情路径
  */
-- (void)didSendSmallEmotionMessageWithEmotionPath:(NSString *)emotionPath
-                                       EmotionUrl:(NSString *)emotionUrl
+- (void)didSendSmallEmotionMessage:(CCEmotion *)emotion
 {
     NSInteger index = self.messageInputView.inputTextView.selectedRange.location;
     NSMutableDictionary *teletextDic = [NSMutableDictionary dictionary];
-    [teletextDic setObject:emotionPath forKey:@"localpath"];
-    [teletextDic setObject:emotionUrl forKey:@"path"];
+    [teletextDic setObject:emotion.emotionConverPhoto forKey:@"localpath"];
+    [teletextDic setObject:emotion.emotionPath forKey:@"path"];
     [teletextDic setObject:@(index) forKey:@"location"];
+    [teletextDic setObject: [NSValue valueWithCGSize:emotion.emotionSize] forKey:@"Size"];
     
     if (index < self.teletextPath.count) {
         for (NSInteger i = index; i < self.teletextPath.count; i++) {
@@ -1164,7 +1164,7 @@
     } else
         [self.teletextPath addObject:teletextDic];
     
-    [self insertEmotion:emotionPath];
+    [self insertEmotion:emotion.emotionConverPhoto];
 }
 
 /**
@@ -1571,8 +1571,7 @@
                    atIndexPath:(NSIndexPath *)indexPath
 {
     if (emotion) {
-        [self didSendSmallEmotionMessageWithEmotionPath:emotion.emotionConverPhoto
-                                             EmotionUrl:emotion.emotionPath];
+        [self didSendSmallEmotionMessage:emotion];
     } else
         [self didTextDeleteBackward];
 }

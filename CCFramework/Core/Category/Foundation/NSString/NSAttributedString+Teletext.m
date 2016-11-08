@@ -66,7 +66,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 
     } @finally {
     }
-
+    
     return attributedString;
 }
 

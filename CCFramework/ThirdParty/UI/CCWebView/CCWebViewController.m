@@ -84,9 +84,21 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
     [self initControl];
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self.navigationController.navigationBar.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[CCWebViewProgressView class]]) {
+            [obj removeFromSuperview];
+        }
+    }];
+}
+
 - (void)initControl
 {
-    [self.view addSubview:self.backgroundView];
+    if (!self.isSource)
+        [self.view addSubview:self.backgroundView];
     UIView *view;
     if (NSClassFromString(@"WKWebView"))
         view = self.webWKView;

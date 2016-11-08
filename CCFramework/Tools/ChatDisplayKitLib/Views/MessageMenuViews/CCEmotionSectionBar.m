@@ -26,6 +26,7 @@
 
 #import "CCEmotionSectionBar.h"
 #import "UIButton+Additions.h"
+#import "CCTool.h"
 
 #define kCCStoreManagerItemWidth 50
 #define kCCLineWidth 0.5
@@ -129,13 +130,14 @@
 - (void)currentIndex:(NSInteger)index
 {
     _currentIndex = index;
-    for (UIButton *button in self.sectionBarScrollView.subviews) {
-        button.backgroundColor = [UIColor clearColor];
-        NSInteger idx = button.tag;
+    for (UIView *view in self.sectionBarScrollView.subviews) {
+        if ([view isKindOfClass:[UIButton class]])
+            view.backgroundColor = [UIColor clearColor];
+        NSInteger idx = view.tag;
         if (idx == index) {
-            button.backgroundColor = self.superview.backgroundColor; // [UIColor whiteColor];
+            view.backgroundColor = self.superview.backgroundColor; // [UIColor whiteColor];
             if (idx!=0){
-                [self.sectionBarScrollView scrollRectToVisible:CGRectMake(button.frame.origin.x, 0, self.sectionBarScrollView.frame.size.width, self.sectionBarScrollView.frame.size.height) animated:YES];
+                [self.sectionBarScrollView scrollRectToVisible:CGRectMake(view.frame.origin.x, 0, self.sectionBarScrollView.frame.size.width, self.sectionBarScrollView.frame.size.height) animated:YES];
             }else{
                 [self.sectionBarScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
             }
@@ -198,16 +200,18 @@
         UIButton *sectionButton = [self cratedButton];
         sectionButton.tag = index;
         
+        CGRect sectionButtonFrame = sectionButton.frame;
+        
         UIImage *image = [UIImage imageWithContentsOfFile:emotionManager.emotionIcon];
         if (image) {
             UIImage *sourceImage = [UIImage imageWithContentsOfFile:emotionManager.emotionIcon];
-            UIGraphicsBeginImageContext(CGSizeMake(25, 25)); // this will crop
-            [sourceImage drawInRect:CGRectMake(0, 0, 25, 25)];
-            UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-            UIGraphicsEndImageContext();
+//            CGSize imageSzie = CGSizeMake(sectionButtonFrame.size.width - 10, sectionButtonFrame.size.height -10);
+//            sourceImage = [CCTool scale:sourceImage Size:imageSzie];
             
-            [sectionButton setImage:newImage forState:UIControlStateNormal];
-            [sectionButton setImage:newImage forState:UIControlStateHighlighted];
+            sectionButton.imageEdgeInsets = UIEdgeInsetsMake(5, 10, 5, 10);
+            
+            [sectionButton setImage:sourceImage forState:UIControlStateNormal];
+            [sectionButton setImage:sourceImage forState:UIControlStateHighlighted];
         } else if (emotionManager.emotionIcon && [emotionManager.emotionIcon rangeOfString:@"http://"].location != NSNotFound) {
             [sectionButton sd_setImageWithURL:[NSURL URLWithString:emotionManager.emotionIcon] forState:UIControlStateNormal];
         } else if (emotionManager.emotionName) {
@@ -220,14 +224,14 @@
         if (_currentIndex == index)
             sectionButton.backgroundColor = self.superview.backgroundColor; // [UIColor whiteColor];
         
-        CGRect sectionButtonFrame = sectionButton.frame;
+        
         sectionButtonFrame.origin.x = index * (CGRectGetWidth(sectionButtonFrame) + kCCLineWidth);
         sectionButton.frame = sectionButtonFrame;
         
         [self.sectionBarScrollView addSubview:sectionButton];
         
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(sectionButtonFrame.origin.x + sectionButtonFrame.size.width, 3, kCCLineWidth, sectionButtonFrame.size.height - 6)];
-        line.backgroundColor = [UIColor lightGrayColor];
+        line.backgroundColor = [UIColor colorWithRed:236 / 255.f green:236 / 255.f blue:236 / 255.f alpha:1.f];
         [self.sectionBarScrollView addSubview:line];
     }
     
@@ -257,7 +261,7 @@
         _storeManagerItemButton = storeManagerItemButton;
         
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(kCCStoreManagerItemWidth, 3, kCCLineWidth, storeManagerItemButton.frame.size.height - 6)];
-        line.backgroundColor = [UIColor lightGrayColor];
+        line.backgroundColor = [UIColor colorWithRed:236 / 255.f green:236 / 255.f blue:236 / 255.f alpha:1.f];
         [self addSubview:line];
     }
     

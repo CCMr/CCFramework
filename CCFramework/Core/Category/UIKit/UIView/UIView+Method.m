@@ -1812,6 +1812,7 @@ const char* const kCCMessageAvatarTypeKey   = "CCMessageAvatarTypeKey";
         activityIndicatorView.frame = CGRectMake(0, 0, kCCActivityIndicatorViewSize, kCCActivityIndicatorViewSize);
         activityIndicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
         activityIndicatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        activityIndicatorView.hidden = YES;
         [activityIndicatorView startAnimating];
         [self addSubview:activityIndicatorView];
         [self setActivityIndicatorView:activityIndicatorView];

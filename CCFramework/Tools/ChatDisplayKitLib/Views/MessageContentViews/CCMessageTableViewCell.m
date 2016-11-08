@@ -34,7 +34,7 @@
 #import "CCMessage.h"
 #import "UIButton+Additions.h"
 
-static const CGFloat kCCLabelPadding = 5.0f;
+static const CGFloat kCCLabelPadding = 10.0f;
 static const CGFloat kCCTimeStampLabelHeight = 20.0f;
 
 static const CGFloat kCCAvatarPaddingX = 10.0;
@@ -296,7 +296,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 //    self.avatarButton.messageAvatarType = CCMessageAvatarTypeSquare;
 //    [self.avatarButton setImageWithURL:[NSURL URLWithString:photoURLString]
 //                            placeholer:[UIImage imageNamed:@"avator"]];
-    [self.avatarButton sd_setImageWithURL:[NSURL URLWithString:photoURLString] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"avator"]];
+    [self.avatarButton sd_setBackgroundImageWithURL:[NSURL URLWithString:photoURLString] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"avator"]];
 }
 
 - (void)configUserNameWithMessage:(id<CCMessageModel>)message
@@ -512,20 +512,20 @@ static const CGFloat kCCUserNameLabelHeight = 20;
                         displaysTimestamp:(BOOL)displayTimestamp
 {
     // 第一，是否有时间戳的显示
-    CGFloat timestampHeight = displayTimestamp ? (kCCTimeStampLabelHeight + kCCLabelPadding * 2) : kCCAvatarPaddingY;
+    CGFloat timestampHeight = displayTimestamp ? (kCCTimeStampLabelHeight + kCCLabelPadding * 2) : 0;
     
     CGFloat height = timestampHeight;
     if ([message messageMediaType] == CCBubbleMessageMediaTypeNotice) {
         height += kCCTimeStampLabelHeight + kCCLabelPadding * 2;
     } else {
         // 第二，是否又是名字显示
-        CGFloat userNameHheight = message.shouldShowUserName ? (kCCTimeStampLabelHeight + kCCLabelPadding * 2) : 0;
+        CGFloat userNameHheight = message.shouldShowUserName ? (kCCTimeStampLabelHeight + 5) : 0;
         
         CGFloat userInfoNeedHeight = timestampHeight + kCCAvatarImageSize + kCCAvatarPaddingY;
         
         CGFloat bubbleMessageHeight = [CCMessageBubbleView calculateCellHeightWithMessage:message] + timestampHeight + userNameHheight;
         
-        height = MAX(bubbleMessageHeight, userInfoNeedHeight) + kCCAvatarPaddingY;
+        height = MAX(bubbleMessageHeight, userInfoNeedHeight) + kCCAvatarPaddingY * 2;
     }
     return height;
 }
@@ -687,7 +687,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         self.userNameLabel.hidden = YES;
         self.noticeLabel.hidden = NO;
         
-        CGFloat layoutOriginY = kCCAvatarPaddingY + (self.displayTimestamp ? kCCTimeStampLabelHeight + kCCLabelPadding : 0);
+        CGFloat layoutOriginY =  (self.displayTimestamp ? kCCTimeStampLabelHeight + kCCLabelPadding * 2 : 0);
         CGRect noticeContentFram = self.noticeLabel.frame;
         noticeContentFram.origin.y = layoutOriginY;
         self.noticeLabel.frame = noticeContentFram;
@@ -696,7 +696,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         self.noticeLabel.hidden = YES;
         self.avatarButton.hidden = NO;
         // 布局头像
-        CGFloat layoutOriginY = kCCAvatarPaddingY + (self.displayTimestamp ? kCCTimeStampLabelHeight + kCCLabelPadding : 0);
+        CGFloat layoutOriginY = (self.displayTimestamp ? kCCTimeStampLabelHeight + kCCLabelPadding * 2 : 0);
         CGRect avatarButtonFrame = self.avatarButton.frame;
         avatarButtonFrame.origin.y = layoutOriginY;
         avatarButtonFrame.origin.x = kCCAvatarPaddingX;

@@ -56,4 +56,10 @@
  */
 @property(nonatomic, copy) NSString *emotionTitle;
 
+
+/**
+ 图片固定大小
+ */
+@property(nonatomic, assign) CGSize emotionSize;
+
 @end

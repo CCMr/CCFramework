@@ -29,7 +29,7 @@
 
 #define kCCEmotionPerRowItemCount 10
 #define kCCEmotionPageControlHeight 20
-#define kCCEmotionSectionBarHeight 36
+#define kCCEmotionSectionBarHeight 39
 
 @protocol CCEmotionManagerViewDelegate <NSObject>
 

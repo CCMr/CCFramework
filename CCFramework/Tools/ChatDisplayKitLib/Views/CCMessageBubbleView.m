@@ -35,7 +35,7 @@
 #import "CCMessageBubbleFactory.h"
 #import "CCMessageVoiceFactory.h"
 
-#define kCCHaveBubbleMargin 5.0f       // 文本、视频、表情气泡上下边的间隙
+#define kCCHaveBubbleMargin 4.0f       // 文本、视频、表情气泡上下边的间隙
 #define kCCHaveBubbleVoiceMargin 13.5f // 语音气泡上下边的间隙
 #define kCCHaveBubblePhotoMargin 6.5f  // 图片、地理位置气泡上下边的间隙
 #define kCCHaveBubbleFileMargin 60     //文件类型图标高宽
@@ -306,13 +306,13 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 
 - (UIFont *)font
 {
-    if (_font == nil) {
-        _font = [[[self class] appearance] font];
-    }
-    
-    if (_font != nil) {
-        return _font;
-    }
+//    if (_font == nil) {
+//        _font = [[[self class] appearance] font];
+//    }
+//    
+//    if (_font != nil) {
+//        return _font;
+//    }
     
     return [UIFont systemFontOfSize:16.0f];
 }
@@ -596,9 +596,13 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         NSTextCheckingResult *match = [resultArray objectAtIndex:i];
         
         NSString *path = @"";
+        CGSize size = [[message.teletextPhotoSize objectAtIndex:i] CGSizeValue];
         if (message.teletextPath.count && i < message.teletextPath.count) {
             id teletextPath = [message.teletextPath objectAtIndex:i];
             if ([teletextPath isKindOfClass:[NSDictionary class]]) {
+                if ([teletextPath objectForKey:@"Size"])
+                     size = [[teletextPath objectForKey:@"Size"] CGSizeValue];
+               
                 path = [teletextPath objectForKey:@"localpath"];
                 if ([path isEqualToString:@""] || !path) {
                     path = [teletextPath objectForKey:@"path"];
@@ -607,9 +611,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 path = teletextPath;
             }
         }
-        NSDictionary *dic = [message.teletextPhotoSize objectAtIndex:i];
         
-        CGSize size = CGSizeMake([[dic objectForKey:@"width"] integerValue], [[dic objectForKey:@"height"] integerValue]);
         UIImage *Images = [UIImage imageWithContentsOfFile:path];
         TYImageStorage *imageStorage = [[TYImageStorage alloc] init];
         imageStorage.cacheImageOnMemory = YES;
@@ -961,7 +963,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 if (currentType == CCBubbleMessageMediaTypeText || currentType == CCBubbleMessageMediaTypeTeletext) {
                     self.displayTextView.frame = viewFrame;
                     self.displayTextView.center = CGPointMake(self.bubbleImageView.center.x + textX, self.bubbleImageView.center.y);
-                    [self.displayTextView sizeToFit];
+//                    [self.displayTextView sizeToFit];
                 }
                 
                 if (currentType == CCBubbleMessageMediaTypeSmallEmotion) {

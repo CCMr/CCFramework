@@ -30,6 +30,11 @@
 @property(nonatomic, assign) UINavigationBar *webViewInitWithProgress;
 
 /**
+ 是否显示来源背景 (默认显示)
+ */
+@property(nonatomic, assign) BOOL isSource;
+
+/**
  *  @author C C, 2016-10-05
  *  
  *  @brief  标题是否跟随变化（默认 YES）

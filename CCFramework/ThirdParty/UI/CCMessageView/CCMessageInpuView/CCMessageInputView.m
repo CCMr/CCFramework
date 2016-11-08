@@ -288,7 +288,7 @@
     CGFloat horizontalPadding = 8;
     
     // 垂直间隔
-    CGFloat verticalPadding = 5;
+    CGFloat verticalPadding = 6.5;
     
     // 输入框
     CGFloat textViewLeftMargin = ((style == CCMessageInputViewStyleFlat) ? 6.0 : 4.0);
@@ -376,7 +376,7 @@
     // 配置不同iOS SDK版本的样式
     switch (style) {
         case CCMessageInputViewStyleFlat: {
-            _inputTextView.frame = CGRectMake(textViewLeftMargin, 4.5f, width, height);
+            _inputTextView.frame = CGRectMake(textViewLeftMargin, verticalPadding, width, height);
             _inputTextView.backgroundColor = [UIColor whiteColor];
             _inputTextView.layer.borderColor = [UIColor colorWithWhite:0.8f alpha:1.0f].CGColor;
             _inputTextView.layer.borderWidth = 0.65f;
