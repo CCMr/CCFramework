@@ -124,7 +124,7 @@
 /**
  *  用于显示仿微信发送图片的控件
  */
-@property (nonatomic, weak, readonly) CCBubblePhotoImageView *bubblePhotoImageView;
+@property (nonatomic, weak, readonly) UIImageView *bubblePhotoImageView;
 
 /**
  *  显示语音播放的图片控件

@@ -61,6 +61,7 @@ static char overlayKey;
         self.overlay.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self insertSubview:self.overlay atIndex:0];
     }
+    [self sendSubviewToBack:self.overlay];
     self.overlay.backgroundColor = backgroundColor;
     const CGFloat *components = CGColorGetComponents(backgroundColor.CGColor);
     [self navigationItemView:components[3]];

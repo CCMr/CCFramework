@@ -28,7 +28,7 @@
 #import "CCPhotoLoadingView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+Additions.h"
-#import "UIImageView+Additions.h"
+#import "UIImageView+WebCache.h"
 
 
 @interface CCPhotoView () {
@@ -128,7 +128,7 @@
         [_imageView sd_setImageWithURL:_photo.url
                       placeholderImage:_photo.srcImageView.image
                                options:SDWebImageRetryFailed | SDWebImageLowPriority
-                              progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                              progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
                                   if (receivedSize > kMinProgress) {
                                       loading.progress = (float)receivedSize/expectedSize;
                                   }

@@ -220,11 +220,6 @@
 + (UIImage *)fastImageWithContentsOfFile:(NSString *)path;
 
 #pragma mark -
-#pragma mark :. MultiFormat
-
-+ (UIImage *)cc_imageWithData:(NSData *)data;
-
-#pragma mark -
 #pragma mark :. Alpha
 
 /**

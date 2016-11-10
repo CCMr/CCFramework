@@ -33,6 +33,7 @@
 #import "UIView+Frame.h"
 #import "CCMessage.h"
 #import "UIButton+Additions.h"
+#import "UIButton+WebCache.h"
 
 static const CGFloat kCCLabelPadding = 10.0f;
 static const CGFloat kCCTimeStampLabelHeight = 20.0f;
@@ -181,7 +182,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     if ([self.delegate respondsToSelector:@selector(didSelectedMenuTranspond:atIndexPath:)]) {
         CCMessage *message = (CCMessage *)self.messageBubbleView.message;
         if (message.messageMediaType == CCBubbleMessageMediaTypePhoto)
-            message.photo = self.messageBubbleView.bubblePhotoImageView.messagePhoto;
+            message.photo = self.messageBubbleView.bubblePhotoImageView.image;
         
         [self.delegate didSelectedMenuTranspond:message
                                     atIndexPath:self.indexPath];
@@ -293,10 +294,12 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 - (void)configAvatarWithPhotoURLString:(NSString *)photoURLString
 {
-//    self.avatarButton.messageAvatarType = CCMessageAvatarTypeSquare;
+//    self.avatarButton.messageAvatarType = CCMessageAvatarTypeNormal;
 //    [self.avatarButton setImageWithURL:[NSURL URLWithString:photoURLString]
 //                            placeholer:[UIImage imageNamed:@"avator"]];
-    [self.avatarButton sd_setBackgroundImageWithURL:[NSURL URLWithString:photoURLString] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"avator"]];
+    [self.avatarButton sd_setBackgroundImageWithURL:[NSURL URLWithString:photoURLString] 
+                                           forState:UIControlStateNormal
+                                   placeholderImage:[UIImage imageNamed:@"avator"]];
 }
 
 - (void)configUserNameWithMessage:(id<CCMessageModel>)message
@@ -785,7 +788,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     self.messageBubbleView.emotionImageView.animatedImage = nil;
     self.messageBubbleView.animationVoiceImageView.image = nil;
     self.messageBubbleView.voiceDurationLabel.text = nil;
-    self.messageBubbleView.bubblePhotoImageView.messagePhoto = nil;
+    self.messageBubbleView.bubblePhotoImageView.image = nil;
     self.messageBubbleView.geolocationsLabel.text = nil;
     
     self.userNameLabel.text = nil;

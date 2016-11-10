@@ -28,7 +28,7 @@
 #import "UIView+Method.h"
 
 // 头像大小以及头像与其他控件的距离
-static CGFloat const kCCAvatarImageSize = 40.0f;
+static CGFloat const kCCAvatarImageSize = 45.0f;
 static CGFloat const kCCAlbumAvatarSpacing = 15.0f;
 
 @interface CCMessageAvatarFactory : NSObject

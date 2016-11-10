@@ -50,14 +50,9 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             if (emojiImage)
                 size = CGSizeMake(emojiImage.size.width < size.width ? emojiImage.size.width : size.width, emojiImage.size.height < size.height ? emojiImage.size.height : size.height);
 
-            // Resize Emoji Image
-            UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
-            [emojiImage drawInRect:CGRectMake(0, 0, size.width, size.height)];
-            UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
-            UIGraphicsEndImageContext();
-
             NSTextAttachment *textAttachment = [NSTextAttachment new];
-            textAttachment.image = resizedImage;
+            textAttachment.image = emojiImage;
+            textAttachment.bounds = CGRectMake(0, -4, size.width, size.height);
 
             NSAttributedString *rep = [NSAttributedString attributedStringWithAttachment:textAttachment];
             [attributedString replaceCharactersInRange:[match range] withAttributedString:rep];

@@ -29,6 +29,7 @@
 #import "Config.h"
 #import "CCTool.h"
 #import "UIImageView+Additions.h"
+#import "UIImageView+WebCache.h"
 
 @interface CCBubblePhotoImageView ()
 
@@ -37,6 +38,8 @@
 @property(nonatomic, strong) NSString *thumbnailUrl;
 
 @property(nonatomic, strong) NSString *savePath;
+
+@property(nonatomic, strong) UITapGestureRecognizer *singleRecognizer;
 
 /**
  *  消息类型
@@ -73,20 +76,21 @@
                      savePath:(NSString *)savePath
           onBubbleMessageType:(CCBubbleMessageType)bubbleMessageType
 {
-    self.bubbleMessageType = bubbleMessageType;
-    self.messagePhoto = messagePhoto;
-    self.thumbnailUrl = thumbnailUrl;
-    self.savePath = savePath;
-    
+    NSURL *url = [NSURL URLWithString:[thumbnailUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     BOOL isImageWIFI = [[[NSUserDefaults standardUserDefaults] objectForKey:@"isImageWIFI"] boolValue];
-    if (isImageWIFI &&  ![[self obtainNetWorkStates] isEqualToString:@"WIFI"]) {
-        UITapGestureRecognizer *singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(SingleTap:)];
-        singleRecognizer.numberOfTapsRequired = 1;
-        [self addGestureRecognizer:singleRecognizer];
+    if (isImageWIFI && [[self obtainNetWorkStates] isEqualToString:@"WIFI"]) {
+        WEAKSELF;
+        [self sd_setImageWithURL:[NSURL URLWithString:[thumbnailUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] placeholderImage:messagePhoto completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            if (savePath)
+                [UIImageJPEGRepresentation(image, 1.0f) writeToFile:savePath atomically:YES];
+        }];
     }else{
-        if (!messagePhoto && thumbnailUrl) {
-            [self loadImage];
-        }
+        WEAKSELF;
+    self.loadedViewContentMode = UIViewContentModeScaleAspectFit;
+        [self cc_setImageWithURLStr:url placeholderImage:messagePhoto completionBlock:^(UIImage *image, NSError *error, NSURL *imageURL) {
+            if (savePath)
+                [UIImageJPEGRepresentation(image, 1.0f) writeToFile:savePath atomically:YES];
+        }];
     }
 }
 
@@ -98,6 +102,7 @@
 -(void)loadImage
 {
     WEAKSELF;
+    
     [self addSubview:self.activityIndicatorView];
     [self.activityIndicatorView startAnimating];
     self.messagePhoto = [UIImage imageNamed:@"other_placeholderImg"];

@@ -25,7 +25,7 @@
 
 #import "CCBannerView.h"
 #import "CCBannerFooter.h"
-#import "UIImageView+Additions.h"
+#import "UIImageView+WebCache.h"
 #import "config.h"
 
 // 总共的item数
@@ -233,7 +233,7 @@ static NSString *banner_footer = @"banner_footer";
     imageView.frame = Cell.bounds;
     [Cell addSubview:imageView];
     if ([imagePath hasPrefix:@"http://"])
-        [imageView sd_setImageWithURLStr:imagePath placeholderImage:self.placeImage];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:self.placeImage];
     else
         imageView.image = [UIImage imageNamed:imagePath];
     

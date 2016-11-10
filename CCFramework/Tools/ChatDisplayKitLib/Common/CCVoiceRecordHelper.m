@@ -215,8 +215,8 @@
 - (void)stopRecordingWithStopRecorderCompletion:(CCStopRecorderCompletion)stopRecorderCompletion
 {
     _isPause = NO;
-    [self stopBackgroundTask];
     [self stopRecord];
+    [self stopBackgroundTask];
     [self getVoiceDuration:_recordPath];
     if (stopRecorderCompletion)
         dispatch_async(dispatch_get_main_queue(), stopRecorderCompletion);

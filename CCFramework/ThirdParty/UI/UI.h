@@ -27,6 +27,8 @@
 #define CCFramework_UI_h
 
 #import <CCFramework/MKAnnotationView+WebCache.h>
+#import <CCFramework/UIImageView+WebCache.h>
+#import <CCFramework/UIButton+WebCache.h>
 #import <CCFramework/CCSegmentedView.h>
 #import <CCFramework/CCBarSlider.h>
 #import <CCFramework/CCRadarScanViewController.h>

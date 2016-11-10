@@ -29,7 +29,7 @@
 
 #define kCCBubblePhotoMargin 6.2f
 
-@interface CCBubblePhotoImageView : UIView
+@interface CCBubblePhotoImageView : UIImageView
 
 /**
  *  发送后，需要显示的图片消息的图片，或者是视频的封面

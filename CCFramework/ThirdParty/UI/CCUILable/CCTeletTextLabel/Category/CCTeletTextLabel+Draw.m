@@ -10,6 +10,7 @@
 #import "NSMutableAttributedString+FrameRef.h"
 #import "CCTeletTextImage.h"
 #import "CCTeletTextLink.h"
+#import "UIImageView+WebCache.h"
 
 /**
  * 绘制高亮背景圆角半径

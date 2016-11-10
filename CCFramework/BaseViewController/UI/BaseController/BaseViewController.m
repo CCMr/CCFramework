@@ -41,9 +41,9 @@
     if (self) {
         if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
             self.extendedLayoutIncludesOpaqueBars = NO;
-            self.edgesForExtendedLayout = UIRectEdgeAll;
+            self.edgesForExtendedLayout = UIRectEdgeNone;
             self.modalPresentationCapturesStatusBarAppearance = NO;
-            self.automaticallyAdjustsScrollViewInsets = YES;
+            self.automaticallyAdjustsScrollViewInsets = NO;
         }
     }
     return self;

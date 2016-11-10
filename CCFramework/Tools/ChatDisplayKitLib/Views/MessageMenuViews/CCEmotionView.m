@@ -29,7 +29,7 @@
 #import "UIButton+Additions.h"
 #import "UIView+Method.h"
 #import "UIImage+Additions.h"
-#import "UIImageView+Additions.h"
+#import "UIImageView+WebCache.h"
 #import "Config.h"
 
 @implementation CCEmotionView
@@ -88,12 +88,12 @@
 
     if (!isDelete) {
         NSData *data = [NSData dataWithContentsOfFile:emotion.emotionConverPhoto];
-        images.image = [UIImage cc_imageWithData:data];
+        images.image = [UIImage cc_animatedGIFWithData:data];
         if ([emotion.emotionConverPhoto rangeOfString:@"http://"].location != NSNotFound)
-            [images sd_setImageWithURLStr:emotion.emotionConverPhoto];
+            [images sd_setImageWithURL:[NSURL URLWithString:emotion.emotionConverPhoto]];
         else if (!images.image) {
             if (emotion.emotionConverPhotoUrl)
-                [images sd_setImageWithURLStr:emotion.emotionConverPhotoUrl];
+                [images sd_setImageWithURL:[NSURL URLWithString:emotion.emotionConverPhotoUrl]];
         }
     }
     return button;

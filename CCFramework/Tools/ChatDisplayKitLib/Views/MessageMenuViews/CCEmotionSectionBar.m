@@ -25,7 +25,7 @@
 
 
 #import "CCEmotionSectionBar.h"
-#import "UIButton+Additions.h"
+#import "UIButton+WebCache.h"
 #import "CCTool.h"
 
 #define kCCStoreManagerItemWidth 50

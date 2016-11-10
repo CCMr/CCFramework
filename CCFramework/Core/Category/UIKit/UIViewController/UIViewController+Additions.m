@@ -32,6 +32,7 @@
 #import "UITabBar+Additional.h"
 #import <objc/runtime.h>
 #import "CCNSLog.h"
+#import "UIApplication+Additions.h"
 
 @import StoreKit;
 
@@ -107,6 +108,8 @@ NSString *const CCScrollingHandlerDidScrollBlock = @"CCScrollingHandlerDidScroll
 
 @property (nonatomic, copy) _CCViewControllerWillAppearInjectBlock cc_willAppearInjectBlock;
 
+@property(nonatomic, weak) UIView *navBarView;
+
 @end
 
 @implementation UIViewController (Additions)
@@ -167,6 +170,26 @@ static inline void AutomaticWritingSwizzleSelector(Class class, SEL originalSele
 - (void)setCc_willAppearInjectBlock:(_CCViewControllerWillAppearInjectBlock)block
 {
     objc_setAssociatedObject(self, @selector(cc_willAppearInjectBlock), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+-(UIView *)navigationBarView
+{
+    if (!self.navBarView) {
+        UIView *navBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 64)];
+        navBarView.backgroundColor = [UINavigationBar appearance].barTintColor;
+        self.navBarView = navBarView;
+    }
+    return self.navBarView;
+}
+
+-(UIView *)navBarView
+{
+    return [self associatedValueForKey:@selector(navBarView)];
+}
+
+-(void)setNavBarView:(UIView *)navBarView
+{
+    [self associateValue:navBarView withKey:@selector(navBarView)];
 }
 
 - (UITableView *)tableView

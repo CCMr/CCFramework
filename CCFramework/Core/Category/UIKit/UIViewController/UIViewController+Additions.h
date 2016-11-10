@@ -36,6 +36,8 @@ typedef void (^_CCViewControllerWillAppearInjectBlock)(UIViewController *viewCon
 
 @interface UIViewController (Additions) <CCViewControllerProtocolDelegate>
 
+@property(readonly) UIView *navigationBarView;
+
 /**
  *  @brief  找到当前viewcontroler所在的tableView
  */

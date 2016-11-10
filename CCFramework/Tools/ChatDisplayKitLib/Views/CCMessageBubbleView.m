@@ -31,11 +31,12 @@
 #import "UIButton+Additions.h"
 #import "UIImageView+Additions.h"
 #import "CCMessagePhotoImageView.h"
+#import "UIImageView+WebCache.h"
 //Factorys
 #import "CCMessageBubbleFactory.h"
 #import "CCMessageVoiceFactory.h"
 
-#define kCCHaveBubbleMargin 4.0f       // 文本、视频、表情气泡上下边的间隙
+#define kCCHaveBubbleMargin 4.5f       // 文本、视频、表情气泡上下边的间隙
 #define kCCHaveBubbleVoiceMargin 13.5f // 语音气泡上下边的间隙
 #define kCCHaveBubblePhotoMargin 6.5f  // 图片、地理位置气泡上下边的间隙
 #define kCCHaveBubbleFileMargin 60     //文件类型图标高宽
@@ -87,6 +88,8 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 @property(nonatomic, weak, readwrite) UILabel *fileSizeLabel;
 
 @property(nonatomic, strong, readwrite) id<CCMessageModel> message;
+
+@property(nonatomic, strong) UIImageView *imagebubbles;
 
 @end
 
@@ -198,7 +201,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     }
     
     gifSize = [CCMessageBubbleView neededRatioSize:gifSize ImageSize:imageSize];
-
+    
     return gifSize;
 }
 
@@ -306,13 +309,13 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 
 - (UIFont *)font
 {
-//    if (_font == nil) {
-//        _font = [[[self class] appearance] font];
-//    }
-//    
-//    if (_font != nil) {
-//        return _font;
-//    }
+    //    if (_font == nil) {
+    //        _font = [[[self class] appearance] font];
+    //    }
+    //    
+    //    if (_font != nil) {
+    //        return _font;
+    //    }
     
     return [UIFont systemFontOfSize:16.0f];
 }
@@ -460,6 +463,10 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         case CCBubbleMessageMediaTypePhoto:
         case CCBubbleMessageMediaTypeVideo:
         case CCBubbleMessageMediaTypeLocalPosition: {
+            _imagebubbles.image = [CCMessageBubbleFactory bubbleImageViewForType:message.bubbleMessageType
+                                                                           style:CCBubbleImageViewStyleWeChat
+                                                                       meidaType:message.messageMediaType];
+            
             // 只要是图片和视频消息，必须把尖嘴显示控件显示出来
             _bubblePhotoImageView.hidden = NO;
             
@@ -567,7 +574,9 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 _fileImageView.image = message.filePhoto;
             } else {
                 _fileImageView.image = [UIImage imageNamed:@"other_placeholderImg"];
-                [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:message.fileThumbnailUrl] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:message.fileThumbnailUrl] options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+                    
+                } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
                     _fileImageView.image = image;
                     if (message.savePath)
                         [UIImageJPEGRepresentation(image, 1.0f) writeToFile:message.savePath atomically:YES];
@@ -601,8 +610,8 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             id teletextPath = [message.teletextPath objectAtIndex:i];
             if ([teletextPath isKindOfClass:[NSDictionary class]]) {
                 if ([teletextPath objectForKey:@"Size"])
-                     size = [[teletextPath objectForKey:@"Size"] CGSizeValue];
-               
+                    size = [[teletextPath objectForKey:@"Size"] CGSizeValue];
+                
                 path = [teletextPath objectForKey:@"localpath"];
                 if ([path isEqualToString:@""] || !path) {
                     path = [teletextPath objectForKey:@"path"];
@@ -746,9 +755,16 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             _displayTextView = displayTextView;
         }
         
+        if (!_imagebubbles) {
+            UIImageView *imagebubbles = [[UIImageView alloc] init];
+            _imagebubbles = imagebubbles;
+        }
+        
         // 3、初始化显示图片的控件
         if (!_bubblePhotoImageView) {
             CCBubblePhotoImageView *bubblePhotoImageView = [[CCBubblePhotoImageView alloc] initWithFrame:CGRectZero];
+            [bubblePhotoImageView setContentMode:UIViewContentModeScaleAspectFit];
+            [bubblePhotoImageView setClipsToBounds:YES];
             [self addSubview:bubblePhotoImageView];
             _bubblePhotoImageView = bubblePhotoImageView;
             
@@ -963,7 +979,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 if (currentType == CCBubbleMessageMediaTypeText || currentType == CCBubbleMessageMediaTypeTeletext) {
                     self.displayTextView.frame = viewFrame;
                     self.displayTextView.center = CGPointMake(self.bubbleImageView.center.x + textX, self.bubbleImageView.center.y);
-//                    [self.displayTextView sizeToFit];
+                    //                    [self.displayTextView sizeToFit];
                 }
                 
                 if (currentType == CCBubbleMessageMediaTypeSmallEmotion) {
@@ -990,6 +1006,12 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             
             CGRect photoImageViewFrame = CGRectMake(paddingX, marginY, needPhotoSize.width, needPhotoSize.height);
             self.bubblePhotoImageView.frame = photoImageViewFrame;
+            self.imagebubbles.frame = photoImageViewFrame;
+            CALayer *layer = self.imagebubbles.layer;
+            layer.frame = (CGRect){{0,0},self.imagebubbles.layer.frame.size};
+            self.bubblePhotoImageView.layer.mask = layer;
+            [self.bubblePhotoImageView setNeedsDisplay];
+            
             self.bubbleImageView.frame = photoImageViewFrame;
             
             self.videoPlayImageView.center = CGPointMake(CGRectGetWidth(photoImageViewFrame) / 2.0, CGRectGetHeight(photoImageViewFrame) / 2.0);

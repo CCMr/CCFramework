@@ -44,7 +44,7 @@
 {
     _emotionPath = emotionPath;
     if (_emotionPath) {
-        self.image = [UIImage cc_imageWithData:[NSData dataWithContentsOfFile:emotionPath]];
+        self.image = [UIImage cc_animatedGIFWithData:[NSData dataWithContentsOfFile:emotionPath]];
     }
 }
 

@@ -316,7 +316,7 @@ typedef NS_ENUM(NSInteger, CCInfoBannerShowType) {
     CCInfoBanner *banner = [self initializationShow];
     if (icon) {
         NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:icon ofType:@"gif"]];
-        banner.iconImageView.image = [UIImage cc_imageWithData:data];
+        banner.iconImageView.image = [UIImage cc_animatedGIFWithData:data];
     }
     banner.titleLabel.text = title;
     banner.detailsLabel.text = detailsText;

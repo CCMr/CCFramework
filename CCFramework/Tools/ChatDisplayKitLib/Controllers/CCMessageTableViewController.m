@@ -1347,13 +1347,14 @@
 
 - (void)finishRecorded
 {
-    [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
     WEAKSELF;
-    [self.voiceRecordHUD stopRecordCompled:^(BOOL fnished) {
-        weakSelf.voiceRecordHUD = nil;
-    }];
     [self.voiceRecordHelper stopRecordingWithStopRecorderCompletion:^{
+        [self.voiceRecordHUD stopRecordCompled:^(BOOL fnished) {
+            weakSelf.voiceRecordHUD = nil;
+        }];
         [weakSelf didSendMessageWithVoice:weakSelf.voiceRecordHelper.recordPath voiceDuration:weakSelf.voiceRecordHelper.recordDuration];
+        
+        [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
     }];
 }
 

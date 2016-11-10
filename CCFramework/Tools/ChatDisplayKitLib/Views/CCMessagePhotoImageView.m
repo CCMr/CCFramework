@@ -25,7 +25,7 @@
 
 #import "CCMessagePhotoImageView.h"
 #import "UIImage+Additions.h"
-#import "UIImageView+Additions.h"
+#import "UIImageView+WebCache.h"
 
 @interface CCMessagePhotoImageView ()
 
@@ -89,9 +89,9 @@
 - (void)setImageFilePath:(NSString *)imageFilePath
 {
     if ([imageFilePath rangeOfString:@"http://"].location != NSNotFound) {
-        [self.imageView sd_setImageWithURLStr:imageFilePath placeholderImage:[UIImage imageNamed:@"other_placeholderImg"]];
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString:imageFilePath] placeholderImage:[UIImage imageNamed:@"other_placeholderImg"]];
     } else {
-        self.image = [UIImage cc_imageWithData:[NSData dataWithContentsOfFile:imageFilePath]];
+        self.image = [UIImage cc_animatedGIFWithData:[NSData dataWithContentsOfFile:imageFilePath]];
     }
 }
 
