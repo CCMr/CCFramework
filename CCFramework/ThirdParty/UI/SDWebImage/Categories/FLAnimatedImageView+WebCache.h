@@ -33,6 +33,8 @@
  */
 - (void)sd_setImageWithURL:(nullable NSURL *)url;
 
+- (void)sd_setImageWithURLStr:(nullable NSString *)url;
+
 /**
  * Load the image at the given url (either from cache or download) and load it in this imageView. It works with both static and dynamic images
  * The download is asynchronous and cached.

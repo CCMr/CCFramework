@@ -10,7 +10,7 @@
 #import "NSMutableAttributedString+FrameRef.h"
 #import "CCTeletTextImage.h"
 #import "CCTeletTextLink.h"
-#import "UIImageView+WebCache.h"
+#import "FLAnimatedImageView+WebCache.h"
 
 /**
  * 绘制高亮背景圆角半径
@@ -160,7 +160,7 @@ static CGFloat kRadius = 2.f;
             // 4.3添加图片
             if (imageData.imageType == CCImageURLType) {
                 // 初始化imageView
-                UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageFrame];
+                FLAnimatedImageView *imageView = [[FLAnimatedImageView alloc] initWithFrame:imageFrame];
                 [imageView sd_setImageWithURL:[NSURL URLWithString:imageData.imagePath] placeholderImage:self.defaultImage options:SDWebImageDelayPlaceholder completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     imageData.image = image;
                 }];

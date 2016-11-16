@@ -1409,7 +1409,13 @@
 {
     NSString *obj = notification.object;
     if ([obj isEqualToString:@"Lock screen"]) {
-        [self finishRecorded];
+        WEAKSELF;
+        [self.voiceRecordHelper stopRecordingWithStopRecorderCompletion:^{
+            [self.voiceRecordHUD stopRecordCompled:^(BOOL fnished) {
+                weakSelf.voiceRecordHUD = nil;
+            }];
+            [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+        }];
     }
 }
 

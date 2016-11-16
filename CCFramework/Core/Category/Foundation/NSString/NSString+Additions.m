@@ -487,7 +487,6 @@ NSString *_stringRepresentationOf(id<Concatenatable> object);
                                       Topimg:avatar];
 }
 
-
 /**
  *  @author CC, 15-09-02
  *

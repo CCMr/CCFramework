@@ -45,7 +45,7 @@
 @property(nonatomic, strong) UIScrollView *photoScrollView;
 @property(nonatomic, strong) NSMutableSet *visiblePhotoViews;
 @property(nonatomic, strong) NSMutableSet *reusablePhotoViews;
-@property(nonatomic, strong) CCPhotoToolbar *toolbar;
+@property(nonatomic, strong) CCPhotoToolbar *photoToolbar;
 @property(nonatomic, strong) UIButton *stateButton;
 
 @property(nonatomic, assign) PhotoBrowserType photoType;
@@ -76,17 +76,24 @@
 {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-
+    
     [self initialization];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
+    
     CCPhoto *photo = _photos[_currentPhotoIndex];
     self.stateButton.selected = photo.selectd;
     [self showPhotos];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (self.photoType == PhotoBrowserTypeShow)
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -116,7 +123,7 @@
     } else {
         [self.view addSubview:self.toolbar];
     }
-
+    
     if (self.photoType == PhotoBrowserTypePushNavigationBar) {
         [self.toolbar removeFromSuperview];
     } else if (self.photoType == PhotoBrowserTypePush) {
@@ -131,11 +138,11 @@
 {
     if (_bottomBar)
         [self.bottomBar removeFromSuperview];
-
+    
     _bottomBar = bottomBar;
-    if (_toolbar)
+    if (_photoToolbar)
         [self.toolbar removeFromSuperview];
-
+    
     CGRect frame = self.bottomBar.frame;
     frame.origin.y = winsize.height - _bottomBar.height;
     self.bottomBar.frame = frame;
@@ -158,7 +165,7 @@
         }
         [vc.navigationController popViewControllerAnimated:YES];
     }];
-
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deletePhoto)];
 }
 
@@ -171,7 +178,7 @@
         NSInteger index = self.currentPhotoIndex - 1;
         if (index < 0)
             index = 0;
-
+        
         [_photoScrollView removeAllSubviews];
         self.currentPhotoIndex = index;
     } else {
@@ -186,11 +193,17 @@
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     if (self.photoType == PhotoBrowserTypeShow) {
         [window addSubview:self.view];
-        [window.rootViewController addChildViewController:self];
-        window.windowLevel = UIWindowLevelAlert;
+        [window.rootViewController addChildViewController:[[UINavigationController alloc] initWithRootViewController:self]];
+        //        window.windowLevel = UIWindowLevelAlert;
     } else if (self.photoType == PhotoBrowserTypePush) {
         [window.rootViewController presentPopupViewController:self animationType:CCPopupViewAnimationSlideRightLeft];
     }
+}
+
+-(void)hide
+{
+    CCPhotoView *photoView = [_visiblePhotoViews anyObject];
+    [photoView disappear];
 }
 
 #pragma mark - 创建导航栏
@@ -200,7 +213,7 @@
         CGFloat originY = iOS7Later ? 20 : 0;
         _topBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, originY + 44)];
         _topBar.backgroundColor = [UIColor colorWithRed:34 / 255.0f green:34 / 255.0f blue:34 / 255.0f alpha:.7f];
-
+        
         UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [backButton setImage:CCResourceImage(@"navi_back") forState:UIControlStateNormal];
         [backButton setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 10)];
@@ -208,7 +221,7 @@
         backButton.frame = CGRectMake(12, _topBar.frame.size.height / 2 - backButton.frame.size.height / 2 + originY / 2, backButton.frame.size.width, backButton.frame.size.height);
         [backButton addTarget:self action:@selector(handleBackAction) forControlEvents:UIControlEventTouchUpInside];
         [_topBar addSubview:backButton];
-
+        
         UIButton *stateButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [stateButton setImage:CCResourceImage(@"photo_def_previewVc") forState:UIControlStateNormal];
         [stateButton setImage:CCResourceImage(@"photo_sel_photoPickerVc") forState:UIControlStateSelected];
@@ -244,18 +257,18 @@
         CCPhoto *photo = _photos[_currentPhotoIndex];
         photo.selectd = !photo.selectd;
         sender.selected = !sender.selected;
-
+        
         CAKeyframeAnimation *scaoleAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
         scaoleAnimation.duration = 0.25;
         scaoleAnimation.autoreverses = YES;
         scaoleAnimation.values = @[ [NSNumber numberWithFloat:1.0], [NSNumber numberWithFloat:1.2], [NSNumber numberWithFloat:1.0] ];
         scaoleAnimation.fillMode = kCAFillModeForwards;
-
+        
         [sender.layer removeAllAnimations];
         [sender.layer addAnimation:scaoleAnimation forKey:@"transform.rotate"];
-
-        [_toolbar updataSelectd];
-
+        
+        [_photoToolbar updataSelectd];
+        
         NSUInteger indexs = _currentPhotoIndex;
         if (photo.IsIndex)
             indexs = photo.asssetIndex;
@@ -267,15 +280,15 @@
 
 - (CCPhotoToolbar *)toolbar
 {
-    if (!_toolbar) {
-        _toolbar = [[CCPhotoToolbar alloc] initWithFrame:CGRectMake(0, winsize.height - 44, winsize.width, 44)];
-        _toolbar.photoToolbarDelegate = self;
-        _toolbar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-        _toolbar.photos = _photos;
-        [_toolbar updataSelectd];
+    if (!_photoToolbar) {
+        _photoToolbar = [[CCPhotoToolbar alloc] initWithFrame:CGRectMake(0, winsize.height - 44, winsize.width, 44)];
+        _photoToolbar.photoToolbarDelegate = self;
+        _photoToolbar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        _photoToolbar.photos = _photos;
+        [_photoToolbar updataSelectd];
         [self updateTollbarState];
     }
-    return _toolbar;
+    return _photoToolbar;
 }
 
 #pragma mark 创建UIScrollView
@@ -302,12 +315,12 @@
 - (void)setPhotos:(NSArray *)photos
 {
     _photos = photos;
-
+    
     if (photos.count > 1) {
         _visiblePhotoViews = [NSMutableSet set];
         _reusablePhotoViews = [NSMutableSet set];
     }
-
+    
     for (int i = 0; i < _photos.count; i++) {
         CCPhoto *photo = _photos[i];
         photo.index = i;
@@ -319,39 +332,48 @@
 - (void)setCurrentPhotoIndex:(NSUInteger)currentPhotoIndex
 {
     _currentPhotoIndex = currentPhotoIndex;
-
+    
     self.title = [NSString stringWithFormat:@"%zi/%zi", _currentPhotoIndex + 1, self.photos.count];
-
+    
     for (int i = 0; i < _photos.count; i++) {
         CCPhoto *photo = _photos[i];
         photo.firstShow = i == currentPhotoIndex;
     }
-
+    
     if ([self isViewLoaded]) {
         _photoScrollView.contentOffset = CGPointMake(_currentPhotoIndex * _photoScrollView.frame.size.width, 0);
-
+        
         // 显示所有的相片
         [self showPhotos];
     }
 }
 
 #pragma mark - CCPhotoView代理
+-(void)photoViewPress:(UIImage *)photoView
+{
+    self.pressPhotoBlock?self.pressPhotoBlock(photoView,self):nil;
+}
+
 - (void)photoViewSingleTap:(CCPhotoView *)photoView
 {
     if (self.photoType == PhotoBrowserTypeShow) {
-        UIWindow *window = [UIApplication sharedApplication].keyWindow;
-        window.windowLevel = UIWindowLevelNormal;
-        self.view.backgroundColor = [UIColor clearColor];
-
-        // 移除工具条
-        [_toolbar removeFromSuperview];
-        [self.topBar removeFromSuperview];
+        [UIView animateWithDuration:0 animations:^{
+            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+        } completion:^(BOOL finished) {
+            UIWindow *window = [UIApplication sharedApplication].keyWindow;
+            window.windowLevel = UIWindowLevelNormal;
+            self.view.backgroundColor = [UIColor clearColor];
+            
+            // 移除工具条
+            [_photoToolbar removeFromSuperview];
+            [self.topBar removeFromSuperview];
+        }];
     } else if (self.photoType == PhotoBrowserTypePush) {
         if (photoView) {
             [self setBarHidden:!self.topBar.hidden animated:YES];
         }
     }
-
+    
     self.hidePhotoBlock ? self.hidePhotoBlock(self) : nil;
 }
 
@@ -384,7 +406,7 @@
 
 - (void)photoViewImageFinishLoad:(CCPhotoView *)photoView
 {
-    _toolbar.currentPhotoIndex = _currentPhotoIndex;
+    _photoToolbar.currentPhotoIndex = _currentPhotoIndex;
 }
 
 #pragma mark - CCPhotoToolbar代理
@@ -392,7 +414,7 @@
 {
     [self photoViewSingleTap:nil];
     [self photoViewDidEndZoom:nil];
-
+    
     // 通知代理
     if ([self.delegate respondsToSelector:@selector(didComplete:)])
         [self.delegate didComplete:_currentPhotoIndex];
@@ -406,7 +428,7 @@
         [self showPhotoViewAtIndex:0];
         return;
     }
-
+    
     CGRect visibleBounds = _photoScrollView.bounds;
     int firstIndex = (int)floorf((CGRectGetMinX(visibleBounds) + kPadding * 2) / CGRectGetWidth(visibleBounds));
     int lastIndex = (int)floorf((CGRectGetMaxX(visibleBounds) - kPadding * 2 - 1) / CGRectGetWidth(visibleBounds));
@@ -414,7 +436,7 @@
     if (firstIndex >= _photos.count) firstIndex = (int)_photos.count - 1;
     if (lastIndex < 0) lastIndex = 0;
     if (lastIndex >= _photos.count) lastIndex = (int)_photos.count - 1;
-
+    
     // 回收不再显示的ImageView
     NSInteger photoViewIndex;
     for (CCPhotoView *photoView in _visiblePhotoViews) {
@@ -424,12 +446,12 @@
             [photoView removeFromSuperview];
         }
     }
-
+    
     [_visiblePhotoViews minusSet:_reusablePhotoViews];
     while (_reusablePhotoViews.count > 2) {
         [_reusablePhotoViews removeObject:[_reusablePhotoViews anyObject]];
     }
-
+    
     for (NSUInteger index = firstIndex; index <= lastIndex; index++) {
         if (![self isShowingPhotoViewAtIndex:index]) {
             [self showPhotoViewAtIndex:index];
@@ -445,23 +467,23 @@
         photoView = [[CCPhotoView alloc] init];
         photoView.photoViewDelegate = self;
     }
-
+    
     photoView.isHandleSingle = self.photoType == PhotoBrowserTypeShow;
-
+    
     // 调整当期页的frame
     CGRect bounds = _photoScrollView.bounds;
     CGRect photoViewFrame = bounds;
     photoViewFrame.size.width -= (2 * kPadding);
     photoViewFrame.origin.x = (bounds.size.width * index) + kPadding;
     photoView.tag = kPhotoViewTagOffset + index;
-
+    
     CCPhoto *photo = _photos[index];
     photoView.frame = photoViewFrame;
     photoView.photo = photo;
-
+    
     [_visiblePhotoViews addObject:photoView];
     [_photoScrollView addSubview:photoView];
-
+    
     [self loadImageNearIndex:index];
 }
 
@@ -472,7 +494,7 @@
         CCPhoto *photo = _photos[index - 1];
         [SDWebImageDownloader.sharedDownloader downloadImageWithURL:photo.url options:0 progress:nil completed:nil];
     }
-
+    
     if (index < _photos.count - 1) {
         CCPhoto *photo = _photos[index + 1];
         [SDWebImageDownloader.sharedDownloader downloadImageWithURL:photo.url options:0 progress:nil completed:nil];
@@ -506,11 +528,11 @@
     _photoScrollView.contentSize = CGSizeMake(_photoScrollView.frame.size.width * _photos.count, 0);
     _currentPhotoIndex = _photoScrollView.contentOffset.x / _photoScrollView.frame.size.width;
     if (!self.bottomBar)
-        _toolbar.currentPhotoIndex = _currentPhotoIndex;
+        _photoToolbar.currentPhotoIndex = _currentPhotoIndex;
     CCPhoto *photo = _photos[_currentPhotoIndex];
-
+    
     self.stateButton.selected = photo.selectd;
-
+    
     self.title = [NSString stringWithFormat:@"%zi/%zi", _currentPhotoIndex + 1, self.photos.count];
 }
 

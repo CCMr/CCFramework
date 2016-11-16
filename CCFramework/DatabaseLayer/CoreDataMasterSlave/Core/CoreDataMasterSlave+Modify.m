@@ -29,6 +29,25 @@
 
 @implementation CoreDataMasterSlave (Modify)
 
++(void)cc_SyncUpdateORInsertCoreData:(NSString *)tableName
+                       Predicate:(NSPredicate *)predicate
+                            Data:(NSDictionary *)data
+                      Completion:(void (^)(NSError *error))completion
+{
+    NSManagedObjectContext *context = [self currentContext];
+    __block NSMutableArray *arrayObj = [NSMutableArray array];
+    [context performBlockAndWait:^{
+        NSManagedObject *managedObject = [self objctWithData:tableName
+                                               SubPredicates:@[ predicate ]
+                                                        Data:data
+                                                   inContext:context];
+        if (completion) {
+            completion(nil);
+        }
+    }];
+}
+
+
 /**
  批量修改属性值
  

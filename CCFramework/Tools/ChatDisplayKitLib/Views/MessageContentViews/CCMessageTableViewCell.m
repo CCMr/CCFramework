@@ -39,7 +39,7 @@ static const CGFloat kCCLabelPadding = 10.0f;
 static const CGFloat kCCTimeStampLabelHeight = 20.0f;
 
 static const CGFloat kCCAvatarPaddingX = 10.0;
-static const CGFloat kCCAvatarPaddingY = 5;
+static const CGFloat kCCAvatarPaddingY = 8;
 
 static const CGFloat kCCUserNameLabelHeight = 20;
 
@@ -294,12 +294,9 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 - (void)configAvatarWithPhotoURLString:(NSString *)photoURLString
 {
-//    self.avatarButton.messageAvatarType = CCMessageAvatarTypeNormal;
-//    [self.avatarButton setImageWithURL:[NSURL URLWithString:photoURLString]
-//                            placeholer:[UIImage imageNamed:@"avator"]];
-    [self.avatarButton sd_setBackgroundImageWithURL:[NSURL URLWithString:photoURLString] 
-                                           forState:UIControlStateNormal
-                                   placeholderImage:[UIImage imageNamed:@"avator"]];
+    [self.avatarButton sd_setImageWithURL:[NSURL URLWithString:photoURLString] 
+                                 forState:UIControlStateNormal 
+                         placeholderImage:[UIImage imageNamed:@"avator"]];
 }
 
 - (void)configUserNameWithMessage:(id<CCMessageModel>)message

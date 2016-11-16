@@ -31,14 +31,19 @@
 - (void)photoViewImageFinishLoad:(CCPhotoView *)photoView;
 - (void)photoViewSingleTap:(CCPhotoView *)photoView;
 - (void)photoViewDidEndZoom:(CCPhotoView *)photoView;
+- (void)photoViewPress:(UIImage *)photoView;
+
 @end
 
 @interface CCPhotoView : UIScrollView <UIScrollViewDelegate>
 
 @property(nonatomic, assign) BOOL isHandleSingle;
 
+-(void)disappear;
+
 // 图片
 @property(nonatomic, strong) CCPhoto *photo;
 // 代理
 @property(nonatomic, weak) id<CCPhotoViewDelegate> photoViewDelegate;
+
 @end

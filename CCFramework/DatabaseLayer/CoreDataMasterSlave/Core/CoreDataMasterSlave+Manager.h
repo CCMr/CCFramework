@@ -411,6 +411,11 @@
 
 @interface CoreDataMasterSlave (Modify)
 
++(void)cc_SyncUpdateORInsertCoreData:(NSString *)tableName
+                           Predicate:(NSPredicate *)predicate
+                                Data:(NSDictionary *)data
+                          Completion:(void (^)(NSError *error))completion;
+
 /**
  批量修改属性值
  
@@ -485,12 +490,12 @@
 /**
  更新或插入数据
  根据条件先查询符合条件就修改数据对象，不符合就插入数据
-
+ 
  @param tableName 表名
  @param predicate 条件
  @param data      更新键值
  @param callbackDataArr 回调执行后对象集合
-*/
+ */
 +(void)cc_updateORInsertCoreData:(NSString *)tableName
                        Predicate:(NSPredicate *)predicate
                             Data:(NSDictionary *)data
@@ -709,6 +714,15 @@
 
 #pragma mark - Queries 查询
 @interface CoreDataMasterSlave (Queries)
+
+/**
+ 同步查询
+ 
+ @param tableName 表名
+ @param condition 条件
+ */
++(NSArray *)cc_SyncSelectCoreData:(NSString *)tableName
+                        Condition:(NSPredicate *)condition;
 
 /**
  *  @author CC, 2015-10-26

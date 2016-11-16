@@ -133,6 +133,13 @@ whileExecutingBlock:(dispatch_block_t)block
 + (void)show:(BOOL)animated;
 
 /**
+ 显示弹窗
+ 
+ @param title 提示消息
+ */
++(void)showWithTitle:(NSString *)title;
+
+/**
  *  @author CC, 2016-12-29
  *  
  *  @brief  隐藏弹窗

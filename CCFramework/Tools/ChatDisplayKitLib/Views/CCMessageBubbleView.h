@@ -27,7 +27,7 @@
 #import <UIKit/UIKit.h>
 
 #import "CCBubblePhotoImageView.h"
-#import "CCAnimatedImageView.h"
+#import "FLAnimatedImageView.h"
 #import "SETextView.h"
 
 //Model
@@ -86,7 +86,7 @@
 /**
  *  专门用于gif表情显示控件
  */
-@property (nonatomic, weak, readonly) CCAnimatedImageView *emotionImageView;
+@property (nonatomic, weak, readonly) FLAnimatedImageView *emotionImageView;
 
 /**
  *  用于显示语音的控件，并且支持播放动画

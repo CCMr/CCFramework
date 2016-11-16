@@ -225,6 +225,18 @@ whileExecutingBlock:(dispatch_block_t)block
 }
 
 /**
+ 显示弹窗
+
+ @param title 提示消息
+ */
++(void)showWithTitle:(NSString *)title
+{
+    MBProgressHUD *hud = [self initialization];
+    hud.labelText = title;
+    [hud show:YES];
+}
+
+/**
  *  @author CC, 2016-12-29
  *  
  *  @brief  隐藏弹窗

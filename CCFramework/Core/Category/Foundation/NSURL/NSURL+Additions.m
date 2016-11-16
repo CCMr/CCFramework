@@ -269,7 +269,10 @@ didReceiveResponse:(NSURLResponse *)response
     NSArray *queryComponents = [self.query componentsSeparatedByString:@"&"];
     for (NSString *queryComponent in queryComponents) {
         NSString *key = [queryComponent componentsSeparatedByString:@"="].firstObject;
-        NSString *value = [queryComponent substringFromIndex:(key.length + 1)];
+        NSString *value = key;
+        if (key.length + 1 < queryComponent.length)
+            value = [queryComponent substringFromIndex:(key.length + 1)];
+        
         [parametersDictionary setObject:value forKey:key];
     }
     return parametersDictionary;

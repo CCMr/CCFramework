@@ -36,8 +36,6 @@
 #import <CCFramework/CCPagesContainer.h>
 #import <CCFramework/CCActionSheet.h>
 #import <CCFramework/CCActionSheetViewController.h>
-#import <CCFramework/CCAnimatedImage.h>
-#import <CCFramework/CCAnimatedImageView.h>
 #import <CCFramework/CalendarViewController.h>
 #import <CCFramework/CCLineChartView.h>
 #import <CCFramework/CCPieChart.h>

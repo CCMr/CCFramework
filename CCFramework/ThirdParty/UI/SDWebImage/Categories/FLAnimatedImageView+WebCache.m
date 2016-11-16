@@ -22,6 +22,10 @@
     [self sd_setImageWithURL:url placeholderImage:nil options:0 progress:nil completed:nil];
 }
 
+- (void)sd_setImageWithURLStr:(nullable NSString *)url {
+    [self sd_setImageWithURL:[NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] placeholderImage:nil options:0 progress:nil completed:nil];
+}
+
 - (void)sd_setImageWithURL:(nullable NSURL *)url placeholderImage:(nullable UIImage *)placeholder {
     [self sd_setImageWithURL:url placeholderImage:placeholder options:0 progress:nil completed:nil];
 }

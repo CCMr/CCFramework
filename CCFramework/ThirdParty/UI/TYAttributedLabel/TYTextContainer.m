@@ -466,7 +466,7 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
     
     CFRelease(framesetter);
 
-    return CGSizeMake(_isWidthToFit ? suggestedSize.width : width, suggestedSize.height+1);
+    return CGSizeMake(_isWidthToFit ? suggestedSize.width : width, suggestedSize.height);
 }
 - (CGFloat)getHeightWithFramesetter:(CTFramesetterRef)framesetter width:(CGFloat)width
 {

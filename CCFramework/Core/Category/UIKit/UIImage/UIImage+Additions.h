@@ -157,8 +157,14 @@
 
 #pragma mark :. QQ群组图标
 
-#pragma mark :. 毛玻璃效果
+#pragma mark :. 识别二维码
 
+/**
+ 解析二维码
+ */
+-(NSString *)analysisQRCode;
+
+#pragma mark :. 毛玻璃效果
 /**
  *  @author CC, 2015-07-31
  *

@@ -83,6 +83,10 @@
         // 旋转手势
         UIRotationGestureRecognizer *rotationGestureRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotateView:)];
         [_imageView addGestureRecognizer:rotationGestureRecognizer];
+        
+        UILongPressGestureRecognizer *longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressToDo:)];   
+        longPressGr.minimumPressDuration = 1.0;   
+        [self addGestureRecognizer:longPressGr];   
     }
     return self;
 }
@@ -266,6 +270,13 @@
 }
 
 #pragma mark - 手势处理
+-(void)longPressToDo:(UILongPressGestureRecognizer *)gesture{   
+    if(gesture.state == UIGestureRecognizerStateBegan){   
+        if ([self.photoViewDelegate respondsToSelector:@selector(photoViewPress:)])
+            [self.photoViewDelegate photoViewPress:self.imageView.image];
+    }   
+}  
+
 - (void)handleSingleTap:(UITapGestureRecognizer *)tap
 {
     if (_isHandleSingle) {
@@ -318,6 +329,18 @@
             [self.photoViewDelegate photoViewDidEndZoom:self];
         }
     }];
+}
+
+-(void)disappear
+{
+    [_photoLoadingView removeFromSuperview];
+    self.contentOffset = CGPointZero;
+    // 通知代理
+    if ([self.photoViewDelegate respondsToSelector:@selector(photoViewSingleTap:)])
+        [self.photoViewDelegate photoViewSingleTap:self];
+    if ([self.photoViewDelegate respondsToSelector:@selector(photoViewDidEndZoom:)]) {
+        [self.photoViewDelegate photoViewDidEndZoom:self];
+    }
 }
 
 - (void)resets

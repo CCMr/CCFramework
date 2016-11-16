@@ -877,10 +877,6 @@
 		429CA0021B9EF8BF0013A44A /* CCActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DDF1B9EF8BF0013A44A /* CCActionSheet.m */; };
 		429CA0031B9EF8BF0013A44A /* CCActionSheetViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DE01B9EF8BF0013A44A /* CCActionSheetViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA0041B9EF8BF0013A44A /* CCActionSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DE11B9EF8BF0013A44A /* CCActionSheetViewController.m */; };
-		429CA0051B9EF8BF0013A44A /* CCAnimatedImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DE31B9EF8BF0013A44A /* CCAnimatedImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		429CA0061B9EF8BF0013A44A /* CCAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DE41B9EF8BF0013A44A /* CCAnimatedImage.m */; };
-		429CA0071B9EF8BF0013A44A /* CCAnimatedImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DE51B9EF8BF0013A44A /* CCAnimatedImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		429CA0081B9EF8BF0013A44A /* CCAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DE61B9EF8BF0013A44A /* CCAnimatedImageView.m */; };
 		429CA0091B9EF8BF0013A44A /* CCBadgeView.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DE81B9EF8BF0013A44A /* CCBadgeView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		429CA00A1B9EF8BF0013A44A /* CCBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C9DE91B9EF8BF0013A44A /* CCBadgeView.m */; };
 		429CA00B1B9EF8BF0013A44A /* CalendarCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 429C9DEB1B9EF8BF0013A44A /* CalendarCollectionViewCell.h */; };
@@ -1260,7 +1256,7 @@
 		42ECCAC11DD47963008E7F31 /* SDImageCacheConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 42ECCABF1DD47963008E7F31 /* SDImageCacheConfig.m */; };
 		42ECCAC91DD47F08008E7F31 /* FLAnimatedImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ECCAC41DD47F08008E7F31 /* FLAnimatedImage.h */; };
 		42ECCACA1DD47F08008E7F31 /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 42ECCAC51DD47F08008E7F31 /* FLAnimatedImage.m */; };
-		42ECCACB1DD47F08008E7F31 /* FLAnimatedImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ECCAC61DD47F08008E7F31 /* FLAnimatedImageView.h */; };
+		42ECCACB1DD47F08008E7F31 /* FLAnimatedImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ECCAC61DD47F08008E7F31 /* FLAnimatedImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42ECCACC1DD47F08008E7F31 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42ECCAC71DD47F08008E7F31 /* FLAnimatedImageView.m */; };
 		42ECCACD1DD47F08008E7F31 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 42ECCAC81DD47F08008E7F31 /* Info.plist */; };
 		42F164011C2A38BD00F17928 /* bar_minus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F163FB1C2A38BD00F17928 /* bar_minus@2x.png */; };
@@ -2226,10 +2222,6 @@
 		429C9DDF1B9EF8BF0013A44A /* CCActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCActionSheet.m; sourceTree = "<group>"; };
 		429C9DE01B9EF8BF0013A44A /* CCActionSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCActionSheetViewController.h; sourceTree = "<group>"; };
 		429C9DE11B9EF8BF0013A44A /* CCActionSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCActionSheetViewController.m; sourceTree = "<group>"; };
-		429C9DE31B9EF8BF0013A44A /* CCAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAnimatedImage.h; sourceTree = "<group>"; };
-		429C9DE41B9EF8BF0013A44A /* CCAnimatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCAnimatedImage.m; sourceTree = "<group>"; };
-		429C9DE51B9EF8BF0013A44A /* CCAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAnimatedImageView.h; sourceTree = "<group>"; };
-		429C9DE61B9EF8BF0013A44A /* CCAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCAnimatedImageView.m; sourceTree = "<group>"; };
 		429C9DE81B9EF8BF0013A44A /* CCBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCBadgeView.h; sourceTree = "<group>"; };
 		429C9DE91B9EF8BF0013A44A /* CCBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCBadgeView.m; sourceTree = "<group>"; };
 		429C9DEB1B9EF8BF0013A44A /* CalendarCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarCollectionViewCell.h; sourceTree = "<group>"; };
@@ -5370,7 +5362,6 @@
 				4230E1931BBB8F4D0001E68F /* CCRadarScan */,
 				425A76B41BA17FE8006D18FE /* CCPagesContainer */,
 				429C9DDD1B9EF8BF0013A44A /* CCActionSheet */,
-				429C9DE21B9EF8BF0013A44A /* CCAnimatedImageView */,
 				429C9DE71B9EF8BF0013A44A /* CCBadgeView */,
 				429C9DEA1B9EF8BF0013A44A /* CCCalendar */,
 				429C9DF71B9EF8BF0013A44A /* CCChart */,
@@ -5403,17 +5394,6 @@
 				429C9DE11B9EF8BF0013A44A /* CCActionSheetViewController.m */,
 			);
 			path = CCActionSheet;
-			sourceTree = "<group>";
-		};
-		429C9DE21B9EF8BF0013A44A /* CCAnimatedImageView */ = {
-			isa = PBXGroup;
-			children = (
-				429C9DE31B9EF8BF0013A44A /* CCAnimatedImage.h */,
-				429C9DE41B9EF8BF0013A44A /* CCAnimatedImage.m */,
-				429C9DE51B9EF8BF0013A44A /* CCAnimatedImageView.h */,
-				429C9DE61B9EF8BF0013A44A /* CCAnimatedImageView.m */,
-			);
-			path = CCAnimatedImageView;
 			sourceTree = "<group>";
 		};
 		429C9DE71B9EF8BF0013A44A /* CCBadgeView */ = {
@@ -7102,7 +7082,6 @@
 				428B5C3B1C22609C001B8584 /* rscode.h in Headers */,
 				422E91701C5F38BE008F7DDA /* PRTween.h in Headers */,
 				427369541D6FCF4E00921B48 /* CCTabBarBadge.h in Headers */,
-				429CA0071B9EF8BF0013A44A /* CCAnimatedImageView.h in Headers */,
 				4254774C1BD2AEC20071BBC5 /* md4.h in Headers */,
 				42068F0A1C573E33005DFB01 /* POPAnimationEventInternal.h in Headers */,
 				422511421C72F795003B3623 /* CCPropertyType.h in Headers */,
@@ -7186,7 +7165,6 @@
 				421DC68E1C85750E009E825B /* UIBezierPath+Additions.h in Headers */,
 				4264D7401BA2C19100E83159 /* CCPagesContainer.h in Headers */,
 				420CB13B1C7D788500A0EC25 /* MASLayoutConstraint.h in Headers */,
-				429CA0051B9EF8BF0013A44A /* CCAnimatedImage.h in Headers */,
 				429B0B6B1D6E908700D095C8 /* CCPreViewController.h in Headers */,
 				429CA0891B9EF8BF0013A44A /* CCAutoTextView.h in Headers */,
 				42DBC0401D751DF1006C4927 /* CGGeometry+CCImageCropper.h in Headers */,
@@ -7843,7 +7821,6 @@
 				429C89391DAB95C500A7502B /* TZImageManager.m in Sources */,
 				42068F041C573E33005DFB01 /* POPSpringAnimation.mm in Sources */,
 				42DEB2AD1C25495000734E09 /* CCSwatches.m in Sources */,
-				429CA0081B9EF8BF0013A44A /* CCAnimatedImageView.m in Sources */,
 				4230E1861BBB83000001E68F /* CCRadarIndicatorView.m in Sources */,
 				42068EF91C573E33005DFB01 /* POPBasicAnimation.mm in Sources */,
 				420CB1511C7D856F00A0EC25 /* CCSegmentedView.m in Sources */,
@@ -7884,7 +7861,6 @@
 				427E1A491D3F0B710093281F /* NSMutableAttributedString+Attribute.m in Sources */,
 				429C9FF01B9EF8BF0013A44A /* SRLongPollingTransport.m in Sources */,
 				429C9FD71B9EF8BF0013A44A /* SRConnection.m in Sources */,
-				429CA0061B9EF8BF0013A44A /* CCAnimatedImage.m in Sources */,
 				429CA0221B9EF8BF0013A44A /* CCMessageInputView.m in Sources */,
 				42A356381BF4399800B6F1F2 /* CCRefreshConst.m in Sources */,
 				429C9F9B1B9EF8BF0013A44A /* CCLanguage.m in Sources */,

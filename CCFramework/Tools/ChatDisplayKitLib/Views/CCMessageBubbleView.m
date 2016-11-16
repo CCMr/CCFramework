@@ -25,13 +25,14 @@
 
 #import "CCMessageBubbleView.h"
 #import "CCMessageBubbleHelper.h"
-#import "CCAnimatedImage.h"
+#import "FLAnimatedImage.h"
 #import "Config.h"
 #import "CCTool.h"
 #import "UIButton+Additions.h"
 #import "UIImageView+Additions.h"
 #import "CCMessagePhotoImageView.h"
 #import "UIImageView+WebCache.h"
+#import "FLAnimatedImageView+WebCache.h"
 //Factorys
 #import "CCMessageBubbleFactory.h"
 #import "CCMessageVoiceFactory.h"
@@ -66,7 +67,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 
 @property(nonatomic, weak, readwrite) UIImageView *bubbleImageView;
 
-@property(nonatomic, weak, readwrite) CCAnimatedImageView *emotionImageView;
+@property(nonatomic, weak, readwrite) FLAnimatedImageView *emotionImageView;
 
 @property(nonatomic, weak, readwrite) UIImageView *animationVoiceImageView;
 
@@ -126,7 +127,11 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     textContainer.isWidthToFit = YES;
     textContainer = [textContainer createTextContainerWithTextWidth:kCCMaxWidth];
     
-    return CGSizeMake(textContainer.textWidth, textContainer.textHeight);
+    CGFloat height = textContainer.textHeight;
+    if (height == 23)
+        height = 20;
+    
+    return CGSizeMake(textContainer.textWidth, height);
 }
 
 //计算图文最大的大小
@@ -317,7 +322,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     //        return _font;
     //    }
     
-    return [UIFont systemFontOfSize:16.0f];
+    return [UIFont systemFontOfSize:17.0f];
 }
 
 #pragma mark - Getters
@@ -547,7 +552,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             if (path) {
                 NSData *animatedData = [NSData dataWithContentsOfFile:path];
                 if (animatedData) {
-                    CCAnimatedImage *animatedImage = [[CCAnimatedImage alloc] initWithAnimatedGIFData:animatedData];
+                    FLAnimatedImage *animatedImage = [[FLAnimatedImage alloc] initWithAnimatedGIFData:animatedData];
                     if (animatedImage)
                         _emotionImageView.animatedImage = animatedImage;
                     else
@@ -736,7 +741,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         // 1、初始化气泡的背景
         if (!_bubbleImageView) {
             //bubble image
-            CCAnimatedImageView *bubbleImageView = [[CCAnimatedImageView alloc] init];
+            FLAnimatedImageView *bubbleImageView = [[FLAnimatedImageView alloc] init];
             bubbleImageView.frame = self.bounds;
             bubbleImageView.userInteractionEnabled = YES;
             [self addSubview:bubbleImageView];
@@ -800,7 +805,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
         
         // 5、初始化显示gif表情的控件
         if (!_emotionImageView) {
-            CCAnimatedImageView *emotionImageView = [[CCAnimatedImageView alloc] initWithFrame:CGRectZero];
+            FLAnimatedImageView *emotionImageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectZero];
             emotionImageView.userInteractionEnabled = YES;
             [self addSubview:emotionImageView];
             _emotionImageView = emotionImageView;

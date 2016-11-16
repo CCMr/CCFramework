@@ -91,6 +91,7 @@ static char OperationKey;
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     application.applicationIconBadgeNumber = 0;
+    cc_NoticePost(kCCLockScreen, @"Lock screen");
     //[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0]; // 设置app图标消息计数为0
 }
 

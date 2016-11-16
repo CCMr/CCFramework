@@ -30,6 +30,25 @@
 
 @implementation CoreDataMasterSlave (Queries)
 
++(NSArray *)cc_SyncSelectCoreData:(NSString *)tableName
+                 Condition:(NSPredicate *)condition
+{
+    NSFetchRequest *fetchRequest = [self cc_AllRequest:tableName];
+    if (condition)
+        [fetchRequest setPredicate:condition];
+    
+    NSManagedObjectContext *context = [self currentContext];
+    __block NSMutableArray *arrayObj = [NSMutableArray array];
+    [context performBlockAndWait:^{
+        NSArray *objs = [context executeFetchRequest:fetchRequest error:nil];
+        if (objs.count > 0) {
+            [arrayObj addObjectsFromArray:[self ConversionData:objs]]; 
+        }
+    }];
+    return arrayObj;
+}
+
+
 /**
  *  @author CC, 2015-10-26
  *

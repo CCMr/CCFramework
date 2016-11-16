@@ -62,6 +62,11 @@ typedef NS_ENUM(NSInteger, PhotoBrowserType) {
 @property(nonatomic, copy) void (^hidePhotoBlock)(CCPhotoBrowser *browser);
 
 /**
+ 长按相片回调事件
+ */
+@property(nonatomic, copy) void (^pressPhotoBlock)(UIImage *photoImage,CCPhotoBrowser *photoBrwser);
+
+/**
  *  @author CC, 16-03-29
  *
  *  @brief 底部工具条提供自定义
@@ -86,6 +91,8 @@ typedef NS_ENUM(NSInteger, PhotoBrowserType) {
 
 // 显示
 - (void)show;
+
+-(void)hide;
 @end
 
 @protocol CCPhotoBrowserDelegate <NSObject>

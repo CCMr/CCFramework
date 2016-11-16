@@ -414,7 +414,7 @@
         [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         [button setTitle:NSLocalizedStringFromTable(@"按住说话", @"MessageDisplayKitString", nil) forState:UIControlStateNormal];
         [button setTitle:NSLocalizedStringFromTable(@"松开结束", @"MessageDisplayKitString", nil) forState:UIControlStateHighlighted];
-        buttonFrame = CGRectMake(textViewLeftMargin - 5, 0, width + 10, self.frame.size.height);
+        buttonFrame = CGRectMake(textViewLeftMargin - 5, 2, width + 10, self.frame.size.height - 6);
         button.frame = buttonFrame;
         button.alpha = self.voiceChangeButton.selected;
         [button addTarget:self action:@selector(holdDownButtonTouchDown) forControlEvents:UIControlEventTouchDown];
