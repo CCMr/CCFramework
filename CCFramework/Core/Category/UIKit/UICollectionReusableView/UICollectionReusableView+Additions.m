@@ -1,5 +1,5 @@
 //
-//  ModelLayer.h
+//  UICollectionReusableView+Additions.m
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,16 +23,45 @@
 // THE SOFTWARE.
 //
 
-#ifndef CCFramework_ModelLayer_h
-#define CCFramework_ModelLayer_h
+#import "UICollectionReusableView+Additions.h"
+#import <objc/runtime.h>
 
-#import <CCFramework/BaseEntity.h>
-#import <CCFramework/BaseViewModel.h>
-#import <CCFramework/CCUserDefaultsCrash.h>
-#import <CCFramework/CCExtension.h>
-#import <CCFramework/BaseViewManger.h>
-#import <CCFramework/CCTableViewHelper.h>
-#import <CCFramework/CCCollectionViewHelper.h>
+@implementation UICollectionReusableView (Additions)
 
+- (void)cc_cellWillDisplayWithModel:(id)cModel
+                          indexPath:(NSIndexPath *)cIndexPath
+{
+    // Rewrite this func in SubClass !
+}
 
-#endif
++ (CGFloat)obtainCellHeightWithCustomObj:(id)obj
+                               indexPath:(NSIndexPath *)indexPath
+{
+    // Rewrite this func in SubClass if necessary
+    if (!obj) {
+        return 0.0f; // if obj is null .
+    }
+    return 44.0f; // default cell height
+}
+
+- (void)setCc_dataSources:(id)cc_dataSources
+{
+    objc_setAssociatedObject(self, @selector(cc_dataSources), cc_dataSources, OBJC_ASSOCIATION_RETAIN);
+}
+
+- (id)cc_dataSources
+{
+    return objc_getAssociatedObject(self, @selector(cc_dataSources));
+}
+
+-(void)setCc_indexPath:(NSIndexPath *)cc_indexPath
+{
+    objc_setAssociatedObject(self, @selector(cc_indexPath), cc_indexPath, OBJC_ASSOCIATION_RETAIN);
+}
+
+-(NSIndexPath *)cc_indexPath
+{
+    return objc_getAssociatedObject(self, @selector(cc_indexPath)); 
+}
+
+@end

@@ -30,6 +30,8 @@
 #import "UIImage+Additions.h"
 #import "UIImageView+WebCache.h"
 
+#import "FLAnimatedImageView.h"
+#import "FLAnimatedImageView+WebCache.h"
 
 @interface CCPhotoView () {
     BOOL _doubleTap;
@@ -38,7 +40,7 @@
 @property(nonatomic, assign) CGRect screenBounds;
 @property(nonatomic, assign) CGPoint screenCenter;
 
-@property(nonatomic, copy) UIImageView *imageView;
+@property(nonatomic, copy) FLAnimatedImageView *imageView;
 @property(nonatomic, copy) CCPhotoLoadingView *photoLoadingView;
 
 @end
@@ -50,7 +52,7 @@
     if ((self = [super initWithFrame:frame])) {
         self.clipsToBounds = YES;
         // 图片
-        _imageView = [[UIImageView alloc] init];
+        _imageView = [[FLAnimatedImageView alloc] init];
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
         _imageView.clipsToBounds = YES;
         [self addSubview:_imageView];
@@ -148,7 +150,6 @@
 {
     if (image) {
         self.scrollEnabled = YES;
-        _photo.image = image;
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             if (_photo.savePath){

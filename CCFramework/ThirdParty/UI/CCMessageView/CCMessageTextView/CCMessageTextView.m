@@ -24,7 +24,7 @@
 //
 
 #import "CCMessageTextView.h"
-
+#import "CCEmotionTextAttachment.h"
 
 @implementation CCMessageTextView
 
@@ -166,6 +166,35 @@
 
 - (void)_firstBaselineOffsetFromTop {}
 - (void)_baselineOffsetFromBottom {}
+
+//-(void)copy:(id)sender
+//{
+//    UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
+//    
+//    __block NSMutableString *plainString = [NSMutableString stringWithString:self.text];
+//    [self.attributedText enumerateAttribute:NSAttachmentAttributeName inRange:NSMakeRange(0, self.attributedText.length) options:0 usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
+//        if (value && [value isKindOfClass:[CCEmotionTextAttachment class]]) {
+//            [plainString replaceCharactersInRange:range
+//                                       withString:((CCEmotionTextAttachment *) value).emotionTag];
+//        }
+//    }];
+//    
+//    generalPasteboard.string = plainString;
+//    
+//}
+//
+//-(void)paste:(id)sender
+//{
+//    UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
+//    NSMutableArray *types = [[NSMutableArray alloc] init];
+//    [types addObjectsFromArray:UIPasteboardTypeListString];
+//    
+//    if ([generalPasteboard containsPasteboardTypes:types]) {
+//        
+//        //正则匹配表情符号解析替换
+//        self.text = [NSString stringWithFormat:@"%@%@",self.text,generalPasteboard.string];
+//    }
+//}
 
 #pragma mark - Drawing
 

@@ -76,6 +76,10 @@
 {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    if (self.photoType == PhotoBrowserTypePushNavigationBar) {
+        self.navigationController.navigationBar.translucent = YES;
+        self.edgesForExtendedLayout = UIRectEdgeAll;
+    }
     
     [self initialization];
 }
@@ -372,6 +376,13 @@
         if (photoView) {
             [self setBarHidden:!self.topBar.hidden animated:YES];
         }
+    }else if (self.photoType == PhotoBrowserTypePushNavigationBar){
+        BOOL hidden = [UIApplication sharedApplication].statusBarHidden;
+        [UIView animateWithDuration:0 animations:^{
+            [self.navigationController setNavigationBarHidden:!hidden animated:YES];
+        } completion:^(BOOL finished) {
+            [[UIApplication sharedApplication] setStatusBarHidden:!hidden withAnimation:UIStatusBarAnimationFade];
+        }];
     }
     
     self.hidePhotoBlock ? self.hidePhotoBlock(self) : nil;

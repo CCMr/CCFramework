@@ -37,7 +37,7 @@
 + (CCPreviewItem *)previewItemWithStr:(NSString *)urlStr
                                 title:(NSString *)title
 {
-    return [self previewItemWithURL:[NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]
+    return [self previewItemWithURL:[NSURL fileURLWithPath:urlStr]
                               title:title];
 }
 

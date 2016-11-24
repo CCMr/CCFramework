@@ -56,6 +56,10 @@
  */
 @property(nonatomic, copy) NSString *emotionTitle;
 
+/**
+ 表情标签
+ */
+@property(nonatomic, copy) NSString *emotionLabel;
 
 /**
  图片固定大小

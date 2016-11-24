@@ -48,6 +48,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 @property(nonatomic, weak, readwrite) CCMessageBubbleView *messageBubbleView;
 
 @property(nonatomic, strong, readwrite) UILabel *userNameLabel;
+@property(nonatomic, strong, readwrite) UILabel *userLabel;
 
 @property(nonatomic, weak, readwrite) UIButton *avatarButton;
 
@@ -250,6 +251,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     
     // 3、配置用户名
     [self configUserNameWithMessage:message];
+    [self configUserLabelWithMessage:message];
     
     // 4、配置通知消息
     [self configureNoticeWihtMessage:message];
@@ -302,8 +304,15 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (void)configUserNameWithMessage:(id<CCMessageModel>)message
 {
     self.userNameLabel.text = [message sender];
-    if ([message senderAttribute])
+    if ([message senderAttribute]){
         self.userNameLabel.attributedText = [message senderAttribute];
+    }
+}
+
+-(void)configUserLabelWithMessage:(id<CCMessageModel>)message
+{
+    self.userLabel.backgroundColor = message.userLabelColor;
+    self.userLabel.text = message.userLabel;
 }
 
 - (void)configureNoticeWihtMessage:(id<CCMessageModel>)message
@@ -353,11 +362,11 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             [self.messageBubbleView.bubbleImageView addGestureRecognizer:tapGestureRecognizer];
             break;
         }
-            case CCBubbleMessageMediaTypeGIF:{
-                UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTapGestureRecognizerHandle:)];
-                [self.messageBubbleView.emotionImageView addGestureRecognizer:tapGestureRecognizer];
-                break;
-            }
+        case CCBubbleMessageMediaTypeGIF:{
+            UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTapGestureRecognizerHandle:)];
+            [self.messageBubbleView.emotionImageView addGestureRecognizer:tapGestureRecognizer];
+            break;
+        }
         default:
             break;
     }
@@ -618,21 +627,33 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             self.avatarButton = avatarButton;
         }
         
+        if (!_userLabel) {
+            UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.avatarButton.bounds) + 20, kCCUserNameLabelHeight)];
+            userLabel.font = [UIFont systemFontOfSize:12];
+            userLabel.textColor = [UIColor whiteColor];
+            userLabel.hidden = YES;
+            userLabel.layer.masksToBounds = YES;  
+            userLabel.layer.cornerRadius = 3;  
+            [self.contentView addSubview:userLabel];
+            self.userLabel = userLabel;
+        }
+        
         if (!_userNameLabel) {
             // 3、配置用户名
             UILabel *userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.avatarButton.bounds) + 20, kCCUserNameLabelHeight)];
             //            userNameLabel.textAlignment = NSTextAlignmentCenter;
             userNameLabel.backgroundColor = [UIColor clearColor];
             userNameLabel.font = [UIFont systemFontOfSize:12];
-            userNameLabel.textColor = [UIColor colorWithRed:0.140 green:0.635 blue:0.969 alpha:1.000];
+            userNameLabel.textColor = cc_ColorRGB(84, 90, 100);
             userNameLabel.hidden = YES;
             [self.contentView addSubview:userNameLabel];
             self.userNameLabel = userNameLabel;
         }
+        if (message.shouldShowUserLabel)
+            self.userLabel.hidden = YES;
         
-         if (message.shouldShowUserName) {
-             self.userNameLabel.hidden = YES;
-         }
+        if (message.shouldShowUserName)
+            self.userNameLabel.hidden = YES;
         
         // 4、配置需要显示什么消息内容，比如语音、文字、视频、图片
         if (!_messageBubbleView) {
@@ -685,6 +706,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     if ([self.messageBubbleView.message messageMediaType] == CCBubbleMessageMediaTypeNotice) {
         self.avatarButton.hidden = YES;
         self.userNameLabel.hidden = YES;
+        self.userLabel.hidden = YES;
         self.noticeLabel.hidden = NO;
         
         CGFloat layoutOriginY =  (self.displayTimestamp ? kCCTimeStampLabelHeight + kCCLabelPadding * 2 : 0);
@@ -718,15 +740,36 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         
         CGFloat timeStampLabelNeedHeight = layoutOriginY;
         
+        if (self.messageBubbleView.message.shouldShowUserLabel) {
+            self.userLabel.hidden = NO;
+            [self.userLabel sizeToFit];
+            // 布局标签
+            CGRect userLabelFrame = self.userLabel.frame;
+            userLabelFrame.origin.y = timeStampLabelNeedHeight;
+            userLabelFrame.origin.x = avatarButtonFrame.origin.x + avatarButtonFrame.size.width + kCCAvatarPaddingX;
+            if (self.bubbleMessageType != CCBubbleMessageTypeReceiving){
+                userLabelFrame.origin.x = avatarButtonFrame.origin.x - userLabelFrame.size.width - kCCAvatarPaddingX;
+            }
+            self.userLabel.frame = userLabelFrame;
+        }
+        
         if (self.messageBubbleView.message.shouldShowUserName) {
             self.userNameLabel.hidden = NO;
             [self.userNameLabel sizeToFit];
+            
+            CGFloat x = avatarButtonFrame.origin.x + avatarButtonFrame.size.width + kCCAvatarPaddingX;
+            if (self.messageBubbleView.message.shouldShowUserLabel)
+                x = self.userLabel.right + 5;
+            
             // 布局用户名
             CGRect userNameFrame = self.userNameLabel.frame;
             userNameFrame.origin.y = timeStampLabelNeedHeight;
-            userNameFrame.origin.x = avatarButtonFrame.origin.x + avatarButtonFrame.size.width + kCCAvatarPaddingX;
-            if (self.bubbleMessageType != CCBubbleMessageTypeReceiving)
+            userNameFrame.origin.x = x;
+            if (self.bubbleMessageType != CCBubbleMessageTypeReceiving){
                 userNameFrame.origin.x = avatarButtonFrame.origin.x - userNameFrame.size.width - kCCAvatarPaddingX;
+                if (self.messageBubbleView.message.shouldShowUserLabel)
+                    userNameFrame.origin.x = self.userLabel.left - userNameFrame.size.width - 5;
+            }
             
             CGFloat userNameWidth = userNameFrame.size.width;
             if ((userNameWidth + userNameFrame.origin.x) > self.contentView.width) {
@@ -738,6 +781,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             
             timeStampLabelNeedHeight += userNameFrame.size.height + 5;
         }
+        
+        
         
         CGRect bubbleMessageViewFrame = CGRectMake(bubbleX,
                                                    timeStampLabelNeedHeight,

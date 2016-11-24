@@ -26,6 +26,8 @@
 #import <UIKit/UIKit.h>
 #import "Config.h"
 
+@class CCActionSheet;
+
 @interface CCCameraViewController : UIViewController
 
 /**
@@ -59,6 +61,10 @@
  *  @param complate       回调函数
  */
 - (void)startCameraOrPhotoFileWithViewController:(UIViewController *)viewController
+                                        complate:(Completion)complate;
+
+- (void)startCameraOrPhotoFileWithViewController:(UIViewController *)viewController
+                                         Options:(void (^)(CCActionSheet *actionSheet))options
                                         complate:(Completion)complate;
 
 /**

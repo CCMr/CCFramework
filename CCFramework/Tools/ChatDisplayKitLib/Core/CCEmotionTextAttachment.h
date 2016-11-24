@@ -41,4 +41,6 @@
  */
 @property(nonatomic, strong) NSString *emotionPath;
 
+@property(nonatomic, strong) NSString *emotionTag;
+
 @end

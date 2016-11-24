@@ -401,10 +401,27 @@
         strDate = @"昨天";
     else if (currentComps.year == otherComps.year && currentComps.month == otherComps.month && days < 7)
         strDate = [NSDate getWeekStringFromInteger:(int)weekIntValue];
-    else if (currentComps.year == otherComps.year)
-        strDate = [self timeFormat:@"yyyy/MM/dd"];
-    else
-        strDate = [self timeFormat:@"yyyy/MM/dd HH:mm"];
+    else if (currentComps.year == otherComps.year){
+        NSString *month = @"MM";
+        if (otherComps.month < 10)
+            month = @"M";
+        
+        NSString *day = @"dd";
+        if (otherComps.date < 10) {
+            day = @"d";
+        }
+        strDate = [self timeFormat:[NSString stringWithFormat:@"%@月%@日",month,day]];
+    }else{
+        NSString *month = @"MM";
+        if (otherComps.month < 10)
+            month = @"M";
+        
+        NSString *day = @"dd";
+        if (otherComps.date < 10) {
+            day = @"d";
+        }
+        strDate = [self timeFormat:[NSString stringWithFormat:@"yy年%@月%@日",month,day]];
+    }
     
     return strDate;
 }

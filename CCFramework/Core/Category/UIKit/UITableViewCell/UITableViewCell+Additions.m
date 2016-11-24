@@ -88,11 +88,11 @@
 
 - (void)setCc_delaysContentTouches:(BOOL)delaysContentTouches
 {
-    [self willChangeValueForKey:@"ts_delaysContentTouches"];
+    [self willChangeValueForKey:@"cc_delaysContentTouches"];
     
     [[self cc_scrollView] setDelaysContentTouches:delaysContentTouches];
     
-    [self didChangeValueForKey:@"ts_delaysContentTouches"];
+    [self didChangeValueForKey:@"cc_delaysContentTouches"];
 }
 
 - (BOOL)cc_delaysContentTouches

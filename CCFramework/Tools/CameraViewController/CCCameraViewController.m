@@ -61,6 +61,15 @@
 - (void)startCameraOrPhotoFileWithViewController:(UIViewController *)viewController
                                         complate:(Completion)complate
 {
+    [self startCameraOrPhotoFileWithViewController:viewController
+                                           Options:nil 
+                                          complate:complate];
+}
+
+- (void)startCameraOrPhotoFileWithViewController:(UIViewController *)viewController
+                                         Options:(void (^)(CCActionSheet *actionSheet))options
+                                        complate:(Completion)complate
+{
     _currentViewController = viewController;
     
     CCActionSheet *actionSheet = [[CCActionSheet alloc] initWithWhiteExample];
@@ -71,9 +80,11 @@
     [actionSheet addButtonWithTitle:@"从相册选择" image:nil type:CCActionSheetButtonTypeTextAlignmentCenter handler:^(CCActionSheet *actionSheet) {
         [self LocalPhoto];
     }];
+    options?options(actionSheet):nil;
+    
     [actionSheet show];
     
-    _callBackBlock = complate;
+    _callBackBlock = complate; 
 }
 
 /**

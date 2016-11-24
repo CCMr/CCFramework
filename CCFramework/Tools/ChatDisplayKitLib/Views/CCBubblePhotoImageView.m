@@ -76,18 +76,23 @@
                      savePath:(NSString *)savePath
           onBubbleMessageType:(CCBubbleMessageType)bubbleMessageType
 {
+    if (messagePhoto) {
+        self.image = messagePhoto;
+        return;
+    }
+    
     NSURL *url = [NSURL URLWithString:[thumbnailUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     BOOL isImageWIFI = [[[NSUserDefaults standardUserDefaults] objectForKey:@"isImageWIFI"] boolValue];
-    if (isImageWIFI && [[self obtainNetWorkStates] isEqualToString:@"WIFI"]) {
+    if (isImageWIFI || [[self obtainNetWorkStates] isEqualToString:@"WIFI"]) {
         WEAKSELF;
-        [self sd_setImageWithURL:[NSURL URLWithString:[thumbnailUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] placeholderImage:messagePhoto completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [self sd_setImageWithURL:[NSURL URLWithString:[thumbnailUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] placeholderImage:[UIImage imageNamed:@"other_placeholderImg"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {             
             if (savePath)
                 [UIImageJPEGRepresentation(image, 1.0f) writeToFile:savePath atomically:YES];
         }];
     }else{
         WEAKSELF;
-    self.loadedViewContentMode = UIViewContentModeScaleAspectFit;
-        [self cc_setImageWithURLStr:url placeholderImage:messagePhoto completionBlock:^(UIImage *image, NSError *error, NSURL *imageURL) {
+        self.loadedViewContentMode = UIViewContentModeScaleAspectFit;
+        [self cc_setImageWithURLStr:url placeholderImage:[UIImage imageNamed:@"other_placeholderImg"] completionBlock:^(UIImage *image, NSError *error, NSURL *imageURL) {
             if (savePath)
                 [UIImageJPEGRepresentation(image, 1.0f) writeToFile:savePath atomically:YES];
         }];
@@ -186,6 +191,7 @@ showActivityIndicatorView:NO
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        
         self.backgroundColor = [UIColor clearColor];
         self.userInteractionEnabled = YES;
     }

@@ -415,6 +415,25 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)insertOldMessages:(NSArray *)oldMessages
             deduplication:(NSString *)keyName;
 
+/**
+ 语音扬声切换听筒
+ */
+-(void)vocieSwitch;
+
+/**
+ 启动语音
+
+ @param messageUUID 消息ID
+ */
+-(void)stopVoice:(NSString *)messageUUID;
+
+-(void)startVoice:(NSString *)messageUUID;
+
+/**
+ 语音播放完成回调
+ */
+-(void)voicePlayFinished;
+
 #pragma mark - Messages view controller
 /**
  *  完成发送消息的函数

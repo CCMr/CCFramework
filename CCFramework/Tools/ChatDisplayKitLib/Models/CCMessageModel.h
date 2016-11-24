@@ -194,6 +194,18 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 - (BOOL)shouldShowUserName;
 
 /**
+ 是否显示标签
+ */
+- (BOOL)shouldShowUserLabel;
+
+-(NSString *)userLabel;
+
+/**
+ 标签颜色
+ */
+-(UIColor *)userLabelColor;
+
+/**
  *  @author CC, 15-08-17
  *
  *  @brief  发送人

@@ -24,6 +24,7 @@
 //
 
 #import "UICollectionViewCell+Additions.h"
+#import <objc/runtime.h>
 
 @implementation UICollectionViewCell (Additions)
 
@@ -59,6 +60,12 @@
     // Rewrite this func in SubClass !
 }
 
+- (void)cc_cellWillDisplayWithModel:(id)cModel
+                          indexPath:(NSIndexPath *)cIndexPath
+{
+    // Rewrite this func in SubClass !
+}
+
 + (CGFloat)obtainCellHeightWithCustomObj:(id)obj
                                indexPath:(NSIndexPath *)indexPath
 {
@@ -67,6 +74,50 @@
         return 0.0f; // if obj is null .
     }
     return 44.0f; // default cell height
+}
+
+- (UIScrollView *)cc_scrollView
+{
+    id sv = self.contentView.superview;
+    while (![sv isKindOfClass:[UIScrollView class]] && sv != self) {
+        sv = [sv superview];
+    }
+    
+    return sv == self ? nil : sv;
+}
+
+- (void)setCc_delaysContentTouches:(BOOL)delaysContentTouches
+{
+    [self willChangeValueForKey:@"cc_delaysContentTouches"];
+    
+    [[self cc_scrollView] setDelaysContentTouches:delaysContentTouches];
+    
+    [self didChangeValueForKey:@"cc_delaysContentTouches"];
+}
+
+- (BOOL)cc_delaysContentTouches
+{
+    return [[self cc_scrollView] delaysContentTouches];
+}
+
+- (void)setCc_dataSources:(id)cc_dataSources
+{
+    objc_setAssociatedObject(self, @selector(cc_dataSources), cc_dataSources, OBJC_ASSOCIATION_RETAIN);
+}
+
+- (id)cc_dataSources
+{
+    return objc_getAssociatedObject(self, @selector(cc_dataSources));
+}
+
+-(void)setCc_indexPath:(NSIndexPath *)cc_indexPath
+{
+    objc_setAssociatedObject(self, @selector(cc_indexPath), cc_indexPath, OBJC_ASSOCIATION_RETAIN);
+}
+
+-(NSIndexPath *)cc_indexPath
+{
+    return objc_getAssociatedObject(self, @selector(cc_indexPath)); 
 }
 
 

@@ -391,21 +391,6 @@
             break;
     }
     
-    if (!_allowTalkLabel) {
-        UILabel *allowTalkLabel = [[UILabel alloc] initWithFrame:_inputTextView.frame];
-        allowTalkLabel.backgroundColor = [UIColor whiteColor];
-        allowTalkLabel.layer.borderColor = [UIColor colorWithWhite:0.8f alpha:1.0f].CGColor;
-        allowTalkLabel.layer.borderWidth = 0.65f;
-        allowTalkLabel.layer.cornerRadius = 6.0f;
-        allowTalkLabel.textAlignment = NSTextAlignmentCenter;
-        allowTalkLabel.textColor = [UIColor colorWithWhite:0.8f alpha:1.0f];
-        allowTalkLabel.text = @"禁言中";
-        allowTalkLabel.hidden = YES;
-        [self addSubview:allowTalkLabel];
-        [self bringSubviewToFront:allowTalkLabel];
-        _allowTalkLabel = allowTalkLabel;
-    }
-    
     // 如果是可以发送语音的，那就需要一个按钮录音的按钮，事件可以在外部添加
     if (self.allowsSendVoice) {
         
@@ -425,6 +410,21 @@
         button.isIgnore = YES;
         [self addSubview:button];
         self.holdDownButton = button;
+    }
+    
+    if (!_allowTalkLabel) {
+        UILabel *allowTalkLabel = [[UILabel alloc] initWithFrame:_inputTextView.frame];
+        allowTalkLabel.backgroundColor = [UIColor whiteColor];
+        allowTalkLabel.layer.borderColor = [UIColor colorWithWhite:0.8f alpha:1.0f].CGColor;
+        allowTalkLabel.layer.borderWidth = 0.65f;
+        allowTalkLabel.layer.cornerRadius = 6.0f;
+        allowTalkLabel.textAlignment = NSTextAlignmentCenter;
+        allowTalkLabel.textColor = [UIColor colorWithWhite:0.8f alpha:1.0f];
+        allowTalkLabel.text = @"禁言中";
+        allowTalkLabel.hidden = YES;
+        [self addSubview:allowTalkLabel];
+        [self bringSubviewToFront:allowTalkLabel];
+        _allowTalkLabel = allowTalkLabel;
     }
 }
 
@@ -488,7 +488,9 @@
     self.multiMediaSendButton.enabled = !_allowTalk;
     self.faceSendButton.enabled = !_allowTalk;
     self.holdDownButton.enabled = !_allowTalk;
+    [self.inputTextView resignFirstResponder];
     self.inputTextView.editable = !_allowTalk;
+    self.inputTextView.userInteractionEnabled = !_allowTalk;
     self.allowTalkLabel.hidden = !_allowTalk;
 }
 
@@ -512,7 +514,7 @@
                                                        0.0f,
                                                        (numLines >= 6 ? 4.0f : 0.0f),
                                                        0.0f);
-    
+    self.allowTalkLabel.frame = self.inputTextView.frame;
     // from iOS 7, the content size will be accurate only if the scrolling is enabled.
     self.inputTextView.scrollEnabled = YES;
     

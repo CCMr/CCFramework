@@ -1,5 +1,5 @@
 //
-//  ModelLayer.h
+//  CCAlbum.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,16 +23,14 @@
 // THE SOFTWARE.
 //
 
-#ifndef CCFramework_ModelLayer_h
-#define CCFramework_ModelLayer_h
+#import <Foundation/Foundation.h>
 
-#import <CCFramework/BaseEntity.h>
-#import <CCFramework/BaseViewModel.h>
-#import <CCFramework/CCUserDefaultsCrash.h>
-#import <CCFramework/CCExtension.h>
-#import <CCFramework/BaseViewManger.h>
-#import <CCFramework/CCTableViewHelper.h>
-#import <CCFramework/CCCollectionViewHelper.h>
+@interface CCAlbum : NSObject
 
 
-#endif
+/**
+ 获取相机胶卷所有照片
+ */
++(void)cameraRolls:(void (^)(NSArray *photos))block;
+
+@end

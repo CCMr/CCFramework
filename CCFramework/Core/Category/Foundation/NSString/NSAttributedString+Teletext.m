@@ -28,37 +28,40 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                                  TeletextPath:(NSArray<NSString *> *)teletextPath
                                  teletextSize:(NSArray<NSDictionary *> *)teletextSize
 {
-    for (NSString *replaceStr in replaceAry)
-        text = [text stringByReplacingOccurrencesOfString:replaceStr withString:OBJECT_REPLACEMENT_CHARACTER];
-
+    for (NSString *replaceStr in replaceAry){
+        NSRange range = [text rangeOfString:replaceStr];
+        if (range.location != NSNotFound)
+            text = [text stringByReplacingCharactersInRange:range withString:OBJECT_REPLACEMENT_CHARACTER];;
+    }
+    
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
-
+    
     NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:OBJECT_REPLACEMENT_CHARACTER options:NSRegularExpressionCaseInsensitive error:nil];
     NSArray *resultArray = [re matchesInString:text options:0 range:NSMakeRange(0, text.length)];
-
+    
     @try {
         for (int i = 0; i < resultArray.count; i++) {
             NSDictionary *sizeDic = [teletextSize objectAtIndex:i];
             NSTextCheckingResult *match = [resultArray objectAtIndex:i];
-
+            
             NSString *path = @"";
             if (teletextPath.count && i < teletextPath.count)
                 path = [teletextPath objectAtIndex:i];
-
+            
             CGSize size = CGSizeMake([[sizeDic objectForKey:@"width"] integerValue], [[sizeDic objectForKey:@"height"] integerValue]);
             UIImage *emojiImage = [UIImage imageWithContentsOfFile:path];
             if (emojiImage)
                 size = CGSizeMake(emojiImage.size.width < size.width ? emojiImage.size.width : size.width, emojiImage.size.height < size.height ? emojiImage.size.height : size.height);
-
+            
             NSTextAttachment *textAttachment = [NSTextAttachment new];
             textAttachment.image = emojiImage;
             textAttachment.bounds = CGRectMake(0, -4, size.width, size.height);
-
+            
             NSAttributedString *rep = [NSAttributedString attributedStringWithAttachment:textAttachment];
             [attributedString replaceCharactersInRange:[match range] withAttributedString:rep];
         }
     } @catch (NSException *exception) {
-
+        
     } @finally {
     }
     

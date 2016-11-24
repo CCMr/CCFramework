@@ -169,6 +169,13 @@
  */
 @property(nonatomic, assign) BOOL shouldShowUserName;
 
+/**
+ 是否显示用标签
+ */
+@property(nonatomic, assign) BOOL shouldShowUserLabel;
+@property(nonatomic, copy) NSString *userLabel;
+@property(nonatomic, copy) UIColor *userLabelColor;
+
 @property(nonatomic, assign) BOOL sended;
 
 /**

@@ -1,5 +1,5 @@
 //
-//  ModelLayer.h
+//  UICollectionReusableView+Additions.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,16 +23,20 @@
 // THE SOFTWARE.
 //
 
-#ifndef CCFramework_ModelLayer_h
-#define CCFramework_ModelLayer_h
+#import <UIKit/UIKit.h>
 
-#import <CCFramework/BaseEntity.h>
-#import <CCFramework/BaseViewModel.h>
-#import <CCFramework/CCUserDefaultsCrash.h>
-#import <CCFramework/CCExtension.h>
-#import <CCFramework/BaseViewManger.h>
-#import <CCFramework/CCTableViewHelper.h>
-#import <CCFramework/CCCollectionViewHelper.h>
+@interface UICollectionReusableView (Additions)
 
+@property(nonatomic, strong) id cc_dataSources;
 
-#endif
+@property(nonatomic, strong) NSIndexPath *cc_indexPath;
+
+- (void)cc_cellWillDisplayWithModel:(id)cModel
+                          indexPath:(NSIndexPath *)cIndexPath;
+/**
+ *  获取自定义对象的cell高度 (已集成UITableView+Additions，现在创建的cell自动计算高度)
+ */
++ (CGFloat)obtainCellHeightWithCustomObj:(id)obj
+                               indexPath:(NSIndexPath *)indexPath;
+
+@end

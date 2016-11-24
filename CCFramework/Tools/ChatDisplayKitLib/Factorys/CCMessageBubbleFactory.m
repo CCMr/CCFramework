@@ -33,7 +33,7 @@
                           meidaType:(CCBubbleMessageMediaType)mediaType
 {
     NSString *messageTypeString;
-
+    
     switch (style) {
         case CCBubbleImageViewStyleWeChat:
             // 类似微信的
@@ -42,7 +42,7 @@
         default:
             break;
     }
-
+    
     switch (type) {
         case CCBubbleMessageTypeSending:
             // 发送
@@ -55,7 +55,7 @@
         default:
             break;
     }
-
+    
     switch (mediaType) {
         case CCBubbleMessageMediaTypePhoto:
         case CCBubbleMessageMediaTypeVideo:
@@ -66,12 +66,13 @@
         case CCBubbleMessageMediaTypeSmallEmotion:
         case CCBubbleMessageMediaTypeTeletext:
         case CCBubbleMessageMediaTypeFile:
+        case CCBubbleMessageMediaTypeGIF:
             messageTypeString = [messageTypeString stringByAppendingString:@"_Solid"];
             break;
         default:
             break;
     }
-
+    
     UIImage *bublleImage = [UIImage imageNamed:messageTypeString];
     UIEdgeInsets bubbleImageEdgeInsets = [self bubbleImageEdgeInsetsWithStyle:style];
     UIImage *edgeBubbleImage = cc_Stretch_Image(bublleImage, bubbleImageEdgeInsets);

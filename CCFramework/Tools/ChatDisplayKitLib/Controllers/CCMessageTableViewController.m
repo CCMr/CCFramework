@@ -39,7 +39,9 @@
 #import "NSArray+Additions.h"
 #import "CCVoiceProgressHUD.h"
 
-@interface CCMessageTableViewController () <CCMessageTableViewDelegate>
+#import "CCAudioPlayerHelper.h"
+
+@interface CCMessageTableViewController () <CCMessageTableViewDelegate,CCAudioPlayerHelperDelegate>
 
 /**
  *  判断是否用户手指滚动
@@ -72,6 +74,7 @@
 @property(nonatomic, strong) UIView *headerContainerView;
 @property(nonatomic, strong) UIActivityIndicatorView *loadMoreActivityIndicatorView;
 
+@property(nonatomic, strong) NSString *currentSelectedUUID;
 
 /**
  操作是存放数据
@@ -298,7 +301,7 @@
             [weakSelf.operationMessage addObjectsFromArray:objects];
             
         }else{
-           NSMutableArray *messages = [NSMutableArray arrayWithArray:weakSelf.messages];
+            NSMutableArray *messages = [NSMutableArray arrayWithArray:weakSelf.messages];
             if (self.operationMessage.count > 0){
                 messages = [NSMutableArray arrayWithArray:self.operationMessage];
                 [self.operationMessage removeAllObjects];
@@ -421,6 +424,45 @@
         [array deduplication:@[keyName]];
         *arr = [[array sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES]]] mutableCopy];
     }];
+}
+
+/**
+ 语音扬声切换听筒
+ */
+-(void)vocieSwitch
+{
+    if ([[[AVAudioSession sharedInstance] category] isEqualToString:AVAudioSessionCategoryPlayback]){//切换为听筒播放
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    }else{//切换为扬声器播放
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    }
+}
+
+-(void)stopVoice:(NSString *)messageUUID
+{
+    _currentSelectedUUID = nil;
+    [self currentCellVoice:messageUUID IsPlay:NO];
+}
+
+-(void)startVoice:(NSString *)messageUUID
+{
+    _currentSelectedUUID = messageUUID;
+    [self currentCellVoice:messageUUID IsPlay:YES];
+}
+
+-(void)currentCellVoice:(NSString *)messageUUID IsPlay:(BOOL)isPlay
+{
+    NSMutableArray *messages = [NSMutableArray arrayWithArray:self.messages];
+    id data = [self.messages filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.uniqueID = %@", messageUUID]].lastObject;
+    NSInteger index = [self.messages indexOfObject:data];
+    
+    CCMessageTableViewCell *currentSelectedCell = [self.messageTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+    if (isPlay)
+        [currentSelectedCell.messageBubbleView.animationVoiceImageView startAnimating];
+    else{
+        [currentSelectedCell.messageBubbleView.animationVoiceImageView stopAnimating];
+        [[CCAudioPlayerHelper shareInstance] stopAudio];
+    }
 }
 
 #pragma mark - Propertys
@@ -869,7 +911,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+    [self cancelRecord];
+    [[CCAudioPlayerHelper shareInstance] stopAudio];
     if (self.textViewInputViewType != CCInputViewTypeNormal) {
         [self layoutOtherMenuViewHiden:YES];
     }
@@ -898,6 +941,7 @@
 
 - (void)dealloc
 {
+    [[CCAudioPlayerHelper shareInstance] setDelegate:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionInterruptionNotification object:[AVAudioSession sharedInstance]];
     cc_NoticeremoveObserver(self, @"kCCLockScreen", nil);
     _messages = nil;
@@ -1178,6 +1222,7 @@
 {
     CCEmotionTextAttachment *emojiTextAttachment = [CCEmotionTextAttachment new];
     emojiTextAttachment.emotionPath = emotionPath;
+    emojiTextAttachment.emotionTag = @"123";
     emojiTextAttachment.emotionSize = CGSizeMake(22, 22);
     
     UIFont *font = self.messageInputView.inputTextView.font;
@@ -1340,6 +1385,10 @@
 
 - (void)startRecord
 {
+    if (_currentSelectedUUID) {
+        [self stopVoice:_currentSelectedUUID];
+    }
+    
     [self.voiceRecordHUD startRecordingHUDAtView:self.view];
     [self.voiceRecordHelper startRecordingWithStartRecorderCompletion:^{
     }];
@@ -1351,10 +1400,9 @@
     [self.voiceRecordHelper stopRecordingWithStopRecorderCompletion:^{
         [self.voiceRecordHUD stopRecordCompled:^(BOOL fnished) {
             weakSelf.voiceRecordHUD = nil;
+            [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+            [weakSelf didSendMessageWithVoice:weakSelf.voiceRecordHelper.recordPath voiceDuration:weakSelf.voiceRecordHelper.recordDuration];
         }];
-        [weakSelf didSendMessageWithVoice:weakSelf.voiceRecordHelper.recordPath voiceDuration:weakSelf.voiceRecordHelper.recordDuration];
-        
-        [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
     }];
 }
 
@@ -1390,7 +1438,7 @@
         }];
         
         [self.voiceRecordHelper stopRecordingWithStopRecorderCompletion:nil];
-
+        
     }else{
         AVAudioSessionInterruptionOptions options = [info[AVAudioSessionInterruptionOptionKey] unsignedIntegerValue];
         if (options == AVAudioSessionInterruptionOptionShouldResume) {
@@ -1402,13 +1450,14 @@
 
 /**
  锁屏处理语音
-
+ 
  @param notification 通知结构
  */
 -(void)handleLockScreen:(NSNotification *)notification
 {
     NSString *obj = notification.object;
     if ([obj isEqualToString:@"Lock screen"]) {
+        [self stopVoice:_currentSelectedUUID];
         WEAKSELF;
         [self.voiceRecordHelper stopRecordingWithStopRecorderCompletion:^{
             [self.voiceRecordHUD stopRecordCompled:^(BOOL fnished) {
@@ -1711,6 +1760,12 @@
         [self.delegate configureCell:messageTableViewCell atIndexPath:indexPath];
     }
     messageTableViewCell.backgroundColor = [UIColor clearColor];
+    
+    if (_currentSelectedUUID) {
+        if ([_currentSelectedUUID isEqualToString:message.uniqueID])
+             [messageTableViewCell.messageBubbleView.animationVoiceImageView startAnimating];
+    }
+    
     return messageTableViewCell;
 }
 
@@ -1766,11 +1821,46 @@
                        onMessageTableViewCell:(CCMessageTableViewCell *)messageTableViewCell
 {
     [self.messageInputView.inputTextView resignFirstResponder];
+    
+    switch (message.messageMediaType) {
+        case CCBubbleMessageMediaTypeVoice:
+            [[CCAudioPlayerHelper shareInstance] setDelegate:(id<NSFileManagerDelegate>)self];
+            if (self.currentSelectedUUID) {
+                [self stopVoice:self.currentSelectedUUID];
+            }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 -(void)didSelectedPress:(BOOL)isCellPress
 {
     self.isCellPress = isCellPress;
+}
+
+#pragma mark - CCAudioPlayerHelper Delegate
+/**
+ *  @author CC, 2015-12-24
+ *
+ *  @brief  播放完成停止
+ *
+ *  @param audioPlayer 播放控件
+ */
+- (void)didAudioPlayerStopPlay:(AVAudioPlayer *)audioPlayer
+{
+    if (!_currentSelectedUUID)
+        return;
+    
+    [self stopVoice:_currentSelectedUUID];
+    self.currentSelectedUUID = nil;
+    [self voicePlayFinished];
+}
+
+-(void)voicePlayFinished
+{
+    
 }
 
 @end

@@ -79,4 +79,6 @@
 #import <CCFramework/CCPreviewItem.h>
 #import <CCFramework/CCTabBarController.h>
 
+#import <CCFramework/FLAnimatedImage.h>
+
 #endif

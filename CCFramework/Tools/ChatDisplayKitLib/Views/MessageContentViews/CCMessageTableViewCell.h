@@ -194,6 +194,7 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
  *  用户名标签
  */
 @property(nonatomic, strong, readonly) UILabel *userNameLabel;
+@property(nonatomic, strong, readonly) UILabel *userLabel;
 
 /**
  *  时间轴Label

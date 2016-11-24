@@ -39,5 +39,6 @@
 #import <CCFramework/CCChart.h>
 #import <CCFramework/VoiceConverter.h>
 #import <CCFramework/CCGraffitiBoardView.h>
+#import <CCFramework/CCAlbum.h>
 
 #endif

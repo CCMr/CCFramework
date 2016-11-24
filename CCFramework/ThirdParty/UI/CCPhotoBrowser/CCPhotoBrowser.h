@@ -34,11 +34,11 @@ typedef NS_ENUM(NSInteger, PhotoBrowserType) {
     /** 弹出 */
     PhotoBrowserTypeShow = 0,
     /** Psuh */
-    PhotoBrowserTypePush,
+    PhotoBrowserTypePush = 1,
     /** Psuh显示系统导航栏 */
-    PhotoBrowserTypePushNavigationBar,
+    PhotoBrowserTypePushNavigationBar = 2,
     /** Psuh显示系统导航栏带删除 */
-    PhotoBrowserTypePushNavigationBarDelete,
+    PhotoBrowserTypePushNavigationBarDelete = 3,
 };
 
 @protocol CCPhotoBrowserDelegate;

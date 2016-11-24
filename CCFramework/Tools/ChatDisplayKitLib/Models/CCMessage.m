@@ -556,6 +556,14 @@
                                                         originPhotoUrl:[self.originPhotoUrl copy]
                                                                 sender:[self.sender copy]
                                                              timestamp:[self.timestamp copy]];
+            message.thumbnailUrl = _thumbnailUrl;
+            message.photoType = _photoType;
+            message.photoURL = _photoURL;
+            message.photoSize = _photoSize;
+            if (CGSizeEqualToSize(_photoSize, CGSizeMake(0, 0))) {
+                message.photoSize = _photo.size;
+            }
+            
             break;
         case CCBubbleMessageMediaTypeVideo:
             message = [[[self class] allocWithZone:zone] initWithVideoConverPhoto:[self.videoConverPhoto copy]
@@ -570,12 +578,14 @@
                                                              voiceDuration:[self.voiceDuration copy]
                                                                     sender:[self.sender copy]
                                                                  timestamp:[self.timestamp copy]];
+            message.videoPhotoSize = _videoPhotoSize;
             break;
         case CCBubbleMessageMediaTypeEmotion:
             message = [[[self class] allocWithZone:zone] initWithEmotionPath:[self.emotionPath copy]
                                                                   EmotionUrl:self.emotionUrl
                                                                       sender:[self.sender copy]
                                                                    timestamp:[self.timestamp copy]];
+            message.emotionSize = _emotionSize;
             break;
         case CCBubbleMessageMediaTypeLocalPosition:
             message = [[[self class] allocWithZone:zone] initWithLocalPositionPhoto:[self.localPositionPhoto copy]
@@ -590,6 +600,7 @@
                                                        TeletextReplaceStr:[self.teletextReplaceStr copy]
                                                                    sender:[self.sender copy]
                                                                 timestamp:[self.timestamp copy]];
+            message.teletextPhotoSize = _teletextPhotoSize;
             break;
         case CCBubbleMessageMediaTypeNotice:
             message = [[[self class] allocWithZone:zone] initWithNotice:[self.noticeContent copy]
@@ -602,12 +613,18 @@
                                                              FileSize:self.fileSize
                                                                sender:[self.sender copy]
                                                             timestamp:[self.timestamp copy]];
+            message.filePhoto = _filePhoto;
+            message.fileThumbnailUrl = _fileThumbnailUrl;
+            message.fileOriginPhotoUrl = _fileOriginPhotoUrl;
+            message.fileSize = _fileSize;
+            message.filePhotoSize = _filePhotoSize;
             break;
         case CCBubbleMessageMediaTypeGIF:
             message = [[[self class] allocWithZone:zone] initWithGIFPath:[self.gifPath copy]
                                                                   GIFUrl:self.gifUrl
                                                                   sender:[self.sender copy]
                                                                timestamp:[self.timestamp copy]];
+            message.gifSize = _gifSize;
             break;
         default:
             break;
@@ -622,6 +639,9 @@
     message.timestamp = _timestamp;
     message.showdate = _showdate;
     message.shouldShowUserName = _shouldShowUserName;
+    message.shouldShowUserLabel = _shouldShowUserLabel;
+    message.userLabel = _userLabel;
+    message.userLabelColor = _userLabelColor;
     message.sended = _sended;
     message.messageMediaType = _messageMediaType;
     message.messageSendState = _messageSendState;
@@ -629,14 +649,6 @@
     message.isRead = _isRead;
     message.selected = _selected;
     message.senderAttribute = _senderAttribute;
-    message.filePhoto = _filePhoto;
-    message.photoType = _photoType;
-    message.photoURL = _photoURL;
-    message.fileThumbnailUrl = _fileThumbnailUrl;
-    message.fileOriginPhotoUrl = _fileOriginPhotoUrl;
-    message.teletextPhotoSize = _teletextPhotoSize;
-    message.thumbnailUrl = _thumbnailUrl;
-    message.gifSize = _gifSize;
     
     return message;
 }
@@ -645,6 +657,8 @@
 {
     _objuniqueID = nil;
     _uniqueID = nil;
+    _userLabelColor = nil;
+    _userLabel = nil;
     
     _noticeContent = nil;
     

@@ -387,6 +387,7 @@ static NSNumberFormatter *numberFormatter_;
                 if (![propertyClass isSubclassOfClass:[UIImage class]] &&
                     ![propertyClass isKindOfClass:[NSData class]] &&
                     ![propertyClass isKindOfClass:[NSDate class]] &&
+                    propertyClass != [UIColor class] &&
                     propertyClass != [NSManagedObjectID class]) {
                     value = [value cc_keyValues];
                 }

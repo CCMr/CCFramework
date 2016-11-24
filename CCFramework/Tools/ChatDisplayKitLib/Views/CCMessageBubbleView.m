@@ -295,6 +295,9 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             CGSize needTextSize = [message.fileName sizeWithFont:[[CCMessageBubbleView appearance] font]
                                                         forWidth:kCCMaxWidth - kCCHaveBubbleFileMargin - kCCLeftTextHorizontalBubblePadding * 2
                                                    lineBreakMode:NSLineBreakByWordWrapping];
+            if (needTextSize.width < 80)
+                needTextSize.width = 80;
+            
             bubbleSize = CGSizeMake(needTextSize.width + kCCHaveBubbleFileMargin + kCCLeftTextHorizontalBubblePadding * 2, kCCHaveBubbleFileMargin + kCCHaveBubbleMargin * 2);
             break;
         }
@@ -428,6 +431,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             _bubbleImageView.image = [CCMessageBubbleFactory bubbleImageViewForType:message.bubbleMessageType
                                                                               style:CCBubbleImageViewStyleWeChat
                                                                           meidaType:message.messageMediaType];
+            _imagebubbles.image = _bubbleImageView.image;
             // 只要是文本、语音、第三方表情，背景的气泡都不能隐藏
             _bubbleImageView.hidden = NO;
             
@@ -599,7 +603,12 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 
 + (TYTextContainer *)configureDisplayMessage:(id<CCMessageModel>)message
 {
-    NSString *text = [[message text] stringByReplacingOccurrencesOfString:message.teletextReplaceStr withString:OBJECT_REPLACEMENT_CHARACTER];
+    NSString *text = [message text];
+    for (id replace in message.teletextPath){
+        NSRange range = [text rangeOfString:message.teletextReplaceStr];
+        if (range.location != NSNotFound)
+            text = [text stringByReplacingCharactersInRange:range withString:OBJECT_REPLACEMENT_CHARACTER];;
+    }
     
     NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"\uFFFC" options:NSRegularExpressionCaseInsensitive error:nil];
     NSArray *resultArray = [re matchesInString:text options:0 range:NSMakeRange(0, text.length)];
@@ -967,6 +976,11 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 CGRect gifImageViewFrame = bubbleFrame;
                 gifImageViewFrame.size = [CCMessageBubbleView neededSizeForGif:self.message];
                 self.emotionImageView.frame = gifImageViewFrame;
+                self.imagebubbles.frame = gifImageViewFrame;
+                CALayer *layer = self.imagebubbles.layer;
+                layer.frame = (CGRect){{0,0},self.imagebubbles.layer.frame.size};
+                self.emotionImageView.layer.mask = layer;
+                [self.emotionImageView setNeedsDisplay];
             }else {
                 //小表情与文字消息时设置气泡框
                 

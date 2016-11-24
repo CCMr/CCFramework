@@ -82,6 +82,45 @@ static NSString *CCLocalFilePathForURL(NSURL *URL)
     self.delegate = self;
     self.dataSource = self;
     [self reloadData];
+ 
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    // Get the ToolBar
+    [self.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[UIToolbar class]]) {
+            obj.hidden = YES;
+        } 
+    }];
+    
+    [self.navigationController.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[UIToolbar class]]) {
+            obj.hidden = YES;
+        } 
+    }];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    NSMutableArray *rights = [self.navigationItem.rightBarButtonItems mutableCopy];
+    if (rights.count>1) {
+        self.navigationItem.rightBarButtonItems = nil;
+        self.navigationItem.rightBarButtonItem = [rights objectAtIndex:1];
+    }
+}
+
+-(void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    [self.navigationController.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[UIToolbar class]]) {
+            obj.hidden = YES;
+        } 
+    }];
 }
 
 #pragma mark - QLPreviewControllerDataSource
