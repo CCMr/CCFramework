@@ -172,12 +172,13 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:requestURLString]];
     
     NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+        NSArray *arr = request.URL.pathComponents;
+        NSString *documentsDirectory = [[NSString documentFolder] appendFormats:@"/Download/%@",[arr objectAtIndex:arr.count - 2]];
         
-        NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory 
-                                                                              inDomain:NSUserDomainMask 
-                                                                     appropriateForURL:nil 
-                                                                                create:NO 
-                                                                                 error:nil];
+        NSURL *documentsDirectoryURL = [NSURL fileURLWithPath:documentsDirectory];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if (![fileManager fileExistsAtPath:documentsDirectory])
+            [fileManager createDirectoryAtPath:documentsDirectory withIntermediateDirectories:YES attributes:nil error:nil];  
         
         NSString *expand = [[response suggestedFilename] componentsSeparatedByString:@"."].lastObject;
         NSURL *downloadURL = [documentsDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@",[NSString UUID],expand]];

@@ -72,9 +72,9 @@
             else
                 [self.cc_CollectionView registerClass:NSClassFromString(obj) forCellWithReuseIdentifier:obj];
         }];
-        if (cellNibNames.count == 1) {
-            self.cc_CollectionView = cellNibNames[0];
-        }
+        
+        if (cellNibNames.count == 1)
+            self.cellIdentifier = cellNibNames[0];
     }
 }
 
@@ -87,8 +87,9 @@
             else
                 [self.cc_CollectionView registerClass:NSClassFromString(obj) forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:obj];
         }];
+        
         if (cellNibNames.count == 1) {
-            self.cc_CollectionView = cellNibNames[0];
+            self.headerIdentifier = cellNibNames[0];
         }
     }
 }
@@ -102,9 +103,9 @@
             else
                 [self.cc_CollectionView registerClass:NSClassFromString(obj) forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:obj];
         }];
-        if (cellNibNames.count == 1) {
-            self.cc_CollectionView = cellNibNames[0];
-        }
+        
+        if (cellNibNames.count == 1)
+            self.footerIdentifier = cellNibNames[0];
     }
 }
 
@@ -509,7 +510,7 @@
 
 - (void)cc_resetHeaderArr:(NSArray *)newDataAry
 {
-    [self cc_resetDataAry:newDataAry forSection:0];
+    [self cc_resetHeaderArr:newDataAry forSection:0];
 }
 
 - (void)cc_resetHeaderArr:(NSArray *)newDataAry forSection:(NSInteger)cSection

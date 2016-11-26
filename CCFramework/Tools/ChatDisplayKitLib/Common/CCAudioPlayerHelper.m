@@ -65,7 +65,7 @@
     if ([self.delegate respondsToSelector:@selector(didAudioPlayerStopPlay:)]) {
         [self.delegate didAudioPlayerStopPlay:_player];
     }
-    
+
     [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
 }
 
@@ -77,7 +77,7 @@
     if (fileName.length > 0) {
         
         //不随着静音键和屏幕关闭而静音。code by Aevit
-        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+//        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
         
         if (_playingFileName && [fileName isEqualToString:_playingFileName]) { //上次播放的录音
             if (_player) {
@@ -230,12 +230,11 @@
     [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
     if ([UIDevice currentDevice].proximityMonitoringEnabled == YES) {
         if (enable) {
-            
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceProximityStateDidChangeNotification object:nil];
             //添加近距离事件监听，添加前先设置为YES，如果设置完后还是NO的读话，说明当前设备没有近距离传感器
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sensorStateChange:) name:UIDeviceProximityStateDidChangeNotification object:nil];
             
         } else {
-            
             //删除近距离事件监听
             [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceProximityStateDidChangeNotification object:nil];
             [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
@@ -248,12 +247,9 @@
     //如果此时手机靠近面部放在耳朵旁，那么声音将通过听筒输出，并将屏幕变暗
     if ([[UIDevice currentDevice] proximityState] == YES) {
         //黑屏
-        NSLog(@"Device is close to user");
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-        
     } else {
         //没黑屏幕
-        NSLog(@"Device is not close to user");
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
         if (!_player || !_player.isPlaying) {
             //没有播放了，也没有在黑屏状态下，就可以把距离传感器关了

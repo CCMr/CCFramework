@@ -426,12 +426,31 @@
     }];
 }
 
+
+#pragma mark -
+#pragma mark :. 音频处理
+
+-(void)setIsVocieDetection:(BOOL)isVocieDetection
+{
+    _isVocieDetection = isVocieDetection;
+     [[CCAudioPlayerHelper shareInstance] changeProximityMonitorEnableState:_isVocieDetection];
+}
+
+- (BOOL)isHeadsetPluggedIn {  
+    AVAudioSessionRouteDescription* route = [[AVAudioSession sharedInstance] currentRoute];  
+    for (AVAudioSessionPortDescription* desc in [route outputs]) {  
+        if ([[desc portType] isEqualToString:AVAudioSessionPortHeadphones])  
+            return YES;  
+    }  
+    return NO;  
+}
+
 /**
  语音扬声切换听筒
  */
--(void)vocieSwitch
+-(void)vocieSwitch:(BOOL)isSwitch
 {
-    if ([[[AVAudioSession sharedInstance] category] isEqualToString:AVAudioSessionCategoryPlayback]){//切换为听筒播放
+    if (isSwitch){//切换为听筒播放
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
     }else{//切换为扬声器播放
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
@@ -706,7 +725,7 @@
     _allowsSendMultiMedia = YES;
     _allowsSendFace = YES;
     _inputViewStyle = CCMessageInputViewStyleFlat;
-    
+    _isVocieDetection = YES;
     self.delegate = self;
     self.dataSource = self;
 }
@@ -954,7 +973,6 @@
     
     _photographyHelper = nil;
     _locationHelper = nil;
-    
 }
 
 #pragma mark - View Rotation

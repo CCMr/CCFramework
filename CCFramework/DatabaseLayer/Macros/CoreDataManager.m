@@ -313,7 +313,14 @@
 
 - (NSURL *)applicationDocumentsDirectory
 {
-    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSString *documentsDirectory = [NSString stringWithFormat:@"%@/Database",[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]];
+    
+    NSURL *documentsDirectoryURL = [NSURL fileURLWithPath:documentsDirectory];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:documentsDirectory])
+        [fileManager createDirectoryAtPath:documentsDirectory withIntermediateDirectories:YES attributes:nil error:nil];  
+
+    return documentsDirectoryURL;
 }
 
 @end

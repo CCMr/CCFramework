@@ -65,6 +65,8 @@
 - (void)managerAudioWithFileName:(NSString *)amrName
                           toPlay:(BOOL)toPlay;
 
+- (void)changeProximityMonitorEnableState:(BOOL)enable;
+
 - (void)pausePlayingAudio; //暂停
 - (void)stopAudio;         //停止
 

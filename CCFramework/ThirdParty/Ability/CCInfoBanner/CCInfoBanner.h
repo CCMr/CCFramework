@@ -172,6 +172,9 @@
  */
 @property(nonatomic, assign) BOOL IsbottomFillet;
 
+@property(nonatomic, assign) NSInteger LateralOffset;
+@property(nonatomic, assign) NSInteger VerticalOffset;
+
 - (void)show;
 
 - (void)show:(BOOL)animated;

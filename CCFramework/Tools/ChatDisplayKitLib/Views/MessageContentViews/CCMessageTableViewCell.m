@@ -621,6 +621,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             UIButton *avatarButton = [[UIButton alloc] initWithFrame:avatarButtonFrame];
             [avatarButton setImage:[CCMessageAvatarFactory avatarImageNamed:[UIImage imageNamed:@"avator"] messageAvatarType:CCMessageAvatarTypeCircle] forState:UIControlStateNormal];
             [avatarButton addTarget:self action:@selector(avatarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            avatarButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
             //            avatarButton.layer.cornerRadius = 5;
             //            avatarButton.layer.masksToBounds = YES;
             [self.contentView addSubview:avatarButton];

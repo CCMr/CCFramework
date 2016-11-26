@@ -150,7 +150,7 @@ static NSNumberFormatter *numberFormatter_;
             if (!type.isFromFoundation && propertyClass) { // 模型属性
                 id values = value;
 
-                if (propertyClass != [NSManagedObjectID class])
+                if (propertyClass != [NSManagedObjectID class] && propertyClass != [UIImage class])
                     values = [propertyClass cc_objectWithKeyValues:value context:context];
 
                 if (values)

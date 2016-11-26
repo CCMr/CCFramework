@@ -78,6 +78,8 @@
  */
 @property(nonatomic, assign) BOOL isManager;
 
+-(void)SetContentOffset:(CGPoint)offset;
+
 /**
  *  @author CC, 2015-12-03
  *

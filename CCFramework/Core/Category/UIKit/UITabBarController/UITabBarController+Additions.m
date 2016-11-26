@@ -42,7 +42,7 @@
 {
     [self setSelectedIndex:selectedIndex];
     UINavigationController *selectedNavigationController = [self.viewControllers objectAtIndex:selectedIndex];
-    [selectedNavigationController popToRootViewControllerAnimated:animated];
+    [selectedNavigationController popToRootViewControllerAnimated:NO];
     if (selectedNavigationController)
         [selectedNavigationController pushViewController:viewController animated:animated];
 }

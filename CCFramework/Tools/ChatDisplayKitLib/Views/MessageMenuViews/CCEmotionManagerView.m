@@ -74,7 +74,7 @@
     if (selectedIndex < 0) return;
     
     _selectedIndex = selectedIndex;
-    self.emotionPageControl.numberOfPages = [[self.indexs objectAtIndex:selectedIndex] integerValue];
+    self.emotionPageControl.numberOfPages = [[[self.indexs objectAtIndex:selectedIndex] objectForKey:@"pageArray"] count];
     
     self.emotionPageControl.hidden = NO;
     if (!self.emotionPageControl.numberOfPages)
@@ -87,6 +87,12 @@
 - (void)reloadData
 {
     NSInteger numberOfEmotionManagers = [self.dataSource numberOfEmotionManagers];
+    if (numberOfEmotionManagers < self.indexs.count){
+        [self.emotionScrollView setContentOffset:CGPointMake(0, 0)];
+        [self.emotionSectionBar SetContentOffset:CGPointMake(0, 0)];
+        self.selectedIndex = 0;
+    }
+    
     if (!numberOfEmotionManagers) {
         return;
     }
@@ -174,7 +180,21 @@
                 self.emotionPageControl.currentPage = 0;
             }
             
-            [self.indexs addObject:@(numberOfEmotions)];
+            NSMutableDictionary *idxDic = [NSMutableDictionary dictionary];
+            [idxDic setObject:@(i) forKey:@"idx"];
+            NSMutableArray *pageArray = [NSMutableArray arrayWithCapacity:numberOfEmotions];
+            
+            NSInteger count = 0;
+            if (i != 0) {
+                for (NSDictionary *idxD in self.indexs)
+                    count += [[idxD objectForKey:@"pageArray"] count];
+            }
+            
+            for (NSInteger j = 0; j < numberOfEmotions; j++)
+                [pageArray addObject:@(count+j)];
+            
+            [idxDic setObject:pageArray forKey:@"pageArray"];
+            [self.indexs addObject:idxDic];
             
             
             NSInteger max = section * row;
@@ -272,11 +292,9 @@
     self.emotionPageControl.currentPage = 0;
     self.selectedIndex = section;
     
-    NSInteger index = 0;
-    for (int i = 0; i <= self.selectedIndex; i++)
-        index += [[self.indexs objectAtIndex:i] integerValue];
+    NSInteger index = [[[[self.indexs objectAtIndex:section] objectForKey:@"pageArray"] objectAtIndex:0] integerValue];
     
-    [self.emotionScrollView scrollRectToVisible:CGRectMake(CGRectGetWidth(self.bounds) * (index - self.emotionPageControl.numberOfPages), 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - kCCEmotionSectionBarHeight) animated:NO];
+    [self.emotionScrollView scrollRectToVisible:CGRectMake(CGRectGetWidth(self.bounds) * index, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - kCCEmotionSectionBarHeight) animated:NO];
     
     [self reloadData];
 }
@@ -309,19 +327,16 @@
     NSInteger currentPage = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     if ([scrollView isEqual:self.emotionScrollView]) {
         
-        NSInteger index = 0;
-        NSInteger selectIndex = _selectedIndex;
-        for (int i = 0; i <= selectIndex; i++)
-            index += [[self.indexs objectAtIndex:i] integerValue];
-        
-        if (currentPage > index - 1) {
-            self.selectedIndex++;
-            currentPage = 0;
-        } else {
-            NSInteger ix = selectIndex;
-            if (currentPage < [[self.indexs objectAtIndex:ix] integerValue])
-                self.selectedIndex--;
+        for (NSDictionary *idxD in self.indexs) {
+            NSArray *arr = [idxD objectForKey:@"pageArray"];
+            NSInteger pageIdx = [arr indexOfObject:@(currentPage)];
+            arr = [arr filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF == %d",currentPage]];
+            if (arr.count) {
+                self.selectedIndex = [[idxD objectForKey:@"idx"] integerValue];
+                currentPage = pageIdx;
+            }
         }
+        
         self.emotionPageControl.currentPage = currentPage;
     }
 }

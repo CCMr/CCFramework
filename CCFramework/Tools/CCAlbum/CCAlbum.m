@@ -35,16 +35,16 @@
  */
 +(void)cameraRolls:(void (^)(NSArray *photos))block
 {
+   __block void (^photosBlock)(NSArray *photos) = block;
     [TZImageManager manager].photoPreviewMaxWidth = 600;
+    [TZImageManager manager].shouldFixOrientation = YES;
     [[TZImageManager manager] getCameraRollAlbum:NO allowPickingImage:YES completion:^(TZAlbumModel *model) {
         [[TZImageManager manager] getAssetsFromFetchResult:model.result allowPickingVideo:NO allowPickingImage:YES completion:^(NSArray<TZAssetModel *> *models) {
              __block NSMutableArray *photos = [NSMutableArray array];
-            [TZImageManager manager].shouldFixOrientation = YES;
-            
             for (NSInteger i = 0; i < models.count; i++) {
                 TZAssetModel *assetModel = [models objectAtIndex:i];
                 [photos addObject:@1];
-                [[TZImageManager manager]getPhotoWithAsset:assetModel.asset completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+                [[TZImageManager manager] getPhotoWithAsset:assetModel.asset completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
                     if (isDegraded) return;
                     if (photo) {
                         NSString *imageType;
@@ -63,9 +63,11 @@
                         [imageDic setObject:imageFileURL?:@"" forKey:@"imageFileURL"];
                         [photos replaceObjectAtIndex:i withObject:imageDic];
                         
-                        for (id item in photos) { if ([item isKindOfClass:[NSNumber class]]) return; }
+                        NSArray *arr = [photos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF == %d", 1]];
+                        if (arr.count != 0)
+                            return;
                         
-                        block?block(photos):nil;
+                        photosBlock?photosBlock(photos):nil;
                     }
                 }];
             }

@@ -187,6 +187,10 @@
     return button;
 }
 
+-(void)SetContentOffset:(CGPoint)offset
+{
+    [self.sectionBarScrollView setContentOffset:offset];
+}
 
 - (void)reloadData
 {

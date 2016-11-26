@@ -415,10 +415,23 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)insertOldMessages:(NSArray *)oldMessages
             deduplication:(NSString *)keyName;
 
+#pragma mark-
+#pragma mark :. 声音处理
+
 /**
- 语音扬声切换听筒
+ 默认检测
  */
--(void)vocieSwitch;
+@property(nonatomic, assign) BOOL isVocieDetection;
+
+/**
+ 是否插入耳机
+ */
+-(BOOL)isHeadsetPluggedIn;
+
+/**
+ 语音扬声切换听筒 YES:听筒 NO:扬声
+ */
+-(void)vocieSwitch:(BOOL)isSwitch;
 
 /**
  启动语音
