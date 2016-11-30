@@ -89,13 +89,6 @@
 @property(nonatomic, assign) BOOL isCellPress;
 
 /**
- *  @author CC, 2015-12-25
- *
- *  @brief  图文路径
- */
-@property(nonatomic, copy) NSMutableArray *teletextPath;
-
-/**
  *  管理本机的摄像和图片库的工具对象
  */
 @property(nonatomic, strong) CCPhotographyHelper *photographyHelper;
@@ -359,6 +352,28 @@
             weakSelf.messages = messages;
             [weakSelf exMainQueue:^{
                 //                [weakSelf.messageTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                [weakSelf.messageTableView reloadData];
+            }];
+        }
+    }];
+}
+
+/**
+ 删除某条消息
+
+ @param message 消息对象
+ */
+-(void)removeMessage:(CCMessage *)message
+{
+    typeof(self) __weak weakSelf = self;
+    [self exChangeMessageDataSourceQueue:^{
+        NSMutableArray *messages = [NSMutableArray arrayWithArray:weakSelf.messages];
+        id data = [weakSelf.messages filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.objuniqueID = %@", message.objuniqueID]].lastObject;
+        
+        if (data) {
+            [messages removeObject:data];
+            weakSelf.messages = messages;
+            [weakSelf exMainQueue:^{
                 [weakSelf.messageTableView reloadData];
             }];
         }
@@ -1214,7 +1229,7 @@
     [teletextDic setObject:emotion.emotionConverPhoto forKey:@"localpath"];
     [teletextDic setObject:emotion.emotionPath forKey:@"path"];
     [teletextDic setObject:@(index) forKey:@"location"];
-    [teletextDic setObject: [NSValue valueWithCGSize:emotion.emotionSize] forKey:@"Size"];
+    [teletextDic setObject:NSStringFromCGSize(emotion.emotionSize) forKey:@"Size"];
     
     if (index < self.teletextPath.count) {
         for (NSInteger i = index; i < self.teletextPath.count; i++) {
@@ -1259,6 +1274,8 @@
     [self.messageInputView.inputTextView.textStorage addAttribute:NSFontAttributeName value:font range:wholeRange];
     
     self.emotionManagerView.isSendButton = YES;
+ 
+    [self didTextDidChange:self.messageInputView.inputTextView];
 }
 
 /**
@@ -1268,19 +1285,36 @@
  */
 - (void)didTextDeleteBackward
 {
-    NSInteger index = self.messageInputView.inputTextView.selectedRange.location - 1;
-    
-    NSArray *arr = [self.teletextPath filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"location = %d", index]];
-    if (arr.count) {
-        [self.teletextPath removeObjectsInArray:arr];
-        for (NSInteger i = index; i < self.teletextPath.count; i++) {
-            NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:[self.teletextPath objectAtIndex:i]];
-            [dic setObject:@([[dic objectForKey:@"location"] integerValue] - 1) forKey:@"location"];
-            [self.teletextPath replaceObjectAtIndex:i withObject:dic];
+    NSAttributedString *souceText = self.messageInputView.inputTextView.attributedText;
+    NSRange range = self.messageInputView.inputTextView.selectedRange;
+    if (range.location == NSNotFound)
+        range.location = self.messageInputView.inputTextView.text.length;
+        
+    if (range.length > 0) {
+        [self.messageInputView.inputTextView deleteBackward];
+        return;
+    }else{
+        
+        NSInteger index = range.location - 1;
+        
+        NSArray *arr = [self.teletextPath filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"location = %d", index]];
+        if (arr.count) {
+            
+            NSMutableAttributedString *newTextAtt = [[NSMutableAttributedString alloc] initWithAttributedString:souceText];
+            [newTextAtt deleteCharactersInRange:NSMakeRange(index, 1)];
+            self.messageInputView.inputTextView.attributedText = newTextAtt;
+            [self didTextDidChange:self.messageInputView.inputTextView];
+            
+            [self.teletextPath removeObjectsInArray:arr];
+            for (NSInteger i = index; i < self.teletextPath.count; i++) {
+                NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:[self.teletextPath objectAtIndex:i]];
+                [dic setObject:@([[dic objectForKey:@"location"] integerValue] - 1) forKey:@"location"];
+                [self.teletextPath replaceObjectAtIndex:i withObject:dic];
+            }
+        }else{
+             [self.messageInputView.inputTextView deleteBackward];
         }
     }
-    [self.messageInputView.inputTextView deleteBackward];
-    
     
     if (!self.messageInputView.inputTextView.text.length)
         self.emotionManagerView.isSendButton = NO;
@@ -1405,6 +1439,7 @@
 {
     if (_currentSelectedUUID) {
         [self stopVoice:_currentSelectedUUID];
+        [self voicePlayFinished:NO];
     }
     
     [self.voiceRecordHUD startRecordingHUDAtView:self.view];
@@ -1528,10 +1563,15 @@
     }
 }
 
-- (void)didSelectedMultipleMediaAction
+- (void)didSelectedMultipleMediaAction:(BOOL)sendFace
 {
-    self.textViewInputViewType = CCInputViewTypeShareMenu;
-    [self layoutOtherMenuViewHiden:NO];
+    if (sendFace) {
+        self.textViewInputViewType = CCInputViewTypeShareMenu;
+        [self layoutOtherMenuViewHiden:NO];
+    } else {
+        [self.messageInputView.inputTextView becomeFirstResponder];
+    }
+    
 }
 
 - (void)didSendFaceAction:(BOOL)sendFace
@@ -1873,10 +1913,10 @@
     
     [self stopVoice:_currentSelectedUUID];
     self.currentSelectedUUID = nil;
-    [self voicePlayFinished];
+    [self voicePlayFinished:YES];
 }
 
--(void)voicePlayFinished
+-(void)voicePlayFinished:(BOOL)isSwitch
 {
     
 }

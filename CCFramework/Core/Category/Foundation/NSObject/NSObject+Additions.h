@@ -279,6 +279,8 @@ typedef void (^KVOBlock)(NSDictionary *change, void *context);
  */
 + (BOOL)instancesRespondToSelector:(SEL)selector untilClass:(Class)stopClass;
 
+#pragma mark -
+#pragma mark :. 反射调用
 /**
  *  @author C C, 2015-11-12
  *
@@ -300,5 +302,27 @@ typedef void (^KVOBlock)(NSDictionary *change, void *context);
  *  @return 返回函数值
  */
 - (id)performSelectors:(NSString *)methodName withObject:aObject, ... NS_REQUIRES_NIL_TERMINATION;
+
+/**
+ 调用Class的静态函数
+ 
+ @param clazz 类clas
+ @param name 函数名
+ @return 返回结果
+ */
+- (id)invokeMethod:(Class)clazz 
+          withName:(NSString *)name;
+
+/**
+ 调用类的静态函数
+ 
+ @param clazz 类Calss
+ @param name 函数名
+ @param param 参数
+ @return 返回函数结果
+ */
+- (id)invokeMethod:(Class)clazz 
+          withName:(NSString *)name 
+         withParam:(id)param;
 
 @end

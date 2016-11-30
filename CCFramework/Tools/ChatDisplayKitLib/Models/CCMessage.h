@@ -28,7 +28,6 @@
 #import <CoreLocation/CoreLocation.h>
 #import "CCMessageModel.h"
 #import <CoreData/CoreData.h>
-#import "BaseEntity.h"
 
 @interface CCMessage : NSObject <CCMessageModel, NSCoding, NSCopying>
 

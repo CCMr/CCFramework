@@ -27,6 +27,7 @@
 #import <objc/runtime.h>
 #import <sys/utsname.h>
 #import <dispatch/dispatch.h>
+#import <objc/objc.h>
 
 @interface NSObject () <NSSecureCoding>
 
@@ -703,7 +704,7 @@ static const void *IntegerProperty = &IntegerProperty;
  */
 -(void)copyAssociateValue:(id)value withKey:(void *)key
 {
-     objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_COPY);
+    objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_COPY);
 }
 
 /**
@@ -1335,6 +1336,9 @@ void method_replace(Class toClass, Class fromClass, SEL selector)
     return block(self.class, selector, stopClass);
 }
 
+#pragma mark -
+#pragma mark :. 反射调用
+
 /**
  *  @author C C, 2015-11-12
  *
@@ -1437,5 +1441,41 @@ void method_replace(Class toClass, Class fromClass, SEL selector)
     return anObject;
 }
 
+
+/**
+ 调用Class的静态函数
+
+ @param clazz 类clas
+ @param name 函数名
+ @return 返回结果
+ */
+- (id)invokeMethod:(Class)clazz 
+          withName:(NSString *)name
+{  
+    id result = nil;   
+    SEL sel = NSSelectorFromString(name);  
+    IMP imp = [clazz methodForSelector:sel];  
+    result = imp(clazz, sel);   
+    return result; 
+} 
+
+/**
+ 调用类的静态函数
+
+ @param clazz 类Calss
+ @param name 函数名
+ @param param 参数
+ @return 返回函数结果
+ */
+- (id)invokeMethod:(Class)clazz 
+          withName:(NSString *)name 
+         withParam:(id)param 
+{   
+    id  result = nil;     
+    SEL sel = NSSelectorFromString(name);    
+    IMP imp = [clazz methodForSelector:sel];  
+    result = imp(clazz, sel, param); 
+    return result;
+}
 
 @end

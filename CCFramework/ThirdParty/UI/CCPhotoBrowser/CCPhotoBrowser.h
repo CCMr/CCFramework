@@ -89,6 +89,11 @@ typedef NS_ENUM(NSInteger, PhotoBrowserType) {
  */
 - (void)setRightButton:(UIButton *)button;
 
+/**
+ 设置导航栏右边按钮
+ */
+-(void)setNavigationRightButton:(UIButton *)button;
+
 // 显示
 - (void)show;
 

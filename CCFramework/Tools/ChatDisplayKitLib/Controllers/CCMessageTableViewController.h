@@ -253,6 +253,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 @property(nonatomic, assign) UIActivityIndicatorViewStyle loadMoreActivityIndicatorViewStyle;
 
 /**
+ *  @author CC, 2015-12-25
+ *
+ *  @brief  图文路径
+ */
+@property(nonatomic, copy) NSMutableArray *teletextPath;
+
+/**
  *  @author CC, 2015-12-05
  *
  *  @brief  记录上次显示时间
@@ -382,6 +389,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)replaceMessages:(CCMessage *)messageData;
 
 /**
+ 删除某条消息
+ 
+ @param message 消息对象
+ */
+-(void)removeMessage:(CCMessage *)message;
+
+/**
  *  删除一条已存在的消息
  *
  *  @param reomvedMessage 删除的目标消息对象
@@ -445,7 +459,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 /**
  语音播放完成回调
  */
--(void)voicePlayFinished;
+-(void)voicePlayFinished:(BOOL)isSwitch;
 
 #pragma mark - Messages view controller
 /**

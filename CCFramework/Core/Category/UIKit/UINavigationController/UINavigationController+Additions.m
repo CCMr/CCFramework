@@ -63,6 +63,13 @@
     if (translation.x <= 0)
         return NO;
     
+    void (^handler)(UIViewController *vc) = [topViewController slideBackHandler];
+    if (handler) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(topViewController);
+        });
+    }
+    
     return YES;
 }
 

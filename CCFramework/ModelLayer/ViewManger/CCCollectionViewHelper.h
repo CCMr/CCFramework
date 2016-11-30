@@ -134,6 +134,16 @@ typedef id (^CCCollectionHelperCurrentFooterModelAtIndexPath)(id dataAry, NSInde
 #pragma mark -
 #pragma mark :. Header
 
+- (void)cc_reloadGroupHeaderArr:(NSArray *)newDataAry;
+
+- (void)cc_addGroupHeaderArr:(NSArray *)newDataAry;
+
+- (void)cc_insertGroupHeaderArr:(NSArray *)newDataAry
+                     forSection:(NSInteger)cSection;
+
+- (void)cc_insertMultiplGroupHeaderArr:(NSArray *)newDataAry
+                            forSection:(NSInteger)cSection;
+
 - (void)cc_resetHeaderArr:(NSArray *)newDataAry;
 
 - (void)cc_resetHeaderArr:(NSArray *)newDataAry forSection:(NSInteger)cSection;
@@ -142,6 +152,16 @@ typedef id (^CCCollectionHelperCurrentFooterModelAtIndexPath)(id dataAry, NSInde
 
 #pragma mark -
 #pragma mark :. Footer
+
+- (void)cc_reloadGroupFooterArr:(NSArray *)newDataAry;
+
+- (void)cc_addGroupFooterArr:(NSArray *)newDataAry;
+
+- (void)cc_insertGroupFooterArr:(NSArray *)newDataAry
+                     forSection:(NSInteger)cSection;
+
+- (void)cc_insertMultiplGroupFooterArr:(NSArray *)newDataAry
+                            forSection:(NSInteger)cSection;
 
 - (void)cc_resetFooterArr:(NSArray *)newDataAry;
 

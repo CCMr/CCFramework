@@ -624,7 +624,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             id teletextPath = [message.teletextPath objectAtIndex:i];
             if ([teletextPath isKindOfClass:[NSDictionary class]]) {
                 if ([teletextPath objectForKey:@"Size"])
-                    size = [[teletextPath objectForKey:@"Size"] CGSizeValue];
+                    size = CGSizeFromString([teletextPath objectForKey:@"Size"]);
                 
                 path = [teletextPath objectForKey:@"localpath"];
                 if ([path isEqualToString:@""] || !path) {

@@ -106,7 +106,7 @@ typedef NS_ENUM(NSInteger, CCMessageInputViewStyle) {
  *
  *  @since 1.0
  */
-- (void)didSelectedMultipleMediaAction;
+- (void)didSelectedMultipleMediaAction:(BOOL)sendFace;
 
 /**
  *  @author CC, 2015-08-13
@@ -174,6 +174,8 @@ typedef NS_ENUM(NSInteger, CCMessageInputViewStyle) {
  *  @since 1.0
  */
 - (void)didSendFaceAction:(BOOL)sendFace;
+
+-(void)didTextDidChange:(UITextView *)textView;
 
 @end
 

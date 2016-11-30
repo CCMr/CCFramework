@@ -28,6 +28,8 @@
 
 @interface NSArray (Additions)
 
+- (NSString *)JSONString;
+
 /**
  *  @author CC, 2015-07-23
  *

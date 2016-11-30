@@ -69,6 +69,17 @@
                withIsExternal:(BOOL)isExternal;
 
 /**
+ 弹出框
+
+ @param containerView 自定义试图
+ @param isPackage 是否显示背景
+ @param isExternal 是否点击外部关闭
+ */
++ (void)showWithContainerView:(UIView *)containerView
+                withIsPackage:(BOOL)isPackage
+               withIsExternal:(BOOL)isExternal;
+
+/**
  *  @author CC, 2016-01-04
  *  
  *  @brief  弹窗框

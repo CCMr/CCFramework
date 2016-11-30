@@ -256,6 +256,10 @@
             [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
         }
     }
+    
+   if (_player || _player.isPlaying) {
+       _player.currentTime -= 1; 
+    }
 }
 
 

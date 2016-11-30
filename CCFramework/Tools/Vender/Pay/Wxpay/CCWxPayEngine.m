@@ -24,10 +24,11 @@
 //
 
 #import "CCWxPayEngine.h"
-#import "WXApi.h"
-#import "WXApiObject.h"
+//#import "WXApi.h"
+//#import "WXApiObject.h"
 #import "CCXML.h"
 #import "NSString+Additions.h"
+#import "NSObject+Additions.h"
 
 //支付结果回调页面
 #define NOTIFY_URL @"http://wxpay.weixin.qq.com/pub_v2/pay/notify.v2.php"
@@ -39,7 +40,7 @@
 typedef void (^CompleteCallback)(NSError *error);
 
 
-@interface CCWxPayEngine () <WXApiDelegate>
+@interface CCWxPayEngine ()// <WXApiDelegate>
 
 /**
  *  @author C C, 2015-12-04
@@ -127,8 +128,15 @@ typedef void (^CompleteCallback)(NSError *error);
     
     _payDataAddress = @"http://wxpay.weixin.qq.com/pub_v2/app/app_pay.php";
     
-    [WXApi registerApp:appid
-       withDescription:withDescription];
+    Class clazz = NSClassFromString(@"WXApi"); 
+    if (clazz) {
+        id  result = nil;     
+        SEL sel = NSSelectorFromString(@"registerApp:withDescription:");    
+        IMP imp = [clazz methodForSelector:sel];  
+        result = imp(clazz, sel, appid, withDescription);
+    }else{
+        NSLog(@"请在工程中导入微信SDK文件");
+    }
 }
 
 /**
@@ -233,16 +241,26 @@ typedef void (^CompleteCallback)(NSError *error);
 {
     _completeCallback = block;
     
-    PayReq *payReq = [[PayReq alloc] init];
-    payReq.openID = appid;
-    payReq.partnerId = partnerId;
-    payReq.prepayId = prepayId;
-    payReq.package = package;
-    payReq.nonceStr = noncestr;
-    payReq.timeStamp = timestamp.intValue;
-    payReq.sign = sign;
+    Class payReqC = NSClassFromString(@"PayReq");
     
-    [WXApi sendReq:payReq];
+    id instance = [[payReqC alloc] init];
+    [instance setValue:appid forKey:@"openID"];
+    [instance setValue:partnerId forKey:@"partnerId"];
+    [instance setValue:prepayId forKey:@"prepayId"];
+    [instance setValue:package forKey:@"package"];
+    [instance setValue:noncestr forKey:@"nonceStr"];
+    [instance setValue:timestamp forKey:@"timeStamp"];
+    [instance setValue:sign forKey:@"sign"];
+    
+    Class  clazz = NSClassFromString(@"WXApi");
+    if (clazz) {
+        id  result = nil;     
+        SEL sel = NSSelectorFromString(@"sendReq:");    
+        IMP imp = [clazz methodForSelector:sel];  
+        result = imp(clazz, sel, instance); 
+    }else{
+        NSLog(@"请在工程中导入微信SDK文件");
+    }
 }
 
 /**
@@ -252,19 +270,20 @@ typedef void (^CompleteCallback)(NSError *error);
  *
  *  @param resp 返回对象
  */
-- (void)onResp:(BaseResp *)resp
+- (void)onResp:(id)resp
 {
-    if ([resp isKindOfClass:[PayResp class]]) {
+    if ([resp isKindOfClass:NSClassFromString(@"PayReq")]) {
         //支付返回结果，实际支付结果需要去微信服务器端查询
-        switch (resp.errCode) {
-            case WXSuccess:
+        NSInteger errCode = [[resp valueForKey:@"errCode"] integerValue];
+        switch (errCode) {
+            case 0:
                 if (_completeCallback)
                     _completeCallback(nil);
                 break;
                 
             default:
                 if (_completeCallback)
-                    _completeCallback([[NSError alloc] initWithDomain:[NSString stringWithFormat:@"支付结果：失败！ errcode : %@", resp.errStr] code:resp.errCode userInfo:nil]);
+                    _completeCallback([[NSError alloc] initWithDomain:[NSString stringWithFormat:@"支付结果：失败！ errcode : %@", [resp valueForKey:@"errStr"]] code:errCode userInfo:nil]);
                 break;
         }
     }
@@ -279,7 +298,12 @@ typedef void (^CompleteCallback)(NSError *error);
  */
 - (BOOL)handleOpenURL:(NSURL *_Nullable)url
 {
-    return [WXApi handleOpenURL:url delegate:self];
+    Class clazz = NSClassFromString(@"WXApi");
+    id  result = nil;     
+    SEL sel = NSSelectorFromString(@"handleOpenURL:delegate:");    
+    IMP imp = [clazz methodForSelector:sel];  
+    result = imp(clazz, sel, url,self); 
+    return result;
 }
 
 #pragma mark :. 生成预支付订单

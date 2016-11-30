@@ -258,6 +258,17 @@ static const void *BackButtonHandlerKey = &BackButtonHandlerKey;
     return objc_getAssociatedObject(self, BackButtonHandlerKey);
 }
 
+-(void)slideBackTouched:(void (^)(UIViewController *))slideBackHandler
+{
+    objc_setAssociatedObject(self, @selector(slideBackHandler), slideBackHandler, OBJC_ASSOCIATION_COPY);
+}
+
+-(void (^)(UIViewController *vc))slideBackHandler
+{
+    return objc_getAssociatedObject(self, @selector(slideBackHandler)); 
+}
+
+
 /**
  *  @brief  视图层级
  *

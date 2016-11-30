@@ -125,24 +125,27 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
     CGSize contentSize = self.titleHeaderSize;
     if (self.headerView){
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
         id curModel = [self currentHeaderModelAtIndexPath:indexPath];
         contentSize = self.headerView(collectionView,indexPath,curModel).LayoutSizeFittingSize;
+    }else if (CGSizeEqualToSize(contentSize, CGSizeMake(0, 0))) {
+        contentSize = [collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:indexPath].LayoutSizeFittingSize;
     }
     return contentSize;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section  
 {  
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
     CGSize contentSize = self.titleFooterSize;
     if (self.footerView) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
         id curModel = [self currentFooterModelAtIndexPath:indexPath];
-        contentSize = self.headerView(collectionView,indexPath,curModel).LayoutSizeFittingSize;
+        contentSize = self.footerView(collectionView,indexPath,curModel).LayoutSizeFittingSize;
+    }else if (CGSizeEqualToSize(contentSize, CGSizeMake(0, 0))){
+         contentSize = [collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:indexPath].LayoutSizeFittingSize;
     }
-    
     return contentSize;  
 }  
 
@@ -508,6 +511,68 @@
 #pragma mark -
 #pragma mark :. Header
 
+- (void)cc_reloadGroupHeaderArr:(NSArray *)newDataAry
+{
+    self.headerArray = nil;
+    for (NSInteger i = 0; i < newDataAry.count; i++)
+        [self cc_makeUpHeaderArrForSection:i];
+    
+    for (int idx = 0; idx < self.headerArray.count; idx++) {
+        NSMutableArray *subAry = self.headerArray[idx];
+        if (subAry.count) [subAry removeAllObjects];
+        id data = [newDataAry objectAtIndex:idx];
+        if ([data isKindOfClass:[NSArray class]]) {
+            [subAry addObjectsFromArray:data];
+        } else {
+            [subAry addObject:data];
+        }
+    }
+    [self.cc_CollectionView reloadData];
+}
+
+- (void)cc_addGroupHeaderArr:(NSArray *)newDataAry
+{
+    [self.headerArray addObject:[NSMutableArray arrayWithArray:newDataAry]];
+    [self.cc_CollectionView reloadData];
+}
+
+- (void)cc_insertGroupHeaderArr:(NSArray *)newDataAry
+                   forSection:(NSInteger)cSection
+{
+    [self.headerArray insertObject:[NSMutableArray arrayWithArray:newDataAry] atIndex:cSection == -1 ? 0 : cSection];
+    [self.cc_CollectionView reloadData];
+}
+
+- (void)cc_insertMultiplGroupHeaderArr:(NSArray *)newDataAry
+                          forSection:(NSInteger)cSection
+{
+    NSMutableArray *idxArray = [NSMutableArray array];
+    if (cSection < 0) {
+        for (NSInteger i = 0; i < newDataAry.count; i++) {
+            [self.headerArray insertObject:[NSMutableArray array] atIndex:0];
+            [idxArray addObject:@(i)];
+        }
+    } else {
+        for (NSInteger i = 0; i < newDataAry.count; i++) {
+            [self.headerArray insertObject:[NSMutableArray array] atIndex:cSection + i];
+            [idxArray addObject:@(cSection + i)];
+        }
+    }
+    
+    for (NSInteger i = 0; i < idxArray.count; i++) {
+        NSInteger idx = [[idxArray objectAtIndex:i] integerValue];
+        NSMutableArray *subAry = self.headerArray[idx];
+        if (subAry.count) [subAry removeAllObjects];
+        id data = [newDataAry objectAtIndex:i];
+        if ([data isKindOfClass:[NSArray class]]) {
+            [subAry addObjectsFromArray:data];
+        } else {
+            [subAry addObject:data];
+        }
+    }
+    [self.cc_CollectionView reloadData];
+}
+
 - (void)cc_resetHeaderArr:(NSArray *)newDataAry
 {
     [self cc_resetHeaderArr:newDataAry forSection:0];
@@ -538,9 +603,9 @@
 - (id)currentHeaderModelAtIndexPath:(NSIndexPath *)cIndexPath
 {
     if (self.currentHeaderModelAtIndexPath) {
-        return self.currentHeaderModelAtIndexPath(self.headerSource, cIndexPath);
-    } else if (self.headerSource.count > cIndexPath.section) {
-        NSMutableArray *subDataAry = self.headerSource[cIndexPath.section];
+        return self.currentHeaderModelAtIndexPath(self.headerArray, cIndexPath);
+    } else if (self.headerArray.count > cIndexPath.section) {
+        NSMutableArray *subDataAry = self.headerArray[cIndexPath.section];
         if (subDataAry.count > cIndexPath.row) {
             id curModel = subDataAry[cIndexPath.row];
             return curModel;
@@ -580,6 +645,68 @@
 #pragma mark -
 #pragma mark :. Footer
 
+- (void)cc_reloadGroupFooterArr:(NSArray *)newDataAry
+{
+    self.footerArray = nil;
+    for (NSInteger i = 0; i < newDataAry.count; i++)
+        [self cc_makeUpFooterArrForSection:i];
+    
+    for (int idx = 0; idx < self.footerArray.count; idx++) {
+        NSMutableArray *subAry = self.footerArray[idx];
+        if (subAry.count) [subAry removeAllObjects];
+        id data = [newDataAry objectAtIndex:idx];
+        if ([data isKindOfClass:[NSArray class]]) {
+            [subAry addObjectsFromArray:data];
+        } else {
+            [subAry addObject:data];
+        }
+    }
+    [self.cc_CollectionView reloadData];
+}
+
+- (void)cc_addGroupFooterArr:(NSArray *)newDataAry
+{
+    [self.footerArray addObject:[NSMutableArray arrayWithArray:newDataAry]];
+    [self.cc_CollectionView reloadData];
+}
+
+- (void)cc_insertGroupFooterArr:(NSArray *)newDataAry
+                     forSection:(NSInteger)cSection
+{
+    [self.footerArray insertObject:[NSMutableArray arrayWithArray:newDataAry] atIndex:cSection == -1 ? 0 : cSection];
+    [self.cc_CollectionView reloadData];
+}
+
+- (void)cc_insertMultiplGroupFooterArr:(NSArray *)newDataAry
+                            forSection:(NSInteger)cSection
+{
+    NSMutableArray *idxArray = [NSMutableArray array];
+    if (cSection < 0) {
+        for (NSInteger i = 0; i < newDataAry.count; i++) {
+            [self.footerArray insertObject:[NSMutableArray array] atIndex:0];
+            [idxArray addObject:@(i)];
+        }
+    } else {
+        for (NSInteger i = 0; i < newDataAry.count; i++) {
+            [self.footerArray insertObject:[NSMutableArray array] atIndex:cSection + i];
+            [idxArray addObject:@(cSection + i)];
+        }
+    }
+    
+    for (NSInteger i = 0; i < idxArray.count; i++) {
+        NSInteger idx = [[idxArray objectAtIndex:i] integerValue];
+        NSMutableArray *subAry = self.footerArray[idx];
+        if (subAry.count) [subAry removeAllObjects];
+        id data = [newDataAry objectAtIndex:i];
+        if ([data isKindOfClass:[NSArray class]]) {
+            [subAry addObjectsFromArray:data];
+        } else {
+            [subAry addObject:data];
+        }
+    }
+    [self.cc_CollectionView reloadData];
+}
+
 - (void)cc_resetFooterArr:(NSArray *)newDataAry
 {
     [self cc_resetFooterArr:newDataAry forSection:0];
@@ -610,9 +737,9 @@
 - (id)currentFooterModelAtIndexPath:(NSIndexPath *)cIndexPath
 {
     if (self.currentFooterModelAtIndexPath) {
-        return self.currentFooterModelAtIndexPath(self.footerSource, cIndexPath);
-    } else if (self.footerSource.count > cIndexPath.section) {
-        NSMutableArray *subDataAry = self.footerSource[cIndexPath.section];
+        return self.currentFooterModelAtIndexPath(self.footerArray, cIndexPath);
+    } else if (self.footerArray.count > cIndexPath.section) {
+        NSMutableArray *subDataAry = self.footerArray[cIndexPath.section];
         if (subDataAry.count > cIndexPath.row) {
             id curModel = subDataAry[cIndexPath.row];
             return curModel;

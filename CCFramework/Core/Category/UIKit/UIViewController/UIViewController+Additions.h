@@ -65,6 +65,8 @@ typedef void (^_CCViewControllerWillAppearInjectBlock)(UIViewController *viewCon
  */
 @property (nonatomic, assign) BOOL cc_prefersNavigationBarHidden;
 
+@property(nonatomic, copy) void (^slideBackHandler)(UIViewController *vc);
+
 /**
  当开始交互式弹出时，最大允许到左边缘的初始距离
  手势。 0默认情况下，这意味着它将忽略此限制。
@@ -74,6 +76,7 @@ typedef void (^_CCViewControllerWillAppearInjectBlock)(UIViewController *viewCon
 @property(nonatomic, copy) _CCViewControllerWillAppearInjectBlock cc_willAppearInjectBlock;
 
 - (void)backButtonTouched:(void (^)(UIViewController *vc))backButtonHandler;
+- (void)slideBackTouched:(void (^)(UIViewController *vc))slideBackHandler;
 
 /**
  *  @brief  视图层级

@@ -36,6 +36,8 @@
  */
 - (void)didDeleteBackward;
 
+-(void)didReceiveTextDidChange:(UITextView *)textView;
+
 @end
 
 @interface CCMessageTextView : UITextView
@@ -94,5 +96,7 @@
  *  @since 1.0
  */
 + (NSInteger)numberOfLinesForMessage:(NSString *)text;
+
+
 
 @end

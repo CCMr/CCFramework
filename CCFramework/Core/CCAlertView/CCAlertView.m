@@ -119,6 +119,19 @@
           }];
 }
 
++ (void)showWithContainerView:(UIView *)containerView
+                withIsPackage:(BOOL)isPackage
+               withIsExternal:(BOOL)isExternal
+{
+    cc_View_SingleFillet(containerView, UIRectCornerTopLeft | UIRectCornerTopRight, 5);
+    
+    CustomIOSAlertView *alertView = [self alertView];
+    alertView.containerView = containerView;
+    alertView.IsExternal = isExternal;
+    alertView.isPackage = isPackage;
+    [alertView show];
+}
+
 /**
  *  @author CC, 2016-01-04
  *  
@@ -130,12 +143,9 @@
 + (void)showWithContainerView:(UIView *)containerView
                withIsExternal:(BOOL)isExternal
 {
-    cc_View_SingleFillet(containerView, UIRectCornerTopLeft | UIRectCornerTopRight, 5);
-    
-    CustomIOSAlertView *alertView = [self alertView];
-    alertView.containerView = containerView;
-    alertView.IsExternal = isExternal;
-    [alertView show];
+    [self showWithContainerView:containerView 
+                  withIsPackage:YES 
+                 withIsExternal:isExternal];
 }
 
 /**

@@ -159,7 +159,6 @@
         case 1:
         case 2: {
             sender.selected = !sender.selected;
-            self.voiceChangeButton.selected = !sender.selected;
             
             if (!sender.selected) {
                 [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -183,8 +182,9 @@
                 }
             } else {
                 self.faceSendButton.selected = NO;
-                if ([self.delegate respondsToSelector:@selector(didSelectedMultipleMediaAction)]) {
-                    [self.delegate didSelectedMultipleMediaAction];
+                self.voiceChangeButton.selected = NO;
+                if ([self.delegate respondsToSelector:@selector(didSelectedMultipleMediaAction:)]) {
+                    [self.delegate didSelectedMultipleMediaAction:sender.selected];
                 }
             }
             
@@ -368,6 +368,7 @@
     
     //    textView.placeholder = NSLocalizedStringFromTable(@"发送消息", @"MessageDisplayKitString", nil);
     textView.delegate = self;
+    textView.cc_delegate = self;
     
     [self addSubview:textView];
     _inputTextView = textView;
@@ -585,6 +586,13 @@
 {
     if ([self.delegate respondsToSelector:@selector(didTextDeleteBackward)]) {
         [self.delegate didTextDeleteBackward];
+    }
+}
+
+-(void)didReceiveTextDidChange:(UITextView *)textView
+{
+    if ([self.delegate respondsToSelector:@selector(didTextDidChange:)]) {
+        [self.delegate didTextDidChange:textView];
     }
 }
 

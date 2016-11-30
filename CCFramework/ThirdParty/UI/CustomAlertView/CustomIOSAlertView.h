@@ -42,6 +42,8 @@
 @property (nonatomic, assign) BOOL useMotionEffects;
 @property (nonatomic, assign) BOOL IsExternal;
 
+@property(nonatomic, assign) BOOL isPackage;
+
 @property (copy) void (^onButtonTouchUpInside)(CustomIOSAlertView *alertView, int buttonIndex) ;
 
 - (id)init;

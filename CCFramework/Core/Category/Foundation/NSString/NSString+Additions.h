@@ -62,11 +62,9 @@
 - (NSString *)pathForTemporaryFileWithPrefix;
 
 /**
- *  @brief  JSON字符串转成NSDictionary
- *
- *  @return NSDictionary
+ *  @brief  JSON字符串转成对象
  */
-- (NSDictionary *)dictionaryValue;
+- (id)JSONValue;
 
 #pragma mark -
 #pragma mark :. IPAddress

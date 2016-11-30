@@ -47,7 +47,7 @@
 @property(nonatomic, strong) NSMutableSet *reusablePhotoViews;
 @property(nonatomic, strong) CCPhotoToolbar *photoToolbar;
 @property(nonatomic, strong) UIButton *stateButton;
-
+@property(nonatomic, strong) CCPhotoView *currentPhotoView;
 @property(nonatomic, assign) PhotoBrowserType photoType;
 
 @end
@@ -206,8 +206,7 @@
 
 -(void)hide
 {
-    CCPhotoView *photoView = [_visiblePhotoViews anyObject];
-    [photoView disappear];
+    [_currentPhotoView disappear];
 }
 
 #pragma mark - 创建导航栏
@@ -244,6 +243,13 @@
         CGFloat originY = iOS7Later ? 20 : 0;
         button.frame = CGRectMake(_topBar.frame.size.width - 12 - button.frame.size.width, _topBar.frame.size.height / 2 - button.frame.size.height / 2 + originY / 2, button.frame.size.width, button.frame.size.height);
         [_topBar addSubview:button];
+    }
+}
+
+-(void)setNavigationRightButton:(UIButton *)button
+{
+    if (button) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     }
 }
 
@@ -496,6 +502,7 @@
     [_photoScrollView addSubview:photoView];
     
     [self loadImageNearIndex:index];
+    _currentPhotoView = photoView;
 }
 
 #pragma mark 加载index附近的图片
