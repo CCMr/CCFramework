@@ -57,6 +57,8 @@
 #define kCCMaxWidth CGRectGetWidth([[UIScreen mainScreen] bounds]) * (isiPad ? 0.8 : (iPhone6 ? 0.6 : (iPhone6P ? 0.62 : 0.55))) // 文本只有一行的时候，宽度可能出现很小到最大的情况，所以需要计算一行文字需要的宽度
 #define kCCMaxHeight 250													 //最大高度
 
+#define kCCSystemFont  [UIFont systemFontOfSize:17.0f]
+
 //文本中的表情
 static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 
@@ -99,39 +101,35 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 #pragma mark - Bubble view
 
 // 获取文本的实际大小
-+ (CGFloat)neededWidthForText:(NSString *)text
++ (CGSize)neededWidthForText:(NSString *)text
 {
-    UIFont *systemFont = [[CCMessageBubbleView appearance] font];
-    CGSize textSize = CGSizeMake(CGFLOAT_MAX, 20); // rough accessory size
+    CGSize textSize = CGSizeMake(kCCMaxWidth, CGFLOAT_MAX); // rough accessory size
     CGSize sizeWithFont;
     if ([[[UIDevice currentDevice] systemVersion] floatValue] <= 6.0) {
-        sizeWithFont = [text sizeWithFont:systemFont constrainedToSize:textSize lineBreakMode:NSLineBreakByWordWrapping];
+        sizeWithFont = [text sizeWithFont:kCCSystemFont constrainedToSize:textSize lineBreakMode:NSLineBreakByWordWrapping];
     } else {
-        sizeWithFont = [text boundingRectWithSize:textSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : systemFont } context:nil].size;
+        sizeWithFont = [text boundingRectWithSize:textSize options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{ NSFontAttributeName : kCCSystemFont } context:nil].size;
     }
     
-#if defined(__LP64__) && __LP64__
-    return ceil(sizeWithFont.width);
-#else
-    return ceilf(sizeWithFont.width);
-#endif
+    return sizeWithFont;
 }
 
 // 计算文本实际的大小
-+ (CGSize)neededSizeForText:(NSString *)text
++ (CGSize)neededSizeForText:(id<CCMessageModel>)message
 {
-    UIFont *systemFont = [[CCMessageBubbleView appearance] font];
-    TYTextContainer *textContainer = [[TYTextContainer alloc] init];
-    textContainer.text = text;
-    textContainer.font = systemFont;
-    textContainer.isWidthToFit = YES;
-    textContainer = [textContainer createTextContainerWithTextWidth:kCCMaxWidth];
+    TYTextContainer *textContainer = [CCMessageBubbleView configureDisplayMessage:message];
+    CGSize textContainerSize = CGSizeMake(textContainer.textWidth, textContainer.textHeight); 
+    if (textContainerSize.height == 24 || textContainer.textHeight == 21) {
+        textContainerSize.height = 20;
+    }
     
-    CGFloat height = textContainer.textHeight;
-    if (height == 23)
-        height = 20;
-    
-    return CGSizeMake(textContainer.textWidth, height);
+    CGSize textSize = [CCMessageBubbleView neededWidthForText:[message text]];
+    if (textSize.width > textContainerSize.width) {
+        CGFloat difference = textSize.width - textContainerSize.width;
+        textContainerSize.width = textSize.width;
+        textContainerSize.height -= textContainerSize.height * difference / textContainerSize.width;
+    }
+    return textContainerSize;
 }
 
 //计算图文最大的大小
@@ -244,7 +242,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     CGSize bubbleSize;
     switch (message.messageMediaType) {
         case CCBubbleMessageMediaTypeText: { //文本
-            CGSize needTextSize = [CCMessageBubbleView neededSizeForText:message.text];
+            CGSize needTextSize = [CCMessageBubbleView neededSizeForText:message];
             bubbleSize = CGSizeMake(needTextSize.width + kCCLeftTextHorizontalBubblePadding + kCCRightTextHorizontalBubblePadding + kCCArrowMarginWidth, needTextSize.height + kCCHaveBubbleMargin * 2 + kCCTopAndBottomBubbleMargin * 2); //这里*4的原因是：气泡内部的文本也做了margin，而且margin的大小和气泡的margin一样大小，所以需要加上*2的间隙大小
             break;
         }
@@ -311,21 +309,6 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             break;
     }
     return bubbleSize;
-}
-
-#pragma mark - UIAppearance Getters
-
-- (UIFont *)font
-{
-    //    if (_font == nil) {
-    //        _font = [[[self class] appearance] font];
-    //    }
-    //    
-    //    if (_font != nil) {
-    //        return _font;
-    //    }
-    
-    return [UIFont systemFontOfSize:17.0f];
 }
 
 #pragma mark - Getters
@@ -615,10 +598,10 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     
     NSMutableArray *tmpArray = [NSMutableArray array];
     for (int i = 0; i < resultArray.count; i++) {
-        
         NSTextCheckingResult *match = [resultArray objectAtIndex:i];
         
         NSString *path = @"";
+        UIImage *Images = [UIImage imageWithContentsOfFile:path];
         CGSize size = [[message.teletextPhotoSize objectAtIndex:i] CGSizeValue];
         if (message.teletextPath.count && i < message.teletextPath.count) {
             id teletextPath = [message.teletextPath objectAtIndex:i];
@@ -630,12 +613,14 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 if ([path isEqualToString:@""] || !path) {
                     path = [teletextPath objectForKey:@"path"];
                 }
+                
+                Images = [teletextPath objectForKey:@"image"];
+                
             } else {
                 path = teletextPath;
             }
         }
         
-        UIImage *Images = [UIImage imageWithContentsOfFile:path];
         TYImageStorage *imageStorage = [[TYImageStorage alloc] init];
         imageStorage.cacheImageOnMemory = YES;
         imageStorage.range = match.range;
@@ -654,9 +639,10 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     
     TYTextContainer *textContainer = [[TYTextContainer alloc] init];
     textContainer.text = text;
+    textContainer.font = kCCSystemFont;
     textContainer.isWidthToFit = YES;
-    [textContainer addTextStorageArray:tmpArray];
-    
+    if (tmpArray.count) 
+        [textContainer addTextStorageArray:tmpArray];
     textContainer = [textContainer createTextContainerWithTextWidth:kCCMaxWidth];
     
     return textContainer;
@@ -762,7 +748,7 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             TYAttributedLabel *displayTextView = [[TYAttributedLabel alloc] initWithFrame:CGRectZero];
             displayTextView.textColor = cc_ColorRGB(51, 58, 79); //[UIColor colorWithWhite:0.143 alpha:1.000];
             displayTextView.backgroundColor = [UIColor clearColor];
-            displayTextView.font = [[CCMessageBubbleView appearance] font];
+            displayTextView.font = kCCSystemFont;
             //            displayTextView.delegate = self;
             displayTextView.userInteractionEnabled = NO;
             [self addSubview:displayTextView];
@@ -998,7 +984,6 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
                 if (currentType == CCBubbleMessageMediaTypeText || currentType == CCBubbleMessageMediaTypeTeletext) {
                     self.displayTextView.frame = viewFrame;
                     self.displayTextView.center = CGPointMake(self.bubbleImageView.center.x + textX, self.bubbleImageView.center.y);
-                    //                    [self.displayTextView sizeToFit];
                 }
                 
                 if (currentType == CCBubbleMessageMediaTypeSmallEmotion) {

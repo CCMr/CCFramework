@@ -44,17 +44,22 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
             NSDictionary *sizeDic = [teletextSize objectAtIndex:i];
             NSTextCheckingResult *match = [resultArray objectAtIndex:i];
             
-            NSString *path = @"";
+            id emoji;
             if (teletextPath.count && i < teletextPath.count)
-                path = [teletextPath objectAtIndex:i];
+                emoji = [teletextPath objectAtIndex:i];
             
             CGSize size = CGSizeMake([[sizeDic objectForKey:@"width"] integerValue], [[sizeDic objectForKey:@"height"] integerValue]);
-            UIImage *emojiImage = [UIImage imageWithContentsOfFile:path];
-            if (emojiImage)
-                size = CGSizeMake(emojiImage.size.width < size.width ? emojiImage.size.width : size.width, emojiImage.size.height < size.height ? emojiImage.size.height : size.height);
+            
+            if ([emoji isKindOfClass:[NSString class]]) {
+                UIImage *emojiImage = [UIImage imageWithContentsOfFile:emoji];
+                if (emojiImage)
+                    size = CGSizeMake(emojiImage.size.width < size.width ? emojiImage.size.width : size.width, emojiImage.size.height < size.height ? emojiImage.size.height : size.height);
+                
+                emoji = emojiImage;
+            }
             
             NSTextAttachment *textAttachment = [NSTextAttachment new];
-            textAttachment.image = emojiImage;
+            textAttachment.image = emoji;
             textAttachment.bounds = CGRectMake(0, -4, size.width, size.height);
             
             NSAttributedString *rep = [NSAttributedString attributedStringWithAttachment:textAttachment];

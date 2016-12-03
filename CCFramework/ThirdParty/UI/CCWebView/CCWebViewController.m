@@ -30,6 +30,7 @@
 #import "config.h"
 #import <JavaScriptCore/JavaScriptCore.h>
 #import "UIViewController+Additions.h"
+#import "CCProgressHUD.h"
 
 typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 
@@ -128,6 +129,8 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
             }
         }
     }];
+    
+    [CCProgressHUD show:YES];
 }
 
 - (void)loadRequest
@@ -454,6 +457,7 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 
 -(void)delaySetColor 
 {
+    [CCProgressHUD hide:YES];
     self.webWKView.backgroundColor = [UIColor clearColor];
     self.webWKView.scrollView.backgroundColor = [UIColor clearColor];
 }
@@ -461,12 +465,16 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 #pragma mark -
 #pragma mark :. WKWebViewDelegate
 
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
+
+}
+
 // 页面加载完成之后调用
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
     [self performSelector:@selector(delaySetColor)
                withObject:nil
-               afterDelay:1];
+               afterDelay:0.5];
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error

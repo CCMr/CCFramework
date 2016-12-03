@@ -87,9 +87,14 @@
     [button addSubview:images];
 
     if (!isDelete) {
-        NSData *data = [NSData dataWithContentsOfFile:emotion.emotionConverPhoto];
-        images.image = [UIImage cc_animatedGIFWithData:data];
-        if ([emotion.emotionConverPhoto rangeOfString:@"http://"].location != NSNotFound)
+        
+        images.image = emotion.emotionConverPhoto;
+        if (!images.image) {
+            NSData *data = [NSData dataWithContentsOfFile:emotion.emotionConverPath];
+            images.image = [UIImage cc_animatedGIFWithData:data];
+        }
+        
+        if (!images.image && [emotion.emotionConverPath rangeOfString:@"http://"].location != NSNotFound)
             [images sd_setImageWithURL:[NSURL URLWithString:emotion.emotionConverPhoto]];
         else if (!images.image) {
             if (emotion.emotionConverPhotoUrl)

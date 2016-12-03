@@ -1,5 +1,5 @@
 //
-//  CCEmotionManager.h
+//  LaunchCameraButton.m
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,55 +23,34 @@
 // THE SOFTWARE.
 //
 
+#import "LaunchCameraButton.h"
+#import "CameraStyleKitClass.h"
 
-#import <Foundation/Foundation.h>
-#import "CCEmotion.h"
+@interface LaunchCameraButton ()
 
-typedef NS_ENUM(NSInteger, CCEmotionType) {
-    /** 默认表情 */
-    CCEmotionTypedefault = 0,
-    /** 小表情 */
-    CCEmotionTypeSmall = 1,
-};
+@property BOOL isPressed;
 
-@interface CCEmotionManager : NSObject
+@end
 
-@property(nonatomic, assign) CCEmotionType emotionType;
+@implementation LaunchCameraButton
 
-/**
- *  @author CC, 2015-12-11
- *
- *  @brief  表情名称
- */
-@property(nonatomic, copy) NSString *emotionName;
+- (void)drawRect:(CGRect)rect
+{
+    [CameraStyleKitClass drawLaunchCameraWithFrame:self.bounds pressed:self.isPressed];
+}
 
-/**
- 表情图片
- */
-@property(nonatomic, strong) UIImage *emotionIcon;
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    self.isPressed = YES;
+    [self setNeedsDisplay];
+    [super touchesBegan:touches withEvent:event];
+}
 
-/**
- 表情路径
- */
-@property(nonatomic, copy) NSString *emotionPath;
-
-/**
- *  某一类表情的数据源
- */
-@property(nonatomic, strong) NSMutableArray *emotions;
-
-/**
- *  @author CC, 2015-12-08
- *
- *  @brief  列
- */
-@property(nonatomic, assign) NSInteger section;
-
-/**
- *  @author CC, 2015-12-08
- *
- *  @brief  行
- */
-@property(nonatomic, assign) NSInteger row;
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    self.isPressed = NO;
+    [self setNeedsDisplay];
+    [super touchesEnded:touches withEvent:event];
+}
 
 @end

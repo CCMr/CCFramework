@@ -33,9 +33,14 @@
 @interface CCEmotion : NSObject
 
 /**
- *  gif表情的封面图
+ 封面图片
  */
-@property(nonatomic, copy) NSString *emotionConverPhoto;
+@property(nonatomic, strong) UIImage *emotionConverPhoto;
+
+/**
+ *  gif表情的封面路径
+ */
+@property(nonatomic, copy) NSString *emotionConverPath;
 
 /**
  *  @author CC, 2015-12-10

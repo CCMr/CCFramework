@@ -38,12 +38,15 @@
  */
 + (CustomIOSAlertView *)alertView
 {
-    CustomIOSAlertView *alertView = [[CustomIOSAlertView alloc] init];
-    alertView.containerView.backgroundColor = [UIColor whiteColor];
-    alertView.parentView.backgroundColor = [UIColor whiteColor];
-    alertView.dialogView.backgroundColor = [UIColor whiteColor];
-    [alertView setButtonTitles:@[]];
-    [alertView setUseMotionEffects:YES];
+     CustomIOSAlertView *alertView =  (CustomIOSAlertView *)[[[[UIApplication sharedApplication] windows] firstObject] viewWithTag:66666];
+    if (!alertView) {
+        alertView = [[CustomIOSAlertView alloc] init];
+        alertView.containerView.backgroundColor = [UIColor whiteColor];
+        alertView.parentView.backgroundColor = [UIColor whiteColor];
+        alertView.dialogView.backgroundColor = [UIColor whiteColor];
+        [alertView setButtonTitles:@[]];
+        [alertView setUseMotionEffects:YES];
+    }
     
     return alertView;
 }
@@ -170,6 +173,34 @@
         [alertView close];
     }];
     [alertView show];
+}
+
+/**
+ 隐藏弹窗
+ 
+ @param animated 动画
+ */
++ (void)close
+{
+    [[self alertView] close];
+}
+
+/**
+ 隐藏弹窗
+ 
+ @param animated 动画
+ @param delay 时长
+ */
++ (void)close:(NSTimeInterval)delay
+{
+    [self performSelector:@selector(hideDelayed:)
+               withObject:nil
+               afterDelay:delay];
+}
+
++ (void)hideDelayed
+{
+    [self close];
 }
 
 @end

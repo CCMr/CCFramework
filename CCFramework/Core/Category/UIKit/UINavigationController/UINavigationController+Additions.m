@@ -62,14 +62,9 @@
     CGPoint translation = [gestureRecognizer translationInView:gestureRecognizer.view];
     if (translation.x <= 0)
         return NO;
-    
-    void (^handler)(UIViewController *vc) = [topViewController slideBackHandler];
-    if (handler) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            handler(topViewController);
-        });
-    }
-    
+   
+    cc_NoticePost(@"slideBackHandler", nil);
+       
     return YES;
 }
 
@@ -228,7 +223,7 @@ static inline void AutomaticWritingSwizzleSelector(Class class, SEL originalSele
             return viewController;
         }
     }
-
+    
     return nil;
 }
 /**

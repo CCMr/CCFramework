@@ -69,7 +69,7 @@
 
 @property(nonatomic, strong, readwrite) CCVoiceProgressHUD *voiceRecordHUD;
 
-@property(nonatomic, strong, readonly) CCCameraViewController *camerViewController;
+@property(nonatomic, strong) CCCameraViewController *camerViewController;
 
 @property(nonatomic, strong) UIView *headerContainerView;
 @property(nonatomic, strong) UIActivityIndicatorView *loadMoreActivityIndicatorView;
@@ -360,7 +360,7 @@
 
 /**
  删除某条消息
-
+ 
  @param message 消息对象
  */
 -(void)removeMessage:(CCMessage *)message
@@ -448,7 +448,7 @@
 -(void)setIsVocieDetection:(BOOL)isVocieDetection
 {
     _isVocieDetection = isVocieDetection;
-     [[CCAudioPlayerHelper shareInstance] changeProximityMonitorEnableState:_isVocieDetection];
+    [[CCAudioPlayerHelper shareInstance] changeProximityMonitorEnableState:_isVocieDetection];
 }
 
 - (BOOL)isHeadsetPluggedIn {  
@@ -639,6 +639,15 @@
         _voiceRecordHelper.maxRecordTime = kVoiceRecorderTotalTime;
     }
     return _voiceRecordHelper;
+}
+
+-(CCCameraViewController *)camerViewController
+{
+    if (!_camerViewController) {
+        _camerViewController = [[CCCameraViewController alloc] init];
+        _camerViewController.isPhotoType = YES;
+    }
+    return _camerViewController;
 }
 
 #pragma mark - Messages View Controller
@@ -1226,8 +1235,9 @@
 {
     NSInteger index = self.messageInputView.inputTextView.selectedRange.location;
     NSMutableDictionary *teletextDic = [NSMutableDictionary dictionary];
-    [teletextDic setObject:emotion.emotionConverPhoto forKey:@"localpath"];
+    [teletextDic setObject:emotion.emotionConverPath forKey:@"localpath"];
     [teletextDic setObject:emotion.emotionPath forKey:@"path"];
+    [teletextDic setObject:emotion.emotionConverPhoto forKey:@"image"];
     [teletextDic setObject:@(index) forKey:@"location"];
     [teletextDic setObject:NSStringFromCGSize(emotion.emotionSize) forKey:@"Size"];
     
@@ -1241,7 +1251,7 @@
     } else
         [self.teletextPath addObject:teletextDic];
     
-    [self insertEmotion:emotion.emotionConverPhoto];
+    [self insertEmotion:emotion];
 }
 
 /**
@@ -1251,11 +1261,14 @@
  *
  *  @param emotionPath 表情地址
  */
-- (void)insertEmotion:(NSString *)emotionPath
+- (void)insertEmotion:(CCEmotion *)emotion
 {
     CCEmotionTextAttachment *emojiTextAttachment = [CCEmotionTextAttachment new];
-    emojiTextAttachment.emotionPath = emotionPath;
-    emojiTextAttachment.emotionTag = @"123";
+    if (emotion.emotionConverPhoto)
+        emojiTextAttachment.image = emotion.emotionConverPhoto;
+    else
+        emojiTextAttachment.emotionPath = emotion.emotionPath;
+    emojiTextAttachment.emotionTag = emotion.emotionLabel;
     emojiTextAttachment.emotionSize = CGSizeMake(22, 22);
     
     UIFont *font = self.messageInputView.inputTextView.font;
@@ -1274,7 +1287,7 @@
     [self.messageInputView.inputTextView.textStorage addAttribute:NSFontAttributeName value:font range:wholeRange];
     
     self.emotionManagerView.isSendButton = YES;
- 
+    
     [self didTextDidChange:self.messageInputView.inputTextView];
 }
 
@@ -1289,7 +1302,7 @@
     NSRange range = self.messageInputView.inputTextView.selectedRange;
     if (range.location == NSNotFound)
         range.location = self.messageInputView.inputTextView.text.length;
-        
+    
     if (range.length > 0) {
         [self.messageInputView.inputTextView deleteBackward];
         return;
@@ -1312,7 +1325,7 @@
                 [self.teletextPath replaceObjectAtIndex:i withObject:dic];
             }
         }else{
-             [self.messageInputView.inputTextView deleteBackward];
+            [self.messageInputView.inputTextView deleteBackward];
         }
     }
     
@@ -1376,6 +1389,9 @@
         void (^ShareMenuViewAnimation)(BOOL hide) = ^(BOOL hide) {
             otherMenuViewFrame = self.shareMenuView.frame;
             otherMenuViewFrame.origin.y = (hide ? CGRectGetHeight(self.view.frame) : (CGRectGetHeight(self.view.frame) - CGRectGetHeight(otherMenuViewFrame)));
+            if (hide)
+                self.messageInputView.multiMediaSendButton.selected = NO;
+            
             self.shareMenuView.alpha = !hide;
             self.shareMenuView.frame = otherMenuViewFrame;
         };
@@ -1510,13 +1526,19 @@
 {
     NSString *obj = notification.object;
     if ([obj isEqualToString:@"Lock screen"]) {
-        [self stopVoice:_currentSelectedUUID];
+        
+        if (_currentSelectedUUID)
+            [self stopVoice:_currentSelectedUUID];
+        
+        if (![self.voiceRecordHelper isRecording])
+            return;
         WEAKSELF;
         [self.voiceRecordHelper stopRecordingWithStopRecorderCompletion:^{
+            [weakSelf didSendMessageWithVoice:weakSelf.voiceRecordHelper.recordPath voiceDuration:weakSelf.voiceRecordHelper.recordDuration];
+            [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
             [self.voiceRecordHUD stopRecordCompled:^(BOOL fnished) {
                 weakSelf.voiceRecordHUD = nil;
             }];
-            [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
         }];
     }
 }
@@ -1626,9 +1648,7 @@
     WEAKSELF;
     switch (shareMenuItem.itemType) {
         case CCShareMenuItemTypePhoto: {
-            _camerViewController = [[CCCameraViewController alloc] init];
-            _camerViewController.isPhotoType = YES;
-            [_camerViewController startPhotoFileWithViewController:weakSelf complate:^(id request) {
+            [self.camerViewController startPhotoFileWithViewController:weakSelf complate:^(id request) {
                 NSArray *photoAry = request;
                 [photoAry enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                     NSDictionary *dic = obj;
@@ -1640,9 +1660,7 @@
             }];
         } break;
         case CCShareMenuItemTypeVideo: {
-            _camerViewController = [[CCCameraViewController alloc] init];
-            _camerViewController.isPhotoType = YES;
-            [_camerViewController startCcameraWithViewController:weakSelf complate:^(id request) {
+            [self.camerViewController startCcameraWithViewController:weakSelf complate:^(id request) {
                 NSArray *photoAry = request;
                 [photoAry enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                     [weakSelf didSendMessageWithPhoto:obj];
@@ -1669,7 +1687,7 @@
 
 - (void)didSelecteEmotion:(CCEmotion *)emotion atIndexPath:(NSIndexPath *)indexPath
 {
-    [self didSendEmotionMessageWithEmotionPath:emotion.emotionConverPhoto
+    [self didSendEmotionMessageWithEmotionPath:emotion.emotionConverPath
                                     EmotionUrl:emotion.emotionPath];
 }
 
@@ -1821,7 +1839,7 @@
     
     if (_currentSelectedUUID) {
         if ([_currentSelectedUUID isEqualToString:message.uniqueID])
-             [messageTableViewCell.messageBubbleView.animationVoiceImageView startAnimating];
+            [messageTableViewCell.messageBubbleView.animationVoiceImageView startAnimating];
     }
     
     return messageTableViewCell;
@@ -1896,6 +1914,9 @@
 -(void)didSelectedPress:(BOOL)isCellPress
 {
     self.isCellPress = isCellPress;
+    if (_currentSelectedUUID) {
+        [self stopVoice:_currentSelectedUUID];
+    }
 }
 
 #pragma mark - CCAudioPlayerHelper Delegate

@@ -33,7 +33,7 @@
     NSTimer *_timer;
     
     BOOL _isPause;
-    
+    BOOL _isSend;
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     UIBackgroundTaskIdentifier _backgroundIdentifier;
 #endif
@@ -43,6 +43,8 @@
 @property(nonatomic, readwrite) NSTimeInterval currentTimeInterval;
 
 @property(nonatomic, strong) AVAudioRecorder *recorder;
+
+@property(nonatomic, strong) NSString *aVAudioSessionCategory;
 
 @end
 
@@ -115,8 +117,20 @@
 
 - (void)stopRecord
 {
+    if (_aVAudioSessionCategory) {
+        [[AVAudioSession sharedInstance] setCategory:_aVAudioSessionCategory error:nil];
+        _aVAudioSessionCategory = nil;
+    }
     [self cancelRecording];
     [self resetTimer];
+}
+
+-(BOOL)isRecording
+{
+    if (!_recorder)
+        return NO;
+    
+    return self.recorder.isRecording;
 }
 
 - (void)prepareRecordingWithPath:(NSString *)path
@@ -128,6 +142,7 @@
         
         NSError *error = nil;
         AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        _aVAudioSessionCategory =  audioSession.category;
         [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
         if (error) {
             NSLog(@"audioSession: %@ %ld %@", [error domain], (long)[error code], [[error userInfo] description]);
@@ -284,10 +299,13 @@
         });
         
         if (self.currentTimeInterval > self.maxRecordTime) {
-            [self stopRecord];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                _maxTimeStopRecorderCompletion();
-            });
+            if (!_isSend) {
+                _isSend = YES;   
+                [self stopRecord];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    _maxTimeStopRecorderCompletion();
+                });
+            }
         }
     });
 }

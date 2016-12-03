@@ -131,7 +131,8 @@
         id curModel = [self currentHeaderModelAtIndexPath:indexPath];
         contentSize = self.headerView(collectionView,indexPath,curModel).LayoutSizeFittingSize;
     }else if (CGSizeEqualToSize(contentSize, CGSizeMake(0, 0))) {
-        contentSize = [collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:indexPath].LayoutSizeFittingSize;
+        if (iOS9Later)
+            contentSize = [collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:indexPath].LayoutSizeFittingSize;
     }
     return contentSize;
 }
@@ -144,7 +145,8 @@
         id curModel = [self currentFooterModelAtIndexPath:indexPath];
         contentSize = self.footerView(collectionView,indexPath,curModel).LayoutSizeFittingSize;
     }else if (CGSizeEqualToSize(contentSize, CGSizeMake(0, 0))){
-         contentSize = [collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:indexPath].LayoutSizeFittingSize;
+        if (iOS9Later)
+            contentSize = [collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:indexPath].LayoutSizeFittingSize;
     }
     return contentSize;  
 }  
@@ -537,14 +539,14 @@
 }
 
 - (void)cc_insertGroupHeaderArr:(NSArray *)newDataAry
-                   forSection:(NSInteger)cSection
+                     forSection:(NSInteger)cSection
 {
     [self.headerArray insertObject:[NSMutableArray arrayWithArray:newDataAry] atIndex:cSection == -1 ? 0 : cSection];
     [self.cc_CollectionView reloadData];
 }
 
 - (void)cc_insertMultiplGroupHeaderArr:(NSArray *)newDataAry
-                          forSection:(NSInteger)cSection
+                            forSection:(NSInteger)cSection
 {
     NSMutableArray *idxArray = [NSMutableArray array];
     if (cSection < 0) {

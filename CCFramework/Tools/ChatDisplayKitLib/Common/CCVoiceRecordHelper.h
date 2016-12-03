@@ -53,5 +53,6 @@ typedef void (^CCPeakPowerForChannel)(float peakPowerForChannel);
 - (void)stopRecordingWithStopRecorderCompletion:(CCStopRecorderCompletion)stopRecorderCompletion;
 - (void)cancelledDeleteWithCompletion:(CCCancellRecorderDeleteFileCompletion)cancelledDeleteCompletion;
 
+- (BOOL)isRecording;
 
 @end

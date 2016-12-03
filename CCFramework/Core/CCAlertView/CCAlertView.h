@@ -92,4 +92,19 @@
          withButtonTitleArray:(NSArray *)buttonTitles
         OnButtonTouchUpInside:(void (^)(UIView *containerView, NSInteger buttonIndex))onButtonTouchUpInside;
 
+/**
+ 隐藏弹窗
+ 
+ @param animated 动画
+ */
++ (void)close;
+
+/**
+ 隐藏弹窗
+ 
+ @param animated 动画
+ @param delay 时长
+ */
++ (void)close:(NSTimeInterval)delay;
+
 @end

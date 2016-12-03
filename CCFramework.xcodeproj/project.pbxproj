@@ -428,6 +428,26 @@
 		4230E1921BBB83E40001E68F /* CCRadarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E1901BBB83E40001E68F /* CCRadarView.m */; };
 		4230E1961BBB8F7C0001E68F /* CCRadarScanViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4230E1941BBB8F7C0001E68F /* CCRadarScanViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4230E1971BBB8F7C0001E68F /* CCRadarScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230E1951BBB8F7C0001E68F /* CCRadarScanViewController.m */; };
+		4236B6381DF04E17002F4299 /* CameraSessionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4236B6211DF04E17002F4299 /* CameraSessionView.h */; };
+		4236B6391DF04E17002F4299 /* CameraSessionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4236B6221DF04E17002F4299 /* CameraSessionView.m */; };
+		4236B63A1DF04E17002F4299 /* CameraDismissButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 4236B6241DF04E17002F4299 /* CameraDismissButton.h */; };
+		4236B63B1DF04E17002F4299 /* CameraDismissButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4236B6251DF04E17002F4299 /* CameraDismissButton.m */; };
+		4236B63C1DF04E17002F4299 /* CameraFlashButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 4236B6261DF04E17002F4299 /* CameraFlashButton.h */; };
+		4236B63D1DF04E17002F4299 /* CameraFlashButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4236B6271DF04E17002F4299 /* CameraFlashButton.m */; };
+		4236B63E1DF04E17002F4299 /* CameraFocalReticule.h in Headers */ = {isa = PBXBuildFile; fileRef = 4236B6281DF04E17002F4299 /* CameraFocalReticule.h */; };
+		4236B63F1DF04E17002F4299 /* CameraFocalReticule.m in Sources */ = {isa = PBXBuildFile; fileRef = 4236B6291DF04E17002F4299 /* CameraFocalReticule.m */; };
+		4236B6401DF04E17002F4299 /* CameraShutterButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 4236B62A1DF04E17002F4299 /* CameraShutterButton.h */; };
+		4236B6411DF04E17002F4299 /* CameraShutterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4236B62B1DF04E17002F4299 /* CameraShutterButton.m */; };
+		4236B6421DF04E17002F4299 /* CameraToggleButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 4236B62C1DF04E17002F4299 /* CameraToggleButton.h */; };
+		4236B6431DF04E17002F4299 /* CameraToggleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4236B62D1DF04E17002F4299 /* CameraToggleButton.m */; };
+		4236B6441DF04E17002F4299 /* LaunchCameraButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 4236B62E1DF04E17002F4299 /* LaunchCameraButton.h */; };
+		4236B6451DF04E17002F4299 /* LaunchCameraButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4236B62F1DF04E17002F4299 /* LaunchCameraButton.m */; };
+		4236B6461DF04E17002F4299 /* CaptureSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4236B6311DF04E17002F4299 /* CaptureSessionManager.h */; };
+		4236B6471DF04E17002F4299 /* CaptureSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4236B6321DF04E17002F4299 /* CaptureSessionManager.m */; };
+		4236B6481DF04E17002F4299 /* Constants.h in Headers */ = {isa = PBXBuildFile; fileRef = 4236B6331DF04E17002F4299 /* Constants.h */; };
+		4236B6491DF04E17002F4299 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4236B6341DF04E17002F4299 /* Constants.m */; };
+		4236B64A1DF04E17002F4299 /* CameraStyleKitClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 4236B6361DF04E17002F4299 /* CameraStyleKitClass.h */; };
+		4236B64B1DF04E17002F4299 /* CameraStyleKitClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4236B6371DF04E17002F4299 /* CameraStyleKitClass.m */; };
 		42387C1E1CC74F5A00E25CEF /* CCViewModelProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 42387C1C1CC74F5A00E25CEF /* CCViewModelProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42387C1F1CC74F5A00E25CEF /* CCViewProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 42387C1D1CC74F5A00E25CEF /* CCViewProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42387C221CC750B800E25CEF /* UIView+CCKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 42387C201CC750B800E25CEF /* UIView+CCKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -671,6 +691,8 @@
 		42786E741C40ACD000C011FB /* CCDropDownList.m in Sources */ = {isa = PBXBuildFile; fileRef = 42786E6F1C40ACD000C011FB /* CCDropDownList.m */; };
 		42786E751C40ACD000C011FB /* CCDropDownListMenuItemView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42786E701C40ACD000C011FB /* CCDropDownListMenuItemView.h */; };
 		42786E761C40ACD000C011FB /* CCDropDownListMenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42786E711C40ACD000C011FB /* CCDropDownListMenuItemView.m */; };
+		4278CAA41DF117F1000C4448 /* CCCameraPreview.h in Headers */ = {isa = PBXBuildFile; fileRef = 4278CAA21DF117F1000C4448 /* CCCameraPreview.h */; };
+		4278CAA51DF117F1000C4448 /* CCCameraPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 4278CAA31DF117F1000C4448 /* CCCameraPreview.m */; };
 		427E1A281D3DFD220093281F /* CCTeletTextLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1A261D3DFD220093281F /* CCTeletTextLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		427E1A291D3DFD220093281F /* CCTeletTextLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 427E1A271D3DFD220093281F /* CCTeletTextLabel.m */; };
 		427E1A2C1D3E07D10093281F /* NSMutableAttributedString+Image.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1A2A1D3E07D10093281F /* NSMutableAttributedString+Image.h */; };
@@ -1774,6 +1796,26 @@
 		4230E1901BBB83E40001E68F /* CCRadarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRadarView.m; path = Radar/Scanning/CCRadarView.m; sourceTree = "<group>"; };
 		4230E1941BBB8F7C0001E68F /* CCRadarScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRadarScanViewController.h; path = CCRadarScan/CCRadarScanViewController.h; sourceTree = "<group>"; };
 		4230E1951BBB8F7C0001E68F /* CCRadarScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCRadarScanViewController.m; path = CCRadarScan/CCRadarScanViewController.m; sourceTree = "<group>"; };
+		4236B6211DF04E17002F4299 /* CameraSessionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraSessionView.h; sourceTree = "<group>"; };
+		4236B6221DF04E17002F4299 /* CameraSessionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraSessionView.m; sourceTree = "<group>"; };
+		4236B6241DF04E17002F4299 /* CameraDismissButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraDismissButton.h; sourceTree = "<group>"; };
+		4236B6251DF04E17002F4299 /* CameraDismissButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraDismissButton.m; sourceTree = "<group>"; };
+		4236B6261DF04E17002F4299 /* CameraFlashButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraFlashButton.h; sourceTree = "<group>"; };
+		4236B6271DF04E17002F4299 /* CameraFlashButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraFlashButton.m; sourceTree = "<group>"; };
+		4236B6281DF04E17002F4299 /* CameraFocalReticule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraFocalReticule.h; sourceTree = "<group>"; };
+		4236B6291DF04E17002F4299 /* CameraFocalReticule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraFocalReticule.m; sourceTree = "<group>"; };
+		4236B62A1DF04E17002F4299 /* CameraShutterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraShutterButton.h; sourceTree = "<group>"; };
+		4236B62B1DF04E17002F4299 /* CameraShutterButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraShutterButton.m; sourceTree = "<group>"; };
+		4236B62C1DF04E17002F4299 /* CameraToggleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraToggleButton.h; sourceTree = "<group>"; };
+		4236B62D1DF04E17002F4299 /* CameraToggleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraToggleButton.m; sourceTree = "<group>"; };
+		4236B62E1DF04E17002F4299 /* LaunchCameraButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchCameraButton.h; sourceTree = "<group>"; };
+		4236B62F1DF04E17002F4299 /* LaunchCameraButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchCameraButton.m; sourceTree = "<group>"; };
+		4236B6311DF04E17002F4299 /* CaptureSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureSessionManager.h; sourceTree = "<group>"; };
+		4236B6321DF04E17002F4299 /* CaptureSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureSessionManager.m; sourceTree = "<group>"; };
+		4236B6331DF04E17002F4299 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		4236B6341DF04E17002F4299 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		4236B6361DF04E17002F4299 /* CameraStyleKitClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraStyleKitClass.h; sourceTree = "<group>"; };
+		4236B6371DF04E17002F4299 /* CameraStyleKitClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraStyleKitClass.m; sourceTree = "<group>"; };
 		42387C1B1CC74CD400E25CEF /* CCViewMangerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CCViewMangerProtocol.h; path = Core/CCMVVMKit/Protocol/CCViewMangerProtocol.h; sourceTree = "<group>"; };
 		42387C1C1CC74F5A00E25CEF /* CCViewModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCViewModelProtocol.h; path = Core/CCMVVMKit/Protocol/CCViewModelProtocol.h; sourceTree = "<group>"; };
 		42387C1D1CC74F5A00E25CEF /* CCViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCViewProtocol.h; path = Core/CCMVVMKit/Protocol/CCViewProtocol.h; sourceTree = "<group>"; };
@@ -2018,6 +2060,8 @@
 		42786E6F1C40ACD000C011FB /* CCDropDownList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDropDownList.m; sourceTree = "<group>"; };
 		42786E701C40ACD000C011FB /* CCDropDownListMenuItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDropDownListMenuItemView.h; sourceTree = "<group>"; };
 		42786E711C40ACD000C011FB /* CCDropDownListMenuItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDropDownListMenuItemView.m; sourceTree = "<group>"; };
+		4278CAA21DF117F1000C4448 /* CCCameraPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCCameraPreview.h; path = View/CCCameraPreview.h; sourceTree = "<group>"; };
+		4278CAA31DF117F1000C4448 /* CCCameraPreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCCameraPreview.m; path = View/CCCameraPreview.m; sourceTree = "<group>"; };
 		427E1A261D3DFD220093281F /* CCTeletTextLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTeletTextLabel.h; sourceTree = "<group>"; };
 		427E1A271D3DFD220093281F /* CCTeletTextLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTeletTextLabel.m; sourceTree = "<group>"; };
 		427E1A2A1D3E07D10093281F /* NSMutableAttributedString+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+Image.h"; sourceTree = "<group>"; };
@@ -4074,6 +4118,66 @@
 			name = CCRadarScan;
 			sourceTree = "<group>";
 		};
+		4236B61D1DF04D3A002F4299 /* CCCamera */ = {
+			isa = PBXGroup;
+			children = (
+				4278CAA11DF1166E000C4448 /* View */,
+				4236B6201DF04E17002F4299 /* CameraView */,
+				4236B6231DF04E17002F4299 /* CameraViewComponents */,
+				4236B6301DF04E17002F4299 /* ModelClasses */,
+				4236B6351DF04E17002F4299 /* UIAssets */,
+			);
+			path = CCCamera;
+			sourceTree = "<group>";
+		};
+		4236B6201DF04E17002F4299 /* CameraView */ = {
+			isa = PBXGroup;
+			children = (
+				4236B6211DF04E17002F4299 /* CameraSessionView.h */,
+				4236B6221DF04E17002F4299 /* CameraSessionView.m */,
+			);
+			path = CameraView;
+			sourceTree = "<group>";
+		};
+		4236B6231DF04E17002F4299 /* CameraViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				4236B6241DF04E17002F4299 /* CameraDismissButton.h */,
+				4236B6251DF04E17002F4299 /* CameraDismissButton.m */,
+				4236B6261DF04E17002F4299 /* CameraFlashButton.h */,
+				4236B6271DF04E17002F4299 /* CameraFlashButton.m */,
+				4236B6281DF04E17002F4299 /* CameraFocalReticule.h */,
+				4236B6291DF04E17002F4299 /* CameraFocalReticule.m */,
+				4236B62A1DF04E17002F4299 /* CameraShutterButton.h */,
+				4236B62B1DF04E17002F4299 /* CameraShutterButton.m */,
+				4236B62C1DF04E17002F4299 /* CameraToggleButton.h */,
+				4236B62D1DF04E17002F4299 /* CameraToggleButton.m */,
+				4236B62E1DF04E17002F4299 /* LaunchCameraButton.h */,
+				4236B62F1DF04E17002F4299 /* LaunchCameraButton.m */,
+			);
+			path = CameraViewComponents;
+			sourceTree = "<group>";
+		};
+		4236B6301DF04E17002F4299 /* ModelClasses */ = {
+			isa = PBXGroup;
+			children = (
+				4236B6311DF04E17002F4299 /* CaptureSessionManager.h */,
+				4236B6321DF04E17002F4299 /* CaptureSessionManager.m */,
+				4236B6331DF04E17002F4299 /* Constants.h */,
+				4236B6341DF04E17002F4299 /* Constants.m */,
+			);
+			path = ModelClasses;
+			sourceTree = "<group>";
+		};
+		4236B6351DF04E17002F4299 /* UIAssets */ = {
+			isa = PBXGroup;
+			children = (
+				4236B6361DF04E17002F4299 /* CameraStyleKitClass.h */,
+				4236B6371DF04E17002F4299 /* CameraStyleKitClass.m */,
+			);
+			path = UIAssets;
+			sourceTree = "<group>";
+		};
 		42387C181CC72CF400E25CEF /* CCMVVMKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -4608,6 +4712,15 @@
 			path = CCDorpDown/CCDropDownMenu;
 			sourceTree = "<group>";
 		};
+		4278CAA11DF1166E000C4448 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4278CAA21DF117F1000C4448 /* CCCameraPreview.h */,
+				4278CAA31DF117F1000C4448 /* CCCameraPreview.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		427E1A221D3DFD220093281F /* CCTeletTextLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -5046,6 +5159,7 @@
 		429C9D2F1B9EF8BE0013A44A /* Ability */ = {
 			isa = PBXGroup;
 			children = (
+				4236B61D1DF04D3A002F4299 /* CCCamera */,
 				42C208E31BDE021900C76004 /* Ability.h */,
 				424BD5831C8ECA3E005722F6 /* WebViewJavascriptBridge */,
 				42A1F6151C8A71C800A20F64 /* CCDebugTool */,
@@ -6758,11 +6872,13 @@
 				421DC6281C85750E009E825B /* NSNumber+Additions.h in Headers */,
 				422511711C7306AD003B3623 /* NSObject+CCKeyValue.h in Headers */,
 				4254773C1BD2AEC20071BBC5 /* dsa.h in Headers */,
+				4278CAA41DF117F1000C4448 /* CCCameraPreview.h in Headers */,
 				42C208E41BDE021900C76004 /* Ability.h in Headers */,
 				423D1DA41C3A11F0008E483A /* CCAlertView.h in Headers */,
 				42A1F66B1C8AA94C00A20F64 /* CCDebugCrashHelper.h in Headers */,
 				425477691BD2AEC20071BBC5 /* stack.h in Headers */,
 				42063E761C892E7D003348EB /* NSManagedObject+Additions.h in Headers */,
+				4236B63A1DF04E17002F4299 /* CameraDismissButton.h in Headers */,
 				4254776A1BD2AEC20071BBC5 /* symhacks.h in Headers */,
 				42F24C531BEA5091008CDEDC /* PNChart.h in Headers */,
 				421DC6161C85750E009E825B /* NSFileHandle+Additions.h in Headers */,
@@ -6863,6 +6979,7 @@
 				4253E8491D371E7600BACED6 /* CCTextAttachment.h in Headers */,
 				42A58A591BCCA23C0027429C /* CCWebView.h in Headers */,
 				426979451BA695BA00C3E93C /* UIKit+AFNetworking.h in Headers */,
+				4236B64A1DF04E17002F4299 /* CameraStyleKitClass.h in Headers */,
 				429CA01D1B9EF8BF0013A44A /* CCCycleScroll.h in Headers */,
 				421E7A721C3D173D00C31AD0 /* CCDrawerController+Subclass.h in Headers */,
 				429C9FA21B9EF8BF0013A44A /* CCSignatureView.h in Headers */,
@@ -6903,11 +7020,13 @@
 				429CA1241B9EF8BF0013A44A /* CCShareMenuView.h in Headers */,
 				42DEB2B11C25496C00734E09 /* CCUtilities.h in Headers */,
 				429CA1111B9EF8BF0013A44A /* CCMessageModel.h in Headers */,
+				4236B6441DF04E17002F4299 /* LaunchCameraButton.h in Headers */,
 				429CA0151B9EF8BF0013A44A /* CalendarViewController.h in Headers */,
 				4225113C1C72F795003B3623 /* CCFoundation.h in Headers */,
 				421DC6221C85750E009E825B /* NSNotificationCenter+Additions.h in Headers */,
 				429CA1221B9EF8BF0013A44A /* CCEmotionSectionBar.h in Headers */,
 				429CA10F1B9EF8BF0013A44A /* CCMessage.h in Headers */,
+				4236B63E1DF04E17002F4299 /* CameraFocalReticule.h in Headers */,
 				42B6473D1BEDA8C100B2F6FD /* CCBacktrace.h in Headers */,
 				425477411BD2AEC20071BBC5 /* ec.h in Headers */,
 				429CA0EB1B9EF8BF0013A44A /* CCCaptureHelper.h in Headers */,
@@ -6985,6 +7104,7 @@
 				42068F1A1C573E33005DFB01 /* POPGeometry.h in Headers */,
 				429CA0FD1B9EF8BF0013A44A /* CCCacheManager.h in Headers */,
 				429CA1201B9EF8BF0013A44A /* CCEmotionManagerView.h in Headers */,
+				4236B6481DF04E17002F4299 /* Constants.h in Headers */,
 				42A1F6361C8A7DB600A20F64 /* NSURLResponse+Data.h in Headers */,
 				426979391BA695BA00C3E93C /* AFURLResponseSerialization.h in Headers */,
 				42ECCABC1DD4795C008E7F31 /* UIView+WebCacheOperation.h in Headers */,
@@ -7012,6 +7132,7 @@
 				4225116D1C7306AD003B3623 /* NSObject+CCClass.h in Headers */,
 				42A3563B1BF4399800B6F1F2 /* CCRefreshHeaderView.h in Headers */,
 				429CA0211B9EF8BF0013A44A /* CCMessageInputView.h in Headers */,
+				4236B6461DF04E17002F4299 /* CaptureSessionManager.h in Headers */,
 				421DC6F21C85750E009E825B /* UINavigationBar+Additions.h in Headers */,
 				42ECCA9E1DD47954008E7F31 /* UIButton+WebCache.h in Headers */,
 				42ECCA9C1DD47954008E7F31 /* NSImage+WebCache.h in Headers */,
@@ -7062,6 +7183,7 @@
 				42F4113F1C214C5400814E7B /* CCLineBrush.h in Headers */,
 				42A1F64C1C8A84B200A20F64 /* CCDebugHttpDetailViewController.h in Headers */,
 				4219EE0A1C7FF93F00F1EE76 /* MLExpressionManager.h in Headers */,
+				4236B6421DF04E17002F4299 /* CameraToggleButton.h in Headers */,
 				42F411341C214C5400814E7B /* CCBaseBrush.h in Headers */,
 				42DEB2BA1C254A6800734E09 /* CCColorPickerController.h in Headers */,
 				42F967881C3A5FBC0047FC15 /* CCBottomPopupView.h in Headers */,
@@ -7235,6 +7357,7 @@
 				42063EC21C8936F1003348EB /* CAMediaTimingFunction+Additions.h in Headers */,
 				4219A78B1C40B145007804A7 /* CCDropDownMenu.h in Headers */,
 				4226FC411C327BE0003EAEFE /* CCInfoBanner.h in Headers */,
+				4236B6381DF04E17002F4299 /* CameraSessionView.h in Headers */,
 				429CA08F1B9EF8BF0013A44A /* CCWebViewProgressView.h in Headers */,
 				422511731C7306AD003B3623 /* NSObject+CCProperty.h in Headers */,
 				429B9BAB1C322DCB00ACB250 /* CCProgressHUD.h in Headers */,
@@ -7255,6 +7378,7 @@
 				427369501D6FCF4E00921B48 /* CCTabBarController.h in Headers */,
 				42F412151C215BC400814E7B /* CCGraffitiBoardView.h in Headers */,
 				429CA0321B9EF8BF0013A44A /* CCPhotoBrowser.h in Headers */,
+				4236B63C1DF04E17002F4299 /* CameraFlashButton.h in Headers */,
 				420CD8BB1C59F9B9009578D4 /* UIScrollView+CCInputDodger.h in Headers */,
 				421DC6181C85750E009E825B /* NSFileManager+Additions.h in Headers */,
 				4217A6FF1DE41A0F007EF399 /* UICollectionView+Additions.h in Headers */,
@@ -7266,6 +7390,7 @@
 				429CA0731B9EF8BF0013A44A /* CCPopMenuItem.h in Headers */,
 				42068F031C573E33005DFB01 /* POPSpringAnimation.h in Headers */,
 				429CA03A1B9EF8BF0013A44A /* CCPhotoView.h in Headers */,
+				4236B6401DF04E17002F4299 /* CameraShutterButton.h in Headers */,
 				420CB13D1C7D788500A0EC25 /* Masonry.h in Headers */,
 				4219EE101C7FF93F00F1EE76 /* NSString+MLExpression.h in Headers */,
 				42063E801C892E7D003348EB /* NSPersistentStoreCoordinator+Additions.h in Headers */,
@@ -7676,6 +7801,7 @@
 				422E916A1C5F323A008F7DDA /* CCUnReadBubbleView.m in Sources */,
 				429C9FE71B9EF8BF0013A44A /* SREventSourceStreamReader.m in Sources */,
 				42F24C6A1BEA5091008CDEDC /* PNRadarChartDataItem.m in Sources */,
+				4236B63F1DF04E17002F4299 /* CameraFocalReticule.m in Sources */,
 				42B6473E1BEDA8C100B2F6FD /* CCBacktrace.m in Sources */,
 				427E1A311D3E08670093281F /* CCTeletTextImage.m in Sources */,
 				4253306F1C96B14800375ED0 /* CCTableViewHelper.m in Sources */,
@@ -7726,6 +7852,7 @@
 				42068F131C573E33005DFB01 /* POPAnimator.mm in Sources */,
 				429CA0241B9EF8BF0013A44A /* CCMessageTextView.m in Sources */,
 				42063EC31C8936F1003348EB /* CAMediaTimingFunction+Additions.m in Sources */,
+				4236B6491DF04E17002F4299 /* Constants.m in Sources */,
 				421DC6891C85750E009E825B /* UIApplication+Additions.m in Sources */,
 				42068F221C573E33005DFB01 /* POPVector.mm in Sources */,
 				4267DD0C1BDB5A7000B0C43F /* NSManagedObject+Queries.m in Sources */,
@@ -7756,6 +7883,7 @@
 				421DC7391C85750E009E825B /* UIView+Animation.m in Sources */,
 				429CA0201B9EF8BF0013A44A /* CCLoadLogoView.m in Sources */,
 				42068F1B1C573E33005DFB01 /* POPGeometry.mm in Sources */,
+				4236B63B1DF04E17002F4299 /* CameraDismissButton.m in Sources */,
 				429C9F691B9EF8BF0013A44A /* BaseEntity.m in Sources */,
 				422511741C7306AD003B3623 /* NSObject+CCProperty.m in Sources */,
 				42A1F64D1C8A84B200A20F64 /* CCDebugHttpDetailViewController.m in Sources */,
@@ -7796,9 +7924,11 @@
 				429C893D1DAB95C500A7502B /* TZPhotoPreviewCell.m in Sources */,
 				4219EE161C7FF93F00F1EE76 /* MLLabel.m in Sources */,
 				42387C2B1CC7554400E25CEF /* CCMediator.m in Sources */,
+				4236B6471DF04E17002F4299 /* CaptureSessionManager.m in Sources */,
 				422511431C72F795003B3623 /* CCPropertyType.m in Sources */,
 				4225113B1C72F795003B3623 /* CCExtensionConst.m in Sources */,
 				422359301C867862005207B9 /* NSArray+Additions.m in Sources */,
+				4236B63D1DF04E17002F4299 /* CameraFlashButton.m in Sources */,
 				42E953211C589E9E001C93CB /* CCBannerFooter.m in Sources */,
 				4219EE0F1C7FF93F00F1EE76 /* NSAttributedString+MLExpression.m in Sources */,
 				429C9FE01B9EF8BF0013A44A /* SRKeepAliveData.m in Sources */,
@@ -7865,6 +7995,7 @@
 				42027FBE1C9BD468009D3803 /* UIGestureRecognizer+Additions.m in Sources */,
 				425477881BD2AF6A0071BBC5 /* AliOrderFormEntity.m in Sources */,
 				421DC6791C85750E009E825B /* NSURLRequest+Additions.m in Sources */,
+				4236B6411DF04E17002F4299 /* CameraShutterButton.m in Sources */,
 				429CA0781B9EF8BF0013A44A /* CCPopMenuView.m in Sources */,
 				421DC7371C85750E009E825B /* UITextView+Additions.m in Sources */,
 				4253E84A1D371E7600BACED6 /* CCTextAttachment.m in Sources */,
@@ -8005,6 +8136,7 @@
 				429CA1291B9EF8BF0013A44A /* CCDisplayLocationViewController.m in Sources */,
 				42ECCABD1DD4795C008E7F31 /* UIView+WebCacheOperation.m in Sources */,
 				420CD8BC1C59F9B9009578D4 /* UIScrollView+CCInputDodger.m in Sources */,
+				4236B64B1DF04E17002F4299 /* CameraStyleKitClass.m in Sources */,
 				425C4D6F1D9E077200E3CD1C /* SRBlockOperation.m in Sources */,
 				429CA0331B9EF8BF0013A44A /* CCPhotoBrowser.m in Sources */,
 				42F411401C214C5400814E7B /* CCLineBrush.m in Sources */,
@@ -8015,6 +8147,7 @@
 				4298C78D1BDCBB0300A3581D /* CoreDataMasterSlave+Removed.m in Sources */,
 				423E39D51D333AC80011ECD2 /* CCLink.m in Sources */,
 				429CA0EC1B9EF8BF0013A44A /* CCCaptureHelper.m in Sources */,
+				4236B6431DF04E17002F4299 /* CameraToggleButton.m in Sources */,
 				429C9FAB1B9EF8BF0013A44A /* CCThemeManager.m in Sources */,
 				426979471BA695BA00C3E93C /* UIProgressView+AFNetworking.m in Sources */,
 				42DEB29B1C25495000734E09 /* CCShader.m in Sources */,
@@ -8029,6 +8162,7 @@
 				420CB1351C7D788500A0EC25 /* MASCompositeConstraint.m in Sources */,
 				428A12CD1BC8A1C6005D904D /* ContactPersonEntity.m in Sources */,
 				429C9F9F1B9EF8BF0013A44A /* CCScanningView.m in Sources */,
+				4236B6391DF04E17002F4299 /* CameraSessionView.m in Sources */,
 				42DBA8571BB5305700AD47C6 /* CCBase64.m in Sources */,
 				42068EFE1C573E33005DFB01 /* POPDecayAnimation.mm in Sources */,
 				42068EFC1C573E33005DFB01 /* POPCustomAnimation.mm in Sources */,
@@ -8120,6 +8254,7 @@
 				429C9FA91B9EF8BF0013A44A /* SmoothViewController.m in Sources */,
 				421DC7111C85750E009E825B /* UIScrollView+Additions.m in Sources */,
 				4213FAFD1C13D860006918AC /* CCJPsuh.m in Sources */,
+				4236B6451DF04E17002F4299 /* LaunchCameraButton.m in Sources */,
 				421DC6451C85750E009E825B /* NSRunLoop+Additions.m in Sources */,
 				42063EBD1C8936F1003348EB /* CAAnimation+Additions.m in Sources */,
 				42DBC0341D7517CF006C4927 /* CCImageCropViewController.m in Sources */,
@@ -8127,6 +8262,7 @@
 				427E1D421C10709F004B257C /* CCWxPayEngine.m in Sources */,
 				42ECCAC11DD47963008E7F31 /* SDImageCacheConfig.m in Sources */,
 				429C9FE31B9EF8BF0013A44A /* SRNegotiationResponse.m in Sources */,
+				4278CAA51DF117F1000C4448 /* CCCameraPreview.m in Sources */,
 				42F4113E1C214C5400814E7B /* CCDashLineBrush.m in Sources */,
 				429C89331DAB95C500A7502B /* TZPhotoPreviewController.m in Sources */,
 				42F411351C214C5400814E7B /* CCBaseBrush.m in Sources */,

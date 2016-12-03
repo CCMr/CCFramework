@@ -258,16 +258,6 @@ static const void *BackButtonHandlerKey = &BackButtonHandlerKey;
     return objc_getAssociatedObject(self, BackButtonHandlerKey);
 }
 
--(void)slideBackTouched:(void (^)(UIViewController *))slideBackHandler
-{
-    objc_setAssociatedObject(self, @selector(slideBackHandler), slideBackHandler, OBJC_ASSOCIATION_COPY);
-}
-
--(void (^)(UIViewController *vc))slideBackHandler
-{
-    return objc_getAssociatedObject(self, @selector(slideBackHandler)); 
-}
-
 
 /**
  *  @brief  视图层级
@@ -358,30 +348,39 @@ static char NavBarIsLoadingKey;
 {
     if (!self.isLoading) {
         self.navBarOrigTitle = self.navigationItem.title;
-        UIView *navBarLoadingContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
+        UIView *navBarLoadingContainer = [[UIView alloc] initWithFrame:CGRectZero];
         self.navigationItem.titleView = navBarLoadingContainer;
         self.isLoading = YES;
         
-        UILabel *loadingTitleLabel = [[UILabel alloc] init];
-        loadingTitleLabel.textAlignment = NSTextAlignmentCenter;
-        loadingTitleLabel.textColor = self.navigationController.navigationBar.tintColor;
-        loadingTitleLabel.text = title;
+        __block UIFont *font;        
+        [self.navigationController.navigationBar.titleTextAttributes enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            if ([key isEqual:@"NSFont"])
+                font = obj;
+        }];
         
+        CGRect frame;
         UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         [activityIndicator startAnimating];
-        [navBarLoadingContainer addSubview:loadingTitleLabel];
         [navBarLoadingContainer addSubview:activityIndicator];
         
-        CGFloat padding = 5;
-        NSLayoutConstraint *trailingConstraintForLabel = [NSLayoutConstraint constraintWithItem:loadingTitleLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:loadingTitleLabel.superview attribute:NSLayoutAttributeTrailing multiplier:1 constant:-padding];
-        NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint constraintWithItem:loadingTitleLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:loadingTitleLabel.superview attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+        frame = activityIndicator.frame;
+        frame.origin.y = 10;
+        activityIndicator.frame = frame;
         
-        NSLayoutConstraint *leadingConstraintForIndicator = [NSLayoutConstraint constraintWithItem:activityIndicator attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:activityIndicator.superview attribute:NSLayoutAttributeLeading multiplier:1 constant:padding];
-        NSLayoutConstraint *centerYConstraintForIndicator = [NSLayoutConstraint constraintWithItem:activityIndicator attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:loadingTitleLabel attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+        CGSize size = CGSizeMake(frame.size.width, 44);
         
-        loadingTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
-        [loadingTitleLabel.superview addConstraints:@[ trailingConstraintForLabel, centerYConstraint, centerYConstraintForIndicator, leadingConstraintForIndicator ]];
+        UILabel *loadingTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width + 5, 10, 0, 0)];
+        loadingTitleLabel.textAlignment = NSTextAlignmentCenter;
+        loadingTitleLabel.textColor = self.navigationController.navigationBar.tintColor;
+        loadingTitleLabel.font = font;
+        loadingTitleLabel.text = title;
+        [loadingTitleLabel sizeToFit];
+        [navBarLoadingContainer addSubview:loadingTitleLabel];
+        size.width +=loadingTitleLabel.frame.size.width + 5;
+        
+        frame = navBarLoadingContainer.frame;
+        frame.size = size;
+        navBarLoadingContainer.frame = frame;
     }
 }
 

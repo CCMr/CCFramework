@@ -1,5 +1,5 @@
 //
-//  CCEmotionManager.h
+//  CameraShutterButton.m
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,55 +23,13 @@
 // THE SOFTWARE.
 //
 
+#import "CameraShutterButton.h"
+#import "CameraStyleKitClass.h"
 
-#import <Foundation/Foundation.h>
-#import "CCEmotion.h"
+@implementation CameraShutterButton
 
-typedef NS_ENUM(NSInteger, CCEmotionType) {
-    /** 默认表情 */
-    CCEmotionTypedefault = 0,
-    /** 小表情 */
-    CCEmotionTypeSmall = 1,
-};
-
-@interface CCEmotionManager : NSObject
-
-@property(nonatomic, assign) CCEmotionType emotionType;
-
-/**
- *  @author CC, 2015-12-11
- *
- *  @brief  表情名称
- */
-@property(nonatomic, copy) NSString *emotionName;
-
-/**
- 表情图片
- */
-@property(nonatomic, strong) UIImage *emotionIcon;
-
-/**
- 表情路径
- */
-@property(nonatomic, copy) NSString *emotionPath;
-
-/**
- *  某一类表情的数据源
- */
-@property(nonatomic, strong) NSMutableArray *emotions;
-
-/**
- *  @author CC, 2015-12-08
- *
- *  @brief  列
- */
-@property(nonatomic, assign) NSInteger section;
-
-/**
- *  @author CC, 2015-12-08
- *
- *  @brief  行
- */
-@property(nonatomic, assign) NSInteger row;
+- (void)drawRect:(CGRect)rect {
+    [CameraStyleKitClass drawCameraShutterWithFrame:self.bounds];
+}
 
 @end

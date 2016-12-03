@@ -325,7 +325,7 @@
 - (void)setPhotos:(NSArray *)photos
 {
     _photos = photos;
-    
+    _photoScrollView.contentSize = CGSizeMake(_photoScrollView.frame.size.width * _photos.count, 0);
     if (photos.count > 1) {
         _visiblePhotoViews = [NSMutableSet set];
         _reusablePhotoViews = [NSMutableSet set];

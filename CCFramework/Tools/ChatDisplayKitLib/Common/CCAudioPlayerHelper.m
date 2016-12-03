@@ -258,7 +258,9 @@
     }
     
    if (_player || _player.isPlaying) {
-       _player.currentTime -= 1; 
+       if (_player.currentTime > 1) {
+           _player.currentTime -= 1; 
+       }
     }
 }
 

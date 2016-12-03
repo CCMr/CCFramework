@@ -206,17 +206,19 @@
         
         CGRect sectionButtonFrame = sectionButton.frame;
         
-        UIImage *image = [UIImage imageWithContentsOfFile:emotionManager.emotionIcon];
+        UIImage *image = emotionManager.emotionIcon;
+        if (!image)
+            image = [UIImage imageWithContentsOfFile:emotionManager.emotionIcon];
+        
         if (image) {
-            UIImage *sourceImage = [UIImage imageWithContentsOfFile:emotionManager.emotionIcon];
+//            UIImage *sourceImage = [UIImage imageWithContentsOfFile:emotionManager.emotionIcon];
 //            CGSize imageSzie = CGSizeMake(sectionButtonFrame.size.width - 10, sectionButtonFrame.size.height -10);
 //            sourceImage = [CCTool scale:sourceImage Size:imageSzie];
             
             sectionButton.imageEdgeInsets = UIEdgeInsetsMake(5, 10, 5, 10);
-            
-            [sectionButton setImage:sourceImage forState:UIControlStateNormal];
-            [sectionButton setImage:sourceImage forState:UIControlStateHighlighted];
-        } else if (emotionManager.emotionIcon && [emotionManager.emotionIcon rangeOfString:@"http://"].location != NSNotFound) {
+            [sectionButton setImage:image forState:UIControlStateNormal];
+            [sectionButton setImage:image forState:UIControlStateHighlighted];
+        } else if (emotionManager.emotionIcon && [emotionManager.emotionPath rangeOfString:@"http://"].location != NSNotFound) {
             [sectionButton sd_setImageWithURL:[NSURL URLWithString:emotionManager.emotionIcon] forState:UIControlStateNormal];
         } else if (emotionManager.emotionName) {
             [sectionButton setTitle:emotionManager.emotionName forState:UIControlStateNormal];

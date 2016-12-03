@@ -1,5 +1,5 @@
 //
-//  CCEmotionManager.h
+//  CACameraSessionDelegate.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -23,55 +23,26 @@
 // THE SOFTWARE.
 //
 
+#import <UIKit/UIKit.h>
 
-#import <Foundation/Foundation.h>
-#import "CCEmotion.h"
+///Protocol Definition
+@protocol CACameraSessionDelegate <NSObject>
 
-typedef NS_ENUM(NSInteger, CCEmotionType) {
-    /** 默认表情 */
-    CCEmotionTypedefault = 0,
-    /** 小表情 */
-    CCEmotionTypeSmall = 1,
-};
+@optional 
+- (void)didCaptureImage:(UIImage *)image;
+- (void)didCaptureImageWithData:(NSData *)imageData;
 
-@interface CCEmotionManager : NSObject
+@end
 
-@property(nonatomic, assign) CCEmotionType emotionType;
+@interface CameraSessionView : UIViewController
 
-/**
- *  @author CC, 2015-12-11
- *
- *  @brief  表情名称
- */
-@property(nonatomic, copy) NSString *emotionName;
+//Delegate Property
+@property (nonatomic, weak) id <CACameraSessionDelegate> delegate;
 
-/**
- 表情图片
- */
-@property(nonatomic, strong) UIImage *emotionIcon;
-
-/**
- 表情路径
- */
-@property(nonatomic, copy) NSString *emotionPath;
-
-/**
- *  某一类表情的数据源
- */
-@property(nonatomic, strong) NSMutableArray *emotions;
-
-/**
- *  @author CC, 2015-12-08
- *
- *  @brief  列
- */
-@property(nonatomic, assign) NSInteger section;
-
-/**
- *  @author CC, 2015-12-08
- *
- *  @brief  行
- */
-@property(nonatomic, assign) NSInteger row;
+//API Functions
+- (void)setTopBarColor:(UIColor *)topBarColor;
+- (void)hideFlashButton;
+- (void)hideCameraToggleButton;
+- (void)hideDismissButton;
 
 @end

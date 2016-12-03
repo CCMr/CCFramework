@@ -84,6 +84,7 @@
 @property(nonatomic, copy) NSString *voiceDuration;
 
 #pragma mark - 表情
+@property(nonatomic, strong) UIImage *emotionPhoto;
 @property(nonatomic, copy) NSString *emotionPath;
 @property(nonatomic, copy) NSString *emotionUrl;
 @property(nonatomic, assign) CGSize emotionSize;

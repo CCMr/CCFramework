@@ -32,11 +32,15 @@
 #import "UIImage+Additions.h"
 #import "TZImagePickerController.h"
 
-@interface CCCameraViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, CCImageCropViewControllerDelegate, CCImageCropViewControllerDataSource>
+#import "CameraSessionView.h"
+
+@interface CCCameraViewController () <UIActionSheetDelegate, UINavigationControllerDelegate,CACameraSessionDelegate, CCImageCropViewControllerDelegate, CCImageCropViewControllerDataSource>
 
 @property(strong, nonatomic) UIViewController *currentViewController;
 
 @property(nonatomic, copy) Completion callBackBlock;
+
+@property(nonatomic, strong) UIImagePickerController *imagePickerVc;
 
 @end
 
@@ -332,95 +336,41 @@
 - (void)cameras
 {
     if ([self isCameraAvailable] && [self doesCameraSupportTakingPhotos]) {
-        UIImagePickerController *controller = [[UIImagePickerController alloc] init]; //初始化图片选择控制器
-        [controller setSourceType:UIImagePickerControllerSourceTypeCamera];	   // 设置类型
-        controller.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;      //设置闪光灯模式
-        
-        // 设置所支持的类型，设置只能拍照，或则只能录像，或者两者都可以
-        NSString *requiredMediaType = (NSString *)kUTTypeImage;
-        //        NSString *requiredMediaType1 = ( NSString *)kUTTypeMovie;
-        //        NSArray *arrMediaTypes=[NSArray arrayWithObjects:requiredMediaType, requiredMediaType1,nil];
-        NSArray *arrMediaTypes = [NSArray arrayWithObjects:requiredMediaType, nil];
-        [controller setMediaTypes:arrMediaTypes];
-        
-        
-        // 设置录制视频的质量
-        // [controller setVideoQuality:UIImagePickerControllerQualityTypeHigh];
-        //设置最长摄像时间
-        // [controller setVideoMaximumDuration:10.f];
-        
-        //        [controller setAllowsEditing:YES];// 设置是否可以管理已经存在的图片或者视频
-        [controller setDelegate:self]; // 设置代理
-        
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-            _currentViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-        }
-        
+        CameraSessionView *cameraView = [[CameraSessionView alloc] init];
+        cameraView.delegate = self;
         typeof(self) __weak weakSelf = self;
-        [_currentViewController presentViewController:controller animated:YES completion:^{
+        [_currentViewController presentViewController:cameraView animated:YES completion:^{
             [weakSelf isCameraUsageRights];
         }];
     }
 }
 
-/**
- *  @author CC, 2015-07-23
- *
- *  @brief  拍照后回调
- *
- *  @param picker 拍照视图对象
- *  @param info   回传数据
- *
- *  @since 1.0
- */
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
-    // 判断获取类型：图片
-    if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
-        UIImage *theImage = nil;
-        if ([picker allowsEditing])					       //判断，图片是否允许修改
-            theImage = [info objectForKey:UIImagePickerControllerEditedImage]; //获取用户编辑之后的图像
-        else
-            theImage = [info objectForKey:UIImagePickerControllerOriginalImage]; // 照片的元数据参数
-        
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{  
-            // 保存图片到相册中
-            SEL selectorToCall = @selector(imageWasSavedSuccessfully:didFinishSavingWithError:contextInfo:);
-            UIImageWriteToSavedPhotosAlbum(theImage, self, selectorToCall, NULL);
-        });
-        
-        theImage = [UIImage fixOrientation:theImage];  
-        //        UIImage *sendImage = [UIImage imageWithData:UIImagePNGRepresentation(theImage)]; //图片质量太高内存吃紧再次压缩
-        //        sendImage = [UIImage imageWithData:UIImagePNGRepresentation(sendImage)];
-        if (_isClipping && self.maxCount == 1) {
-            [self performSelector:@selector(pushCropViewController:) withObject:theImage afterDelay:0.5];
-        } else {
-            NSMutableArray *photoArray = [NSMutableArray array];
-            if (self.isPhotoType) 
-                [photoArray addObject:@{@"image":theImage}];
-            else
-                [photoArray addObject:theImage];
-            _callBackBlock(photoArray);
-            
-        }
-        
-    } else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
-        // 判断获取类型：视频 => 获取视频文件的url
-        NSURL *mediaURL = [info objectForKey:UIImagePickerControllerMediaURL];
-        //创建ALAssetsLibrary对象并将视频保存到媒体库 => Assets Library 框架包是提供了在应用程序中操作图片和视频的相关功能。相当于一个桥梁，链接了应用程序和多媒体文件。
-        ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
-        
-        [assetsLibrary writeVideoAtPathToSavedPhotosAlbum:mediaURL completionBlock:^(NSURL *assetURL, NSError *error) { // 将视频保存到相册中
-            if (!error) {
-                NSLog(@"captured video saved with no error.");
-            }else{
-                NSLog(@"error occured while saving the video:%@", error);
-            }
-        }];
-    }
+-(void)didCaptureImage:(UIImage *)image {    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{  
+        // 保存图片到相册中
+        SEL selectorToCall = @selector(imageWasSavedSuccessfully:didFinishSavingWithError:contextInfo:);
+        UIImageWriteToSavedPhotosAlbum(image, self, selectorToCall, NULL);
+    });
     
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    UIImage *theImage = [UIImage fixOrientation:image]; 
+    if (_isClipping && self.maxCount == 1) {
+        [self performSelector:@selector(pushCropViewController:) withObject:theImage afterDelay:0.5];
+    } else {
+        NSMutableArray *photoArray = [NSMutableArray array];
+        if (self.isPhotoType) 
+            [photoArray addObject:@{@"image":theImage}];
+        else
+            [photoArray addObject:theImage];
+        _callBackBlock(photoArray);
+        
+    }
+}
+
+-(void)didCaptureImageWithData:(NSData *)imageData {
+    NSLog(@"CAPTURED IMAGE DATA");
+    //UIImage *image = [[UIImage alloc] initWithData:imageData];
+    //UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    //[self.cameraView removeFromSuperview];
 }
 
 /**
@@ -507,6 +457,5 @@
     [SelectImageArray addObject:croppedImage];
     _callBackBlock(SelectImageArray);
 }
-
 
 @end

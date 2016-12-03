@@ -84,6 +84,7 @@ static char OperationKey;
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     //添加模糊效果
     //    [CCSecurityStrategy addBlurEffect];
+    cc_NoticePost(kCCLockScreen, @"Lock screen");
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -342,26 +343,6 @@ static char OperationKey;
     } else { //IOS7
         [application registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge | UIUserNotificationTypeAlert | UIUserNotificationTypeSound)];
     }
-}
-
-// 设备是否锁屏
-static void screenLockStateChanged(CFNotificationCenterRef center,void* observer,CFStringRef name,const void* object,CFDictionaryRef userInfo){
-    NSString* lockstate = (__bridge NSString*)name;
-    if ([lockstate isEqualToString:(__bridge  NSString*)NotificationLock]) {
-        cc_NoticePost(kCCLockScreen, @"Lock screen");
-    }else if ([lockstate isEqualToString:(__bridge  NSString*)NotificationChange]){
-        cc_NoticePost(kCCLockScreen, @"State change");
-    }
-}
-
-
-/**
- 监听锁屏
- */
--(void)monitorLockScreen
-{
-    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, screenLockStateChanged, NotificationLock, NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
-    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, screenLockStateChanged, NotificationChange, NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
 }
 
 #pragma mark - 推送

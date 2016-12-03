@@ -54,7 +54,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 @property(nonatomic, weak, readwrite) CCBadgeView *timestampLabel;
 
-@property(nonatomic, weak, readwrite) CCBadgeView *noticeLabel;
+@property(nonatomic, weak, readwrite) UIButton *noticeLabel;
 
 @property(nonatomic, weak) UITableView *containingTableView;
 
@@ -317,7 +317,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 - (void)configureNoticeWihtMessage:(id<CCMessageModel>)message
 {
-    self.noticeLabel.text = [message noticeContent];
+    [self.noticeLabel setTitle:[NSString stringWithFormat:@" %@ ",[message noticeContent]] forState:UIControlStateNormal];
 }
 
 - (void)configureMessageBubbleViewWithMessage:(id<CCMessageModel>)message
@@ -525,7 +525,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     
     CGFloat height = timestampHeight;
     if ([message messageMediaType] == CCBubbleMessageMediaTypeNotice) {
-        height += kCCTimeStampLabelHeight + kCCLabelPadding * 2;
+        height += [self noticeMessageHeight:message].height + kCCLabelPadding * 2;
     } else {
         // 第二，是否又是名字显示
         CGFloat userNameHheight = message.shouldShowUserName ? (kCCTimeStampLabelHeight + 5) : 0;
@@ -537,6 +537,24 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         height = MAX(bubbleMessageHeight, userInfoNeedHeight) + kCCAvatarPaddingY * 2;
     }
     return height;
+}
+
++(CGSize)noticeMessageHeight:(id<CCMessageModel>)message
+{
+    UIFont *systemFont = [UIFont systemFontOfSize:10.0f];
+    CGSize textSize = CGSizeMake(winsize.width - 20,CGFLOAT_MAX); // rough accessory size
+    CGSize sizeWithFont;
+    NSString *text = [NSString stringWithFormat:@" %@ ",[message noticeContent]];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] <= 6.0) {
+        sizeWithFont = [text sizeWithFont:systemFont constrainedToSize:textSize lineBreakMode:NSLineBreakByWordWrapping];
+    } else {
+        sizeWithFont = [text boundingRectWithSize:textSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : systemFont } context:nil].size;
+    }
+    
+    sizeWithFont.height += 5;
+    sizeWithFont.width += 5;
+    
+    return sizeWithFont;
 }
 
 #pragma mark - Life cycle
@@ -586,12 +604,15 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         
         // 通知消息类型
         if (!_noticeLabel) {
-            CCBadgeView *noticeLabel = [[CCBadgeView alloc] initWithFrame:CGRectMake(0, kCCLabelPadding, winsize.width, kCCTimeStampLabelHeight)];
+            UIButton *noticeLabel = [[UIButton alloc] initWithFrame:CGRectMake(10, kCCLabelPadding, winsize.width - 20, kCCTimeStampLabelHeight)];
+            noticeLabel.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
             noticeLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-            noticeLabel.badgeColor = cc_ColorRGB(202, 202, 202);
-            noticeLabel.textColor = [UIColor whiteColor];
+            noticeLabel.backgroundColor = cc_ColorRGB(202, 202, 202);
+            [noticeLabel setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             noticeLabel.font = [UIFont systemFontOfSize:10.0f];
-            noticeLabel.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) / 2.0, noticeLabel.center.y);
+            noticeLabel.titleLabel.numberOfLines = 0;
+            noticeLabel.layer.cornerRadius = 4;
+            noticeLabel.layer.masksToBounds = YES;
             noticeLabel.hidden = YES;
             [self.contentView addSubview:noticeLabel];
             [self.contentView bringSubviewToFront:noticeLabel];
@@ -624,6 +645,9 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             avatarButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
             //            avatarButton.layer.cornerRadius = 5;
             //            avatarButton.layer.masksToBounds = YES;
+            avatarButton.layer.borderWidth = 1;
+            avatarButton.layer.borderColor = [cc_ColorRGB(238, 238, 241) CGColor];
+            avatarButton.backgroundColor = [UIColor whiteColor];
             [self.contentView addSubview:avatarButton];
             self.avatarButton = avatarButton;
         }
@@ -713,8 +737,9 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         CGFloat layoutOriginY =  (self.displayTimestamp ? kCCTimeStampLabelHeight + kCCLabelPadding * 2 : 0);
         CGRect noticeContentFram = self.noticeLabel.frame;
         noticeContentFram.origin.y = layoutOriginY;
+        noticeContentFram.size = [CCMessageTableViewCell noticeMessageHeight:self.messageBubbleView.message];
+        noticeContentFram.origin.x = (winsize.width - noticeContentFram.size.width) / 2;
         self.noticeLabel.frame = noticeContentFram;
-        
     } else {
         self.noticeLabel.hidden = YES;
         self.avatarButton.hidden = NO;
@@ -837,7 +862,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     self.userNameLabel.text = nil;
     [self.avatarButton setImage:nil forState:UIControlStateNormal];
     self.timestampLabel.text = nil;
-    self.noticeLabel.text = nil;
+    [self.noticeLabel setTitle:@"" forState:UIControlStateNormal];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

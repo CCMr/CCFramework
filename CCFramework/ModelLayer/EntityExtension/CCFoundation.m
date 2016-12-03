@@ -26,6 +26,7 @@
 #import "CCFoundation.h"
 #import "CCExtensionConst.h"
 #import <CoreData/CoreData.h>
+#import <UIKit/UIKit.h>
 
 static NSSet *foundationClasses_;
 
@@ -44,7 +45,8 @@ static NSSet *foundationClasses_;
                               [NSArray class],
                               [NSDictionary class],
                               [NSString class],
-                              [NSAttributedString class], nil];
+                              [NSAttributedString class],
+                              [UIImage class],nil];
     }
     return foundationClasses_;
 }
