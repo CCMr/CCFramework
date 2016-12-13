@@ -47,10 +47,14 @@
 
 @property(nonatomic, strong) NSIndexPath *playingIndexPathInFeedList; //给动态列表用
 
+@property(nonatomic, copy) void(^didAudioPlayerStopPlay)(AVAudioPlayer *audioPlayer);
+
 + (id)shareInstance;
 
 - (AVAudioPlayer *)player;
 - (BOOL)isPlaying;
+
+-(void)setDidAudioPlayerStopPlay:(void (^)(AVAudioPlayer *))didAudioPlayerStopPlay;
 
 /**
  *  @author CC, 2015-12-02

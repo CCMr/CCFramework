@@ -158,10 +158,19 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
-    return (action == @selector(copyed:) || action == @selector(transpond:) || action == @selector(favorites:) || action == @selector(withdraw:) || action == @selector(deletes:) || action == @selector(more:));
+    return (action == @selector(copyed:) || action == @selector(transpond:) || action == @selector(favorites:) || action == @selector(withdraw:) || action == @selector(deletes:) || action == @selector(more:)) || action == @selector(memo:);
 }
 
 #pragma mark - Menu Actions
+
+-(void)memo:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(didSelectedMemo:atIndexPath:)]) {
+        [self.delegate didSelectedMemo:self.messageBubbleView.message
+                           atIndexPath:self.indexPath];
+    }
+}
+
 /**
  *  @author CC, 2015-11-16
  *
@@ -277,9 +286,9 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     
     if (avatarPhoto) {
         [self configAvatarWithPhoto:avatarPhoto];
-        if (avatarURL) {
-            [self configAvatarWithPhotoURLString:avatarURL];
-        }
+        //        if (avatarURL) {
+        //            [self configAvatarWithPhotoURLString:avatarURL];
+        //        }
     } else if (avatarURL) {
         [self configAvatarWithPhotoURLString:avatarURL];
     } else {
@@ -287,6 +296,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
                                                       messageAvatarType:CCMessageAvatarTypeSquare];
         [self configAvatarWithPhoto:avatarPhoto];
     }
+    
+    self.avatarButton.carryObjects = message;   
 }
 
 - (void)configAvatarWithPhoto:(UIImage *)photo
@@ -347,6 +358,11 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             [self.messageBubbleView.fileView addGestureRecognizer:tapGestureRecognizer];
             break;
         }
+        case CCBubbleMessageMediaTypeRedPackage:{
+            UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTapGestureRecognizerHandle:)];
+            [self.messageBubbleView.redPackageView addGestureRecognizer:tapGestureRecognizer];
+            break;
+        }
         case CCBubbleMessageMediaTypeText:
         case CCBubbleMessageMediaTypeVoice: {
             self.messageBubbleView.voiceDurationLabel.text = [NSString stringWithFormat:@"%@\'\'", message.voiceDuration];
@@ -370,6 +386,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         default:
             break;
     }
+    
     [self.messageBubbleView configureCellWithMessage:message];
 }
 
@@ -400,7 +417,10 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 - (void)longPressGestureRecognizerHandle:(UILongPressGestureRecognizer *)longPressGestureRecognizer
 {
-    if (longPressGestureRecognizer.state != UIGestureRecognizerStateBegan || ![self becomeFirstResponder] || ((UITableView *)self.superview.superview).isEditing)
+    if (longPressGestureRecognizer.state != UIGestureRecognizerStateBegan ||
+        ![self becomeFirstResponder] || 
+        ((UITableView *)self.superview.superview).isEditing ||
+        self.messageBubbleView.message.messageMediaType == CCBubbleMessageMediaTypeNotice)
         return;
     
     if ([self.delegate respondsToSelector:@selector(didSelectedPress:)])
@@ -408,18 +428,19 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     
     NSArray *popMenuAry = @[ CCLocalization(@"复制"),
                              CCLocalization(@"转发"),
-                             //                             CCLocalization(@"收藏"),
+                             CCLocalization(@"备忘录"),
                              //CCLocalization(@"撤回"),
                              CCLocalization(@"删除"),
                              CCLocalization(@"更多") ];
     if ([self.messageBubbleView.message messageMediaType] == CCBubbleMessageMediaTypeVoice) {
-        popMenuAry = @[ CCLocalization(@"复制"),
-                        //                        CCLocalization(@"收藏"),
+        popMenuAry = @[ CCLocalization(@"备忘录"),
+                        CCLocalization(@"复制"),
                         CCLocalization(@"删除"),
                         CCLocalization(@"更多") ];
     }else if ([self.messageBubbleView.message messageMediaType] == CCBubbleMessageMediaTypeFile){
-        popMenuAry = @[ CCLocalization(@"删除"),
-                        CCLocalization(@"更多") ];
+        popMenuAry = @[CCLocalization(@"备忘录"),
+                       CCLocalization(@"删除"),
+                       CCLocalization(@"更多") ];
     }
     
     NSMutableArray *menuItems = [[NSMutableArray alloc] init];
@@ -439,6 +460,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             action = @selector(deletes:);
         } else if ([title isEqualToString:@"更多"]) {
             action = @selector(more:);
+        }else if ([title isEqualToString:@"备忘录"]){
+            action = @selector(memo:);
         }
         
         if (action) {
@@ -484,6 +507,16 @@ static const CGFloat kCCUserNameLabelHeight = 20;
                                                   Message:self.messageBubbleView.message
                                               atIndexPath:self.indexPath];
         }
+    }
+}
+
+-(void)buttonlongPressGestureRecognizerHandle:(UILongPressGestureRecognizer *)longPressGestureRecognizer
+{
+    if (longPressGestureRecognizer.state != UIGestureRecognizerStateBegan || ![self becomeFirstResponder] || ((UITableView *)self.superview.superview).isEditing)
+        return;
+    
+    if ([self.delegate respondsToSelector:@selector(didPressAvatar:)]) {
+        [self.delegate didPressAvatar: longPressGestureRecognizer.view.carryObjects];
     }
 }
 
@@ -650,6 +683,11 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             avatarButton.backgroundColor = [UIColor whiteColor];
             [self.contentView addSubview:avatarButton];
             self.avatarButton = avatarButton;
+            
+            
+            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(buttonlongPressGestureRecognizerHandle:)];   
+            longPress.minimumPressDuration = 0.4; //定义按的时间  
+            [avatarButton addGestureRecognizer:longPress];  
         }
         
         if (!_userLabel) {
@@ -706,6 +744,13 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 {
     if ([self.delegate respondsToSelector:@selector(didSelectedSendNotSuccessfulCallback:atIndexPath:)])
         [self.delegate didSelectedSendNotSuccessfulCallback:self.messageBubbleView.message atIndexPath:self.indexPath];
+}
+
+-(void)didMessageLinkClick:(NSString *)linkStr
+{
+    if ([self.delegate respondsToSelector:@selector(didMessageLinkClick:)]) {
+        [self.delegate didMessageLinkClick:linkStr];
+    }
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

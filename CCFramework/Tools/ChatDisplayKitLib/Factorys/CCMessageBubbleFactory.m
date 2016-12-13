@@ -59,6 +59,7 @@
     switch (mediaType) {
         case CCBubbleMessageMediaTypePhoto:
         case CCBubbleMessageMediaTypeVideo:
+        case CCBubbleMessageMediaTypeRedPackage:
             messageTypeString = [messageTypeString stringByAppendingString:@"_Solid"];
             break;
         case CCBubbleMessageMediaTypeText:

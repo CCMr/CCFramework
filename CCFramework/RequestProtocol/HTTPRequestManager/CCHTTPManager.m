@@ -294,7 +294,7 @@ static NSString *const CCCacheTableName = @"CCCacheTable";
  *  @param failure          故障处理回调
  */
 + (void)GET:(NSString *)requestURLString
- parameters:(NSDictionary *)parameter
+ parameters:(id)parameter
     success:(requestSuccessBlock)success
     failure:(requestFailureBlock)failure
 {
@@ -308,7 +308,7 @@ static NSString *const CCCacheTableName = @"CCCacheTable";
 }
 
 + (void)GET:(NSString *)requestURLString
- parameters:(NSDictionary *)parameter
+ parameters:(id)parameter
 cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
     success:(requestSuccessBlock)success
     failure:(requestFailureBlock)failure
@@ -334,7 +334,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)POST:(NSString *)requestURLString
-  parameters:(NSDictionary *)parameter
+  parameters:(id)parameter
      success:(requestSuccessBlock)success
      failure:(requestFailureBlock)failure
 {
@@ -348,7 +348,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 }
 
 + (void)POST:(NSString *)requestURLString
-  parameters:(NSDictionary *)parameter
+  parameters:(id)parameter
  cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
      success:(requestSuccessBlock)success
      failure:(requestFailureBlock)failure
@@ -374,7 +374,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)DELETE:(NSString *)requestURLString
-    parameters:(NSDictionary *)parameter
+    parameters:(id)parameter
        success:(requestSuccessBlock)success
        failure:(requestFailureBlock)failure
 {
@@ -388,7 +388,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 }
 
 + (void)DELETE:(NSString *)requestURLString
-    parameters:(NSDictionary *)parameter
+    parameters:(id)parameter
    cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
        success:(requestSuccessBlock)success
        failure:(requestFailureBlock)failure
@@ -403,7 +403,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 }
 
 + (void)HEAD:(NSString *)requestURLString
-  parameters:(NSDictionary *)parameter
+  parameters:(id)parameter
  cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
      success:(requestSuccessBlock)success
      failure:(requestFailureBlock)failure
@@ -429,7 +429,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)PUT:(NSString *)requestURLString
- parameters:(NSDictionary *)parameter
+ parameters:(id)parameter
     success:(requestSuccessBlock)success
     failure:(requestFailureBlock)failure
 {
@@ -443,7 +443,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 }
 
 + (void)PUT:(NSString *)requestURLString
- parameters:(NSDictionary *)parameter
+ parameters:(id)parameter
 cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
     success:(requestSuccessBlock)success
     failure:(requestFailureBlock)failure
@@ -458,7 +458,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 }
 
 + (void)PATCH:(NSString *)requestURLString
-   parameters:(NSDictionary *)parameter
+   parameters:(id)parameter
   cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
       success:(requestSuccessBlock)success
       failure:(requestFailureBlock)failure
@@ -485,7 +485,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)syncGET:(NSString *)requestURLString
-     parameters:(NSDictionary *)parameter
+     parameters:(id)parameter
         success:(requestSuccessBlock)success
         failure:(requestFailureBlock)failure
 {
@@ -499,7 +499,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 }
 
 + (void)syncGET:(NSString *)requestURLString
-     parameters:(NSDictionary *)parameter
+     parameters:(id)parameter
     cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
         success:(requestSuccessBlock)success
         failure:(requestFailureBlock)failure
@@ -525,7 +525,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)syncPOST:(NSString *)requestURLString
-      parameters:(NSDictionary *)parameter
+      parameters:(id)parameter
          success:(requestSuccessBlock)success
          failure:(requestFailureBlock)failure
 {
@@ -539,7 +539,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 }
 
 + (void)syncPOST:(NSString *)requestURLString
-      parameters:(NSDictionary *)parameter
+      parameters:(id)parameter
      cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
          success:(requestSuccessBlock)success
          failure:(requestFailureBlock)failure
@@ -565,7 +565,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)syncDELETE:(NSString *)requestURLString
-        parameters:(NSDictionary *)parameter
+        parameters:(id)parameter
            success:(requestSuccessBlock)success
            failure:(requestFailureBlock)failure
 {
@@ -579,7 +579,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 }
 
 + (void)syncDELETE:(NSString *)requestURLString
-        parameters:(NSDictionary *)parameter
+        parameters:(id)parameter
        cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
            success:(requestSuccessBlock)success
            failure:(requestFailureBlock)failure
@@ -594,7 +594,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 }
 
 + (void)syncHEAD:(NSString *)requestURLString
-      parameters:(NSDictionary *)parameter
+      parameters:(id)parameter
      cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
          success:(requestSuccessBlock)success
          failure:(requestFailureBlock)failure
@@ -620,7 +620,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)syncPUT:(NSString *)requestURLString
-     parameters:(NSDictionary *)parameter
+     parameters:(id)parameter
         success:(requestSuccessBlock)success
         failure:(requestFailureBlock)failure
 {
@@ -634,7 +634,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 }
 
 + (void)syncPUT:(NSString *)requestURLString
-     parameters:(NSDictionary *)parameter
+     parameters:(id)parameter
     cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
         success:(requestSuccessBlock)success
         failure:(requestFailureBlock)failure
@@ -649,7 +649,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
 }
 
 + (void)syncPATCH:(NSString *)requestURLString
-       parameters:(NSDictionary *)parameter
+       parameters:(id)parameter
       cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
           success:(requestSuccessBlock)success
           failure:(requestFailureBlock)failure
@@ -677,7 +677,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障回调
  */
 + (void)Upload:(NSString *)requestURLString
-    parameters:(NSDictionary *)parameter
+    parameters:(id)parameter
     fileConfig:(HttpFileConfig *)fileConfig
        success:(requestSuccessBlock)success
        failure:(requestFailureBlock)failure
@@ -760,7 +760,7 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
 + (void)requestHandler:(CCHTTPRequestStyle)requestStyle
            requestType:(CCHTTPRequestType)requestType
       RequestURLString:(NSString *)requestURLString
-         WithParameter:(NSDictionary *)parameter
+         WithParameter:(id)parameter
            cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
                success:(requestSuccessBlock)successHandler
                failure:(requestFailureBlock)failureHandler
@@ -788,9 +788,16 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
     NSString *cacheKey = requestURLString;
     if (parameter) {
         if (![NSJSONSerialization isValidJSONObject:parameter]) return;
-        NSData *data = [NSJSONSerialization dataWithJSONObject:parameter options:NSJSONWritingPrettyPrinted error:nil];
-        NSString *paramStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        cacheKey = [requestURLString stringByAppendingString:paramStr];
+        @try {
+            NSData *data = [NSJSONSerialization dataWithJSONObject:parameter options:NSJSONWritingPrettyPrinted error:nil];
+            NSString *paramStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            cacheKey = [requestURLString stringByAppendingString:paramStr];
+        } @catch (NSException *exception) {
+            
+        } @finally {
+            
+        }
+       
     }
     
     CCKeyValueItem *item = [[CCHTTPManager defaultHttp].store getYTKKeyValueItemById:cacheKey fromTable:CCCacheTableName];
@@ -860,7 +867,7 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
  */
 + (void)requestMethod:(CCHTTPRequestStyle)requestStyle
      RequestURLString:(NSString *)requestURLString
-        WithParameter:(NSDictionary *)parameter
+        WithParameter:(id)parameter
           cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
               success:(requestSuccessBlock)successHandler
               failure:(requestFailureBlock)failureHandler
@@ -990,7 +997,7 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
 #pragma mark :. 同步
 + (void)syncRequestMethod:(CCHTTPRequestStyle)requestStyle
          RequestURLString:(NSString *)requestURLString
-            WithParameter:(NSDictionary *)parameter
+            WithParameter:(id)parameter
               cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
                   success:(requestSuccessBlock)successHandler
                   failure:(requestFailureBlock)failureHandler

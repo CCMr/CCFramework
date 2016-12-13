@@ -26,6 +26,20 @@
 #import "CustomIOSAlertView.h"
 #import <QuartzCore/QuartzCore.h>
 
+@implementation CCAlertModel
+
+-(instancetype)initWithTitle:(NSString *)title 
+                  TitleColor:(UIColor *)color
+{
+    if (self = [super init]) {
+        self.Title = title;
+        self.TitleColor = color;
+    }
+    return self;
+}
+
+@end
+
 const static CGFloat kCustomIOSAlertViewDefaultButtonHeight = 50;
 const static CGFloat kCustomIOSAlertViewDefaultButtonSpacerHeight = 1;
 const static CGFloat kCustomIOSAlertViewCornerRadius = 7;
@@ -59,7 +73,7 @@ CGFloat buttonSpacerHeight = 0;
         _isPackage = YES;
         delegate = self;
         useMotionEffects = false;
-        buttonTitles = @[ @"Close" ];
+        buttonTitles = @[ [[CCAlertModel alloc] initWithTitle:@"Close" TitleColor:[UIColor redColor]] ];
         self.tag = 66666;
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         
@@ -265,6 +279,8 @@ CGFloat buttonSpacerHeight = 0;
     
     for (int i = 0; i < [buttonTitles count]; i++) {
         
+        CCAlertModel *alerModel = [buttonTitles objectAtIndex:i];
+        
         UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         
         [closeButton setFrame:CGRectMake(i * buttonWidth, container.bounds.size.height - buttonHeight, buttonWidth, buttonHeight)];
@@ -272,9 +288,9 @@ CGFloat buttonSpacerHeight = 0;
         [closeButton addTarget:self action:@selector(customIOS7dialogButtonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
         [closeButton setTag:i];
         
-        [closeButton setTitle:[buttonTitles objectAtIndex:i] forState:UIControlStateNormal];
-        [closeButton setTitleColor:[UIColor colorWithRed:0.0f green:0.5f blue:1.0f alpha:1.0f] forState:UIControlStateNormal];
-        [closeButton setTitleColor:[UIColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.5f] forState:UIControlStateHighlighted];
+        [closeButton setTitle:alerModel.Title forState:UIControlStateNormal];
+        [closeButton setTitleColor:alerModel.TitleColor forState:UIControlStateNormal];
+        [closeButton setTitleColor:[alerModel.TitleColor colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
         [closeButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
         [closeButton.layer setCornerRadius:kCustomIOSAlertViewCornerRadius];
         
@@ -469,3 +485,5 @@ CGFloat buttonSpacerHeight = 0;
 }
 
 @end
+
+

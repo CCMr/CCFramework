@@ -186,7 +186,7 @@ typedef void (^requestDownloadsuccess)(id response, NSError *error);
  *  @param failure          故障处理回调
  */
 + (void)GET:(NSString *)requestURLString
- parameters:(NSDictionary *)parameter
+ parameters:(id)parameter
     success:(requestSuccessBlock)success
     failure:(requestFailureBlock)failure;
 
@@ -202,7 +202,7 @@ typedef void (^requestDownloadsuccess)(id response, NSError *error);
  *  @param failure          故障处理回调
  */
 + (void)GET:(NSString *)requestURLString
- parameters:(NSDictionary *)parameter
+ parameters:(id)parameter
 cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
     success:(requestSuccessBlock)success
     failure:(requestFailureBlock)failure;
@@ -219,7 +219,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)POST:(NSString *)requestURLString
-  parameters:(NSDictionary *)parameter
+  parameters:(id)parameter
      success:(requestSuccessBlock)success
      failure:(requestFailureBlock)failure;
 
@@ -235,7 +235,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)POST:(NSString *)requestURLString
-  parameters:(NSDictionary *)parameter
+  parameters:(id)parameter
  cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
      success:(requestSuccessBlock)success
      failure:(requestFailureBlock)failure;
@@ -252,7 +252,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)DELETE:(NSString *)requestURLString
-    parameters:(NSDictionary *)parameter
+    parameters:(id)parameter
        success:(requestSuccessBlock)success
        failure:(requestFailureBlock)failure;
 
@@ -268,7 +268,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)DELETE:(NSString *)requestURLString
-    parameters:(NSDictionary *)parameter
+    parameters:(id)parameter
    cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
        success:(requestSuccessBlock)success
        failure:(requestFailureBlock)failure;
@@ -285,7 +285,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)HEAD:(NSString *)requestURLString
-  parameters:(NSDictionary *)parameter
+  parameters:(id)parameter
  cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
      success:(requestSuccessBlock)success
      failure:(requestFailureBlock)failure;
@@ -302,7 +302,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)PUT:(NSString *)requestURLString
- parameters:(NSDictionary *)parameter
+ parameters:(id)parameter
     success:(requestSuccessBlock)success
     failure:(requestFailureBlock)failure;
 
@@ -318,7 +318,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)PUT:(NSString *)requestURLString
- parameters:(NSDictionary *)parameter
+ parameters:(id)parameter
 cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
     success:(requestSuccessBlock)success
     failure:(requestFailureBlock)failure;
@@ -335,7 +335,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)PATCH:(NSString *)requestURLString
-   parameters:(NSDictionary *)parameter
+   parameters:(id)parameter
   cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
       success:(requestSuccessBlock)success
       failure:(requestFailureBlock)failure;
@@ -354,7 +354,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)syncGET:(NSString *)requestURLString
-     parameters:(NSDictionary *)parameter
+     parameters:(id)parameter
         success:(requestSuccessBlock)success
         failure:(requestFailureBlock)failure;
 
@@ -370,7 +370,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)syncGET:(NSString *)requestURLString
-     parameters:(NSDictionary *)parameter
+     parameters:(id)parameter
     cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
         success:(requestSuccessBlock)success
         failure:(requestFailureBlock)failure;
@@ -387,7 +387,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)syncPOST:(NSString *)requestURLString
-      parameters:(NSDictionary *)parameter
+      parameters:(id)parameter
          success:(requestSuccessBlock)success
          failure:(requestFailureBlock)failure;
 
@@ -403,7 +403,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)syncPOST:(NSString *)requestURLString
-      parameters:(NSDictionary *)parameter
+      parameters:(id)parameter
      cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
          success:(requestSuccessBlock)success
          failure:(requestFailureBlock)failure;
@@ -420,7 +420,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)syncDELETE:(NSString *)requestURLString
-        parameters:(NSDictionary *)parameter
+        parameters:(id)parameter
            success:(requestSuccessBlock)success
            failure:(requestFailureBlock)failure;
 
@@ -436,7 +436,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)syncDELETE:(NSString *)requestURLString
-        parameters:(NSDictionary *)parameter
+        parameters:(id)parameter
        cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
            success:(requestSuccessBlock)success
            failure:(requestFailureBlock)failure;
@@ -453,7 +453,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)syncHEAD:(NSString *)requestURLString
-      parameters:(NSDictionary *)parameter
+      parameters:(id)parameter
      cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
          success:(requestSuccessBlock)success
          failure:(requestFailureBlock)failure;
@@ -470,7 +470,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)syncPUT:(NSString *)requestURLString
-     parameters:(NSDictionary *)parameter
+     parameters:(id)parameter
         success:(requestSuccessBlock)success
         failure:(requestFailureBlock)failure;
 
@@ -486,7 +486,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)syncPUT:(NSString *)requestURLString
-     parameters:(NSDictionary *)parameter
+     parameters:(id)parameter
     cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
         success:(requestSuccessBlock)success
         failure:(requestFailureBlock)failure;
@@ -503,7 +503,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障处理回调
  */
 + (void)syncPATCH:(NSString *)requestURLString
-       parameters:(NSDictionary *)parameter
+       parameters:(id)parameter
       cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
           success:(requestSuccessBlock)success
           failure:(requestFailureBlock)failure;
@@ -522,7 +522,7 @@ cachePolicy:(CCHTTPRequestCachePolicy)cachePolicy
  *  @param failure          故障回调
  */
 + (void)Upload:(NSString *)requestURLString
-    parameters:(NSDictionary *)parameter
+    parameters:(id)parameter
     fileConfig:(HttpFileConfig *)fileConfig
        success:(requestSuccessBlock)success
        failure:(requestFailureBlock)failure;

@@ -55,6 +55,13 @@
  */
 - (void)didSendNotSuccessfulCallback;
 
+/**
+ 文本消息点击
+ 
+ @param linkStr 链接
+ */
+- (void)didMessageLinkClick:(NSString *)linkStr;
+
 @end
 
 @interface CCMessageBubbleView : UIView
@@ -138,6 +145,12 @@
 
 /** 文件视图 */
 @property(nonatomic, weak, readonly) UIView *fileView;
+
+/**
+ 红包
+ */
+@property(nonatomic, weak, readonly) UIImageView *redPackageView;
+
 
 /**
  *  设置文本消息的字体

@@ -155,6 +155,8 @@
 		420CD8BC1C59F9B9009578D4 /* UIScrollView+CCInputDodger.m in Sources */ = {isa = PBXBuildFile; fileRef = 420CD8B81C59F9B9009578D4 /* UIScrollView+CCInputDodger.m */; };
 		420CD8BD1C59F9B9009578D4 /* UIView+CCInputDodger.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CD8B91C59F9B9009578D4 /* UIView+CCInputDodger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		420CD8BE1C59F9B9009578D4 /* UIView+CCInputDodger.m in Sources */ = {isa = PBXBuildFile; fileRef = 420CD8BA1C59F9B9009578D4 /* UIView+CCInputDodger.m */; };
+		420D4C9E1DF8340500B96030 /* CCPathButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 420D4C9A1DF8340500B96030 /* CCPathButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		420D4C9F1DF8340500B96030 /* CCPathButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 420D4C9B1DF8340500B96030 /* CCPathButton.m */; };
 		421196A41D810A400041DAB8 /* UITableViewHeaderFooterView+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 421196A21D810A400041DAB8 /* UITableViewHeaderFooterView+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		421196A51D810A400041DAB8 /* UITableViewHeaderFooterView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 421196A31D810A400041DAB8 /* UITableViewHeaderFooterView+Additions.m */; };
 		4213943C1BF2D9F50046062B /* SRLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 4213943B1BF2D9F50046062B /* SRLog.h */; };
@@ -1523,6 +1525,8 @@
 		420CD8B81C59F9B9009578D4 /* UIScrollView+CCInputDodger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+CCInputDodger.m"; path = "CCInputDodger/UIScrollView+CCInputDodger.m"; sourceTree = "<group>"; };
 		420CD8B91C59F9B9009578D4 /* UIView+CCInputDodger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+CCInputDodger.h"; path = "CCInputDodger/UIView+CCInputDodger.h"; sourceTree = "<group>"; };
 		420CD8BA1C59F9B9009578D4 /* UIView+CCInputDodger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+CCInputDodger.m"; path = "CCInputDodger/UIView+CCInputDodger.m"; sourceTree = "<group>"; };
+		420D4C9A1DF8340500B96030 /* CCPathButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPathButton.h; sourceTree = "<group>"; };
+		420D4C9B1DF8340500B96030 /* CCPathButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPathButton.m; sourceTree = "<group>"; };
 		421196A21D810A400041DAB8 /* UITableViewHeaderFooterView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewHeaderFooterView+Additions.h"; sourceTree = "<group>"; };
 		421196A31D810A400041DAB8 /* UITableViewHeaderFooterView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewHeaderFooterView+Additions.m"; sourceTree = "<group>"; };
 		4213943B1BF2D9F50046062B /* SRLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRLog.h; sourceTree = "<group>"; };
@@ -3119,6 +3123,15 @@
 				420CD8BA1C59F9B9009578D4 /* UIView+CCInputDodger.m */,
 			);
 			name = CCInputDodger;
+			sourceTree = "<group>";
+		};
+		420D4C991DF8340500B96030 /* CCPathButton */ = {
+			isa = PBXGroup;
+			children = (
+				420D4C9A1DF8340500B96030 /* CCPathButton.h */,
+				420D4C9B1DF8340500B96030 /* CCPathButton.m */,
+			);
+			path = CCPathButton;
 			sourceTree = "<group>";
 		};
 		42105D131BDB1791003EE23E /* CoreDataFactory */ = {
@@ -5454,6 +5467,7 @@
 			isa = PBXGroup;
 			children = (
 				42C208E11BDDF91400C76004 /* Animation.h */,
+				420D4C991DF8340500B96030 /* CCPathButton */,
 				4229667D1C756428005E1C03 /* CCLaunchAnimation */,
 				422E91661C5F3212008F7DDA /* CCUnReadBubbleView */,
 				42068F391C576CDB005DFB01 /* CCPulsingHaloLayer */,
@@ -7524,6 +7538,7 @@
 				429CA0AF1B9EF8BF0013A44A /* SETextSelection.h in Headers */,
 				429CA0A31B9EF8BF0013A44A /* SETextEditingCaret.h in Headers */,
 				425477541BD2AEC20071BBC5 /* opensslv.h in Headers */,
+				420D4C9E1DF8340500B96030 /* CCPathButton.h in Headers */,
 				421DC61E1C85750E009E825B /* NSInvocation+Additions.h in Headers */,
 				4254776E1BD2AEC20071BBC5 /* ui.h in Headers */,
 				429CA0A71B9EF8BF0013A44A /* SETextInput.h in Headers */,
@@ -8078,6 +8093,7 @@
 				42DEB2A91C25495000734E09 /* CCInsetView.m in Sources */,
 				42068F2B1C5746A1005DFB01 /* CCPopMenuButton.m in Sources */,
 				429CA0861B9EF8BF0013A44A /* BUILabel.m in Sources */,
+				420D4C9F1DF8340500B96030 /* CCPathButton.m in Sources */,
 				42068F2F1C57472A005DFB01 /* GlowImageView.m in Sources */,
 				429CA1001B9EF8BF0013A44A /* CCFileAttribute.m in Sources */,
 				42A1F6451C8A7F6400A20F64 /* CCDebugHttpDataSource.m in Sources */,

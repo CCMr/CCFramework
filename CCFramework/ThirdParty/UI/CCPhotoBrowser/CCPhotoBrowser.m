@@ -103,6 +103,11 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    if (self.photoType != PhotoBrowserTypeShow) {
+        self.navigationController.navigationBar.translucent = NO;
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    }
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -160,12 +165,7 @@
     [self backButtonTouched:^(UIViewController *vc) {
         CCPhotoBrowser *viewController = (CCPhotoBrowser *)vc;
         if (viewController.backPhotoBlock) {
-            NSMutableArray *array = [NSMutableArray array];
-            [viewController.photos enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                CCPhoto *photo = obj;
-                [array addObject:photo.image];
-            }];
-            viewController.backPhotoBlock(array);
+            viewController.backPhotoBlock(viewController.photos);
         }
         [vc.navigationController popViewControllerAnimated:YES];
     }];

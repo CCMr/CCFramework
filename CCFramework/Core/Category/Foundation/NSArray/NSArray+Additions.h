@@ -187,6 +187,8 @@
 
 - (void)addRect:(CGRect)o;
 
+-(void)addRange:(NSRange)range;
+
 /**
  *  @author CC, 2015-07-22
  *

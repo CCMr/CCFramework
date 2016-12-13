@@ -49,6 +49,7 @@
 @property(nonatomic, copy) CCTableHelperCellIdentifierBlock cellIdentifierBlock;
 @property(nonatomic, copy) CCTableHelperDidSelectBlock didSelectBlock;
 @property(nonatomic, copy) CCTableHelperDidDeSelectBlock didDeSelectBlock;
+@property(nonatomic, copy) CCTableHelperDidMoveToRowBlock didMoveToRowBlock;
 @property(nonatomic, copy) CCTableHelperDidWillDisplayBlock didWillDisplayBlock;
 
 @property(nonatomic, copy) CCTableHelperDidEditingBlock didEditingBlock;
@@ -175,6 +176,11 @@
 - (void)didEditActions:(CCTableHelperDidEditActionsBlock)cb
 {
     self.didEditActionsBlock = cb;
+}
+
+-(void)didMoveToRowBlock:(CCTableHelperDidMoveToRowBlock)cb
+{
+    self.didMoveToRowBlock = cb;
 }
 
 - (void)cellWillDisplay:(CCTableHelperDidWillDisplayBlock)cb
@@ -415,6 +421,20 @@
     return curHeight;
 }
 
+-(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return self.isCanMoveRow;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+{
+    if (self.didMoveToRowBlock) {
+        id sourceModel = [self currentModelAtIndexPath:sourceIndexPath];
+        id destinationModel = [self currentModelAtIndexPath:destinationIndexPath];
+        self.didMoveToRowBlock(tableView,sourceIndexPath,sourceModel,destinationIndexPath,destinationModel);
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *curCell = nil;
@@ -551,6 +571,20 @@
     [self.cc_tableView reloadData];
 }
 
+- (void)cc_reloadGroupDataAry:(NSArray *)newDataAry 
+                   forSection:(NSInteger)cSection
+{
+    if (newDataAry.count == 0) return;
+    
+    NSMutableArray *subAry = self.dataArray[cSection];
+    if (subAry.count) [subAry removeAllObjects];
+    [subAry addObjectsFromArray:newDataAry];
+    
+    [self.cc_tableView beginUpdates];
+    [self.cc_tableView reloadSections:[NSIndexSet indexSetWithIndex:cSection] withRowAnimation:UITableViewRowAnimationNone];
+    [self.cc_tableView endUpdates];
+}
+
 - (void)cc_addGroupDataAry:(NSArray *)newDataAry
 {
     [self.dataArray addObject:[NSMutableArray arrayWithArray:newDataAry]];
@@ -592,6 +626,16 @@
         }
     }
     [self.cc_tableView reloadData];
+}
+
+-(void)cc_deleteGroupData:(NSInteger)cSection
+{
+    NSMutableArray *subAry = self.dataArray[cSection];
+    if (subAry.count) [subAry removeAllObjects];
+    
+    [self.cc_tableView beginUpdates];
+    [self.cc_tableView deleteSections:[NSIndexSet indexSetWithIndex:cSection] withRowAnimation:UITableViewRowAnimationNone];
+    [self.cc_tableView endUpdates];
 }
 
 - (void)cc_resetDataAry:(NSArray *)newDataAry

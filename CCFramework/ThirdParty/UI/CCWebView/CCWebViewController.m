@@ -130,7 +130,7 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
         }
     }];
     
-    [CCProgressHUD show:YES];
+    [CCProgressHUD showWithTitle:@"加载中..."];
 }
 
 - (void)loadRequest

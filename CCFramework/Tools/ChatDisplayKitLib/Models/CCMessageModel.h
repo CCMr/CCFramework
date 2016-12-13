@@ -48,8 +48,11 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMediaType) {
     CCBubbleMessageMediaTypeFile = 8,
     /** 媒体留言GIF图片类型 */
     CCBubbleMessageMediaTypeGIF = 9,
+    /** 媒体留言红包类型 */
+    CCBubbleMessageMediaTypeRedPackage = 10,
     /** 媒体通知消息类型 */
     CCBubbleMessageMediaTypeNotice = 20,
+    
 };
 
 /**
@@ -157,6 +160,9 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 - (NSString *)gifPath;
 - (NSString *)gifUrl;
 - (CGSize)gifSize;
+
+#pragma mark - 红包
+- (NSString *)redPackageTitle;
 
 /**
  *  @author CC, 2015-11-16

@@ -587,7 +587,7 @@ NSString *const CoreDataCurrentThreadContext = @"CoreData_CurrentThread_Context"
         } else
             destinationObjs = [NSClassFromString(desClassName) cc_NewOrUpdateWithArray:value inContext:self.managedObjectContext];
 
-        if (destinationObjs != nil && destinationObjs.count > 0) {
+        if (destinationObjs != nil) {
             if (isAdd) { //添加数据
                 if (relationshipDes.isOrdered) {
                     NSMutableOrderedSet *localOrderedSet = [self mutableOrderedSetValueForKey:relationshipName];

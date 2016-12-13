@@ -44,6 +44,7 @@
 {
     if (self = [super init]) {
         _objuniqueID = [NSString UUID];
+        _uniqueID = _objuniqueID;
     }
     return self;
 }
@@ -422,6 +423,28 @@
     return self;
 }
 
+/**
+ 初始化红包消息类型
+ 
+ @param redPackageTitle 红包标题
+ @param sender 发送人
+ @param timestamp 发送时间
+ */
+- (instancetype)initWithRedPackage:(NSString *)redPackageTitle
+                            sender:(NSString *)sender
+                         timestamp:(NSDate *)timestamp
+{
+    if (self = [super init]) {
+        _objuniqueID = [NSString UUID];
+        self.redPackageTitle = redPackageTitle;
+        self.sender = sender;
+        self.timestamp = timestamp;
+        
+        self.messageMediaType = CCBubbleMessageMediaTypeRedPackage;
+    }
+    return self;
+}
+
 #pragma mark - NSCoding
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -479,6 +502,8 @@
         
         _gifPath = [aDecoder decodeObjectForKey:@"gifPath"];
         _gifUrl = [aDecoder decodeObjectForKey:@"gifUrl"];
+        
+        _redPackageTitle = [aDecoder decodeObjectForKey:@"redPackageTitle"];
     }
     return self;
 }
@@ -537,6 +562,8 @@
     
     [aCoder encodeObject:self.gifPath forKey:@"gifPath"];
     [aCoder encodeObject:self.gifUrl forKey:@"gifUrl"];
+    
+    [aCoder encodeObject:self.redPackageTitle forKey:@"redPackageTitle"];
 }
 
 #pragma mark - NSCopying
@@ -582,14 +609,14 @@
             break;
         case CCBubbleMessageMediaTypeEmotion:
             message = [[[self class] allocWithZone:zone] initWithEmotionPath:[self.emotionPath copy]
-                                                                  EmotionUrl:self.emotionUrl
+                                                                  EmotionUrl:[self.emotionUrl copy]
                                                                       sender:[self.sender copy]
                                                                    timestamp:[self.timestamp copy]];
             message.emotionSize = _emotionSize;
             break;
         case CCBubbleMessageMediaTypeLocalPosition:
             message = [[[self class] allocWithZone:zone] initWithLocalPositionPhoto:[self.localPositionPhoto copy]
-                                                                       geolocations:self.geolocations
+                                                                       geolocations:[self.geolocations copy]
                                                                            location:[self.location copy]
                                                                              sender:[self.sender copy]
                                                                           timestamp:[self.timestamp copy]];
@@ -621,16 +648,22 @@
             break;
         case CCBubbleMessageMediaTypeGIF:
             message = [[[self class] allocWithZone:zone] initWithGIFPath:[self.gifPath copy]
-                                                                  GIFUrl:self.gifUrl
+                                                                  GIFUrl:[self.gifUrl copy]
                                                                   sender:[self.sender copy]
                                                                timestamp:[self.timestamp copy]];
             message.gifSize = _gifSize;
+            break;
+        case CCBubbleMessageMediaTypeRedPackage:
+            message = [[[self class] allocWithZone:zone] initWithRedPackage:[self.redPackageTitle copy] 
+                                                                     sender:[self.sender copy]
+                                                                  timestamp:[self.timestamp copy]];
             break;
         default:
             break;
     }
     
     message.objuniqueID = _objuniqueID;
+    message.uniqueID = _uniqueID;
     message.savePath = _savePath;
     message.objectID = _objectID;
     message.avatar = _avatar;
@@ -703,6 +736,8 @@
     
     _gifPath = nil;
     _gifUrl = nil;
+    
+    _redPackageTitle = nil;
 }
 
 

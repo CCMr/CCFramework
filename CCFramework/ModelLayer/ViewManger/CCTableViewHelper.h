@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NSString *__nonnull (^CCTableHelperCellIdentifierBlock)(NSIndexPath *cIndexPath, id cModel);
 typedef void (^CCTableHelperDidSelectBlock)(UITableView *tableView, NSIndexPath *cIndexPath, id cModel);
 typedef void (^CCTableHelperDidDeSelectBlock)(UITableView *tableView, NSIndexPath *cIndexPath, id cModel);
+
+typedef void (^CCTableHelperDidMoveToRowBlock)(UITableView *tableView, NSIndexPath *sourceIndexPath,id sourceModel,NSIndexPath *destinationIndexPath, id destinationModel);
+
 typedef void (^CCTableHelperDidWillDisplayBlock)(UITableViewCell *Cell, NSIndexPath *cIndexPath, id cModel, BOOL IsCelldisplay);
 
 typedef void (^CCTableHelperDidEditingBlock)(UITableView *tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath *cIndexPath, id cModel);
@@ -90,6 +93,11 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
  *  @brief 是否显示侧边字母
  */
 @property(nonatomic, assign) BOOL isSection;
+
+/**
+ 是否移动行
+ */
+@property(nonatomic, assign) BOOL isCanMoveRow;
 
 /**
  *  When using the storyboard and a single cell, set the property inspector same identifier
@@ -158,6 +166,11 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
 - (void)didEditActions:(CCTableHelperDidEditActionsBlock)cb;
 
 /**
+ 移动Cell
+ */
+- (void)didMoveToRowBlock:(CCTableHelperDidMoveToRowBlock)cb;
+
+/**
  *  @author CC, 16-03-19
  *
  *  @brief 设置Cell显示
@@ -218,6 +231,15 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
 - (void)cc_reloadGroupDataAry:(NSArray *)newDataAry;
 
 /**
+ 重新加载该分组数据
+
+ @param newDataAry 分组数据
+ @param cSection 分组下标
+ */
+- (void)cc_reloadGroupDataAry:(NSArray *)newDataAry 
+                   forSection:(NSInteger)cSection;
+
+/**
  *  @author C C, 2016-09-29
  *  
  *  @brief  添加分组数据
@@ -249,6 +271,14 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
  */
 - (void)cc_insertMultiplGroupDataAry:(NSArray *)newDataAry
                           forSection:(NSInteger)cSection;
+
+
+/**
+ 删除分组数据
+
+ @param cSection 分组下标
+ */
+-(void)cc_deleteGroupData:(NSInteger)cSection;
 
 /**
  *  @author CC, 16-05-18

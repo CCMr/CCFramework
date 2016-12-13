@@ -195,7 +195,11 @@ static NSString *const kCCLogoView = @"kCCLogoView";
 }
 - (CGPoint)bottomContentOffset
 {
-    return CGPointMake(0.0f, self.contentSize.height + self.contentInset.bottom - self.bounds.size.height);
+    NSInteger height = self.contentSize.height + self.contentInset.bottom - self.bounds.size.height;
+    if (height < 0)
+        height = 0;
+    
+    return CGPointMake(0.0f, height);
 }
 - (CGPoint)leftContentOffset
 {

@@ -111,6 +111,9 @@
 @property(nonatomic, copy) NSString *gifUrl;
 @property(nonatomic, assign) CGSize gifSize;
 
+#pragma mark 红包
+@property(nonatomic, copy) NSString *redPackageTitle;
+
 /**
  *  @author CC, 16-08-25
  *
@@ -424,5 +427,16 @@
                          GIFUrl:(NSString *)gifUrl
                          sender:(NSString *)sender
                       timestamp:(NSDate *)timestamp;
+
+/**
+ 初始化红包消息类型
+ 
+ @param redPackageTitle 红包标题
+ @param sender 发送人
+ @param timestamp 发送时间
+ */
+- (instancetype)initWithRedPackage:(NSString *)redPackageTitle
+                            sender:(NSString *)sender
+                         timestamp:(NSDate *)timestamp;
 
 @end

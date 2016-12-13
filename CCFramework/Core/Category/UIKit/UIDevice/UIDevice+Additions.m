@@ -207,6 +207,12 @@
     if ([hardware isEqualToString:@"iPhone6,2"]) return @"iPhone 5s";     // (A1457/A1518/A1528/A1530)
     if ([hardware isEqualToString:@"iPhone7,1"]) return @"iPhone 6 Plus"; // (A1522/A1524)
     if ([hardware isEqualToString:@"iPhone7,2"]) return @"iPhone 6";      // (A1549/A1586)
+    if ([hardware isEqualToString:@"iPhone8,1"]) return @"iPhone 6s";
+    if ([hardware isEqualToString:@"iPhone8,2"]) return @"iPhone 6s Plus";
+    if ([hardware isEqualToString:@"iPhone8,3"]) return @"iPhone SE";
+    if ([hardware isEqualToString:@"iPhone8,4"]) return @"iPhone SE";
+    if ([hardware isEqualToString:@"iPhone9,1"]) return @"iPhone 7";
+    if ([hardware isEqualToString:@"iPhone9,2"]) return @"iPhone 7 Plus";
     
     if ([hardware isEqualToString:@"iPod1,1"]) return @"iPod Touch 1G"; // (A1213)
     if ([hardware isEqualToString:@"iPod2,1"]) return @"iPod Touch 2G"; // (A1288)

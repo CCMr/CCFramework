@@ -48,14 +48,14 @@
     if (self) {
         // Initialization code
         self.menuItem = menuItem;
-
+        
         self.iconImageView = [[GlowImageView alloc] initWithFrame:CGRectMake(0, 0, menuItem.iconImage.size.width, menuItem.iconImage.size.height)];
         self.iconImageView.userInteractionEnabled = NO;
         [self.iconImageView setImage:menuItem.iconImage forState:UIControlStateNormal];
         self.iconImageView.glowColor = menuItem.glowColor;
         self.iconImageView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.iconImageView.bounds));
         [self addSubview:self.iconImageView];
-
+        
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.iconImageView.frame), CGRectGetWidth(self.bounds), 35)];
         self.titleLabel.textColor = [UIColor whiteColor];
         self.titleLabel.backgroundColor = [UIColor clearColor];
@@ -88,7 +88,11 @@
         scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.3, 1.3)];
         [self pop_addAnimation:scaleAnimation forKey:@"scaleAnimationKey"];
     }
-     self.isClick = YES;
+    self.isClick = YES;
+    [self.superview.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.userInteractionEnabled = NO;
+    }];
+    self.userInteractionEnabled = YES;
 }
 
 - (void)touchesCancelled:(NSSet *)touches
@@ -107,7 +111,7 @@
     scaleAnimation.completionBlock = ^(POPAnimation *anim, BOOL finished) {
         if (completed) {
             completed(finished);
-
+            
         }
     };
     [self pop_addAnimation:scaleAnimation forKey:@"scaleAnimationKey"];
@@ -116,6 +120,9 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self disMissCompleted:^(BOOL finished) {
+        [self.superview.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            obj.userInteractionEnabled = YES;
+        }];
         if (self.didSelctedItemCompleted) {
             self.didSelctedItemCompleted(self.menuItem);
         }

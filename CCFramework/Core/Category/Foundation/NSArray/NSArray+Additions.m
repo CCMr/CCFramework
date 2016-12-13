@@ -78,7 +78,7 @@
         return @"";
     NSMutableString *variableStr = [NSMutableString string];
     [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [variableStr appendFormat:@"%@",obj];
+        [variableStr appendFormat:@"%@,",obj];
     }];
 
     NSString *strForRigth = [variableStr substringWithRange:NSMakeRange(0, variableStr.length - 1)];
@@ -686,6 +686,11 @@
 - (void)addRect:(CGRect)o
 {
     [self addObject:NSStringFromCGRect(o)];
+}
+
+-(void)addRange:(NSRange)range
+{
+    [self addObject:NSStringFromRange(range)];
 }
 
 /**

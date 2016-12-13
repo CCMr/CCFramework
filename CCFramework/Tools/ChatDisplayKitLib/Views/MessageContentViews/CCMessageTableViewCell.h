@@ -127,13 +127,29 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
                                  atIndexPath:(NSIndexPath *)indexPath;
 
 /**
+ 文本链接
+
+ @param linkStr 链接
+ */
+- (void)didMessageLinkClick:(NSString *)linkStr;
+
+/**
  *  @author C C, 2016-10-06
  *  
  *  @brief  选中长按
  */
 -(void)didSelectedPress:(BOOL)isCellPress;
 
+-(void)didPressAvatar:(id)sender;
+
 #pragma mark - Menu Actions
+
+/**
+ 备忘录
+ */
+- (void)didSelectedMemo:(id<CCMessageModel>)message 
+            atIndexPath:(NSIndexPath *)indexPath;
+
 /**
  *  @author CC, 2015-11-16
  *  

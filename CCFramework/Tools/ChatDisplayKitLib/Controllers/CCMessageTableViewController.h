@@ -174,7 +174,6 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
  */
 - (BOOL)shouldDisplayTimestampForRowAtIndexPath:(NSIndexPath *)indexPath
                                   targetMessage:(id<CCMessageModel>)message;
-;
 
 /**
  *  配置Cell的样式或者字体
@@ -205,6 +204,15 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 - (void)loadMoreMessagesScrollTotop;
 
 /**
+ 判断是否支持上拉加载更多消息
+ */
+-(BOOL)shouldLoadMoreMessagesScrollToUnder;
+/**
+ *  上拉加载更多消息，只有在支持上拉加载更多消息的情况下才会调用。
+ */
+- (void)loadMoreMessagesScrollToUnder;
+
+/**
  *  配置TableViewCell高度的方法，如果你想定制自己的Cell样式，那么你必须要实现DataSource中的方法
  - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath targetMessage:(id<XHMessageModel>)message;
  *
@@ -217,6 +225,8 @@ static NSString *const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath
 	      targetMessage:(id<CCMessageModel>)message;
+
+-(void)shouldChangeCharactersInRange:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;
 
 @end
 
@@ -364,6 +374,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
  *  @param objects 添加多条目标消息对象
  */
 - (void)addMessages:(NSArray *)objects;
+- (void)addDeduplicationMessages:(NSArray *)oldMessages
+                      completion:(void (^)(NSMutableArray **arr))completion;
+- (void)addOldMessages:(NSArray *)oldMessages
+         deduplication:(NSString *)keyName;
 
 /**
  *  @author CC, 15-09-16

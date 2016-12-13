@@ -106,7 +106,7 @@ static char BUTTONCARRYOBJECTS;
         viewSize = [self sizeThatFits:CGSizeMake(contentViewWidth, 0)];
     }
     
-    if (viewSize.height == 0)
+    if (viewSize.height < CGRectGetHeight(self.frame))
         viewSize.height = CGRectGetHeight(self.frame);
     
     return viewSize;

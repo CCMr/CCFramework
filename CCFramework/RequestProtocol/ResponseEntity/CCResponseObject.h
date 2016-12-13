@@ -63,7 +63,7 @@
 
 
 #pragma mark -_- 汇信
-@property(nonatomic, assign) BOOL code;
+@property(nonatomic, assign) NSInteger code;
 
 @property(nonatomic, copy) id bodyMessage;
 

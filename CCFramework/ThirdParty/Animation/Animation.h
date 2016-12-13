@@ -31,5 +31,6 @@
 #import <CCFramework/POP.h>
 #import <CCFramework/CCUnReadBubbleView.h>
 #import <CCFramework/CCLaunchAnimation.h>
+#import <CCFramework/CCPathButton.h>
 
 #endif

@@ -30,6 +30,12 @@
 #import "Config.h"
 #import "CCHTTPManager.h"
 
+@interface CCAudioPlayerHelper ()
+
+@property(nonatomic, assign) BOOL secondaryAudioShouldBeSilencedHint;
+
+@end
+
 @implementation CCAudioPlayerHelper
 
 #pragma mark - Public Methed
@@ -65,8 +71,14 @@
     if ([self.delegate respondsToSelector:@selector(didAudioPlayerStopPlay:)]) {
         [self.delegate didAudioPlayerStopPlay:_player];
     }
+    
+    if (self.didAudioPlayerStopPlay)
+        self.didAudioPlayerStopPlay(_player);
 
-    [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+    if (self.secondaryAudioShouldBeSilencedHint) {
+        self.secondaryAudioShouldBeSilencedHint = NO;
+        [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+    }
 }
 
 #pragma mark - action
@@ -76,6 +88,7 @@
 {
     if (fileName.length > 0) {
         
+        self.secondaryAudioShouldBeSilencedHint = [AVAudioSession sharedInstance].secondaryAudioShouldBeSilencedHint;
         //不随着静音键和屏幕关闭而静音。code by Aevit
 //        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
         
@@ -211,6 +224,11 @@
 - (void)dealloc
 {
     [self changeProximityMonitorEnableState:NO];
+}
+
+-(void)setDidAudioPlayerStopPlay:(void (^)(AVAudioPlayer *))didAudioPlayerStopPlay
+{
+    _didAudioPlayerStopPlay = didAudioPlayerStopPlay;
 }
 
 #pragma mark - audio delegate

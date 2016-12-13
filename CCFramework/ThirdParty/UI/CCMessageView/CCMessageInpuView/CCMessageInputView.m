@@ -567,12 +567,19 @@
     if ([text isEqualToString:@"\n"]) {
         if ([self.delegate respondsToSelector:@selector(didSendTextAction:)]) {
             [self.delegate didSendTextAction:textView.text];
+            textView.text = nil;
+            [textView setContentOffset:CGPointZero animated:YES]; 
+            [textView scrollRangeToVisible:textView.selectedRange]; 
         }
         return NO;
     }
     
     if ([self.delegate respondsToSelector:@selector(inputTextViewDidChangeText:)])
         [self.delegate inputTextViewDidChangeText:self.inputTextView];
+    
+    if ([self.delegate respondsToSelector:@selector(didTextShouldChangeCharactersInRange:shouldChangeTextInRange:replacementText:)]) {
+        [self.delegate didTextShouldChangeCharactersInRange:textView shouldChangeTextInRange:range replacementText:text];
+    }
     
     return YES;
 }

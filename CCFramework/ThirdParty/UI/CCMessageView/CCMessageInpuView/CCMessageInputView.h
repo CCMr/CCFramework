@@ -177,6 +177,8 @@ typedef NS_ENUM(NSInteger, CCMessageInputViewStyle) {
 
 -(void)didTextDidChange:(UITextView *)textView;
 
+-(void)didTextShouldChangeCharactersInRange:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;
+
 @end
 
 @interface CCMessageInputView : UIImageView

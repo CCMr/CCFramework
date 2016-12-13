@@ -81,7 +81,7 @@
     [self composeInterface];
     
     [[_captureManager captureSession] startRunning];
-    [self.view addSubview:self.preViewPhoto];
+//    [self.view addSubview:self.preViewPhoto];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -94,7 +94,6 @@
 #pragma mark - Setup
 
 -(void)setupCaptureManager:(CameraType)camera {
-    
     // remove existing input
     AVCaptureInput* currentCameraInput = [self.captureManager.captureSession.inputs objectAtIndex:0];
     [self.captureManager.captureSession removeInput:currentCameraInput];
@@ -136,7 +135,7 @@
 -(void)composeInterface {
     
     //Adding notifier for orientation changes
-    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)    name:UIDeviceOrientationDidChangeNotification  object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)    name:UIDeviceOrientationDidChangeNotification  object:nil];
     
     //Define adaptable sizing variables for UI elements to the right device family (iPhone or iPad)
     if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ){
@@ -226,6 +225,10 @@
         _focalReticule.hidden = YES;
         [self.view addSubview:_focalReticule];
     }
+    
+    [self.preViewPhoto removeFromSuperview];
+    [self.view addSubview:self.preViewPhoto];
+    [self.view bringSubviewToFront:self.preViewPhoto];
     
     //Create the gesture recognizer for the focus tap
     UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(focusGesture:)];

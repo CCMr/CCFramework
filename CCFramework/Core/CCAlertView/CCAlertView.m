@@ -64,9 +64,21 @@
    withButtonTitleArray:(NSArray *)buttonTitles
   OnButtonTouchUpInside:(void (^)(NSInteger buttonIndex))onButtonTouchUpInside
 {
+    NSMutableArray *buttons = [NSMutableArray array];
+    for (id button in buttonTitles) {
+        if ([button isKindOfClass:[NSString class]]) {
+            CCAlertModel *alertModel = [[CCAlertModel alloc] init];
+            alertModel.Title = button;
+            alertModel.TitleColor = [UIColor colorWithRed:0.0f green:0.5f blue:1.0f alpha:1.0f];
+            [buttons addObject:alertModel];
+        }else{
+            [buttons addObject:button];
+        }
+    }
+    
     [self showWithMessage:nil
               withMessage:message
-     withButtonTitleArray:buttonTitles
+     withButtonTitleArray:buttons
     OnButtonTouchUpInside:onButtonTouchUpInside];
 }
 
@@ -85,7 +97,7 @@
    withButtonTitleArray:(NSArray *)buttonTitles
   OnButtonTouchUpInside:(void (^)(NSInteger buttonIndex))onButtonTouchUpInside
 {
-    CGFloat heigth = 0;
+    CGFloat heigth = 20;
     UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 224, 0)];
     
     if (title && ![title isEqualToString:@""]) {
@@ -100,23 +112,33 @@
     if (message && ![message isEqualToString:@""]) {
         CGFloat h = [message calculateTextWidthWidth:containerView.width Font:[UIFont systemFontOfSize:15]].height;
         
-        if (h < 50)
-            h = 50;
-        
-        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, heigth + 10, containerView.width - 20, h)];
+        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, heigth, containerView.width - 20, h)];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
         messageLabel.font = [UIFont systemFontOfSize:15];
         messageLabel.text = message;
         [containerView addSubview:messageLabel];
         
-        heigth = messageLabel.bottom + 10;
+        heigth = messageLabel.bottom + 20;
     }
     
     containerView.frame = CGRectMake(0, 0, 224, heigth);
     
+    NSMutableArray *buttons = [NSMutableArray array];
+    for (id button in buttonTitles) {
+        if ([button isKindOfClass:[NSString class]]) {
+            CCAlertModel *alertModel = [[CCAlertModel alloc] init];
+            alertModel.Title = button;
+            alertModel.TitleColor = [UIColor colorWithRed:0.0f green:0.5f blue:1.0f alpha:1.0f];
+            [buttons addObject:alertModel];
+        }else{
+            [buttons addObject:button];
+        }
+    }
+
+    
     [self showWithContainerView:containerView
-           withButtonTitleArray:buttonTitles
+           withButtonTitleArray:buttons
           OnButtonTouchUpInside:^(UIView *containerView, NSInteger buttonIndex) {
               onButtonTouchUpInside?onButtonTouchUpInside(buttonIndex):nil;
           }];
@@ -166,7 +188,20 @@
 {
     CustomIOSAlertView *alertView = [self alertView];
     [alertView setContainerView:containerView];
-    [alertView setButtonTitles:buttonTitles];
+    
+    NSMutableArray *buttons = [NSMutableArray array];
+    for (id button in buttonTitles) {
+        if ([button isKindOfClass:[NSString class]]) {
+            CCAlertModel *alertModel = [[CCAlertModel alloc] init];
+            alertModel.Title = button;
+            alertModel.TitleColor = [UIColor colorWithRed:0.0f green:0.5f blue:1.0f alpha:1.0f];
+            [buttons addObject:alertModel];
+        }else{
+            [buttons addObject:button];
+        }
+    }
+    
+    [alertView setButtonTitles:buttons];
     [alertView setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
         if (onButtonTouchUpInside)
             onButtonTouchUpInside(alertView.containerView,buttonIndex);

@@ -46,6 +46,8 @@
 
 @property(nonatomic, strong) NSString *aVAudioSessionCategory;
 
+@property(nonatomic, assign) BOOL secondaryAudioShouldBeSilencedHint;
+
 @end
 
 @implementation CCVoiceRecordHelper
@@ -123,6 +125,11 @@
     }
     [self cancelRecording];
     [self resetTimer];
+    
+    if (self.secondaryAudioShouldBeSilencedHint) {
+        self.secondaryAudioShouldBeSilencedHint = NO;
+        [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+    }
 }
 
 -(BOOL)isRecording
@@ -139,6 +146,8 @@
     WEAKSELF;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         _isPause = NO;
+        
+        self.secondaryAudioShouldBeSilencedHint = [AVAudioSession sharedInstance].secondaryAudioShouldBeSilencedHint;
         
         NSError *error = nil;
         AVAudioSession *audioSession = [AVAudioSession sharedInstance];
@@ -239,7 +248,6 @@
 
 - (void)cancelledDeleteWithCompletion:(CCCancellRecorderDeleteFileCompletion)cancelledDeleteCompletion
 {
-    
     _isPause = NO;
     [self stopBackgroundTask];
     [self stopRecord];
@@ -304,6 +312,7 @@
                 [self stopRecord];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     _maxTimeStopRecorderCompletion();
+                    _isSend = NO;
                 });
             }
         }

@@ -48,6 +48,10 @@
  */
 @property(nonatomic, assign) BOOL isUserScrolling;
 
+@property(nonatomic, assign) BOOL isLoading;
+
+@property(nonatomic, assign) BOOL isPullUp;
+
 /**
  *  记录旧的textView contentSize Heigth
  */
@@ -277,8 +281,8 @@
 
 - (void)addMessage:(CCMessage *)addedMessage
 {
-    if (addedMessage.bubbleMessageType == CCBubbleMessageTypeSending)
-        [self finishSendMessageWithBubbleMessageType:addedMessage.messageMediaType];
+    //    if (addedMessage.bubbleMessageType == CCBubbleMessageTypeSending)
+    //        [self finishSendMessageWithBubbleMessageType:addedMessage.messageMediaType];
     
     [self addMessages:@[ addedMessage ]];
 }
@@ -296,8 +300,8 @@
         }else{
             NSMutableArray *messages = [NSMutableArray arrayWithArray:weakSelf.messages];
             if (self.operationMessage.count > 0){
-                messages = [NSMutableArray arrayWithArray:self.operationMessage];
-                [self.operationMessage removeAllObjects];
+                messages = [NSMutableArray arrayWithArray:weakSelf.operationMessage];
+                [weakSelf.operationMessage removeAllObjects];
             }
             
             [messages addObjectsFromArray:objects];
@@ -311,6 +315,43 @@
         }];
     }];
 }
+
+- (void)addDeduplicationMessages:(NSArray *)oldMessages
+                      completion:(void (^)(NSMutableArray **arr))completion
+{
+    if (oldMessages.count != 0) {
+        typeof(self) __weak weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            __block NSMutableArray *messages = [[NSMutableArray alloc] initWithArray:weakSelf.messages];
+            [messages addObjectsFromArray:oldMessages];
+            
+            if (completion) 
+                completion(&messages);
+            
+            weakSelf.messages = messages; 
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.messageTableView reloadData];
+                weakSelf.isLoading = NO;
+                weakSelf.isPullUp = NO;
+            });
+        });
+    } else {
+        self.isLoading = NO;
+        self.isPullUp = NO;
+    }
+}
+
+- (void)addOldMessages:(NSArray *)oldMessages
+         deduplication:(NSString *)keyName
+{
+    [self addDeduplicationMessages:oldMessages completion:^(NSMutableArray *__autoreleasing *arr) {
+        NSMutableArray *array = [NSMutableArray arrayWithArray:*arr];
+        [array deduplication:@[keyName]];
+        *arr = [[array sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES]]] mutableCopy];
+    }];
+}
+
+
 
 /**
  *  @author CC, 15-09-16
@@ -405,7 +446,7 @@
 {
     if (oldMessages.count != 0) {
         typeof(self) __weak weakSelf = self;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             __block NSMutableArray *messages = [[NSMutableArray alloc] initWithArray:weakSelf.messages];
             [[[oldMessages reverseObjectEnumerator] allObjects] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 [messages insertObject:obj atIndex:0];
@@ -418,10 +459,12 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.messageTableView reloadData];
                 weakSelf.loadingMoreMessage = NO;
+                weakSelf.isLoading = NO;
             });
         });
     } else {
         self.loadingMoreMessage = NO;
+        self.isLoading = NO;
     }
 }
 
@@ -799,6 +842,7 @@
     if (shouldLoadMoreMessagesScrollToTop) {
         messageTableView.tableHeaderView = self.headerContainerView;
     }
+    
     
     [self.view addSubview:messageTableView];
     [self.view sendSubviewToBack:messageTableView];
@@ -1304,7 +1348,16 @@
         range.location = self.messageInputView.inputTextView.text.length;
     
     if (range.length > 0) {
+        UIFont *font = self.messageInputView.inputTextView.font;
+        NSString *text = self.messageInputView.inputTextView.text;
+        if (text.length == range.length) {
+            [self.teletextPath removeAllObjects];
+        }
+        text  = [text substringToIndex:text.length - range.length];
+        self.messageInputView.inputTextView.text = text;
+        self.messageInputView.inputTextView.selectedRange = NSMakeRange(range.location, range.length - 1);
         [self.messageInputView.inputTextView deleteBackward];
+        
         return;
     }else{
         
@@ -1469,7 +1522,6 @@
     [self.voiceRecordHelper stopRecordingWithStopRecorderCompletion:^{
         [self.voiceRecordHUD stopRecordCompled:^(BOOL fnished) {
             weakSelf.voiceRecordHUD = nil;
-            [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
             [weakSelf didSendMessageWithVoice:weakSelf.voiceRecordHelper.recordPath voiceDuration:weakSelf.voiceRecordHelper.recordDuration];
         }];
     }];
@@ -1527,15 +1579,16 @@
     NSString *obj = notification.object;
     if ([obj isEqualToString:@"Lock screen"]) {
         
-        if (_currentSelectedUUID)
+        if (_currentSelectedUUID){
             [self stopVoice:_currentSelectedUUID];
+            [self voicePlayFinished:NO];
+        }
         
         if (![self.voiceRecordHelper isRecording])
             return;
         WEAKSELF;
         [self.voiceRecordHelper stopRecordingWithStopRecorderCompletion:^{
             [weakSelf didSendMessageWithVoice:weakSelf.voiceRecordHelper.recordPath voiceDuration:weakSelf.voiceRecordHelper.recordDuration];
-            [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
             [self.voiceRecordHUD stopRecordCompled:^(BOOL fnished) {
                 weakSelf.voiceRecordHUD = nil;
             }];
@@ -1544,6 +1597,13 @@
 }
 
 #pragma mark - CCMessageInputView Delegate
+
+
+-(void)didTextShouldChangeCharactersInRange:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if ([self.delegate respondsToSelector:@selector(shouldChangeCharactersInRange:shouldChangeTextInRange:replacementText:)])
+        [self.delegate shouldChangeCharactersInRange:textView shouldChangeTextInRange:range replacementText:text];
+}
 
 - (void)inputTextViewWillBeginEditing:(CCMessageTextView *)messageInputTextView
 {
@@ -1568,6 +1628,9 @@
 
 - (void)didSendTextAction:(NSString *)text
 {
+    self.messageInputView.inputTextView.text = nil;
+    [self.messageInputView.inputTextView setContentOffset:CGPointZero animated:YES]; 
+    [self.messageInputView.inputTextView scrollRangeToVisible:self.messageInputView.inputTextView.selectedRange]; 
     if ([text rangeOfString:OBJECT_REPLACEMENT_CHARACTER].location != NSNotFound) { //图文消息
         if ([self.delegate respondsToSelector:@selector(didSendTeletext:TeletextPath:fromSender:onDate:)]) {
             [self.delegate didSendTeletext:text
@@ -1732,6 +1795,18 @@
 
 #pragma mark - UIScrollView Delegate
 
+-(BOOL)isBottom
+{
+    CGFloat height = self.messageTableView.frame.size.height;
+    CGFloat contentYoffset = self.messageTableView.contentOffset.y;
+    CGFloat distanceFromBottom = self.messageTableView.contentSize.height - contentYoffset;
+    BOOL isBottom = NO;
+    if (distanceFromBottom < height) {
+        isBottom = YES;
+    }
+    return isBottom;
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if ([self.delegate respondsToSelector:@selector(shouldLoadMoreMessagesScrollToTop)]) {
@@ -1740,14 +1815,38 @@
             if (!self.messageTableView.tableHeaderView)
                 self.messageTableView.tableHeaderView = self.headerContainerView;
             
-            if (scrollView.contentOffset.y < 0 && !self.loadingMoreMessage) {
-                self.loadingMoreMessage = YES;
-                if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollTotop)]) {
-                    [self.delegate loadMoreMessagesScrollTotop];
-                }
-            }
+            if (scrollView.contentOffset.y < 0 && !self.loadingMoreMessage && !self.isLoading)
+                self.loadingMoreMessage = YES;               
+            
         } else {
             //            self.messageTableView.tableHeaderView = nil;
+        }
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(shouldLoadMoreMessagesScrollToUnder)]) {
+        BOOL shouldLoadMoreMessages = [self.delegate shouldLoadMoreMessagesScrollToUnder];
+        if (shouldLoadMoreMessages && !self.messageTableView.isEditing) {
+            if ([self isBottom] && !self.isPullUp && !self.isLoading)
+                self.isPullUp = YES;
+        } else {
+            //            self.messageTableView.tableHeaderView = nil;
+        }
+    }
+}
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (self.loadingMoreMessage && !self.isLoading) {
+        self.isLoading = YES;
+        if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollTotop)]) {
+            [self.delegate loadMoreMessagesScrollTotop];
+        }
+    }
+    
+    if (self.isPullUp && !self.isLoading) {
+        self.isLoading = YES;
+        if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollToUnder)]) {
+            [self.delegate loadMoreMessagesScrollToUnder];
         }
     }
 }
@@ -1767,6 +1866,19 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     self.isUserScrolling = NO;
+    if (self.loadingMoreMessage && !self.isLoading) {
+        self.isLoading = YES;
+        if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollTotop)]) {
+            [self.delegate loadMoreMessagesScrollTotop];
+        }
+    }
+    
+    if (self.isPullUp && !self.isLoading) {
+        self.isLoading = YES;
+        if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollToUnder)]) {
+            [self.delegate loadMoreMessagesScrollToUnder];
+        }
+    }
 }
 
 #pragma mark - CCMessageTableViewController toucheDelegate
@@ -1916,6 +2028,7 @@
     self.isCellPress = isCellPress;
     if (_currentSelectedUUID) {
         [self stopVoice:_currentSelectedUUID];
+        [self voicePlayFinished:NO];
     }
 }
 

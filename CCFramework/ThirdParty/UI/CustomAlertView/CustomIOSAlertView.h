@@ -25,6 +25,17 @@
 
 #import <UIKit/UIKit.h>
 
+@interface CCAlertModel : NSObject
+
+@property(nonatomic, copy) NSString *Title;
+@property(nonatomic, copy) UIColor *TitleColor;
+
+-(instancetype)initWithTitle:(NSString *)title 
+                  TitleColor:(UIColor *)color;
+
+@end
+
+
 @protocol CustomIOSAlertViewDelegate
 
 - (void)customIOS7dialogButtonTouchUpInside:(id)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
@@ -63,3 +74,5 @@
 - (void)dealloc;
 
 @end
+
+
