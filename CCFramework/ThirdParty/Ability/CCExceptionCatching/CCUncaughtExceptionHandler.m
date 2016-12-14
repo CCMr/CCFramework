@@ -30,6 +30,7 @@
 #import <UIKit/UIKit.h>
 #import "NSDate+Additions.h"
 #import "CCDebugCrashHelper.h"
+#include <sys/signal.h>
 
 NSString *const UncaughtExceptionHandlerSignalExceptionName = @"UncaughtExceptionHandlerSignalExceptionName";
 NSString *const UncaughtExceptionHandlerSignalKey = @"UncaughtExceptionHandlerSignalKey";

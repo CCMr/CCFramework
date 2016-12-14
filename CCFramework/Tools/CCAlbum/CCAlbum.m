@@ -27,52 +27,84 @@
 #import "TZImageManager.h"
 #import "TZAssetModel.h"
 #import <MobileCoreServices/UTCoreTypes.h>
+#import "CCProperty.h"
+
+#define documentFolder [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]
+
+@interface CCAlbum ()
+
+@property(nonatomic, strong) NSString *representedAssetIdentifier;
+@property(nonatomic, assign) PHImageRequestID imageRequestID;
+
+@property(nonatomic, copy) void (^photosBlock)(NSArray *photos);
+
+@end
 
 @implementation CCAlbum
 
-/**
- 获取相机胶卷所有照片
- */
-+(void)cameraRolls:(void (^)(NSArray *photos))block
+-(void)cameraRolls:(float)photoWith PhotoBlock:(void (^)(NSArray *photos))block
 {
-   __block void (^photosBlock)(NSArray *photos) = block;
+    self.photosBlock = block;
+    [TZImageManager manager].columnNumber = 4;
     [TZImageManager manager].photoPreviewMaxWidth = 600;
     [TZImageManager manager].shouldFixOrientation = YES;
     [[TZImageManager manager] getCameraRollAlbum:NO allowPickingImage:YES completion:^(TZAlbumModel *model) {
-        [[TZImageManager manager] getAssetsFromFetchResult:model.result allowPickingVideo:NO allowPickingImage:YES completion:^(NSArray<TZAssetModel *> *models) {
-             __block NSMutableArray *photos = [NSMutableArray array];
-            for (NSInteger i = 0; i < models.count; i++) {
+        [[TZImageManager manager] getAssetsFromFetchResult:model.result allowPickingVideo:NO allowPickingImage:YES completion:^(NSArray<TZAssetModel *> *models) {            
+            __block NSMutableArray *photos = [NSMutableArray arrayWithArray:models];
+            for (NSInteger i =  0; i < models.count; i++) {
                 TZAssetModel *assetModel = [models objectAtIndex:i];
-                [photos addObject:@1];
-                [[TZImageManager manager] getPhotoWithAsset:assetModel.asset completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
-                    if (isDegraded) return;
-                    if (photo) {
-                        NSString *imageType;
-                        NSString *imageFileURL = [info objectForKey:@"PHImageFileURLKey"];
-                        if ([info[@"PHImageFileUTIKey"] isEqualToString:(__bridge NSString *)kUTTypeGIF]) {
-                            imageType = @"gif";
-                        }else if ([info[@"PHImageFileUTIKey"] isEqualToString:(__bridge NSString *)kUTTypeJPEG]){
-                            imageType = @"jpge";
-                        }else if ([info[@"PHImageFileUTIKey"] isEqualToString:(__bridge NSString *)kUTTypePNG]){
-                            imageType = @"png";
-                        }
-                        
-                        NSMutableDictionary *imageDic = [NSMutableDictionary dictionary];
-                        [imageDic setObject:photo forKey:@"image"];
-                        [imageDic setObject:imageType?:@"" forKey:@"imageType"];
-                        [imageDic setObject:imageFileURL?:@"" forKey:@"imageFileURL"];
-                        [photos replaceObjectAtIndex:i withObject:imageDic];
-                        
-                        NSArray *arr = [photos filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF == %d", 1]];
-                        if (arr.count != 0)
-                            return;
-                        
-                        photosBlock?photosBlock(photos):nil;
+                if (iOS8Later) {
+                    self.representedAssetIdentifier = [[TZImageManager manager] getAssetIdentifier:assetModel.asset];
+                }
+                PHImageRequestID imageRequestID = [[TZImageManager manager] getPhotoWithAsset:assetModel.asset photoWidth:photoWith completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+                    NSMutableDictionary *imageDic = [NSMutableDictionary dictionary];
+                    if (!iOS8Later) {
+                        [imageDic setObject:photo forKey:@"image"]; return ;
                     }
-                }];
+                    if ([self.representedAssetIdentifier isEqualToString:[[TZImageManager manager] getAssetIdentifier:assetModel.asset]]) {
+                        [imageDic setObject:photo forKey:@"image"];
+                    } else {
+                        [[PHImageManager defaultManager] cancelImageRequest:self.imageRequestID];
+                    }
+                    if (!isDegraded) {
+                        self.imageRequestID = 0;
+                    }else{
+                        [imageDic setObject:assetModel.asset forKey:@"asset"];
+                        [photos replaceObjectAtIndex:i withObject:imageDic];
+                        for (id item in photos) { if ([item isKindOfClass:[TZAssetModel class]]) return;}
+                        self.photosBlock?self.photosBlock(photos):nil;
+
+                    }
+                } progressHandler:nil networkAccessAllowed:NO];
+                if (imageRequestID && self.imageRequestID && imageRequestID != self.imageRequestID) {
+                    [[PHImageManager defaultManager] cancelImageRequest:self.imageRequestID];
+                    // NSLog(@"cancelImageRequest %d",self.imageRequestID);
+                }
+                self.imageRequestID = imageRequestID;
             }
         }];
     }];
+}
+
+
+/**
+ 获取一组相片大小
+ */
++ (void)photosBytesWithArray:(NSArray *)photos completion:(void (^)(NSInteger totalBytes))completion 
+{
+    [[TZImageManager manager] photosBytesWithArray:photos completion:^(NSInteger totalBytes) {
+        completion?completion(totalBytes):nil;
+    }];
+}
+
+/**
+ 获取原图
+ */
++(void)photoOriginalImage:(id)asset completion:(void (^)(id photo))completion
+{
+    [[TZImageManager manager] getPhotoWithAsset:asset completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+        completion?completion(photo):nil;
+    } progressHandler:nil networkAccessAllowed:YES];
 }
 
 @end

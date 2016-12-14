@@ -57,7 +57,7 @@
  *
  *  @since 1.0
  */
-@property(nonatomic, strong) ALAsset *assets;
+@property(nonatomic, strong) id assets;
 
 /**
  *  @author CC, 2015-06-04 18:06:38

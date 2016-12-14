@@ -32,6 +32,7 @@
 
 #import "FLAnimatedImageView.h"
 #import "FLAnimatedImageView+WebCache.h"
+#import "TZImageManager.h"
 
 @interface CCPhotoView () {
     BOOL _doubleTap;
@@ -123,7 +124,11 @@
     if (_photo.image) {
         self.scrollEnabled = YES;
         _imageView.image = _photo.image;
-    } else {
+    } else if(_photo.assets){
+        [[TZImageManager manager] getPhotoWithAsset:_photo.assets completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+            self.imageView.image = photo;
+        } progressHandler:nil networkAccessAllowed:YES];
+    }else{
         self.scrollEnabled = NO;
         // 直接显示进度条
         [_photoLoadingView showLoading];

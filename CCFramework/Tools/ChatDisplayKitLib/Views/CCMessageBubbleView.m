@@ -139,7 +139,7 @@ static NSArray *kAllRegexps()
     static NSArray *_allRegexps = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _allRegexps = @[kURLRegularExpression(),kTelephoneNumber(),kPhoneNumerRegularExpression(),kEmailRegularExpression(),kUserHandleRegularExpression(),kHashtagRegularExpression(),kLandlinePhone(),kplanePhone()];
+        _allRegexps = @[kURLRegularExpression()];//,kTelephoneNumber(),kPhoneNumerRegularExpression(),kEmailRegularExpression(),kUserHandleRegularExpression(),kHashtagRegularExpression(),kLandlinePhone(),kplanePhone()];
     });
     return _allRegexps;
 }

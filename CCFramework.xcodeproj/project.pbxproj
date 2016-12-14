@@ -122,6 +122,10 @@
 		4206A4F31C783CE4001A1CF3 /* preview_original_def@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4206A4E51C783CE4001A1CF3 /* preview_original_def@2x.png */; };
 		4206A4F41C783CE4001A1CF3 /* TableViewArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4206A4E61C783CE4001A1CF3 /* TableViewArrow@2x.png */; };
 		4206A4F51C783CE4001A1CF3 /* VideoSendIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4206A4E71C783CE4001A1CF3 /* VideoSendIcon@2x.png */; };
+		420AFBEF1DFFE1B100550AB8 /* TZProgressView.h in Headers */ = {isa = PBXBuildFile; fileRef = 420AFBED1DFFE1B100550AB8 /* TZProgressView.h */; };
+		420AFBF01DFFE1B100550AB8 /* TZProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 420AFBEE1DFFE1B100550AB8 /* TZProgressView.m */; };
+		420AFBF31DFFE2A900550AB8 /* TZImageCropManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 420AFBF11DFFE2A900550AB8 /* TZImageCropManager.h */; };
+		420AFBF41DFFE2A900550AB8 /* TZImageCropManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 420AFBF21DFFE2A900550AB8 /* TZImageCropManager.m */; };
 		420CB1341C7D788500A0EC25 /* MASCompositeConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CB11B1C7D788500A0EC25 /* MASCompositeConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		420CB1351C7D788500A0EC25 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 420CB11C1C7D788500A0EC25 /* MASCompositeConstraint.m */; };
 		420CB1361C7D788500A0EC25 /* MASConstraint+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CB11D1C7D788500A0EC25 /* MASConstraint+Private.h */; };
@@ -1492,6 +1496,10 @@
 		4206A4E51C783CE4001A1CF3 /* preview_original_def@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "preview_original_def@2x.png"; sourceTree = "<group>"; };
 		4206A4E61C783CE4001A1CF3 /* TableViewArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TableViewArrow@2x.png"; sourceTree = "<group>"; };
 		4206A4E71C783CE4001A1CF3 /* VideoSendIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VideoSendIcon@2x.png"; sourceTree = "<group>"; };
+		420AFBED1DFFE1B100550AB8 /* TZProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZProgressView.h; sourceTree = "<group>"; };
+		420AFBEE1DFFE1B100550AB8 /* TZProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZProgressView.m; sourceTree = "<group>"; };
+		420AFBF11DFFE2A900550AB8 /* TZImageCropManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZImageCropManager.h; sourceTree = "<group>"; };
+		420AFBF21DFFE2A900550AB8 /* TZImageCropManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImageCropManager.m; sourceTree = "<group>"; };
 		420CB11B1C7D788500A0EC25 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
 		420CB11C1C7D788500A0EC25 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
 		420CB11D1C7D788500A0EC25 /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
@@ -4945,6 +4953,8 @@
 		429C89221DAB95C500A7502B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				420AFBF11DFFE2A900550AB8 /* TZImageCropManager.h */,
+				420AFBF21DFFE2A900550AB8 /* TZImageCropManager.m */,
 				429C89231DAB95C500A7502B /* TZAssetModel.h */,
 				429C89241DAB95C500A7502B /* TZAssetModel.m */,
 				429C89251DAB95C500A7502B /* TZImageManager.h */,
@@ -4956,6 +4966,8 @@
 		429C89271DAB95C500A7502B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				420AFBED1DFFE1B100550AB8 /* TZProgressView.h */,
+				420AFBEE1DFFE1B100550AB8 /* TZProgressView.m */,
 				429C89281DAB95C500A7502B /* TZAssetCell.h */,
 				429C89291DAB95C500A7502B /* TZAssetCell.m */,
 				429C892A1DAB95C500A7502B /* TZPhotoPreviewCell.h */,
@@ -6869,6 +6881,7 @@
 				425477531BD2AEC20071BBC5 /* opensslconf.h in Headers */,
 				4213FAFC1C13D860006918AC /* CCJPsuh.h in Headers */,
 				422511401C72F795003B3623 /* CCPropertyKey.h in Headers */,
+				420AFBEF1DFFE1B100550AB8 /* TZProgressView.h in Headers */,
 				42F945871BC8ED5D008882AE /* CCDisplayMediaViewController.h in Headers */,
 				42068F061C573E33005DFB01 /* POPAnimatableProperty.h in Headers */,
 				42C208E61BDE025300C76004 /* UI.h in Headers */,
@@ -7532,6 +7545,7 @@
 				429CA0B11B9EF8BF0013A44A /* SETextSelectionView.h in Headers */,
 				420CB14B1C7D788500A0EC25 /* ViewController+MASAdditions.h in Headers */,
 				429CA0AD1B9EF8BF0013A44A /* SETextMagnifierRanged.h in Headers */,
+				420AFBF31DFFE2A900550AB8 /* TZImageCropManager.h in Headers */,
 				4269793D1BA695BA00C3E93C /* UIActivityIndicatorView+AFNetworking.h in Headers */,
 				426476A41BD0E3AF00EE191C /* CCLongPressGestureRecognizer.h in Headers */,
 				425477741BD2AEC20071BBC5 /* base64.h in Headers */,
@@ -8160,10 +8174,12 @@
 				42DEC0AD1D94DDB400004CDB /* TYTextContainer.m in Sources */,
 				4298C7871BDCB33D00A3581D /* CoreDataMasterSlave+Convenience.m in Sources */,
 				42F412161C215BC400814E7B /* CCGraffitiBoardView.m in Sources */,
+				420AFBF41DFFE2A900550AB8 /* TZImageCropManager.m in Sources */,
 				4298C78D1BDCBB0300A3581D /* CoreDataMasterSlave+Removed.m in Sources */,
 				423E39D51D333AC80011ECD2 /* CCLink.m in Sources */,
 				429CA0EC1B9EF8BF0013A44A /* CCCaptureHelper.m in Sources */,
 				4236B6431DF04E17002F4299 /* CameraToggleButton.m in Sources */,
+				420AFBF01DFFE1B100550AB8 /* TZProgressView.m in Sources */,
 				429C9FAB1B9EF8BF0013A44A /* CCThemeManager.m in Sources */,
 				426979471BA695BA00C3E93C /* UIProgressView+AFNetworking.m in Sources */,
 				42DEB29B1C25495000734E09 /* CCShader.m in Sources */,

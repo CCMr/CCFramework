@@ -27,10 +27,16 @@
 
 @interface CCAlbum : NSObject
 
+-(void)cameraRolls:(float)photoWith PhotoBlock:(void (^)(NSArray *photos))block;
 
 /**
- 获取相机胶卷所有照片
+ 获取一组相片大小
  */
-+(void)cameraRolls:(void (^)(NSArray *photos))block;
++ (void)photosBytesWithArray:(NSArray *)photos completion:(void (^)(NSInteger totalBytes))completion;
+
+/**
+ 获取原图
+ */
++(void)photoOriginalImage:(id)asset completion:(void (^)(id photo))completion;
 
 @end
