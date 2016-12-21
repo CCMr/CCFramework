@@ -28,9 +28,10 @@
 #include <execinfo.h>
 #import "CCUserDefaultsCrash.h"
 #import <UIKit/UIKit.h>
-#import "NSDate+Additions.h"
 #import "CCDebugCrashHelper.h"
 #include <sys/signal.h>
+
+#import "AvoidCrash.h"
 
 NSString *const UncaughtExceptionHandlerSignalExceptionName = @"UncaughtExceptionHandlerSignalExceptionName";
 NSString *const UncaughtExceptionHandlerSignalKey = @"UncaughtExceptionHandlerSignalKey";
@@ -174,6 +175,7 @@ void SignalHandler(int signal)
 
 void InstallUncaughtExceptionHandler(void)
 {
+    [AvoidCrash becomeEffective];
     NSSetUncaughtExceptionHandler(&HandleException);
     signal(SIGABRT, SignalHandler);
     signal(SIGILL, SignalHandler);

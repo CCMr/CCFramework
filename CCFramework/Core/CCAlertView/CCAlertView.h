@@ -26,6 +26,14 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@interface CCAlertButtonModel : NSObject
+
+@property(nonatomic, copy) NSString *buttonTitle;
+@property(nonatomic, copy) UIColor *buttonColor;
+
+@end
+
+
 @interface CCAlertView : NSObject
 
 /**
@@ -90,6 +98,19 @@
  */
 + (void)showWithContainerView:(UIView *)containerView
          withButtonTitleArray:(NSArray *)buttonTitles
+        OnButtonTouchUpInside:(void (^)(UIView *containerView, NSInteger buttonIndex))onButtonTouchUpInside;
+
+/**
+ 弹出窗
+
+ @param containerView 自定义对象试图
+ @param buttonTitles 按钮名称
+ @param handleClose 是否处理关闭窗口
+ @param onButtonTouchUpInside 按钮回调是
+ */
++ (void)showWithContainerView:(UIView *)containerView
+         withButtonTitleArray:(NSArray *)buttonTitles
+                  handleClose:(BOOL)handleClose
         OnButtonTouchUpInside:(void (^)(UIView *containerView, NSInteger buttonIndex))onButtonTouchUpInside;
 
 /**

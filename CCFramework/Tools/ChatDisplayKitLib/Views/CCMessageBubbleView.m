@@ -165,9 +165,6 @@ static NSArray *kAllRegexps()
 {
     TYTextContainer *textContainer = [CCMessageBubbleView configureDisplayMessage:message];
     CGSize textContainerSize = CGSizeMake(textContainer.textWidth, textContainer.textHeight); 
-    if (textContainerSize.height == 24 || textContainer.textHeight == 21) {
-        textContainerSize.height = 20;
-    }
     
     CGSize textSize = [CCMessageBubbleView neededWidthForText:[message text]];
     if (textSize.width > textContainerSize.width) {
@@ -507,9 +504,10 @@ static NSArray *kAllRegexps()
         case CCBubbleMessageMediaTypePhoto:
         case CCBubbleMessageMediaTypeVideo:
         case CCBubbleMessageMediaTypeLocalPosition: {
-            _imagebubbles = [CCMessageBubbleFactory bubbleImageViewForType:message.bubbleMessageType
-                                                                           style:CCBubbleImageViewStyleWeChat
-                                                                       meidaType:message.messageMediaType];
+            _bubbleImageView.image = [CCMessageBubbleFactory bubbleImageViewForType:message.bubbleMessageType
+                                                                              style:CCBubbleImageViewStyleWeChat
+                                                                          meidaType:message.messageMediaType];
+            _imagebubbles = _bubbleImageView.image;
             
             // 只要是图片和视频消息，必须把尖嘴显示控件显示出来
             _bubblePhotoImageView.hidden = NO;
@@ -646,7 +644,8 @@ static NSArray *kAllRegexps()
                 imageName = @"chat_Send_redPackage";
             }
             _redPackageView.image = [UIImage imageNamed:imageName];
-            _redPackageTitleLabel.text = message.redPackageTitle;
+            NSString *bunusStr = [message.redPackageTitle stringByReplacingOccurrencesOfString:@"," withString:@""];
+            _redPackageTitleLabel.text = bunusStr;
             break;
         }
         default:
@@ -713,10 +712,10 @@ static NSArray *kAllRegexps()
     }
     
     TYTextContainer *textContainer = [[TYTextContainer alloc] init];
-    textContainer.text = text;
     textContainer.font = kCCSystemFont;
     textContainer.isWidthToFit = YES;
     textContainer.textColor = [UIColor whiteColor];
+    textContainer.text = text;
     if (message.bubbleMessageType == CCBubbleMessageTypeReceiving)
         textContainer.textColor = [UIColor colorWithWhite:0.143 alpha:1.000];
     
@@ -840,7 +839,7 @@ static NSArray *kAllRegexps()
         // 1、初始化气泡的背景
         if (!_bubbleImageView) {
             //bubble image
-            FLAnimatedImageView *bubbleImageView = [[FLAnimatedImageView alloc] init];
+            UIImageView *bubbleImageView = [[UIImageView alloc] init];
             bubbleImageView.frame = self.bounds;
             bubbleImageView.userInteractionEnabled = YES;
             [self addSubview:bubbleImageView];
@@ -1056,13 +1055,41 @@ static NSArray *kAllRegexps()
     
     switch (currentType) {
         case CCBubbleMessageMediaTypeText:
+            case CCBubbleMessageMediaTypeTeletext:{
+                CGRect bubbleFrame = [self bubbleFrame];
+                 self.bubbleImageView.frame = bubbleFrame;
+                CGSize needTextSize = [CCMessageBubbleView neededSizeForText:self.message];
+                if (needTextSize.height == 24) {
+                    CGRect bubbleImageViewFrame = self.bubbleImageView.frame;
+                    bubbleImageViewFrame.size.height -= 4;
+                    self.bubbleImageView.frame = bubbleImageViewFrame;
+                }
+                
+                CGFloat textX = -(kCCArrowMarginWidth / 2);
+                if (self.message.bubbleMessageType == CCBubbleMessageTypeReceiving)
+                    textX = kCCArrowMarginWidth / 2;
+                
+                CGRect viewFrame = CGRectZero;
+                viewFrame.size.width = CGRectGetWidth(bubbleFrame) - kCCLeftTextHorizontalBubblePadding - kCCRightTextHorizontalBubblePadding - kCCArrowMarginWidth;
+                viewFrame.size.height = CGRectGetHeight(bubbleFrame) - kCCHaveBubbleMargin * 2 - kCCTopAndBottomBubbleMargin * 2;
+                
+                if (currentType == CCBubbleMessageMediaTypeText || currentType == CCBubbleMessageMediaTypeTeletext) {
+                    self.displayTextView.frame = viewFrame;
+                    self.displayTextView.center = CGPointMake(self.bubbleImageView.center.x + textX, self.bubbleImageView.center.y);
+                }
+                
+                break;
+        }
         case CCBubbleMessageMediaTypeVoice:
         case CCBubbleMessageMediaTypeEmotion:
         case CCBubbleMessageMediaTypeGIF:
         case CCBubbleMessageMediaTypeSmallEmotion:
-        case CCBubbleMessageMediaTypeTeletext: {
+         {
             // 获取实际气泡的大小
             CGRect bubbleFrame = [self bubbleFrame];
+            if (currentType == CCBubbleMessageMediaTypeText) {
+                
+            }
             self.bubbleImageView.frame = bubbleFrame;
             
             if (currentType == CCBubbleMessageMediaTypeVoice) {
@@ -1085,7 +1112,7 @@ static NSArray *kAllRegexps()
                 CGRect gifImageViewFrame = bubbleFrame;
                 gifImageViewFrame.size = [CCMessageBubbleView neededSizeForGif:self.message];
                 self.emotionImageView.frame = gifImageViewFrame;
-               [self photoBubble:self.emotionImageView];
+                [self photoBubble:self.emotionImageView];
             }else {
                 //小表情与文字消息时设置气泡框
                 
@@ -1096,11 +1123,6 @@ static NSArray *kAllRegexps()
                 CGRect viewFrame = CGRectZero;
                 viewFrame.size.width = CGRectGetWidth(bubbleFrame) - kCCLeftTextHorizontalBubblePadding - kCCRightTextHorizontalBubblePadding - kCCArrowMarginWidth;
                 viewFrame.size.height = CGRectGetHeight(bubbleFrame) - kCCHaveBubbleMargin * 2 - kCCTopAndBottomBubbleMargin * 2;
-                
-                if (currentType == CCBubbleMessageMediaTypeText || currentType == CCBubbleMessageMediaTypeTeletext) {
-                    self.displayTextView.frame = viewFrame;
-                    self.displayTextView.center = CGPointMake(self.bubbleImageView.center.x + textX, self.bubbleImageView.center.y);
-                }
                 
                 if (currentType == CCBubbleMessageMediaTypeSmallEmotion) {
                     self.emotionImageView.frame = viewFrame;
@@ -1176,6 +1198,8 @@ static NSArray *kAllRegexps()
     CALayer *layer = ImageView.layer;
     layer.frame = (CGRect){{0,0},ImageView.layer.frame.size};
     views.layer.mask = layer;
+    views.backgroundColor = [UIColor whiteColor];
+    
     [views setNeedsDisplay];
 }
 

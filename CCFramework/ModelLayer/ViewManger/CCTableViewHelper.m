@@ -732,14 +732,29 @@
 
 - (void)cc_deleteDataAtIndex:(NSIndexPath *)cIndexPath
 {
+    [self cc_deleteDataAtIndexs:@[cIndexPath]];
+}
+
+- (void)cc_deleteDataAtIndexs:(NSArray *)indexPaths
+{
+    NSMutableArray *delArray = [NSMutableArray array];
+    for (NSArray *arr in self.dataArray) {
+        NSMutableArray *sectionArray = [NSMutableArray array];
+        [sectionArray addObjectsFromArray:arr];
+        [delArray addObject:sectionArray];
+    }
     
-    if (self.dataArray.count <= cIndexPath.section) return;
-    NSMutableArray *subAry = self.dataArray[cIndexPath.section];
-    if (subAry.count <= cIndexPath.row) return;
+    for (NSIndexPath *indexPath in indexPaths) {
+        if (self.dataArray.count <= indexPath.section) continue;
+        NSMutableArray *subAry = self.dataArray[indexPath.section];
+        if (subAry.count <= indexPath.row) continue;
+        
+        [[delArray objectAtIndex:indexPath.section] removeObject:[subAry objectAtIndex:indexPath.row]];
+    }
+    self.dataArray = delArray;
     
-    [subAry removeObjectAtIndex:cIndexPath.row];
     [self.cc_tableView beginUpdates];
-    [self.cc_tableView deleteRowsAtIndexPaths:@[ cIndexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.cc_tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
     [self.cc_tableView endUpdates];
 }
 
@@ -750,7 +765,7 @@
         NSMutableArray *subDataAry = self.dataArray[cIndexPath.section];
         if (subDataAry.count > cIndexPath.row) {
             [subDataAry replaceObjectAtIndex:cIndexPath.row withObject:model];
-            [self.cc_tableView reloadData];
+            [self.cc_tableView reloadRowsAtIndexPaths:@[cIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
     }
 }

@@ -224,6 +224,13 @@ whileExecutingBlock:(dispatch_block_t)block
     [[self initialization] show:animated];
 }
 
++(void)showNavigationBar:(BOOL)animated
+{
+    MBProgressHUD *hud =  [self initialization];
+    hud.coveredNavigationBar = NO;
+    [hud show:animated];
+}
+
 /**
  显示弹窗
 

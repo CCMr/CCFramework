@@ -224,7 +224,9 @@
         if (_photo.isFrame)
             bounds = _photo.srcImageView.frame;
         
-        _imageView.frame = [_photo.srcImageView convertRect:bounds toView:nil];
+        CGRect frame = [_photo.srcImageView convertRect:bounds toView:nil];
+        
+        _imageView.frame = frame;
         
         [UIView animateWithDuration:0.3 animations:^{
             _imageView.frame = imageFrame;
@@ -302,6 +304,7 @@
     [_photoLoadingView removeFromSuperview];
     self.contentOffset = CGPointZero;
     
+    UIImage *images = _photo.srcImageView.image;
     // 清空底部的小图
     _photo.srcImageView.image = nil;
     
@@ -328,7 +331,7 @@
         
     } completion:^(BOOL finished) {
         // 设置底部的小图片
-        _photo.srcImageView.image = _photo.Placeholder;
+        _photo.srcImageView.image = images;
         
         // 通知代理
         if ([self.photoViewDelegate respondsToSelector:@selector(photoViewDidEndZoom:)]) {

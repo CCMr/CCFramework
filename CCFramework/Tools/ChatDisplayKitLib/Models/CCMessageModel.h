@@ -163,6 +163,8 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 
 #pragma mark - 红包
 - (NSString *)redPackageTitle;
+- (NSString *)redPackageID;
+- (BOOL)isOpen;
 
 /**
  *  @author CC, 2015-11-16

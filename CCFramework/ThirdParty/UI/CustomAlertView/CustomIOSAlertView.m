@@ -28,8 +28,8 @@
 
 @implementation CCAlertModel
 
--(instancetype)initWithTitle:(NSString *)title 
-                  TitleColor:(UIColor *)color
+- (instancetype)initWithTitle:(NSString *)title
+                   TitleColor:(UIColor *)color
 {
     if (self = [super init]) {
         self.Title = title;
@@ -164,12 +164,10 @@ CGFloat buttonSpacerHeight = 0;
 // Button has been touched
 - (IBAction)customIOS7dialogButtonTouchUpInside:(id)sender
 {
-    if (delegate != NULL) {
-        [delegate customIOS7dialogButtonTouchUpInside:self clickedButtonAtIndex:[sender tag]];
-    }
-    
     if (onButtonTouchUpInside != NULL) {
         onButtonTouchUpInside(self, (int)[sender tag]);
+    } else if (delegate != NULL) {
+        [delegate customIOS7dialogButtonTouchUpInside:self clickedButtonAtIndex:[sender tag]];
     }
 }
 
@@ -413,10 +411,9 @@ CGFloat buttonSpacerHeight = 0;
 // Rotation changed, on iOS8
 - (void)changeOrientationForIOS8:(NSNotification *)notification
 {
-    
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
+    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
     [UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionTransitionNone
                      animations:^{
                          CGSize dialogSize = [self countDialogSize];
@@ -438,7 +435,7 @@ CGFloat buttonSpacerHeight = 0;
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
         [self changeOrientationForIOS7];
     } else {
-        [self changeOrientationForIOS8:notification];
+        //        [self changeOrientationForIOS8:notification];
     }
 }
 
@@ -485,5 +482,3 @@ CGFloat buttonSpacerHeight = 0;
 }
 
 @end
-
-

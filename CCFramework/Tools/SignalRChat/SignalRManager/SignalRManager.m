@@ -127,6 +127,8 @@
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         if (status == AFNetworkReachabilityStatusReachableViaWWAN || status == AFNetworkReachabilityStatusReachableViaWiFi) {
             [self detectStart];
+        }else if (status == AFNetworkReachabilityStatusNotReachable || status ==  AFNetworkReachabilityStatusUnknown){
+            [self stopLink];
         }
     }];
 }

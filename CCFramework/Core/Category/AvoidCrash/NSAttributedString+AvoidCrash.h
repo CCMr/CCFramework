@@ -1,5 +1,5 @@
 //
-//  CCAlbum.h
+//  NSAttributedString+AvoidCrash.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -25,18 +25,18 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CCAlbum : NSObject
+@interface NSAttributedString (AvoidCrash)
 
--(void)cameraRolls:(float)photoWith PhotoBlock:(void (^)(NSArray *photos))block;
-
-/**
- 获取一组相片大小
- */
-+ (void)photosBytesWithArray:(NSArray *)photos completion:(void (^)(NSInteger totalBytes))completion;
-
-/**
- 获取原图
- */
-+(void)photoOriginalImage:(id)asset completion:(void (^)(id photo,NSDictionary *info))completion;
++ (void)avoidCrashExchangeMethod;
 
 @end
+
+/**
+ *  Can avoid crash method
+ *
+ *  1.- (instancetype)initWithString:(NSString *)str
+ *  2.- (instancetype)initWithAttributedString:(NSAttributedString *)attrStr
+ *  3.- (instancetype)initWithString:(NSString *)str attributes:(NSDictionary<NSString *,id> *)attrs
+ *
+ *
+ */

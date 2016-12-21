@@ -131,6 +131,7 @@ whileExecutingBlock:(dispatch_block_t)block
  *  @param animated 动画
  */
 + (void)show:(BOOL)animated;
++(void)showNavigationBar:(BOOL)animated;
 
 /**
  显示弹窗

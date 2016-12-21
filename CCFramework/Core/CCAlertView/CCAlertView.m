@@ -29,6 +29,11 @@
 #import "UIView+Frame.h"
 #import "NSString+Additions.h"
 
+@implementation CCAlertButtonModel
+
+
+@end
+
 @implementation CCAlertView
 
 /**
@@ -38,7 +43,7 @@
  */
 + (CustomIOSAlertView *)alertView
 {
-     CustomIOSAlertView *alertView =  (CustomIOSAlertView *)[[[[UIApplication sharedApplication] windows] firstObject] viewWithTag:66666];
+    CustomIOSAlertView *alertView = (CustomIOSAlertView *)[[[[UIApplication sharedApplication] windows] firstObject] viewWithTag:66666];
     if (!alertView) {
         alertView = [[CustomIOSAlertView alloc] init];
         alertView.containerView.backgroundColor = [UIColor whiteColor];
@@ -71,7 +76,7 @@
             alertModel.Title = button;
             alertModel.TitleColor = [UIColor colorWithRed:0.0f green:0.5f blue:1.0f alpha:1.0f];
             [buttons addObject:alertModel];
-        }else{
+        } else {
             [buttons addObject:button];
         }
     }
@@ -131,11 +136,11 @@
             alertModel.Title = button;
             alertModel.TitleColor = [UIColor colorWithRed:0.0f green:0.5f blue:1.0f alpha:1.0f];
             [buttons addObject:alertModel];
-        }else{
+        } else {
             [buttons addObject:button];
         }
     }
-
+    
     
     [self showWithContainerView:containerView
            withButtonTitleArray:buttons
@@ -168,8 +173,8 @@
 + (void)showWithContainerView:(UIView *)containerView
                withIsExternal:(BOOL)isExternal
 {
-    [self showWithContainerView:containerView 
-                  withIsPackage:YES 
+    [self showWithContainerView:containerView
+                  withIsPackage:YES
                  withIsExternal:isExternal];
 }
 
@@ -186,6 +191,17 @@
          withButtonTitleArray:(NSArray *)buttonTitles
         OnButtonTouchUpInside:(void (^)(UIView *containerView, NSInteger buttonIndex))onButtonTouchUpInside
 {
+    [self showWithContainerView:containerView
+           withButtonTitleArray:buttonTitles
+                    handleClose:YES
+          OnButtonTouchUpInside:onButtonTouchUpInside];
+}
+
++ (void)showWithContainerView:(UIView *)containerView
+         withButtonTitleArray:(NSArray *)buttonTitles
+                  handleClose:(BOOL)handleClose
+        OnButtonTouchUpInside:(void (^)(UIView *containerView, NSInteger buttonIndex))onButtonTouchUpInside
+{
     CustomIOSAlertView *alertView = [self alertView];
     [alertView setContainerView:containerView];
     
@@ -196,16 +212,23 @@
             alertModel.Title = button;
             alertModel.TitleColor = [UIColor colorWithRed:0.0f green:0.5f blue:1.0f alpha:1.0f];
             [buttons addObject:alertModel];
-        }else{
+        } else if ([button isKindOfClass:[CCAlertButtonModel class]]) {
+            CCAlertButtonModel *model = button;
+            CCAlertModel *alertModel = [[CCAlertModel alloc] init];
+            alertModel.Title = model.buttonTitle;
+            alertModel.TitleColor = model.buttonColor;
+            [buttons addObject:alertModel];
+        } else {
             [buttons addObject:button];
         }
     }
     
     [alertView setButtonTitles:buttons];
     [alertView setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+        if (handleClose)
+            [alertView close];
         if (onButtonTouchUpInside)
             onButtonTouchUpInside(alertView.containerView,buttonIndex);
-        [alertView close];
     }];
     [alertView show];
 }

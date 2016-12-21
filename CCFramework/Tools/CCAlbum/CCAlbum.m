@@ -33,9 +33,6 @@
 
 @interface CCAlbum ()
 
-@property(nonatomic, strong) NSString *representedAssetIdentifier;
-@property(nonatomic, assign) PHImageRequestID imageRequestID;
-
 @property(nonatomic, copy) void (^photosBlock)(NSArray *photos);
 
 @end
@@ -53,39 +50,20 @@
             __block NSMutableArray *photos = [NSMutableArray arrayWithArray:models];
             for (NSInteger i =  0; i < models.count; i++) {
                 TZAssetModel *assetModel = [models objectAtIndex:i];
-                if (iOS8Later) {
-                    self.representedAssetIdentifier = [[TZImageManager manager] getAssetIdentifier:assetModel.asset];
-                }
-                PHImageRequestID imageRequestID = [[TZImageManager manager] getPhotoWithAsset:assetModel.asset photoWidth:photoWith completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+                
+                [[TZImageManager manager] getPhotoWithAsset:assetModel.asset photoWidth:photoWith completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+                    if (isDegraded) return;
                     NSMutableDictionary *imageDic = [NSMutableDictionary dictionary];
-                    if (!iOS8Later) {
-                        [imageDic setObject:photo forKey:@"image"]; return ;
-                    }
-                    if ([self.representedAssetIdentifier isEqualToString:[[TZImageManager manager] getAssetIdentifier:assetModel.asset]]) {
-                        [imageDic setObject:photo forKey:@"image"];
-                    } else {
-                        [[PHImageManager defaultManager] cancelImageRequest:self.imageRequestID];
-                    }
-                    if (!isDegraded) {
-                        self.imageRequestID = 0;
-                    }else{
-                        [imageDic setObject:assetModel.asset forKey:@"asset"];
-                        [photos replaceObjectAtIndex:i withObject:imageDic];
-                        for (id item in photos) { if ([item isKindOfClass:[TZAssetModel class]]) return;}
-                        self.photosBlock?self.photosBlock(photos):nil;
-
-                    }
+                    [imageDic setObject:photo forKey:@"image"];
+                    [imageDic setObject:assetModel.asset forKey:@"asset"];
+                    [photos replaceObjectAtIndex:i withObject:imageDic];
+                    for (id item in photos) { if ([item isKindOfClass:[TZAssetModel class]]) return;}
+                    self.photosBlock?self.photosBlock(photos):nil;
                 } progressHandler:nil networkAccessAllowed:NO];
-                if (imageRequestID && self.imageRequestID && imageRequestID != self.imageRequestID) {
-                    [[PHImageManager defaultManager] cancelImageRequest:self.imageRequestID];
-                    // NSLog(@"cancelImageRequest %d",self.imageRequestID);
-                }
-                self.imageRequestID = imageRequestID;
             }
         }];
     }];
 }
-
 
 /**
  获取一组相片大小
@@ -100,11 +78,14 @@
 /**
  获取原图
  */
-+(void)photoOriginalImage:(id)asset completion:(void (^)(id photo))completion
++(void)photoOriginalImage:(id)asset completion:(void (^)(id photo,NSDictionary *info))completion
 {
-    [[TZImageManager manager] getPhotoWithAsset:asset completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
-        completion?completion(photo):nil;
-    } progressHandler:nil networkAccessAllowed:YES];
+    [[TZImageManager manager] getPhotoWithAsset:asset photoWidth:600 completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+        if (isDegraded) return;
+        if (photo){
+            completion?completion(photo,@{@"imageFileURL":[info objectForKey:@"PHImageFileURLKey"]}):nil;
+        }
+    }];
 }
 
 @end

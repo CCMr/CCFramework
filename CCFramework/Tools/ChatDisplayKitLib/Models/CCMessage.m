@@ -504,6 +504,7 @@
         _gifUrl = [aDecoder decodeObjectForKey:@"gifUrl"];
         
         _redPackageTitle = [aDecoder decodeObjectForKey:@"redPackageTitle"];
+        _redPackageID = [aDecoder decodeObjectForKey:@"redPackageID"];
     }
     return self;
 }
@@ -564,6 +565,7 @@
     [aCoder encodeObject:self.gifUrl forKey:@"gifUrl"];
     
     [aCoder encodeObject:self.redPackageTitle forKey:@"redPackageTitle"];
+    [aCoder encodeObject:self.redPackageTitle forKey:@"redPackageID"];
 }
 
 #pragma mark - NSCopying
@@ -657,6 +659,8 @@
             message = [[[self class] allocWithZone:zone] initWithRedPackage:[self.redPackageTitle copy] 
                                                                      sender:[self.sender copy]
                                                                   timestamp:[self.timestamp copy]];
+            message.redPackageID = _redPackageID;
+            message.isOpen = _isOpen;
             break;
         default:
             break;

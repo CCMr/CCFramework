@@ -1,5 +1,5 @@
 //
-//  CCAlbum.h
+//  NSObject+AvoidCrash.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -22,21 +22,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-
 #import <Foundation/Foundation.h>
 
-@interface CCAlbum : NSObject
+@interface NSObject (AvoidCrash)
 
--(void)cameraRolls:(float)photoWith PhotoBlock:(void (^)(NSArray *photos))block;
-
-/**
- 获取一组相片大小
- */
-+ (void)photosBytesWithArray:(NSArray *)photos completion:(void (^)(NSInteger totalBytes))completion;
-
-/**
- 获取原图
- */
-+(void)photoOriginalImage:(id)asset completion:(void (^)(id photo,NSDictionary *info))completion;
++ (void)avoidCrashExchangeMethod;
 
 @end
+
+/**
+ *  Can avoid crash method
+ *
+ *  1.- (void)setValue:(id)value forKey:(NSString *)key
+ *  2.- (void)setValue:(id)value forKeyPath:(NSString *)keyPath
+ *  3.- (void)setValue:(id)value forUndefinedKey:(NSString *)key //这个方法一般用来重写，不会主动调用
+ *  4.- (void)setValuesForKeysWithDictionary:(NSDictionary<NSString *,id> *)keyedValues
+ *
+ */

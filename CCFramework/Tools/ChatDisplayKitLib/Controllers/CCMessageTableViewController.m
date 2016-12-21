@@ -998,6 +998,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
     [self cancelRecord];
     [[CCAudioPlayerHelper shareInstance] stopAudio];
     if (self.textViewInputViewType != CCInputViewTypeNormal) {

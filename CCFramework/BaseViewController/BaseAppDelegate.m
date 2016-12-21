@@ -33,11 +33,6 @@
 #import "CCLaunchAnimation.h"
 #import "CCDebugTool.h"
 
-#import <notify.h>
-#define NotificationLock CFSTR("com.apple.springboard.lockcomplete")
-#define NotificationChange CFSTR("com.apple.springboard.lockstate")
-#define NotificationPwdUI CFSTR("com.apple.springboard.hasBlankedScreen")
-
 static char OperationKey;
 
 @interface BaseAppDelegate ()

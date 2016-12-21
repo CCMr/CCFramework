@@ -113,6 +113,8 @@
 
 #pragma mark 红包
 @property(nonatomic, copy) NSString *redPackageTitle;
+@property(nonatomic, copy) NSString *redPackageID;
+@property(nonatomic, assign) BOOL isOpen;
 
 /**
  *  @author CC, 16-08-25

@@ -80,8 +80,10 @@
                                    includeModal:(BOOL)includeModal
 {
     
-    if ([viewController isKindOfClass:[CCDrawerController class]])
-        return viewController;
+    if ([viewController isKindOfClass:[CCDrawerController class]]){
+        UITabBarController *tabbar = (UITabBarController *)((CCDrawerController *)viewController).centerViewController; 
+        return [tabbar.selectedViewController topViewController];
+    }
     
     if (includeModal && viewController.presentedViewController)
         return [self topmostViewControllerFrom:viewController.presentedViewController

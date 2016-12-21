@@ -365,6 +365,7 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
  *  @param cIndexPath 下标位置
  */
 - (void)cc_deleteDataAtIndex:(NSIndexPath *)cIndexPath;
+- (void)cc_deleteDataAtIndexs:(NSArray *)indexPaths;
 
 
 - (id)currentModel;

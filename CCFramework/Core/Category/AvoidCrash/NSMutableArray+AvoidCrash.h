@@ -1,5 +1,5 @@
 //
-//  CCAlbum.h
+//  NSMutableArray+AvoidCrash.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -25,18 +25,19 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CCAlbum : NSObject
+@interface NSMutableArray (AvoidCrash)
 
--(void)cameraRolls:(float)photoWith PhotoBlock:(void (^)(NSArray *photos))block;
-
-/**
- 获取一组相片大小
- */
-+ (void)photosBytesWithArray:(NSArray *)photos completion:(void (^)(NSInteger totalBytes))completion;
-
-/**
- 获取原图
- */
-+(void)photoOriginalImage:(id)asset completion:(void (^)(id photo,NSDictionary *info))completion;
++ (void)avoidCrashExchangeMethod;
 
 @end
+
+
+/**
+ *  Can avoid crash method
+ *
+ *  1. - (id)objectAtIndex:(NSUInteger)index
+ *  2. - (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx
+ *  3. - (void)removeObjectAtIndex:(NSUInteger)index
+ *  4. - (void)insertObject:(id)anObject atIndex:(NSUInteger)index
+ *
+ */

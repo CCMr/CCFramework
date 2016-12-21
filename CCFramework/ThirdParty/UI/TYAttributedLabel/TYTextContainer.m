@@ -40,6 +40,48 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
     return CGSizeMake(ceil(suggestedSize.width), ceil(suggestedSize.height));
 }
 
+static inline CGSize CCCTFramesetterSuggestFrameSizeForAttributedStringWithConstraints(CTFramesetterRef framesetter, NSAttributedString *attributedString, CGSize size, NSUInteger numberOfLines)
+{
+    CFRange rangeToSize = CFRangeMake(0, (CFIndex)[attributedString length]);
+    CGSize constraints = CGSizeMake(size.width, 1000);
+    
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathAddRect(path, NULL, CGRectMake(0.0f, 0.0f, constraints.width, 1000));
+    CTFrameRef frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, 0), path, NULL);
+    CFArrayRef lines = CTFrameGetLines(frame);
+    
+    CGSize suggestedSize = CGSizeMake(0, 0);
+    CFIndex lineCount = CFArrayGetCount(lines);
+    
+    
+    CGPoint origins[lineCount];  
+    CTFrameGetLineOrigins(frame, CFRangeMake(0, 0), origins);  
+    
+    int line_y = (int) origins[lineCount -1].y;  //最后一行line的原点y坐标  
+    for (NSUInteger i = 0; i < lineCount; i++) {    
+        CGFloat ascent, descent, leading, width;
+        CTLineRef currentLine = (CTLineRef)CFArrayGetValueAtIndex(lines, i);
+        width = CTLineGetTypographicBounds(currentLine, &ascent, &descent, &leading);
+        suggestedSize.height += ascent + descent + leading;
+        
+        if (width >suggestedSize.width) {
+            suggestedSize.width = width;
+        }
+        
+        if (i == lineCount - 1) {
+            suggestedSize.height = 1000 - line_y + descent + 1;
+        }
+    }
+    
+    CFRelease(frame);
+    CFRelease(path);
+    
+//    CGSize coreTextSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0,0), NULL, constraints, NULL);
+    
+    return CGSizeMake(ceil(suggestedSize.width), ceil(suggestedSize.height));
+}
+
+
 @interface TYTextContainer()
 @property (nonatomic, strong) NSMutableArray    *textStorageArray;  // run数组
 @property (nonatomic, strong) NSArray *textStorages; // run array copy
@@ -236,7 +278,7 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
         
         [self addAttributeAlignmentStyle:_textAlignment lineSpaceStyle:_linesSpacing paragraphSpaceStyle:_paragraphSpacing lineBreakStyle:_lineBreakMode];
         [self resetFrameRef];
-
+        
     }
 }
 
@@ -465,7 +507,7 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
     CGSize suggestedSize = CTFramesetterSuggestFrameSizeForAttributedStringWithConstraints(framesetter, _attString, CGSizeMake(width,MAXFLOAT), _numberOfLines);
     
     CFRelease(framesetter);
-
+    
     return CGSizeMake(_isWidthToFit ? suggestedSize.width : width, suggestedSize.height);
 }
 - (CGFloat)getHeightWithFramesetter:(CTFramesetterRef)framesetter width:(CGFloat)width

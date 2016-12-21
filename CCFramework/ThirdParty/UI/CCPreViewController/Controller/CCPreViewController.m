@@ -113,6 +113,12 @@ static NSString *CCLocalFilePathForURL(NSURL *URL)
     }
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+}
+
 -(void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];

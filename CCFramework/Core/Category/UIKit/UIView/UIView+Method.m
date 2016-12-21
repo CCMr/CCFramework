@@ -122,6 +122,12 @@ static char BUTTONCARRYOBJECTS;
     return objc_getAssociatedObject(self, &BUTTONCARRYOBJECTS);
 }
 
+- (id)duplicate 
+{  
+    NSData * tempArchive = [NSKeyedArchiver archivedDataWithRootObject:self];  
+    return [NSKeyedUnarchiver unarchiveObjectWithData:tempArchive];  
+}
+
 #pragma mark -
 #pragma mark :. NIB
 

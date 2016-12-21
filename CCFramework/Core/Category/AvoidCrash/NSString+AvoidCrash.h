@@ -1,5 +1,5 @@
 //
-//  CCAlbum.h
+//  NSString+AvoidCrash.h
 //  CCFramework
 //
 // Copyright (c) 2015 CC ( http://www.ccskill.com )
@@ -25,18 +25,22 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CCAlbum : NSObject
+@interface NSString (AvoidCrash)
 
--(void)cameraRolls:(float)photoWith PhotoBlock:(void (^)(NSArray *photos))block;
-
-/**
- 获取一组相片大小
- */
-+ (void)photosBytesWithArray:(NSArray *)photos completion:(void (^)(NSInteger totalBytes))completion;
-
-/**
- 获取原图
- */
-+(void)photoOriginalImage:(id)asset completion:(void (^)(id photo,NSDictionary *info))completion;
++ (void)avoidCrashExchangeMethod;
 
 @end
+
+
+/**
+ *  Can avoid crash method
+ *
+ *  1. - (unichar)characterAtIndex:(NSUInteger)index
+ *  2. - (NSString *)substringFromIndex:(NSUInteger)from
+ *  3. - (NSString *)substringToIndex:(NSUInteger)to {
+ *  4. - (NSString *)substringWithRange:(NSRange)range {
+ *  5. - (NSString *)stringByReplacingOccurrencesOfString:(NSString *)target withString:(NSString *)replacement
+ *  6. - (NSString *)stringByReplacingOccurrencesOfString:(NSString *)target withString:(NSString *)replacement options:(NSStringCompareOptions)options range:(NSRange)searchRange
+ *  7. - (NSString *)stringByReplacingCharactersInRange:(NSRange)range withString:(NSString *)replacement
+ *
+ */
