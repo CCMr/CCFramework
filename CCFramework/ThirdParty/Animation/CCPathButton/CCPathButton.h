@@ -32,8 +32,8 @@
 @property(nonatomic, copy) NSString *title;
 @property(nonatomic, copy) UIImage *image;
 
--(instancetype)initWithTitle:(NSString *)title 
-                       Image:(UIImage *)image;
+- (instancetype)initWithTitle:(NSString *)title
+                        Image:(UIImage *)image;
 
 @end
 
@@ -56,36 +56,36 @@ typedef NS_ENUM(NSUInteger, kCCPathButtonBloomDirection) {
 
 @optional
 
-- (void)willPresentCCPathButtonItems:(UIButton *)CCPathButton;
-- (void)didPresentCCPathButtonItems:(UIButton *)CCPathButton;
+- (void)willPresentCCPathButtonItems:(UIView *)CCPathButton;
+- (void)didPresentCCPathButtonItems:(UIView *)CCPathButton;
 
-- (void)willDismissCCPathButtonItems:(UIButton *)CCPathButton;
-- (void)didDismissCCPathButtonItems:(UIButton *)CCPathButton;
+- (void)willDismissCCPathButtonItems:(UIView *)CCPathButton;
+- (void)didDismissCCPathButtonItems:(UIView *)CCPathButton;
 
 @end
 
 @interface CCPathButton : UIView <UIGestureRecognizerDelegate>
 
-@property (weak, nonatomic) id<CCPathButtonDelegate> delegate;
+@property(weak, nonatomic) id<CCPathButtonDelegate> delegate;
 
-@property (assign, nonatomic) NSTimeInterval basicDuration;
-@property (assign, nonatomic) BOOL allowSubItemRotation;
+@property(assign, nonatomic) NSTimeInterval basicDuration;
+@property(assign, nonatomic) BOOL allowSubItemRotation;
 
-@property (assign, nonatomic) CGFloat bloomRadius;
-@property (assign, nonatomic) CGFloat bloomAngel;
-@property (assign, nonatomic) CGPoint ccButtonCenter;
+@property(assign, nonatomic) CGFloat bloomRadius;
+@property(assign, nonatomic) CGFloat bloomAngel;
+@property(assign, nonatomic) CGPoint ccButtonCenter;
 
-@property (assign, nonatomic) BOOL allowSounds;
+@property(assign, nonatomic) BOOL allowSounds;
 
-@property (copy, nonatomic) NSString *bloomSoundPath;
-@property (copy, nonatomic) NSString *foldSoundPath;
-@property (copy, nonatomic) NSString *itemSoundPath;
+@property(copy, nonatomic) NSString *bloomSoundPath;
+@property(copy, nonatomic) NSString *foldSoundPath;
+@property(copy, nonatomic) NSString *itemSoundPath;
 
-@property (assign, nonatomic) BOOL allowCenterButtonRotation;
+@property(assign, nonatomic) BOOL allowCenterButtonRotation;
 
-@property (strong, nonatomic) UIColor *bottomViewColor;
+@property(strong, nonatomic) UIColor *bottomViewColor;
 
-@property (assign, nonatomic) kCCPathButtonBloomDirection bloomDirection;
+@property(assign, nonatomic) kCCPathButtonBloomDirection bloomDirection;
 
 - (instancetype)initWithCenterImage:(UIImage *)centerImage
                    highlightedImage:(UIImage *)centerHighlightedImage;

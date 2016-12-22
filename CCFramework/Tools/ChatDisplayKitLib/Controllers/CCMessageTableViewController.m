@@ -291,6 +291,7 @@
 {
     typeof(self) __weak weakSelf = self;
     [self exChangeMessageDataSourceQueue:^{
+//        NSMutableArray *indexPaths;
         if (weakSelf.messageTableView.isEditing || weakSelf.isCellPress) {
             if (weakSelf.operationMessage.count == 0)
                 [weakSelf.operationMessage addObjectsFromArray:weakSelf.messages];
@@ -299,17 +300,25 @@
             
         }else{
             NSMutableArray *messages = [NSMutableArray arrayWithArray:weakSelf.messages];
+//             indexPaths = [NSMutableArray array];
+//            NSInteger idx = messages.count;
             if (self.operationMessage.count > 0){
                 messages = [NSMutableArray arrayWithArray:weakSelf.operationMessage];
                 [weakSelf.operationMessage removeAllObjects];
             }
             
             [messages addObjectsFromArray:objects];
+//            for (NSInteger i = idx; i < messages.count; i++) {
+//                [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+//            }
             weakSelf.messages = messages;
         }
         [weakSelf exMainQueue:^{
             if (!weakSelf.messageTableView.isEditing && !weakSelf.isCellPress) {
                 [weakSelf.messageTableView reloadData];
+//                [weakSelf.messageTableView beginUpdates];
+//                [weakSelf.messageTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+//                [weakSelf.messageTableView endUpdates];
                 [weakSelf scrollToBottomAnimated:YES];
             }
         }];
@@ -436,7 +445,7 @@
 - (void)insertOldMessages:(NSArray *)oldMessages
                completion:(void (^)())completion
 {
-    [self insertOldDeduplicationMessages:oldMessages completion:^(NSMutableArray *__autoreleasing *arr) {
+    [self insertOldDeduplicationMessagess:oldMessages completion:^(NSMutableArray *__autoreleasing *arr) {
         completion?completion():nil;
     }];
 }
@@ -468,6 +477,48 @@
     }
 }
 
+static CGPoint  delayOffset = {0.0};
+- (void)insertOldDeduplicationMessagess:(NSArray *)oldMessages
+                            completion:(void (^)(NSMutableArray **arr))completion
+{
+    if (oldMessages.count != 0) {
+        WEAKSELF;
+        [self exChangeMessageDataSourceQueue:^{
+            delayOffset = weakSelf.messageTableView.contentOffset;
+            NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:oldMessages.count];
+            NSMutableIndexSet *indexSets = [[NSMutableIndexSet alloc] init];
+            [oldMessages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:idx inSection:0];
+                [indexPaths addObject:indexPath];
+                
+                delayOffset.y += [weakSelf calculateCellHeightWithMessage:[oldMessages objectAtIndex:idx] atIndexPath:indexPath];
+                [indexSets addIndex:idx];
+            }];
+            
+            NSMutableArray *messages = [[NSMutableArray alloc] initWithArray:weakSelf.messages];
+            [messages insertObjects:oldMessages atIndexes:indexSets];
+            if (completion) 
+                completion(&messages);
+            
+            [weakSelf exMainQueue:^{
+                [UIView setAnimationsEnabled:NO];
+                weakSelf.messageTableView.userInteractionEnabled = NO;
+                weakSelf.messages = messages;
+                [weakSelf.messageTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                [UIView setAnimationsEnabled:YES];
+                
+                [weakSelf.messageTableView setContentOffset:delayOffset animated:NO];
+                weakSelf.messageTableView.userInteractionEnabled = YES;
+                weakSelf.loadingMoreMessage = NO;
+                weakSelf.isLoading = NO;
+            }];
+        }];
+    } else {
+        self.loadingMoreMessage = NO;
+        self.isLoading = NO;
+    }
+}
+
 - (void)insertOldMessages:(NSArray *)oldMessages
 {
     [self insertOldMessages:oldMessages
@@ -477,7 +528,7 @@
 - (void)insertOldMessages:(NSArray *)oldMessages
             deduplication:(NSString *)keyName
 {
-    [self insertOldDeduplicationMessages:oldMessages completion:^(NSMutableArray *__autoreleasing *arr) {
+    [self insertOldDeduplicationMessagess:oldMessages completion:^(NSMutableArray *__autoreleasing *arr) {
         NSMutableArray *array = [NSMutableArray arrayWithArray:*arr];
         [array deduplication:@[keyName]];
         *arr = [[array sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES]]] mutableCopy];

@@ -43,7 +43,8 @@
 - (void)setSrcImageView:(UIImageView *)srcImageView
 {
     _srcImageView = srcImageView;
-    _Placeholder = srcImageView.image;
+    if (!_Placeholder)
+        _Placeholder = srcImageView.image;
     if (srcImageView.clipsToBounds)
         _capture = [self capture:srcImageView];
 }

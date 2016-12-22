@@ -62,7 +62,7 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 
 @implementation CCWebViewController
 
--(instancetype)init
+- (instancetype)init
 {
     if (self = [super init]) {
         _isTitleFollowChange = YES;
@@ -85,11 +85,11 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
     [self initControl];
 }
 
--(void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    [self.navigationController.navigationBar.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.navigationController.navigationBar.subviews enumerateObjectsUsingBlock:^(__kindof UIView *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([obj isKindOfClass:[CCWebViewProgressView class]]) {
             [obj removeFromSuperview];
         }
@@ -236,6 +236,18 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 #pragma mark -
 #pragma mark :. getset
 
+- (void)setAllowsBackForwardNavigationGestures:(BOOL)allowsBackForwardNavigationGestures
+{
+    _allowsBackForwardNavigationGestures = allowsBackForwardNavigationGestures;
+    _webWKView.allowsBackForwardNavigationGestures = allowsBackForwardNavigationGestures;
+}
+
+- (void)setIsScrollEnabled:(BOOL)isScrollEnabled
+{
+    _isScrollEnabled = isScrollEnabled;
+    _webWKView.scrollView.scrollEnabled = _isScrollEnabled;
+}
+
 - (UILabel *)originLable
 {
     if (!_originLable) {
@@ -278,8 +290,7 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
     if (!_webWKView) {
         _webWKView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:self.configuration];
         _webWKView.backgroundColor = [UIColor whiteColor];
-        _webWKView.opaque = NO;
-        _webWKView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        //        _webWKView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _webWKView.UIDelegate = self;
         _webWKView.navigationDelegate = self;
         _webWKView.allowsBackForwardNavigationGestures = YES;
@@ -303,15 +314,7 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
     if (!_webView) {
         _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
         _webView.backgroundColor = [UIColor whiteColor];
-        _webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        _webView.opaque = NO;
-        for (UIView *subview in [_webView.scrollView subviews]) {
-            if ([subview isKindOfClass:[UIImageView class]]) {
-                ((UIImageView *)subview).image = nil;
-                subview.backgroundColor = [UIColor clearColor];
-            }
-        }
-        
+        //        _webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _webViewProgress = [[CCWebViewProgress alloc] init];
         _webView.delegate = _webViewProgress;
         _webViewProgress.webViewProxyDelegate = self;
@@ -455,18 +458,30 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 {
 }
 
--(void)delaySetColor 
+- (void)delaySetColor
 {
     [CCProgressHUD hide:YES];
-    self.webWKView.backgroundColor = [UIColor clearColor];
-    self.webWKView.scrollView.backgroundColor = [UIColor clearColor];
+    
+    if (NSClassFromString(@"WKWebView")) {
+        self.webWKView.opaque = NO;
+        self.webWKView.backgroundColor = [UIColor clearColor];
+        self.webWKView.scrollView.backgroundColor = [UIColor clearColor];
+    } else {
+        self.webView.opaque = NO;
+        for (UIView *subview in [_webView.scrollView subviews]) {
+            if ([subview isKindOfClass:[UIImageView class]]) {
+                ((UIImageView *)subview).image = nil;
+                subview.backgroundColor = [UIColor clearColor];
+            }
+        }
+    }
 }
 
 #pragma mark -
 #pragma mark :. WKWebViewDelegate
 
-- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
-
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation
+{
 }
 
 // 页面加载完成之后调用
@@ -501,7 +516,9 @@ typedef void (^ResponseBlock)(NSString *functionName, NSArray *arguments);
 - (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL result))completionHandler {}
 
 // 调用JS的prompt()方法
-- (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(nullable NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString *__nullable result))completionHandler {}
+- (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(nullable NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString *__nullable result))completionHandler
+{
+}
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
 {

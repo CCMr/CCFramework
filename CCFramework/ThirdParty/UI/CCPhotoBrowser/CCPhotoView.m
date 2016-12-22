@@ -137,7 +137,7 @@
         __block CCPhotoView *photoView = self;
         __block CCPhotoLoadingView *loading = _photoLoadingView;
         [_imageView sd_setImageWithURL:_photo.url
-                      placeholderImage:_photo.srcImageView.image
+                      placeholderImage:_photo.Placeholder
                                options:SDWebImageRetryFailed | SDWebImageLowPriority
                               progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
                                   if (receivedSize > kMinProgress) {

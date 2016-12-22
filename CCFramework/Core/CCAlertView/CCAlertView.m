@@ -103,10 +103,10 @@
   OnButtonTouchUpInside:(void (^)(NSInteger buttonIndex))onButtonTouchUpInside
 {
     CGFloat heigth = 20;
-    UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 224, 0)];
+    UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 270, 0)];
     
     if (title && ![title isEqualToString:@""]) {
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, containerView.width - 20, 20)];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, containerView.width - 20, 20)];
         titleLabel.textAlignment = NSTextAlignmentCenter;
         titleLabel.font = [UIFont systemFontOfSize:18];
         titleLabel.text = title;
@@ -115,19 +115,17 @@
     }
     
     if (message && ![message isEqualToString:@""]) {
-        CGFloat h = [message calculateTextWidthWidth:containerView.width Font:[UIFont systemFontOfSize:15]].height;
-        
-        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, heigth, containerView.width - 20, h)];
+        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, heigth, containerView.width - 50, 0)];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
-        messageLabel.font = [UIFont systemFontOfSize:15];
+        messageLabel.font = [UIFont systemFontOfSize:12];
         messageLabel.text = message;
         [containerView addSubview:messageLabel];
+        [messageLabel sizeToFit];
         
         heigth = messageLabel.bottom + 20;
     }
-    
-    containerView.frame = CGRectMake(0, 0, 224, heigth);
+    containerView.height = heigth;
     
     NSMutableArray *buttons = [NSMutableArray array];
     for (id button in buttonTitles) {

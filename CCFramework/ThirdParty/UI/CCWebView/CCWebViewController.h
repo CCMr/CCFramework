@@ -42,6 +42,16 @@
 @property(nonatomic, assign) BOOL isTitleFollowChange;
 
 /**
+ 是否允许左右划手势导航，默认允许
+ */
+@property(nonatomic, assign) BOOL allowsBackForwardNavigationGestures;
+
+/**
+ 是否允许滚动, 默认允许
+ */
+@property(nonatomic, assign) BOOL isScrollEnabled;
+
+/**
  *  @author CC, 2015-10-13
  *
  *  @brief  显示网页地址

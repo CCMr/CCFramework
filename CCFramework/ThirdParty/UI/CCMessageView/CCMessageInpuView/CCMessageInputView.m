@@ -543,7 +543,8 @@
 
 #pragma mark - Text view delegate
 
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
     if ([self.delegate respondsToSelector:@selector(inputTextViewWillBeginEditing:)]) {
         [self.delegate inputTextViewWillBeginEditing:self.inputTextView];
     }
@@ -552,24 +553,28 @@
     return YES;
 }
 
-- (void)textViewDidBeginEditing:(UITextView *)textView {
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
     [textView becomeFirstResponder];
     if ([self.delegate respondsToSelector:@selector(inputTextViewDidBeginEditing:)]) {
         [self.delegate inputTextViewDidBeginEditing:self.inputTextView];
     }
 }
 
-- (void)textViewDidEndEditing:(UITextView *)textView {
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
     [textView resignFirstResponder];
 }
 
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
     if ([text isEqualToString:@"\n"]) {
         if ([self.delegate respondsToSelector:@selector(didSendTextAction:)]) {
-            [self.delegate didSendTextAction:textView.text];
-            textView.text = nil;
+            NSString *text = textView.text;
             [textView setContentOffset:CGPointZero animated:YES]; 
             [textView scrollRangeToVisible:textView.selectedRange]; 
+            textView.text = nil;
+            [self performSelector:@selector(didSendTextAction:) withObject:text afterDelay:0.03];
         }
         return NO;
     }
@@ -582,6 +587,11 @@
     }
     
     return YES;
+}
+
+-(void)didSendTextAction:(NSString *)text
+{
+    [self.delegate didSendTextAction:text];   
 }
 
 /**

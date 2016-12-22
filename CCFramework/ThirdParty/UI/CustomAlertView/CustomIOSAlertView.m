@@ -41,7 +41,7 @@
 @end
 
 const static CGFloat kCustomIOSAlertViewDefaultButtonHeight = 50;
-const static CGFloat kCustomIOSAlertViewDefaultButtonSpacerHeight = 1;
+const static CGFloat kCustomIOSAlertViewDefaultButtonSpacerHeight = 0.5;
 const static CGFloat kCustomIOSAlertViewCornerRadius = 7;
 const static CGFloat kCustomIOS7MotionEffectExtent = 10.0;
 
@@ -232,9 +232,12 @@ CGFloat buttonSpacerHeight = 0;
         CAGradientLayer *gradient = [CAGradientLayer layer];
         gradient.frame = dialogContainer.bounds;
         gradient.colors = [NSArray arrayWithObjects:
-                           (id)[[UIColor colorWithRed:218.0 / 255.0 green:218.0 / 255.0 blue:218.0 / 255.0 alpha:1.0f] CGColor],
-                           (id)[[UIColor colorWithRed:233.0 / 255.0 green:233.0 / 255.0 blue:233.0 / 255.0 alpha:1.0f] CGColor],
-                           (id)[[UIColor colorWithRed:218.0 / 255.0 green:218.0 / 255.0 blue:218.0 / 255.0 alpha:1.0f] CGColor],
+//                           (id)[[UIColor colorWithRed:218.0 / 255.0 green:218.0 / 255.0 blue:218.0 / 255.0 alpha:1.0f] CGColor],
+//                           (id)[[UIColor colorWithRed:233.0 / 255.0 green:233.0 / 255.0 blue:233.0 / 255.0 alpha:1.0f] CGColor],
+//                           (id)[[UIColor colorWithRed:218.0 / 255.0 green:218.0 / 255.0 blue:218.0 / 255.0 alpha:1.0f] CGColor],
+                           (id)[[UIColor  whiteColor] CGColor],
+                           (id)[[UIColor  whiteColor] CGColor],
+                           (id)[[UIColor  whiteColor] CGColor],
                            nil];
         
         CGFloat cornerRadius = kCustomIOSAlertViewCornerRadius;

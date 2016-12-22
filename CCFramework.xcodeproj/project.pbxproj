@@ -378,9 +378,9 @@
 		42255E081C7BEA4B00C0A057 /* ScanWord@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42255DFC1C7BEA4B00C0A057 /* ScanWord@2x.png */; };
 		4226FC411C327BE0003EAEFE /* CCInfoBanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 4226FC3F1C327BE0003EAEFE /* CCInfoBanner.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4226FC421C327BE0003EAEFE /* CCInfoBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4226FC401C327BE0003EAEFE /* CCInfoBanner.m */; };
-		4226FC471C3286F2003EAEFE /* CCHierarchySearcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 4226FC441C3286F2003EAEFE /* CCHierarchySearcher.h */; };
+		4226FC471C3286F2003EAEFE /* CCHierarchySearcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 4226FC441C3286F2003EAEFE /* CCHierarchySearcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4226FC481C3286F2003EAEFE /* CCHierarchySearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4226FC451C3286F2003EAEFE /* CCHierarchySearcher.m */; };
-		4226FC491C3286F2003EAEFE /* CCViewControllerHierarchy.h in Headers */ = {isa = PBXBuildFile; fileRef = 4226FC461C3286F2003EAEFE /* CCViewControllerHierarchy.h */; };
+		4226FC491C3286F2003EAEFE /* CCViewControllerHierarchy.h in Headers */ = {isa = PBXBuildFile; fileRef = 4226FC461C3286F2003EAEFE /* CCViewControllerHierarchy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		422754541C29329C0099B653 /* color_wheel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422754521C29329C0099B653 /* color_wheel@2x.png */; };
 		422754551C29329C0099B653 /* slider_border@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422754531C29329C0099B653 /* slider_border@2x.png */; };
 		4227546A1C29371F0099B653 /* Back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422754571C29371F0099B653 /* Back@2x.png */; };
@@ -464,6 +464,26 @@
 		42387C2B1CC7554400E25CEF /* CCMediator.m in Sources */ = {isa = PBXBuildFile; fileRef = 42387C291CC7554400E25CEF /* CCMediator.m */; };
 		42387C2C1CC75D5A00E25CEF /* CCViewMangerProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 42387C1B1CC74CD400E25CEF /* CCViewMangerProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42387C2E1CC75DEE00E25CEF /* CCKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 42387C2D1CC75D9500E25CEF /* CCKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4239510E1E0AAFD300A83F6B /* AvoidCrash.h in Headers */ = {isa = PBXBuildFile; fileRef = 423950FA1E0AAFD300A83F6B /* AvoidCrash.h */; };
+		4239510F1E0AAFD300A83F6B /* AvoidCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = 423950FB1E0AAFD300A83F6B /* AvoidCrash.m */; };
+		423951101E0AAFD300A83F6B /* NSArray+AvoidCrash.h in Headers */ = {isa = PBXBuildFile; fileRef = 423950FC1E0AAFD300A83F6B /* NSArray+AvoidCrash.h */; };
+		423951111E0AAFD300A83F6B /* NSArray+AvoidCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = 423950FD1E0AAFD300A83F6B /* NSArray+AvoidCrash.m */; };
+		423951121E0AAFD300A83F6B /* NSAttributedString+AvoidCrash.h in Headers */ = {isa = PBXBuildFile; fileRef = 423950FE1E0AAFD300A83F6B /* NSAttributedString+AvoidCrash.h */; };
+		423951131E0AAFD300A83F6B /* NSAttributedString+AvoidCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = 423950FF1E0AAFD300A83F6B /* NSAttributedString+AvoidCrash.m */; };
+		423951141E0AAFD300A83F6B /* NSDictionary+AvoidCrash.h in Headers */ = {isa = PBXBuildFile; fileRef = 423951001E0AAFD300A83F6B /* NSDictionary+AvoidCrash.h */; };
+		423951151E0AAFD300A83F6B /* NSDictionary+AvoidCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = 423951011E0AAFD300A83F6B /* NSDictionary+AvoidCrash.m */; };
+		423951161E0AAFD300A83F6B /* NSMutableArray+AvoidCrash.h in Headers */ = {isa = PBXBuildFile; fileRef = 423951021E0AAFD300A83F6B /* NSMutableArray+AvoidCrash.h */; };
+		423951171E0AAFD300A83F6B /* NSMutableArray+AvoidCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = 423951031E0AAFD300A83F6B /* NSMutableArray+AvoidCrash.m */; };
+		423951181E0AAFD300A83F6B /* NSMutableAttributedString+AvoidCrash.h in Headers */ = {isa = PBXBuildFile; fileRef = 423951041E0AAFD300A83F6B /* NSMutableAttributedString+AvoidCrash.h */; };
+		423951191E0AAFD300A83F6B /* NSMutableAttributedString+AvoidCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = 423951051E0AAFD300A83F6B /* NSMutableAttributedString+AvoidCrash.m */; };
+		4239511A1E0AAFD300A83F6B /* NSMutableDictionary+AvoidCrash.h in Headers */ = {isa = PBXBuildFile; fileRef = 423951061E0AAFD300A83F6B /* NSMutableDictionary+AvoidCrash.h */; };
+		4239511B1E0AAFD300A83F6B /* NSMutableDictionary+AvoidCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = 423951071E0AAFD300A83F6B /* NSMutableDictionary+AvoidCrash.m */; };
+		4239511C1E0AAFD300A83F6B /* NSMutableString+AvoidCrash.h in Headers */ = {isa = PBXBuildFile; fileRef = 423951081E0AAFD300A83F6B /* NSMutableString+AvoidCrash.h */; };
+		4239511D1E0AAFD300A83F6B /* NSMutableString+AvoidCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = 423951091E0AAFD300A83F6B /* NSMutableString+AvoidCrash.m */; };
+		4239511E1E0AAFD300A83F6B /* NSObject+AvoidCrash.h in Headers */ = {isa = PBXBuildFile; fileRef = 4239510A1E0AAFD300A83F6B /* NSObject+AvoidCrash.h */; };
+		4239511F1E0AAFD300A83F6B /* NSObject+AvoidCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = 4239510B1E0AAFD300A83F6B /* NSObject+AvoidCrash.m */; };
+		423951201E0AAFD300A83F6B /* NSString+AvoidCrash.h in Headers */ = {isa = PBXBuildFile; fileRef = 4239510C1E0AAFD300A83F6B /* NSString+AvoidCrash.h */; };
+		423951211E0AAFD300A83F6B /* NSString+AvoidCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = 4239510D1E0AAFD300A83F6B /* NSString+AvoidCrash.m */; };
 		423C12791C0ECACB009FBA17 /* CCTool.h in Headers */ = {isa = PBXBuildFile; fileRef = 423C12771C0ECACB009FBA17 /* CCTool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		423C127A1C0ECACB009FBA17 /* CCTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 423C12781C0ECACB009FBA17 /* CCTool.m */; };
 		423D1DA41C3A11F0008E483A /* CCAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 423D1DA21C3A11F0008E483A /* CCAlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1838,6 +1858,26 @@
 		42387C281CC7554400E25CEF /* CCMediator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCMediator.h; path = Core/CCMVVMKit/CCMediator.h; sourceTree = "<group>"; };
 		42387C291CC7554400E25CEF /* CCMediator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCMediator.m; path = Core/CCMVVMKit/CCMediator.m; sourceTree = "<group>"; };
 		42387C2D1CC75D9500E25CEF /* CCKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CCKit.h; path = Core/CCMVVMKit/CCKit.h; sourceTree = "<group>"; };
+		423950FA1E0AAFD300A83F6B /* AvoidCrash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvoidCrash.h; sourceTree = "<group>"; };
+		423950FB1E0AAFD300A83F6B /* AvoidCrash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvoidCrash.m; sourceTree = "<group>"; };
+		423950FC1E0AAFD300A83F6B /* NSArray+AvoidCrash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+AvoidCrash.h"; sourceTree = "<group>"; };
+		423950FD1E0AAFD300A83F6B /* NSArray+AvoidCrash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+AvoidCrash.m"; sourceTree = "<group>"; };
+		423950FE1E0AAFD300A83F6B /* NSAttributedString+AvoidCrash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+AvoidCrash.h"; sourceTree = "<group>"; };
+		423950FF1E0AAFD300A83F6B /* NSAttributedString+AvoidCrash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+AvoidCrash.m"; sourceTree = "<group>"; };
+		423951001E0AAFD300A83F6B /* NSDictionary+AvoidCrash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+AvoidCrash.h"; sourceTree = "<group>"; };
+		423951011E0AAFD300A83F6B /* NSDictionary+AvoidCrash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+AvoidCrash.m"; sourceTree = "<group>"; };
+		423951021E0AAFD300A83F6B /* NSMutableArray+AvoidCrash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+AvoidCrash.h"; sourceTree = "<group>"; };
+		423951031E0AAFD300A83F6B /* NSMutableArray+AvoidCrash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+AvoidCrash.m"; sourceTree = "<group>"; };
+		423951041E0AAFD300A83F6B /* NSMutableAttributedString+AvoidCrash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+AvoidCrash.h"; sourceTree = "<group>"; };
+		423951051E0AAFD300A83F6B /* NSMutableAttributedString+AvoidCrash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+AvoidCrash.m"; sourceTree = "<group>"; };
+		423951061E0AAFD300A83F6B /* NSMutableDictionary+AvoidCrash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+AvoidCrash.h"; sourceTree = "<group>"; };
+		423951071E0AAFD300A83F6B /* NSMutableDictionary+AvoidCrash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+AvoidCrash.m"; sourceTree = "<group>"; };
+		423951081E0AAFD300A83F6B /* NSMutableString+AvoidCrash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+AvoidCrash.h"; sourceTree = "<group>"; };
+		423951091E0AAFD300A83F6B /* NSMutableString+AvoidCrash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableString+AvoidCrash.m"; sourceTree = "<group>"; };
+		4239510A1E0AAFD300A83F6B /* NSObject+AvoidCrash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AvoidCrash.h"; sourceTree = "<group>"; };
+		4239510B1E0AAFD300A83F6B /* NSObject+AvoidCrash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AvoidCrash.m"; sourceTree = "<group>"; };
+		4239510C1E0AAFD300A83F6B /* NSString+AvoidCrash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AvoidCrash.h"; sourceTree = "<group>"; };
+		4239510D1E0AAFD300A83F6B /* NSString+AvoidCrash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AvoidCrash.m"; sourceTree = "<group>"; };
 		423C12771C0ECACB009FBA17 /* CCTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCTool.h; path = Core/Tool/CCTool.h; sourceTree = "<group>"; };
 		423C12781C0ECACB009FBA17 /* CCTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCTool.m; path = Core/Tool/CCTool.m; sourceTree = "<group>"; };
 		423D1DA21C3A11F0008E483A /* CCAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCAlertView.h; path = Core/CCAlertView/CCAlertView.h; sourceTree = "<group>"; };
@@ -4230,6 +4270,33 @@
 				42387C1B1CC74CD400E25CEF /* CCViewMangerProtocol.h */,
 			);
 			name = Protocol;
+			sourceTree = "<group>";
+		};
+		423950F91E0AAFD300A83F6B /* AvoidCrash */ = {
+			isa = PBXGroup;
+			children = (
+				423950FA1E0AAFD300A83F6B /* AvoidCrash.h */,
+				423950FB1E0AAFD300A83F6B /* AvoidCrash.m */,
+				423950FC1E0AAFD300A83F6B /* NSArray+AvoidCrash.h */,
+				423950FD1E0AAFD300A83F6B /* NSArray+AvoidCrash.m */,
+				423950FE1E0AAFD300A83F6B /* NSAttributedString+AvoidCrash.h */,
+				423950FF1E0AAFD300A83F6B /* NSAttributedString+AvoidCrash.m */,
+				423951001E0AAFD300A83F6B /* NSDictionary+AvoidCrash.h */,
+				423951011E0AAFD300A83F6B /* NSDictionary+AvoidCrash.m */,
+				423951021E0AAFD300A83F6B /* NSMutableArray+AvoidCrash.h */,
+				423951031E0AAFD300A83F6B /* NSMutableArray+AvoidCrash.m */,
+				423951041E0AAFD300A83F6B /* NSMutableAttributedString+AvoidCrash.h */,
+				423951051E0AAFD300A83F6B /* NSMutableAttributedString+AvoidCrash.m */,
+				423951061E0AAFD300A83F6B /* NSMutableDictionary+AvoidCrash.h */,
+				423951071E0AAFD300A83F6B /* NSMutableDictionary+AvoidCrash.m */,
+				423951081E0AAFD300A83F6B /* NSMutableString+AvoidCrash.h */,
+				423951091E0AAFD300A83F6B /* NSMutableString+AvoidCrash.m */,
+				4239510A1E0AAFD300A83F6B /* NSObject+AvoidCrash.h */,
+				4239510B1E0AAFD300A83F6B /* NSObject+AvoidCrash.m */,
+				4239510C1E0AAFD300A83F6B /* NSString+AvoidCrash.h */,
+				4239510D1E0AAFD300A83F6B /* NSString+AvoidCrash.m */,
+			);
+			path = AvoidCrash;
 			sourceTree = "<group>";
 		};
 		423B252D1BE9E86700DAF075 /* CCDorpDown */ = {
@@ -6760,6 +6827,7 @@
 		42F4116B1C2150E500814E7B /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				423950F91E0AAFD300A83F6B /* AvoidCrash */,
 				42F4116F1C2150E500814E7B /* Category.h */,
 				421DC4051C85750E009E825B /* Foundation */,
 				421DC4BA1C85750E009E825B /* UIKit */,
@@ -6872,6 +6940,7 @@
 				428B5C3D1C22609C001B8584 /* split.h in Headers */,
 				425477621BD2AEC20071BBC5 /* sha.h in Headers */,
 				42068F081C573E33005DFB01 /* POPAnimationEvent.h in Headers */,
+				423951181E0AAFD300A83F6B /* NSMutableAttributedString+AvoidCrash.h in Headers */,
 				42ECCAA01DD47954008E7F31 /* UIImageView+HighlightedWebCache.h in Headers */,
 				42DEB2A41C25495000734E09 /* CCColorSourceView.h in Headers */,
 				42ECCABA1DD4795B008E7F31 /* UIImage+WebP.h in Headers */,
@@ -7065,6 +7134,7 @@
 				429CA0771B9EF8BF0013A44A /* CCPopMenuView.h in Headers */,
 				4298C7791BDCA5D700A3581D /* CCTableViewFetchResultController.h in Headers */,
 				429CA00F1B9EF8BF0013A44A /* CalendarFlowLayout.h in Headers */,
+				4239511C1E0AAFD300A83F6B /* NSMutableString+AvoidCrash.h in Headers */,
 				4253306E1C96B14800375ED0 /* CCTableViewHelper.h in Headers */,
 				429CA0381B9EF8BF0013A44A /* CCPhotoToolbar.h in Headers */,
 				42068F2A1C5746A1005DFB01 /* CCPopMenuButton.h in Headers */,
@@ -7128,6 +7198,7 @@
 				42068EF41C573E33005DFB01 /* POPAnimation.h in Headers */,
 				420CB1361C7D788500A0EC25 /* MASConstraint+Private.h in Headers */,
 				4263DEE61C225A54002E1071 /* CCColorWell.h in Headers */,
+				423951101E0AAFD300A83F6B /* NSArray+AvoidCrash.h in Headers */,
 				42068F1A1C573E33005DFB01 /* POPGeometry.h in Headers */,
 				429CA0FD1B9EF8BF0013A44A /* CCCacheManager.h in Headers */,
 				429CA1201B9EF8BF0013A44A /* CCEmotionManagerView.h in Headers */,
@@ -7166,6 +7237,7 @@
 				425477601BD2AEC20071BBC5 /* safestack.h in Headers */,
 				425477391BD2AEC20071BBC5 /* des.h in Headers */,
 				429CA0131B9EF8BF0013A44A /* CalendarLogic.h in Headers */,
+				423951161E0AAFD300A83F6B /* NSMutableArray+AvoidCrash.h in Headers */,
 				421DC67C1C85750E009E825B /* NSUserDefaults+Additions.h in Headers */,
 				4226FC471C3286F2003EAEFE /* CCHierarchySearcher.h in Headers */,
 				42F24C691BEA5091008CDEDC /* PNRadarChartDataItem.h in Headers */,
@@ -7282,6 +7354,7 @@
 				429C9FA01B9EF8BF0013A44A /* CCSecurityStrategy.h in Headers */,
 				424492961C0D90F500488AA2 /* dec_if.h in Headers */,
 				42C208ED1BDE14FC00C76004 /* ChatDisplayKitLib.h in Headers */,
+				423951121E0AAFD300A83F6B /* NSAttributedString+AvoidCrash.h in Headers */,
 				421DC7061C85750E009E825B /* UIPopoverController+Additions.h in Headers */,
 				4254775B1BD2AEC20071BBC5 /* rand.h in Headers */,
 				427E1D411C10709F004B257C /* CCWxPayEngine.h in Headers */,
@@ -7374,6 +7447,7 @@
 				42DEB2A01C25495000734E09 /* CCColorComparator.h in Headers */,
 				429CA0011B9EF8BF0013A44A /* CCActionSheet.h in Headers */,
 				42027FBD1C9BD468009D3803 /* UIGestureRecognizer+Additions.h in Headers */,
+				423951141E0AAFD300A83F6B /* NSDictionary+AvoidCrash.h in Headers */,
 				4219EE121C7FF93F00F1EE76 /* MLLabel+Override.h in Headers */,
 				42063EC41C8936F1003348EB /* CAShapeLayer+Additions.h in Headers */,
 				429C9FFF1B9EF8BF0013A44A /* CCRourRotation.h in Headers */,
@@ -7391,6 +7465,7 @@
 				429CA10B1B9EF8BF0013A44A /* CCEmotion.h in Headers */,
 				429C9FFD1B9EF8BF0013A44A /* CCSlideShadowAnimation.h in Headers */,
 				42E953201C589E9E001C93CB /* CCBannerFooter.h in Headers */,
+				423951201E0AAFD300A83F6B /* NSString+AvoidCrash.h in Headers */,
 				429C9F5E1B9EF8BF0013A44A /* CCDropzoneViewController.h in Headers */,
 				429C9F541B9EF8BF0013A44A /* BaseSearchTableViewController.h in Headers */,
 				42F24C4F1BEA5091008CDEDC /* PNBar.h in Headers */,
@@ -7411,6 +7486,7 @@
 				4217A6FF1DE41A0F007EF399 /* UICollectionView+Additions.h in Headers */,
 				429C9FA81B9EF8BF0013A44A /* SmoothViewController.h in Headers */,
 				424BD5921C8ECA3E005722F6 /* WKWebViewJavascriptBridge.h in Headers */,
+				4239511A1E0AAFD300A83F6B /* NSMutableDictionary+AvoidCrash.h in Headers */,
 				42F24C6B1BEA5091008CDEDC /* PNScatterChart.h in Headers */,
 				4219EE081C7FF93F00F1EE76 /* NSString+MLLabel.h in Headers */,
 				429CA1031B9EF8BF0013A44A /* CCMessageBubbleFactory.h in Headers */,
@@ -7447,6 +7523,7 @@
 				421E7A7D1C3D173D00C31AD0 /* UIViewController+CCSideMenu.h in Headers */,
 				421DC6B21C85750E009E825B /* UIDevice+Additions.h in Headers */,
 				42FB015C1C900B5E0048B5E0 /* UICollectionViewCell+Additions.h in Headers */,
+				4239511E1E0AAFD300A83F6B /* NSObject+AvoidCrash.h in Headers */,
 				421196A41D810A400041DAB8 /* UITableViewHeaderFooterView+Additions.h in Headers */,
 				42DEB2A81C25495000734E09 /* CCInsetView.h in Headers */,
 				42068F201C573E33005DFB01 /* POPSpringSolver.h in Headers */,
@@ -7561,6 +7638,7 @@
 				42ECCAA41DD47954008E7F31 /* UIView+WebCache.h in Headers */,
 				42B30DCB1BBD72AD0039BB94 /* SDImageCache.h in Headers */,
 				425A4F3C1C11CA42009A7E77 /* CCWXSingleEntity.h in Headers */,
+				4239510E1E0AAFD300A83F6B /* AvoidCrash.h in Headers */,
 				4264D73E1BA2C19100E83159 /* CCPageIndicatorView.h in Headers */,
 				42F24C671BEA5091008CDEDC /* PNRadarChart.h in Headers */,
 				428B5C2F1C22609C001B8584 /* bitstream.h in Headers */,
@@ -7794,6 +7872,7 @@
 				42A3563C1BF4399800B6F1F2 /* CCRefreshHeaderView.m in Sources */,
 				42A1F6651C8A8E4000A20F64 /* FMDatabaseQueue.m in Sources */,
 				429CA0B41B9EF8BF0013A44A /* SETextView.m in Sources */,
+				423951211E0AAFD300A83F6B /* NSString+AvoidCrash.m in Sources */,
 				426476A71BD0E3AF00EE191C /* CCTableViewCell.m in Sources */,
 				421DC6171C85750E009E825B /* NSFileHandle+Additions.m in Sources */,
 				429CA0AC1B9EF8BF0013A44A /* SETextMagnifierCaret.m in Sources */,
@@ -7971,6 +8050,7 @@
 				429C9F711B9EF8BF0013A44A /* CCHTTPManager.m in Sources */,
 				429B9BAC1C322DCB00ACB250 /* CCProgressHUD.m in Sources */,
 				42DEB2A51C25495000734E09 /* CCColorSourceView.m in Sources */,
+				4239511F1E0AAFD300A83F6B /* NSObject+AvoidCrash.m in Sources */,
 				42DEB2951C25495000734E09 /* CCColorSlider.m in Sources */,
 				421DC6091C85750E009E825B /* NSDictionary+Additions.m in Sources */,
 				42A1F62A1C8A761D00A20F64 /* CCDebugCrashViewController.m in Sources */,
@@ -7993,6 +8073,7 @@
 				421DC6291C85750E009E825B /* NSNumber+Additions.m in Sources */,
 				421546CA1C9C015200996C8E /* CCTransformRefresh.m in Sources */,
 				42B30DEB1BBD72AD0039BB94 /* SDWebImagePrefetcher.m in Sources */,
+				423951151E0AAFD300A83F6B /* NSDictionary+AvoidCrash.m in Sources */,
 				4269793E1BA695BA00C3E93C /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				424255151C310CCA00D94E04 /* CCMessagePhotoImageView.m in Sources */,
 				429C9FDE1B9EF8BF0013A44A /* SRHeartbeatMonitor.m in Sources */,
@@ -8084,6 +8165,7 @@
 				429CA0721B9EF8BF0013A44A /* CCPopMenu.m in Sources */,
 				421C64561C8444BB00696B63 /* NSIndexPath+CCSpreadsheetView.m in Sources */,
 				4229668A1C75926B005E1C03 /* CCFlipImageView.m in Sources */,
+				4239510F1E0AAFD300A83F6B /* AvoidCrash.m in Sources */,
 				428B5C2E1C22609C001B8584 /* bitstream.c in Sources */,
 				42A58A411BCC94320027429C /* CCQRCodeDisplayViewController.m in Sources */,
 				425476BE1BD2A9DC0071BBC5 /* CCAliPayEngine.m in Sources */,
@@ -8143,6 +8225,7 @@
 				429CA0941B9EF8BF0013A44A /* CCDatePicker.m in Sources */,
 				42F411481C214C5400814E7B /* CCSquareBrush.m in Sources */,
 				42F4121F1C21648300814E7B /* CCPaintingLayer.m in Sources */,
+				423951191E0AAFD300A83F6B /* NSMutableAttributedString+AvoidCrash.m in Sources */,
 				42DEC0A81D94DDB400004CDB /* TYImageStorage.m in Sources */,
 				4298C78B1BDCBB0300A3581D /* CoreDataMasterSlave+Modify.m in Sources */,
 				42F24C5C1BEA5091008CDEDC /* PNGenericChart.m in Sources */,
@@ -8180,11 +8263,13 @@
 				429CA0EC1B9EF8BF0013A44A /* CCCaptureHelper.m in Sources */,
 				4236B6431DF04E17002F4299 /* CameraToggleButton.m in Sources */,
 				420AFBF01DFFE1B100550AB8 /* TZProgressView.m in Sources */,
+				423951171E0AAFD300A83F6B /* NSMutableArray+AvoidCrash.m in Sources */,
 				429C9FAB1B9EF8BF0013A44A /* CCThemeManager.m in Sources */,
 				426979471BA695BA00C3E93C /* UIProgressView+AFNetworking.m in Sources */,
 				42DEB29B1C25495000734E09 /* CCShader.m in Sources */,
 				42068F0E1C573E33005DFB01 /* POPAnimationRuntime.mm in Sources */,
 				427565651CFC0A84002E317D /* NSAttributedString+Teletext.m in Sources */,
+				4239511D1E0AAFD300A83F6B /* NSMutableString+AvoidCrash.m in Sources */,
 				42A1F6261C8A760600A20F64 /* CCDebugHttpViewController.m in Sources */,
 				42068F241C573E33005DFB01 /* TransformationMatrix.cpp in Sources */,
 				429C9F991B9EF8BF0013A44A /* CCUncaughtExceptionHandler.m in Sources */,
@@ -8216,6 +8301,7 @@
 				429C892F1DAB95C500A7502B /* TZImagePickerController.m in Sources */,
 				42DEB2A11C25495000734E09 /* CCColorComparator.m in Sources */,
 				421DC6F71C85750E009E825B /* UINavigationController+Additions.m in Sources */,
+				423951111E0AAFD300A83F6B /* NSArray+AvoidCrash.m in Sources */,
 				42A1F62E1C8A796000A20F64 /* CCDebugMemoryHelper.m in Sources */,
 				429C9F5B1B9EF8BF0013A44A /* BaseTableViewHeaderFooterView.m in Sources */,
 				4254777C1BD2AEC20071BBC5 /* MD5DataSigner.m in Sources */,
@@ -8310,6 +8396,7 @@
 				421DC70F1C85750E009E825B /* UIScreen+Additions.m in Sources */,
 				42F24C6C1BEA5091008CDEDC /* PNScatterChart.m in Sources */,
 				429C9FFE1B9EF8BF0013A44A /* CCSlideShadowAnimation.m in Sources */,
+				4239511B1E0AAFD300A83F6B /* NSMutableDictionary+AvoidCrash.m in Sources */,
 				429CA0841B9EF8BF0013A44A /* CCTextViewPlaceholder.m in Sources */,
 				4213B0151C91016100BAB28E /* CCKeyValueStore.m in Sources */,
 				4267DD0D1BDB5A7000B0C43F /* NSManagedObject+Removed.m in Sources */,
@@ -8332,6 +8419,7 @@
 				42DEB29F1C25495000734E09 /* Shaders.m in Sources */,
 				428B5C341C22609C001B8584 /* qrencode.c in Sources */,
 				4269793C1BA695BA00C3E93C /* AFNetworkActivityIndicatorManager.m in Sources */,
+				423951131E0AAFD300A83F6B /* NSAttributedString+AvoidCrash.m in Sources */,
 				42063ED91C893BCF003348EB /* CLLocationManager+Additions.m in Sources */,
 				42F411461C214C5400814E7B /* CCRectangleBrush.m in Sources */,
 				421E7A781C3D173D00C31AD0 /* UIViewController+CCDrawerController.m in Sources */,
