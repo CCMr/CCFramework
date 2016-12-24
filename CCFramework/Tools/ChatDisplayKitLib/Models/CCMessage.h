@@ -116,12 +116,9 @@
 @property(nonatomic, copy) NSString *redPackageID;
 @property(nonatomic, assign) BOOL isOpen;
 
-/**
- *  @author CC, 16-08-25
- *
- *  @brief 显示通知消息
- */
+#pragma mark 通知消息
 @property(nonatomic, copy) NSString *noticeContent;
+@property(nonatomic, copy) NSAttributedString *noticeAttContent;
 
 /**
  *  @author CC, 2015-11-16

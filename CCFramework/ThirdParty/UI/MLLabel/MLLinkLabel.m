@@ -86,6 +86,7 @@ REGULAREXPRESSION(planePhone,@"^0(([1,2]\d)|([3-9]\d{2}))\d{8}$")
 {
     if (!_longPressGestureRecognizer) {
         _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureDidFire:)];
+        _longPressGestureRecognizer.minimumPressDuration = 1.0;  
         _longPressGestureRecognizer.delegate = self;
     }
     return _longPressGestureRecognizer;

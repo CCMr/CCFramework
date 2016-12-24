@@ -125,33 +125,21 @@
     if (!self.debugTabBar) {
         UITabBarController *debugTabBar = [[UITabBarController alloc] init];
 
-        UINavigationController *debugHTTPNav = ({
-            CCDebugHttpViewController * debugHTTP = [CCDebugHttpViewController new];
-            debugHTTP.title = @"Home";
-            [debugHTTP.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor],NSFontAttributeName:[UIFont systemFontOfSize:30]} forState:UIControlStateNormal];
-            [debugHTTP.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:self.mainColor,NSFontAttributeName:[UIFont systemFontOfSize:30]} forState:UIControlStateSelected];
+        UINavigationController *debugHTTPNav = [[UINavigationController alloc] initWithRootViewController:[CCDebugHttpViewController new]];
+        debugHTTPNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"HTTP" image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        [debugHTTPNav.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor],NSFontAttributeName:[UIFont systemFontOfSize:30]} forState:UIControlStateNormal];
+        [debugHTTPNav.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:self.mainColor,NSFontAttributeName:[UIFont systemFontOfSize:30]} forState:UIControlStateSelected];
 
-            [[UINavigationController alloc] initWithRootViewController:debugHTTP];
-        });
+        
+        UINavigationController *debugCrashNav =  [[UINavigationController alloc] initWithRootViewController: [CCDebugCrashViewController new]]; 
+        debugCrashNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Crash" image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        [debugCrashNav.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor],NSFontAttributeName:[UIFont systemFontOfSize:30]} forState:UIControlStateNormal];
+        [debugCrashNav.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:self.mainColor,NSFontAttributeName:[UIFont systemFontOfSize:30]} forState:UIControlStateSelected];
 
-
-        UINavigationController *debugCrashNav = ({
-            CCDebugCrashViewController *debugCrash = [CCDebugCrashViewController new];
-            debugCrash.title = @"Crash";
-            [debugCrash.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor],NSFontAttributeName:[UIFont systemFontOfSize:30]} forState:UIControlStateNormal];
-            [debugCrash.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:self.mainColor,NSFontAttributeName:[UIFont systemFontOfSize:30]} forState:UIControlStateSelected];
-
-            [[UINavigationController alloc] initWithRootViewController:debugCrash];
-        });
-
-        UINavigationController *debugLOGNav = ({
-            CCDebugLogViewController *debugLOG = [CCDebugLogViewController new];
-            debugLOG.title = @"LOG";
-            [debugLOG.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor],NSFontAttributeName:[UIFont systemFontOfSize:30]} forState:UIControlStateNormal];
-            [debugLOG.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:self.mainColor,NSFontAttributeName:[UIFont systemFontOfSize:30]} forState:UIControlStateSelected];
-
-            [[UINavigationController alloc] initWithRootViewController:debugLOG];
-        });
+        UINavigationController *debugLOGNav = [[UINavigationController alloc] initWithRootViewController:[CCDebugLogViewController new]];
+        debugLOGNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"LOG" image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        [debugLOGNav.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor],NSFontAttributeName:[UIFont systemFontOfSize:30]} forState:UIControlStateNormal];
+        [debugLOGNav.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:self.mainColor,NSFontAttributeName:[UIFont systemFontOfSize:30]} forState:UIControlStateSelected];
 
         debugTabBar.viewControllers = [NSArray arrayWithObjects:debugHTTPNav, debugCrashNav, debugLOGNav, nil];
         self.debugTabBar = debugTabBar;

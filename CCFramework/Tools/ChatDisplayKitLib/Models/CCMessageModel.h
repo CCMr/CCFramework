@@ -146,7 +146,9 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
 - (UIImage *)avatar;
 - (NSString *)avatarUrl;
 
+#pragma mark - 通知
 - (NSString *)noticeContent;
+- (NSAttributedString *)noticeAttContent;
 
 #pragma mark - 文件
 - (NSString *)fileThumbnailUrl;
@@ -206,12 +208,12 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageType) {
  */
 - (BOOL)shouldShowUserLabel;
 
--(NSString *)userLabel;
+- (NSString *)userLabel;
 
 /**
  标签颜色
  */
--(UIColor *)userLabelColor;
+- (UIColor *)userLabelColor;
 
 /**
  *  @author CC, 15-08-17

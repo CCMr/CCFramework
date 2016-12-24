@@ -505,14 +505,6 @@
 		424492971C0D90F500488AA2 /* if_rom.h in Headers */ = {isa = PBXBuildFile; fileRef = 4244928B1C0D90F500488AA2 /* if_rom.h */; };
 		424492981C0D90F500488AA2 /* VoiceConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 4244928C1C0D90F500488AA2 /* VoiceConverter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		424492991C0D90F500488AA2 /* VoiceConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4244928D1C0D90F500488AA2 /* VoiceConverter.m */; };
-		424BD58C1C8ECA3E005722F6 /* WebViewJavascriptBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 424BD5841C8ECA3E005722F6 /* WebViewJavascriptBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		424BD58D1C8ECA3E005722F6 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 424BD5851C8ECA3E005722F6 /* WebViewJavascriptBridge.m */; };
-		424BD58E1C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.h in Headers */ = {isa = PBXBuildFile; fileRef = 424BD5861C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.h */; };
-		424BD58F1C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 424BD5871C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.m */; };
-		424BD5901C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 424BD5881C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		424BD5911C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 424BD5891C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.m */; };
-		424BD5921C8ECA3E005722F6 /* WKWebViewJavascriptBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 424BD58A1C8ECA3E005722F6 /* WKWebViewJavascriptBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		424BD5931C8ECA3E005722F6 /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 424BD58B1C8ECA3E005722F6 /* WKWebViewJavascriptBridge.m */; };
 		425330641C96508500375ED0 /* CCViewControllerProtocolDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 425330621C964FA300375ED0 /* CCViewControllerProtocolDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4253306E1C96B14800375ED0 /* CCTableViewHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 4253306C1C96B14800375ED0 /* CCTableViewHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4253306F1C96B14800375ED0 /* CCTableViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4253306D1C96B14800375ED0 /* CCTableViewHelper.m */; };
@@ -1899,14 +1891,6 @@
 		4244928B1C0D90F500488AA2 /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
 		4244928C1C0D90F500488AA2 /* VoiceConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceConverter.h; sourceTree = "<group>"; };
 		4244928D1C0D90F500488AA2 /* VoiceConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceConverter.m; sourceTree = "<group>"; };
-		424BD5841C8ECA3E005722F6 /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
-		424BD5851C8ECA3E005722F6 /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge.m; sourceTree = "<group>"; };
-		424BD5861C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge_JS.h; sourceTree = "<group>"; };
-		424BD5871C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge_JS.m; sourceTree = "<group>"; };
-		424BD5881C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridgeBase.h; sourceTree = "<group>"; };
-		424BD5891C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
-		424BD58A1C8ECA3E005722F6 /* WKWebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKWebViewJavascriptBridge.h; sourceTree = "<group>"; };
-		424BD58B1C8ECA3E005722F6 /* WKWebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewJavascriptBridge.m; sourceTree = "<group>"; };
 		425330621C964FA300375ED0 /* CCViewControllerProtocolDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCViewControllerProtocolDelegate.h; sourceTree = "<group>"; };
 		4253306C1C96B14800375ED0 /* CCTableViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCTableViewHelper.h; path = ViewManger/CCTableViewHelper.h; sourceTree = "<group>"; };
 		4253306D1C96B14800375ED0 /* CCTableViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCTableViewHelper.m; path = ViewManger/CCTableViewHelper.m; sourceTree = "<group>"; };
@@ -4388,21 +4372,6 @@
 			path = "opencore-amrwb";
 			sourceTree = "<group>";
 		};
-		424BD5831C8ECA3E005722F6 /* WebViewJavascriptBridge */ = {
-			isa = PBXGroup;
-			children = (
-				424BD5841C8ECA3E005722F6 /* WebViewJavascriptBridge.h */,
-				424BD5851C8ECA3E005722F6 /* WebViewJavascriptBridge.m */,
-				424BD5861C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.h */,
-				424BD5871C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.m */,
-				424BD5881C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.h */,
-				424BD5891C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.m */,
-				424BD58A1C8ECA3E005722F6 /* WKWebViewJavascriptBridge.h */,
-				424BD58B1C8ECA3E005722F6 /* WKWebViewJavascriptBridge.m */,
-			);
-			path = WebViewJavascriptBridge;
-			sourceTree = "<group>";
-		};
 		425330701C96B1A000375ED0 /* BaseViewManger */ = {
 			isa = PBXGroup;
 			children = (
@@ -5253,7 +5222,6 @@
 			children = (
 				4236B61D1DF04D3A002F4299 /* CCCamera */,
 				42C208E31BDE021900C76004 /* Ability.h */,
-				424BD5831C8ECA3E005722F6 /* WebViewJavascriptBridge */,
 				42A1F6151C8A71C800A20F64 /* CCDebugTool */,
 				420CB11A1C7D788500A0EC25 /* Masonry */,
 				420CD8AE1C59F76E009578D4 /* CCInputDodger */,
@@ -6978,7 +6946,6 @@
 				4254776A1BD2AEC20071BBC5 /* symhacks.h in Headers */,
 				42F24C531BEA5091008CDEDC /* PNChart.h in Headers */,
 				421DC6161C85750E009E825B /* NSFileHandle+Additions.h in Headers */,
-				424BD58C1C8ECA3E005722F6 /* WebViewJavascriptBridge.h in Headers */,
 				425477441BD2AEC20071BBC5 /* engine.h in Headers */,
 				420CB1451C7D788500A0EC25 /* NSArray+MASShorthandAdditions.h in Headers */,
 				425C4D6E1D9E077200E3CD1C /* SRBlockOperation.h in Headers */,
@@ -7365,7 +7332,6 @@
 				425477341BD2AEC20071BBC5 /* cms.h in Headers */,
 				424492971C0D90F500488AA2 /* if_rom.h in Headers */,
 				429C9F631B9EF8BF0013A44A /* EnumConfig.h in Headers */,
-				424BD58E1C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.h in Headers */,
 				4254772C1BD2AEC20071BBC5 /* asn1t.h in Headers */,
 				421DC6761C85750E009E825B /* NSURLConnection+Additions.h in Headers */,
 				429C9F701B9EF8BF0013A44A /* CCHTTPManager.h in Headers */,
@@ -7485,7 +7451,6 @@
 				421DC6181C85750E009E825B /* NSFileManager+Additions.h in Headers */,
 				4217A6FF1DE41A0F007EF399 /* UICollectionView+Additions.h in Headers */,
 				429C9FA81B9EF8BF0013A44A /* SmoothViewController.h in Headers */,
-				424BD5921C8ECA3E005722F6 /* WKWebViewJavascriptBridge.h in Headers */,
 				4239511A1E0AAFD300A83F6B /* NSMutableDictionary+AvoidCrash.h in Headers */,
 				42F24C6B1BEA5091008CDEDC /* PNScatterChart.h in Headers */,
 				4219EE081C7FF93F00F1EE76 /* NSString+MLLabel.h in Headers */,
@@ -7592,7 +7557,6 @@
 				421DC7AF1C8595AB009E825B /* UIActionSheet+Additions.h in Headers */,
 				4219EE171C7FF93F00F1EE76 /* MLLinkLabel.h in Headers */,
 				425477721BD2AEC20071BBC5 /* x509_vfy.h in Headers */,
-				424BD5901C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.h in Headers */,
 				4254774F1BD2AEC20071BBC5 /* modes.h in Headers */,
 				42068F1C1C573E33005DFB01 /* POPLayerExtras.h in Headers */,
 				421DC6AE1C85750E009E825B /* UIControl+Additions.h in Headers */,
@@ -8101,7 +8065,6 @@
 				42068EF91C573E33005DFB01 /* POPBasicAnimation.mm in Sources */,
 				420CB1511C7D856F00A0EC25 /* CCSegmentedView.m in Sources */,
 				429C9FA71B9EF8BF0013A44A /* SmoothScrollView.m in Sources */,
-				424BD5931C8ECA3E005722F6 /* WKWebViewJavascriptBridge.m in Sources */,
 				42027FBE1C9BD468009D3803 /* UIGestureRecognizer+Additions.m in Sources */,
 				425477881BD2AF6A0071BBC5 /* AliOrderFormEntity.m in Sources */,
 				421DC6791C85750E009E825B /* NSURLRequest+Additions.m in Sources */,
@@ -8208,7 +8171,6 @@
 				4220E9EB1CC4DD19002B5FF0 /* CCButton.m in Sources */,
 				4217A7001DE41A0F007EF399 /* UICollectionView+Additions.m in Sources */,
 				427E1A451D3E1C4E0093281F /* CCTeletTextLink.m in Sources */,
-				424BD58D1C8ECA3E005722F6 /* WebViewJavascriptBridge.m in Sources */,
 				420CD8BE1C59F9B9009578D4 /* UIView+CCInputDodger.m in Sources */,
 				42387C231CC750B800E25CEF /* UIView+CCKit.m in Sources */,
 				429C9FEE1B9EF8BF0013A44A /* SRHttpBasedTransport.m in Sources */,
@@ -8230,7 +8192,6 @@
 				4298C78B1BDCBB0300A3581D /* CoreDataMasterSlave+Modify.m in Sources */,
 				42F24C5C1BEA5091008CDEDC /* PNGenericChart.m in Sources */,
 				422E91711C5F38BE008F7DDA /* PRTween.m in Sources */,
-				424BD58F1C8ECA3E005722F6 /* WebViewJavascriptBridge_JS.m in Sources */,
 				42DEC0A01D94DDB400004CDB /* NSMutableAttributedString+TY.m in Sources */,
 				429C9F571B9EF8BF0013A44A /* BaseTableViewController.m in Sources */,
 				42E9531D1C589DB3001C93CB /* CCBannerView.m in Sources */,
@@ -8344,7 +8305,6 @@
 				42063E791C892E7D003348EB /* NSManagedObjectContext+Additions.m in Sources */,
 				427E1A351D3E12E00093281F /* NSMutableAttributedString+Link.m in Sources */,
 				428A12D11BC8A433005D904D /* ContactRead.m in Sources */,
-				424BD5911C8ECA3E005722F6 /* WebViewJavascriptBridgeBase.m in Sources */,
 				428B5C3C1C22609C001B8584 /* split.c in Sources */,
 				429CA1171B9EF8BF0013A44A /* CCMessageBubbleView.m in Sources */,
 				429C9FA51B9EF8BF0013A44A /* CCIntroductionViewController.m in Sources */,

@@ -414,6 +414,7 @@ typedef NS_ENUM(NSUInteger, CCAccuracy) {
  *  @return 修正方向后的图片
  */
 + (UIImage *)fixOrientation:(UIImage *)srcImg;
+- (UIImage *)normalizedImage;
 /**
  *  @brief  旋转图片
  *

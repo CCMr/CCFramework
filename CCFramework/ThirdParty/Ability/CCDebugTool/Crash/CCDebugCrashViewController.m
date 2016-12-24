@@ -45,6 +45,7 @@
 
 - (void)initNavigation
 {
+    self.title = @"Crash";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStyleDone target:self action:@selector(dismissViewController)];
 }
 

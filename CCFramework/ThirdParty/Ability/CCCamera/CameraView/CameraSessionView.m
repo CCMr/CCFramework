@@ -37,8 +37,7 @@
 
 #import "CCCameraPreview.h"
 
-@interface CameraSessionView () <CaptureSessionManagerDelegate>
-{
+@interface CameraSessionView () <CaptureSessionManagerDelegate> {
     //Size of the UI elements variables
     CGSize shutterButtonSize;
     CGSize topBarSize;
@@ -49,19 +48,19 @@
 }
 
 //Primative Properties
-@property (readwrite) BOOL animationInProgress;
+@property(readwrite) BOOL animationInProgress;
 
 //Object References
-@property (nonatomic, strong) CaptureSessionManager *captureManager;
-@property (nonatomic, strong) CameraShutterButton *cameraShutter;
-@property (nonatomic, strong) CameraToggleButton *cameraToggle;
-@property (nonatomic, strong) CameraFlashButton *cameraFlash;
-@property (nonatomic, strong) CameraDismissButton *cameraDismiss;
-@property (nonatomic, strong) CameraFocalReticule *focalReticule;
-@property (nonatomic, strong) UIView *topBarView;
+@property(nonatomic, strong) CaptureSessionManager *captureManager;
+@property(nonatomic, strong) CameraShutterButton *cameraShutter;
+@property(nonatomic, strong) CameraToggleButton *cameraToggle;
+@property(nonatomic, strong) CameraFlashButton *cameraFlash;
+@property(nonatomic, strong) CameraDismissButton *cameraDismiss;
+@property(nonatomic, strong) CameraFocalReticule *focalReticule;
+@property(nonatomic, strong) UIView *topBarView;
 
 //Temporary/Diagnostic properties
-@property (nonatomic, strong) UILabel *ISOLabel, *apertureLabel, *shutterSpeedLabel;
+@property(nonatomic, strong) UILabel *ISOLabel, *apertureLabel, *shutterSpeedLabel;
 
 @property(nonatomic, strong) CCCameraPreview *cameraPreView;
 
@@ -71,31 +70,31 @@
 
 @implementation CameraSessionView
 
--(void)viewDidLoad
+- (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     _animationInProgress = NO;
     [self setupCaptureManager:RearFacingCamera];
     cameraBeingUsed = RearFacingCamera;
     [self composeInterface];
     
     [[_captureManager captureSession] startRunning];
-//    [self.view addSubview:self.preViewPhoto];
+    //    [self.view addSubview:self.preViewPhoto];
 }
 
--(void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication]setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
 
 #pragma mark - Setup
 
--(void)setupCaptureManager:(CameraType)camera {
+- (void)setupCaptureManager:(CameraType)camera
+{
     // remove existing input
-    AVCaptureInput* currentCameraInput = [self.captureManager.captureSession.inputs objectAtIndex:0];
+    AVCaptureInput *currentCameraInput = [self.captureManager.captureSession.inputs objectAtIndex:0];
     [self.captureManager.captureSession removeInput:currentCameraInput];
     
     _captureManager = nil;
@@ -118,10 +117,10 @@
         //Preview Layer setup
         CGRect layerRect = self.view.layer.bounds;
         [_captureManager.previewLayer setBounds:layerRect];
-        [_captureManager.previewLayer setPosition:CGPointMake(CGRectGetMidX(layerRect),CGRectGetMidY(layerRect))];
+        [_captureManager.previewLayer setPosition:CGPointMake(CGRectGetMidX(layerRect), CGRectGetMidY(layerRect))];
         
         //Apply animation effect to the camera's preview layer
-        CATransition *applicationLoadViewIn =[CATransition animation];
+        CATransition *applicationLoadViewIn = [CATransition animation];
         [applicationLoadViewIn setDuration:0.6];
         [applicationLoadViewIn setType:kCATransitionReveal];
         [applicationLoadViewIn setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
@@ -132,21 +131,22 @@
     }
 }
 
--(void)composeInterface {
+- (void)composeInterface
+{
     
     //Adding notifier for orientation changes
-//    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)    name:UIDeviceOrientationDidChangeNotification  object:nil];
+    //    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)    name:UIDeviceOrientationDidChangeNotification  object:nil];
     
     //Define adaptable sizing variables for UI elements to the right device family (iPhone or iPad)
-    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ){
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         //Declare the sizing of the UI elements for iPad
         shutterButtonSize = CGSizeMake(self.view.bounds.size.width * 0.1, self.view.bounds.size.width * 0.1);
-        topBarSize        = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height * 0.06);
+        topBarSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height * 0.06);
         barButtonItemSize = CGSizeMake([[UIScreen mainScreen] bounds].size.height * 0.04, [[UIScreen mainScreen] bounds].size.height * 0.04);
-    } else{
+    } else {
         //Declare the sizing of the UI elements for iPhone
         shutterButtonSize = CGSizeMake(self.view.bounds.size.width * 0.21, self.view.bounds.size.width * 0.21);
-        topBarSize        = CGSizeMake(self.view.frame.size.width, [[UIScreen mainScreen] bounds].size.height * 0.07);
+        topBarSize = CGSizeMake(self.view.frame.size.width, [[UIScreen mainScreen] bounds].size.height * 0.07);
         barButtonItemSize = CGSizeMake([[UIScreen mainScreen] bounds].size.height * 0.05, [[UIScreen mainScreen] bounds].size.height * 0.05);
     }
     
@@ -157,8 +157,8 @@
     if (_captureManager) {
         
         //Button Visual attribution
-        _cameraShutter.frame = (CGRect){0,0, shutterButtonSize};
-        _cameraShutter.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height*0.875);
+        _cameraShutter.frame = (CGRect){0, 0, shutterButtonSize};
+        _cameraShutter.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height * 0.875);
         _cameraShutter.tag = ShutterButtonTag;
         _cameraShutter.backgroundColor = [UIColor clearColor];
         
@@ -173,21 +173,21 @@
     if (_topBarView) {
         
         //Setup visual attribution for bar
-        _topBarView.frame  = (CGRect){0,0, topBarSize};
+        _topBarView.frame = (CGRect){0, 0, topBarSize};
         //        _topBarView.backgroundColor = [UIColor colorWithRed: 0.176 green: 0.478 blue: 0.529 alpha: 0.64];
         [self.view addSubview:_topBarView];
         
         CAGradientLayer *gradient = [CAGradientLayer layer];
         gradient.frame = _topBarView.frame;
-        gradient.colors = [NSArray arrayWithObjects:(id)[UIColor colorWithRed:0 green:0 blue:0 alpha:0.4].CGColor, 
-                           (id)[UIColor colorWithRed:0 green:0 blue:0 alpha:0.2].CGColor, 
-                           (id)[UIColor colorWithRed:0 green:0 blue:0 alpha:0.01].CGColor,nil];
+        gradient.colors = [NSArray arrayWithObjects:(id)[UIColor colorWithRed:0 green:0 blue:0 alpha:0.4].CGColor,
+                           (id)[UIColor colorWithRed:0 green:0 blue:0 alpha:0.2].CGColor,
+                           (id)[UIColor colorWithRed:0 green:0 blue:0 alpha:0.01].CGColor, nil];
         [_topBarView.layer insertSublayer:gradient atIndex:0];
         
         //Add the camera dismiss button
         _cameraDismiss = [CameraDismissButton new];
         if (_cameraDismiss) {
-            _cameraDismiss.frame = (CGRect){10,10, barButtonItemSize};
+            _cameraDismiss.frame = (CGRect){10, 10, barButtonItemSize};
             _cameraDismiss.tag = DismissButtonTag;
             [_topBarView addSubview:_cameraDismiss];
         }
@@ -195,15 +195,15 @@
         //Add the flash button
         _cameraFlash = [CameraFlashButton new];
         if (_cameraFlash) {
-            _cameraFlash.frame = (CGRect){topBarSize.width - barButtonItemSize.width - barButtonItemSize.width - 40,10, barButtonItemSize};
+            _cameraFlash.frame = (CGRect){topBarSize.width - barButtonItemSize.width - barButtonItemSize.width - 40, 10, barButtonItemSize};
             _cameraFlash.tag = FlashButtonTag;
-            if ( UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad ) [_topBarView addSubview:_cameraFlash];
+            if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) [_topBarView addSubview:_cameraFlash];
         }
         
         //Add the camera toggle button
         _cameraToggle = [CameraToggleButton new];
         if (_cameraToggle) {
-            _cameraToggle.frame = (CGRect){topBarSize.width - barButtonItemSize.width - 20,10, barButtonItemSize};
+            _cameraToggle.frame = (CGRect){topBarSize.width - barButtonItemSize.width - 20, 10, barButtonItemSize};
             _cameraToggle.tag = ToggleButtonTag;
             [_topBarView addSubview:_cameraToggle];
         }
@@ -220,7 +220,7 @@
     
     if (_focalReticule) {
         
-        _focalReticule.frame = (CGRect){0,0, 60, 60};
+        _focalReticule.frame = (CGRect){0, 0, 60, 60};
         _focalReticule.backgroundColor = [UIColor clearColor];
         _focalReticule.hidden = YES;
         [self.view addSubview:_focalReticule];
@@ -233,12 +233,12 @@
     //Create the gesture recognizer for the focus tap
     UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(focusGesture:)];
     if (singleTapGestureRecognizer) [self.view addGestureRecognizer:singleTapGestureRecognizer];
-    
 }
 
 #pragma mark - User Interaction
 
--(void)inputManager:(id)sender {
+- (void)inputManager:(id)sender
+{
     
     //If animation is in progress, ignore input
     if (_animationInProgress) return;
@@ -248,14 +248,23 @@
     
     //Input manager switch
     switch ([(UIButton *)sender tag]) {
-        case ShutterButtonTag:  [self onTapShutterButton];  return;
-        case ToggleButtonTag:   [self onTapToggleButton];   return;
-        case FlashButtonTag:    [self onTapFlashButton];    return;
-        case DismissButtonTag:  [self onTapDismissButton];  return;
+        case ShutterButtonTag:
+            [self onTapShutterButton];
+            return;
+        case ToggleButtonTag:
+            [self onTapToggleButton];
+            return;
+        case FlashButtonTag:
+            [self onTapFlashButton];
+            return;
+        case DismissButtonTag:
+            [self onTapDismissButton];
+            return;
     }
 }
 
-- (void)onTapShutterButton {
+- (void)onTapShutterButton
+{
     
     //Animate shutter release
     [self animateShutterRelease];
@@ -264,12 +273,14 @@
     [_captureManager captureStillImage];
 }
 
-- (void)onTapFlashButton {
+- (void)onTapFlashButton
+{
     BOOL enable = !self.captureManager.isTorchEnabled;
     self.captureManager.enableTorch = enable;
 }
 
-- (void)onTapToggleButton {
+- (void)onTapToggleButton
+{
     if (cameraBeingUsed == RearFacingCamera) {
         [self setupCaptureManager:FrontFacingCamera];
         cameraBeingUsed = FrontFacingCamera;
@@ -285,12 +296,14 @@
     }
 }
 
-- (void)onTapDismissButton {
+- (void)onTapDismissButton
+{
     [_captureManager stop];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)focusGesture:(id)sender {
+- (void)focusGesture:(id)sender
+{
     
     if ([sender isKindOfClass:[UITapGestureRecognizer class]]) {
         UITapGestureRecognizer *tap = sender;
@@ -306,7 +319,8 @@
 
 #pragma mark - Animation
 
-- (void)animateShutterRelease {
+- (void)animateShutterRelease
+{
     
     _animationInProgress = YES; //Disables input manager
     
@@ -342,12 +356,12 @@
     }];
 }
 
-- (void)orientationChanged:(NSNotification *)notification{
+- (void)orientationChanged:(NSNotification *)notification
+{
     
     //Animate top bar buttons on orientation changes
     switch ([[UIDevice currentDevice] orientation]) {
-        case UIDeviceOrientationPortrait:
-        {
+        case UIDeviceOrientationPortrait: {
             //Standard device orientation (Portrait)
             [UIView animateWithDuration:0.6 animations:^{
                 CGAffineTransform transform = CGAffineTransformMakeRotation( 0 );
@@ -360,10 +374,8 @@
                 
                 _cameraDismiss.center = CGPointMake(25, _topBarView.center.y);
             }];
-        }
-            break;
-        case UIDeviceOrientationLandscapeLeft:
-        {
+        } break;
+        case UIDeviceOrientationLandscapeLeft: {
             //Device orientation changed to landscape left
             [UIView animateWithDuration:0.6 animations:^{
                 CGAffineTransform transform = CGAffineTransformMakeRotation( M_PI_2 );
@@ -376,10 +388,8 @@
                 
                 _cameraDismiss.center = CGPointMake(_topBarView.center.x * 0.25, _topBarView.center.y);
             }];
-        }
-            break;
-        case UIDeviceOrientationLandscapeRight:
-        {
+        } break;
+        case UIDeviceOrientationLandscapeRight: {
             //Device orientation changed to landscape right
             [UIView animateWithDuration:0.6 animations:^{
                 CGAffineTransform transform = CGAffineTransformMakeRotation( - M_PI_2 );
@@ -392,35 +402,38 @@
                 
                 _cameraDismiss.center = CGPointMake(_topBarView.center.x * 1.75, _topBarView.center.y);
             }];
-        }
-            break;
-        default:;
+        } break;
+        default:
+            ;
     }
 }
 
 #pragma mark - Camera Session Manager Delegate Methods
 
--(void)cameraSessionManagerDidCaptureImage
+- (void)cameraSessionManagerDidCaptureImage
 {
     [self.captureManager.captureSession stopRunning];
-    [self.cameraPreView setPhoto:[[self captureManager] stillImage]];
+    [self.cameraPreView setPhoto:[self fixOrientation:[[self captureManager] stillImage]]];
     self.preViewPhoto.hidden = NO;
 }
 
--(void)cameraSessionManagerFailedToCaptureImage {
+- (void)cameraSessionManagerFailedToCaptureImage
+{
 }
 
--(void)cameraSessionManagerDidReportAvailability:(BOOL)deviceAvailability forCameraType:(CameraType)cameraType {
+- (void)cameraSessionManagerDidReportAvailability:(BOOL)deviceAvailability forCameraType:(CameraType)cameraType
+{
 }
 
--(void)cameraSessionManagerDidReportDeviceStatistics:(CameraStatistics)deviceStatistics {
+- (void)cameraSessionManagerDidReportDeviceStatistics:(CameraStatistics)deviceStatistics
+{
 }
 
 #pragma mark - Helper Methods
 
-- (void)focusAtPoint:(CGPoint)point completionHandler:(void(^)())completionHandler
+- (void)focusAtPoint:(CGPoint)point completionHandler:(void (^)())completionHandler
 {
-    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];;
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     CGPoint pointOfInterest = CGPointZero;
     CGSize frameSize = self.view.bounds.size;
     pointOfInterest = CGPointMake(point.y / frameSize.height, 1.f - (point.x / frameSize.width));
@@ -440,7 +453,7 @@
                 [device setFocusPointOfInterest:pointOfInterest];
             }
             
-            if([device isExposurePointOfInterestSupported] && [device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
+            if ([device isExposurePointOfInterestSupported] && [device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
                 [device setExposurePointOfInterest:pointOfInterest];
                 [device setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
             }
@@ -449,27 +462,29 @@
             
             completionHandler();
         }
+    } else {
+        completionHandler();
     }
-    else { completionHandler(); }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (interfaceOrientation == UIInterfaceOrientationMaskAllButUpsideDown);
 }
 
--(BOOL)shouldAutorotate
+- (BOOL)shouldAutorotate
 {
     return YES;
 }
 
--(NSUInteger)supportedInterfaceOrientations
+- (NSUInteger)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationMaskPortrait;
+    return UIInterfaceOrientationMaskAllButUpsideDown;
 }
 
--(void)viewDidDisappear:(BOOL)animated{
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
 #pragma mark - API Functions
@@ -499,14 +514,14 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
--(UIView *)preViewPhoto
+- (UIView *)preViewPhoto
 {
     if (!_preViewPhoto) {
         _preViewPhoto = [[UIView alloc] initWithFrame:self.view.bounds];
         _preViewPhoto.backgroundColor = [UIColor blackColor];
         _preViewPhoto.hidden = YES;
         
-       UIView *toolbarView = [[UIView alloc] initWithFrame:CGRectMake(0, _preViewPhoto.frame.size.height - 70, _preViewPhoto.frame.size.width, 70)];
+        UIView *toolbarView = [[UIView alloc] initWithFrame:CGRectMake(0, _preViewPhoto.frame.size.height - 70, _preViewPhoto.frame.size.width, 70)];
         toolbarView.backgroundColor = [UIColor blackColor];
         [_preViewPhoto addSubview:toolbarView];
         
@@ -521,14 +536,14 @@
         [complete setTitle:@"完成" forState:UIControlStateNormal];
         [complete setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [complete addTarget:self action:@selector(didCompleteClick) forControlEvents:UIControlEventTouchUpInside];
-        [toolbarView addSubview:complete]; 
+        [toolbarView addSubview:complete];
         
         [_preViewPhoto addSubview:self.cameraPreView];
     }
     return _preViewPhoto;
 }
 
--(CCCameraPreview *)cameraPreView
+- (CCCameraPreview *)cameraPreView
 {
     if (!_cameraPreView) {
         CGRect frame = self.preViewPhoto.frame;
@@ -538,11 +553,11 @@
     return _cameraPreView;
 }
 
--(void)didCompleteClick
+- (void)didCompleteClick
 {
-    if (self.delegate){
+    if (self.delegate) {
         if ([self.delegate respondsToSelector:@selector(didCaptureImage:)])
-            [self.delegate didCaptureImage:[[self captureManager] stillImage]];
+            [self.delegate didCaptureImage:[self fixOrientation:[[self captureManager] stillImage]]];
         
         if ([self.delegate respondsToSelector:@selector(didCaptureImageWithData:)])
             [self.delegate didCaptureImageWithData:[[self captureManager] stillImageData]];
@@ -550,10 +565,88 @@
     [self onTapDismissButton];
 }
 
--(void)didCancelClick
+- (void)didCancelClick
 {
     self.preViewPhoto.hidden = YES;
     [self.captureManager.captureSession startRunning];
+}
+
+/// 修正图片转向
+- (UIImage *)fixOrientation:(UIImage *)aImage
+{
+    // No-op if the orientation is already correct
+    if (aImage.imageOrientation == UIImageOrientationUp)
+        return aImage;
+    
+    // We need to calculate the proper transformation to make the image upright.
+    // We do it in 2 steps: Rotate if Left/Right/Down, and then flip if Mirrored.
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    
+    switch (aImage.imageOrientation) {
+        case UIImageOrientationDown:
+        case UIImageOrientationDownMirrored:
+            transform = CGAffineTransformTranslate(transform, aImage.size.width, aImage.size.height);
+            transform = CGAffineTransformRotate(transform, M_PI);
+            break;
+            
+        case UIImageOrientationLeft:
+        case UIImageOrientationLeftMirrored:
+            transform = CGAffineTransformTranslate(transform, aImage.size.width, 0);
+            transform = CGAffineTransformRotate(transform, M_PI_2);
+            break;
+            
+        case UIImageOrientationRight:
+        case UIImageOrientationRightMirrored:
+            transform = CGAffineTransformTranslate(transform, 0, aImage.size.height);
+            transform = CGAffineTransformRotate(transform, -M_PI_2);
+            break;
+        default:
+            break;
+    }
+    
+    switch (aImage.imageOrientation) {
+        case UIImageOrientationUpMirrored:
+        case UIImageOrientationDownMirrored:
+            transform = CGAffineTransformTranslate(transform, aImage.size.width, 0);
+            transform = CGAffineTransformScale(transform, -1, 1);
+            break;
+            
+        case UIImageOrientationLeftMirrored:
+        case UIImageOrientationRightMirrored:
+            transform = CGAffineTransformTranslate(transform, aImage.size.height, 0);
+            transform = CGAffineTransformScale(transform, -1, 1);
+            break;
+        default:
+            break;
+    }
+    
+    // Now we draw the underlying CGImage into a new context, applying the transform
+    // calculated above.
+    CGContextRef ctx = CGBitmapContextCreate(NULL, aImage.size.width, aImage.size.height,
+                                             CGImageGetBitsPerComponent(aImage.CGImage), 0,
+                                             CGImageGetColorSpace(aImage.CGImage),
+                                             CGImageGetBitmapInfo(aImage.CGImage));
+    CGContextConcatCTM(ctx, transform);
+    switch (aImage.imageOrientation) {
+        case UIImageOrientationLeft:
+        case UIImageOrientationLeftMirrored:
+        case UIImageOrientationRight:
+        case UIImageOrientationRightMirrored:
+            // Grr...
+            CGContextDrawImage(ctx, CGRectMake(0, 0, aImage.size.height, aImage.size.width), aImage.CGImage);
+            break;
+            
+        default:
+            CGContextDrawImage(ctx, CGRectMake(0, 0, aImage.size.width, aImage.size.height), aImage.CGImage);
+            break;
+    }
+    
+    // And now we just create a new UIImage from the drawing context
+    CGImageRef cgimg = CGBitmapContextCreateImage(ctx);
+    UIImage *img = [UIImage imageWithCGImage:cgimg];
+    CGContextRelease(ctx);
+    CGImageRelease(cgimg);
+    return img;
 }
 
 @end

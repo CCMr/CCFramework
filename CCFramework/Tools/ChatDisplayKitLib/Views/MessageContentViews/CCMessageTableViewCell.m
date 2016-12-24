@@ -34,6 +34,7 @@
 #import "CCMessage.h"
 #import "UIButton+Additions.h"
 #import "UIButton+WebCache.h"
+#import "MLLinkLabel.h"
 
 static const CGFloat kCCLabelPadding = 10.0f;
 static const CGFloat kCCTimeStampLabelHeight = 20.0f;
@@ -54,7 +55,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 @property(nonatomic, weak, readwrite) CCBadgeView *timestampLabel;
 
-@property(nonatomic, weak, readwrite) UIButton *noticeLabel;
+@property(nonatomic, weak, readwrite) MLLinkLabel *noticeLabel;
 
 @property(nonatomic, weak) UITableView *containingTableView;
 
@@ -163,7 +164,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 #pragma mark - Menu Actions
 
--(void)memo:(id)sender
+- (void)memo:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(didSelectedMemo:atIndexPath:)]) {
         [self.delegate didSelectedMemo:self.messageBubbleView.message
@@ -297,7 +298,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         [self configAvatarWithPhoto:avatarPhoto];
     }
     
-    self.avatarButton.carryObjects = message;   
+    self.avatarButton.carryObjects = message;
 }
 
 - (void)configAvatarWithPhoto:(UIImage *)photo
@@ -307,20 +308,20 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 - (void)configAvatarWithPhotoURLString:(NSString *)photoURLString
 {
-    [self.avatarButton sd_setImageWithURL:[NSURL URLWithString:photoURLString] 
-                                 forState:UIControlStateNormal 
+    [self.avatarButton sd_setImageWithURL:[NSURL URLWithString:photoURLString]
+                                 forState:UIControlStateNormal
                          placeholderImage:[UIImage imageNamed:@"avator"]];
 }
 
 - (void)configUserNameWithMessage:(id<CCMessageModel>)message
 {
     self.userNameLabel.text = [message sender];
-    if ([message senderAttribute]){
+    if ([message senderAttribute]) {
         self.userNameLabel.attributedText = [message senderAttribute];
     }
 }
 
--(void)configUserLabelWithMessage:(id<CCMessageModel>)message
+- (void)configUserLabelWithMessage:(id<CCMessageModel>)message
 {
     self.userLabel.backgroundColor = message.userLabelColor;
     self.userLabel.text = message.userLabel;
@@ -328,7 +329,24 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 
 - (void)configureNoticeWihtMessage:(id<CCMessageModel>)message
 {
-    [self.noticeLabel setTitle:[NSString stringWithFormat:@" %@ ",[message noticeContent]] forState:UIControlStateNormal];
+    if ([message noticeAttContent]) {
+        NSMutableAttributedString *noticeAtt = [[NSMutableAttributedString alloc] initWithAttributedString:[message noticeAttContent]];
+        [noticeAtt addAttribute:NSFontAttributeName value:self.noticeLabel.font range:NSMakeRange(0, noticeAtt.length)];
+        [noticeAtt enumerateAttribute:NSAttachmentAttributeName inRange:NSMakeRange(0, noticeAtt.length) options:0 usingBlock:^(id _Nullable value, NSRange range, BOOL *_Nonnull stop) {
+            if (value) {
+                NSTextAttachment *att = value;
+                CGRect bounds = att.bounds;
+                bounds.origin.y = -3;
+                bounds.size = att.image.size;
+                att.bounds = bounds;
+            }
+        }];
+        self.noticeLabel.attributedText = noticeAtt;
+        //        [self.noticeLabel setAttributedTitle:noticeAtt forState:UIControlStateNormal];
+    } else {
+        self.noticeLabel.text = [NSString stringWithFormat:@" %@ ", [message noticeContent]];
+        //        [self.noticeLabel setTitle:[NSString stringWithFormat:@" %@ ", [message noticeContent]] forState:UIControlStateNormal];
+    }
 }
 
 - (void)configureMessageBubbleViewWithMessage:(id<CCMessageModel>)message
@@ -358,7 +376,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             [self.messageBubbleView.fileView addGestureRecognizer:tapGestureRecognizer];
             break;
         }
-        case CCBubbleMessageMediaTypeRedPackage:{
+        case CCBubbleMessageMediaTypeRedPackage: {
             UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTapGestureRecognizerHandle:)];
             [self.messageBubbleView.redPackageView addGestureRecognizer:tapGestureRecognizer];
             break;
@@ -367,7 +385,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         case CCBubbleMessageMediaTypeVoice: {
             self.messageBubbleView.voiceDurationLabel.text = [NSString stringWithFormat:@"%@\'\'", message.voiceDuration];
         }
-        case CCBubbleMessageMediaTypeEmotion:{
+        case CCBubbleMessageMediaTypeEmotion: {
             UITapGestureRecognizer *tapGestureRecognizer;
             if (currentMediaType == CCBubbleMessageMediaTypeText) {
                 tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapGestureRecognizerHandle:)];
@@ -378,7 +396,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             [self.messageBubbleView.bubbleImageView addGestureRecognizer:tapGestureRecognizer];
             break;
         }
-        case CCBubbleMessageMediaTypeGIF:{
+        case CCBubbleMessageMediaTypeGIF: {
             UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTapGestureRecognizerHandle:)];
             [self.messageBubbleView.emotionImageView addGestureRecognizer:tapGestureRecognizer];
             break;
@@ -391,6 +409,17 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 }
 
 #pragma mark - Gestures
+
+- (void)onClickOutsideLink:(UITapGestureRecognizer *)tapGestureRecognizer
+{
+    MLLinkLabel *lable = (MLLinkLabel *)tapGestureRecognizer.view;
+    
+    MLLink *link = [lable linkAtPoint:[tapGestureRecognizer locationInView:lable]];
+    if (link) {
+        if ([self.delegate respondsToSelector:@selector(didNoticeClick:)])
+            [self.delegate didNoticeClick:link.linkValue];
+    }
+}
 
 - (void)setupNormalMenuController
 {
@@ -418,7 +447,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
 - (void)longPressGestureRecognizerHandle:(UILongPressGestureRecognizer *)longPressGestureRecognizer
 {
     if (longPressGestureRecognizer.state != UIGestureRecognizerStateBegan ||
-        ![self becomeFirstResponder] || 
+        ![self becomeFirstResponder] ||
         ((UITableView *)self.superview.superview).isEditing ||
         self.messageBubbleView.message.messageMediaType == CCBubbleMessageMediaTypeNotice)
         return;
@@ -437,10 +466,10 @@ static const CGFloat kCCUserNameLabelHeight = 20;
                         CCLocalization(@"复制"),
                         CCLocalization(@"删除"),
                         CCLocalization(@"更多") ];
-    }else if ([self.messageBubbleView.message messageMediaType] == CCBubbleMessageMediaTypeFile){
-        popMenuAry = @[CCLocalization(@"备忘录"),
-                       CCLocalization(@"删除"),
-                       CCLocalization(@"更多") ];
+    } else if ([self.messageBubbleView.message messageMediaType] == CCBubbleMessageMediaTypeFile) {
+        popMenuAry = @[ CCLocalization(@"备忘录"),
+                        CCLocalization(@"删除"),
+                        CCLocalization(@"更多") ];
     }
     
     NSMutableArray *menuItems = [[NSMutableArray alloc] init];
@@ -460,7 +489,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             action = @selector(deletes:);
         } else if ([title isEqualToString:@"更多"]) {
             action = @selector(more:);
-        }else if ([title isEqualToString:@"备忘录"]){
+        } else if ([title isEqualToString:@"备忘录"]) {
             action = @selector(memo:);
         }
         
@@ -510,13 +539,13 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     }
 }
 
--(void)buttonlongPressGestureRecognizerHandle:(UILongPressGestureRecognizer *)longPressGestureRecognizer
+- (void)buttonlongPressGestureRecognizerHandle:(UILongPressGestureRecognizer *)longPressGestureRecognizer
 {
     if (longPressGestureRecognizer.state != UIGestureRecognizerStateBegan || ![self becomeFirstResponder] || ((UITableView *)self.superview.superview).isEditing)
         return;
     
     if ([self.delegate respondsToSelector:@selector(didPressAvatar:)]) {
-        [self.delegate didPressAvatar: longPressGestureRecognizer.view.carryObjects];
+        [self.delegate didPressAvatar:longPressGestureRecognizer.view.carryObjects];
     }
 }
 
@@ -572,19 +601,22 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     return height;
 }
 
-+(CGSize)noticeMessageHeight:(id<CCMessageModel>)message
++ (CGSize)noticeMessageHeight:(id<CCMessageModel>)message
 {
     UIFont *systemFont = [UIFont systemFontOfSize:10.0f];
-    CGSize textSize = CGSizeMake(winsize.width - 20,CGFLOAT_MAX); // rough accessory size
+    CGSize textSize = CGSizeMake(winsize.width - 20, CGFLOAT_MAX); // rough accessory size
     CGSize sizeWithFont;
-    NSString *text = [NSString stringWithFormat:@" %@ ",[message noticeContent]];
+    NSString *text = [NSString stringWithFormat:@" %@ ", [message noticeContent]];
+    if ([message noticeAttContent])
+        text = [NSString stringWithFormat:@" %@ ", [[message noticeAttContent] string]];
+    
     if ([[[UIDevice currentDevice] systemVersion] floatValue] <= 6.0) {
         sizeWithFont = [text sizeWithFont:systemFont constrainedToSize:textSize lineBreakMode:NSLineBreakByWordWrapping];
     } else {
         sizeWithFont = [text boundingRectWithSize:textSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : systemFont } context:nil].size;
     }
     
-    sizeWithFont.height += 5;
+    sizeWithFont.height += 10;
     sizeWithFont.width += 5;
     
     return sizeWithFont;
@@ -637,16 +669,23 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         
         // 通知消息类型
         if (!_noticeLabel) {
-            UIButton *noticeLabel = [[UIButton alloc] initWithFrame:CGRectMake(10, kCCLabelPadding, winsize.width - 20, kCCTimeStampLabelHeight)];
-            noticeLabel.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+            MLLinkLabel *noticeLabel = [[MLLinkLabel alloc] initWithFrame:CGRectMake(10, kCCLabelPadding, winsize.width - 20, kCCTimeStampLabelHeight)];
+            noticeLabel.textAlignment = NSTextAlignmentCenter;
             noticeLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
             noticeLabel.backgroundColor = cc_ColorRGB(202, 202, 202);
-            [noticeLabel setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             noticeLabel.font = [UIFont systemFontOfSize:10.0f];
-            noticeLabel.titleLabel.numberOfLines = 0;
-            noticeLabel.layer.cornerRadius = 4;
-            noticeLabel.layer.masksToBounds = YES;
-            noticeLabel.hidden = YES;
+            noticeLabel.textColor = [UIColor whiteColor];
+            noticeLabel.numberOfLines = 0;
+            noticeLabel.adjustsFontSizeToFitWidth = NO;
+            noticeLabel.textInsets = UIEdgeInsetsZero;
+            noticeLabel.dataDetectorTypes = MLDataDetectorTypeAll;
+            noticeLabel.allowLineBreakInsideLinks = NO;
+            noticeLabel.linkTextAttributes = nil;
+            noticeLabel.activeLinkTextAttributes = nil;
+            noticeLabel.lineHeightMultiple = 1.1f;
+            noticeLabel.linkTextAttributes = @{NSForegroundColorAttributeName : cc_ColorRGB(246, 131, 34)};
+            cc_View_Border_Radius(noticeLabel, 4, 0.5, cc_ColorRGB(202, 202, 202));
+            [noticeLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickOutsideLink:)]];
             [self.contentView addSubview:noticeLabel];
             [self.contentView bringSubviewToFront:noticeLabel];
             _noticeLabel = noticeLabel;
@@ -685,9 +724,9 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             self.avatarButton = avatarButton;
             
             
-            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(buttonlongPressGestureRecognizerHandle:)];   
-            longPress.minimumPressDuration = 0.4; //定义按的时间  
-            [avatarButton addGestureRecognizer:longPress];  
+            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(buttonlongPressGestureRecognizerHandle:)];
+            longPress.minimumPressDuration = 0.4; //定义按的时间
+            [avatarButton addGestureRecognizer:longPress];
         }
         
         if (!_userLabel) {
@@ -695,8 +734,8 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             userLabel.font = [UIFont systemFontOfSize:12];
             userLabel.textColor = [UIColor whiteColor];
             userLabel.hidden = YES;
-            userLabel.layer.masksToBounds = YES;  
-            userLabel.layer.cornerRadius = 3;  
+            userLabel.layer.masksToBounds = YES;
+            userLabel.layer.cornerRadius = 3;
             [self.contentView addSubview:userLabel];
             self.userLabel = userLabel;
         }
@@ -746,7 +785,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         [self.delegate didSelectedSendNotSuccessfulCallback:self.messageBubbleView.message atIndexPath:self.indexPath];
 }
 
--(void)didMessageLinkClick:(NSString *)linkStr
+- (void)didMessageLinkClick:(NSString *)linkStr
 {
     if ([self.delegate respondsToSelector:@selector(didMessageLinkClick:)]) {
         [self.delegate didMessageLinkClick:linkStr];
@@ -777,17 +816,21 @@ static const CGFloat kCCUserNameLabelHeight = 20;
         self.avatarButton.hidden = YES;
         self.userNameLabel.hidden = YES;
         self.userLabel.hidden = YES;
+        self.messageBubbleView.hidden = YES;
         self.noticeLabel.hidden = NO;
         
-        CGFloat layoutOriginY =  (self.displayTimestamp ? kCCTimeStampLabelHeight + kCCLabelPadding * 2 : 0);
+        CGFloat layoutOriginY = (self.displayTimestamp ? kCCTimeStampLabelHeight + kCCLabelPadding * 2 : 0);
         CGRect noticeContentFram = self.noticeLabel.frame;
         noticeContentFram.origin.y = layoutOriginY;
         noticeContentFram.size = [CCMessageTableViewCell noticeMessageHeight:self.messageBubbleView.message];
-        noticeContentFram.origin.x = (winsize.width - noticeContentFram.size.width) / 2;
         self.noticeLabel.frame = noticeContentFram;
+        self.noticeLabel.centerX = self.contentView.centerX;
+        self.selectedIndicator.hidden = YES;
     } else {
         self.noticeLabel.hidden = YES;
         self.avatarButton.hidden = NO;
+        self.messageBubbleView.hidden = NO;
+        self.selectedIndicator.hidden = NO;
         // 布局头像
         CGFloat layoutOriginY = (self.displayTimestamp ? kCCTimeStampLabelHeight + kCCLabelPadding * 2 : 0);
         CGRect avatarButtonFrame = self.avatarButton.frame;
@@ -818,7 +861,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             CGRect userLabelFrame = self.userLabel.frame;
             userLabelFrame.origin.y = timeStampLabelNeedHeight;
             userLabelFrame.origin.x = avatarButtonFrame.origin.x + avatarButtonFrame.size.width + kCCAvatarPaddingX;
-            if (self.bubbleMessageType != CCBubbleMessageTypeReceiving){
+            if (self.bubbleMessageType != CCBubbleMessageTypeReceiving) {
                 userLabelFrame.origin.x = avatarButtonFrame.origin.x - userLabelFrame.size.width - kCCAvatarPaddingX;
             }
             self.userLabel.frame = userLabelFrame;
@@ -836,7 +879,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             CGRect userNameFrame = self.userNameLabel.frame;
             userNameFrame.origin.y = timeStampLabelNeedHeight;
             userNameFrame.origin.x = x;
-            if (self.bubbleMessageType != CCBubbleMessageTypeReceiving){
+            if (self.bubbleMessageType != CCBubbleMessageTypeReceiving) {
                 userNameFrame.origin.x = avatarButtonFrame.origin.x - userNameFrame.size.width - kCCAvatarPaddingX;
                 if (self.messageBubbleView.message.shouldShowUserLabel)
                     userNameFrame.origin.x = self.userLabel.left - userNameFrame.size.width - 5;
@@ -852,7 +895,6 @@ static const CGFloat kCCUserNameLabelHeight = 20;
             
             timeStampLabelNeedHeight += userNameFrame.size.height + 5;
         }
-        
         
         
         CGRect bubbleMessageViewFrame = CGRectMake(bubbleX,
@@ -907,7 +949,7 @@ static const CGFloat kCCUserNameLabelHeight = 20;
     self.userNameLabel.text = nil;
     [self.avatarButton setImage:nil forState:UIControlStateNormal];
     self.timestampLabel.text = nil;
-    [self.noticeLabel setTitle:@"" forState:UIControlStateNormal];
+    self.noticeLabel.text = nil;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

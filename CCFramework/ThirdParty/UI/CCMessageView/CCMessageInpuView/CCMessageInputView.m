@@ -574,7 +574,7 @@
             [textView setContentOffset:CGPointZero animated:YES]; 
             [textView scrollRangeToVisible:textView.selectedRange]; 
             textView.text = nil;
-            [self performSelector:@selector(didSendTextAction:) withObject:text afterDelay:0.03];
+            [self performSelector:@selector(didSendTextAction:) withObject:text afterDelay:0.1];
         }
         return NO;
     }

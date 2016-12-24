@@ -454,6 +454,7 @@
         _uniqueID = [aDecoder decodeObjectForKey:@"uniqueID"];
         
         _noticeContent = [aDecoder decodeObjectForKey:@"noticeContent"];
+        _noticeAttContent = [aDecoder decodeObjectForKey:@"noticeAttContent"];
         
         _text = [aDecoder decodeObjectForKey:@"text"];
         _teletextPath = [aDecoder decodeObjectForKey:@"teletextPath"];
@@ -515,6 +516,7 @@
     [aCoder encodeObject:self.uniqueID forKey:@"uniqueID"];
     
     [aCoder encodeObject:self.noticeContent forKey:@"noticeContent"];
+    [aCoder encodeObject:self.noticeAttContent forKey:@"noticeAttContent"];
     
     [aCoder encodeObject:self.text forKey:@"text"];
     [aCoder encodeObject:self.teletextPath forKey:@"teletextPath"];
@@ -635,6 +637,7 @@
             message = [[[self class] allocWithZone:zone] initWithNotice:[self.noticeContent copy]
                                                                  sender:[self.sender copy]
                                                               timestamp:[self.timestamp copy]];
+            message.noticeAttContent = _noticeAttContent;
             break;
         case CCBubbleMessageMediaTypeFile:
             message = [[[self class] allocWithZone:zone] initWithFile:[self.fileThumbnailUrl copy]
@@ -656,7 +659,7 @@
             message.gifSize = _gifSize;
             break;
         case CCBubbleMessageMediaTypeRedPackage:
-            message = [[[self class] allocWithZone:zone] initWithRedPackage:[self.redPackageTitle copy] 
+            message = [[[self class] allocWithZone:zone] initWithRedPackage:[self.redPackageTitle copy]
                                                                      sender:[self.sender copy]
                                                                   timestamp:[self.timestamp copy]];
             message.redPackageID = _redPackageID;
@@ -698,6 +701,7 @@
     _userLabel = nil;
     
     _noticeContent = nil;
+    _noticeAttContent = nil;
     
     _text = nil;
     _teletextPath = nil;

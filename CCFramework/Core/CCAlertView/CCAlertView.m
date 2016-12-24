@@ -118,10 +118,11 @@
         UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, heigth, containerView.width - 50, 0)];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
-        messageLabel.font = [UIFont systemFontOfSize:12];
+        messageLabel.font = title ? [UIFont systemFontOfSize:12] : [UIFont systemFontOfSize:18];
         messageLabel.text = message;
         [containerView addSubview:messageLabel];
         [messageLabel sizeToFit];
+        messageLabel.centerX = containerView.centerX;
         
         heigth = messageLabel.bottom + 20;
     }

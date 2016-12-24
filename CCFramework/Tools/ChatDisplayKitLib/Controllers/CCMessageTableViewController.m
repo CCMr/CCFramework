@@ -501,9 +501,9 @@ static CGPoint  delayOffset = {0.0};
                 completion(&messages);
             
             [weakSelf exMainQueue:^{
-                [UIView setAnimationsEnabled:NO];
                 weakSelf.messageTableView.userInteractionEnabled = NO;
                 weakSelf.messages = messages;
+                [UIView setAnimationsEnabled:NO];
                 [weakSelf.messageTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
                 [UIView setAnimationsEnabled:YES];
                 

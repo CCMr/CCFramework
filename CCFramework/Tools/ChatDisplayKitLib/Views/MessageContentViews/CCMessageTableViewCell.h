@@ -87,8 +87,8 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
  *  @param indexPath 该目标消息在哪个IndexPath里面
  *  @param messageTableViewCell 目标消息在该Cell上
  */
-- (void)multiMediaMessageDidSelectedOnMessage:(id<CCMessageModel>)message 
-                                  atIndexPath:(NSIndexPath *)indexPath 
+- (void)multiMediaMessageDidSelectedOnMessage:(id<CCMessageModel>)message
+                                  atIndexPath:(NSIndexPath *)indexPath
                        onMessageTableViewCell:(CCMessageTableViewCell *)messageTableViewCell;
 
 /**
@@ -97,8 +97,8 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
  *  @param message   被操作的目标消息Model
  *  @param indexPath 该目标消息在哪个IndexPath里面
  */
-- (void)didDoubleSelectedOnTextMessage:(CCMessageTableViewCell *)tableViewCell 
-                               Message:(id<CCMessageModel>)message 
+- (void)didDoubleSelectedOnTextMessage:(CCMessageTableViewCell *)tableViewCell
+                               Message:(id<CCMessageModel>)message
                            atIndexPath:(NSIndexPath *)indexPath;
 
 /**
@@ -123,12 +123,12 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
  *
  *  @since 1.0
  */
-- (void)didSelectedSendNotSuccessfulCallback:(id<CCMessageModel>)message 
+- (void)didSelectedSendNotSuccessfulCallback:(id<CCMessageModel>)message
                                  atIndexPath:(NSIndexPath *)indexPath;
 
 /**
  文本链接
-
+ 
  @param linkStr 链接
  */
 - (void)didMessageLinkClick:(NSString *)linkStr;
@@ -138,16 +138,23 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
  *  
  *  @brief  选中长按
  */
--(void)didSelectedPress:(BOOL)isCellPress;
+- (void)didSelectedPress:(BOOL)isCellPress;
 
--(void)didPressAvatar:(id)sender;
+- (void)didPressAvatar:(id)sender;
+
+/**
+ 通知消息中点击事件
+ 
+ @param linkValue 填充值
+ */
+- (void)didNoticeClick:(id)linkValue;
 
 #pragma mark - Menu Actions
 
 /**
  备忘录
  */
-- (void)didSelectedMemo:(id<CCMessageModel>)message 
+- (void)didSelectedMemo:(id<CCMessageModel>)message
             atIndexPath:(NSIndexPath *)indexPath;
 
 /**
@@ -155,7 +162,7 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
  *  
  *  @brief  转发
  */
-- (void)didSelectedMenuTranspond:(id<CCMessageModel>)message 
+- (void)didSelectedMenuTranspond:(id<CCMessageModel>)message
                      atIndexPath:(NSIndexPath *)indexPath;
 
 /**
@@ -163,7 +170,7 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
  *  
  *  @brief  收藏
  */
-- (void)didSelectedMenuFavorites:(id<CCMessageModel>)message 
+- (void)didSelectedMenuFavorites:(id<CCMessageModel>)message
                      atIndexPath:(NSIndexPath *)indexPath;
 
 /**
@@ -171,7 +178,7 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
  *  
  *  @brief  撤回
  */
-- (void)didSelectedMenuWithdraw:(id<CCMessageModel>)message 
+- (void)didSelectedMenuWithdraw:(id<CCMessageModel>)message
                     atIndexPath:(NSIndexPath *)indexPath;
 
 /**
@@ -187,7 +194,7 @@ typedef NS_ENUM(NSInteger, CCBubbleMessageMenuSelecteType) {
  *  
  *  @brief  更多
  */
-- (void)didSelectedMenuMore:(id<CCMessageModel>)message 
+- (void)didSelectedMenuMore:(id<CCMessageModel>)message
                 atIndexPath:(NSIndexPath *)indexPath;
 
 @end
