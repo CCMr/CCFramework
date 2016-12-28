@@ -174,7 +174,7 @@
  @param size 生成大小
  @param avatar 头像
  */
-- (UIImage *)becomeQRCodeWithQRstring:(float)size 
+- (UIImage *)becomeQRCodeWithQRstring:(float)size
                           AvatarImage:(UIImage *)avatar;
 
 /**
@@ -190,13 +190,6 @@
  *  @brief  转换64位字符串
  */
 - (NSData *)convertingBase64Encoded;
-
-/**
- *  @author CC, 15-09-21
- *
- *  @brief  序列化Json
- */
-- (NSDictionary *)serialization;
 
 #pragma mark--- 取值
 /**

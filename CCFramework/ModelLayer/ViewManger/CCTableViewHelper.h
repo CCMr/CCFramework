@@ -33,7 +33,7 @@ typedef NSString *__nonnull (^CCTableHelperCellIdentifierBlock)(NSIndexPath *cIn
 typedef void (^CCTableHelperDidSelectBlock)(UITableView *tableView, NSIndexPath *cIndexPath, id cModel);
 typedef void (^CCTableHelperDidDeSelectBlock)(UITableView *tableView, NSIndexPath *cIndexPath, id cModel);
 
-typedef void (^CCTableHelperDidMoveToRowBlock)(UITableView *tableView, NSIndexPath *sourceIndexPath,id sourceModel,NSIndexPath *destinationIndexPath, id destinationModel);
+typedef void (^CCTableHelperDidMoveToRowBlock)(UITableView *tableView, NSIndexPath *sourceIndexPath, id sourceModel, NSIndexPath *destinationIndexPath, id destinationModel);
 
 typedef void (^CCTableHelperDidWillDisplayBlock)(UITableViewCell *Cell, NSIndexPath *cIndexPath, id cModel, BOOL IsCelldisplay);
 
@@ -56,6 +56,8 @@ typedef NSString *__nonnull (^CCTableHelperTitleFooterBlock)(UITableView *tableV
 
 typedef NSInteger (^CCTableHelperNumberRows)(UITableView *tableView, NSInteger section, id cModel);
 typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndexPath *cIndexPath);
+
+typedef void (^CCTableHelperScrollViewDidEndScrolling)(UIScrollView *scrollView);
 
 @interface CCTableViewHelper : NSObject <UITableViewDataSource, UITableViewDelegate>
 
@@ -98,6 +100,11 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
  是否移动行
  */
 @property(nonatomic, assign) BOOL isCanMoveRow;
+
+/**
+ 是否防快速点击 (默认：NO 不防止)
+ */
+@property(nonatomic, assign) BOOL isAntiHurry;
 
 /**
  *  When using the storyboard and a single cell, set the property inspector same identifier
@@ -217,6 +224,10 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
  */
 - (void)currentModelIndexPath:(CCTableHelperCurrentModelAtIndexPath)cb;
 
+/**
+ 滚动结束回调
+ */
+- (void)scrollViewDidEndScrolling:(CCTableHelperScrollViewDidEndScrolling)cb;
 
 #pragma mark -
 #pragma mark :. Handler
@@ -232,11 +243,11 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
 
 /**
  重新加载该分组数据
-
+ 
  @param newDataAry 分组数据
  @param cSection 分组下标
  */
-- (void)cc_reloadGroupDataAry:(NSArray *)newDataAry 
+- (void)cc_reloadGroupDataAry:(NSArray *)newDataAry
                    forSection:(NSInteger)cSection;
 
 /**
@@ -275,10 +286,10 @@ typedef id __nonnull (^CCTableHelperCurrentModelAtIndexPath)(id dataAry, NSIndex
 
 /**
  删除分组数据
-
+ 
  @param cSection 分组下标
  */
--(void)cc_deleteGroupData:(NSInteger)cSection;
+- (void)cc_deleteGroupData:(NSInteger)cSection;
 
 /**
  *  @author CC, 16-05-18

@@ -31,6 +31,9 @@
 #import "UITableViewCell+Additions.h"
 #import "UIView+CCKit.h"
 
+
+#define defaultInterval .5 //默认时间间隔
+
 @interface CCTableViewHelper ()
 
 @property(nonatomic, strong) NSMutableArray<NSMutableArray *> *dataArray;
@@ -38,6 +41,11 @@
 @property(nonatomic, strong) NSMutableArray *sectionIndexTitles;
 
 @property(nonatomic, strong) UILocalizedIndexedCollation *theCollation;
+
+@property(nonatomic, assign) NSTimeInterval timeInterval;
+
+@property(nonatomic, assign) BOOL isIgnoreEvent;
+
 
 /**
  *  @author CC, 16-07-23
@@ -71,7 +79,7 @@
 
 @property(nonatomic, copy) CCTableHelperCellBlock cellViewEventsBlock;
 @property(nonatomic, copy) CCTableHelperCurrentModelAtIndexPath currentModelAtIndexPath;
-
+@property(nonatomic, copy) CCTableHelperScrollViewDidEndScrolling scrollViewDidEndScrolling;
 
 @end
 
@@ -178,7 +186,7 @@
     self.didEditActionsBlock = cb;
 }
 
--(void)didMoveToRowBlock:(CCTableHelperDidMoveToRowBlock)cb
+- (void)didMoveToRowBlock:(CCTableHelperDidMoveToRowBlock)cb
 {
     self.didMoveToRowBlock = cb;
 }
@@ -231,6 +239,11 @@
 - (void)currentModelIndexPath:(CCTableHelperCurrentModelAtIndexPath)cb
 {
     self.currentModelAtIndexPath = cb;
+}
+
+- (void)scrollViewDidEndScrolling:(CCTableHelperScrollViewDidEndScrolling)cb
+{
+    self.scrollViewDidEndScrolling = cb;
 }
 
 #pragma mark -
@@ -421,7 +434,7 @@
     return curHeight;
 }
 
--(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return self.isCanMoveRow;
 }
@@ -431,7 +444,7 @@
     if (self.didMoveToRowBlock) {
         id sourceModel = [self currentModelAtIndexPath:sourceIndexPath];
         id destinationModel = [self currentModelAtIndexPath:destinationIndexPath];
-        self.didMoveToRowBlock(tableView,sourceIndexPath,sourceModel,destinationIndexPath,destinationModel);
+        self.didMoveToRowBlock(tableView, sourceIndexPath, sourceModel, destinationIndexPath, destinationModel);
     }
 }
 
@@ -461,10 +474,26 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.cc_indexPath = indexPath;
+    
+    if (self.isAntiHurry) {
+        self.timeInterval = self.timeInterval == 0 ? defaultInterval : self.timeInterval;
+        if (self.isIgnoreEvent) {
+            return;
+        } else if (self.timeInterval > 0) {
+            [self performSelector:@selector(resetState) withObject:nil afterDelay:self.timeInterval];
+        }
+        
+        self.isIgnoreEvent = YES;
+    }
     if (self.didSelectBlock) {
         id curModel = [self currentModelAtIndexPath:indexPath];
         self.didSelectBlock(tableView, indexPath, curModel);
     }
+}
+
+- (void)resetState
+{
+    self.isIgnoreEvent = NO;
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -484,8 +513,17 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scrollViewDidEndScrollingAnimation:) object:nil];
+    [self performSelector:@selector(scrollViewDidEndScrollingAnimation:) withObject:nil afterDelay:0.2];
     if (self.scrollViewddBlock)
         self.scrollViewddBlock(scrollView);
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scrollViewDidEndScrollingAnimation:) object:nil];
+    if (self.scrollViewDidEndScrolling)
+        self.scrollViewDidEndScrolling(scrollView);
 }
 
 #pragma mark :. handle
@@ -571,7 +609,7 @@
     [self.cc_tableView reloadData];
 }
 
-- (void)cc_reloadGroupDataAry:(NSArray *)newDataAry 
+- (void)cc_reloadGroupDataAry:(NSArray *)newDataAry
                    forSection:(NSInteger)cSection
 {
     if (newDataAry.count == 0) return;
@@ -628,7 +666,7 @@
     [self.cc_tableView reloadData];
 }
 
--(void)cc_deleteGroupData:(NSInteger)cSection
+- (void)cc_deleteGroupData:(NSInteger)cSection
 {
     NSMutableArray *subAry = self.dataArray[cSection];
     if (subAry.count) [subAry removeAllObjects];
@@ -732,7 +770,7 @@
 
 - (void)cc_deleteDataAtIndex:(NSIndexPath *)cIndexPath
 {
-    [self cc_deleteDataAtIndexs:@[cIndexPath]];
+    [self cc_deleteDataAtIndexs:@[ cIndexPath ]];
 }
 
 - (void)cc_deleteDataAtIndexs:(NSArray *)indexPaths
@@ -765,7 +803,7 @@
         NSMutableArray *subDataAry = self.dataArray[cIndexPath.section];
         if (subDataAry.count > cIndexPath.row) {
             [subDataAry replaceObjectAtIndex:cIndexPath.row withObject:model];
-            [self.cc_tableView reloadRowsAtIndexPaths:@[cIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.cc_tableView reloadRowsAtIndexPaths:@[ cIndexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
     }
 }

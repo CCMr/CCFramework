@@ -199,7 +199,7 @@
 + (NSArray *)cc_executeQueriesContext:(NSFetchRequest *)request
 {
     return [self cc_executeQueriesContext:self.currentContext
-                          FetchRequest:request];
+                             FetchRequest:request];
 }
 
 /**
@@ -339,12 +339,12 @@
         if (error == nil) {
             [saveContext.parentContext performBlockAndWait:^{
                 [saveContext.parentContext save:&error];
+                
+                if (completion)
+                    completion(error);
             }];
         }
         
-        if (completion) {
-            completion(error);
-        }
     }];
 }
 

@@ -25,6 +25,7 @@
 
 #import "BaseViewModel.h"
 #import "NSObject+CCProperties.h"
+#import <SystemConfiguration/SystemConfiguration.h>
 
 @implementation BaseViewModel
 
@@ -69,5 +70,29 @@
     }
     return _cc_dataArray;
 }
+
+- (BOOL)requestBeforeCheckNetWork
+{
+    struct sockaddr zeroAddress;
+    bzero(&zeroAddress, sizeof(zeroAddress));
+    zeroAddress.sa_len = sizeof(zeroAddress);
+    zeroAddress.sa_family = AF_INET;
+    SCNetworkReachabilityRef defaultRouteReachability =
+    SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *)&zeroAddress);
+    SCNetworkReachabilityFlags flags;
+    BOOL didRetrieveFlags =
+    SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags);
+    CFRelease(defaultRouteReachability);
+    if (!didRetrieveFlags) {
+        printf("Error. Count not recover network reachability flags\n");
+        return NO;
+    }
+    BOOL isReachable = flags & kSCNetworkFlagsReachable;
+    BOOL needsConnection = flags & kSCNetworkFlagsConnectionRequired;
+    BOOL isNetworkEnable = (isReachable && !needsConnection) ? YES : NO;
+   
+    return isNetworkEnable;
+}
+
 
 @end

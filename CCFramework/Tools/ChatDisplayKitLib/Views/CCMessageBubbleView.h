@@ -35,7 +35,6 @@
 #import "TYAttributedLabel.h"
 
 
-
 #define kCCMessageBubbleDisplayMaxLine 200
 
 #define kCCTextLineSpacing 3.0
@@ -73,37 +72,37 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, weak) id<CCMessageBubbleViewDelegate> delegate;
+@property(nonatomic, weak) id<CCMessageBubbleViewDelegate> delegate;
 
 /**
  *  目标消息Model对象
  */
-@property (nonatomic, strong, readonly)  id <CCMessageModel> message;
+@property(nonatomic, strong, readonly) id<CCMessageModel> message;
 
 /**
  *  自定义显示文本消息控件，子类化的原因有两个，第一个是屏蔽Menu的显示。第二是传递手势到下一层，因为文本需要双击的手势
  */
-@property (nonatomic, weak, readonly) TYAttributedLabel *displayTextView;
+@property(nonatomic, weak, readonly) TYAttributedLabel *displayTextView;
 
 /**
  *  用于显示气泡的ImageView控件
  */
-@property (nonatomic, weak, readonly) UIImageView *bubbleImageView;
+@property(nonatomic, weak, readonly) UIImageView *bubbleImageView;
 
 /**
  *  专门用于gif表情显示控件
  */
-@property (nonatomic, weak, readonly) FLAnimatedImageView *emotionImageView;
+@property(nonatomic, weak, readonly) FLAnimatedImageView *emotionImageView;
 
 /**
  *  用于显示语音的控件，并且支持播放动画
  */
-@property (nonatomic, weak, readonly) UIImageView *animationVoiceImageView;
+@property(nonatomic, weak, readonly) UIImageView *animationVoiceImageView;
 
 /**
  *  用于显示语音未读的控件，小圆点
  */
-@property (nonatomic, weak, readonly) UIImageView *voiceUnreadDotImageView;
+@property(nonatomic, weak, readonly) UIImageView *voiceUnreadDotImageView;
 
 /**
  *  @author CC, 15-09-15
@@ -112,7 +111,7 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, weak, readonly) UIButton *sendNotSuccessfulButton;
+@property(nonatomic, weak, readonly) UIButton *sendNotSuccessfulButton;
 
 /**
  *  @author CC, 15-09-15
@@ -121,27 +120,27 @@
  *
  *  @since 1.0
  */
-@property (nonatomic, weak,readonly) UIActivityIndicatorView *indicatorView;
+@property(nonatomic, weak, readonly) UIActivityIndicatorView *indicatorView;
 
 /**
  *  用于显示语音时长的label
  */
-@property (nonatomic, weak) UILabel *voiceDurationLabel;
+@property(nonatomic, weak) UILabel *voiceDurationLabel;
 
 /**
  *  用于显示仿微信发送图片的控件
  */
-@property (nonatomic, weak, readonly) UIImageView *bubblePhotoImageView;
+@property(nonatomic, weak, readonly) UIImageView *bubblePhotoImageView;
 
 /**
  *  显示语音播放的图片控件
  */
-@property (nonatomic, weak, readonly) UIImageView *videoPlayImageView;
+@property(nonatomic, weak, readonly) UIImageView *videoPlayImageView;
 
 /**
  *  显示地理位置的文本控件
  */
-@property (nonatomic, weak, readonly) UILabel *geolocationsLabel;
+@property(nonatomic, weak, readonly) UILabel *geolocationsLabel;
 
 /** 文件视图 */
 @property(nonatomic, weak, readonly) UIView *fileView;
@@ -151,11 +150,15 @@
  */
 @property(nonatomic, weak, readonly) UIImageView *redPackageView;
 
-
 /**
  *  设置文本消息的字体
  */
-@property (nonatomic, strong) UIFont *font UI_APPEARANCE_SELECTOR;
+@property(nonatomic, strong) UIFont *font UI_APPEARANCE_SELECTOR;
+
+/**
+ 设置消息状态
+ */
+@property(nonatomic, assign) CCMessageSendType sendMessageType;
 
 /**
  *  初始化消息内容显示控件的方法

@@ -41,6 +41,19 @@
                 animated:(BOOL)animated;
 
 /**
+ 设置切换选项卡并跳转页面与返回标题
+ 
+ @param selectedIndex 选项卡下标
+ @param viewController 跳转页面
+ @param title 返回按钮标题
+ @param animated 是否显示动画效果
+ */
+- (void)setSelectedIndex:(NSUInteger)selectedIndex
+      PushViewController:(UIViewController *)viewController
+               backTitle:(NSString *)title
+                animated:(BOOL)animated;
+
+/**
  *  @author CC, 2016-01-25
  *  
  *  @brief 返回当前根目录跳转页面

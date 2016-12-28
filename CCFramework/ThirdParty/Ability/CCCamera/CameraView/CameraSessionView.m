@@ -36,6 +36,7 @@
 #import "Constants.h"
 
 #import "CCCameraPreview.h"
+#import <CoreMotion/CMMotionManager.h>
 
 @interface CameraSessionView () <CaptureSessionManagerDelegate> {
     //Size of the UI elements variables
@@ -66,6 +67,8 @@
 
 @property(nonatomic, strong) UIView *preViewPhoto;
 
+@property(nonatomic, strong) CMMotionManager *motionManager;
+
 @end
 
 @implementation CameraSessionView
@@ -81,12 +84,49 @@
     
     [[_captureManager captureSession] startRunning];
     //    [self.view addSubview:self.preViewPhoto];
+    [self.motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue currentQueue]
+                                            withHandler:^(CMDeviceMotion *motion, NSError *error) {
+                                                [self performSelectorOnMainThread:@selector(handleDeviceMotion:) withObject:motion waitUntilDone:YES];
+                                                
+                                            }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    [self.motionManager stopDeviceMotionUpdates];
+    self.motionManager = nil;
+}
+
+- (CMMotionManager *)motionManager
+{
+    if (!_motionManager) {
+        _motionManager = [[CMMotionManager alloc] init];
+        _motionManager.deviceMotionUpdateInterval = 1 / 15.0;
+    }
+    return _motionManager;
+}
+
+- (void)handleDeviceMotion:(CMDeviceMotion *)deviceMotion
+{
+    double x = deviceMotion.gravity.x;
+    double y = deviceMotion.gravity.y;
+    NSNumber *value;
+    if (fabs(y) >= fabs(x)) {
+        if (y >= 0)
+            value = [NSNumber numberWithInt:UIDeviceOrientationPortraitUpsideDown];
+        else
+            value = [NSNumber numberWithInt:UIDeviceOrientationPortrait];
+    } else {
+        if (x >= 0)
+            value = [NSNumber numberWithInt:UIDeviceOrientationLandscapeRight];
+        else
+            value = [NSNumber numberWithInt:UIDeviceOrientationLandscapeLeft];
+    }
+    
+    if (value)
+        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
 }
 
 #pragma mark - Setup
@@ -358,7 +398,6 @@
 
 - (void)orientationChanged:(NSNotification *)notification
 {
-    
     //Animate top bar buttons on orientation changes
     switch ([[UIDevice currentDevice] orientation]) {
         case UIDeviceOrientationPortrait: {

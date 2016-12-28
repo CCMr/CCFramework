@@ -80,5 +80,10 @@ typedef void (^failureBlock)(NSString *failure);
  */
 @property(nonatomic, strong) NSMutableArray *cc_dataArray;
 
+/**
+ 判断网络状态
+ */
+- (BOOL)requestBeforeCheckNetWork;
+
 
 @end

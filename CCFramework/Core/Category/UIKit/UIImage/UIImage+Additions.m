@@ -1173,6 +1173,11 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWi
     return [self decode:image];
 }
 
++ (UIImage *)documentFolderWithContentsOfFile:(NSString *)path
+{
+    return [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@%@", NSHomeDirectory(), path]];
+}
+
 #pragma mark -
 #pragma mark :. Alpha
 

@@ -38,10 +38,10 @@
 #import "CCMessageVoiceFactory.h"
 
 
-#define REGULAREXPRESSION_OPTION(regularExpression, regex, option)                                                                        \
+#define REGULAREXPRESSION_OPTION(regularExpression, regex, option)                                                                              \
 \
-static NSRegularExpression *k##regularExpression()                                                                                       \
-{                                                                                                                                        \
+static NSRegularExpression *k##regularExpression()                                                                                          \
+{                                                                                                                                           \
 static NSRegularExpression *_##regularExpression = nil;                                                                                 \
 static dispatch_once_t onceToken;                                                                                                       \
 dispatch_once(&onceToken, ^{ _##regularExpression = [[NSRegularExpression alloc] initWithPattern:(regex)options:(option)error:nil]; }); \
@@ -59,10 +59,8 @@ REGULAREXPRESSION(EmailRegularExpression, @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\
 REGULAREXPRESSION(UserHandleRegularExpression, @"@[\\u4e00-\\u9fa5\\w\\-]+")
 REGULAREXPRESSION(HashtagRegularExpression, @"#([\\u4e00-\\u9fa5\\w\\-]+)")
 
-REGULAREXPRESSION(LandlinePhone,@"^(0[0-9]{2,3}/-)?([2-9][0-9]{6,7})+(/-[0-9]{1,4})?$")
-REGULAREXPRESSION(planePhone,@"^0(([1,2]\d)|([3-9]\d{2}))\d{8}$")
-
-
+REGULAREXPRESSION(LandlinePhone, @"^(0[0-9]{2,3}/-)?([2-9][0-9]{6,7})+(/-[0-9]{1,4})?$")
+REGULAREXPRESSION(planePhone, @"^0(([1,2]\d)|([3-9]\d{2}))\d{8}$")
 
 
 #pragma mark -
@@ -87,7 +85,7 @@ REGULAREXPRESSION(planePhone,@"^0(([1,2]\d)|([3-9]\d{2}))\d{8}$")
 #define kCCMaxWidth CGRectGetWidth([[UIScreen mainScreen] bounds]) * (isiPad ? 0.8 : (iPhone6 ? 0.6 : (iPhone6P ? 0.62 : 0.55))) // 文本只有一行的时候，宽度可能出现很小到最大的情况，所以需要计算一行文字需要的宽度
 #define kCCMaxHeight 250													 //最大高度
 
-#define kCCSystemFont  [UIFont systemFontOfSize:17.0f]
+#define kCCSystemFont [UIFont systemFontOfSize:17.0f]
 
 #define kCCRedPackageSize CGSizeMake(90, 114) //红包大小
 
@@ -164,7 +162,7 @@ static NSArray *kAllRegexps()
 + (CGSize)neededSizeForText:(id<CCMessageModel>)message
 {
     TYTextContainer *textContainer = [CCMessageBubbleView configureDisplayMessage:message];
-    CGSize textContainerSize = CGSizeMake(textContainer.textWidth, textContainer.textHeight); 
+    CGSize textContainerSize = CGSizeMake(textContainer.textWidth, textContainer.textHeight);
     
     CGSize textSize = [CCMessageBubbleView neededWidthForText:[message text]];
     if (textSize.width > textContainerSize.width) {
@@ -190,8 +188,8 @@ static NSArray *kAllRegexps()
  @param fixedSize 初始化大小
  @param imageSize 图片实际大小
  */
-+(CGSize)neededRatioSize:(CGSize)fixedSize 
-               ImageSize:(CGSize)imageSize
++ (CGSize)neededRatioSize:(CGSize)fixedSize
+                ImageSize:(CGSize)imageSize
 {
     if (imageSize.width > fixedSize.width && imageSize.height > fixedSize.height) {
         CGSize needSize = [CCTool neededSizeForSize:imageSize Size:fixedSize];
@@ -238,12 +236,12 @@ static NSArray *kAllRegexps()
     return voiceSize;
 }
 
-+(CGSize)neededSizeForGif:(id<CCMessageModel>)message
++ (CGSize)neededSizeForGif:(id<CCMessageModel>)message
 {
     CGSize gifSize = CGSizeMake(150, 150);
     CGSize imageSize = message.gifSize;
-    if (CGSizeEqualToSize(imageSize, CGSizeMake(0, 0))){
-        NSData *data=  [NSData dataWithContentsOfFile:message.gifPath];
+    if (CGSizeEqualToSize(imageSize, CGSizeMake(0, 0))) {
+        NSData *data = [NSData dataWithContentsOfFile:message.gifPath];
         imageSize = [UIImage imageWithData:data].size;
     }
     
@@ -343,13 +341,13 @@ static NSArray *kAllRegexps()
             bubbleSize = CGSizeMake(needTextSize.width + kCCHaveBubbleFileMargin + kCCLeftTextHorizontalBubblePadding * 2, kCCHaveBubbleFileMargin + kCCHaveBubbleMargin * 2);
             break;
         }
-        case CCBubbleMessageMediaTypeGIF:{
+        case CCBubbleMessageMediaTypeGIF: {
             CGSize gifSize = [CCMessageBubbleView neededSizeForGif:message];
             bubbleSize = CGSizeMake(gifSize.width, gifSize.height);
             
             break;
         }
-        case CCBubbleMessageMediaTypeRedPackage:{
+        case CCBubbleMessageMediaTypeRedPackage: {
             bubbleSize = kCCRedPackageSize;
             break;
         }
@@ -403,6 +401,33 @@ static NSArray *kAllRegexps()
 
 #pragma mark - Configure Methods
 
+- (void)setSendMessageType:(CCMessageSendType)sendMessageType
+{
+    _sendNotSuccessfulButton.hidden = YES;
+    _indicatorView.hidden = YES;
+    [_indicatorView stopAnimating];
+    _sendMessageType = sendMessageType;
+    switch (sendMessageType) {
+        case CCMessageSendTypeFailure:
+            _sendNotSuccessfulButton.hidden = NO;
+            _indicatorView.hidden = YES;
+            [_indicatorView stopAnimating];
+            break;
+        case CCMessageSendTypeRunIng:
+            _sendNotSuccessfulButton.hidden = YES;
+            _indicatorView.hidden = NO;
+            [_indicatorView startAnimating];
+            break;
+        case CCMessageSendTypeSuccessful:
+            _sendNotSuccessfulButton.hidden = YES;
+            _indicatorView.hidden = YES;
+            [_indicatorView stopAnimating];
+            break;
+        default:
+            break;
+    }
+}
+
 - (void)configureCellWithMessage:(id<CCMessageModel>)message
 {
     _message = message;
@@ -422,30 +447,9 @@ static NSArray *kAllRegexps()
     _sendNotSuccessfulButton.hidden = YES;
     _indicatorView.hidden = YES;
     [_indicatorView stopAnimating];
-    if (message.bubbleMessageType == CCBubbleMessageTypeSending) {
-        
-        CCMessageSendType sendStatusType = message.messageSendState;
-        switch (sendStatusType) {
-            case CCMessageSendTypeFailure:
-                _sendNotSuccessfulButton.hidden = NO;
-                _indicatorView.hidden = YES;
-                [_indicatorView stopAnimating];
-                
-                break;
-            case CCMessageSendTypeRunIng:
-                _sendNotSuccessfulButton.hidden = YES;
-                _indicatorView.hidden = NO;
-                [_indicatorView startAnimating];
-                break;
-            case CCMessageSendTypeSuccessful:
-                _sendNotSuccessfulButton.hidden = YES;
-                _indicatorView.hidden = YES;
-                [_indicatorView stopAnimating];
-                break;
-            default:
-                break;
-        }
-    }
+    if (message.bubbleMessageType == CCBubbleMessageTypeSending)
+        self.sendMessageType = message.messageSendState;
+    ;
     
     _fileView.hidden = (currentType != CCBubbleMessageMediaTypeFile);
     _redPackageView.hidden = (currentType != CCBubbleMessageMediaTypeRedPackage);
@@ -592,10 +596,10 @@ static NSArray *kAllRegexps()
             break;
         case CCBubbleMessageMediaTypeEmotion:
         case CCBubbleMessageMediaTypeSmallEmotion:
-        case CCBubbleMessageMediaTypeGIF:{
+        case CCBubbleMessageMediaTypeGIF: {
             
-            NSString *path = message.emotionPath?:message.gifPath;
-            NSString *url = message.emotionUrl?:message.gifUrl;
+            NSString *path = message.emotionPath ?: message.gifPath;
+            NSString *url = message.emotionUrl ?: message.gifUrl;
             // 直接设置GIF
             if (path) {
                 NSData *animatedData = [NSData dataWithContentsOfFile:path];
@@ -627,9 +631,9 @@ static NSArray *kAllRegexps()
                 _fileImageView.image = message.filePhoto;
             } else {
                 _fileImageView.image = [UIImage imageNamed:@"other_placeholderImg"];
-                [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:message.fileThumbnailUrl] options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+                [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:message.fileThumbnailUrl] options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL *_Nullable targetURL) {
                     
-                } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+                } completed:^(UIImage *_Nullable image, NSData *_Nullable data, NSError *_Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL *_Nullable imageURL) {
                     _fileImageView.image = image;
                     if (message.savePath)
                         [UIImageJPEGRepresentation(image, 1.0f) writeToFile:message.savePath atomically:YES];
@@ -638,7 +642,7 @@ static NSArray *kAllRegexps()
             _fileNameLabel.text = message.fileName;
             _fileSizeLabel.text = [self fileSize:message.fileSize];
             break;
-        case CCBubbleMessageMediaTypeRedPackage:{
+        case CCBubbleMessageMediaTypeRedPackage: {
             NSString *imageName = @"chat_Receive_redPackage";
             if (message.bubbleMessageType == CCBubbleMessageTypeSending) {
                 imageName = @"chat_Send_redPackage";
@@ -658,10 +662,11 @@ static NSArray *kAllRegexps()
 + (TYTextContainer *)configureDisplayMessage:(id<CCMessageModel>)message
 {
     NSString *text = [message text];
-    for (id replace in message.teletextPath){
+    for (id replace in message.teletextPath) {
         NSRange range = [text rangeOfString:message.teletextReplaceStr];
         if (range.location != NSNotFound)
-            text = [text stringByReplacingCharactersInRange:range withString:OBJECT_REPLACEMENT_CHARACTER];;
+            text = [text stringByReplacingCharactersInRange:range withString:OBJECT_REPLACEMENT_CHARACTER];
+        ;
     }
     
     NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"\uFFFC" options:NSRegularExpressionCaseInsensitive error:nil];
@@ -671,7 +676,7 @@ static NSArray *kAllRegexps()
     for (int i = 0; i < resultArray.count; i++) {
         NSTextCheckingResult *match = [resultArray objectAtIndex:i];
         
-        NSString *path = @"",*pathUrl = @"";
+        NSString *path = @"", *pathUrl = @"";
         UIImage *Images;
         CGSize size = [[message.teletextPhotoSize objectAtIndex:i] CGSizeValue];
         if (message.teletextPath.count && i < message.teletextPath.count) {
@@ -681,7 +686,7 @@ static NSArray *kAllRegexps()
                     size = CGSizeFromString([teletextPath objectForKey:@"Size"]);
                 
                 path = [teletextPath objectForKey:@"localpath"];
-                pathUrl = path = [teletextPath objectForKey:@"path"];                
+                pathUrl = path = [teletextPath objectForKey:@"path"];
                 Images = [teletextPath objectForKey:@"image"];
                 
             } else {
@@ -689,7 +694,7 @@ static NSArray *kAllRegexps()
             }
         }
         
-        if (!Images){
+        if (!Images) {
             Images = [UIImage imageWithContentsOfFile:path];
             if (!Images)
                 Images = [UIImage imageNamed:path];
@@ -719,12 +724,12 @@ static NSArray *kAllRegexps()
     if (message.bubbleMessageType == CCBubbleMessageTypeReceiving)
         textContainer.textColor = [UIColor colorWithWhite:0.143 alpha:1.000];
     
-    if (tmpArray.count) 
+    if (tmpArray.count)
         [textContainer addTextStorageArray:tmpArray];
     
     
     NSArray *allRegexps = kAllRegexps();
-    NSMutableArray *linkArray  =[NSMutableArray array];
+    NSMutableArray *linkArray = [NSMutableArray array];
     NSRange textRange = NSMakeRange(0, text.length);
     
     for (NSRegularExpression *regexp in allRegexps) {
@@ -739,7 +744,6 @@ static NSArray *kAllRegexps()
     }
     if (linkArray.count)
         [textContainer addTextStorageArray:linkArray];
-    
     
     
     textContainer = [textContainer createTextContainerWithTextWidth:kCCMaxWidth];
@@ -815,12 +819,12 @@ static NSArray *kAllRegexps()
 
 #pragma mark -
 #pragma mark :. TYAttributedLabelDelegate
--(void)attributedLabel:(TYAttributedLabel *)attributedLabel textStorageClicked:(id<TYTextStorageProtocol>)textStorage atPoint:(CGPoint)point
+- (void)attributedLabel:(TYAttributedLabel *)attributedLabel textStorageClicked:(id<TYTextStorageProtocol>)textStorage atPoint:(CGPoint)point
 {
     if ([textStorage isKindOfClass:[TYImageStorage class]]) {
         //        TYImageStorage *imageStorage = (TYImageStorage *)textStorage;
-    }else if ([textStorage isKindOfClass:[TYLinkTextStorage class]]) {
-        NSString *linkStr = ((TYLinkTextStorage*)textStorage).linkData;
+    } else if ([textStorage isKindOfClass:[TYLinkTextStorage class]]) {
+        NSString *linkStr = ((TYLinkTextStorage *)textStorage).linkData;
         if ([self.delegate respondsToSelector:@selector(didMessageLinkClick:)])
             [self.delegate didMessageLinkClick:linkStr];
     }
@@ -993,7 +997,6 @@ static NSArray *kAllRegexps()
                 redPackageContentLabel.text = @"领取赠金";
                 [redPackageView addSubview:redPackageContentLabel];
             }
-            
         }
     }
     return self;
@@ -1055,40 +1058,38 @@ static NSArray *kAllRegexps()
     
     switch (currentType) {
         case CCBubbleMessageMediaTypeText:
-            case CCBubbleMessageMediaTypeTeletext:{
-                CGRect bubbleFrame = [self bubbleFrame];
-                 self.bubbleImageView.frame = bubbleFrame;
-                CGSize needTextSize = [CCMessageBubbleView neededSizeForText:self.message];
-                if (needTextSize.height == 24) {
-                    CGRect bubbleImageViewFrame = self.bubbleImageView.frame;
-                    bubbleImageViewFrame.size.height -= 4;
-                    self.bubbleImageView.frame = bubbleImageViewFrame;
-                }
-                
-                CGFloat textX = -(kCCArrowMarginWidth / 2);
-                if (self.message.bubbleMessageType == CCBubbleMessageTypeReceiving)
-                    textX = kCCArrowMarginWidth / 2;
-                
-                CGRect viewFrame = CGRectZero;
-                viewFrame.size.width = CGRectGetWidth(bubbleFrame) - kCCLeftTextHorizontalBubblePadding - kCCRightTextHorizontalBubblePadding - kCCArrowMarginWidth;
-                viewFrame.size.height = CGRectGetHeight(bubbleFrame) - kCCHaveBubbleMargin * 2 - kCCTopAndBottomBubbleMargin * 2;
-                
-                if (currentType == CCBubbleMessageMediaTypeText || currentType == CCBubbleMessageMediaTypeTeletext) {
-                    self.displayTextView.frame = viewFrame;
-                    self.displayTextView.center = CGPointMake(self.bubbleImageView.center.x + textX, self.bubbleImageView.center.y);
-                }
-                
-                break;
+        case CCBubbleMessageMediaTypeTeletext: {
+            CGRect bubbleFrame = [self bubbleFrame];
+            self.bubbleImageView.frame = bubbleFrame;
+            CGSize needTextSize = [CCMessageBubbleView neededSizeForText:self.message];
+            if (needTextSize.height == 24) {
+                CGRect bubbleImageViewFrame = self.bubbleImageView.frame;
+                bubbleImageViewFrame.size.height -= 4;
+                self.bubbleImageView.frame = bubbleImageViewFrame;
+            }
+            
+            CGFloat textX = -(kCCArrowMarginWidth / 2);
+            if (self.message.bubbleMessageType == CCBubbleMessageTypeReceiving)
+                textX = kCCArrowMarginWidth / 2;
+            
+            CGRect viewFrame = CGRectZero;
+            viewFrame.size.width = CGRectGetWidth(bubbleFrame) - kCCLeftTextHorizontalBubblePadding - kCCRightTextHorizontalBubblePadding - kCCArrowMarginWidth;
+            viewFrame.size.height = CGRectGetHeight(bubbleFrame) - kCCHaveBubbleMargin * 2 - kCCTopAndBottomBubbleMargin * 2;
+            
+            if (currentType == CCBubbleMessageMediaTypeText || currentType == CCBubbleMessageMediaTypeTeletext) {
+                self.displayTextView.frame = viewFrame;
+                self.displayTextView.center = CGPointMake(self.bubbleImageView.center.x + textX, self.bubbleImageView.center.y);
+            }
+            
+            break;
         }
         case CCBubbleMessageMediaTypeVoice:
         case CCBubbleMessageMediaTypeEmotion:
         case CCBubbleMessageMediaTypeGIF:
-        case CCBubbleMessageMediaTypeSmallEmotion:
-         {
+        case CCBubbleMessageMediaTypeSmallEmotion: {
             // 获取实际气泡的大小
             CGRect bubbleFrame = [self bubbleFrame];
             if (currentType == CCBubbleMessageMediaTypeText) {
-                
             }
             self.bubbleImageView.frame = bubbleFrame;
             
@@ -1108,12 +1109,12 @@ static NSArray *kAllRegexps()
                 CGRect emotionImageViewFrame = bubbleFrame;
                 emotionImageViewFrame.size = [CCMessageBubbleView neededSizeForEmotion:self.message];
                 self.emotionImageView.frame = emotionImageViewFrame;
-            } else if (currentType == CCBubbleMessageMediaTypeGIF){
+            } else if (currentType == CCBubbleMessageMediaTypeGIF) {
                 CGRect gifImageViewFrame = bubbleFrame;
                 gifImageViewFrame.size = [CCMessageBubbleView neededSizeForGif:self.message];
                 self.emotionImageView.frame = gifImageViewFrame;
                 [self photoBubble:self.emotionImageView];
-            }else {
+            } else {
                 //小表情与文字消息时设置气泡框
                 
                 CGFloat textX = -(kCCArrowMarginWidth / 2);
@@ -1158,7 +1159,7 @@ static NSArray *kAllRegexps()
             
             break;
         }
-        case CCBubbleMessageMediaTypeFile:{
+        case CCBubbleMessageMediaTypeFile: {
             self.bubbleImageView.frame = bubbleFrame;
             
             CGFloat paddingX = 0.0f;

@@ -112,6 +112,11 @@
  */
 @property(nonatomic) BOOL isMaxTimeStop;
 
+/**
+ 是否在滚动
+ */
+@property(nonatomic, assign) BOOL isScroll;
+
 #pragma mark - DataSource Change
 /**
  *  改变数据源需要的子线程
@@ -271,7 +276,7 @@
 
 - (void)exChangeMessageDataSourceQueue:(void (^)())queue
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), queue);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), queue);
 }
 
 - (void)exMainQueue:(void (^)())queue
@@ -279,11 +284,14 @@
     dispatch_async(dispatch_get_main_queue(), queue);
 }
 
+-(void)cc_ChangeMessageDataSourceQueue:(void (^)())block
+{
+    dispatch_queue_t queue =  dispatch_queue_create("ccQueue", NULL);
+    dispatch_async(queue,block);
+}
+
 - (void)addMessage:(CCMessage *)addedMessage
 {
-    //    if (addedMessage.bubbleMessageType == CCBubbleMessageTypeSending)
-    //        [self finishSendMessageWithBubbleMessageType:addedMessage.messageMediaType];
-    
     [self addMessages:@[ addedMessage ]];
 }
 
@@ -291,34 +299,24 @@
 {
     typeof(self) __weak weakSelf = self;
     [self exChangeMessageDataSourceQueue:^{
-//        NSMutableArray *indexPaths;
-        if (weakSelf.messageTableView.isEditing || weakSelf.isCellPress) {
+        if (weakSelf.messageTableView.isEditing || weakSelf.isCellPress || weakSelf.isScroll) {
             if (weakSelf.operationMessage.count == 0)
                 [weakSelf.operationMessage addObjectsFromArray:weakSelf.messages];
             
             [weakSelf.operationMessage addObjectsFromArray:objects];
-            
         }else{
             NSMutableArray *messages = [NSMutableArray arrayWithArray:weakSelf.messages];
-//             indexPaths = [NSMutableArray array];
-//            NSInteger idx = messages.count;
             if (self.operationMessage.count > 0){
                 messages = [NSMutableArray arrayWithArray:weakSelf.operationMessage];
                 [weakSelf.operationMessage removeAllObjects];
             }
             
             [messages addObjectsFromArray:objects];
-//            for (NSInteger i = idx; i < messages.count; i++) {
-//                [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-//            }
             weakSelf.messages = messages;
         }
         [weakSelf exMainQueue:^{
-            if (!weakSelf.messageTableView.isEditing && !weakSelf.isCellPress) {
+            if (!weakSelf.messageTableView.isEditing && !weakSelf.isCellPress && !weakSelf.isScroll) {
                 [weakSelf.messageTableView reloadData];
-//                [weakSelf.messageTableView beginUpdates];
-//                [weakSelf.messageTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-//                [weakSelf.messageTableView endUpdates];
                 [weakSelf scrollToBottomAnimated:YES];
             }
         }];
@@ -340,6 +338,7 @@
             weakSelf.messages = messages; 
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.messageTableView reloadData];
+                [weakSelf scrollToBottomAnimated:NO];
                 weakSelf.isLoading = NO;
                 weakSelf.isPullUp = NO;
             });
@@ -395,14 +394,13 @@
         NSInteger index = [weakSelf.messages indexOfObject:data];
         
         if (index != NSNotFound) {
-            NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:1];
-            [indexPaths addObject:[NSIndexPath indexPathForRow:index inSection:0]];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
             [messages replaceObjectAtIndex:index withObject:messageData];
             
             weakSelf.messages = messages;
             [weakSelf exMainQueue:^{
-                //                [weakSelf.messageTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-                [weakSelf.messageTableView reloadData];
+                CCMessageTableViewCell *cell  = (CCMessageTableViewCell *) [weakSelf.messageTableView cellForRowAtIndexPath:indexPath];
+                cell.messageBubbleView.sendMessageType = messageData.messageSendState; 
             }];
         }
     }];
@@ -415,19 +413,18 @@
  */
 -(void)removeMessage:(CCMessage *)message
 {
-    typeof(self) __weak weakSelf = self;
-    [self exChangeMessageDataSourceQueue:^{
-        NSMutableArray *messages = [NSMutableArray arrayWithArray:weakSelf.messages];
-        id data = [weakSelf.messages filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.objuniqueID = %@", message.objuniqueID]].lastObject;
+    NSMutableArray *messages = [NSMutableArray arrayWithArray:self.messages];
+    id data = [self.messages filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.objuniqueID = %@", message.objuniqueID]].lastObject;
+    
+    if (data) {
+        NSInteger index = [self.messages indexOfObject:data];
+        NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:1];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:index inSection:0]];
         
-        if (data) {
-            [messages removeObject:data];
-            weakSelf.messages = messages;
-            [weakSelf exMainQueue:^{
-                [weakSelf.messageTableView reloadData];
-            }];
-        }
-    }];
+        [messages removeObject:data];
+        self.messages = messages;
+        [self.messageTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
+    }
 }
 
 - (void)removeMessageAtIndexPath:(NSIndexPath *)indexPath
@@ -479,7 +476,7 @@
 
 static CGPoint  delayOffset = {0.0};
 - (void)insertOldDeduplicationMessagess:(NSArray *)oldMessages
-                            completion:(void (^)(NSMutableArray **arr))completion
+                             completion:(void (^)(NSMutableArray **arr))completion
 {
     if (oldMessages.count != 0) {
         WEAKSELF;
@@ -594,6 +591,20 @@ static CGPoint  delayOffset = {0.0};
 }
 
 #pragma mark - Propertys
+
+-(void)setIsScroll:(BOOL)isScroll
+{
+    _isScroll = isScroll;
+    if (!isScroll) {
+        if (self.operationMessage.count) {
+            NSMutableArray *message = [NSMutableArray arrayWithArray:self.operationMessage];
+            self.messages = message;
+            [self.messageTableView reloadData];
+            [self.operationMessage removeAllObjects];
+            [self scrollToBottomAnimated:YES];
+        }
+    }
+}
 
 - (NSMutableArray *)teletextPath
 {
@@ -1859,8 +1870,17 @@ static CGPoint  delayOffset = {0.0};
     return isBottom;
 }
 
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scrollViewDidEndScrollingAnimation:) object:nil];
+    self.isScroll = NO;
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    self.isScroll = YES;
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scrollViewDidEndScrollingAnimation:) object:nil];
+    [self performSelector:@selector(scrollViewDidEndScrollingAnimation:) withObject:nil afterDelay:0.2];
     if ([self.delegate respondsToSelector:@selector(shouldLoadMoreMessagesScrollToTop)]) {
         BOOL shouldLoadMoreMessages = [self.delegate shouldLoadMoreMessagesScrollToTop];
         if (shouldLoadMoreMessages && !self.messageTableView.isEditing) {
@@ -1999,7 +2019,7 @@ static CGPoint  delayOffset = {0.0};
     if ([self.delegate respondsToSelector:@selector(configureCell:atIndexPath:)]) {
         [self.delegate configureCell:messageTableViewCell atIndexPath:indexPath];
     }
-    messageTableViewCell.backgroundColor = [UIColor clearColor];
+    messageTableViewCell.backgroundColor = tableView.backgroundColor;
     
     if (_currentSelectedUUID) {
         if ([_currentSelectedUUID isEqualToString:message.uniqueID])
