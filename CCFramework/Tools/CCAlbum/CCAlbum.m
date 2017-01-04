@@ -39,36 +39,41 @@
 
 @implementation CCAlbum
 
--(void)cameraRolls:(float)photoWith PhotoBlock:(void (^)(NSArray *photos))block
+- (void)cameraRolls:(float)photoWith PhotoBlock:(void (^)(NSArray *photos))block
 {
     self.photosBlock = block;
-    [TZImageManager manager].columnNumber = 4;
-    [TZImageManager manager].photoPreviewMaxWidth = 600;
-    [TZImageManager manager].shouldFixOrientation = YES;
-    [[TZImageManager manager] getCameraRollAlbum:NO allowPickingImage:YES completion:^(TZAlbumModel *model) {
-        [[TZImageManager manager] getAssetsFromFetchResult:model.result allowPickingVideo:NO allowPickingImage:YES completion:^(NSArray<TZAssetModel *> *models) {            
-            __block NSMutableArray *photos = [NSMutableArray arrayWithArray:models];
-            for (NSInteger i =  0; i < models.count; i++) {
-                TZAssetModel *assetModel = [models objectAtIndex:i];
-                
-                [[TZImageManager manager] getPhotoWithAsset:assetModel.asset photoWidth:photoWith completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
-                    if (isDegraded) return;
-                    NSMutableDictionary *imageDic = [NSMutableDictionary dictionary];
-                    [imageDic setObject:photo forKey:@"image"];
-                    [imageDic setObject:assetModel.asset forKey:@"asset"];
-                    [photos replaceObjectAtIndex:i withObject:imageDic];
-                    for (id item in photos) { if ([item isKindOfClass:[TZAssetModel class]]) return;}
-                    self.photosBlock?self.photosBlock(photos):nil;
-                } progressHandler:nil networkAccessAllowed:NO];
-            }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{ 
+        [TZImageManager manager].columnNumber = 4;
+        [TZImageManager manager].photoPreviewMaxWidth = 600;
+        [TZImageManager manager].shouldFixOrientation = YES;
+        [[TZImageManager manager] getCameraRollAlbum:NO allowPickingImage:YES completion:^(TZAlbumModel *model) {
+            [[TZImageManager manager] getAssetsFromFetchResult:model.result allowPickingVideo:NO allowPickingImage:YES completion:^(NSArray<TZAssetModel *> *models) {            
+                __block NSMutableArray *photos = [NSMutableArray arrayWithArray:models];
+                for (NSInteger i =  0; i < models.count; i++) {
+                    TZAssetModel *assetModel = [models objectAtIndex:i];
+                    
+                    [[TZImageManager manager] getPhotoWithAsset:assetModel.asset photoWidth:photoWith completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+                        if (isDegraded) return;
+                        NSMutableDictionary *imageDic = [NSMutableDictionary dictionary];
+                        [imageDic setObject:photo forKey:@"image"];
+                        [imageDic setObject:assetModel.asset forKey:@"asset"];
+                        [photos replaceObjectAtIndex:i withObject:imageDic];
+                        for (id item in photos) { if ([item isKindOfClass:[TZAssetModel class]]) return;}
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            self.photosBlock?self.photosBlock(photos):nil;
+                        });
+                    } progressHandler:nil networkAccessAllowed:NO];
+                }
+            }];
         }];
-    }];
+    });
 }
 
 /**
  获取一组相片大小
  */
-+ (void)photosBytesWithArray:(NSArray *)photos completion:(void (^)(NSInteger totalBytes))completion 
++ (void)photosBytesWithArray:(NSArray *)photos completion:(void (^)(NSInteger totalBytes))completion
 {
     [[TZImageManager manager] photosBytesWithArray:photos completion:^(NSInteger totalBytes) {
         completion?completion(totalBytes):nil;
@@ -78,7 +83,7 @@
 /**
  获取原图
  */
-+(void)photoOriginalImage:(id)asset completion:(void (^)(id photo,NSDictionary *info))completion
++ (void)photoOriginalImage:(id)asset completion:(void (^)(id photo, NSDictionary *info))completion
 {
     [[TZImageManager manager] getPhotoWithAsset:asset photoWidth:600 completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
         if (isDegraded) return;

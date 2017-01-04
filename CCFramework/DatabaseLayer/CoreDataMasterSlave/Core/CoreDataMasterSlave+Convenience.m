@@ -339,12 +339,10 @@
         if (error == nil) {
             [saveContext.parentContext performBlockAndWait:^{
                 [saveContext.parentContext save:&error];
-                
-                if (completion)
-                    completion(error);
             }];
         }
-        
+        if (completion)
+            completion(error);
     }];
 }
 

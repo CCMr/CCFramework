@@ -966,7 +966,7 @@ static NSArray *kAllRegexps()
                 UILabel *fileSizeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
                 fileSizeLabel.numberOfLines = 0;
                 fileSizeLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-                fileSizeLabel.textColor = [UIColor lightGrayColor];
+                fileSizeLabel.textColor = [UIColor colorWithWhite:0.143 alpha:1.000];
                 fileSizeLabel.backgroundColor = [UIColor clearColor];
                 fileSizeLabel.font = [[CCMessageBubbleView appearance] font];
                 fileSizeLabel.textAlignment = NSTextAlignmentCenter;
@@ -1176,6 +1176,14 @@ static NSArray *kAllRegexps()
             fileLabelFrame = CGRectMake(CGRectGetMaxX(self.fileImageView.frame) + 5, CGRectGetMaxY(bubbleFrame) - 20 - kCCHaveBubbleMargin, CGRectGetWidth(bubbleFrame) - kCCHaveBubbleFileMargin - kCCLeftTextHorizontalBubblePadding * 2, 20);
             self.fileSizeLabel.frame = fileLabelFrame;
             [self.fileSizeLabel sizeToFit];
+            
+            self.fileSizeLabel.textColor = [UIColor whiteColor];
+            self.fileNameLabel.textColor = [UIColor whiteColor];
+            if (self.message.bubbleMessageType == CCBubbleMessageTypeReceiving) {
+                self.fileSizeLabel.textColor = [UIColor colorWithWhite:0.143 alpha:1.000];
+                self.fileNameLabel.textColor = [UIColor colorWithWhite:0.143 alpha:1.000];
+            }
+            
             break;
         }
         case CCBubbleMessageMediaTypeRedPackage:{

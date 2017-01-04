@@ -880,10 +880,14 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
         case CCHTTPRequestStyleGET: {
             requestOperation = [[CCHTTPManager defaultHttp].manager GET:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *_Nonnull operation, id _Nonnull responseObject) {
                 if (successHandler){
-                    if (cachePolicy != CCHTTPReturnDefault)
-                        [self requestCache:requestURLString CacheData:responseObject];
-                    
-                    successHandler([self requestResultsHandler:responseObject UserInfo:operation.userInfo RequestURL:requestURLString]);
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                        if (cachePolicy != CCHTTPReturnDefault)
+                            [self requestCache:requestURLString CacheData:responseObject];
+                        CCResponseObject *entity = [self requestResultsHandler:responseObject UserInfo:operation.userInfo RequestURL:requestURLString];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            successHandler(entity);
+                        });
+                    });
                 }
             } failure:^(AFHTTPRequestOperation *_Nonnull operation, NSError *_Nonnull error) {
                 if (failureHandler)
@@ -898,10 +902,15 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
         case CCHTTPRequestStylePOST: {
             requestOperation = [[CCHTTPManager defaultHttp].manager POST:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *_Nonnull operation, id _Nonnull responseObject) {
                 if (successHandler){
-                    if (cachePolicy != CCHTTPReturnDefault)
-                        [self requestCache:requestURLString CacheData:responseObject];
-                    
-                    successHandler([self requestResultsHandler:responseObject UserInfo:operation.userInfo RequestURL:requestURLString]);
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                        if (cachePolicy != CCHTTPReturnDefault)
+                            [self requestCache:requestURLString CacheData:responseObject];
+                        
+                        CCResponseObject *entity = [self requestResultsHandler:responseObject UserInfo:operation.userInfo RequestURL:requestURLString];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            successHandler(entity);
+                        });
+                    });
                 }
             } failure:^(AFHTTPRequestOperation *_Nonnull operation, NSError *_Nonnull error) {
                 if (failureHandler)
@@ -916,10 +925,15 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
         case CCHTTPRequestStyleDELETE: {
             requestOperation = [[CCHTTPManager defaultHttp].manager DELETE:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *_Nonnull operation, id _Nonnull responseObject) {
                 if (successHandler){
-                    if (cachePolicy != CCHTTPReturnDefault)
-                        [self requestCache:requestURLString CacheData:responseObject];
-                    
-                    successHandler([self requestResultsHandler:responseObject UserInfo:operation.userInfo RequestURL:requestURLString]);
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                        if (cachePolicy != CCHTTPReturnDefault)
+                            [self requestCache:requestURLString CacheData:responseObject];
+                        
+                        CCResponseObject *entity = [self requestResultsHandler:responseObject UserInfo:operation.userInfo RequestURL:requestURLString];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            successHandler(entity);
+                        });
+                    });
                 }
             } failure:^(AFHTTPRequestOperation *_Nonnull operation, NSError *_Nonnull error) {
                 if (failureHandler)
@@ -934,9 +948,13 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
         case CCHTTPRequestStyleHEAD: {
             requestOperation = [[CCHTTPManager defaultHttp].manager HEAD:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *_Nonnull operation) {
                 if (successHandler){
-                    CCResponseObject *entity= [[CCResponseObject alloc] init];
-                    entity.userInfo = operation.userInfo;
-                    successHandler(entity);
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                        CCResponseObject *entity= [[CCResponseObject alloc] init];
+                        entity.userInfo = operation.userInfo;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            successHandler(entity);
+                        });
+                    });
                 }
             } failure:^(AFHTTPRequestOperation *_Nonnull operation, NSError *_Nonnull error) {
                 if (failureHandler)
@@ -951,10 +969,15 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
         case CCHTTPRequestStylePUT: {
             requestOperation = [[CCHTTPManager defaultHttp].manager PUT:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *_Nonnull operation, id _Nonnull responseObject) {
                 if (successHandler){
-                    if (cachePolicy != CCHTTPReturnDefault)
-                        [self requestCache:requestURLString CacheData:responseObject];
-                    
-                    successHandler([self requestResultsHandler:responseObject UserInfo:operation.userInfo RequestURL:requestURLString]);
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                        if (cachePolicy != CCHTTPReturnDefault)
+                            [self requestCache:requestURLString CacheData:responseObject];
+                        
+                        CCResponseObject *entity = [self requestResultsHandler:responseObject UserInfo:operation.userInfo RequestURL:requestURLString];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            successHandler(entity);
+                        });
+                    });
                 }
                 
             } failure:^(AFHTTPRequestOperation *_Nonnull operation, NSError *_Nonnull error) {
@@ -971,12 +994,16 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
         case CCHTTPRequestStylePATCH: {
             requestOperation = [[CCHTTPManager defaultHttp].manager PATCH:requestURLString parameters:parameter success:^(AFHTTPRequestOperation *_Nonnull operation, id _Nonnull responseObject) {
                 if (successHandler){
-                    if (cachePolicy != CCHTTPReturnDefault)
-                        [self requestCache:requestURLString CacheData:responseObject];
-                    
-                    successHandler([self requestResultsHandler:responseObject UserInfo:operation.userInfo RequestURL:requestURLString]);
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                        if (cachePolicy != CCHTTPReturnDefault)
+                            [self requestCache:requestURLString CacheData:responseObject];
+                        
+                        CCResponseObject *entity = [self requestResultsHandler:responseObject UserInfo:operation.userInfo RequestURL:requestURLString];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            successHandler(entity);
+                        });
+                    });             
                 }
-                
             } failure:^(AFHTTPRequestOperation *_Nonnull operation, NSError *_Nonnull error) {
                 if (failureHandler)
                     failureHandler(operation.userInfo,[self failureError:error]);
@@ -1067,10 +1094,7 @@ downloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, 
     
     CCResponseObject *entity = nil;
     if (results) {
-        //        NSDictionary *resultsDic = [NSJSONSerialization JSONObjectWithData:results options:NSJSONReadingAllowFragments error:nil];
-        
         entity = [CCResponseObject cc_objectWithKeyValues:results];
-        
         if (userInfo)
             entity.userInfo = userInfo;
         
