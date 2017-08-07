@@ -731,6 +731,8 @@
 		427E1A491D3F0B710093281F /* NSMutableAttributedString+Attribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 427E1A471D3F0B710093281F /* NSMutableAttributedString+Attribute.m */; };
 		427E1D411C10709F004B257C /* CCWxPayEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 427E1D3F1C10709F004B257C /* CCWxPayEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		427E1D421C10709F004B257C /* CCWxPayEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 427E1D401C10709F004B257C /* CCWxPayEngine.m */; };
+		42857CAF1F385B7B00864010 /* CCPreConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 42857CAD1F385B7B00864010 /* CCPreConnection.h */; };
+		42857CB01F385B7B00864010 /* CCPreConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 42857CAE1F385B7B00864010 /* CCPreConnection.m */; };
 		428673761D504CA500DDA5BE /* emotionDelete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 428673751D504CA500DDA5BE /* emotionDelete@2x.png */; };
 		428A12CC1BC8A1C6005D904D /* ContactPersonEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 428A12CA1BC8A1C6005D904D /* ContactPersonEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		428A12CD1BC8A1C6005D904D /* ContactPersonEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 428A12CB1BC8A1C6005D904D /* ContactPersonEntity.m */; };
@@ -2118,6 +2120,8 @@
 		427E1A471D3F0B710093281F /* NSMutableAttributedString+Attribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+Attribute.m"; sourceTree = "<group>"; };
 		427E1D3F1C10709F004B257C /* CCWxPayEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCWxPayEngine.h; path = Pay/Wxpay/CCWxPayEngine.h; sourceTree = "<group>"; };
 		427E1D401C10709F004B257C /* CCWxPayEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCWxPayEngine.m; path = Pay/Wxpay/CCWxPayEngine.m; sourceTree = "<group>"; };
+		42857CAD1F385B7B00864010 /* CCPreConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPreConnection.h; path = CCPreViewController/CCPreConnection.h; sourceTree = "<group>"; };
+		42857CAE1F385B7B00864010 /* CCPreConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCPreConnection.m; path = CCPreViewController/CCPreConnection.m; sourceTree = "<group>"; };
 		428673751D504CA500DDA5BE /* emotionDelete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "emotionDelete@2x.png"; sourceTree = "<group>"; };
 		428A12CA1BC8A1C6005D904D /* ContactPersonEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactPersonEntity.h; path = Contacts/Models/ContactPersonEntity.h; sourceTree = "<group>"; };
 		428A12CB1BC8A1C6005D904D /* ContactPersonEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactPersonEntity.m; path = Contacts/Models/ContactPersonEntity.m; sourceTree = "<group>"; };
@@ -4918,6 +4922,8 @@
 			children = (
 				429B0B681D6E904E00D095C8 /* Model */,
 				429B0B671D6E904800D095C8 /* Controller */,
+				42857CAD1F385B7B00864010 /* CCPreConnection.h */,
+				42857CAE1F385B7B00864010 /* CCPreConnection.m */,
 			);
 			name = CCPreViewController;
 			sourceTree = "<group>";
@@ -7068,6 +7074,7 @@
 				42F411451C214C5400814E7B /* CCRectangleBrush.h in Headers */,
 				429CA01B1B9EF8BF0013A44A /* ColumnarChart.h in Headers */,
 				4225116F1C7306AD003B3623 /* NSObject+CCCoding.h in Headers */,
+				42857CAF1F385B7B00864010 /* CCPreConnection.h in Headers */,
 				42F24C741BEA5236008CDEDC /* CCCountingLabel.h in Headers */,
 				422511751C7306AD003B3623 /* NSString+CCExtension.h in Headers */,
 				429CA1181B9EF8BF0013A44A /* CCMessageTableView.h in Headers */,
@@ -7660,7 +7667,7 @@
 				TargetAttributes = {
 					429C9C961B9EF66A0013A44A = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = SQVPLJE24J;
+						DevelopmentTeam = 7W7VQJKLJ2;
 					};
 					429C9CBD1B9EF7570013A44A = {
 						CreatedOnToolsVersion = 6.4;
@@ -8332,6 +8339,7 @@
 				429C9FA91B9EF8BF0013A44A /* SmoothViewController.m in Sources */,
 				421DC7111C85750E009E825B /* UIScrollView+Additions.m in Sources */,
 				4213FAFD1C13D860006918AC /* CCJPsuh.m in Sources */,
+				42857CB01F385B7B00864010 /* CCPreConnection.m in Sources */,
 				4236B6451DF04E17002F4299 /* LaunchCameraButton.m in Sources */,
 				421DC6451C85750E009E825B /* NSRunLoop+Additions.m in Sources */,
 				42063EBD1C8936F1003348EB /* CAAnimation+Additions.m in Sources */,
@@ -8503,6 +8511,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 7W7VQJKLJ2;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -8550,6 +8559,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 7W7VQJKLJ2;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";

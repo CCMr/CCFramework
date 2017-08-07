@@ -24,9 +24,9 @@
 //
 
 #import "CCPreViewController.h"
-#import <CommonCrypto/CommonDigest.h>
-#import "AFNetworking.h"
+#import "CCPreConnection.h"
 #import "CCPreviewItem.h"
+#import <CommonCrypto/CommonDigest.h>
 
 
 static NSString *CCMD5StringFromNSString(NSString *string)
@@ -66,9 +66,9 @@ static NSString *CCLocalFilePathForURL(NSURL *URL)
 }
 
 
-@interface CCPreViewController ()
+@interface CCPreViewController ()<QLPreviewControllerDelegate,QLPreviewControllerDataSource>
 
-@property(nonatomic, weak) id<QLPreviewControllerDataSource> actualDataSource;
+@property (nonatomic, weak) id<QLPreviewControllerDataSource> actualDataSource;
 
 @end
 
@@ -82,50 +82,50 @@ static NSString *CCLocalFilePathForURL(NSURL *URL)
     self.delegate = self;
     self.dataSource = self;
     [self reloadData];
- 
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated
+{
     
     [super viewWillAppear:animated];
     // Get the ToolBar
-    [self.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([obj isKindOfClass:[UIToolbar class]]) {
             obj.hidden = YES;
-        } 
+        }
     }];
     
-    [self.navigationController.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.navigationController.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([obj isKindOfClass:[UIToolbar class]]) {
             obj.hidden = YES;
-        } 
+        }
     }];
 }
 
--(void)viewDidAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
     NSMutableArray *rights = [self.navigationItem.rightBarButtonItems mutableCopy];
-    if (rights.count>1) {
+    if (rights.count > 1) {
         self.navigationItem.rightBarButtonItems = nil;
         self.navigationItem.rightBarButtonItem = [rights objectAtIndex:1];
     }
 }
 
--(void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 }
 
--(void)viewWillLayoutSubviews
+- (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
-    [self.navigationController.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.navigationController.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([obj isKindOfClass:[UIToolbar class]]) {
             obj.hidden = YES;
-        } 
+        }
     }];
 }
 
@@ -139,47 +139,44 @@ static NSString *CCLocalFilePathForURL(NSURL *URL)
 - (id<QLPreviewItem>)previewController:(QLPreviewController *)controller previewItemAtIndex:(NSInteger)index
 {
     CCPreviewItem *previewItemCopy = [self.previewItems objectAtIndex:index];
-
+    
     NSURL *originalURL = previewItemCopy.previewItemURL;
     if (!originalURL || [originalURL isFileURL])
         return previewItemCopy;
-
+    
     // If it's a remote file, check cache
     NSString *localFilePath = CCLocalFilePathForURL(originalURL);
     previewItemCopy.previewItemURL = [NSURL fileURLWithPath:localFilePath];
     if ([[NSFileManager defaultManager] fileExistsAtPath:localFilePath])
         return previewItemCopy;
-
+    
     // If it's not a local file, put a placeholder instead
     __block NSInteger capturedIndex = index;
     NSURLRequest *request = [NSURLRequest requestWithURL:originalURL];
-
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    operation.inputStream = [NSInputStream inputStreamWithURL:originalURL];
-    operation.outputStream = [NSOutputStream outputStreamToFileAtPath:localFilePath append:NO];
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+    CCPreConnection *connection = [[CCPreConnection alloc] initWithRequest:request];
+    connection.filepath = localFilePath;
+    [connection setCompletionBlockWithSuccess:^() {
         dispatch_async(dispatch_get_main_queue(), ^{
             // FIXME: Sometime remote preview item isn't getting updated
             // When pan gesture isn't finished so that two preview items can be seen at the same time upcomming item isn't getting updated, fixes are very welcome!
             if (controller.currentPreviewItemIndex == capturedIndex)
                 [controller refreshCurrentPreviewItem];
         });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }failure:^(NSError *error) {
         if ([self.cc_delegate respondsToSelector:@selector(cc_previewController:failedToLoadRemotePreviewItem:withError:)]) {
             [self.cc_delegate cc_previewController:self
-                  failedToLoadRemotePreviewItem:previewItemCopy
-                                      withError:error];
+                     failedToLoadRemotePreviewItem:previewItemCopy
+                                         withError:error];
         }
     }];
-
-    [operation start];
-
+    
     return previewItemCopy;
 }
 
 #pragma mark - Properties
 
--(void)setPreviewItems:(NSArray<CCPreviewItem *> *)previewItems
+- (void)setPreviewItems:(NSArray<CCPreviewItem *> *)previewItems
 {
     _previewItems = previewItems;
     [self reloadData];
